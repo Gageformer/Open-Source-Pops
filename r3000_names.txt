@@ -1,0 +1,622 @@
+R3000 CPU Emulation Subsystem - Function Name Analysis
+======================================================
+Binary: POPS.ELF (PS1 Emulator for PS2, HDD version)
+Range: 0x201770 - 0x204E70 (59 functions)
+Analysis based on decompiled output, struct field usage, call targets,
+PS1 memory map constants, and instruction-level pattern recognition.
+
+PSX CPU State Struct (loaded from gp-0x7F60):
+  +0x190 = read handler function pointer
+  +0x194 = write handler function pointer
+  +0x198 = zeroed (unused handler?)
+  +0x19C = zeroed (unused handler?)
+  +0x1A0 = exec/fetch handler function pointer
+  +0x2B0..0x2BC = zeroed in init (4 words, flags/counters)
+  +0x2C0 = zeroed in init
+  +0x2C4 = cycle counter
+  +0x2CC = pending reset/exception flag
+  +0x2D0 = BIOS ROM pointer (0x40000000 mapped)
+  +0x2D4 = expansion ROM pointer (0x5FC00000 mapped)
+  +0x2D8 = main RAM pointer (0x5F800000 mapped)
+  +0x2DC = scratchpad pointer (0x5F800400)
+  +0x2E0 = TLB/address map table pointer (for fast fetch)
+
+Global variables (gp-relative):
+  gp-0x7F60 = PSX CPU state struct pointer
+  gp-0x7F38 = code cache base pointer
+  gp-0x7F34 = code cache write cursor
+  gp-0x7F30 = code cache end pointer / translated block ptr
+  gp-0x7F2C = code cache limit pointer
+  gp-0x7F28 = EE translation cache (native code buffer) pointer
+  gp-0x7F20 = current block size / steps per block
+  gp-0x77C8 = current compiled block descriptor pointer
+  gp-0x77C4 = dirty register bitmask (which regs need writeback)
+  gp-0x77CC = ram_size register (set via I/O write to 0x1F801060)
+
+Key constants decoded:
+  0x1FFFFFFF = PSX address mask (strip KSEG bits)
+  0x001FFFFF = RAM mirror mask (2MB)
+  0x1F800000 = scratchpad base -> offset 0xE0800000 applied
+  0x1F800400 = scratchpad end -> I/O ports start
+  0x1F801000..0x1F802FFF = PS1 I/O port range
+  0x1FC00000 = BIOS ROM base
+  0x0x500038C8 / 0x50003A18 / 0x50003B20 = .bss addresses for
+    address map table, page validity bitmap, compiled block array
+
+Dispatch table at 0x50 + offset -0x6EB0 = primary opcode jump table (59 entries)
+Dispatch table at 0x50 + offset -0x6DC0 = SPECIAL opcode jump table (44 entries)
+Dispatch table at 0x50 + offset -0x6D10 = COP0/COP2 sub-dispatch table
+Dispatch table at 0x25 + offset -0x6780 = I/O read handler table (per 16-byte page)
+Dispatch table at 0x25 + offset -0x5F80 = I/O write handler table (per 16-byte page)
+
+======================================================
+ADDRESS MAP: address -> suggested name (rationale)
+======================================================
+
+0x00201770  R3000_Init
+  Rationale: First function in range. Loads base addresses for handlers
+  (0x201300, 0x201350, 0x201420). Does NOT create the stack frame itself;
+  it sets up v0/v1/a1 with LUI 0x20 and falls through to r3000_0001.
+  The three addresses are: read handler (0x201300), write handler
+  (0x201350), exec handler (0x201420). This is a trampoline/prologue.
+  CONFIRMED: Known anchor from analyze.py.
+
+0x0020177C  R3000_InitHandlers
+  Rationale: Stores handler pointers at struct +0x190 (read), +0x194
+  (write), +0x1A0 (exec). Zeroes +0x2C0, +0x198, +0x19C, +0x2B0-0x2BC.
+  Calls psx_0020 (0x201668 - likely PSX_InitSubsystem). Returns 1 (success).
+  This is the actual body of R3000_Init after LUI setup.
+
+0x002017DC  R3000_ReadMemory
+  Rationale: Memory read dispatcher. Takes address+size, checks PS1 memory
+  regions: addr < 0x2000 -> I/O read via dispatch table at 0x25XXXX-0x6780;
+  addr+0xE0800000 < 0x400 -> scratchpad read (struct+0x2D8/0x2DC);
+  addr+0xE0800400 < 0x400 -> I/O port mirror region;
+  Handles byte (t0==1), halfword (t0==2), word (else) access sizes via
+  lbu/lhu/lw. Subtracts 3 cycles from cycle counter (+0x2C4).
+
+0x0020190C  R3000_WriteMemory
+  Rationale: Memory write dispatcher. Mirror structure of ReadMemory.
+  Checks same PS1 address regions. Uses sb/sh/sw for 1/2/4 byte writes.
+  Subtracts 7 cycles from cycle counter. Dispatches I/O writes via
+  table at 0x25XXXX-0x5F80.
+
+0x00201A0C  R3000_ReadIOPort
+  Rationale: I/O port read handler for addresses 0x1F801000-0x1F802FFF.
+  Large binary search tree comparing against specific PS1 I/O addresses:
+  0x1F801000 (expansion base), 0x1F801004 (expansion delay),
+  0x1F801008 (expansion delay 2), 0x1F80100C (expansion delay 3),
+  0x1F801010 (SPU delay), 0x1F801014 (CDROM delay),
+  0x1F801018 (expansion delay 2 size), 0x1F80101C (COM delay),
+  0x1F801020 (COM delay size), 0x1F801024 (unused/mirror),
+  0x1F801028 (unused), 0x1F801060 (RAM size register, stored at gp-0x77CC),
+  0x1FFE0130 (cache control). Reads from rodata lookup table at
+  0x50XXXX+0x39C8 for standard mapped registers. Falls through to
+  psx_0019 (generic unhandled I/O handler) for unknown addresses.
+
+0x00201B7C  R3000_WriteIOPort
+  Rationale: I/O port write handler. Same binary search structure as
+  ReadIOPort. Handles writes to: 0x1F801000-0x1F801020 (delay/size regs),
+  0x1F801060 (RAM size -> gp-0x77CC), 0x1F802041 (POST register),
+  0x1FFE0130 (cache control -> triggers r3000_0010/InvalidateAllBlocks).
+  Writes to the rodata lookup table at 0x50XXXX+0x39C8 for mapped I/O regs.
+  For 0x1FFE0130 write with value 0x804, calls InvalidateAllBlocks.
+
+0x00201CC8  R3000_SetupIOHandlers
+  Rationale: No stack frame. Installs I/O read/write handler function
+  pointers into dispatch tables at 0x25XXXX-0x6780 (read) and 0x25XXXX-0x5F80
+  (write). Takes base address (with KSEG bits stripped + shifted), page count,
+  and read/write handler addresses. Loops installing entries. Default handlers
+  are 0x201A00 (read) and 0x201B70 (write) from R3000_Init setup.
+
+0x00201D38  R3000_MapAddressRange
+  Rationale: No stack frame. Maps a virtual address range into the TLB/
+  address map structure. Takes address, size, read/write handler pointers
+  and page granularity data. Uses EE-specific instructions (0x68CX, 0x6CCX,
+  0xB0AX, 0xB4AX - these are SQ/LQ 128-bit store/load quadword).
+  Sets up 16-byte TLB-like entries with base+mask+handler fields.
+
+0x00201D68  R3000_Reset
+  Rationale: CONFIRMED known anchor. Calls R3000_MapMemory (r3000_0009),
+  asserts success. Sets up 16 page map entries (loop to 0x10) with
+  0x0FFFFFFF mask and default read/write handlers. Calls MapAddressRange
+  5 times to map: BIOS ROM (0xB0000000, mask 0x7FFFF), expansion
+  (0x1F0000-0x1FFFFF), KSEG0 (0x80000000), KSEG1 (0xA0000000), and
+  I/O region (0x10000000 with handlers for read at 0x2017D0 and write
+  at 0x201900). Resets I/O dispatch tables (0x200 entries) to default
+  R3000_ReadIOPort/R3000_WriteIOPort handlers.
+
+0x00201F08  R3000_MapMemory
+  Rationale: Allocates and maps the PS1 physical memory regions using
+  system calls (system_0048 = TLB map, system_0041 = memory alloc).
+  Loops 7 times setting up TLB entries from a table at 0x25XXXX-0x5780.
+  Stores results: +0x2D0 = 0x40000000 (BIOS mapped addr), +0x2D4 =
+  0x5FC00000 (expansion), +0x2D8 = 0x5F800000 (RAM), +0x2DC = 0x5F800400
+  (scratchpad). Returns 1 on success, 0 on failure.
+
+0x00201FC0  R3000_InvalidateAllBlocks
+  Rationale: Iterates through page validity bitmap at 0x50003A18 (256 bytes,
+  one bit per 1KB page of 2MB RAM). For each set bit, calls
+  compiler_0063 (CompilerInvalidateRange) to invalidate translated code.
+  Then clears the entire bitmap. Called after cache control writes and
+  code cache overflow.
+
+0x00202050  R3000_InvalidateRange
+  Rationale: Takes start address and size. Calls r3000_0056 (GetBlockSize)
+  to get translation unit size. Computes affected page range, clears
+  bits in the page validity bitmap, and zeroes entries in the native
+  code translation buffer (gp-0x7F28 relative). Handles both < 2MB
+  (RAM pages) and > 2MB (BIOS pages via different offset) ranges.
+
+0x002021A0  R3000_MarkPagesWritten
+  Rationale: Marks pages as dirty/written in the validity bitmap.
+  Takes address and size, sets corresponding bits in bitmap at 0x50003A18.
+  Also writes a flag value into the EE code cache at gp-0x7F28 offset.
+  Two paths: addr <= 0x1FFFFF -> RAM bitmap; addr > 0x1FFFFF -> BIOS range
+  (0xE060XXXX offset).
+
+0x00202258  R3000_GetCodeCacheEntry
+  Rationale: Tiny function, loads v1 = 0x1FFF_FFFF. This is a fragment/
+  trampoline that sets up the address mask, falling through to the next
+  function. Used as entry point for code cache lookup.
+
+0x0020225C  R3000_AllocCodeBlock
+  Rationale: Allocates a new code block in the translation cache. Checks
+  if the address is in RAM (< 0x1FFFFF) vs BIOS range. If RAM, checks
+  whether the code cache (gp-0x7F34 write cursor) has room relative to
+  cache end (gp-0x7F30). If cache full, calls InvalidateAllBlocks to
+  flush. Stores PC at result+0x10. Returns pointer to the block descriptor.
+
+0x002022C8  R3000_CompileBlock
+  Rationale: Major function (432 bytes). Compiles a new block of PS1 code.
+  Sets up block descriptor fields: +0x18 = 0, +0x16/0x14 = block metadata.
+  Calls R3000_MarkPagesWritten to track RAM writes. Calls ui_0108 and
+  system_0050/system_0051 (FlushCache operations). Contains EE cache
+  flush loop (SYNC + CACHE instructions at 0x202350-0x2023DC) to ensure
+  I-cache coherency of newly compiled native code. Updates gp-0x7F2C
+  and gp-0x7F30 pointers.
+
+0x00202478  R3000_GetCachePointers
+  Rationale: Returns code cache base (gp-0x7F38) in a0 output param, and
+  cache_base + 0x300000 in a1 output param. Helper to query the code cache
+  address range.
+
+0x002024A8  R3000_GetCacheBase
+  Rationale: Single instruction fragment - loads gp-0x7F38 (code cache base
+  pointer) into v1. Trampoline/entry for next function.
+
+0x002024AC  R3000_InitCodeCache
+  Rationale: Sets up the code cache pointers. Stores v1 to gp-0x7F30
+  (cache end) and v1+0x28XXXX to gp-0x7F2C (cache limit). Calls
+  compiler_0063 (CompilerInvalidateRange) and InvalidateAllBlocks. Tail
+  calls to compiler_0063 again for final cleanup.
+
+0x00202500  R3000_AllocTranslationBuffers
+  Rationale: Allocates two 4KB-aligned memory blocks via ee_kernel_0071
+  (likely memalign or Alloc). First block -> gp-0x7F28 (native code buffer),
+  second block + alignment -> gp-0x7F38 (code cache base). Calls
+  compiler_0063 and R3000_GetCacheBase to initialize. Returns 1 on success.
+  Falls through to address resolution code for the execution engine.
+
+0x00202558  R3000_ResolveAddress  (embedded after AllocTranslationBuffers epilogue)
+  Rationale: Takes an address in a2, masks with 0x1FFFFFFF, classifies it:
+  < 0x7FFFFF -> use struct+0x2D0 (BIOS ptr); scratchpad check (0x1F80XXXX
+  +0xE080 < 0x400) -> struct+0x2D8; I/O range (0x80000-0x7FFFF offset) ->
+  struct+0x2D4; scratchpad mirror (0x1F8004XX) -> struct+0x2DC. Builds
+  a block execution trace structure with cycle info at 0x50003B20+.
+
+0x002026C0  R3000_ExecuteBlocks
+  Rationale: The main block execution loop (776 bytes, largest non-decoder
+  function). Large stack frame (96 bytes), saves 8+ registers. Iterates
+  through compiled block descriptors at 0x50003B20. For each block:
+  checks flags (bit 0 = valid, bit 1 = needs recompilation, bit 9 = branch
+  target, bit 10 = subroutine, bit 12 = end-of-trace). Handles:
+  - Recompilation (calls compiler_0027/CompilerCompileBlock)
+  - Direct execution (calls block's handler at +0x2C)
+  - Cycle counting (updates cycle counter at struct+0x2C4)
+  - NOP blocks (opcode 0x12 = special idle detection with cycle skip)
+  Stores dirty register bitmask to gp-0x77C4. Accumulates cycles in s3.
+  Returns total cycles consumed.
+
+0x002029C8  R3000_HandleBranchBlock
+  Rationale: Handles branch blocks during execution. Calls compiler_0043
+  (GetBranchTarget) and compiler_0034 (LinkBlock). Sets dirty bitmask
+  to 1 and clears cycle accumulator at 0x506B80.
+
+0x00202A20  R3000_EmitDelaySlot
+  Rationale: Processes a delay slot instruction during compilation.
+  Checks block flags for 0x2000 (delay slot marker). If the delay slot
+  has a valid instruction (+0x20 != 0), calls compiler_0016
+  (EmitRegisterStore) with register index from +0x14 and value from +0x1C.
+  Clears the dirty bit for that register.
+
+0x00202AA8  R3000_EmitStoreDelay
+  Rationale: Emits a store-with-delay-slot operation. Similar to
+  EmitDelaySlot but calls compiler_0017 (EmitDelayedStore) with
+  register index (+0x14), address (+0x18), and value (+0x1C) from the
+  block descriptor.
+
+0x00202B18  R3000_HandleConditionalBranch
+  Rationale: Handles conditional branch compilation. Checks opcode type
+  (0x4C = BLTZ-like, 0x4D = BGEZ-like), selects condition code (8/9/10).
+  Calls compiler_0041 (EmitBranchTest), compiler_0040 (EmitCondition),
+  compiler_0044 (EmitBranchTarget). References gp-0x77C8 (block descriptor)
+  at +0x14 for the branch format. Calls compiler_0031 (EmitJumpToTarget).
+
+0x00202BB8  R3000_EmitCOP0Read
+  Rationale: Emits code for COP0 register read (MFC0). Checks +0x14 for
+  register == 0x52 (XOR with 0x52 -> checking if it's the specific COP0
+  register). Calls compiler_0015 (EmitCOP0RegRead). Clears dirty bit
+  for the destination register.
+
+0x00202C28  R3000_EmitCOP0Write
+  Rationale: Emits code for COP0 register write (MTC0). XORs register
+  with 0x53 to check type. Tail-calls compiler_0015 with result.
+  Handles the COP0 write-back sequence.
+
+0x00202C58  R3000_EmitLoadOp
+  Rationale: Emits code for a load instruction (LB/LH/LW/etc). Calls
+  compiler_0013 (EmitLoadInstruction) with register index (+0x14),
+  address offset (+0x18), and base register (+0x1C). Clears dirty bit
+  for the destination register.
+
+0x00202CC8  R3000_EmitStoreOp
+  Rationale: Emits code for a store instruction (SB/SH/SW). Tail-calls
+  compiler_0014 (EmitStoreInstruction) with source/dest/offset from
+  block descriptor fields +0x14, +0x18, +0x1C.
+
+0x00202CF0  R3000_EmitALUOp
+  Rationale: The ALU instruction emitter (848 bytes). Handles decoded
+  R3000 ALU operations. Checks +0x14 for opcode type, +0x1C for dest
+  register, +0x18 for source register. Uses computed jump table at
+  0x50XXXX-0x6ED0 to dispatch to specific sub-handlers:
+  - Direct register set (LUI/ADDIU imm -> register)
+  - ADD/SUB with sign extension
+  - AND/OR/XOR logical operations
+  - Shift operations
+  Each sub-handler reads source from gp-0x77C4 dirty mask, reads/writes
+  values via 0x506B80 register file, and updates the dirty mask.
+  This is one of the core compiler emit functions.
+
+0x00203040  R3000_EmitBranch
+  Rationale: Branch instruction emitter (728 bytes, 11 calls). Very
+  complex, handles all branch types. Checks flags: bit 5 = link (JAL),
+  bit 8 = conditional, bit 0x100 = special. For unconditional branches:
+  calls compiler_0035/EmitJump. For conditional: calls compiler_0037/
+  EmitConditionalJump, compiler_0036/EmitBranchAndLink, compiler_0038/
+  EmitLinkReturn. Compares branch target against block end to decide
+  intra-block vs inter-block branching. Handles JAL (link return address
+  storage) and delay slot processing.
+
+0x00203318  R3000_EmitJump
+  Rationale: Jump instruction emitter (296 bytes, 8 calls). Handles
+  J/JAL instructions. Checks flags bit 5 (link) and bit 8 (register
+  indirect). For JAL: emits link address storage then jump. For JR: calls
+  compiler_0043/compiler_0040 for indirect jump support. Special case for
+  opcode 0x100 (JALR -> emits subroutine call linkage via compiler_0028).
+
+0x00203440  R3000_EmitJumpRegister
+  Rationale: Handles JR/JALR (register-indirect jump). If conditional
+  flag (+0x100), uses register from +0x14 and calls compiler_0042/
+  EmitRegisterJump. Otherwise calls compiler_0040 + compiler_0031 for
+  standard indirect jump.
+
+0x002034E8  R3000_EmitGTEDataRead
+  Rationale: GTE data register read emitter. Reads +0x20 (register index)
+  and +0x1C (dest register). Computes offset as reg*4 + 0x90 (GTE data
+  registers start at struct offset 0x90). Calls compiler_0049
+  (EmitStructRead). Clears dirty bit.
+
+0x00203550  R3000_EmitGTEDataWrite
+  Rationale: GTE data register write emitter. Reads +0x20 and +0x1C.
+  Offset = reg*4 + 0x1B0. Special case for register 0x1D (GTE LZCR) -
+  calls compiler_0025 (GetSpecialReg). Calls compiler_0049. Clears
+  dirty bit.
+
+0x00203598  R3000_EmitGTEControlRead
+  Rationale: Similar to EmitGTEDataRead but for GTE control registers.
+  Checks for chained GTE reads (up to 4) and batches them via
+  compiler_0023 (EmitBatchedGTERead). Offset = reg*4 + 0x1B0 for
+  control regs. Special case for reg 0x1D (LZCR).
+
+0x00203628  R3000_EmitGTEControlWrite
+  Rationale: GTE control register write emitter. Similar batching
+  logic as EmitGTEControlRead (chains up to 4 writes). Checks for
+  opcode 0x3A (matching pattern) and reg matching. Uses compiler_0023
+  for batched writes.
+
+0x00203778  R3000_EmitGTEDataReadAlt
+  Rationale: Alternative GTE data register read path. Offset = reg*4 +
+  0x230 (alternate GTE register bank). Same structure as EmitGTEDataRead
+  but different struct offset range.
+
+0x002037E0  R3000_EmitSyscall
+  Rationale: Syscall/break instruction emitter. Calls compiler_0045
+  (EmitSyscallSetup) with value 2, then compiler_0044 (EmitBranchTarget)
+  with value 1. Uses compiler_0025 (GetSpecialReg) and compiler_0039
+  (EmitReturnFromException). Special handling for +0x20 == 0xC (syscall
+  with specific code -> inlines the exception handler).
+
+0x002038D0  R3000_EmitBreak
+  Rationale: Break instruction emitter. Calls compiler_0047 with immediate
+  value from +0x10 and source from +0x18. Then compiler_0044/0025/0039
+  sequence similar to EmitSyscall.
+
+0x00203938  R3000_EmitCOP0Op
+  Rationale: COP0 coprocessor operation emitter (224 bytes, 5 calls).
+  Reads +0x20 (COP0 sub-opcode) and dispatches:
+  - reg 0x1C -> compiler_0025 (access Status register)
+  - reg 0x0F -> compiler_0053 (access Cause register)
+  - reg 0x1E -> compiler_0045/0052 (RFE - Return From Exception)
+  Uses lookup table at 0x25XXXX-0x5710 for COP0 register accessors.
+
+0x00203A18  R3000_EmitCOP0OpWrite
+  Rationale: COP0 write operation emitter (480 bytes). Similar batching
+  logic as GTE writes (chains up to 4). Dispatches by COP0 register:
+  0x0F (Cause), 0x1C (Status), 0x1E (EPC). Uses compiler_0021
+  (EmitCOP0Write) for single writes, compiler_0022 (EmitBatchedCOP0Write)
+  for batched writes.
+
+0x00203BF8  R3000_EmitCOP2DataReadAlt
+  Rationale: COP2 (GTE) data register read via alternate path.
+  Uses lookup table at 0x25XXXX-0x5690. Calls compiler_0050
+  (EmitCOP2Read) with computed offset (reg*4 + 0x230).
+
+0x00203C30  R3000_EmitExceptionReturn
+  Rationale: Emits RFE (Return From Exception). Loads CAUSE register
+  mask 0x1FFFFFF, applies to opcode field from +0x10. Calls compiler_0044
+  (EmitBranchTarget), compiler_0025 (GetSpecialReg), compiler_0039
+  (EmitReturnFromException). Handles Status register restore.
+
+0x00203C80  R3000_EmitSyscallImmediate
+  Rationale: Simplified syscall emitter. Directly takes opcode value
+  from +0x10 and calls compiler_0026 (EmitSyscallDirect).
+
+0x00203CA0  R3000_EmitMemoryAccess
+  Rationale: The memory access instruction emitter (552 bytes, 4 calls).
+  Very complex. Loads PSX CPU state from gp-0x7F60. Reads COP0 Status
+  register at struct+0xC2 (halfword). Checks isolation cache bit (bit 0
+  of status). Handles:
+  - Cache-isolated writes (bit 3 of opcode -> special path)
+  - Normal loads: resolves address using R3000_ResolveAddress (r3000_0053),
+    then calls compiler_0019 (EmitLoadWithDelay)
+  - Batched memory accesses (chains up to 7 sequential loads/stores)
+  - Checks for matching patterns (opcode 0x20 = address computation)
+  Updates dirty register bitmask.
+
+0x00203EC8  R3000_FlushPendingStores
+  Rationale: Iterates through block descriptors starting at 0x50003B20.
+  For each block with flag bit 4 (pending store), calls compiler_0038
+  (EmitLinkReturn) to flush the store to memory. Used after block
+  compilation to commit pending memory writes.
+
+0x00203F30  R3000_BuildBlockDescriptor
+  Rationale: Core block descriptor builder (456 bytes, no calls).
+  Builds a block execution descriptor at the current position in the
+  block array (0x50003B20 + offset). Sets fields:
+  +0x00 = flags, +0x04 = cycle cost, +0x0C = ???,
+  +0x10 = raw instruction, +0x14 = decoded opcode,
+  +0x18 = source reg, +0x1C = dest reg, +0x20 = shift/func,
+  +0x24 = extra data, +0x28 = branch target, +0x2C = handler ptr.
+  Handles block chaining: checks if current block should link to next,
+  sets flag 0x400 (subroutine entry), 0x200 (branch predecessor),
+  0x800/0x1000 (end markers). Uses an opcode of 0x0D to mark NOP blocks.
+
+0x002040F8  R3000_DecodeInstruction
+  Rationale: The main PS1 instruction decoder (2096 bytes - largest
+  function in subsystem). Fetches instruction via TLB map at struct+0x2E0
+  (either via handler callback or direct memory read). Decodes all fields:
+  - a3 = opcode (bits 31:26), a2 = rs (bits 25:21), t0 = rd (bits 15:11)
+  - s1 = rt (bits 20:16), a1 = raw instruction word
+  Primary opcode dispatch via jump table at 0x50XXXX-0x6EB0 (59 entries).
+  SPECIAL opcodes (opcode=0) dispatch via 0x50XXXX-0x6DC0 (44 entries).
+  Recognized instruction categories and their handler assignments:
+  - 0x202A20 = SLL/SRL/SRA (shift handler)
+  - 0x202AA8 = ADDI/ADDIU (store delay handler)
+  - 0x2029C8 = JR block linkage
+  - 0x203440 = J/JAL/JR/JALR (jump handlers)
+  - 0x202CF0 = ALU operations (ADD/SUB/AND/OR/XOR/SLT etc)
+  - 0x202BB8 / 0x202C28 = COP0 read/write (MFC0/MTC0)
+  - 0x203CA0 = Load/Store instructions (LB/LH/LW/SB/SH/SW)
+  - 0x2034E8 / 0x203550 = GTE data read/write (MFC2/MTC2)
+  - 0x2037E0 / 0x2038D0 = Syscall/Break
+  - 0x203938 / 0x203A18 = COP0 operations (RFE etc)
+  - 0x203778 / 0x203BF8 = GTE control read/write
+  - 0x203C30 = Exception return (RFE)
+  - 0x203C80 = Immediate syscall
+  Special pattern detection:
+  - Checks for "lui r2, 0x8001; addiu r2, 0x1DF8" (= PS1 BIOS call
+    pattern at 0x800A50C8) and marks block as breakpoint/special.
+  - Branch instructions compute target as PC + sign_extend(imm16)<<2 + 4
+  - BEQ/BNE with rs==rt -> unconditional (opcode 0x205 = always-taken)
+  - BGEZ/BLTZ with rs==0 -> always/never taken optimization
+  - COP2 opcodes (GTE): calls gte_0002 (GTE_DecodeOp) to determine
+    cycle cost, then assigns handler 0x203C80.
+  Unrecognized opcodes set handler to 0x202B18 (break handler) with
+  flag 0x1000 (end-of-block).
+
+0x00204928  R3000_TranslateBlockRange
+  Rationale: Recursive block translation function. Takes address range
+  (start, end) and iterates through blocks at 0x50003B20 + computed
+  offset. For each block that is not yet translated (flag bit 0 == 0):
+  sets bit 0, calls R3000_DecodeInstruction to decode it. If decode
+  returns non-zero (block has continuation), recursively calls self.
+  Tracks the maximum block end address. Returns the translation
+  end-of-range pointer. Handles flag bit 12 (end-of-trace terminator).
+
+0x00204A88  R3000_TranslateFromPC
+  Rationale: Initiates translation from a given PC address. Fetches
+  the instruction at PC and PC+4 via TLB map (struct+0x2E0). Special
+  case: if first instruction is "lui r2, 0x8001" and second is
+  "addiu r2, r2, 0x1DF8", sets block size to 1 (BIOS call stub
+  optimization). Otherwise uses gp-0x7F20 (steps per block) as the
+  translation window. Tail-calls R3000_TranslateBlockRange.
+
+0x00204B78  R3000_TranslateAndCompile
+  Rationale: Top-level translate-and-compile function. Calls
+  R3000_GetCodeCacheEntry (0x202258) to get a cache entry, asserts it's
+  valid. Calls R3000_TranslateFromPC to decode instructions. Then calls
+  R3000_ExecuteBlocks to generate native code. Calls
+  R3000_FlushPendingStores to commit stores. Finally calls compiler_0063
+  (CompilerFinalize) and R3000_CompileBlock to complete compilation.
+
+0x00204C50  R3000_ExecutionLoop
+  Rationale: The main CPU execution loop (200 bytes, 3 calls). Loops
+  while s1 != 0. Each iteration:
+  1. Checks struct+0x2CC for pending reset/exception, calls psx_0019
+  2. Calls the current block's handler via gp-0x77C8 -> indirect call
+  3. Dispatches return value (1-6) via jump table at 0x50XXXX-0x6C60:
+     - Case 2: calls R3000_TranslateAndCompile (recompile needed)
+     - Case 3: calls R3000_InvalidateAllBlocks (cache flush needed)
+     - Other: continues or exits
+  Returns result in s0 (accumulated return code).
+
+0x00204D18  R3000_ClassifyAddress
+  Rationale: Pure function, no stack frame. Takes a PS1 address, masks
+  with 0x1FFFFFFF, and returns a memory region code:
+  0 = RAM (< 0x7FFFFF), 1 = scratchpad (0x1F800000-0x1F8003FF),
+  2 = expansion (0x1F800400-0x1F87FFFF), 3 = I/O ports (0x1F80XXXX),
+  4 = BIOS ROM (> 0x7FFFF). Used by the compiler to select the
+  appropriate memory access path.
+
+0x00204D78  R3000_UpdateBlockSize
+  Rationale: Adjusts the block translation size. Calls
+  R3000_GetCachePointers to check cache bounds, then conditionally
+  calls compiler_0030 (EmitNativeCode) if the block falls within the
+  code cache. Returns the size delta.
+
+0x00204E00  R3000_SetBlockSize
+  Rationale: Sets gp-0x7F20 (steps per block / block size) if the
+  new value differs from current. If changed, calls
+  R3000_InvalidateAllBlocks to flush stale translations.
+
+0x00204E30  R3000_GetBlockSize
+  Rationale: Trivial getter - returns gp-0x7F20 (current block size /
+  steps per block). Two instructions: jr ra; lw v0, -0x7F20(gp).
+
+0x00204E38  R3000_GetCurrentBlock
+  Rationale: Trivial getter - loads gp-0x77C8 (current compiled block
+  descriptor pointer) into a0. Single instruction before falling to
+  next function.
+
+0x00204E3C  R3000_ResetCompiler
+  Rationale: Resets the compiler state. Calls compiler_0059
+  (CompilerReset), then calls libc_0008 (memset) to zero the block
+  descriptor array at 0x50003B20 (size 0x3060 = 12384 bytes = 256
+  blocks * 48 bytes). Tail-calls R3000_GetCacheBase to reinitialize
+  the code cache pointer.
+
+======================================================
+SUMMARY TABLE
+======================================================
+
+Address     Old Name       New Name                           Category
+----------- -------------- ---------------------------------- ----------------
+0x201770    R3000_Init     R3000_Init                         initialization
+0x20177C    r3000_0001     R3000_InitHandlers                 initialization
+0x2017DC    r3000_0002     R3000_ReadMemory                   memory access
+0x20190C    r3000_0003     R3000_WriteMemory                  memory access
+0x201A0C    r3000_0004     R3000_ReadIOPort                   I/O port
+0x201B7C    r3000_0005     R3000_WriteIOPort                  I/O port
+0x201CC8    r3000_0006     R3000_SetupIOHandlers              I/O port
+0x201D38    r3000_0007     R3000_MapAddressRange              memory mapping
+0x201D68    R3000_Reset    R3000_Reset                        initialization
+0x201F08    r3000_0009     R3000_MapMemory                    memory mapping
+0x201FC0    r3000_0010     R3000_InvalidateAllBlocks          code cache
+0x202050    r3000_0011     R3000_InvalidateRange              code cache
+0x2021A0    r3000_0012     R3000_MarkPagesWritten             code cache
+0x202258    r3000_0013     R3000_GetCodeCacheEntry            code cache
+0x20225C    r3000_0014     R3000_AllocCodeBlock               code cache
+0x2022C8    r3000_0015     R3000_CompileBlock                 compilation
+0x202478    r3000_0016     R3000_GetCachePointers             code cache
+0x2024A8    r3000_0017     R3000_GetCacheBase                 code cache
+0x2024AC    r3000_0018     R3000_InitCodeCache                code cache
+0x202500    r3000_0019     R3000_AllocTranslationBuffers      initialization
+0x2026C0    r3000_0020     R3000_ExecuteBlocks                execution
+0x2029C8    r3000_0021     R3000_HandleBranchBlock            execution
+0x202A20    r3000_0022     R3000_EmitDelaySlot                compilation
+0x202AA8    r3000_0023     R3000_EmitStoreDelay               compilation
+0x202B18    r3000_0024     R3000_HandleConditionalBranch      compilation
+0x202BB8    r3000_0025     R3000_EmitCOP0Read                 COP0
+0x202C28    r3000_0026     R3000_EmitCOP0Write                COP0
+0x202C58    r3000_0027     R3000_EmitLoadOp                   compilation
+0x202CC8    r3000_0028     R3000_EmitStoreOp                  compilation
+0x202CF0    r3000_0029     R3000_EmitALUOp                    compilation
+0x203040    r3000_0030     R3000_EmitBranch                   compilation
+0x203318    r3000_0031     R3000_EmitJump                     compilation
+0x203440    r3000_0032     R3000_EmitJumpRegister             compilation
+0x2034E8    r3000_0033     R3000_EmitGTEDataRead              GTE
+0x203550    r3000_0034     R3000_EmitGTEDataWrite             GTE
+0x203598    r3000_0035     R3000_EmitGTEControlRead           GTE
+0x203628    r3000_0036     R3000_EmitGTEControlWrite          GTE
+0x203778    r3000_0037     R3000_EmitGTEDataReadAlt           GTE
+0x2037E0    r3000_0038     R3000_EmitSyscall                  exception
+0x2038D0    r3000_0039     R3000_EmitBreak                    exception
+0x203938    r3000_0040     R3000_EmitCOP0Op                   COP0
+0x203A18    r3000_0041     R3000_EmitCOP0OpWrite              COP0
+0x203BF8    r3000_0042     R3000_EmitCOP2DataReadAlt          GTE
+0x203C30    r3000_0043     R3000_EmitExceptionReturn          exception
+0x203C80    r3000_0044     R3000_EmitSyscallImmediate         exception
+0x203CA0    r3000_0045     R3000_EmitMemoryAccess             compilation
+0x203EC8    r3000_0046     R3000_FlushPendingStores           compilation
+0x203F30    r3000_0047     R3000_BuildBlockDescriptor         block builder
+0x2040F8    r3000_0048     R3000_DecodeInstruction            decoder
+0x204928    r3000_0049     R3000_TranslateBlockRange          translation
+0x204A88    r3000_0050     R3000_TranslateFromPC              translation
+0x204B78    r3000_0051     R3000_TranslateAndCompile          translation
+0x204C50    r3000_0052     R3000_ExecutionLoop                execution
+0x204D18    r3000_0053     R3000_ClassifyAddress              memory access
+0x204D78    r3000_0054     R3000_UpdateBlockSize              code cache
+0x204E00    r3000_0055     R3000_SetBlockSize                 code cache
+0x204E30    r3000_0056     R3000_GetBlockSize                 code cache
+0x204E38    r3000_0057     R3000_GetCurrentBlock              execution
+0x204E3C    r3000_0058     R3000_ResetCompiler                initialization
+
+======================================================
+ARCHITECTURAL NOTES
+======================================================
+
+1. TRANSLATION PIPELINE:
+   R3000_ExecutionLoop calls the current block handler. If the block
+   needs (re)compilation, it returns code 2 which triggers:
+   R3000_TranslateAndCompile -> R3000_TranslateFromPC ->
+   R3000_TranslateBlockRange (recursive) -> R3000_DecodeInstruction
+   (per instruction) -> R3000_BuildBlockDescriptor (build IR) ->
+   R3000_ExecuteBlocks (emit native code via compiler_* calls) ->
+   R3000_FlushPendingStores -> R3000_CompileBlock (finalize + cache flush)
+
+2. MEMORY SUBSYSTEM:
+   PS1 memory is mapped into EE address space via TLB entries:
+   - RAM at 0x5F800000 (2MB), scratchpad at 0x5F800400 (1KB)
+   - BIOS ROM at 0x40000000 (512KB), expansion at 0x5FC00000
+   I/O ports (0x1F801000-0x1F802FFF) use per-16-byte-page dispatch
+   tables for read and write, allowing subsystem-specific handlers.
+
+3. CODE CACHE:
+   Translation cache is a flat buffer (gp-0x7F28) that holds native EE
+   MIPS code. Block descriptors live at 0x50003B20 (BSS). Page validity
+   bitmap at 0x50003A18 tracks which 1KB RAM pages have compiled code.
+   Cache overflow triggers R3000_InvalidateAllBlocks to flush everything.
+
+4. BLOCK DESCRIPTOR FORMAT (48 bytes per block at 0x50003B20):
+   +0x00: flags (bit0=valid, bit1=recompile, bit2=compiled, bit4=pending_store,
+          bit5=link, bit8=conditional, bit9=branch_target, bit10=subroutine,
+          bit12=end_of_trace, bit13=delay_slot_marker)
+   +0x04: cycle cost
+   +0x08: linked block pointer
+   +0x0C: execution data
+   +0x10: raw PS1 instruction word
+   +0x14: decoded opcode / sub-opcode
+   +0x18: source register (rs)
+   +0x1C: destination register (rt/rd)
+   +0x20: extra field (shift amount / function code)
+   +0x24: additional data
+   +0x28: branch target address
+   +0x2C: native code handler function pointer
+
+5. PS1 INSTRUCTION DECODE:
+   The decoder uses three jump tables for primary (59 entries), SPECIAL
+   (44 entries), and COP0/COP2 sub-dispatch. Each decoded instruction
+   gets assigned a handler function from the r3000 subsystem (the
+   R3000_Emit* functions) which generate native EE code via the compiler
+   subsystem.

@@ -1,0 +1,370 @@
+================================================================================
+POPS.ELF GPU Subsystem Analysis
+PS1 GPU Emulation Functions (0x0020B788 - 0x0020BB68)
+================================================================================
+
+SUMMARY OF PROPOSED NAMES
+================================================================================
+
+  Current Name  | Proposed Name               | Address Range
+  ------------- | --------------------------- | ---------------------------
+  GPU_Init      | GPU_Init                    | 0x0020B788 - 0x0020B794
+  gpu_0001      | GPU_InitAndReadHandler       | 0x0020B794 - 0x0020B89C
+  gpu_0002      | GPU_GP1WriteHandler         | 0x0020B89C - 0x0020B9C8
+  gpu_0003      | GPU_VBlankIRQCallback       | 0x0020B9C8 - 0x0020BA00
+  gpu_0004      | GPU_GP0WriteHandler         | 0x0020BA00 - 0x0020BAD0
+  gpu_0005      | GPU_Reset                   | 0x0020BAD0 - 0x0020BB68
+
+
+================================================================================
+DETAILED ANALYSIS
+================================================================================
+
+--------------------------------------------------------------------------------
+1. GPU_Init (0x0020B788 - 0x0020B794) -- KEEP NAME: GPU_Init
+   Size: 12 bytes (3 instructions), Frame: 0
+--------------------------------------------------------------------------------
+
+Purpose: Prologue that loads constants into registers and falls through to
+gpu_0001. This is not a standalone function; it is the entry point of a single
+logical function split by the decompiler.
+
+Behavior:
+  - Sets a2 = 0x210000 (will become read handler address after addiu in gpu_0001)
+  - Sets a3 = 0x210000 (will become write handler address after addiu in gpu_0001)
+  - Sets a0 = 0x1F800000 (PS1 I/O base, will become 0x1F801810 after ori)
+  - Falls through to gpu_0001 (no return instruction)
+
+This pattern (lui setup + fallthrough) is identical to Counter_Init, DMA_Init,
+CDROM_Init, and Serial_Init. The actual initialization logic is in gpu_0001.
+
+Note: GPU_Init is called from PlayStationInit (0x200944) during system startup.
+
+
+--------------------------------------------------------------------------------
+2. gpu_0001 (0x0020B794 - 0x0020B89C) -- RENAME TO: GPU_InitAndReadHandler
+   Size: 264 bytes, Frame: 16, Calls: r3000_0006, interrupt_0014, gte_0054
+--------------------------------------------------------------------------------
+
+Purpose: This function contains TWO logically distinct code blocks:
+
+  BLOCK A (0x0020B794 - 0x0020B7F8): GPU I/O Registration and Init
+  BLOCK B (0x0020B800 - 0x0020B89C): GPU Data/Status Read Handler
+
+BLOCK A -- GPU I/O Registration (the actual init continuation from GPU_Init):
+
+  1. Computes read handler address:  a2 = 0x210000 - 0x4B78 = 0x20B488
+     This points into the counter subsystem address range but is actually the
+     GPU read handler entry point within the I/O dispatch table. (The function
+     at that offset handles reads from GPU I/O ports.)
+
+  2. Computes write handler address: a3 = 0x210000 - 0x4B28 = 0x20B4D8
+     Similarly, the GPU write handler for I/O port writes.
+
+  3. Registers I/O handlers via r3000_0006(0x1F801810, 0x10, read_handler, write_handler)
+     - Base address: 0x1F801810 (PS1 GPU_DATA register)
+     - Count: 0x10 (covers both GP0 at 0x1F801810 and GP1 at 0x1F801814)
+     - Read callback: address of GPU read handler
+     - Write callback: address of GPU write handler
+
+  4. Registers GPU interrupt handler via interrupt_0014(2, handler_addr)
+     - IRQ index 2 = GPU IRQ (PS1 GPU VBlank interrupt)
+     - Handler: 0x210000 - 0x4AD0 = 0x20B530 (GPU interrupt callback)
+
+  5. Writes 0x83 to PS2 GS register at 0x10000810 (GS_SMODE1 or similar)
+     This configures the PS2's Graphics Synthesizer for PS1 display emulation.
+
+  6. Writes 0 to 0x10000800 (another PS2 GS register)
+
+  7. Calls gte_0054 to initialize the GPU/GTE rendering pipeline.
+     Passes PSX CPU state struct field at offset 0x2D0 (likely the GPU state
+     pointer within the PSX state).
+
+  8. Returns 1 (success).
+
+BLOCK B -- GPU Read Handler (0x0020B800 - 0x0020B89C):
+
+  This block handles reads from PS1 GPU registers (0x1F801810 and 0x1F801814).
+  It is entered separately via the I/O dispatch mechanism, not by falling through.
+
+  Input: a0 = PS1 I/O address offset
+
+  Structure at 0x506D90 (GPU state, two 0x1C-byte slots):
+    Offset 0x00: GPU control/identifier
+    Offset 0x04: GPU status register (GPUSTAT)
+    Offset 0x08: GPU mode/flags
+    Offset 0x0C: Additional state field
+    Offset 0x10: Function pointer (command handler)
+    Offset 0x14: GP0 command word count
+    Offset 0x18: Last GP0 command result byte
+
+  Port selection (a0 & 0xF):
+    - a0 == 0 (0x1F801810, GPUREAD): Returns read data from GPU data port
+      Clears bits in status, loads result from state+0x04, stores back
+    - a0 == 4 (0x1F801814, GPUSTAT): Returns GPU status register
+      If slot index is 1, ORs in 0x80 (bit 7 = drawing even/odd flag)
+    - a0 == other low values: Returns state fields at offsets +4, +8, +0xC
+    - a0 >= 0xA, 0xE: Returns corresponding GPU state fields
+
+  Returns: v0 = the read value (register content)
+
+Proposed name: GPU_InitAndReadHandler
+  Alternative split: GPU_Setup (block A) + GPU_ReadPort (block B)
+
+
+--------------------------------------------------------------------------------
+3. gpu_0002 (0x0020B89C - 0x0020B9C8) -- RENAME TO: GPU_GP1WriteHandler
+   Size: 300 bytes, Frame: 32, Calls: psx_0013, compiler_0066
+--------------------------------------------------------------------------------
+
+Purpose: Handles writes to the GP1 (GPU control/status) port at 0x1F801814.
+This is the GPU command processor for GP1 commands.
+
+Input:
+  - a0 = value written to GP1 port (contains command in upper bits)
+  - v1 = port selector (bit 4 of address, &1 gives GPU slot index 0 or 1)
+
+Behavior:
+
+  1. Computes GPU state slot pointer:
+     slot_index = (address >> 4) & 1
+     s0 = 0x506D90 + slot_index * 0x1C
+
+  2. Extracts GP1 command: a1 = a0 & 0xF (low 4 bits = GP1 command number)
+     Validates command < 0xF.
+
+  3. Dispatches via jump table at 0x4F96B0 (0x500000 - 0x6950):
+     This is a 15-entry function pointer table for GP1 commands 0x00 through 0x0E.
+
+     The jump table entries handle these GP1 commands:
+       0x00 = GPU Reset
+       0x01 = Clear Command FIFO
+       0x02 = Acknowledge IRQ
+       0x03 = Display Enable/Disable
+       0x04 = DMA Direction
+       0x05 = Start of Display Area
+       0x06 = Horizontal Display Range
+       0x07 = Vertical Display Range
+       0x08 = Display Mode
+       0x09 = New Texture Disable (PS1 GPU extension)
+       0x0A-0x0F = GPU Info Read (Get GPU Info)
+
+  4. For some commands (jump table targets within this function):
+
+     - Default case (0x20B8EE): Loads function pointer from state+0x10 and
+       calls it indirectly. This delegates to a registered GP1 sub-handler.
+
+     - BREAK case (0x20B908): Hits a breakpoint instruction -- unreachable
+       command or debug trap for unimplemented GP1 commands.
+
+     - GP1(0x02) Acknowledge IRQ path (0x20B918):
+       Checks bit 12 of s1 (IRQ flag in GPU status). If GPU IRQ event is
+       pending (gp-0x7EF0 != 0), cancels it via psx_0013 (cancel timed event)
+       and clears the event pointer.
+
+     - GP1 command with bit 1 set (0x20B940):
+       Checks state+8 for bit 1; if set, clears command count (state+0x14 = 0).
+
+     - GP1 command with bit 4 set (0x20B95C):
+       Calls compiler_0066 (invalidate recompiler cache for I/O region).
+       Clears bit 4 and bit 9 from s1 status, clears bit 0x200 from
+       state+4 (GPUSTAT). This handles display mode changes.
+
+     - GP1 command with bit 6 set (0x20B988):
+       Full GPU state reset: stores new status to state+8, calls
+       compiler_0066, clears s1 to 0, clears command count (state+0x14 = 0),
+       sets state+4 = 5. Also stores to state+8 and state+0xC.
+       This is the GP1(0x00) Reset GPU handler.
+
+Proposed name: GPU_GP1WriteHandler
+
+
+--------------------------------------------------------------------------------
+4. gpu_0003 (0x0020B9C8 - 0x0020BA00) -- RENAME TO: GPU_VBlankIRQCallback
+   Size: 56 bytes, Frame: 16, Calls: none (tail-calls compiler_0064)
+--------------------------------------------------------------------------------
+
+Purpose: GPU VBlank interrupt callback. This is the function scheduled as a
+timed event via psx_0011 in gpu_0004. When the GPU completes command
+processing and a VBlank occurs, this callback fires.
+
+Behavior:
+
+  1. Clears the GPU event pointer: *(gp - 0x7EF0) = 0
+     This indicates no pending GPU timed event.
+
+  2. Reads GPU status from state structure (v1+4).
+
+  3. Sets bit 0x200 in the GPU status register (GPUSTAT bit 9).
+     Bit 9 of GPUSTAT = "Ready to receive DMA block" or indicates
+     the GPU has completed its operation and is ready.
+
+  4. Stores updated status back to state+4.
+
+  5. Loads the GPU identifier from state+0 (a0 = *(v1)).
+
+  6. Tail-calls compiler_0064 (set interrupt pending flag).
+     compiler_0064 sets a pending interrupt bit in the recompiler's
+     interrupt state (gp-0x77C0), which will be checked on the next
+     recompiler block exit to trigger the PS1 GPU IRQ.
+
+  This function is the mechanism by which the emulator signals to the
+  emulated PS1 CPU that the GPU has finished an operation (e.g., a
+  rendering command or VRAM transfer) and is ready for more work.
+
+  The 0x200 flag corresponds to GPUSTAT bit 9 ("Ready to receive DMA
+  Block"), which games poll to know when the GPU can accept more data.
+
+Proposed name: GPU_VBlankIRQCallback
+  Alternative: GPU_ReadyIRQCallback, GPU_DMAReadyCallback
+
+
+--------------------------------------------------------------------------------
+5. gpu_0004 (0x0020BA00 - 0x0020BAD0) -- RENAME TO: GPU_GP0WriteHandler
+   Size: 208 bytes, Frame: 16, Calls: psx_0011
+--------------------------------------------------------------------------------
+
+Purpose: Handles writes to the GP0 (GPU data/command) port at 0x1F801810.
+This is the GPU command processor for GP0 data writes (rendering commands,
+VRAM transfers, and draw settings).
+
+Input:
+  - s0 = pointer to GPU state structure (set by caller I/O dispatch)
+  - a1 = value written to GP0 port (the GP0 command/data word)
+
+Behavior:
+
+  1. Extracts command byte: a2 = a1 & 0xFF
+
+  2. Reads GPU mode (state+8) and command word count (state+0x14).
+
+  3. If command count (a0) is 0, this is the FIRST word of a new GP0 command.
+     Selects the appropriate command handler function pointer based on the
+     GP0 command byte:
+
+     - a1 == 1 (GP0 command 0x01 = Clear Cache):
+       Handler at 0x210000 - 0x39D0 = 0x20C630
+       This is a rendering primitive handler.
+
+     - a1 == 0x81 (GP0 command 0x81 = related to VRAM copy):
+       Handler at 0x210000 - 0x33F8 = 0x20CC08
+       This is a VRAM copy/transfer command handler.
+
+     - Default (all other GP0 commands):
+       Handler at 0x210000 - 0x4608 = 0x20B9F8
+       This is the general GP0 command handler (within gpu_0003's address
+       range, handles simple/immediate commands).
+
+     Stores selected handler to gp-0x77B8 (current GP0 handler pointer).
+
+  4. Calls the selected handler indirectly: ret = (gp-0x77B8)(args)
+     The handler processes the GP0 data word and returns:
+       - Low 8 bits (ret & 0xFF): stored to state+0x18 (last command result)
+       - Bit 8 (ret & 0x100): if set, signals command complete
+
+  5. Increments command word count (state+0x14)++.
+
+  6. Sets bit 1 in state+4 (GPUSTAT), marking GPU as busy/has pending data.
+
+  7. If bit 8 is NOT set in the return value (command NOT complete):
+     Checks bit 12 (0x1000) of state+8 for IRQ scheduling.
+     If set, schedules a timed GPU event via psx_0011:
+       - Delay: 0x34E cycles (846 decimal)
+       - Callback: gpu_0003 (GPU_VBlankIRQCallback) at 0x20B9C8
+     Stores the event handle to gp-0x7EF0.
+
+  The 846-cycle delay is the estimated time for a GPU rendering operation
+  to complete, after which the GPU IRQ fires to signal readiness.
+
+  Global variable at gp-0x77B8: Current GP0 command handler function pointer.
+  Global variable at gp-0x7EF0: Pending GPU timed event handle (or 0 if none).
+
+Proposed name: GPU_GP0WriteHandler
+
+
+--------------------------------------------------------------------------------
+6. gpu_0005 (0x0020BAD0 - 0x0020BB68) -- RENAME TO: GPU_Reset
+   Size: 152 bytes, Frame: 16, Calls: psx_0013, libc_0008 (memset)
+--------------------------------------------------------------------------------
+
+Purpose: Resets the GPU state to initial values. Called during PS1 system
+reset (from psx_0002) and during Serial_Init (serial_0001).
+
+Behavior:
+
+  1. Clears the GPU state structure at 0x506D90 + 4:
+     Calls memset (libc_0008) with size 0x38 (56 bytes) and value 0.
+     This zeroes out 56 bytes starting at 0x506D94, covering both GPU
+     state slots (2 x 0x1C = 56 bytes).
+
+  2. Initializes both GPU state slots in a loop (2 iterations):
+     For each slot:
+       - Sets state+(-4) = slot loop counter + 7 (identifier/index)
+       - Sets state+0 |= 5 (sets bits 0 and 2 in control word)
+       - Sets state+0xC = selected function pointer
+         Uses conditional move (movn): either 0x210000 - 0x4538 = 0x20BAC8
+         or 0x210000 - 0x4600 = 0x20BA00
+         These are addresses of GPU GP0 command handlers (the second being
+         GPU_GP0WriteHandler itself).
+     Advances pointer by 0x1C (28 bytes) per slot.
+
+  3. Cancels any pending GPU timed event:
+     If gp-0x7EF0 != 0, calls psx_0013(event) to cancel it,
+     then clears gp-0x7EF0 = 0.
+
+  The initial state after reset:
+    - All command counters cleared to 0
+    - Status registers cleared
+    - Control bits set to 5 (bits 0 and 2 = basic ready state)
+    - Command handler function pointers initialized
+    - No pending GPU IRQ events
+
+Proposed name: GPU_Reset
+
+
+================================================================================
+GPU STATE STRUCTURE LAYOUT (at 0x506D90, two 0x1C-byte slots)
+================================================================================
+
+  Offset  Size  Description
+  ------  ----  ---------------------------------------------------
+  -0x04   4     GPU identifier / slot index
+   0x00   4     Control flags (bits 0,2 set on reset = 0x05)
+   0x04   4     GPUSTAT register (GPU status word)
+   0x08   4     GPU mode/config flags (bit 1=busy, bit 4=mode change,
+                bit 6=full reset, bit 12=IRQ scheduling enabled,
+                bit 13=DMA direction)
+   0x0C   4     Additional state / secondary handler pointer
+   0x10   4     Current GP1 sub-handler function pointer
+   0x14   4     GP0 command word count (incremented per word written)
+   0x18   4     Last GP0 command result (low byte of handler return)
+
+  Total per slot: 0x1C (28) bytes
+  Two slots at 0x506D90 and 0x506DAC (selected by address bit 4)
+
+================================================================================
+GLOBAL VARIABLES (gp-relative)
+================================================================================
+
+  gp - 0x7F60: Pointer to PSX CPU state structure
+  gp - 0x7EF0: Pending GPU timed event handle (0 = no event pending)
+  gp - 0x77B8: Current GP0 command handler function pointer
+  gp - 0x77C0: Interrupt pending flags (recompiler state)
+  gp - 0x77BC: Interrupt mask (recompiler state)
+
+================================================================================
+CROSS-REFERENCE: CALLED FUNCTIONS
+================================================================================
+
+  r3000_0006 (0x201CC8):    Register I/O port read/write handlers
+  interrupt_0014 (0x20AED8): Register interrupt handler callback
+  gte_0054 (0x21AF38):      Initialize GPU rendering pipeline (GTE/GPU setup)
+  compiler_0064 (0x209F80):  Set interrupt pending bit (trigger PS1 IRQ)
+  compiler_0066 (0x209FC8):  Invalidate recompiler cache for I/O region
+  psx_0011 (0x201088):      Schedule timed event (returns event handle)
+  psx_0013 (0x2011D8):      Cancel/free timed event
+  libc_0008 (0x240D70):     memset
+
+================================================================================
+END OF ANALYSIS
+================================================================================
