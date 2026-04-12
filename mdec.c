@@ -3,165 +3,148 @@
 /* 48 functions */
 
 #include "pops_types.h"
+#include "functions.h"
 
 /* Forward declarations */
-int MDEC_Init();
-int MDEC_SectorToMSF();
-int MDEC_SectorDiffToMSF();
-int MDEC_FindFreeSlot();
-int MDEC_FlushPending();
-int MDEC_CopySectorData();
-int MDEC_DispatchCallback();
-int MDEC_CheckInterrupt();
-int MDEC_SetupDataTransfer();
-int MDEC_SubmitRequest();
-int MDEC_QueueReadRequest();
-int MDEC_HandleSectorRequest();
-int MDEC_ProcessCdSector();
-int MDEC_AllocateResponse();
-int MDEC_ScheduleIRQ();
-int MDEC_CmdResetAndPlay();
-int MDEC_CmdStartRead();
-int MDEC_CmdNop();
-int MDEC_CmdSetLocation();
-int MDEC_CmdPlayAudio();
-int MDEC_CmdForward();
-int MDEC_CmdBackward();
-int MDEC_CmdReadN();
-int MDEC_CmdStandby();
-int MDEC_CmdStop();
-int MDEC_CmdPause();
-int MDEC_CmdInit();
-int MDEC_CmdDemute();
-int MDEC_CmdMute();
-int MDEC_CmdSetFilter();
-int MDEC_CmdSetMode();
-int MDEC_CmdGetParam();
-int MDEC_CmdGetLocL();
-int MDEC_CmdGetLocP();
-int MDEC_CmdSeekL();
-int MDEC_CmdGetTN();
-int MDEC_CmdGetTD();
-int MDEC_CmdSeekP();
-int MDEC_CmdTest();
-int MDEC_DispatchCdCommand();
-int MDEC_CmdGetID();
-int MDEC_CmdReadS();
-int MDEC_CmdReset();
-int MDEC_CmdReadTOC();
-int MDEC_WriteDma();
-int MDEC_ReadRegister();
-int MDEC_WriteRegister();
-int MDEC_ResetState();
+u32 MDEC_Init(void);
+u32 MDEC_SectorToMSF(u32 a0, u32 a1);
+u32 MDEC_SectorDiffToMSF(u32 a0, u32 a1, u32 a2);
+u32 MDEC_FindFreeSlot(void);
+u32 MDEC_FlushPending(void);
+u32 MDEC_CopySectorData(u32 a0, u32 a1);
+u32 MDEC_DispatchCallback(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 MDEC_CheckInterrupt(void);
+u32 MDEC_SetupDataTransfer(u32 a0);
+u32 MDEC_SubmitRequest(u32 a0);
+u32 MDEC_QueueReadRequest(void);
+u32 MDEC_HandleSectorRequest(u32 a0);
+u32 MDEC_ProcessCdSector(u32 a0);
+u32 MDEC_AllocateResponse(u32 a0);
+u32 MDEC_ScheduleIRQ(u32 a0, u32 a1);
+u32 MDEC_CmdResetAndPlay(u32 a0);
+u32 MDEC_CmdStartRead(u32 a0);
+u32 MDEC_CmdNop(void);
+u32 MDEC_CmdSetLocation(void);
+u32 MDEC_CmdPlayAudio(void);
+u32 MDEC_CmdForward(void);
+u32 MDEC_CmdBackward(void);
+u32 MDEC_CmdReadN(void);
+u32 MDEC_CmdStandby(void);
+u32 MDEC_CmdStop(void);
+u32 MDEC_CmdPause(void);
+u32 MDEC_CmdInit(void);
+u32 MDEC_CmdDemute(void);
+u32 MDEC_CmdMute(void);
+u32 MDEC_CmdSetFilter(void);
+u32 MDEC_CmdSetMode(void);
+u32 MDEC_CmdGetParam(void);
+u32 MDEC_CmdGetLocL(void);
+u32 MDEC_CmdGetLocP(void);
+u32 MDEC_CmdSeekL(void);
+u32 MDEC_CmdGetTN(void);
+u32 MDEC_CmdGetTD(void);
+u32 MDEC_CmdSeekP(void);
+u32 MDEC_CmdTest(void);
+u32 MDEC_DispatchCdCommand(void);
+u32 MDEC_CmdGetID(void);
+u32 MDEC_CmdReadS(void);
+u32 MDEC_CmdReset(void);
+u32 MDEC_CmdReadTOC(void);
+u32 MDEC_WriteDma(u32 a0, u32 a1, u32 a2);
+u32 MDEC_ReadRegister(u32 a0);
+void MDEC_WriteRegister(u32 a0, u32 a1);
+u32 MDEC_ResetState(void);
 
 /* ======================================== */
 
 /* Function at 0x0020E2E0 - 0x0020E378 */
-int MDEC_Init()
+u32 MDEC_Init(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
-    ret = 0x005A0000;
+    u32 ret, v1, a0, a1, a2, a3;
+    ret = 0x005A0000;  /* SUBSYS_DATA_BASE: Subsystem data (CDROM/MDEC/serial) */
     a0 = 0;
     v1 = ret + -0x4100;
     a1 = -1;
     do {
-        *(u8*)*(v1 + 0x100) = a0;
+        *(u8*)(v1 + 0x100) = a0;
         a0 = a0 + 1;
         ret = ((signed)a0 < 0x100) ? 1 : 0;
         *(u8*)(v1) = 0;
-        *(u8*)*(v1 + 0x200) = a1;
+        *(u8*)(v1 + 0x200) = a1;
         v1 = v1 + 1;
     } while (ret != 0);
     a2 = 0x0020E1B0;
-    a3 = 0x0020E1E8;
-    a0 = 0x1F801820;
+    a3 = (u32)Serial_WriteGpuReg;
+    a0 = PSX_MDEC_BASE_ADDR;  /* 0x1F801820 */
     a1 = 0x10;
     ret = R3000_SetupIOHandlers(a0, a1, a2, a3);
     a1 = 0x0020DED0;
-    a0 = 0;
-    ret = Interrupt_SetCallback(a0, a1, a2, a3);
+    a0 = IRQ_CB_VBLANK;  /* VBlank interrupt handler */
+    ret = Interrupt_SetCallback(a0, a1);
     a1 = 0x0020E068;
-    a0 = 1;
-    ret = Interrupt_SetCallback(a0, a1, a2, a3);
+    a0 = IRQ_CB_GPU;  /* GPU interrupt handler */
+    ret = Interrupt_SetCallback(a0, a1);
     return 1;
 }
 
 /* Function at 0x0020E378 - 0x0020E3F0 */
-int MDEC_SectorToMSF()
+u32 MDEC_SectorToMSF(u32 a0, u32 a1)
 {
-    int ret, v0, v1, a0, a1, a2, a3, t0, t1, t2;
+    u32 ret, v1, a2, a3, t0, t1, t2;
     a0 = a0 + 0x96;
-    ret = 0x4b;
-    __asm("divu zero, a0, v0");
     ret = 0xa;
     a2 = 0x3c;
-    a0 = LO;
-    t0 = HI;
-    __asm("divu zero, a0, a2");
-    a0 = LO;
-    a3 = HI;
-    __asm("divu zero, t0, v0");
-    v1 = LO;
-    t1 = HI;
-    __asm("divu zero, a0, v0");
-    v1 = v1 << 4;
-    v1 = v1 + t1;
-    *(u8*)*(a1 + 2) = v1;
-    a0 = LO;
-    t2 = HI;
-    __asm("divu zero, a3, v0");
+    a0 = (unsigned)a0 / (unsigned)ret;
+    t0 = (unsigned)a0 % (unsigned)ret;
+    a0 = (unsigned)a0 / (unsigned)a2;
+    a3 = (unsigned)a0 % (unsigned)a2;
+    v1 = (unsigned)t0 / (unsigned)ret;
+    t1 = (unsigned)t0 % (unsigned)ret;
+    *(u8*)(a1 + 2) = v1 + t1;
+    a0 = (unsigned)a0 / (unsigned)ret;
+    t2 = (unsigned)a0 % (unsigned)ret;
     a0 = a0 << 4;
     a0 = a0 + t2;
     *(u8*)(a1) = a0;
-    ret = LO;
-    a2 = HI;
-    ret = ret << 4;
+    ret = (unsigned)a3 / (unsigned)ret;
+    a2 = (unsigned)a3 % (unsigned)ret;
     ret = ret + a2;
-    *(u8*)*(a1 + 1) = ret;
+    *(u8*)(a1 + 1) = ret;
     return ret;
 }
 
 /* Function at 0x0020E3F0 - 0x0020E468 */
-int MDEC_SectorDiffToMSF()
+u32 MDEC_SectorDiffToMSF(u32 a0, u32 a1, u32 a2)
 {
-    int ret, v0, v1, a0, a1, a2, a3, t0, t1, t2;
+    u32 ret, v1, a3, t0, t1, t2;
     a0 = a0 - a1;
     a1 = 0x3c;
-    ret = 0x4b;
-    __asm("divu zero, a0, v0");
     ret = 0xa;
-    a0 = LO;
-    t0 = HI;
-    __asm("divu zero, a0, a1");
-    a0 = LO;
-    a3 = HI;
-    __asm("divu zero, t0, v0");
-    v1 = LO;
-    t1 = HI;
-    __asm("divu zero, a0, v0");
-    v1 = v1 << 4;
-    v1 = v1 + t1;
-    *(u8*)*(a2 + 2) = v1;
-    a0 = LO;
-    t2 = HI;
-    __asm("divu zero, a3, v0");
+    a0 = (unsigned)a0 / (unsigned)ret;
+    t0 = (unsigned)a0 % (unsigned)ret;
+    a0 = (unsigned)a0 / (unsigned)a1;
+    a3 = (unsigned)a0 % (unsigned)a1;
+    v1 = (unsigned)t0 / (unsigned)ret;
+    t1 = (unsigned)t0 % (unsigned)ret;
+    *(u8*)(a2 + 2) = v1 + t1;
+    a0 = (unsigned)a0 / (unsigned)ret;
+    t2 = (unsigned)a0 % (unsigned)ret;
     a0 = a0 << 4;
     a0 = a0 + t2;
     *(u8*)(a2) = a0;
-    ret = LO;
-    a1 = HI;
-    ret = ret << 4;
+    ret = (unsigned)a3 / (unsigned)ret;
+    a1 = (unsigned)a3 % (unsigned)ret;
     ret = ret + a1;
-    *(u8*)*(a2 + 1) = ret;
+    *(u8*)(a2 + 1) = ret;
     return ret;
 }
 
 /* Function at 0x0020E468 - 0x0020E4A8 */
-int MDEC_FindFreeSlot()
+u32 MDEC_FindFreeSlot(void)
 {
-    int ret, v1, a0, a1;
-    ret = 0x005A0000;
+    u32 ret, v1, a0, a1;
+    ret = 0x005A0000;  /* SUBSYS_DATA_BASE: Subsystem data (CDROM/MDEC/serial) */
     a1 = 0;
     a0 = ret + -0x2b68;
     v1 = *(u32*)(a0);
@@ -170,64 +153,62 @@ int MDEC_FindFreeSlot()
             a0 = a0 + 0x28;
             if (v1 != 0) {
             a1 = a1 + 1;
+            }
             ret = ((unsigned)a1 < 8) ? 1 : 0;
             v1 = *(u32*)(a0);
-        } while (likely(ret != 0));
+        } while (ret != 0);
         ret = 0;
     }
     return ret;
-}
 
 /* Function at 0x0020E4A8 - 0x0020E500 */
-int MDEC_FlushPending()
+u32 MDEC_FlushPending(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1, a0, a1, a2, a3;
     ret = 0x0059C200;
     a1 = g_mdec_state5;
-    v1 = *(u8*)*(ret + 1);
+    v1 = *(u8*)(ret + 1);
     a0 = a1;
-    v1 = v1 & 0x1f;
-    *(u8*)*(ret + 1) = v1;
+    *(u8*)(ret + 1) = v1 & 0x1f;
     if (a1 != 0) {
-        ret = PSX_CancelEvent(a0, a1, a2, a3);
+        ret = PSX_CancelEvent(a0);
         g_mdec_state5 = 0;
     }
     ret = g_mdec_state6;
     a0 = ret;
     if (ret != 0) {
-        ret = PSX_CancelEvent(a0, a1, a2, a3);
+        ret = PSX_CancelEvent(a0);
         g_mdec_state6 = 0;
     }
     return ret;
 }
 
 /* Function at 0x0020E500 - 0x0020E5F4 */
-int MDEC_CopySectorData()
+u32 MDEC_CopySectorData(u32 a0, u32 a1)
 {
     /* Stack frame: 32 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, t0, t1;
+    u32 ret, v1, a2, a3, s0, s1, s2, t0, t1;
     a2 = 0x930;
     s1 = a2;
     s2 = a1;
     s0 = 0x0059C228;
-    a3 = 0x005A0000;
+    a3 = 0x005A0000;  /* SUBSYS_DATA_BASE: Subsystem data (CDROM/MDEC/serial) */
     a1 = 0x818;
-    v1 = *(u32*)*(s0 + 0x1268);
-    t0 = *(u32*)*(s0 + 0x126c);
+    v1 = *(u32*)(s0 + 0x1268);
+    t0 = *(u32*)(s0 + 0x126c);
     ac3 = (s32)((s64)v1 * (s64)a2); HI_LO = (s64)v1 * (s64)a2;
     a2 = s2;
-    ret = *(u8*)*(a3 + -0x3e00);
     ret = ret & 0x20;
     v1 = v1 + t0;
-    __asm("movz s1, a1, v0");
+    if (ret == 0) s1 = a1;
     a1 = v1 + s0;
-    ret = Compiler_MemoryCopy(a0, a1, a2, a3);
+    ret = Compiler_MemoryCopy(a0, a1, a2);
     a0 = __gp + -0x7788;
-    ret = *(u32*)*(s0 + 0x126c);
+    ret = *(u32*)(s0 + 0x126c);
     a1 = a0 + 3;
     ret = ret + s2;
-    *(u32*)*(s0 + 0x126c) = ret;
+    *(u32*)(s0 + 0x126c) = ret;
     if (ret == s1) {
         v1 = *(u8*)(a0);
         ret = *(u8*)(a1);
@@ -238,20 +219,18 @@ int MDEC_CopySectorData()
     }
     return ret;
 loc_20E5A0:
-    ret = 0x005A0000;
+    ret = 0x005A0000;  /* SUBSYS_DATA_BASE: Subsystem data (CDROM/MDEC/serial) */
     t0 = g_mdec_state4;
     t1 = ret + -0x2a28;
     a3 = 0;
     v1 = a3 + t0;
     do {
         a3 = a3 + 1;
-        v1 = v1 & 7;
-        v1 = v1 << 3;
         v1 = v1 + t1;
         ret = *(u32*)(v1);
         a2 = ((unsigned)a3 < 8) ? 1 : 0;
         if (ret == 0) {
-            *(u32*)*(v1 + 4) = a1;
+            *(u32*)(v1 + 4) = a1;
             *(u32*)(v1) = a0;
             return ret;
         }
@@ -263,404 +242,365 @@ loc_20E5F0:
 }
 
 /* Function at 0x0020E5F4 - 0x0020E638 */
-int MDEC_DispatchCallback()
+u32 MDEC_DispatchCallback(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 16 bytes */
-    int ret, v0, v1, a0, a1, a2, a3;
+    u32 ret, v1;
     v1 = ret + 1;
     ret = ret << 3;
     __at = 0x0059D5D8;
     ret = __at + ret;
-    a1 = *(u32*)(v0);
+    a1 = *(u32*)(ret);
     v1 = v1 & 7;
     if (a1 != 0) {
         g_mdec_state4 = v1;
-        a0 = *(u32*)*(ret + 4);
-        *(u32*)(v0) = 0;
-        ret = (a1)(a0, a1, a2, a3); /* indirect call */
+        a0 = *(u32*)(ret + 4);
+        *(u32*)(ret) = 0;
+        ret = CALL_INDIRECT(a1)(a0, a1, a2, a3);
     }
     return ret;
 }
 
 /* Function at 0x0020E638 - 0x0020E6A0 */
-int MDEC_CheckInterrupt()
+u32 MDEC_CheckInterrupt(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v0, v1, a0, a1, a2, a3;
+    u32 ret, v1, a0, a1, a2, a3;
     ret = __gp + -0x7786;
-    a0 = *(u8*)*(ret + -1);
-    v1 = *(u8*)(v0);
+    a0 = *(u8*)(ret + -1);
     v1 = v1 & a0;
     ret = g_mdec_state1;
     if (v1 != 0) {
-        if (likely(ret != 0)) goto loc_20E694;
+        if (ret != 0) goto loc_20E694;
         a0 = 2;
-        ret = Compiler_SetCacheFlushFlag(a0, a1, a2, a3);
+        Compiler_SetCacheFlushFlag(a0);
         g_mdec_state1 = 1;
         goto loc_20E690;
     }
     a0 = 2;
-    ret = Compiler_GetCacheStatus(a0, a1, a2, a3);
+    ret = Compiler_GetCacheStatus();
     g_mdec_state1 = 0;
-    goto loc_20E5F0;
+    return MDEC_CopySectorData(a0, a1);
 loc_20E690:
 loc_20E694:
     return ret;
 }
 
 /* Function at 0x0020E6A0 - 0x0020E718 */
-int MDEC_SetupDataTransfer()
+u32 MDEC_SetupDataTransfer(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0;
+    u32 ret, v1, a1, a2, a3, s0;
     ret = g_mdec_state1;
     s0 = a0;
     a1 = s0;
     if (ret != 0) {
-        a0 = 0x0020E6A0;
-        goto loc_20E5A0;
+        a0 = (u32)MDEC_SetupDataTransfer;
+        return MDEC_CopySectorData(a0, a1);
     }
     ret = __gp + -0x7788;
     a0 = 3;
-    v1 = *(u8*)(v0);
-    *(u8*)*(ret + 2) = a0;
-    v1 = v1 | 0x20;
-    v1 = v1 & 0x7f;
-    *(u8*)(v0) = v1;
-    ret = MDEC_CheckInterrupt(a0, a1, a2, a3);
+    v1 = *(u8*)(ret);
+    *(u8*)(ret + 2) = a0;
+    *(u8*)(ret) = v1 & 0x7f;
+    ret = MDEC_CheckInterrupt();
     g_mdec_state3 = s0;
-    *(u32*)*(s0 + 0x14) = 0;
+    *(u32*)(s0 + 0x14) = 0;
     *(u32*)(s0) = 0;
     return ret;
 }
 
 /* Function at 0x0020E718 - 0x0020E7B0 */
-int MDEC_SubmitRequest()
+u32 MDEC_SubmitRequest(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, s0;
+    u32 ret, v1, a1, a2, a3, s0;
     ret = g_mdec_state1;
     s0 = a0;
     a1 = s0;
     if (ret == 0) {
         a2 = __gp + -0x7786;
-        ret = *(u8*)(a2);
         ret = ret & 7;
         a3 = a2 + -2;
-            a0 = 0x0020E718;
-            goto loc_20E5A0;
+            a0 = (u32)MDEC_SubmitRequest;
+            return MDEC_CopySectorData(a0, a1);
         }
     ret = *(u8*)(a3);
     a0 = 0x0059C200;
-    v1 = *(u8*)*(a0 + 1);
+    v1 = *(u8*)(a0 + 1);
     ret = ret | 0x20;
     *(u8*)(a3) = ret;
     v1 = v1 & 0xbf;
-    *(u8*)*(a0 + 1) = v1;
-    ret = *(u8*)*(s0 + 0xc);
+    *(u8*)(a0 + 1) = v1;
+    ret = *(u8*)(s0 + 0xc);  /* PSX: lo */
     *(u8*)(a2) = ret;
-    *(u8*)*(s0 + 0x18) = v1;
-    ret = MDEC_CheckInterrupt(a0, a1, a2, a3);
+    *(u8*)(s0 + 0x18) = v1;
+    ret = MDEC_CheckInterrupt();
     g_mdec_state3 = s0;
-    *(u32*)*(s0 + 0x14) = 0;
+    *(u32*)(s0 + 0x14) = 0;
     *(u32*)(s0) = 0;
     return ret;
 }
 
 /* Function at 0x0020E7B0 - 0x0020E7FC */
-int MDEC_QueueReadRequest()
+u32 MDEC_QueueReadRequest(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, s0;
-    ret = MDEC_FindFreeSlot(a0, a1, a2, a3);
+    u32 ret, v1, a0, a1, a2, a3, s0;
+    ret = MDEC_FindFreeSlot();
     s0 = ret;
     ret = 4;
     v1 = 1;
-    *(u32*)*(s0 + 0xc) = ret;
-    *(u32*)*(s0 + 0x10) = v1;
-    *(u32*)*(s0 + 4) = 0;
-    ret = MDEC_FlushPending(a0, a1, a2, a3);
+    *(u32*)(s0 + 0xc) = ret;
+    *(u32*)(s0 + 0x10) = v1;
+    *(u32*)(s0 + 4) = 0;
+    ret = MDEC_FlushPending();
     a0 = s0;
-    return MDEC_SubmitRequest(a0, a1, a2, a3);
+    return MDEC_SubmitRequest(a0);
 }
 
 /* Function at 0x0020E7FC - 0x0020EA68 */
-int MDEC_HandleSectorRequest()
+u32 MDEC_HandleSectorRequest(u32 a0)
 {
     /* Stack frame: 48 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3;
+    u32 ret, v1, a1, a2, a3, s0, s1, s2, s3;
     s0 = a0;
     s1 = 1;
     if (ret != 0) {
         a1 = s0;
         a0 = 0x0020E7F8;
-        goto loc_20E5A0;
+        return MDEC_CopySectorData(a0, a1);
     }
-    ret = CDROM_IsSectorCached(a0, a1, a2, a3);
-    s3 = 0x005A0000;
+    ret = CDROM_IsSectorCached(a0);
+    s3 = 0x005A0000;  /* SUBSYS_DATA_BASE: Subsystem data (CDROM/MDEC/serial) */
     if (ret == 0) {
         a2 = s0;
         a1 = 0x0020E7F8;
-        a0 = 0 | 0x844c;
+        a0 = 0x844c;
         goto loc_20EA40;
     }
     s0 = s3 + -0x3e00;
-    ret = *(u8*)*(s0 + 1);
-    a0 = *(u32*)*(s0 + 4);
+    ret = *(u8*)(s0 + 1);
+    a0 = *(u32*)(s0 + 4);
     ret = ret | 0x20;
-    *(u8*)*(s0 + 1) = ret;
-    ret = CDROM_GetSectorPtr(a0, a1, a2, a3);
+    *(u8*)(s0 + 1) = ret;
+    ret = CDROM_GetSectorPtr(a0);
     s2 = ret;
     v1 = *(u32*)(s2);
     if (s2 == 0) {
-        ret = MDEC_FindFreeSlot(a0, a1, a2, a3);
+        ret = MDEC_FindFreeSlot();
         g_mdec_state5 = 0;
         v1 = 5;
-        *(u32*)*(ret + 0x10) = s1;
+        *(u32*)(ret + 0x10) = s1;
         a0 = ret;
-        *(u32*)*(ret + 0xc) = v1;
-        *(u32*)*(ret + 4) = 0;
-        return MDEC_SubmitRequest(a0, a1, a2, a3);
+        *(u32*)(ret + 0xc) = v1;
+        *(u32*)(ret + 4) = 0;
+        return MDEC_SubmitRequest(a0);
     }
     ret = -0x100;
-    if (likely(v1 != ret)) goto loc_20EA50;
-    v1 = *(u32*)*(s2 + 4);
-    if (likely(v1 != -1)) goto loc_20EA50;
-    v1 = *(u32*)*(s2 + 8);
-    if (likely(v1 != 0x00FFFFFF)) goto loc_20EA50;
+    if (v1 != ret) goto loc_20EA50;
+    if ((*(u32*)(s2 + 4)) != -1) goto loc_20EA50;
+    if ((*(u32*)(s2 + 8)) != 0x00FFFFFF) goto loc_20EA50;
     ret = LOAD_WORD_LEFT(*(s2 + 0xf));
     ret = LOAD_WORD_RIGHT(*(s2 + 0xc));
     STORE_WORD_LEFT(*(s0 + 0x23), ret);
     STORE_WORD_RIGHT(*(s0 + 0x20), ret);
     a0 = s2 + 0x10;
-    ret = *(u8*)*(a0 + 2);
     ret = ret & 4;
     if (ret == 0) goto loc_20E97C;
     v1 = *(u8*)(s0);
-    ret = v1 & 0x40;
     ret = v1 & 8;
     if (ret == 0) goto loc_20E97C;
     a1 = 1;
     s1 = 0;
     if (ret == 0) goto loc_20E960;
-    v1 = *(u8*)*(a0 + 1);
-    ret = *(u8*)*(s0 + 3);
+    v1 = *(u8*)(a0 + 1);
+    ret = *(u8*)(s0 + 3);
     a1 = 0;
-    if (likely(v1 != ret)) goto loc_20E960;
+    if (v1 != ret) goto loc_20E960;
     v1 = *(u8*)(a0);
-    ret = *(u8*)*(s0 + 2);
+    ret = *(u8*)(s0 + 2);
     a1 = 0;
-    if (likely(v1 != ret)) goto loc_20E960;
+    if (v1 != ret) goto loc_20E960;
 loc_20E960:
     ret = s3 + -0x3e00;
     if (a1 == 0) goto loc_20E97C;
-    v1 = *(u32*)*(ret + 0x14);
-    if (v1 != 0) goto loc_20E97C;
+    if ((*(u32*)(ret + 0x14)) != 0) goto loc_20E97C;  /* PSX: gpr[1]/$at */
     a0 = s2;
-    ret = CDROM_CompleteRead(a0, a1, a2, a3);
+    ret = CDROM_CompleteRead();
 loc_20E97C:
     s0 = s3 + -0x3e00;
     if (s1 != 0) {
-        ret = MDEC_FindFreeSlot(a0, a1, a2, a3);
+        ret = MDEC_FindFreeSlot();
         s0 = 0x0059C228;
         s1 = ret;
-        a0 = *(u32*)*(s0 + 0x1264);
+        a0 = *(u32*)(s0 + 0x1264);
         ret = 0x930;
         a1 = s2;
         a2 = 0x930;
         ac3 = (s32)((s64)a0 * (s64)ret); HI_LO = (s64)a0 * (s64)ret;
         a0 = v1 + s0;
-        ret = Compiler_MemoryCopy(a0, a1, a2, a3);
-        ret = *(u32*)*(s0 + 0x1264);
-        v1 = *(u32*)*(s0 + 0x1260);
+        ret = Compiler_MemoryCopy(a0, a1, a2);
+        ret = *(u32*)(s0 + 0x1264);
+        v1 = *(u32*)(s0 + 0x1260);
         a1 = 1;
         ret = ret + 1;
-        *(u32*)*(s1 + 4) = 0;
+        *(u32*)(s1 + 4) = 0;
         ret = ret & 1;
-        v1 = v1 + 1;
-        *(u32*)*(s0 + 0x1260) = v1;
+        *(u32*)(s0 + 0x1260) = v1 + 1;
         a0 = s1;
-        *(u32*)*(s0 + 0x1264) = ret;
-        *(u32*)*(s1 + 0x10) = a1;
-        *(u32*)*(s1 + 0xc) = a1;
-        ret = MDEC_SubmitRequest(a0, a1, a2, a3);
+        *(u32*)(s0 + 0x1264) = ret;
+        *(u32*)(s1 + 0x10) = a1;
+        *(u32*)(s1 + 0xc) = a1;
+        ret = MDEC_SubmitRequest(a0);
         v1 = __gp + -0x7788;
-        ret = *(u8*)(v1);
         ret = ret | 0x40;
         *(u8*)(v1) = ret;
         s0 = s3 + -0x3e00;
     }
-    ret = *(u32*)*(s0 + 4);
     ret = ret + 1;
-    *(u32*)*(s0 + 4) = ret;
+    *(u32*)(s0 + 4) = ret;
     a0 = ret;
-    ret = CDROM_RequestSector(a0, a1, a2, a3);
+    ret = CDROM_RequestSector(a0);
     v1 = *(u8*)(s0);
     a2 = 0x3415;
     a0 = 0x1a0b;
     v1 = v1 & 0x80;
-    a1 = 0 | 0x844c;
-    __asm("movz a0, a2, v1");
+    a1 = 0x844c;
+    if (v1 == 0) a0 = a2;
     a2 = ret;
     a0 = (s32)((s64)a0 * (s64)a1); HI_LO = (s64)a0 * (s64)a1;
     a3 = 0x3e8;
     a1 = 0x0020E7F8;
-    __asm("divu zero, a0, a3");
-    a0 = LO;
+    a0 = (unsigned)a0 / (unsigned)a3;
 loc_20EA40:
-    ret = PSX_GetEventTimeout(a0, a1, a2, a3);
+    ret = PSX_GetEventTimeout();
     g_mdec_state5 = ret;
 loc_20EA50:
     return ret;
 }
 
 /* Function at 0x0020EA68 - 0x0020ECE8 */
-int MDEC_ProcessCdSector()
+u32 MDEC_ProcessCdSector(u32 a0)
 {
     /* Stack frame: 80 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3;
+    u32 ret, v1, a1, a2, a3, s0, s1, s2, s3;
     s1 = a0;
-    s3 = 0x005A0000;
+    s3 = 0x005A0000;  /* SUBSYS_DATA_BASE: Subsystem data (CDROM/MDEC/serial) */
     s0 = s3 + -0x3e00;
-    a0 = *(u32*)*(s0 + 0x24);
-    a1 = *(u32*)*(s0 + 4);
-    ret = CDROM_FindTrack(a0, a1, a2, a3);
+    a0 = *(u32*)(s0 + 0x24);  /* PSX: gpr[5]/$a1 */
+    a1 = *(u32*)(s0 + 4);
+    ret = CDROM_FindTrack(a0, a1);
     a0 = s1;
     s2 = ret;
-    ret = CDROM_IsSectorCached(a0, a1, a2, a3);
-    ret = *(u32*)*(s0 + 0x14);
-    if (ret == 0) {
+    ret = CDROM_IsSectorCached(a0);
+    if ((*(u32*)(s0 + 0x14)) == 0) {  /* PSX: gpr[1]/$at */
         a2 = s1;
-        a1 = 0x0020EA68;
-        a0 = 0 | 0x844c;
+        a1 = (u32)MDEC_ProcessCdSector;
+        a0 = 0x844c;
     } else {
         s0 = s3 + -0x3e00;
-        if (likely(ret != 0)) goto loc_20EB00;
-        ret = *(u8*)(s0);
-        ret = ret & 1;
+        if (ret != 0) goto loc_20EB00;
         ret = ret & 0xff;
-        if (1 != 0) {
-            s0 = s3 + -0x3e00;
-            if (likely(s2 == ret)) goto loc_20EB00;
-            a0 = *(u32*)*(s0 + 4);
-            ret = CDROM_GetSectorPtr(a0, a1, a2, a3);
-            s0 = s3 + -0x3e00;
-            if (likely(ret == 0)) goto loc_20EB00;
-            a0 = ret;
-            ret = CDROM_TransferAudio(a0, a1, a2, a3);
-        }
+        s0 = s3 + -0x3e00;
+        if (s2 == ret) goto loc_20EB00;
+        a0 = *(u32*)(s0 + 4);
+        ret = CDROM_GetSectorPtr(a0);
+        s0 = s3 + -0x3e00;
+        if (ret == 0) goto loc_20EB00;
+        a0 = ret;
+        ret = CDROM_TransferAudio(a0);
         s0 = s3 + -0x3e00;
         loc_20EB00:
         v1 = g_cdrom_dma_flag;
-        ret = *(u8*)*(s0 + 1);
-        a0 = *(u32*)*(s0 + 4);
-        ret = ret & 0xbf;
+        ret = *(u8*)(s0 + 1);
+        a0 = *(u32*)(s0 + 4);
         ret = ret | 0x80;
         v1 = ((unsigned)a0 < (unsigned)v1) ? 1 : 0;
-        *(u8*)*(s0 + 1) = ret;
+        *(u8*)(s0 + 1) = ret;
         if (v1 == 0) {
-            ret = MDEC_QueueReadRequest(a0, a1, a2, a3);
-            ret = *(u8*)(s0);
-            ret = ret & 2;
-            if (likely(ret != 0)) goto loc_20ECD0;
-            v1 = *(u8*)*(s0 + 1);
-            *(u32*)*(s0 + 0x14) = 1;
+            ret = MDEC_QueueReadRequest();
+            if ((ret & 2) != 0) goto loc_20ECD0;
+            v1 = *(u8*)(s0 + 1);
+            *(u32*)(s0 + 0x14) = 1;
             v1 = v1 & 0xfd;
-            *(u32*)*(s0 + 8) = 0;
-            *(u8*)*(s0 + 1) = v1;
-            *(u32*)*(s0 + 4) = 0;
+            *(u32*)(s0 + 8) = 0;
+            *(u8*)(s0 + 1) = v1;
+            *(u32*)(s0 + 4) = 0;
         } else {
-            ret = *(u32*)*(s0 + 0xc);
-            ret = ret + 0x4b;
-            ret = ((unsigned)ret < (unsigned)a0) ? 1 : 0;
             ret = s3 + -0x3e00;
             if (ret == 0) goto loc_20EC98;
             v1 = 0x4b;
-            ret = *(u32*)*(s0 + 0x10);
-            __asm("divu zero, a0, v1");
-            v1 = HI;
+            ret = *(u32*)(s0 + 0x10);  /* PSX: gpr[0]/$zero */
+            v1 = (unsigned)a0 % (unsigned)v1;
             a0 = 0;
             if (s2 == ret) goto loc_20EBA8;
             ret = *(u8*)(s0);
             a0 = 1;
             ret = ret & 2;
-            *(u32*)*(s0 + 0x10) = s2;
+            *(u32*)(s0 + 0x10) = s2;
             if (ret == 0) goto loc_20EBA8;
-            ret = MDEC_QueueReadRequest(a0, a1, a2, a3);
+            ret = MDEC_QueueReadRequest();
             goto loc_20ECD0;
             loc_20EBA8:
             s1 = s3 + -0x3e00;
-            ret = *(u8*)(s1);
             ret = ret & 4;
-            if (0xa == 0) goto loc_20EC94;
-            __asm("divu zero, v1, v0");
-            v1 = HI;
-            s2 = LO;
+            v1 = (unsigned)v1 % (unsigned)ret;
+            s2 = (unsigned)v1 / (unsigned)ret;
             if (v1 != 0) {
                 ret = s3 + -0x3e00;
                 if (a0 == 0) goto loc_20EC98;
             }
-            ret = MDEC_FindFreeSlot(a0, a1, a2, a3);
+            ret = MDEC_FindFreeSlot();
             v1 = 8;
             s0 = ret;
-            *(u32*)*(s0 + 0xc) = 1;
+            *(u32*)(s0 + 0xc) = 1;
             a0 = s2 & 1;
-            *(u32*)*(s0 + 0x10) = v1;
-            *(u32*)*(s0 + 4) = 0;
-            ret = *(u8*)*(s1 + 0x10);
-            *(u8*)*(s0 + 0x19) = ret;
-            v1 = *(u8*)*(s1 + 0x10);
-            *(u8*)*(s0 + 0x1a) = v1;
+            *(u32*)(s0 + 0x10) = v1;
+            *(u32*)(s0 + 4) = 0;
+            *(u8*)(s0 + 0x19) = *(u8*)(s1 + 0x10);
+            v1 = *(u8*)(s1 + 0x10);  /* PSX: gpr[0]/$zero */
+            *(u8*)(s0 + 0x1a) = v1;
             if (a0 != 0) {
-                v1 = *(u32*)*(s1 + 0x10);
-                a0 = *(u32*)*(s1 + 0x24);
-                ret = v1 << 2;
-                ret = ret + v1;
+                v1 = *(u32*)(s1 + 0x10);  /* PSX: gpr[0]/$zero */
+                a0 = *(u32*)(s1 + 0x24);  /* PSX: gpr[5]/$a1 */
                 ret = ret << 1;
                 a0 = a0 + ret;
                 a0 = a0 + 0x1b;
-                ret = CDROM_BcdToSector(a0, a1, a2, a3);
-                a0 = *(u32*)*(s1 + 4);
+                ret = CDROM_BcdToSector(a0);
+                a0 = *(u32*)(s1 + 4);
                 a1 = ret;
                 a2 = __sp;
-                ret = MDEC_SectorDiffToMSF(a0, a1, a2, a3);
-                v1 = *(u8*)(sp);
-                *(u8*)*(s0 + 0x1b) = v1;
-                ret = *(u8*)*(__sp + 1);
-                ret = ret | 0x80;
-                *(u8*)*(s0 + 0x1c) = ret;
-                v1 = *(u8*)*(__sp + 2);
-                *(u8*)*(s0 + 0x1d) = v1;
+                ret = MDEC_SectorDiffToMSF(a0, a1, a2);
+                *(u8*)(s0 + 0x1b) = *(u8*)(__sp);
+                *(u8*)(s0 + 0x1c) = ret | 0x80;
+                *(u8*)(s0 + 0x1d) = *(u8*)(__sp + 2);
                 goto loc_20EC84;
             }
-            a0 = *(u32*)*(s1 + 4);
+            a0 = *(u32*)(s1 + 4);
             a1 = __sp + 0x10;
-            ret = MDEC_SectorToMSF(a0, a1, a2, a3);
-            ret = *(u8*)*(__sp + 0x10);
-            *(u8*)*(s0 + 0x1b) = ret;
-            v1 = *(u8*)*(__sp + 0x11);
-            *(u8*)*(s0 + 0x1c) = v1;
-            ret = *(u8*)*(__sp + 0x12);
-            *(u8*)*(s0 + 0x1d) = ret;
+            ret = MDEC_SectorToMSF(a0, a1);
+            *(u8*)(s0 + 0x1b) = *(u8*)(__sp + 0x10);
+            *(u8*)(s0 + 0x1c) = *(u8*)(__sp + 0x11);
+            *(u8*)(s0 + 0x1d) = *(u8*)(__sp + 0x12);
             loc_20EC84:
-            *(u8*)*(s0 + 0x1e) = 0;
+            *(u8*)(s0 + 0x1e) = 0;
             a0 = s0;
-            *(u8*)*(s0 + 0x1f) = 0;
-            ret = MDEC_SubmitRequest(a0, a1, a2, a3);
+            *(u8*)(s0 + 0x1f) = 0;
+            ret = MDEC_SubmitRequest(a0);
             loc_20EC94:
             ret = s3 + -0x3e00;
             loc_20EC98:
-            v1 = *(u32*)*(ret + 4);
             v1 = v1 + 1;
-            *(u32*)*(ret + 4) = v1;
+            *(u32*)(ret + 4) = v1;
             a0 = v1;
-            ret = CDROM_RequestSector(a0, a1, a2, a3);
+            ret = CDROM_RequestSector(a0);
             a0 = 6 << 16;
-            a1 = 0x0020EA68;
+            a1 = (u32)MDEC_ProcessCdSector;
             a2 = ret;
             a0 = 0x0006E3EA;
             }
-            ret = PSX_GetEventTimeout(a0, a1, a2, a3);
+            ret = PSX_GetEventTimeout();
             g_mdec_state6 = ret;
         }
 loc_20ECD0:
@@ -668,52 +608,48 @@ loc_20ECD0:
 }
 
 /* Function at 0x0020ECE8 - 0x0020ED50 */
-int MDEC_AllocateResponse()
+u32 MDEC_AllocateResponse(u32 a0)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1;
+    u32 ret, v1, a1, a2, a3, s0, s1;
     s1 = a0;
-    ret = MDEC_FindFreeSlot(a0, a1, a2, a3);
-    s0 = ret;
+    s0 = MDEC_FindFreeSlot();
     a2 = s0;
-    a1 = 0x0020E6A0;
+    a1 = (u32)MDEC_SetupDataTransfer;
     a0 = 0x4226;
     if (s0 != 0) {
-        ret = PSX_GetEventTimeout(a0, a1, a2, a3);
-        a0 = 0x005A0000;
+        PSX_GetEventTimeout();
+        a0 = 0x005A0000;  /* SUBSYS_DATA_BASE: Subsystem data (CDROM/MDEC/serial) */
         *(u32*)(s0) = ret;
         ret = s0 + 0x18;
-        *(u32*)*(s0 + 0x10) = s1;
-        v1 = *(u8*)*(a0 + -0x3dff);
-        *(u8*)*(s0 + 0x18) = v1;
+        *(u32*)(s0 + 0x10) = s1;
+        *(u8*)(s0 + 0x18) = *(u8*)(a0 + -0x3dff);
     }
     return ret;
 }
 
 /* Function at 0x0020ED50 - 0x0020EDD8 */
-int MDEC_ScheduleIRQ()
+u32 MDEC_ScheduleIRQ(u32 a0, u32 a1)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2;
+    u32 ret, v1, a2, a3, s0, s1, s2;
     s0 = a1;
     s0 = s0 + 0x1f4;
     s2 = a0;
-    ret = MDEC_FindFreeSlot(a0, a1, a2, a3);
-    s1 = ret;
-    v1 = 0 | 0x844c;
+    s1 = MDEC_FindFreeSlot();
+    v1 = 0x844c;
     a0 = (s32)((s64)s0 * (s64)v1); HI_LO = (s64)s0 * (s64)v1;
-    a1 = 0x0020E718;
+    a1 = (u32)MDEC_SubmitRequest;
     a2 = s1;
     if (s1 != 0) {
         s0 = 0x3e8;
-        __asm("divu zero, a0, s0");
-        a0 = LO;
-        ret = PSX_GetEventTimeout(a0, a1, a2, a3);
-        *(u32*)*(s1 + 4) = 0;
+        a0 = (unsigned)a0 / (unsigned)s0;
+        PSX_GetEventTimeout();
+        *(u32*)(s1 + 4) = 0;
         v1 = 2;
-        *(u32*)*(s1 + 0x10) = s2;
-        *(u32*)*(s1 + 0xc) = v1;
-        *(u32*)*(s1 + 8) = s0;
+        *(u32*)(s1 + 0x10) = s2;
+        *(u32*)(s1 + 0xc) = v1;
+        *(u32*)(s1 + 8) = s0;
         *(u32*)(s1) = ret;
         ret = s1 + 0x18;
     }
@@ -721,329 +657,319 @@ int MDEC_ScheduleIRQ()
 }
 
 /* Function at 0x0020EDD8 - 0x0020EE60 */
-int MDEC_CmdResetAndPlay()
+u32 MDEC_CmdResetAndPlay(u32 a0)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1;
+    u32 ret, v1, a1, a2, a3, s0, s1;
     s0 = a0;
     s1 = 1;
-    ret = MDEC_FlushPending(a0, a1, a2, a3);
-    ret = MDEC_ResetState(a0, a1, a2, a3);
+    ret = MDEC_FlushPending();
+    ret = MDEC_ResetState();
     v1 = __gp + -0x7788;
     a0 = 1;
     if (s0 != s1) {
-        ret = *(u8*)(v1);
         ret = ret | 0x80;
         *(u8*)(v1) = ret;
     }
-    ret = MDEC_AllocateResponse(a0, a1, a2, a3);
+    ret = MDEC_AllocateResponse(a0);
     v1 = 0x7530;
     a1 = 0x3e8;
     a0 = 1;
-    __asm("movn a1, v1, s0");
+    if (s0 != 0) a1 = v1;
     if (s0 != s1) {
-        return MDEC_ScheduleIRQ(a0, a1, a2, a3);
+        return MDEC_ScheduleIRQ(a0, a1);
     }
     return ret;
 }
 
 /* Function at 0x0020EE60 - 0x0020EF60 */
-int MDEC_CmdStartRead()
+u32 MDEC_CmdStartRead(u32 a0)
 {
     /* Stack frame: 32 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2;
+    u32 ret, v1, a1, a2, a3, s0, s1, s2;
     s1 = a0;
-    s2 = 0x005A0000;
+    s2 = 0x005A0000;  /* SUBSYS_DATA_BASE: Subsystem data (CDROM/MDEC/serial) */
     a0 = 1;
-    ret = MDEC_AllocateResponse(a0, a1, a2, a3);
+    ret = MDEC_AllocateResponse(a0);
     s0 = 0x1bff;
-    ret = MDEC_FlushPending(a0, a1, a2, a3);
-    v1 = 0x005A0000;
+    ret = MDEC_FlushPending();
+    v1 = 0x005A0000;  /* SUBSYS_DATA_BASE: Subsystem data (CDROM/MDEC/serial) */
     a1 = s2 + -0x3e00;
     a2 = v1 + -0x3dd8;
-    ret = *(u8*)*(a1 + 1);
-    a0 = *(u32*)*(a1 + 8);
+    ret = *(u8*)(a1 + 1);
+    a0 = *(u32*)(a1 + 8);
     ret = ret | 0x42;
-    *(u8*)*(a1 + 1) = ret;
+    *(u8*)(a1 + 1) = ret;
     if (a0 != 0) {
-        v1 = *(u32*)*(a1 + 4);
-        ret = 0 | 0x8aac;
-        *(u32*)*(a1 + 8) = 0;
+        v1 = *(u32*)(a1 + 4);
+        ret = 0x8aac;
+        *(u32*)(a1 + 8) = 0;
         v1 = v1 ^ a0;
-        *(u32*)*(a1 + 4) = a0;
-        __asm("movn s0, v0, v1");
+        *(u32*)(a1 + 4) = a0;
+        if (v1 != 0) s0 = ret;
     }
     ret = g_mdec_state2;
-    *(u32*)*(a1 + 0x14) = 0;
-    *(u32*)*(a2 + 0x1260) = 0;
-    *(u32*)*(a2 + 0x1268) = 0;
-    *(u32*)*(a2 + 0x1264) = 0;
-    *(u32*)*(a2 + 0x126c) = ret;
+    *(u32*)(a1 + 0x14) = 0;
+    *(u32*)(a2 + 0x1260) = 0;
+    *(u32*)(a2 + 0x1268) = 0;
+    *(u32*)(a2 + 0x1264) = 0;
+    *(u32*)(a2 + 0x126c) = ret;
     if (s1 != 0) {
-        ret = *(u8*)(a1);
-        ret = ret & 0x40;
         ret = s2 + -0x3e00;
         if (ret != 0) {
-            ret = CDROM_ResetState(a0, a1, a2, a3);
+            ret = CDROM_ResetState();
             ret = __gp + -0x7784;
-            a3 = *(u8*)*(ret + 3);
-            a0 = *(u8*)(v0);
-            a1 = *(u8*)*(ret + 1);
-            a2 = *(u8*)*(ret + 2);
+            a3 = *(u8*)(ret + 3);
+            a0 = *(u8*)(ret);
+            a1 = *(u8*)(ret + 1);
+            a2 = *(u8*)(ret + 2);
             ret = CDROM_SetVolume(a0, a1, a2, a3);
             }
             ret = s2 + -0x3e00;
         }
-    a0 = *(u32*)*(ret + 4);
-    ret = CDROM_RequestSector(a0, a1, a2, a3);
-    a0 = 0 | 0x844c;
+    a0 = *(u32*)(ret + 4);
+    ret = CDROM_RequestSector(a0);
+    a0 = 0x844c;
     a0 = (s32)((s64)s0 * (s64)a0); HI_LO = (s64)s0 * (s64)a0;
     v1 = 0x3e8;
     a2 = ret;
-    __asm("divu zero, a0, v1");
-    a0 = LO;
+    a0 = (unsigned)a0 / (unsigned)v1;
     a1 = 0x0020E7F8;
-    ret = PSX_GetEventTimeout(a0, a1, a2, a3);
+    ret = PSX_GetEventTimeout();
     g_mdec_state5 = ret;
     return ret;
 }
 
 /* Function at 0x0020EF60 - 0x0020EF78 */
-int MDEC_CmdNop()
+u32 MDEC_CmdNop(void)
 {
     /* Stack frame: 16 bytes */
-    int a0, a1, a2, a3;
+    u32 a0, a1, a2, a3;
     a0 = 1;
-    return MDEC_AllocateResponse(a0, a1, a2, a3);
+    return MDEC_AllocateResponse(a0);
 }
 
 /* Function at 0x0020EF78 - 0x0020F008 */
-int MDEC_CmdSetLocation()
+u32 MDEC_CmdSetLocation(void)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1;
+    u32 ret, v1, a0, a1, a2, a3, s0, s1;
     a0 = 1;
-    ret = MDEC_AllocateResponse(a0, a1, a2, a3);
-    s0 = 0x005A0000 + -0x3e00;
-    a1 = *(u8*)*(s0 + 0x1c);
+    ret = MDEC_AllocateResponse(a0);
+    s0 = 0x005A0000 + -0x3e00;  /* SUBSYS_DATA_BASE: Subsystem data (CDROM/MDEC/serial) */
+    a1 = *(u8*)(s0 + 0x1c);  /* PSX: gpr[3]/$v1 */
     s1 = s0 + 0x1c;
-    v1 = *(u8*)*(s0 + 0x1d);
-    ret = *(u8*)*(s0 + 0x1e);
+    v1 = *(u8*)(s0 + 0x1d);
+    ret = *(u8*)(s0 + 0x1e);
     a1 = a1 | v1;
     ret = ret | a1;
     a0 = s1;
     if (ret == 0) goto loc_20EFF0;
-    ret = CDROM_BcdToSector(a0, a1, a2, a3);
-    v1 = *(u32*)*(s0 + 8);
+    ret = CDROM_BcdToSector(a0);
+    v1 = *(u32*)(s0 + 8);
     a0 = s1;
     if (ret == v1) goto loc_20EFF0;
-    ret = CDROM_BcdToSector(a0, a1, a2, a3);
-    *(u32*)*(s0 + 8) = ret;
+    ret = CDROM_BcdToSector(a0);
+    *(u32*)(s0 + 8) = ret;
     a0 = ret;
-    return CDROM_SeekSector(a0, a1, a2, a3);
+    return CDROM_SeekSector(a0);
 loc_20EFF0:
     return ret;
 }
 
 /* Function at 0x0020F008 - 0x0020F120 */
-int MDEC_CmdPlayAudio()
+u32 MDEC_CmdPlayAudio(void)
 {
     /* Stack frame: 48 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1;
+    u32 ret, v1, a0, a1, a2, a3, s0, s1;
     a0 = 1;
-    s0 = 0x005A0000;
+    s0 = 0x005A0000;  /* SUBSYS_DATA_BASE: Subsystem data (CDROM/MDEC/serial) */
     s1 = s0 + -0x3e00;
-    ret = MDEC_AllocateResponse(a0, a1, a2, a3);
+    ret = MDEC_AllocateResponse(a0);
     s0 = s1;
-    ret = MDEC_FlushPending(a0, a1, a2, a3);
-    ret = *(u8*)*(s1 + 1);
-    v1 = *(u32*)*(s1 + 0x18);
+    ret = MDEC_FlushPending();
+    ret = *(u8*)(s1 + 1);
+    v1 = *(u32*)(s1 + 0x18);  /* PSX: gpr[2]/$v0 */
     ret = ret | 0x42;
-    *(u8*)*(s1 + 1) = ret;
+    *(u8*)(s1 + 1) = ret;
     if (v1 == 0) goto loc_20F088;
-    ret = *(u8*)*(s1 + 0x1c);
+    ret = *(u8*)(s1 + 0x1c);  /* PSX: gpr[3]/$v1 */
     a1 = ret;
     if (ret == 0) goto loc_20F088;
-    a0 = *(u32*)*(s1 + 0x24);
+    a0 = *(u32*)(s1 + 0x24);  /* PSX: gpr[5]/$a1 */
     v1 = (unsigned)a1 >> 4;
     a1 = a1 & 0xf;
-    ret = v1 << 2;
-    ret = ret + v1;
-    ret = ret << 1;
     ret = ret + a1;
-    v1 = ret << 2;
-    v1 = v1 + ret;
     v1 = v1 << 1;
     a0 = a0 + v1;
     a0 = a0 + 0x1b;
-    ret = CDROM_BcdToSector(a0, a1, a2, a3);
-    *(u32*)*(s1 + 8) = ret;
+    ret = CDROM_BcdToSector(a0);
+    *(u32*)(s1 + 8) = ret;
 loc_20F088:
-    ret = *(u32*)*(s0 + 8);
-    ret = *(u32*)*(s0 + 4);
+    ret = *(u32*)(s0 + 4);
     if (ret != 0) {
-        *(u32*)*(s0 + 8) = 0;
-        *(u32*)*(s0 + 4) = ret;
-        ret = *(u32*)*(s0 + 4);
+        *(u32*)(s0 + 8) = 0;
+        *(u32*)(s0 + 4) = ret;
+        ret = *(u32*)(s0 + 4);
     }
-    a0 = *(u32*)*(s0 + 0x24);
-    *(u32*)*(s0 + 0xc) = ret;
+    a0 = *(u32*)(s0 + 0x24);  /* PSX: gpr[5]/$a1 */
+    *(u32*)(s0 + 0xc) = ret;
     a1 = ret + 0x4b;
-    ret = CDROM_FindTrack(a0, a1, a2, a3);
-    a0 = *(u32*)*(s0 + 4);
-    *(u32*)*(s0 + 0x10) = ret;
+    ret = CDROM_FindTrack(a0, a1);
+    a0 = *(u32*)(s0 + 4);
+    *(u32*)(s0 + 0x10) = ret;
     a1 = __sp;
-    ret = MDEC_SectorToMSF(a0, a1, a2, a3);
-    ret = CDROM_ResetState(a0, a1, a2, a3);
+    ret = MDEC_SectorToMSF(a0, a1);
+    ret = CDROM_ResetState();
     ret = __gp + -0x7784;
-    a3 = *(u8*)*(ret + 3);
-    a1 = *(u8*)*(ret + 1);
-    a2 = *(u8*)*(ret + 2);
-    a0 = *(u8*)(v0);
+    a3 = *(u8*)(ret + 3);
+    a1 = *(u8*)(ret + 1);
+    a2 = *(u8*)(ret + 2);
+    a0 = *(u8*)(ret);
     ret = CDROM_SetVolume(a0, a1, a2, a3);
-    *(u32*)*(s0 + 0x14) = 0;
-    a0 = *(u32*)*(s0 + 4);
-    ret = CDROM_RequestSector(a0, a1, a2, a3);
+    *(u32*)(s0 + 0x14) = 0;
+    a0 = *(u32*)(s0 + 4);
+    ret = CDROM_RequestSector(a0);
     a0 = 7 << 16;
-    a1 = 0x0020EA68;
+    a1 = (u32)MDEC_ProcessCdSector;
     a2 = ret;
     a0 = 0x00072610;
-    ret = PSX_GetEventTimeout(a0, a1, a2, a3);
+    ret = PSX_GetEventTimeout();
     g_mdec_state6 = ret;
     return ret;
 }
 
 /* Function at 0x0020F120 - 0x0020F140 */
-int MDEC_CmdForward()
+u32 MDEC_CmdForward(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
+    u32 ret, a0, a1, a2, a3;
     a0 = 1;
-    ret = MDEC_AllocateResponse(a0, a1, a2, a3);
-    return MDEC_FlushPending(a0, a1, a2, a3);
+    ret = MDEC_AllocateResponse(a0);
+    return MDEC_FlushPending();
 }
 
 /* Function at 0x0020F140 - 0x0020F160 */
-int MDEC_CmdBackward()
+u32 MDEC_CmdBackward(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
+    u32 ret, a0, a1, a2, a3;
     a0 = 1;
-    ret = MDEC_AllocateResponse(a0, a1, a2, a3);
-    return MDEC_FlushPending(a0, a1, a2, a3);
+    ret = MDEC_AllocateResponse(a0);
+    return MDEC_FlushPending();
 }
 
 /* Function at 0x0020F160 - 0x0020F178 */
-int MDEC_CmdReadN()
+u32 MDEC_CmdReadN(void)
 {
     /* Stack frame: 16 bytes */
-    int a0, a1, a2, a3;
+    u32 a0, a1, a2, a3;
     a0 = 0;
-    return MDEC_CmdStartRead(a0, a1, a2, a3);
+    return MDEC_CmdStartRead(a0);
 }
 
 /* Function at 0x0020F178 - 0x0020F1A8 */
-int MDEC_CmdStandby()
+u32 MDEC_CmdStandby(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
+    u32 ret, a0, a1, a2, a3;
     a0 = 1;
-    ret = MDEC_AllocateResponse(a0, a1, a2, a3);
-    ret = MDEC_FlushPending(a0, a1, a2, a3);
+    ret = MDEC_AllocateResponse(a0);
+    ret = MDEC_FlushPending();
     a0 = 1;
     a1 = 0x3e8;
-    return MDEC_ScheduleIRQ(a0, a1, a2, a3);
+    return MDEC_ScheduleIRQ(a0, a1);
 }
 
 /* Function at 0x0020F1A8 - 0x0020F1F8 */
-int MDEC_CmdStop()
+u32 MDEC_CmdStop(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1, a0, a1, a2, a3;
     a0 = 1;
-    ret = MDEC_AllocateResponse(a0, a1, a2, a3);
-    ret = MDEC_FlushPending(a0, a1, a2, a3);
-    v1 = *(u8*)*(0x0059C200 + 1);
+    ret = MDEC_AllocateResponse(a0);
+    ret = MDEC_FlushPending();
+    v1 = *(u8*)(0x0059C200 + 1);
     a2 = 1;
     a0 = 1;
     a1 = 0x3e8;
     v1 = v1 & 0xfd;
-    *(u32*)*(ret + 0x14) = a2;
-    *(u32*)*(ret + 8) = 0;
-    *(u8*)*(ret + 1) = v1;
-    *(u32*)*(ret + 4) = 0;
-    return MDEC_ScheduleIRQ(a0, a1, a2, a3);
+    *(u32*)(ret + 0x14) = a2;
+    *(u32*)(ret + 8) = 0;
+    *(u8*)(ret + 1) = v1;
+    *(u32*)(ret + 4) = 0;
+    return MDEC_ScheduleIRQ(a0, a1);
 }
 
 /* Function at 0x0020F1F8 - 0x0020F230 */
-int MDEC_CmdPause()
+u32 MDEC_CmdPause(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1, a0, a1, a2, a3;
     a0 = 1;
-    ret = MDEC_AllocateResponse(a0, a1, a2, a3);
-    ret = MDEC_FlushPending(a0, a1, a2, a3);
-    v1 = 0x005A0000;
+    ret = MDEC_AllocateResponse(a0);
+    ret = MDEC_FlushPending();
+    v1 = 0x005A0000;  /* SUBSYS_DATA_BASE: Subsystem data (CDROM/MDEC/serial) */
     ret = 1;
     a0 = 1;
-    a1 = 0 | 0x88b8;
-    *(u32*)*(v1 + -0x3dec) = ret;
-    return MDEC_ScheduleIRQ(a0, a1, a2, a3);
+    a1 = 0x88b8;
+    *(u32*)(v1 + -0x3dec) = ret;
+    return MDEC_ScheduleIRQ(a0, a1);
 }
 
 /* Function at 0x0020F230 - 0x0020F248 */
-int MDEC_CmdInit()
+u32 MDEC_CmdInit(void)
 {
     /* Stack frame: 16 bytes */
-    int a0, a1, a2, a3;
+    u32 a0, a1, a2, a3;
     a0 = 0;
-    return MDEC_CmdResetAndPlay(a0, a1, a2, a3);
+    return MDEC_CmdResetAndPlay(a0);
 }
 
 /* Function at 0x0020F248 - 0x0020F270 */
-int MDEC_CmdDemute()
+u32 MDEC_CmdDemute(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
+    u32 ret, a0, a1, a2, a3;
     a0 = 1;
-    ret = MDEC_AllocateResponse(a0, a1, a2, a3);
-    *(u32*)*(0x005A0000 + -0x3dec) = 1;
+    ret = MDEC_AllocateResponse(a0);
+    *(u32*)(0x005A0000 + -0x3dec) = 1;
     return ret;
 }
 
 /* Function at 0x0020F270 - 0x0020F298 */
-int MDEC_CmdMute()
+u32 MDEC_CmdMute(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
+    u32 ret, a0, a1, a2, a3;
     a0 = 1;
-    ret = MDEC_AllocateResponse(a0, a1, a2, a3);
-    *(u32*)*(0x005A0000 + -0x3dec) = 0;
+    ret = MDEC_AllocateResponse(a0);
+    *(u32*)(0x005A0000 + -0x3dec) = 0;
     return ret;
 }
 
 /* Function at 0x0020F298 - 0x0020F2D0 */
-int MDEC_CmdSetFilter()
+u32 MDEC_CmdSetFilter(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1, a0, a1, a2, a3;
     a0 = 1;
-    ret = MDEC_AllocateResponse(a0, a1, a2, a3);
-    ret = *(u8*)*(0x0059C200 + 0x1c);
-    a0 = *(u8*)*(v1 + 0x1d);
-    *(u8*)*(v1 + 2) = ret;
-    *(u8*)*(v1 + 3) = a0;
+    ret = MDEC_AllocateResponse(a0);
+    ret = *(u8*)(0x0059C200 + 0x1c);  /* PSX: gpr[3]/$v1 */
+    a0 = *(u8*)(v1 + 0x1d);
+    *(u8*)(v1 + 2) = ret;
+    *(u8*)(v1 + 3) = a0;
     return ret;
 }
 
 /* Function at 0x0020F2D0 - 0x0020F318 */
-int MDEC_CmdSetMode()
+u32 MDEC_CmdSetMode(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1, a0, a1, a2, a3;
     a0 = 1;
-    ret = MDEC_AllocateResponse(a0, a1, a2, a3);
-    ret = *(u8*)*(0x0059C200 + 0x1c);
+    ret = MDEC_AllocateResponse(a0);
+    ret = *(u8*)(0x0059C200 + 0x1c);  /* PSX: gpr[3]/$v1 */
     a0 = ret & 0x20;
     *(u8*)(v1) = ret;
     if (a0 != 0) {
@@ -1056,107 +982,101 @@ int MDEC_CmdSetMode()
 }
 
 /* Function at 0x0020F318 - 0x0020F358 */
-int MDEC_CmdGetParam()
+u32 MDEC_CmdGetParam(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1, a0, a1, a2, a3;
     a0 = 5;
-    ret = MDEC_AllocateResponse(a0, a1, a2, a3);
+    ret = MDEC_AllocateResponse(a0);
     a1 = 0x0059C200;
     a0 = *(u8*)(a1);
-    *(u8*)*(ret + 2) = 0;
-    *(u8*)*(ret + 1) = a0;
-    v1 = *(u8*)*(a1 + 2);
-    *(u8*)*(ret + 3) = v1;
-    a0 = *(u8*)*(a1 + 3);
-    *(u8*)*(ret + 4) = a0;
+    *(u8*)(ret + 2) = 0;
+    *(u8*)(ret + 1) = a0;
+    *(u8*)(ret + 3) = *(u8*)(a1 + 2);
+    a0 = *(u8*)(a1 + 3);
+    *(u8*)(ret + 4) = a0;
     return ret;
 }
 
 /* Function at 0x0020F358 - 0x0020F388 */
-int MDEC_CmdGetLocL()
+u32 MDEC_CmdGetLocL(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
+    u32 ret, a0, a1, a2, a3;
     a0 = 8;
-    ret = MDEC_AllocateResponse(a0, a1, a2, a3);
-    a0 = ret;
+    a0 = MDEC_AllocateResponse(a0);
     a1 = 0x0059C220;
     a2 = 8;
-    return Compiler_MemoryCopy(a0, a1, a2, a3);
+    return Compiler_MemoryCopy(a0, a1, a2);
 }
 
 /* Function at 0x0020F388 - 0x0020F458 */
-int MDEC_CmdGetLocP()
+u32 MDEC_CmdGetLocP(void)
 {
     /* Stack frame: 80 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3;
+    u32 ret, v1, a0, a1, a2, a3, s0, s1, s2, s3;
     a0 = 8;
     s0 = 0x0059C200;
-    ret = MDEC_AllocateResponse(a0, a1, a2, a3);
-    a0 = *(u32*)*(s0 + 0x24);
+    ret = MDEC_AllocateResponse(a0);
+    a0 = *(u32*)(s0 + 0x24);  /* PSX: gpr[5]/$a1 */
     s2 = ret;
-    a1 = *(u32*)*(s0 + 4);
-    ret = CDROM_FindTrack(a0, a1, a2, a3);
-    s1 = *(u32*)*(s0 + 0x24);
+    a1 = *(u32*)(s0 + 4);
+    ret = CDROM_FindTrack(a0, a1);
+    s1 = *(u32*)(s0 + 0x24);  /* PSX: gpr[5]/$a1 */
     s3 = ret;
-    a0 = *(u32*)*(s0 + 4);
+    a0 = *(u32*)(s0 + 4);
     ret = s3 << 2;
     a1 = __sp;
-    ret = ret + s3;
     ret = ret << 1;
     s1 = s1 + ret;
-    ret = MDEC_SectorToMSF(a0, a1, a2, a3);
+    ret = MDEC_SectorToMSF(a0, a1);
     s1 = s1 + 0x1b;
     a0 = s1;
-    ret = CDROM_BcdToSector(a0, a1, a2, a3);
-    a0 = *(u32*)*(s0 + 4);
+    ret = CDROM_BcdToSector(a0);
+    a0 = *(u32*)(s0 + 4);
     a1 = ret;
     a2 = __sp + 0x10;
-    ret = MDEC_SectorDiffToMSF(a0, a1, a2, a3);
+    ret = MDEC_SectorDiffToMSF(a0, a1, a2);
     *(u8*)(s2) = s3;
-    *(u8*)*(s2 + 1) = 1;
-    v1 = *(u8*)*(__sp + 0x10);
-    *(u8*)*(s2 + 2) = v1;
-    ret = *(u8*)*(__sp + 0x11);
-    *(u8*)*(s2 + 3) = ret;
-    v1 = *(u8*)*(__sp + 0x12);
-    *(u8*)*(s2 + 4) = v1;
-    ret = *(u8*)(sp);
-    *(u8*)*(s2 + 5) = ret;
-    v1 = *(u8*)*(__sp + 1);
-    *(u8*)*(s2 + 6) = v1;
-    ret = *(u8*)*(__sp + 2);
-    *(u8*)*(s2 + 7) = ret;
+    *(u8*)(s2 + 1) = 1;
+    *(u8*)(s2 + 2) = *(u8*)(__sp + 0x10);
+    ret = *(u8*)(__sp + 0x11);
+    *(u8*)(s2 + 3) = ret;
+    *(u8*)(s2 + 4) = *(u8*)(__sp + 0x12);
+    ret = *(u8*)(__sp);
+    *(u8*)(s2 + 5) = ret;
+    *(u8*)(s2 + 6) = *(u8*)(__sp + 1);
+    ret = *(u8*)(__sp + 2);
+    *(u8*)(s2 + 7) = ret;
     return ret;
 }
 
 /* Function at 0x0020F458 - 0x0020F480 */
-int MDEC_CmdSeekL()
+u32 MDEC_CmdSeekL(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
+    u32 ret, a0, a1, a2, a3;
     a0 = 1;
-    ret = MDEC_AllocateResponse(a0, a1, a2, a3);
+    ret = MDEC_AllocateResponse(a0);
     a0 = 1;
     a1 = 0x3e8;
-    return MDEC_ScheduleIRQ(a0, a1, a2, a3);
+    return MDEC_ScheduleIRQ(a0, a1);
 }
 
 /* Function at 0x0020F480 - 0x0020F508 */
-int MDEC_CmdGetTN()
+u32 MDEC_CmdGetTN(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, t0, t1;
+    u32 ret, v1, a0, a1, a2, a3, t0, t1;
     a0 = 3;
-    ret = MDEC_AllocateResponse(a0, a1, a2, a3);
+    ret = MDEC_AllocateResponse(a0);
     v1 = 1;
-    a0 = 0x005A0000;
-    *(u8*)*(ret + 1) = v1;
+    a0 = 0x005A0000;  /* SUBSYS_DATA_BASE: Subsystem data (CDROM/MDEC/serial) */
+    *(u8*)(ret + 1) = v1;
     t1 = 0xa;
-    v1 = *(u32*)*(a0 + -0x3ddc);
-    a2 = *(u8*)*(v1 + 7);
-    a1 = *(u8*)*(v1 + 0x11);
+    v1 = *(u32*)(a0 + -0x3ddc);
+    a2 = *(u8*)(v1 + 7);
+    a1 = *(u8*)(v1 + 0x11);
     t0 = (unsigned)a2 >> 4;
     a2 = a2 & 0xf;
     a3 = (unsigned)a1 >> 4;
@@ -1164,172 +1084,157 @@ int MDEC_CmdGetTN()
     a0 = t0 << 2;
     v1 = a3 << 2;
     a0 = a0 + t0;
-    v1 = v1 + a3;
     v1 = v1 << 1;
     a0 = a0 << 1;
     a0 = a0 + a2;
-    v1 = v1 + a1;
-    v1 = v1 - a0;
-    v1 = v1 + 1;
-    __asm("divu zero, v1, t1");
-    v1 = LO;
-    a0 = HI;
-    v1 = v1 << 4;
-    v1 = v1 + a0;
-    *(u8*)*(ret + 2) = v1;
+    v1 = (unsigned)v1 / (unsigned)t1;
+    a0 = (unsigned)v1 % (unsigned)t1;
+    *(u8*)(ret + 2) = v1 + a0;
     return ret;
 }
 
 /* Function at 0x0020F508 - 0x0020F570 */
-int MDEC_CmdGetTD()
+u32 MDEC_CmdGetTD(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1, a0, a1, a2, a3;
     a0 = 3;
-    ret = MDEC_AllocateResponse(a0, a1, a2, a3);
-    a1 = *(u8*)*(0x0059C200 + 0x1c);
-    a2 = *(u32*)*(v1 + 0x24);
+    ret = MDEC_AllocateResponse(a0);
+    a1 = *(u8*)(0x0059C200 + 0x1c);  /* PSX: gpr[3]/$v1 */
+    a2 = *(u32*)(v1 + 0x24);  /* PSX: gpr[5]/$a1 */
     a0 = (unsigned)a1 >> 4;
     a1 = a1 & 0xf;
-    v1 = a0 << 2;
-    v1 = v1 + a0;
-    v1 = v1 << 1;
     v1 = v1 + a1;
     a0 = v1 << 2;
     a0 = a0 + v1;
     a0 = a0 << 1;
     a2 = a2 + a0;
     a2 = a2 + 0x1b;
-    v1 = *(u8*)(a2);
-    *(u8*)*(ret + 1) = v1;
-    a0 = *(u8*)*(a2 + 1);
-    *(u8*)*(ret + 2) = a0;
+    *(u8*)(ret + 1) = *(u8*)(a2);
+    a0 = *(u8*)(a2 + 1);
+    *(u8*)(ret + 2) = a0;
     return ret;
 }
 
 /* Function at 0x0020F570 - 0x0020F5C0 */
-int MDEC_CmdSeekP()
+u32 MDEC_CmdSeekP(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1, a0, a1, a2, a3;
     a0 = 1;
-    ret = MDEC_AllocateResponse(a0, a1, a2, a3);
-    ret = MDEC_FlushPending(a0, a1, a2, a3);
-    v1 = 0x005A0000 + -0x3e00;
+    ret = MDEC_AllocateResponse(a0);
+    ret = MDEC_FlushPending();
+    v1 = 0x005A0000 + -0x3e00;  /* SUBSYS_DATA_BASE: Subsystem data (CDROM/MDEC/serial) */
     a0 = 1;
-    ret = *(u8*)*(v1 + 1);
-    a1 = 0 | 0x88b8;
-    a2 = *(u32*)*(v1 + 8);
-    ret = ret | 0x42;
-    *(u8*)*(v1 + 1) = ret;
+    ret = *(u8*)(v1 + 1);
+    a1 = 0x88b8;
+    a2 = *(u32*)(v1 + 8);
+    *(u8*)(v1 + 1) = ret | 0x42;
     if (a2 != 0) {
-        *(u32*)*(v1 + 4) = a2;
-        *(u32*)*(v1 + 8) = 0;
+        *(u32*)(v1 + 4) = a2;
+        *(u32*)(v1 + 8) = 0;
     }
-    return MDEC_ScheduleIRQ(a0, a1, a2, a3);
+    return MDEC_ScheduleIRQ(a0, a1);
 }
 
 /* Function at 0x0020F5C0 - 0x0020F614 */
-int MDEC_CmdTest()
+u32 MDEC_CmdTest(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1, a0, a1, a2, a3;
     a0 = 1;
-    ret = MDEC_AllocateResponse(a0, a1, a2, a3);
-    ret = MDEC_FlushPending(a0, a1, a2, a3);
-    v1 = 0x005A0000 + -0x3e00;
+    ret = MDEC_AllocateResponse(a0);
+    ret = MDEC_FlushPending();
+    v1 = 0x005A0000 + -0x3e00;  /* SUBSYS_DATA_BASE: Subsystem data (CDROM/MDEC/serial) */
     a0 = 1;
-    ret = *(u8*)*(v1 + 1);
-    a1 = 0 | 0x88b8;
-    a2 = *(u32*)*(v1 + 8);
-    ret = ret | 0x42;
-    *(u8*)*(v1 + 1) = ret;
+    ret = *(u8*)(v1 + 1);
+    a1 = 0x88b8;
+    a2 = *(u32*)(v1 + 8);
+    *(u8*)(v1 + 1) = ret | 0x42;
     if (a2 != 0) {
-        *(u32*)*(v1 + 4) = a2;
-        *(u32*)*(v1 + 8) = 0;
+        *(u32*)(v1 + 4) = a2;
+        *(u32*)(v1 + 8) = 0;
     }
-    return MDEC_ScheduleIRQ(a0, a1, a2, a3);
+    return MDEC_ScheduleIRQ(a0, a1);
 }
 
 /* Function at 0x0020F614 - 0x0020F6A0 */
-int MDEC_DispatchCdCommand()
+u32 MDEC_DispatchCdCommand(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
-    ret = *(u8*)*(ret + -0x3de4);
+    u32 ret, v1, a0, a1, a2, a3;
+    ret = *(u8*)(ret + -0x3de4);
     v1 = ((unsigned)ret < 0x21) ? 1 : 0;
-    if (v1 == 0) goto loc_20F694;
-    ret = ret << 2;
-    v1 = 0x00500000;
-    v1 = v1 + ret;
-    v1 = *(u32*)*(v1 + -0x64a0);
-    goto *v1; /* computed jump */
-    a0 = 1;
-    return MDEC_AllocateResponse(a0, a1, a2, a3);
-loc_20F694:
+    if (v1 != 0) {
+        ret = ret << 2;
+        v1 = *(u32*)(v1 + -0x64a0);
+        goto *v1; /* computed jump */
+        a0 = 1;
+        return MDEC_AllocateResponse(a0);
+    }
     return ret;
 }
 
 /* Function at 0x0020F6A0 - 0x0020F710 */
-int MDEC_CmdGetID()
+u32 MDEC_CmdGetID(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, t0;
+    u32 ret, v1, a0, a1, a2, a3, t0;
     a0 = 1;
-    ret = MDEC_AllocateResponse(a0, a1, a2, a3);
-    ret = MDEC_FlushPending(a0, a1, a2, a3);
+    ret = MDEC_AllocateResponse(a0);
+    ret = MDEC_FlushPending();
     a0 = 8;
     a1 = 0x3e8;
-    ret = MDEC_ScheduleIRQ(a0, a1, a2, a3);
-    a0 = *(u8*)*(0x005A0000 + -0x3dff);
+    ret = MDEC_ScheduleIRQ(a0, a1);
+    a0 = *(u8*)(0x005A0000 + -0x3dff);  /* SUBSYS_DATA_BASE: Subsystem data (CDROM/MDEC/serial) */
     v1 = 0x49;
     a1 = 2;
     a2 = 0x53;
     a3 = 0x43;
     t0 = 0x45;
-    *(u8*)*(ret + 7) = v1;
-    *(u8*)(v0) = a0;
-    *(u8*)*(ret + 3) = a1;
-    *(u8*)*(ret + 4) = a2;
-    *(u8*)*(ret + 5) = a3;
-    *(u8*)*(ret + 6) = t0;
-    *(u8*)*(ret + 1) = 0;
-    *(u8*)*(ret + 2) = 0;
+    *(u8*)(ret + 7) = v1;
+    *(u8*)(ret) = a0;
+    *(u8*)(ret + 3) = a1;
+    *(u8*)(ret + 4) = a2;
+    *(u8*)(ret + 5) = a3;
+    *(u8*)(ret + 6) = t0;
+    *(u8*)(ret + 1) = 0;
+    *(u8*)(ret + 2) = 0;
     return ret;
 }
 
 /* Function at 0x0020F710 - 0x0020F728 */
-int MDEC_CmdReadS()
+u32 MDEC_CmdReadS(void)
 {
     /* Stack frame: 16 bytes */
-    int a0, a1, a2, a3;
+    u32 a0, a1, a2, a3;
     a0 = 1;
-    return MDEC_CmdStartRead(a0, a1, a2, a3);
+    return MDEC_CmdStartRead(a0);
 }
 
 /* Function at 0x0020F728 - 0x0020F740 */
-int MDEC_CmdReset()
+u32 MDEC_CmdReset(void)
 {
     /* Stack frame: 16 bytes */
-    int a0, a1, a2, a3;
+    u32 a0, a1, a2, a3;
     a0 = 1;
-    return MDEC_CmdResetAndPlay(a0, a1, a2, a3);
+    return MDEC_CmdResetAndPlay(a0);
 }
 
 /* Function at 0x0020F740 - 0x0020F75C */
-int MDEC_CmdReadTOC()
+u32 MDEC_CmdReadTOC(void)
 {
     /* Stack frame: 16 bytes */
-    int a0, a1, a2, a3;
+    u32 a0, a1, a2, a3;
     a0 = 2;
-    return MDEC_CmdResetAndPlay(a0, a1, a2, a3);
+    return MDEC_CmdResetAndPlay(a0);
 }
 
 /* Function at 0x0020F75C - 0x0020F880 */
-int MDEC_WriteDma()
+u32 MDEC_WriteDma(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1;
+    u32 ret, v1, a3, s0, s1;
     a2 = a2 & ret;
     a3 = a0;
     s0 = 0;
@@ -1340,7 +1245,7 @@ int MDEC_WriteDma()
     if ((unsigned)ret >= (unsigned)a2) {
         ret = g_psx;
         v1 = 0x001FFFFF;
-        a0 = *(u32*)*(ret + 0x2d0);  /* counter_0 */
+        a0 = *(u32*)(ret + 0x2d0);  /* counter_0 */
         v1 = a2 & v1;
         s1 = a0 + v1;
     } else {
@@ -1348,7 +1253,7 @@ int MDEC_WriteDma()
         a0 = 0xE0400000;
         if ((unsigned)ret < 0x400) {
             v1 = g_psx;
-            ret = *(u32*)*(v1 + 0x2d8);  /* counter_2 */
+            ret = *(u32*)(v1 + 0x2d8);  /* counter_2 */
             goto loc_20F818;
         }
         ret = 7 << 16;
@@ -1356,14 +1261,14 @@ int MDEC_WriteDma()
         ret = 0x0007FFFF;
         v1 = g_psx;
         if ((unsigned)ret >= (unsigned)v1) {
-            ret = *(u32*)*(v1 + 0x2d4);  /* counter_1 */
+            ret = *(u32*)(v1 + 0x2d4);  /* counter_1 */
         } else {
             a0 = 0xE0800400;
             ret = a2 + a0;
             s1 = 0;
-            if (likely((unsigned)ret >= 0x400)) goto loc_20F820;
+            if ((unsigned)ret >= 0x400) goto loc_20F820;
             v1 = g_psx;
-            ret = *(u32*)*(v1 + 0x2dc);  /* counter_3 */
+            ret = *(u32*)(v1 + 0x2dc);  /* counter_3 */
         }
         loc_20F818:
         ret = ret + a2;
@@ -1373,48 +1278,47 @@ loc_20F820:
     ret = a1 & 0xffff;
     v1 = (unsigned)a1 >> 0x10;
     ac3 = (s32)((s64)v1 * (s64)ret); HI_LO = (s64)v1 * (s64)ret;
-    a0 = 0x005A0000;
+    a0 = 0x005A0000;  /* SUBSYS_DATA_BASE: Subsystem data (CDROM/MDEC/serial) */
     a1 = a1 << 2;
-    ret = *(u32*)*(a0 + -0x2b6c);
+    ret = *(u32*)(a0 + -0x2b6c);
     s0 = v1 << 2;
-    __asm("movz s0, a1, s0");
+    if (s0 == 0) s0 = a1;
     ret = ret + s0;
     a0 = s1;
     if ((unsigned)ret >= 0x19) {
         a0 = a3;
         a1 = s0;
-        ret = R3000_InvalidateRange(a0, a1, a2, a3);
+        ret = R3000_InvalidateRange(a0, a1);
         a0 = s1;
     }
     a1 = s0;
-    ret = MDEC_CopySectorData(a0, a1, a2, a3);
+    ret = MDEC_CopySectorData(a0, a1);
 loc_20F868:
-    ret = s0;
-    return ret;
+    return s0;
 }
 
 /* Function at 0x0020F880 - 0x0020F9C0 */
-int MDEC_ReadRegister()
+u32 MDEC_ReadRegister(u32 a0)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s0;
+    u32 ret, v1, a1, a2, a3, s0;
     v1 = g_psx;
     s0 = 0;
     a0 = a0 & 0xf;
     a1 = 1;
-    ret = *(u32*)*(v1 + 0x2c4);  /* cop2_insn_count */
+    ret = *(u32*)(v1 + 0x2c4);  /* cop2_insn_count */
     ret = ret + -0xf;
-    *(u32*)*(v1 + 0x2c4) = ret;  /* cop2_insn_count (store) */
+    *(u32*)(v1 + 0x2c4) = ret;  /* cop2_insn_count (store) */
     if (a0 != a1) {
-        v1 = 0x005A0000;
+        v1 = 0x005A0000;  /* SUBSYS_DATA_BASE: Subsystem data (CDROM/MDEC/serial) */
         if (a0 != 0) {
             ret = 2;
             if (a0 != 3) {
                 ret = s0;
                 if (a0 != ret) {
                     } else {
-                    ret = *(u32*)*(v1 + -0x3de8);
-                    s0 = *(u8*)*(__gp + -0x7788);  /* g_mdec_ctrl */
+                    ret = *(u32*)(v1 + -0x3de8);
+                    s0 = (u8)g_mdec_ctrl;
                     if (ret != 0) goto loc_20F9A8;
                     s0 = s0 | 8;
                     goto loc_20F9A8;
@@ -1425,15 +1329,13 @@ int MDEC_ReadRegister()
                         ret = *(u32*)(a0);
                         v1 = ret + a1;
                         ret = ret + 1;
-                        s0 = *(u8*)*(v1 + 0x18);
+                        s0 = *(u8*)(v1 + 0x18);  /* PSX: gpr[2]/$v0 */
                         *(u32*)(a0) = ret;
-                        v1 = *(u32*)*(a1 + 0x10);
+                        v1 = *(u32*)(a1 + 0x10);  /* PSX: gpr[0]/$zero */
                         ret = s0;
                         if (ret != v1) goto loc_20F9AC;
                         v1 = __gp + -0x7788;
-                        ret = *(u8*)(v1);
-                        ret = ret & 0xdf;
-                        *(u8*)(v1) = ret;
+                        *(u8*)(v1) = ret & 0xdf;
                         *(u32*)(a1) = 0;
                         g_mdec_state3 = 0;
                         goto loc_20F9A8;
@@ -1442,13 +1344,12 @@ int MDEC_ReadRegister()
                     ret = AssertionFailed(a0, a1, a2, a3);
                     ret = s0;
                     } else {
-                    ret = *(u8*)*(__gp + -0x7785);
                     ret = ret & 0x80;
                     if (ret != 0) {
                         a0 = __sp;
                         a1 = 1;
-                        ret = MDEC_CopySectorData(a0, a1, a2, a3);
-                        s0 = *(u8*)(sp);
+                        ret = MDEC_CopySectorData(a0, a1);
+                        s0 = *(u8*)(__sp);
                         goto loc_20F9A8;
                     }
                     a0 = a0 + -0x6118;
@@ -1456,14 +1357,13 @@ int MDEC_ReadRegister()
                     ret = s0;
                 } else {
                     v1 = __gp + -0x7788;
-                    ret = *(u8*)(v1);
                     ret = ret & 3;
                     if (ret == a1) {
-                        ret = *(u8*)*(v1 + 2);
+                        ret = *(u8*)(v1 + 2);
                         s0 = ret | 0xe0;
                     } else {
-                        s0 = *(u8*)*(v1 + 1);
-                        if (likely(ret == 0)) goto loc_20F9A8;
+                        s0 = *(u8*)(v1 + 1);
+                        if (ret == 0) goto loc_20F9A8;
                     }
                     loc_20F9A8:
                     ret = s0;
@@ -1475,120 +1375,108 @@ int MDEC_ReadRegister()
 }
 
 /* Function at 0x0020F9C0 - 0x0020FBD0 */
-int MDEC_WriteRegister()
+void MDEC_WriteRegister(u32 a0, u32 a1)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2;
+    u32 ret, v1, a2, a3;
     a2 = g_psx;
     a0 = a0 & 0xf;
-    ret = *(u32*)*(a2 + 0x2c4);  /* cop2_insn_count */
+    ret = *(u32*)(a2 + 0x2c4);  /* cop2_insn_count */
     ret = ret + -0xf;
-    *(u32*)*(a2 + 0x2c4) = ret;  /* cop2_insn_count (store) */
-    v1 = *(u8*)*(__gp + -0x7788);  /* g_mdec_ctrl */
-    v1 = v1 & 3;
+    *(u32*)(a2 + 0x2c4) = ret;  /* cop2_insn_count (store) */
     v1 = v1 << 4;
     a0 = a0 | v1;
-    if (likely((unsigned)a0 >= 0x34)) goto loc_20FBC4;
+    if ((unsigned)a0 >= 0x34) MDEC_WriteRegister(a0, a1); return;
     ret = a0 << 2;
-    v1 = 0x00500000;
-    v1 = v1 + ret;
-    v1 = *(u32*)*(v1 + -0x60e0);
+    v1 = *(u32*)(v1 + -0x60e0);
     goto *v1; /* computed jump */
     a0 = __gp + -0x7788;
     v1 = a1 & 3;
-    ret = *(u8*)(a0);
-    ret = ret & 0xfc;
     ret = ret | v1;
     *(u8*)(a0) = ret;
-    goto loc_20FBC0;
-    *(u32*)*(ret + -0x3de8) = 0;
-    goto loc_20FBC0;
-    }
+    MDEC_WriteRegister(a0, a1); return;
     *(u8*)(a3) = a1;
     goto loc_20FBC0;
-    }
     ret = __gp + -0x7786;
     v1 = a1 & 0x1f;
-    a0 = *(u8*)(v0);
+    a0 = *(u8*)(ret);
     v1 = ~(0 | v1);
     a0 = a0 & v1;
-    *(u8*)(v0) = a0;
-    return MDEC_CheckInterrupt(a0, a1, a2, a3);
+    *(u8*)(ret) = a0;
+    return MDEC_CheckInterrupt();
 loc_20FBC0:
 loc_20FBC4:
-    return ret;
+    return;
 }
 
 /* Function at 0x0020FBD0 - 0x0020FD18 */
-int MDEC_ResetState()
+u32 MDEC_ResetState(void)
 {
     /* Stack frame: 48 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3;
+    u32 ret, v1, a0, a1, a2, a3, s0, s1, i, s3;
     a1 = 0x28;
     s0 = 0x0059C200;
     a0 = s0;
-    s3 = 0x005A0000;
+    s3 = 0x005A0000;  /* SUBSYS_DATA_BASE: Subsystem data (CDROM/MDEC/serial) */
     g_mdec_state6 = 0;
     s1 = 0x0059C228;
     g_mdec_state5 = 0;
-    s2 = 0;
+    i = 0;
     g_mdec_state1 = 0;
-    ret = Compiler_MemoryClear(a0, a1, a2, a3);
-    ret = *(u8*)*(s0 + 1);
+    ret = Compiler_MemoryClear(a0, a1);
+    ret = *(u8*)(s0 + 1);
     v1 = 0x20;
     a0 = 1;
     *(u8*)(s0) = v1;
     ret = ret | 2;
-    *(u32*)*(s0 + 0x14) = a0;
-    *(u8*)*(s0 + 1) = ret;
-    ret = CDROM_GetTOC(a0, a1, a2, a3);
+    *(u32*)(s0 + 0x14) = a0;
+    *(u8*)(s0 + 1) = ret;
+    ret = CDROM_GetTOC();
     v1 = __gp + -0x7788;
     a3 = -0x80;
     a2 = 0x18;
-    *(u32*)*(s0 + 0x24) = ret;
+    *(u32*)(s0 + 0x24) = ret;
     s0 = s3 + -0x2b68;
     *(u8*)(v1) = a2;
     a0 = s1;
-    *(u8*)*(v1 + 4) = a3;
+    *(u8*)(v1 + 4) = a3;
     a1 = 0x1260;
-    *(u8*)*(v1 + 5) = 0;
-    *(u8*)*(v1 + 2) = 0;
-    *(u8*)*(v1 + 3) = 0;
-    *(u8*)*(v1 + 6) = a3;
-    *(u8*)*(v1 + 7) = 0;
-    ret = Compiler_MemoryClear(a0, a1, a2, a3);
+    *(u8*)(v1 + 5) = 0;
+    *(u8*)(v1 + 2) = 0;
+    *(u8*)(v1 + 3) = 0;
+    *(u8*)(v1 + 6) = a3;
+    *(u8*)(v1 + 7) = 0;
+    ret = Compiler_MemoryClear(a0, a1);
     ret = 0xc;
-    *(u32*)*(s1 + 0x1260) = 0;
+    *(u32*)(s1 + 0x1260) = 0;
     g_mdec_state2 = ret;
-    *(u32*)*(s1 + 0x126c) = 0;
-    *(u32*)*(s1 + 0x1268) = 0;
-    *(u32*)*(s1 + 0x1264) = 0;
+    *(u32*)(s1 + 0x126c) = 0;
+    *(u32*)(s1 + 0x1268) = 0;
+    *(u32*)(s1 + 0x1264) = 0;
     ret = *(u32*)(s0);
     do {
         s0 = s0 + 0x28;
         a0 = ret;
         if (ret != 0) {
-            ret = PSX_CancelEvent(a0, a1, a2, a3);
+            ret = PSX_CancelEvent(a0);
         }
-        s2 = s2 + 1;
-        ret = ((unsigned)s2 < 8) ? 1 : 0;
-        ret = *(u32*)(s0);
-    } while (likely(ret != 0));
+        i = i + 1;
+    } while ((*(u32*)(s0)) != 0);
     a0 = s3 + -0x2b68;
     a1 = 0;
     a2 = 0x140;
-    ret = Libc_Memset(a0, a1, a2, a3);
+    ret = Libc_Memset(a0, a1, a2);
     g_mdec_state3 = 0;
     a1 = 0;
     a0 = 0x0059D5D8;
     a2 = 0x40;
-    ret = Libc_Memset(a0, a1, a2, a3);
+    ret = Libc_Memset(a0, a1, a2);
     g_mdec_state4 = 0;
-    ret = CDROM_ResetState(a0, a1, a2, a3);
+    ret = CDROM_ResetState();
     ret = __gp + -0x7784;
-    a3 = *(u8*)*(ret + 3);
-    a0 = *(u8*)(v0);
-    a1 = *(u8*)*(ret + 1);
-    a2 = *(u8*)*(ret + 2);
+    a3 = *(u8*)(ret + 3);
+    a0 = *(u8*)(ret);
+    a1 = *(u8*)(ret + 1);
+    a2 = *(u8*)(ret + 2);
     return CDROM_SetVolume(a0, a1, a2, a3);
 }

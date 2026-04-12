@@ -3,70 +3,68 @@
 /* 6 functions */
 
 #include "pops_types.h"
+#include "functions.h"
 
 /* Forward declarations */
-int GPU_Init();
-int GPU_InitAndReadHandler();
-int GPU_GP1WriteHandler();
-int GPU_VBlankIRQCallback();
-int GPU_GP0WriteHandler();
-int GPU_Reset();
+u32 GPU_Init(void);
+u32 GPU_InitAndReadHandler(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 GPU_GP1WriteHandler(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 GPU_VBlankIRQCallback(u32 a0);
+u32 GPU_GP0WriteHandler(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 GPU_Reset(void);
 
 /* ======================================== */
 
 /* Function at 0x0020B788 - 0x0020B794 */
-int GPU_Init()
+u32 GPU_Init(void)
 {
-    int a0, a2, a3;
+    u32 a0, a2, a3;
     a2 = 0x00210000;
     a3 = 0x00210000;
-    a0 = 0x1F800000;
+    a0 = PSX_IO_BASE;  /* 0x1F800000 */
+    return GPU_InitAndReadHandler(a0, 0, a2, a3);
 }
 
 /* Function at 0x0020B794 - 0x0020B89C */
-int GPU_InitAndReadHandler()
+u32 GPU_InitAndReadHandler(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1;
     a2 = a2 + -0x4b78;
     a3 = a3 + -0x4b28;
-    a0 = a0 | 0x1810;
-    a1 = 0x10;
+    a0 = a0 | 0x1810;  /* PSX_GPU_BASE: GPU (GP0/GP1) (0x1F801810) */
+    a1 = 0x10;  /* I/O range size */
     ret = R3000_SetupIOHandlers(a0, a1, a2, a3);
-    a0 = 2;
-    a1 = 0x0020B530;
-    ret = Interrupt_SetCallback(a0, a1, a2, a3);
+    a0 = IRQ_CB_COUNTER;  /* Counter/timer VBlank handler */
+    a1 = (u32)Counter_HandleAccess;
+    ret = Interrupt_SetCallback(a0, a1);
     v1 = 0x10000810;
     a0 = 0x10000800;
     *(u32*)(v1) = 0x83;
     a1 = 0x00200000;
     *(u32*)(a0) = 0;
     ret = g_psx;
-    a0 = *(u32*)*(ret + 0x2d0);  /* counter_0 */
-    ret = GPU_InitState(a0, a1, a2, a3);
+    a0 = *(u32*)(ret + 0x2d0);  /* counter_0 */
+    ret = GPU_InitState(a0, a1);
     return 1;
-            }
             v1 = -3;
-            a0 = *(u8*)*(a2 + 0x18);
+            a0 = *(u8*)(a2 + 0x18);  /* PSX: gpr[2]/$v0 */
             ret = ret & v1;
-            *(u32*)*(a2 + 4) = ret;
+            *(u32*)(a2 + 4) = ret;
             goto loc_20B890;
-    }
         ret = 1;
-        a0 = *(u32*)*(a2 + 4);
+        a0 = *(u32*)(a2 + 4);
         if (v1 != ret) goto loc_20B890;
         a0 = 0x80;
-    }
 loc_20B890:
-    ret = a0;
-    return ret;
+    return a0;
 }
 
 /* Function at 0x0020B89C - 0x0020B9C8 */
-int GPU_GP1WriteHandler()
+u32 GPU_GP1WriteHandler(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1;
+    u32 ret, v1, handler, s1;
     v1 = v1 & 1;
     ret = v1 << 3;
     s1 = a1;
@@ -74,48 +72,37 @@ int GPU_GP1WriteHandler()
     a1 = a0 & 0xf;
     ret = ret << 2;
     a0 = ((unsigned)a1 < 0xf) ? 1 : 0;
-    s0 = 0x00506D90;
-    s0 = s0 + ret;
+    handler = PSX_GPU_HANDLERS;  /* 0x00506D90 - GPU_HandlerSlot array (2 slots) */
+    handler = handler + ret;
     if (a0 == 0) goto loc_20B9B4;
     ret = a1 << 2;
-    v1 = 0x00500000;
-    v1 = v1 + ret;
-    v1 = *(u32*)*(v1 + -0x6950);
+    v1 = *(u32*)(v1 + -0x6950);
     goto *v1; /* computed jump */
-    ret = s0->handler_offset;  /* handler_offset */
-    a0 = s0;
+    ret = ((GPU_HandlerSlot*)handler)->handler_offset;  /* handler_offset */
+    a0 = handler;
     a1 = s1;
-    ret = (ret)(a0, a1, a2, a3); /* indirect call */
+    ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
     goto loc_20B9B8;
-    ret = s1 & 0x10;
-    if (ret == 0) goto loc_20B95C;
-    ret = s0->state;  /* state */
-    ret = ret & 2;
-    s0->insn_count = 0;  /* insn_count (store) */
-    if (likely(ret == 0)) goto loc_20B958;
-loc_20B958:
-    ret = s1 & 0x10;
-loc_20B95C:
     ret = s1 & 0x40;
     if (ret != 0) {
-        a0 = *(u32*)(s0);
-        ret = Compiler_GetCacheStatus(a0, a1, a2, a3);
+        a0 = *(u32*)(handler);
+        ret = Compiler_GetCacheStatus();
         ret = -0x11;
-        v1 = s0->ctrl_bits;  /* ctrl_bits */
+        v1 = ((GPU_HandlerSlot*)handler)->ctrl_bits;  /* ctrl_bits */
         a0 = -0x201;
         s1 = s1 & ret;
         v1 = v1 & a0;
-        s0->ctrl_bits = v1;  /* ctrl_bits (store) */
+        ((GPU_HandlerSlot*)handler)->ctrl_bits = v1;  /* ctrl_bits (store) */
         ret = s1 & 0x40;
     }
-    s0->state = s1;  /* state (store) */
-    if (likely(ret == 0)) goto loc_20B9B4;
-    a0 = *(u32*)(s0);
+    ((GPU_HandlerSlot*)handler)->state = s1;  /* state (store) */
+    if (ret == 0) goto loc_20B9B4;
+    a0 = *(u32*)(handler);
     s1 = 0;
-    ret = Compiler_GetCacheStatus(a0, a1, a2, a3);
-    s0->insn_count = 0;  /* insn_count (store) */
-    s0->ctrl_bits = 5;  /* ctrl_bits (store) */
-    s0->state = s1;  /* state (store) */
+    ret = Compiler_GetCacheStatus();
+    ((GPU_HandlerSlot*)handler)->insn_count = 0;  /* insn_count (store) */
+    ((GPU_HandlerSlot*)handler)->ctrl_bits = 5;  /* ctrl_bits (store) */
+    ((GPU_HandlerSlot*)handler)->state = s1;  /* state (store) */
     goto loc_20B9B4;
 loc_20B9B4:
 loc_20B9B8:
@@ -123,28 +110,27 @@ loc_20B9B8:
 }
 
 /* Function at 0x0020B9C8 - 0x0020BA00 */
-int GPU_VBlankIRQCallback()
+u32 GPU_VBlankIRQCallback(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1, a1, a2, a3;
     v1 = a0;
     g_gpu_ctrl = 0;
-    ret = *(u32*)*(v1 + 4);
+    ret = *(u32*)(v1 + 4);
     a0 = *(u32*)(v1);
-    ret = ret | 0x200;
-    *(u32*)*(v1 + 4) = ret;
-    return Compiler_SetCacheFlushFlag(a0, a1, a2, a3);
+    *(u32*)(v1 + 4) = ret | 0x200;
+    return Compiler_SetCacheFlushFlag(a0);
 }
 
 /* Function at 0x0020BA00 - 0x0020BAD0 */
-int GPU_GP0WriteHandler()
+u32 GPU_GP0WriteHandler(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, s0;
+    u32 ret, v1, s0;
     a2 = a1 & 0xff;
     s0 = a0;
-    ret = *(u32*)*(s0 + 8);
-    a0 = *(u32*)*(s0 + 0x14);
+    ret = *(u32*)(s0 + 8);
+    a0 = *(u32*)(s0 + 0x14);  /* PSX: gpr[1]/$at */
     ret = (signed)ret >> 0xd;
     v1 = ret & 1;
     if (a0 != 0) goto loc_20BA60;
@@ -153,7 +139,7 @@ int GPU_GP0WriteHandler()
         ret = 0x0020C630;
     } else {
         if (a1 == 0x00210000) {
-            ret = 0x0020CC08;
+            ret = (u32)Serial_MemcardCommand;
             goto loc_20BA5C;
         }
         ret = ret + -0x4608;
@@ -163,40 +149,39 @@ loc_20BA5C:
 loc_20BA60:
     ret = g_gpu_state;
     a1 = v1;
-    ret = (ret)(a0, a1, a2, a3); /* indirect call */
-    v1 = *(u32*)*(s0 + 0x14);
-    a0 = *(u32*)*(s0 + 4);
+    ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
+    v1 = *(u32*)(s0 + 0x14);  /* PSX: gpr[1]/$at */
+    a0 = *(u32*)(s0 + 4);
     a1 = ret & 0x100;
     v1 = v1 + 1;
     ret = ret & 0xff;
     a0 = a0 | 2;
-    *(u32*)*(s0 + 0x14) = v1;
-    *(u32*)*(s0 + 0x18) = ret;
-    *(u32*)*(s0 + 4) = a0;
+    *(u32*)(s0 + 0x14) = v1;
+    *(u32*)(s0 + 0x18) = ret;
+    *(u32*)(s0 + 4) = a0;
     if (a1 != 0) goto loc_20BAB8;
-    ret = *(u32*)*(s0 + 8);
     ret = ret & 0x1000;
     a2 = s0;
     if (ret == 0) goto loc_20BAB8;
     a0 = 0x34e;
-    a1 = 0x0020B9C8;
-    ret = PSX_GetEventTimeout(a0, a1, a2, a3);
+    a1 = (u32)GPU_VBlankIRQCallback;
+    ret = PSX_GetEventTimeout();
     g_gpu_ctrl = ret;
 loc_20BAB8:
     return ret;
 }
 
 /* Function at 0x0020BAD0 - 0x0020BB68 */
-int GPU_Reset()
+u32 GPU_Reset(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, t0;
+    u32 ret, v1, a0, a1, a2, a3, s0, t0;
     a2 = 0x38;
-    s0 = 0x00506D90;
+    s0 = PSX_GPU_HANDLERS;  /* 0x00506D90 - GPU_HandlerSlot array (2 slots) */
     a1 = 0;
     a0 = s0;
     s0 = s0 + 4;
-    ret = Libc_Memset(a0, a1, a2, a3);
+    ret = Libc_Memset(a0, a1, a2);
     a2 = 0;
     t0 = 0x00210000;
     a3 = 0x00210000;
@@ -205,18 +190,18 @@ int GPU_Reset()
         ret = a3 + -0x4538;
         v1 = t0 + -0x4600;
         a1 = a2 + 7;
-        __asm("movn v1, v0, a2");
+        if (a2 != 0) v1 = ret;
         a2 = a2 + 1;
         a0 = a0 | 5;
         ret = ((unsigned)a2 < 2) ? 1 : 0;
-        *(u32*)*(s0 + -4) = a1;
-        s0->list_index = v1;  /* list_index (store) */
+        *(u32*)(s0 + -4) = a1;
+        ((GPU_HandlerSlot*)s0)->list_index = v1;  /* list_index (store) */
         *(u32*)(s0) = a0;
         s0 = s0 + 0x1c;
     } while (ret != 0);
     a0 = g_gpu_ctrl;
     if (a0 != 0) {
-        ret = PSX_CancelEvent(a0, a1, a2, a3);
+        ret = PSX_CancelEvent(a0);
         g_gpu_ctrl = 0;
     }
     return ret;

@@ -3,161 +3,154 @@
 /* 79 functions */
 
 #include "pops_types.h"
+#include "functions.h"
 
 /* Forward declarations */
-int GTE_Init();
-int GTE_Nop();
-int GTE_CommandLookup();
-int GTE_Execute();
-int GTE_RTPS_Core();
-int GTE_NCDS_Prologue();
-int GTE_NCDS_Core();
-int GTE_NCCS_Prologue();
-int GTE_NCCS_Core();
-int GTE_NCS_Prologue();
-int GTE_NCS_Core();
-int GTE_DPCS_Core();
-int GTE_RTPS();
-int GTE_RTPT();
-int GTE_NCDS();
-int GTE_NCDT();
-int GTE_NCCS();
-int GTE_NCCT();
-int GTE_CC();
-int GTE_CDP();
-int GTE_NCS();
-int GTE_NCT();
-int GTE_MVMVA();
-int GTE_DCPL();
-int GTE_INTPL();
-int GTE_DPCS();
-int GTE_DPCT();
-int GTE_COP2Loop();
-int R3000_ReadByte();
-int R3000_ReadHalf();
-int R3000_ReadWord();
-int R3000_WriteByte();
-int R3000_WriteHalf();
-int R3000_WriteWord();
-int GPU_RenderPrimitive();
-int GPU_BuildGSFlags();
-int GPU_CommandDispatch();
-int GPU_FlushGSRegs();
-int GPU_SetDrawMode();
-int GPU_SubmitGIFPacket();
-int GPU_ProcessQueue();
-int GPU_BufferData();
-int GPU_WaitBufferReady();
-int GPU_ResetPendingCount();
-int GPU_WaitForSync();
-int GPU_AddPendingCount();
-int GPU_FlushAndWait();
-int GPU_GetDisplayListID();
-int GPU_IsBufferReady();
-int GPU_GetFrameCount();
-int GPU_ReadBackBuffer();
-int GPU_ConfigureBuffer();
-int GPU_VBlankHandler();
-int GPU_SubmitVBlankPacket();
-int GPU_InitState();
-int GPU_Configure();
-int GPU_BuildGIFTag();
-int GPU_BuildGIFChain();
-int GPU_SetupTexture();
-int GPU_StartGIFTransfer();
-int GPU_SetupRegisters();
-int GPU_FlushDMAQueue();
-int GPU_ProcessDMAChain();
-int GPU_DrawTexturedPoly();
-int GPU_DrawSimplePoly();
-int GPU_SetViewport();
-int GPU_SetScissor();
-int GPU_SetDepthTest();
-int GPU_SetBlendMode();
-int GPU_BuildVertexData();
-int GPU_SetAlphaFlags();
-int GPU_SetTextureWrap();
-int GPU_SetDither();
-int GPU_RenderFrame();
-int GPU_UpdateTexturePage();
-int GPU_UpdateCLUT();
-int GPU_ProcessDisplayList();
-int GPU_DrawTextured();
-int GPU_CommandHandler();
+u32 GTE_Init(void);
+u32 GTE_Nop(void);
+u32 GTE_CommandLookup(u32 a0);
+u32 GTE_Execute(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 GTE_RTPS_Core(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 GTE_NCDS_Prologue(u32 a0, u32 a1);
+u32 GTE_NCDS_Core(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 GTE_NCCS_Prologue(u32 a0, u32 a1);
+u32 GTE_NCCS_Core(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 GTE_NCS_Prologue(u32 a0, u32 a1);
+u32 GTE_NCS_Core(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 GTE_DPCS_Core(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 GTE_RTPS(u32 a0);
+u32 GTE_RTPT(u32 a0);
+u32 GTE_NCDS(u32 a0);
+u32 GTE_NCDT(u32 a0);
+u32 GTE_NCCS(u32 a0);
+u32 GTE_NCCT(u32 a0);
+u32 GTE_CC(u32 a0);
+u32 GTE_CDP(u32 a0);
+u32 GTE_NCS(u32 a0);
+u32 GTE_NCT(u32 a0);
+u32 GTE_MVMVA(u32 a0, u32 a1, u32 a2);
+u32 GTE_DCPL(void);
+u32 GTE_INTPL(u32 a0);
+u32 GTE_DPCS(u32 a0);
+u32 GTE_DPCT(u32 a0);
+void GTE_COP2Loop(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 R3000_ReadByte(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 R3000_ReadHalf(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 R3000_ReadWord(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 R3000_WriteByte(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 R3000_WriteHalf(u32 a0, u32 a1, u32 a2);
+u32 R3000_WriteWord(u32 a0, u32 a1, u32 a2);
+u32 GPU_RenderPrimitive(u32 a0);
+u32 GPU_BuildGSFlags(u32 a0);
+u32 GPU_CommandDispatch(u32 a0, u32 a1, u32 a2);
+u32 GPU_FlushGSRegs(u32 a0);
+u32 GPU_SetDrawMode(u32 a0);
+u32 GPU_SubmitGIFPacket(u32 a0);
+void GPU_ProcessQueue(void);
+u32 GPU_BufferData(u32 a0, u32 a1);
+u32 GPU_WaitBufferReady(void);
+u32 GPU_ResetPendingCount(void);
+u32 GPU_WaitForSync(void);
+u32 GPU_AddPendingCount(u32 a0);
+u32 GPU_FlushAndWait(void);
+u32 GPU_GetDisplayListID(void);
+u32 GPU_IsBufferReady(void);
+u32 GPU_GetFrameCount(void);
+u32 GPU_ReadBackBuffer(void);
+u32 GPU_ConfigureBuffer(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 GPU_VBlankHandler(void);
+u32 GPU_SubmitVBlankPacket(void);
+u32 GPU_InitState(u32 a0, u32 a1);
+u32 GPU_Configure(u32 a0);
+u32 GPU_BuildGIFTag(void);
+u32 GPU_BuildGIFChain(void);
+u32 GPU_SetupTexture(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 GPU_StartGIFTransfer(void);
+u32 GPU_SetupRegisters(void);
+u32 GPU_FlushDMAQueue(void);
+u32 GPU_ProcessDMAChain(u32 a0);
+void GPU_DrawTexturedPoly(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 GPU_DrawSimplePoly(u32 a0, u32 a1);
+u32 GPU_SetViewport(void);
+u32 GPU_SetScissor(void);
+u32 GPU_SetDepthTest(void);
+u32 GPU_SetBlendMode(void);
+u32 GPU_BuildVertexData(u32 a0, u32 a1);
+u32 GPU_SetAlphaFlags(void);
+u32 GPU_SetTextureWrap(void);
+u32 GPU_SetDither(void);
+u32 GPU_RenderFrame(void);
+u32 GPU_UpdateTexturePage(void);
+u32 GPU_UpdateCLUT(u32 a0);
+u32 GPU_ProcessDisplayList(u32 a0, u32 a1);
+u32 GPU_DrawTextured(void);
+u32 GPU_CommandHandler(void);
 
 /* ======================================== */
 
 /* Function at 0x00215088 - 0x002150D0 */
-int GTE_Init()
+u32 GTE_Init(void)
 {
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1, a0, a1, a2, a3;
     a0 = g_psx;
-    ret = 0x002150F0;
+    ret = (u32)GTE_Execute;
     v1 = 0x00215148;
     a1 = 0x00215200;
     a2 = 0x002151E8;
     a3 = 0x002152C0;
-    a0->gte_execute = ret;  /* gte_execute (store) */
-    a0->gte_read_data = v1;  /* gte_read_data (store) */
+    ((PSX_State*)a0)->gte_execute = ret;  /* gte_execute (store) */
+    ((PSX_State*)a0)->gte_read_data = v1;  /* gte_read_data (store) */
     ret = 1;
-    a0->gte_read_ctrl = a1;  /* gte_read_ctrl (store) */
-    a0->gte_write_data = a2;  /* gte_write_data (store) */
-    a0->gte_write_ctrl = a3;  /* gte_write_ctrl (store) */
+    ((PSX_State*)a0)->gte_read_ctrl = a1;  /* gte_read_ctrl (store) */
+    ((PSX_State*)a0)->gte_write_data = a2;  /* gte_write_data (store) */
+    ((PSX_State*)a0)->gte_write_ctrl = a3;  /* gte_write_ctrl (store) */
     return ret;
 }
 
 /* Function at 0x002150D0 - 0x002150D8 */
-int GTE_Nop()
+u32 GTE_Nop(void)
 {
-    int ret;
+    u32 ret;
     return ret;
 }
 
 /* Function at 0x002150D8 - 0x002150F0 */
-int GTE_CommandLookup()
+u32 GTE_CommandLookup(u32 a0)
 {
-    int ret, a0;
+    u32 ret;
     a0 = a0 & 0x3f;
     a0 = a0 << 4;
-    ret = 0x00250000;
-    ret = ret + a0;
-    ret = *(u32*)*(ret + -0x47d8);
-    return ret;
+    return *(u32*)(ret + -0x47d8);
 }
 
 /* Function at 0x002150F0 - 0x002152D8 */
-int GTE_Execute()
+u32 GTE_Execute(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, s0;
+    u32 ret, v1, s0, t0;
     s0 = a0;
     a0 = g_psx;
-    v1 = s0 & 0x3f;
     v1 = v1 << 4;
     a0 = a0 + 0x1b0;                        /* &gte_data base */
-    ret = 0x00250000;
-    ret = ret + v1;
-    ret = *(u32*)*(ret + -0x47d4);
-    a0->cop0[27] = 0;  /* cop0[27] (store) */
+    ret = *(u32*)(ret + -0x47d4);
+    ((PSX_State*)a0)->cop0[27] = 0;  /* cop0[27] (store) */
     a1 = s0;
-    ret = (ret)(a0, a1, a2, a3); /* indirect call */
+    ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
     a0 = s0;
-    ret = GTE_CommandLookup(a0, a1, a2, a3);
-    ret = ret + -1;
-    return ret;
-        }
+    ret = GTE_CommandLookup(a0);
+    return ret + -1;
         ret = (signed)a0 >> 7;
-        a0 = *(s16*)*(a3 + 0x28);
+        a0 = *(s16*)(a3 + 0x28);  /* GTE data: ir2 */
         a2 = ret & 0x1f;
         if ((signed)a0 < 0) {
             a0 = 0;
         } else {
             v1 = ((signed)a0 < 0x1000) ? 1 : 0;
             ret = 0xfff;
-            __asm("movz a0, v0, v1");
+            if (v1 == 0) a0 = ret;
         }
         ret = (signed)a0 >> 2;
-        a0 = *(s16*)*(a3 + 0x2c);
+        a0 = *(s16*)(a3 + 0x2c);  /* GTE data: ir3 */
         ret = ret & 0x3e0;
         a2 = a2 | ret;
         if ((signed)a0 < 0) {
@@ -165,18 +158,15 @@ int GTE_Execute()
         } else {
             v1 = ((signed)a0 < 0x1000) ? 1 : 0;
             ret = 0xfff;
-            __asm("movz a0, v0, v1");
+            if (v1 == 0) a0 = ret;
         }
         ret = a0 << 3;
         v1 = t0 + a3;
         ret = ret & 0x7c00;
         a2 = a2 | ret;
         *(u32*)(v1) = a2;
-    }
-    ret = a2;
-    return ret;
-    }
-    *(u32*)*(a2 + 0x7c) = a3;
+    return a2;
+    *(u32*)(a2 + 0x7c) = a3;
     ret = 0x1c;
     if (t0 == 0xf) {
         ret = a1 << 7;
@@ -185,58 +175,58 @@ int GTE_Execute()
         ret = ret & 0xf80;
         v1 = v1 & 0xf80;
         a0 = a0 & 0xf80;
-        *(u32*)*(a2 + 0x24) = ret;
-        *(u32*)*(a2 + 0x28) = v1;
-        *(u32*)*(a2 + 0x2c) = a0;
+        *(u32*)(a2 + 0x24) = ret;
+        *(u32*)(a2 + 0x28) = v1;
+        *(u32*)(a2 + 0x2c) = a0;
         ret = 0xf;
     }
     if (t0 == ret) {
-        ret = *(u32*)*(a2 + 0x34);
-        v1 = *(u32*)*(a2 + 0x38);
-        *(u32*)*(a2 + 0x30) = ret;
-        *(u32*)*(a2 + 0x38) = a1;
-        *(u32*)*(a2 + 0x34) = v1;
+        ret = *(u32*)(a2 + 0x34);  /* GTE data: sxy1 */
+        v1 = *(u32*)(a2 + 0x38);  /* GTE data: sxy2 */
+        *(u32*)(a2 + 0x30) = ret;
+        *(u32*)(a2 + 0x38) = a1;
+        *(u32*)(a2 + 0x34) = v1;
     }
     return ret;
 }
 
 /* Function at 0x002152D8 - 0x00215638 */
-int GTE_RTPS_Core()
+u32 GTE_RTPS_Core(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
+    u32 ret, v1, s0, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
     t6 = a0;
     s0 = t0;
     t8 = a3;
     t9 = a2;
     t4 = *(s16*)(a1);
     t7 = 0x01000000;
-    t5 = *(s16*)*(a1 + 2);
-    v1 = *(s16*)*(t6 + 0x80);
-    t2 = *(s16*)*(t6 + 0x82);
-    t3 = *(s16*)*(a1 + 4);
+    t5 = *(s16*)(a1 + 2);
+    v1 = *(s16*)(t6 + 0x80);  /* GTE ctrl: rt[0,1] */
+    t2 = *(s16*)(t6 + 0x82);  /* GTE ctrl: rt.R12 */
+    t3 = *(s16*)(a1 + 4);
     ac3 = (s32)((s64)v1 * (s64)t4); HI_LO = (s64)v1 * (s64)t4;
-    t0 = *(s16*)*(t6 + 0x84);
+    t0 = *(s16*)(t6 + 0x84);  /* GTE ctrl: rt[2,3] */
     t2 = (s32)((s64)t2 * (s64)t5); HI_LO = (s64)t2 * (s64)t5;
-    a0 = *(s16*)*(t6 + 0x86);
-    t1 = *(s16*)*(t6 + 0x88);
+    a0 = *(s16*)(t6 + 0x86);  /* GTE ctrl: rt2.R21 */
+    t1 = *(s16*)(t6 + 0x88);  /* GTE ctrl: rt[4,5] */
     t0 = (s32)((s64)t0 * (s64)t3); HI_LO = (s64)t0 * (s64)t3;
-    ret = *(s16*)*(t6 + 0x8c);
+    ret = *(s16*)(t6 + 0x8c);  /* GTE ctrl: rt[6,7] */
     a0 = (s32)((s64)a0 * (s64)t4); HI_LO = (s64)a0 * (s64)t4;
-    a3 = *(s16*)*(t6 + 0x8e);
+    a3 = *(s16*)(t6 + 0x8e);  /* GTE ctrl: rt4.R32 */
     t1 = (s32)((s64)t1 * (s64)t5); HI_LO = (s64)t1 * (s64)t5;
-    a2 = *(s16*)*(t6 + 0x8a);
+    a2 = *(s16*)(t6 + 0x8a);  /* GTE ctrl: rt3.R23 */
     ac2 = (s32)((s64)ret * (s64)t4); HI_LO = (s64)ret * (s64)t4;
-    a1 = *(s16*)*(t6 + 0x90);
+    a1 = *(s16*)(t6 + 0x90);  /* GTE ctrl: rt5.R33 */
     a3 = (s32)((s64)a3 * (s64)t5); HI_LO = (s64)a3 * (s64)t5;
-    __asm("mult1 a2, a2, t3");
+    a2 = a2 * t3;
     v1 = v1 + t2;
     a1 = (s32)((s64)a1 * (s64)t3); HI_LO = (s64)a1 * (s64)t3;
     t0 = (signed)t0 >> 1;
     v1 = (signed)v1 >> 1;
     a0 = a0 + t1;
     v1 = v1 + t0;
-    t0 = *(u32*)*(t6 + 0x94);
+    t0 = *(u32*)(t6 + 0x94);  /* GTE ctrl: trx */
     ret = ret + a3;
     v1 = (signed)v1 >> 0xb;
     a2 = (signed)a2 >> 1;
@@ -244,9 +234,9 @@ int GTE_RTPS_Core()
     a0 = (signed)a0 >> 1;
     ret = (signed)ret >> 1;
     a0 = a0 + a2;
-    a2 = *(u32*)*(t6 + 0x98);
+    a2 = *(u32*)(t6 + 0x98);  /* GTE ctrl: try */
     ret = ret + a1;
-    a1 = *(u32*)*(t6 + 0x9c);
+    a1 = *(u32*)(t6 + 0x9c);  /* GTE ctrl: trz */
     t0 = t0 + v1;
     a0 = (signed)a0 >> 0xb;
     ret = (signed)ret >> 0xb;
@@ -254,106 +244,97 @@ int GTE_RTPS_Core()
     a2 = a2 + a0;
     a1 = a1 + ret;
     if (v1 != 0) {
-        ret = *(u32*)*(t6 + 0xfc);
+        ret = *(u32*)(t6 + 0xfc);  /* GTE ctrl: flag */
         t4 = -0x8000;
     } else {
         ret = 0x7fff;
         t4 = t0;
         if ((signed)ret < (signed)t0) {
-            ret = *(u32*)*(t6 + 0xfc);
+            ret = *(u32*)(t6 + 0xfc);  /* GTE ctrl: flag */
             t4 = 0x7fff;
             }
-            ret = ret | t7;
-            *(u32*)*(t6 + 0xfc) = ret;
+            *(u32*)(t6 + 0xfc) = ret | t7;
         }
     t1 = t4;
     v1 = 0x00800000;
     if ((signed)a2 < -0x8000) {
-        ret = *(u32*)*(t6 + 0xfc);
+        ret = *(u32*)(t6 + 0xfc);  /* GTE ctrl: flag */
         t2 = -0x8000;
         goto loc_215408;
     }
     ret = 0x7fff;
     t2 = a2;
-    if (likely((signed)ret >= (signed)a2)) goto loc_215410;
-    ret = *(u32*)*(t6 + 0xfc);
+    if ((signed)ret >= (signed)a2) goto loc_215410;
+    ret = *(u32*)(t6 + 0xfc);  /* GTE ctrl: flag */
     t2 = 0x7fff;
 loc_215408:
-    ret = ret | v1;
-    *(u32*)*(t6 + 0xfc) = ret;
+    *(u32*)(t6 + 0xfc) = ret | v1;
 loc_215410:
     t5 = t2;
     v1 = 0x00400000;
     if ((signed)a1 < -0x8000) {
-        ret = *(u32*)*(t6 + 0xfc);
+        ret = *(u32*)(t6 + 0xfc);  /* GTE ctrl: flag */
         t3 = -0x8000;
         goto loc_215448;
     }
     ret = 0x7fff;
     t3 = a1;
-    if (likely((signed)ret >= (signed)a1)) goto loc_215450;
-    ret = *(u32*)*(t6 + 0xfc);
+    if ((signed)ret >= (signed)a1) goto loc_215450;
+    ret = *(u32*)(t6 + 0xfc);  /* GTE ctrl: flag */
     t3 = 0x7fff;
 loc_215448:
-    ret = ret | v1;
-    *(u32*)*(t6 + 0xfc) = ret;
+    *(u32*)(t6 + 0xfc) = ret | v1;
 loc_215450:
     v1 = 0x80060000;
     if ((signed)a1 < 0) {
-        ret = *(u32*)*(t6 + 0xfc);
+        ret = *(u32*)(t6 + 0xfc);  /* GTE ctrl: flag */
         a0 = 0;
         goto loc_215480;
     }
-    ret = 0 | 0xffff;
+    ret = 0xffff;
     a0 = a1;
-    if (likely((signed)ret >= (signed)a1)) goto loc_215488;
-    ret = *(u32*)*(t6 + 0xfc);
-    a0 = 0 | 0xffff;
+    if ((signed)ret >= (signed)a1) goto loc_215488;
+    ret = *(u32*)(t6 + 0xfc);  /* GTE ctrl: flag */
+    a0 = 0xffff;
 loc_215480:
     ret = ret | v1;
-    *(u32*)*(t6 + 0xfc) = ret;
+    *(u32*)(t6 + 0xfc) = ret;
 loc_215488:
-    ret = *(s16*)*(t6 + 0xe8);
+    ret = *(s16*)(t6 + 0xe8);  /* GTE ctrl: h */
     *(u32*)(t8) = a0;
     a3 = ret << 0x10;
-    v1 = *(u32*)*(t6 + 0xe8);
+    v1 = *(u32*)(t6 + 0xe8);  /* GTE ctrl: h */
     ret = (unsigned)v1 >> 0x1f;
-    v1 = v1 + ret;
-    v1 = (signed)v1 >> 1;
-    v1 = ((signed)a0 < (signed)v1) ? 1 : 0;
-    __asm("div zero, a3, a0");
-    if (v1 != 0) {
+    if ((((signed)a0 < (signed)v1) ? 1 : 0) != 0) {
         a3 = 2 << 16;
     } else {
-        a3 = LO;
+        a3 = (signed)a3 / (signed)a0;
     }
     HI_LO = (s64)t1 * (s64)a3;
     t1 = 0x80000000;
-    ret = LO;
-    v1 = HI;
+    ret = (signed)a3 / (signed)a0;
+    v1 = (signed)a3 % (signed)a0;
     ret = (u64)ret << 32;
     v1 = (u64)v1 << 32;
     ret = (u64)ret >> 32;
     v1 = v1 | ret;
-    ret = *(u32*)*(t6 + 0xe0);
     ret = ret + v1;
     a0 = ret << 16;
     a0 = (s64)a0 >> 32;
     v1 = ((signed)a0 < -0x400) ? 1 : 0;
     t1 = 0x80004000;
     if (v1 != 0) {
-        ret = *(u32*)*(t6 + 0xfc);
+        ret = *(u32*)(t6 + 0xfc);  /* GTE ctrl: flag */
         a0 = -0x400;
         goto loc_215520;
     }
     ret = 0x3ff;
     HI_LO = (s64)t5 * (s64)a3;
     if ((signed)ret >= (signed)a0) goto loc_21552C;
-    ret = *(u32*)*(t6 + 0xfc);
+    ret = *(u32*)(t6 + 0xfc);  /* GTE ctrl: flag */
     a0 = 0x3ff;
 loc_215520:
-    ret = ret | t1;
-    *(u32*)*(t6 + 0xfc) = ret;
+    *(u32*)(t6 + 0xfc) = ret | t1;
     HI_LO = (s64)t5 * (s64)a3;
 loc_21552C:
     t1 = 0x80000000;
@@ -364,32 +345,28 @@ loc_21552C:
     ret = (u64)ret << 32;
     v1 = (u64)v1 >> 32;
     ret = ret | v1;
-    v1 = *(u32*)*(t6 + 0xe4);
-    v1 = v1 + ret;
-    v1 = v1 << 16;
     v1 = (s64)v1 >> 32;
     t1 = 0x80002000;
     if ((signed)v1 < -0x400) {
-        ret = *(u32*)*(t6 + 0xfc);
+        ret = *(u32*)(t6 + 0xfc);  /* GTE ctrl: flag */
         v1 = -0x400;
         goto loc_215590;
     }
     ret = 0x3ff;
     if ((signed)ret >= (signed)v1) goto loc_215598;
-    ret = *(u32*)*(t6 + 0xfc);
+    ret = *(u32*)(t6 + 0xfc);  /* GTE ctrl: flag */
     v1 = 0x3ff;
 loc_215590:
-    ret = ret | t1;
-    *(u32*)*(t6 + 0xfc) = ret;
+    *(u32*)(t6 + 0xfc) = ret | t1;
 loc_215598:
-    *(u16*)*(t9 + 2) = v1;
+    *(u16*)(t9 + 2) = v1;
     if (s0 != 0) {
-        v1 = *(u32*)*(t6 + 0xec);
-        ret = *(u32*)*(t6 + 0xf0);
+        v1 = *(u32*)(t6 + 0xec);  /* GTE ctrl: dqa */
+        ret = *(u32*)(t6 + 0xf0);  /* GTE ctrl: dqb */
         HI_LO = (s64)v1 * (s64)a3;
-        *(u32*)*(t6 + 0x64) = t0;
-        *(u32*)*(t6 + 0x68) = a2;
-        *(u32*)*(t6 + 0x6c) = a1;
+        *(u32*)(t6 + 0x64) = t0;
+        *(u32*)(t6 + 0x68) = a2;
+        *(u32*)(t6 + 0x6c) = a1;
         a0 = LO;
         v1 = HI;
         a0 = (u64)a0 << 32;
@@ -397,312 +374,291 @@ loc_215598:
         a0 = (u64)a0 >> 32;
         v1 = v1 | a0;
         ret = ret + v1;
-        v1 = ret << 20;
         v1 = (s64)v1 >> 32;
-        ret = (u64)ret << 32;
         ret = (s64)ret >> 32;
-        *(u32*)*(t6 + 0x60) = ret;
+        *(u32*)(t6 + 0x60) = ret;
         if ((signed)v1 < 0) {
-            ret = *(u32*)*(t6 + 0xfc);
+            ret = *(u32*)(t6 + 0xfc);  /* GTE ctrl: flag */
             v1 = 0;
         } else {
             ret = 0x1000;
-            *(u32*)*(t6 + 0x2c) = t3;
+            *(u32*)(t6 + 0x2c) = t3;
             if ((signed)ret < (signed)v1) {
-                ret = *(u32*)*(t6 + 0xfc);
+                ret = *(u32*)(t6 + 0xfc);  /* GTE ctrl: flag */
                 v1 = 0x1000;
                 }
-                ret = ret | 0x1000;
-                *(u32*)*(t6 + 0xfc) = ret;
-                *(u32*)*(t6 + 0x2c) = t3;
+                *(u32*)(t6 + 0xfc) = ret | 0x1000;
+                *(u32*)(t6 + 0x2c) = t3;
             }
-        *(u32*)*(t6 + 0x20) = v1;
-        *(u32*)*(t6 + 0x24) = t4;
-        *(u32*)*(t6 + 0x28) = t2;
+        *(u32*)(t6 + 0x20) = v1;
+        *(u32*)(t6 + 0x24) = t4;
+        *(u32*)(t6 + 0x28) = t2;
     }
     return ret;
 }
 
 /* Function at 0x00215638 - 0x0021563C */
-int GTE_NCDS_Prologue()
+u32 GTE_NCDS_Prologue(u32 a0, u32 a1)
 {
-    int ret, a1;
+    u32 ret;
     ret = *(s16*)(a1);
 }
 
 /* Function at 0x0021563C - 0x00215C60 */
-int GTE_NCDS_Core()
+u32 GTE_NCDS_Core(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
-    v1 = *(s16*)*(a1 + 2);
+    u32 ret, v1, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
+    v1 = *(s16*)(a1 + 2);
     t0 = a0;
-    a0 = *(s16*)*(a1 + 4);
+    a0 = *(s16*)(a1 + 4);
     t8 = a2;
-    *(u32*)(sp) = ret;
+    *(u32*)(__sp) = ret;
     t9 = a3;
-    *(u32*)*(__sp + 4) = v1;
+    *(u32*)(__sp + 4) = v1;
     t7 = __sp;
-    *(u32*)*(__sp + 8) = a0;
+    *(u32*)(__sp + 8) = a0;
     t5 = __sp + 4;
-    ret = *(s16*)*(t0 + 0xa0);
+    ret = *(s16*)(t0 + 0xa0);  /* GTE ctrl: l[0,1] */
     t6 = __sp + 8;
-    a0 = *(s16*)*(t0 + 0xa2);
-    a2 = *(s16*)(sp);
-    a3 = *(s16*)*(__sp + 4);
-    v1 = *(s16*)*(t0 + 0xa4);
+    a0 = *(s16*)(t0 + 0xa2);  /* GTE ctrl: l.L12 */
+    a2 = *(s16*)(__sp);
+    a3 = *(s16*)(__sp + 4);
+    v1 = *(s16*)(t0 + 0xa4);  /* GTE ctrl: l[2,3] */
     ac2 = (s32)((s64)ret * (s64)a2); HI_LO = (s64)ret * (s64)a2;
-    a1 = *(s16*)*(__sp + 8);
+    a1 = *(s16*)(__sp + 8);
     a0 = (s32)((s64)a0 * (s64)a3); HI_LO = (s64)a0 * (s64)a3;
-    __asm("mult1 v1, v1, a1");
-    ret = ret + a0;
+    v1 = v1 * a1;
     ret = (signed)ret >> 1;
     v1 = (signed)v1 >> 1;
     ret = ret + v1;
     v1 = (signed)ret >> 0xb;
     t1 = 0x01000000;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         t4 = 0;
     } else {
         ret = 0x7fff;
         t4 = v1;
         if ((signed)ret < (signed)v1) {
-            ret = *(u32*)*(t0 + 0xfc);
+            ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
             t4 = 0x7fff;
             }
-            ret = ret | t1;
-            *(u32*)*(t0 + 0xfc) = ret;
+            *(u32*)(t0 + 0xfc) = ret | t1;
         }
     a1 = *(s16*)(t7);
     t3 = 0x00800000;
-    ret = *(s16*)*(t0 + 0xa6);
-    a0 = *(s16*)*(t0 + 0xa8);
+    ret = *(s16*)(t0 + 0xa6);  /* GTE ctrl: l2.L21 */
+    a0 = *(s16*)(t0 + 0xa8);  /* GTE ctrl: l[4,5] */
     a3 = *(s16*)(t5);
     ac2 = (s32)((s64)ret * (s64)a1); HI_LO = (s64)ret * (s64)a1;
     a2 = *(s16*)(t6);
-    v1 = *(s16*)*(t0 + 0xaa);
+    v1 = *(s16*)(t0 + 0xaa);  /* GTE ctrl: l3.L23 */
     a0 = (s32)((s64)a0 * (s64)a3); HI_LO = (s64)a0 * (s64)a3;
     a1 = *(u16*)(t7);
     ac3 = (s32)((s64)v1 * (s64)a2); HI_LO = (s64)v1 * (s64)a2;
     a2 = *(u16*)(t5);
-    ret = ret + a0;
     ret = (signed)ret >> 1;
     v1 = (signed)v1 >> 1;
     ret = ret + v1;
     v1 = (signed)ret >> 0xb;
     t2 = *(u16*)(t6);
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         t1 = 0;
     } else {
         ret = 0x7fff;
         t1 = v1;
         if ((signed)ret < (signed)v1) {
-            ret = *(u32*)*(t0 + 0xfc);
+            ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
             t1 = 0x7fff;
             }
-            ret = ret | t3;
-            *(u32*)*(t0 + 0xfc) = ret;
+            *(u32*)(t0 + 0xfc) = ret | t3;
         }
     a1 = a1 << 0x10;
     a2 = a2 << 0x10;
-    ret = *(s16*)*(t0 + 0xac);
+    ret = *(s16*)(t0 + 0xac);  /* GTE ctrl: l[6,7] */
     a1 = (signed)a1 >> 0x10;
-    a3 = *(s16*)*(t0 + 0xae);
+    a3 = *(s16*)(t0 + 0xae);  /* GTE ctrl: l4.L32 */
     a2 = (signed)a2 >> 0x10;
     v1 = t2 << 0x10;
-    a0 = *(s16*)*(t0 + 0xb0);
+    a0 = *(s16*)(t0 + 0xb0);  /* GTE ctrl: l5.L33 */
     ac2 = (s32)((s64)ret * (s64)a1); HI_LO = (s64)ret * (s64)a1;
     v1 = (signed)v1 >> 0x10;
-    __asm("mult1 a3, a3, a2");
+    a3 = a3 * a2;
     a0 = (s32)((s64)a0 * (s64)v1); HI_LO = (s64)a0 * (s64)v1;
-    ret = ret + a3;
     ret = (signed)ret >> 1;
     a0 = (signed)a0 >> 1;
     ret = ret + a0;
     v1 = (signed)ret >> 0xb;
     a1 = 0x00400000;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = 0;
     } else {
         ret = 0x7fff;
         *(u32*)(t7) = t4;
         if ((signed)ret < (signed)v1) {
-            ret = *(u32*)*(t0 + 0xfc);
+            ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
             v1 = 0x7fff;
             }
-            ret = ret | a1;
-            *(u32*)*(t0 + 0xfc) = ret;
+            *(u32*)(t0 + 0xfc) = ret | a1;
             *(u32*)(t7) = t4;
         }
     t4 = __sp;
     *(u32*)(t5) = t1;
     *(u32*)(t6) = v1;
-    ret = *(s16*)*(t0 + 0xc0);
-    a1 = *(s16*)(sp);
-    a0 = *(s16*)*(t0 + 0xc2);
-    a3 = *(s16*)*(__sp + 4);
+    ret = *(s16*)(t0 + 0xc0);  /* GTE ctrl: lc[0,1] */
+    a1 = *(s16*)(__sp);
+    a0 = *(s16*)(t0 + 0xc2);
+    a3 = *(s16*)(__sp + 4);
     ac2 = (s32)((s64)ret * (s64)a1); HI_LO = (s64)ret * (s64)a1;
-    v1 = *(s16*)*(t0 + 0xc4);
-    a2 = *(s16*)*(__sp + 8);
+    v1 = *(s16*)(t0 + 0xc4);  /* GTE ctrl: lc[2,3] */
+    a2 = *(s16*)(__sp + 8);
     a0 = (s32)((s64)a0 * (s64)a3); HI_LO = (s64)a0 * (s64)a3;
-    a1 = *(u32*)*(t0 + 0xb4);
+    a1 = *(u32*)(t0 + 0xb4);  /* GTE ctrl: rbk */
     ac3 = (s32)((s64)v1 * (s64)a2); HI_LO = (s64)v1 * (s64)a2;
-    ret = ret + a0;
     ret = (signed)ret >> 1;
     v1 = (signed)v1 >> 1;
-    ret = ret + v1;
     ret = (signed)ret >> 0xb;
     a1 = a1 + ret;
     t1 = 0x01000000;
     if ((signed)a1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         t3 = 0;
         goto loc_215848;
     }
     ret = 0x7fff;
     t3 = a1;
-    if (likely((signed)ret >= (signed)a1)) goto loc_215850;
-    ret = *(u32*)*(t0 + 0xfc);
+    if ((signed)ret >= (signed)a1) goto loc_215850;
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     t3 = 0x7fff;
 loc_215848:
-    ret = ret | t1;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret | t1;
 loc_215850:
     a1 = *(s16*)(t4);
     t2 = 0x00800000;
     a3 = *(s16*)(t5);
-    ret = *(s16*)*(t0 + 0xc6);
-    a0 = *(s16*)*(t0 + 0xc8);
+    ret = *(s16*)(t0 + 0xc6);
+    a0 = *(s16*)(t0 + 0xc8);  /* GTE ctrl: lc[4,5] */
     a2 = *(s16*)(t6);
     ac2 = (s32)((s64)ret * (s64)a1); HI_LO = (s64)ret * (s64)a1;
-    v1 = *(s16*)*(t0 + 0xca);
+    v1 = *(s16*)(t0 + 0xca);
     a0 = (s32)((s64)a0 * (s64)a3); HI_LO = (s64)a0 * (s64)a3;
-    a1 = *(u32*)*(t0 + 0xb8);
+    a1 = *(u32*)(t0 + 0xb8);  /* GTE ctrl: gbk */
     ac3 = (s32)((s64)v1 * (s64)a2); HI_LO = (s64)v1 * (s64)a2;
     a2 = *(u16*)(t5);
     a3 = *(u16*)(t4);
-    ret = ret + a0;
     ret = (signed)ret >> 1;
     v1 = (signed)v1 >> 1;
-    ret = ret + v1;
     ret = (signed)ret >> 0xb;
     a1 = a1 + ret;
     a0 = *(u16*)(t6);
     if ((signed)a1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         t1 = 0;
     } else {
         ret = 0x7fff;
         t1 = a1;
         if ((signed)ret < (signed)a1) {
-            ret = *(u32*)*(t0 + 0xfc);
+            ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
             t1 = 0x7fff;
             }
-            ret = ret | t2;
-            *(u32*)*(t0 + 0xfc) = ret;
+            *(u32*)(t0 + 0xfc) = ret | t2;
         }
     a1 = a3 << 0x10;
-    a3 = *(s16*)*(t0 + 0xce);
+    a3 = *(s16*)(t0 + 0xce);
     a2 = a2 << 0x10;
-    ret = *(s16*)*(t0 + 0xcc);
+    ret = *(s16*)(t0 + 0xcc);  /* GTE ctrl: lc[6,7] */
     a1 = (signed)a1 >> 0x10;
     a2 = (signed)a2 >> 0x10;
     v1 = a0 << 0x10;
-    a0 = *(s16*)*(t0 + 0xd0);
+    a0 = *(s16*)(t0 + 0xd0);  /* GTE ctrl: lc5.LB3 */
     ac2 = (s32)((s64)ret * (s64)a1); HI_LO = (s64)ret * (s64)a1;
-    a1 = *(u32*)*(t0 + 0xbc);
-    __asm("mult1 a3, a3, a2");
+    a1 = *(u32*)(t0 + 0xbc);  /* GTE ctrl: bbk */
+    a3 = a3 * a2;
     v1 = (signed)v1 >> 0x10;
     a0 = (s32)((s64)a0 * (s64)v1); HI_LO = (s64)a0 * (s64)v1;
-    ret = ret + a3;
     ret = (signed)ret >> 1;
     a0 = (signed)a0 >> 1;
-    ret = ret + a0;
     ret = (signed)ret >> 0xb;
     v1 = a1 + ret;
     a2 = 0x00400000;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = 0;
     } else {
         ret = 0x7fff;
         *(u32*)(t4) = t3;
         if ((signed)ret < (signed)v1) {
-            ret = *(u32*)*(t0 + 0xfc);
+            ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
             v1 = 0x7fff;
             }
-            ret = ret | a2;
-            *(u32*)*(t0 + 0xfc) = ret;
+            *(u32*)(t0 + 0xfc) = ret | a2;
             *(u32*)(t4) = t3;
         }
     t2 = __sp;
     *(u32*)(t5) = t1;
     t1 = 0x01000000;
     *(u32*)(t6) = v1;
-    v1 = *(u8*)*(t0 + 0x18);
-    ret = *(s16*)(sp);
+    v1 = *(u8*)(t0 + 0x18);  /* GTE data: rgbc */
+    ret = *(s16*)(__sp);
     v1 = v1 << 4;
-    a1 = *(u8*)*(t0 + 0x19);
-    a0 = *(u8*)*(t0 + 0x1a);
+    a1 = *(u8*)(t0 + 0x19);  /* GTE data: rgbc.G */
+    a0 = *(u8*)(t0 + 0x1a);  /* GTE data: rgbc.B */
     ac3 = (s32)((s64)v1 * (s64)ret); HI_LO = (s64)v1 * (s64)ret;
-    a3 = *(s16*)*(__sp + 8);
+    a3 = *(s16*)(__sp + 8);
     a1 = a1 << 4;
-    ret = *(s16*)*(__sp + 4);
+    ret = *(s16*)(__sp + 4);
     a0 = a0 << 4;
-    a2 = *(u32*)*(t0 + 0xd4);
+    a2 = *(u32*)(t0 + 0xd4);  /* GTE ctrl: rfc */
     a0 = (s32)((s64)a0 * (s64)a3); HI_LO = (s64)a0 * (s64)a3;
     a1 = (s32)((s64)a1 * (s64)ret); HI_LO = (s64)a1 * (s64)ret;
     ret = (signed)v1 >> 0xc;
     a2 = a2 - ret;
-    *(u32*)(sp) = v1;
-    a3 = *(s16*)*(t0 + 0x20);
-    *(u32*)*(__sp + 4) = a1;
-    *(u32*)*(__sp + 8) = a0;
+    *(u32*)(__sp) = v1;
+    a3 = *(s16*)(t0 + 0x20);  /* GTE data: ir0 */
+    *(u32*)(__sp + 4) = a1;
+    *(u32*)(__sp + 8) = a0;
     if ((signed)a2 < -0x8000) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         a2 = -0x8000;
         goto loc_2159E0;
     }
-    ret = 0x7fff;
-    ret = ((signed)ret < (signed)a2) ? 1 : 0;
     ret = a2 << 0x10;
     if (ret == 0) goto loc_2159EC;
-    ret = *(u32*)*(t0 + 0xfc);
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     a2 = 0x7fff;
 loc_2159E0:
     ret = ret | t1;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret;
     ret = a2 << 0x10;
 loc_2159EC:
     ret = (signed)ret >> 0x10;
     v1 = *(u32*)(t2);
     ac2 = (s32)((s64)a3 * (s64)ret); HI_LO = (s64)a3 * (s64)ret;
-    a0 = *(u32*)*(t0 + 0xd8);
-    v1 = v1 + ret;
-    *(u32*)(t2) = v1;
+    a0 = *(u32*)(t0 + 0xd8);  /* GTE ctrl: gfc */
+    *(u32*)(t2) = v1 + ret;
     a1 = *(u32*)(t5);
     ret = (signed)a1 >> 0xc;
     a0 = a0 - ret;
     v1 = ((signed)a0 < -0x8000) ? 1 : 0;
     a2 = 0x00800000;
     if (v1 != 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = -0x8000;
     } else {
         ret = 0x7fff;
         v1 = a0;
         if ((signed)ret < (signed)a0) {
-            ret = *(u32*)*(t0 + 0xfc);
+            ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
             v1 = 0x7fff;
             }
             ret = ret | a2;
-            *(u32*)*(t0 + 0xfc) = ret;
+            *(u32*)(t0 + 0xfc) = ret;
         }
     ret = v1 << 0x10;
-    a0 = *(u32*)*(t0 + 0xdc);
+    a0 = *(u32*)(t0 + 0xdc);  /* GTE ctrl: bfc */
     ret = (signed)ret >> 0x10;
     ac3 = (s32)((s64)a3 * (s64)ret); HI_LO = (s64)a3 * (s64)ret;
     ret = v1 + a1;
@@ -713,888 +669,839 @@ loc_2159EC:
     v1 = ((signed)a0 < -0x8000) ? 1 : 0;
     a2 = 0x00400000;
     if (v1 != 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = -0x8000;
         goto loc_215AA0;
     }
     ret = 0x7fff;
     v1 = a0;
-    if (likely((signed)ret >= (signed)a0)) goto loc_215AA8;
-    ret = *(u32*)*(t0 + 0xfc);
+    if ((signed)ret >= (signed)a0) goto loc_215AA8;
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     v1 = 0x7fff;
 loc_215AA0:
     ret = ret | a2;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret;
 loc_215AA8:
     ret = v1 << 0x10;
-    v1 = *(u8*)*(t0 + 0x1b);
+    v1 = *(u8*)(t0 + 0x1b);  /* GTE data: rgbc.code */
     ret = (signed)ret >> 0x10;
     a0 = (s32)((s64)a3 * (s64)ret); HI_LO = (s64)a3 * (s64)ret;
-    *(u8*)*(t8 + 3) = v1;
+    *(u8*)(t8 + 3) = v1;
     ret = a0 + a1;
     a1 = 0x00200000;
     *(u32*)(t6) = ret;
-    a3 = *(u32*)(sp);
-    t1 = *(u32*)*(__sp + 4);
+    a3 = *(u32*)(__sp);
+    t1 = *(u32*)(__sp + 4);
     v1 = (signed)a3 >> 0x10;
-    a2 = *(u32*)*(__sp + 8);
+    a2 = *(u32*)(__sp + 8);
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         a0 = 0;
     } else {
         ret = 0xff;
         a0 = v1;
         if ((signed)ret < (signed)v1) {
-            ret = *(u32*)*(t0 + 0xfc);
+            ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
             a0 = 0xff;
             }
-            ret = ret | a1;
-            *(u32*)*(t0 + 0xfc) = ret;
+            *(u32*)(t0 + 0xfc) = ret | a1;
         }
     v1 = (signed)t1 >> 0x10;
     *(u8*)(t8) = a0;
     a1 = 0x00100000;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         a0 = 0;
         goto loc_215B40;
     }
     ret = 0xff;
     a0 = v1;
-    if (likely((signed)ret >= (signed)v1)) goto loc_215B48;
-    ret = *(u32*)*(t0 + 0xfc);
+    if ((signed)ret >= (signed)v1) goto loc_215B48;
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     a0 = 0xff;
 loc_215B40:
-    ret = ret | a1;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret | a1;
 loc_215B48:
     v1 = (signed)a2 >> 0x10;
-    *(u8*)*(t8 + 1) = a0;
+    *(u8*)(t8 + 1) = a0;
     a0 = 8 << 16;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = 0;
         goto loc_215B80;
     }
     ret = 0xff;
     if ((signed)ret >= (signed)v1) goto loc_215B88;
-    ret = *(u32*)*(t0 + 0xfc);
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     v1 = 0xff;
 loc_215B80:
-    ret = ret | a0;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret | a0;
 loc_215B88:
-    *(u8*)*(t8 + 2) = v1;
+    *(u8*)(t8 + 2) = v1;
     if (t9 == 0) goto loc_215C54;
     a1 = (signed)a2 >> 0xc;
     a2 = 0x01000000;
     v1 = (signed)a3 >> 0xc;
     a0 = (signed)t1 >> 0xc;
-    *(u32*)*(t0 + 0x64) = v1;
-    *(u32*)*(t0 + 0x68) = a0;
-    *(u32*)*(t0 + 0x6c) = a1;
+    *(u32*)(t0 + 0x64) = v1;
+    *(u32*)(t0 + 0x68) = a0;
+    *(u32*)(t0 + 0x6c) = a1;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = 0;
         goto loc_215BD8;
     }
     ret = 0x7fff;
-    *(u32*)*(t0 + 0x24) = v1;
-    if (likely((signed)ret >= (signed)v1)) goto loc_215BE4;
-    ret = *(u32*)*(t0 + 0xfc);
+    *(u32*)(t0 + 0x24) = v1;
+    if ((signed)ret >= (signed)v1) goto loc_215BE4;
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     v1 = 0x7fff;
 loc_215BD8:
-    ret = ret | a2;
-    *(u32*)*(t0 + 0xfc) = ret;
-    *(u32*)*(t0 + 0x24) = v1;
+    *(u32*)(t0 + 0xfc) = ret | a2;
+    *(u32*)(t0 + 0x24) = v1;
 loc_215BE4:
     a2 = 0x00800000;
     if ((signed)a0 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = 0;
     } else {
         ret = 0x7fff;
         v1 = a0;
         if ((signed)ret < (signed)a0) {
-            ret = *(u32*)*(t0 + 0xfc);
+            ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
             v1 = 0x7fff;
             }
-            ret = ret | a2;
-            *(u32*)*(t0 + 0xfc) = ret;
+            *(u32*)(t0 + 0xfc) = ret | a2;
         }
-    *(u32*)*(t0 + 0x28) = v1;
+    *(u32*)(t0 + 0x28) = v1;
     a0 = 0x00400000;
     if ((signed)a1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = 0;
     } else {
         ret = 0x7fff;
         v1 = a1;
         if ((signed)ret < (signed)a1) {
-            ret = *(u32*)*(t0 + 0xfc);
+            ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
             v1 = 0x7fff;
             }
-            ret = ret | a0;
-            *(u32*)*(t0 + 0xfc) = ret;
+            *(u32*)(t0 + 0xfc) = ret | a0;
         }
-    *(u32*)*(t0 + 0x2c) = v1;
+    *(u32*)(t0 + 0x2c) = v1;
 loc_215C54:
     return ret;
 }
 
 /* Function at 0x00215C60 - 0x00215C64 */
-int GTE_NCCS_Prologue()
+u32 GTE_NCCS_Prologue(u32 a0, u32 a1)
 {
-    int ret, a1;
+    u32 ret;
     ret = *(s16*)(a1);
 }
 
 /* Function at 0x00215C64 - 0x00216160 */
-int GTE_NCCS_Core()
+u32 GTE_NCCS_Core(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
-    v1 = *(s16*)*(a1 + 2);
+    u32 ret, v1, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
+    v1 = *(s16*)(a1 + 2);
     t0 = a0;
-    a0 = *(s16*)*(a1 + 4);
+    a0 = *(s16*)(a1 + 4);
     t6 = a2;
-    *(u32*)(sp) = ret;
+    *(u32*)(__sp) = ret;
     t9 = a3;
-    *(u32*)*(__sp + 4) = v1;
+    *(u32*)(__sp + 4) = v1;
     t5 = __sp;
-    *(u32*)*(__sp + 8) = a0;
+    *(u32*)(__sp + 8) = a0;
     t7 = __sp + 4;
-    ret = *(s16*)*(t0 + 0xa0);
+    ret = *(s16*)(t0 + 0xa0);  /* GTE ctrl: l[0,1] */
     t8 = __sp + 8;
-    a0 = *(s16*)*(t0 + 0xa2);
-    a2 = *(s16*)(sp);
-    a3 = *(s16*)*(__sp + 4);
-    v1 = *(s16*)*(t0 + 0xa4);
+    a0 = *(s16*)(t0 + 0xa2);  /* GTE ctrl: l.L12 */
+    a2 = *(s16*)(__sp);
+    a3 = *(s16*)(__sp + 4);
+    v1 = *(s16*)(t0 + 0xa4);  /* GTE ctrl: l[2,3] */
     ac2 = (s32)((s64)ret * (s64)a2); HI_LO = (s64)ret * (s64)a2;
-    a1 = *(s16*)*(__sp + 8);
+    a1 = *(s16*)(__sp + 8);
     a0 = (s32)((s64)a0 * (s64)a3); HI_LO = (s64)a0 * (s64)a3;
-    __asm("mult1 v1, v1, a1");
-    ret = ret + a0;
+    v1 = v1 * a1;
     ret = (signed)ret >> 1;
     v1 = (signed)v1 >> 1;
     ret = ret + v1;
     v1 = (signed)ret >> 0xb;
     t1 = 0x01000000;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         t4 = 0;
     } else {
         ret = 0x7fff;
         t4 = v1;
         if ((signed)ret < (signed)v1) {
-            ret = *(u32*)*(t0 + 0xfc);
+            ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
             t4 = 0x7fff;
             }
-            ret = ret | t1;
-            *(u32*)*(t0 + 0xfc) = ret;
+            *(u32*)(t0 + 0xfc) = ret | t1;
         }
     a1 = *(s16*)(t5);
     t3 = 0x00800000;
-    ret = *(s16*)*(t0 + 0xa6);
-    a0 = *(s16*)*(t0 + 0xa8);
+    ret = *(s16*)(t0 + 0xa6);  /* GTE ctrl: l2.L21 */
+    a0 = *(s16*)(t0 + 0xa8);  /* GTE ctrl: l[4,5] */
     a3 = *(s16*)(t7);
     ac2 = (s32)((s64)ret * (s64)a1); HI_LO = (s64)ret * (s64)a1;
     a2 = *(s16*)(t8);
-    v1 = *(s16*)*(t0 + 0xaa);
+    v1 = *(s16*)(t0 + 0xaa);  /* GTE ctrl: l3.L23 */
     a0 = (s32)((s64)a0 * (s64)a3); HI_LO = (s64)a0 * (s64)a3;
     a1 = *(u16*)(t5);
     ac3 = (s32)((s64)v1 * (s64)a2); HI_LO = (s64)v1 * (s64)a2;
     a2 = *(u16*)(t7);
-    ret = ret + a0;
     ret = (signed)ret >> 1;
     v1 = (signed)v1 >> 1;
     ret = ret + v1;
     v1 = (signed)ret >> 0xb;
     t2 = *(u16*)(t8);
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         t1 = 0;
     } else {
         ret = 0x7fff;
         t1 = v1;
         if ((signed)ret < (signed)v1) {
-            ret = *(u32*)*(t0 + 0xfc);
+            ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
             t1 = 0x7fff;
             }
-            ret = ret | t3;
-            *(u32*)*(t0 + 0xfc) = ret;
+            *(u32*)(t0 + 0xfc) = ret | t3;
         }
     a1 = a1 << 0x10;
     a2 = a2 << 0x10;
-    ret = *(s16*)*(t0 + 0xac);
+    ret = *(s16*)(t0 + 0xac);  /* GTE ctrl: l[6,7] */
     a1 = (signed)a1 >> 0x10;
-    a3 = *(s16*)*(t0 + 0xae);
+    a3 = *(s16*)(t0 + 0xae);  /* GTE ctrl: l4.L32 */
     a2 = (signed)a2 >> 0x10;
     v1 = t2 << 0x10;
-    a0 = *(s16*)*(t0 + 0xb0);
+    a0 = *(s16*)(t0 + 0xb0);  /* GTE ctrl: l5.L33 */
     ac2 = (s32)((s64)ret * (s64)a1); HI_LO = (s64)ret * (s64)a1;
     v1 = (signed)v1 >> 0x10;
-    __asm("mult1 a3, a3, a2");
+    a3 = a3 * a2;
     a0 = (s32)((s64)a0 * (s64)v1); HI_LO = (s64)a0 * (s64)v1;
-    ret = ret + a3;
     ret = (signed)ret >> 1;
     a0 = (signed)a0 >> 1;
     ret = ret + a0;
     v1 = (signed)ret >> 0xb;
     a1 = 0x00400000;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = 0;
     } else {
         ret = 0x7fff;
         *(u32*)(t5) = t4;
         if ((signed)ret < (signed)v1) {
-            ret = *(u32*)*(t0 + 0xfc);
+            ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
             v1 = 0x7fff;
             }
-            ret = ret | a1;
-            *(u32*)*(t0 + 0xfc) = ret;
+            *(u32*)(t0 + 0xfc) = ret | a1;
             *(u32*)(t5) = t4;
         }
     t4 = __sp;
     *(u32*)(t7) = t1;
     *(u32*)(t8) = v1;
-    ret = *(s16*)*(t0 + 0xc0);
-    a1 = *(s16*)(sp);
-    a0 = *(s16*)*(t0 + 0xc2);
-    a3 = *(s16*)*(__sp + 4);
+    ret = *(s16*)(t0 + 0xc0);  /* GTE ctrl: lc[0,1] */
+    a1 = *(s16*)(__sp);
+    a0 = *(s16*)(t0 + 0xc2);
+    a3 = *(s16*)(__sp + 4);
     ac2 = (s32)((s64)ret * (s64)a1); HI_LO = (s64)ret * (s64)a1;
-    v1 = *(s16*)*(t0 + 0xc4);
-    a2 = *(s16*)*(__sp + 8);
+    v1 = *(s16*)(t0 + 0xc4);  /* GTE ctrl: lc[2,3] */
+    a2 = *(s16*)(__sp + 8);
     a0 = (s32)((s64)a0 * (s64)a3); HI_LO = (s64)a0 * (s64)a3;
-    a1 = *(u32*)*(t0 + 0xb4);
+    a1 = *(u32*)(t0 + 0xb4);  /* GTE ctrl: rbk */
     ac3 = (s32)((s64)v1 * (s64)a2); HI_LO = (s64)v1 * (s64)a2;
-    ret = ret + a0;
     ret = (signed)ret >> 1;
     v1 = (signed)v1 >> 1;
-    ret = ret + v1;
     ret = (signed)ret >> 0xb;
     a1 = a1 + ret;
     t1 = 0x01000000;
     if ((signed)a1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         t3 = 0;
         goto loc_215E70;
     }
     ret = 0x7fff;
     t3 = a1;
-    if (likely((signed)ret >= (signed)a1)) goto loc_215E78;
-    ret = *(u32*)*(t0 + 0xfc);
+    if ((signed)ret >= (signed)a1) goto loc_215E78;
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     t3 = 0x7fff;
 loc_215E70:
-    ret = ret | t1;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret | t1;
 loc_215E78:
     a1 = *(s16*)(t4);
     t2 = 0x00800000;
     a3 = *(s16*)(t7);
-    ret = *(s16*)*(t0 + 0xc6);
-    a0 = *(s16*)*(t0 + 0xc8);
+    ret = *(s16*)(t0 + 0xc6);
+    a0 = *(s16*)(t0 + 0xc8);  /* GTE ctrl: lc[4,5] */
     a2 = *(s16*)(t8);
     ac2 = (s32)((s64)ret * (s64)a1); HI_LO = (s64)ret * (s64)a1;
-    v1 = *(s16*)*(t0 + 0xca);
+    v1 = *(s16*)(t0 + 0xca);
     a0 = (s32)((s64)a0 * (s64)a3); HI_LO = (s64)a0 * (s64)a3;
-    a1 = *(u32*)*(t0 + 0xb8);
+    a1 = *(u32*)(t0 + 0xb8);  /* GTE ctrl: gbk */
     ac3 = (s32)((s64)v1 * (s64)a2); HI_LO = (s64)v1 * (s64)a2;
     a2 = *(u16*)(t7);
     a3 = *(u16*)(t4);
-    ret = ret + a0;
     ret = (signed)ret >> 1;
     v1 = (signed)v1 >> 1;
-    ret = ret + v1;
     ret = (signed)ret >> 0xb;
     a1 = a1 + ret;
     a0 = *(u16*)(t8);
     if ((signed)a1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         t1 = 0;
     } else {
         ret = 0x7fff;
         t1 = a1;
         if ((signed)ret < (signed)a1) {
-            ret = *(u32*)*(t0 + 0xfc);
+            ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
             t1 = 0x7fff;
             }
-            ret = ret | t2;
-            *(u32*)*(t0 + 0xfc) = ret;
+            *(u32*)(t0 + 0xfc) = ret | t2;
         }
     a1 = a3 << 0x10;
-    a3 = *(s16*)*(t0 + 0xce);
+    a3 = *(s16*)(t0 + 0xce);
     a2 = a2 << 0x10;
-    ret = *(s16*)*(t0 + 0xcc);
+    ret = *(s16*)(t0 + 0xcc);  /* GTE ctrl: lc[6,7] */
     a1 = (signed)a1 >> 0x10;
     a2 = (signed)a2 >> 0x10;
     v1 = a0 << 0x10;
-    a0 = *(s16*)*(t0 + 0xd0);
+    a0 = *(s16*)(t0 + 0xd0);  /* GTE ctrl: lc5.LB3 */
     ac2 = (s32)((s64)ret * (s64)a1); HI_LO = (s64)ret * (s64)a1;
-    a1 = *(u32*)*(t0 + 0xbc);
-    __asm("mult1 a3, a3, a2");
+    a1 = *(u32*)(t0 + 0xbc);  /* GTE ctrl: bbk */
+    a3 = a3 * a2;
     v1 = (signed)v1 >> 0x10;
     a0 = (s32)((s64)a0 * (s64)v1); HI_LO = (s64)a0 * (s64)v1;
-    ret = ret + a3;
     ret = (signed)ret >> 1;
     a0 = (signed)a0 >> 1;
-    ret = ret + a0;
     ret = (signed)ret >> 0xb;
     v1 = a1 + ret;
     a2 = 0x00400000;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = 0;
     } else {
         ret = 0x7fff;
         *(u32*)(t4) = t3;
         if ((signed)ret < (signed)v1) {
-            ret = *(u32*)*(t0 + 0xfc);
+            ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
             v1 = 0x7fff;
             }
-            ret = ret | a2;
-            *(u32*)*(t0 + 0xfc) = ret;
+            *(u32*)(t0 + 0xfc) = ret | a2;
             *(u32*)(t4) = t3;
         }
     t2 = 0x00200000;
     *(u32*)(t7) = t1;
     *(u32*)(t8) = v1;
-    v1 = *(u8*)*(t0 + 0x18);
-    a1 = *(s16*)(sp);
-    ret = *(u8*)*(t0 + 0x19);
+    v1 = *(u8*)(t0 + 0x18);  /* GTE data: rgbc */
+    a1 = *(s16*)(__sp);
+    ret = *(u8*)(t0 + 0x19);  /* GTE data: rgbc.G */
     v1 = v1 << 4;
-    a0 = *(u8*)*(t0 + 0x1a);
+    a0 = *(u8*)(t0 + 0x1a);  /* GTE data: rgbc.B */
     ac3 = (s32)((s64)v1 * (s64)a1); HI_LO = (s64)v1 * (s64)a1;
-    a2 = *(s16*)*(__sp + 4);
+    a2 = *(s16*)(__sp + 4);
     ret = ret << 4;
-    a1 = *(s16*)*(__sp + 8);
+    a1 = *(s16*)(__sp + 8);
     a0 = a0 << 4;
     ac2 = (s32)((s64)ret * (s64)a2); HI_LO = (s64)ret * (s64)a2;
-    a3 = *(u8*)*(t0 + 0x1b);
+    a3 = *(u8*)(t0 + 0x1b);  /* GTE data: rgbc.code */
     a0 = (s32)((s64)a0 * (s64)a1); HI_LO = (s64)a0 * (s64)a1;
     t1 = v1;
     a1 = (signed)t1 >> 0x10;
-    *(u8*)*(t6 + 3) = a3;
-    *(u32*)(sp) = v1;
-    *(u32*)*(__sp + 4) = ret;
+    *(u8*)(t6 + 3) = a3;
+    *(u32*)(__sp) = v1;
+    *(u32*)(__sp + 4) = ret;
     a3 = ret;
-    *(u32*)*(__sp + 8) = a0;
+    *(u32*)(__sp + 8) = a0;
     if ((signed)a1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         a1 = 0;
     } else {
         ret = 0xff;
         v1 = (signed)a3 >> 0x10;
         if ((signed)ret < (signed)a1) {
-            ret = *(u32*)*(t0 + 0xfc);
+            ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
             a1 = 0xff;
             }
-            ret = ret | t2;
-            *(u32*)*(t0 + 0xfc) = ret;
+            *(u32*)(t0 + 0xfc) = ret | t2;
             v1 = (signed)a3 >> 0x10;
         }
     *(u8*)(t6) = a1;
     a2 = 0x00100000;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         a1 = 0;
         goto loc_216040;
     }
     ret = 0xff;
     a1 = v1;
-    if (likely((signed)ret >= (signed)v1)) goto loc_216048;
-    ret = *(u32*)*(t0 + 0xfc);
+    if ((signed)ret >= (signed)v1) goto loc_216048;
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     a1 = 0xff;
 loc_216040:
-    ret = ret | a2;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret | a2;
 loc_216048:
     v1 = (signed)a0 >> 0x10;
-    *(u8*)*(t6 + 1) = a1;
+    *(u8*)(t6 + 1) = a1;
     a1 = 8 << 16;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = 0;
         goto loc_216080;
     }
     ret = 0xff;
     if ((signed)ret >= (signed)v1) goto loc_216088;
-    ret = *(u32*)*(t0 + 0xfc);
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     v1 = 0xff;
 loc_216080:
-    ret = ret | a1;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret | a1;
 loc_216088:
-    *(u8*)*(t6 + 2) = v1;
+    *(u8*)(t6 + 2) = v1;
     if (t9 == 0) goto loc_216154;
     v1 = (signed)t1 >> 0xc;
     a1 = (signed)a3 >> 0xc;
     a0 = (signed)a0 >> 0xc;
-    *(u32*)*(t0 + 0x64) = v1;
-    *(u32*)*(t0 + 0x68) = a1;
+    *(u32*)(t0 + 0x64) = v1;
+    *(u32*)(t0 + 0x68) = a1;
     a2 = 0x01000000;
-    *(u32*)*(t0 + 0x6c) = a0;
+    *(u32*)(t0 + 0x6c) = a0;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = 0;
         goto loc_2160D8;
     }
     ret = 0x7fff;
-    *(u32*)*(t0 + 0x24) = v1;
-    if (likely((signed)ret >= (signed)v1)) goto loc_2160E4;
-    ret = *(u32*)*(t0 + 0xfc);
+    *(u32*)(t0 + 0x24) = v1;
+    if ((signed)ret >= (signed)v1) goto loc_2160E4;
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     v1 = 0x7fff;
 loc_2160D8:
-    ret = ret | a2;
-    *(u32*)*(t0 + 0xfc) = ret;
-    *(u32*)*(t0 + 0x24) = v1;
+    *(u32*)(t0 + 0xfc) = ret | a2;
+    *(u32*)(t0 + 0x24) = v1;
 loc_2160E4:
     a2 = 0x00800000;
     if ((signed)a1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = 0;
     } else {
         ret = 0x7fff;
         v1 = a1;
         if ((signed)ret < (signed)a1) {
-            ret = *(u32*)*(t0 + 0xfc);
+            ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
             v1 = 0x7fff;
             }
-            ret = ret | a2;
-            *(u32*)*(t0 + 0xfc) = ret;
+            *(u32*)(t0 + 0xfc) = ret | a2;
         }
-    *(u32*)*(t0 + 0x28) = v1;
+    *(u32*)(t0 + 0x28) = v1;
     v1 = 0x00400000;
     if ((signed)a0 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         a0 = 0;
     } else {
         ret = 0x7fff;
-        *(u32*)*(t0 + 0x2c) = a0;
-        if (likely((signed)ret >= (signed)a0)) goto loc_216154;
-        ret = *(u32*)*(t0 + 0xfc);
+        *(u32*)(t0 + 0x2c) = a0;
+        if ((signed)ret >= (signed)a0) goto loc_216154;
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         a0 = 0x7fff;
     }
     ret = ret | v1;
-    *(u32*)*(t0 + 0xfc) = ret;
-    *(u32*)*(t0 + 0x2c) = a0;
+    *(u32*)(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0x2c) = a0;
 loc_216154:
     return ret;
 }
 
 /* Function at 0x00216160 - 0x00216164 */
-int GTE_NCS_Prologue()
+u32 GTE_NCS_Prologue(u32 a0, u32 a1)
 {
-    int ret, a1;
+    u32 ret;
     ret = *(s16*)(a1);
 }
 
 /* Function at 0x00216164 - 0x00216650 */
-int GTE_NCS_Core()
+u32 GTE_NCS_Core(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
-    v1 = *(s16*)*(a1 + 2);
+    u32 ret, v1, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
+    v1 = *(s16*)(a1 + 2);
     t0 = a0;
-    a0 = *(s16*)*(a1 + 4);
+    a0 = *(s16*)(a1 + 4);
     t6 = a2;
-    *(u32*)(sp) = ret;
+    *(u32*)(__sp) = ret;
     t9 = a3;
-    *(u32*)*(__sp + 4) = v1;
+    *(u32*)(__sp + 4) = v1;
     t5 = __sp;
-    *(u32*)*(__sp + 8) = a0;
+    *(u32*)(__sp + 8) = a0;
     t7 = __sp + 4;
-    ret = *(s16*)*(t0 + 0xa0);
+    ret = *(s16*)(t0 + 0xa0);  /* GTE ctrl: l[0,1] */
     t8 = __sp + 8;
-    a0 = *(s16*)*(t0 + 0xa2);
-    a2 = *(s16*)(sp);
-    a3 = *(s16*)*(__sp + 4);
-    v1 = *(s16*)*(t0 + 0xa4);
+    a0 = *(s16*)(t0 + 0xa2);  /* GTE ctrl: l.L12 */
+    a2 = *(s16*)(__sp);
+    a3 = *(s16*)(__sp + 4);
+    v1 = *(s16*)(t0 + 0xa4);  /* GTE ctrl: l[2,3] */
     ac2 = (s32)((s64)ret * (s64)a2); HI_LO = (s64)ret * (s64)a2;
-    a1 = *(s16*)*(__sp + 8);
+    a1 = *(s16*)(__sp + 8);
     a0 = (s32)((s64)a0 * (s64)a3); HI_LO = (s64)a0 * (s64)a3;
-    __asm("mult1 v1, v1, a1");
-    ret = ret + a0;
+    v1 = v1 * a1;
     ret = (signed)ret >> 1;
     v1 = (signed)v1 >> 1;
     ret = ret + v1;
     v1 = (signed)ret >> 0xb;
     t1 = 0x01000000;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         t4 = 0;
     } else {
         ret = 0x7fff;
         t4 = v1;
         if ((signed)ret < (signed)v1) {
-            ret = *(u32*)*(t0 + 0xfc);
+            ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
             t4 = 0x7fff;
             }
-            ret = ret | t1;
-            *(u32*)*(t0 + 0xfc) = ret;
+            *(u32*)(t0 + 0xfc) = ret | t1;
         }
     a1 = *(s16*)(t5);
     t3 = 0x00800000;
-    ret = *(s16*)*(t0 + 0xa6);
-    a0 = *(s16*)*(t0 + 0xa8);
+    ret = *(s16*)(t0 + 0xa6);  /* GTE ctrl: l2.L21 */
+    a0 = *(s16*)(t0 + 0xa8);  /* GTE ctrl: l[4,5] */
     a3 = *(s16*)(t7);
     ac2 = (s32)((s64)ret * (s64)a1); HI_LO = (s64)ret * (s64)a1;
     a2 = *(s16*)(t8);
-    v1 = *(s16*)*(t0 + 0xaa);
+    v1 = *(s16*)(t0 + 0xaa);  /* GTE ctrl: l3.L23 */
     a0 = (s32)((s64)a0 * (s64)a3); HI_LO = (s64)a0 * (s64)a3;
     a1 = *(u16*)(t5);
     ac3 = (s32)((s64)v1 * (s64)a2); HI_LO = (s64)v1 * (s64)a2;
     a2 = *(u16*)(t7);
-    ret = ret + a0;
     ret = (signed)ret >> 1;
     v1 = (signed)v1 >> 1;
     ret = ret + v1;
     v1 = (signed)ret >> 0xb;
     t2 = *(u16*)(t8);
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         t1 = 0;
     } else {
         ret = 0x7fff;
         t1 = v1;
         if ((signed)ret < (signed)v1) {
-            ret = *(u32*)*(t0 + 0xfc);
+            ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
             t1 = 0x7fff;
             }
-            ret = ret | t3;
-            *(u32*)*(t0 + 0xfc) = ret;
+            *(u32*)(t0 + 0xfc) = ret | t3;
         }
     a1 = a1 << 0x10;
     a2 = a2 << 0x10;
-    ret = *(s16*)*(t0 + 0xac);
+    ret = *(s16*)(t0 + 0xac);  /* GTE ctrl: l[6,7] */
     a1 = (signed)a1 >> 0x10;
-    a3 = *(s16*)*(t0 + 0xae);
+    a3 = *(s16*)(t0 + 0xae);  /* GTE ctrl: l4.L32 */
     a2 = (signed)a2 >> 0x10;
     v1 = t2 << 0x10;
-    a0 = *(s16*)*(t0 + 0xb0);
+    a0 = *(s16*)(t0 + 0xb0);  /* GTE ctrl: l5.L33 */
     ac2 = (s32)((s64)ret * (s64)a1); HI_LO = (s64)ret * (s64)a1;
     v1 = (signed)v1 >> 0x10;
-    __asm("mult1 a3, a3, a2");
+    a3 = a3 * a2;
     a0 = (s32)((s64)a0 * (s64)v1); HI_LO = (s64)a0 * (s64)v1;
-    ret = ret + a3;
     ret = (signed)ret >> 1;
     a0 = (signed)a0 >> 1;
     ret = ret + a0;
     v1 = (signed)ret >> 0xb;
     a1 = 0x00400000;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = 0;
     } else {
         ret = 0x7fff;
         *(u32*)(t5) = t4;
         if ((signed)ret < (signed)v1) {
-            ret = *(u32*)*(t0 + 0xfc);
+            ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
             v1 = 0x7fff;
             }
-            ret = ret | a1;
-            *(u32*)*(t0 + 0xfc) = ret;
+            *(u32*)(t0 + 0xfc) = ret | a1;
             *(u32*)(t5) = t4;
         }
     t4 = __sp;
     *(u32*)(t7) = t1;
     *(u32*)(t8) = v1;
-    ret = *(s16*)*(t0 + 0xc0);
-    a1 = *(s16*)(sp);
-    a0 = *(s16*)*(t0 + 0xc2);
-    a3 = *(s16*)*(__sp + 4);
+    ret = *(s16*)(t0 + 0xc0);  /* GTE ctrl: lc[0,1] */
+    a1 = *(s16*)(__sp);
+    a0 = *(s16*)(t0 + 0xc2);
+    a3 = *(s16*)(__sp + 4);
     ac2 = (s32)((s64)ret * (s64)a1); HI_LO = (s64)ret * (s64)a1;
-    v1 = *(s16*)*(t0 + 0xc4);
-    a2 = *(s16*)*(__sp + 8);
+    v1 = *(s16*)(t0 + 0xc4);  /* GTE ctrl: lc[2,3] */
+    a2 = *(s16*)(__sp + 8);
     a0 = (s32)((s64)a0 * (s64)a3); HI_LO = (s64)a0 * (s64)a3;
-    a1 = *(u32*)*(t0 + 0xb4);
+    a1 = *(u32*)(t0 + 0xb4);  /* GTE ctrl: rbk */
     ac3 = (s32)((s64)v1 * (s64)a2); HI_LO = (s64)v1 * (s64)a2;
-    ret = ret + a0;
     ret = (signed)ret >> 1;
     v1 = (signed)v1 >> 1;
-    ret = ret + v1;
     ret = (signed)ret >> 0xb;
     a1 = a1 + ret;
     t1 = 0x01000000;
     if ((signed)a1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         t3 = 0;
         goto loc_216370;
     }
     ret = 0x7fff;
     t3 = a1;
-    if (likely((signed)ret >= (signed)a1)) goto loc_216378;
-    ret = *(u32*)*(t0 + 0xfc);
+    if ((signed)ret >= (signed)a1) goto loc_216378;
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     t3 = 0x7fff;
 loc_216370:
-    ret = ret | t1;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret | t1;
 loc_216378:
     a1 = *(s16*)(t4);
     t2 = 0x00800000;
     a3 = *(s16*)(t7);
-    ret = *(s16*)*(t0 + 0xc6);
-    a0 = *(s16*)*(t0 + 0xc8);
+    ret = *(s16*)(t0 + 0xc6);
+    a0 = *(s16*)(t0 + 0xc8);  /* GTE ctrl: lc[4,5] */
     a2 = *(s16*)(t8);
     ac2 = (s32)((s64)ret * (s64)a1); HI_LO = (s64)ret * (s64)a1;
-    v1 = *(s16*)*(t0 + 0xca);
+    v1 = *(s16*)(t0 + 0xca);
     a0 = (s32)((s64)a0 * (s64)a3); HI_LO = (s64)a0 * (s64)a3;
-    a1 = *(u32*)*(t0 + 0xb8);
+    a1 = *(u32*)(t0 + 0xb8);  /* GTE ctrl: gbk */
     ac3 = (s32)((s64)v1 * (s64)a2); HI_LO = (s64)v1 * (s64)a2;
     a2 = *(u16*)(t7);
     a3 = *(u16*)(t4);
-    ret = ret + a0;
     ret = (signed)ret >> 1;
     v1 = (signed)v1 >> 1;
-    ret = ret + v1;
     ret = (signed)ret >> 0xb;
     a1 = a1 + ret;
     a0 = *(u16*)(t8);
     if ((signed)a1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         t1 = 0;
     } else {
         ret = 0x7fff;
         t1 = a1;
         if ((signed)ret < (signed)a1) {
-            ret = *(u32*)*(t0 + 0xfc);
+            ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
             t1 = 0x7fff;
             }
-            ret = ret | t2;
-            *(u32*)*(t0 + 0xfc) = ret;
+            *(u32*)(t0 + 0xfc) = ret | t2;
         }
     a1 = a3 << 0x10;
-    a3 = *(s16*)*(t0 + 0xce);
+    a3 = *(s16*)(t0 + 0xce);
     a2 = a2 << 0x10;
-    ret = *(s16*)*(t0 + 0xcc);
+    ret = *(s16*)(t0 + 0xcc);  /* GTE ctrl: lc[6,7] */
     a1 = (signed)a1 >> 0x10;
     a2 = (signed)a2 >> 0x10;
     v1 = a0 << 0x10;
-    a0 = *(s16*)*(t0 + 0xd0);
+    a0 = *(s16*)(t0 + 0xd0);  /* GTE ctrl: lc5.LB3 */
     ac2 = (s32)((s64)ret * (s64)a1); HI_LO = (s64)ret * (s64)a1;
-    a1 = *(u32*)*(t0 + 0xbc);
-    __asm("mult1 a3, a3, a2");
+    a1 = *(u32*)(t0 + 0xbc);  /* GTE ctrl: bbk */
+    a3 = a3 * a2;
     v1 = (signed)v1 >> 0x10;
     a0 = (s32)((s64)a0 * (s64)v1); HI_LO = (s64)a0 * (s64)v1;
-    ret = ret + a3;
     ret = (signed)ret >> 1;
     a0 = (signed)a0 >> 1;
-    ret = ret + a0;
     ret = (signed)ret >> 0xb;
     v1 = a1 + ret;
     a2 = 0x00400000;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = 0;
     } else {
         ret = 0x7fff;
         *(u32*)(t4) = t3;
         if ((signed)ret < (signed)v1) {
-            ret = *(u32*)*(t0 + 0xfc);
+            ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
             v1 = 0x7fff;
             }
-            ret = ret | a2;
-            *(u32*)*(t0 + 0xfc) = ret;
+            *(u32*)(t0 + 0xfc) = ret | a2;
             *(u32*)(t4) = t3;
         }
     a3 = 0x00200000;
     *(u32*)(t7) = t1;
     *(u32*)(t8) = v1;
-    ret = *(s16*)(sp);
-    a0 = *(s16*)*(__sp + 4);
-    v1 = *(s16*)*(__sp + 8);
+    ret = *(s16*)(__sp);
+    a0 = *(s16*)(__sp + 4);
+    v1 = *(s16*)(__sp + 8);
     ret = ret << 0xc;
-    a1 = *(u8*)*(t0 + 0x1b);
+    a1 = *(u8*)(t0 + 0x1b);  /* GTE data: rgbc.code */
     t3 = ret;
     a0 = a0 << 0xc;
     v1 = v1 << 0xc;
     a2 = (signed)t3 >> 0x10;
-    *(u8*)*(t6 + 3) = a1;
+    *(u8*)(t6 + 3) = a1;
     t2 = a0;
     t1 = v1;
-    *(u32*)(sp) = ret;
-    *(u32*)*(__sp + 4) = a0;
-    *(u32*)*(__sp + 8) = v1;
+    *(u32*)(__sp) = ret;
+    *(u32*)(__sp + 4) = a0;
+    *(u32*)(__sp + 8) = v1;
     if ((signed)a2 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         a0 = 0;
         goto loc_2164F0;
     }
     ret = 0xff;
     a0 = a2;
-    if (likely((signed)ret >= (signed)a2)) goto loc_2164F8;
-    ret = *(u32*)*(t0 + 0xfc);
+    if ((signed)ret >= (signed)a2) goto loc_2164F8;
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     a0 = 0xff;
 loc_2164F0:
-    ret = ret | a3;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret | a3;
 loc_2164F8:
     v1 = (signed)t2 >> 0x10;
     *(u8*)(t6) = a0;
     a1 = 0x00100000;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         a0 = 0;
         goto loc_216530;
     }
     ret = 0xff;
     a0 = v1;
-    if (likely((signed)ret >= (signed)v1)) goto loc_216538;
-    ret = *(u32*)*(t0 + 0xfc);
+    if ((signed)ret >= (signed)v1) goto loc_216538;
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     a0 = 0xff;
 loc_216530:
-    ret = ret | a1;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret | a1;
 loc_216538:
     v1 = (signed)t1 >> 0x10;
-    *(u8*)*(t6 + 1) = a0;
+    *(u8*)(t6 + 1) = a0;
     a0 = 8 << 16;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = 0;
         goto loc_216570;
     }
     ret = 0xff;
     if ((signed)ret >= (signed)v1) goto loc_216578;
-    ret = *(u32*)*(t0 + 0xfc);
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     v1 = 0xff;
 loc_216570:
-    ret = ret | a0;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret | a0;
 loc_216578:
-    *(u8*)*(t6 + 2) = v1;
+    *(u8*)(t6 + 2) = v1;
     if (t9 == 0) goto loc_216644;
     a1 = (signed)t3 >> 0xc;
     a0 = (signed)t2 >> 0xc;
     v1 = (signed)t1 >> 0xc;
-    *(u32*)*(t0 + 0x64) = a1;
-    *(u32*)*(t0 + 0x68) = a0;
+    *(u32*)(t0 + 0x64) = a1;
+    *(u32*)(t0 + 0x68) = a0;
     a2 = 0x01000000;
-    *(u32*)*(t0 + 0x6c) = v1;
+    *(u32*)(t0 + 0x6c) = v1;
     if ((signed)a1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         a1 = 0;
         goto loc_2165C8;
     }
     ret = 0x7fff;
-    *(u32*)*(t0 + 0x24) = a1;
-    if (likely((signed)ret >= (signed)a1)) goto loc_2165D4;
-    ret = *(u32*)*(t0 + 0xfc);
+    *(u32*)(t0 + 0x24) = a1;
+    if ((signed)ret >= (signed)a1) goto loc_2165D4;
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     a1 = 0x7fff;
 loc_2165C8:
-    ret = ret | a2;
-    *(u32*)*(t0 + 0xfc) = ret;
-    *(u32*)*(t0 + 0x24) = a1;
+    *(u32*)(t0 + 0xfc) = ret | a2;
+    *(u32*)(t0 + 0x24) = a1;
 loc_2165D4:
     a1 = 0x00800000;
     if ((signed)a0 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         a0 = 0;
     } else {
         ret = 0x7fff;
-        *(u32*)*(t0 + 0x28) = a0;
+        *(u32*)(t0 + 0x28) = a0;
         if ((signed)ret < (signed)a0) {
-            ret = *(u32*)*(t0 + 0xfc);
+            ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
             a0 = 0x7fff;
             }
-            ret = ret | a1;
-            *(u32*)*(t0 + 0xfc) = ret;
-            *(u32*)*(t0 + 0x28) = a0;
+            *(u32*)(t0 + 0xfc) = ret | a1;
+            *(u32*)(t0 + 0x28) = a0;
         }
     a0 = 0x00400000;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = 0;
     } else {
         ret = 0x7fff;
-        *(u32*)*(t0 + 0x2c) = v1;
-        if (likely((signed)ret >= (signed)v1)) goto loc_216644;
-        ret = *(u32*)*(t0 + 0xfc);
+        *(u32*)(t0 + 0x2c) = v1;
+        if ((signed)ret >= (signed)v1) goto loc_216644;
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = 0x7fff;
     }
     ret = ret | a0;
-    *(u32*)*(t0 + 0xfc) = ret;
-    *(u32*)*(t0 + 0x2c) = v1;
+    *(u32*)(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0x2c) = v1;
 loc_216644:
     return ret;
 }
 
 /* Function at 0x00216650 - 0x00216988 */
-int GTE_DPCS_Core()
+u32 GTE_DPCS_Core(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, t0, t1, t2, t3, t4, t5;
-    *(u32*)(sp) = 0x1000;
+    u32 ret, v1, t0, t1, t2, t3, t4, t5;
+    *(u32*)(__sp) = 0x1000;
     t1 = a0;
     t2 = a2;
     t3 = __sp;
     t0 = *(u8*)(a1);
     t4 = __sp + 4;
-    *(u32*)*(__sp + 8) = ret;
+    *(u32*)(__sp + 8) = ret;
     t5 = __sp + 8;
-    *(u32*)*(__sp + 4) = ret;
+    *(u32*)(__sp + 4) = ret;
     t0 = t0 << 4;
-    v1 = *(s16*)(sp);
-    a0 = *(u8*)*(a1 + 2);
+    v1 = *(s16*)(__sp);
+    a0 = *(u8*)(a1 + 2);
     t0 = (s32)((s64)t0 * (s64)v1); HI_LO = (s64)t0 * (s64)v1;
-    v1 = *(u8*)*(a1 + 1);
-    ret = *(s16*)*(__sp + 4);
+    v1 = *(u8*)(a1 + 1);
+    ret = *(s16*)(__sp + 4);
     a0 = a0 << 4;
-    a2 = *(s16*)*(__sp + 8);
+    a2 = *(s16*)(__sp + 8);
     v1 = v1 << 4;
     ac3 = (s32)((s64)v1 * (s64)ret); HI_LO = (s64)v1 * (s64)ret;
-    a1 = *(u32*)*(t1 + 0xd4);
+    a1 = *(u32*)(t1 + 0xd4);  /* GTE ctrl: rfc */
     a0 = (s32)((s64)a0 * (s64)a2); HI_LO = (s64)a0 * (s64)a2;
     ret = (signed)t0 >> 0xc;
     a1 = a1 - ret;
-    *(u32*)(sp) = t0;
-    *(u32*)*(__sp + 4) = v1;
+    *(u32*)(__sp) = t0;
+    *(u32*)(__sp + 4) = v1;
     v1 = 0x01000000;
-    *(u32*)*(__sp + 8) = a0;
-    a2 = *(s16*)*(t1 + 0x20);
+    *(u32*)(__sp + 8) = a0;
+    a2 = *(s16*)(t1 + 0x20);  /* GTE data: ir0 */
     if ((signed)a1 < -0x8000) {
-        ret = *(u32*)*(t1 + 0xfc);
+        ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
         a1 = -0x8000;
         goto loc_2166F8;
     }
-    ret = 0x7fff;
-    ret = ((signed)ret < (signed)a1) ? 1 : 0;
     ret = a1 << 0x10;
     if (ret == 0) goto loc_216704;
-    ret = *(u32*)*(t1 + 0xfc);
+    ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
     a1 = 0x7fff;
 loc_2166F8:
     ret = ret | v1;
-    *(u32*)*(t1 + 0xfc) = ret;
+    *(u32*)(t1 + 0xfc) = ret;
     ret = a1 << 0x10;
 loc_216704:
     v1 = *(u32*)(t3);
     ret = (signed)ret >> 0x10;
-    a0 = *(u32*)*(t1 + 0xd8);
+    a0 = *(u32*)(t1 + 0xd8);  /* GTE ctrl: gfc */
     ac2 = (s32)((s64)a2 * (s64)ret); HI_LO = (s64)a2 * (s64)ret;
-    v1 = v1 + ret;
-    *(u32*)(t3) = v1;
+    *(u32*)(t3) = v1 + ret;
     a1 = *(u32*)(t4);
     ret = (signed)a1 >> 0xc;
     a0 = a0 - ret;
     v1 = ((signed)a0 < -0x8000) ? 1 : 0;
     t0 = 0x00800000;
     if (v1 != 0) {
-        ret = *(u32*)*(t1 + 0xfc);
+        ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
         v1 = -0x8000;
     } else {
         ret = 0x7fff;
         v1 = a0;
         if ((signed)ret < (signed)a0) {
-            ret = *(u32*)*(t1 + 0xfc);
+            ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
             v1 = 0x7fff;
             }
             ret = ret | t0;
-            *(u32*)*(t1 + 0xfc) = ret;
+            *(u32*)(t1 + 0xfc) = ret;
         }
     ret = v1 << 0x10;
-    a0 = *(u32*)*(t1 + 0xdc);
+    a0 = *(u32*)(t1 + 0xdc);  /* GTE ctrl: bfc */
     ret = (signed)ret >> 0x10;
     ac3 = (s32)((s64)a2 * (s64)ret); HI_LO = (s64)a2 * (s64)ret;
     ret = v1 + a1;
@@ -1605,141 +1512,134 @@ loc_216704:
     v1 = ((signed)a0 < -0x8000) ? 1 : 0;
     t0 = 0x00400000;
     if (v1 != 0) {
-        ret = *(u32*)*(t1 + 0xfc);
+        ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
         v1 = -0x8000;
         goto loc_2167B8;
     }
     ret = 0x7fff;
     v1 = a0;
-    if (likely((signed)ret >= (signed)a0)) goto loc_2167C0;
-    ret = *(u32*)*(t1 + 0xfc);
+    if ((signed)ret >= (signed)a0) goto loc_2167C0;
+    ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
     v1 = 0x7fff;
 loc_2167B8:
     ret = ret | t0;
-    *(u32*)*(t1 + 0xfc) = ret;
+    *(u32*)(t1 + 0xfc) = ret;
 loc_2167C0:
     ret = v1 << 0x10;
-    v1 = *(u8*)*(t1 + 0x1b);
+    v1 = *(u8*)(t1 + 0x1b);  /* GTE data: rgbc.code */
     ret = (signed)ret >> 0x10;
     a0 = (s32)((s64)a2 * (s64)ret); HI_LO = (s64)a2 * (s64)ret;
-    *(u8*)*(t2 + 3) = v1;
+    *(u8*)(t2 + 3) = v1;
     ret = a0 + a1;
     a1 = 0x00200000;
     *(u32*)(t5) = ret;
-    t0 = *(u32*)(sp);
-    t3 = *(u32*)*(__sp + 4);
+    t0 = *(u32*)(__sp);
+    t3 = *(u32*)(__sp + 4);
     v1 = (signed)t0 >> 0x10;
-    a2 = *(u32*)*(__sp + 8);
+    a2 = *(u32*)(__sp + 8);
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t1 + 0xfc);
+        ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
         a0 = 0;
     } else {
         ret = 0xff;
         a0 = v1;
         if ((signed)ret < (signed)v1) {
-            ret = *(u32*)*(t1 + 0xfc);
+            ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
             a0 = 0xff;
             }
-            ret = ret | a1;
-            *(u32*)*(t1 + 0xfc) = ret;
+            *(u32*)(t1 + 0xfc) = ret | a1;
         }
     v1 = (signed)t3 >> 0x10;
     *(u8*)(t2) = a0;
     a1 = 0x00100000;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t1 + 0xfc);
+        ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
         a0 = 0;
         goto loc_216858;
     }
     ret = 0xff;
     a0 = v1;
-    if (likely((signed)ret >= (signed)v1)) goto loc_216860;
-    ret = *(u32*)*(t1 + 0xfc);
+    if ((signed)ret >= (signed)v1) goto loc_216860;
+    ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
     a0 = 0xff;
 loc_216858:
-    ret = ret | a1;
-    *(u32*)*(t1 + 0xfc) = ret;
+    *(u32*)(t1 + 0xfc) = ret | a1;
 loc_216860:
     v1 = (signed)a2 >> 0x10;
-    *(u8*)*(t2 + 1) = a0;
+    *(u8*)(t2 + 1) = a0;
     a0 = 8 << 16;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t1 + 0xfc);
+        ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
         v1 = 0;
         goto loc_216898;
     }
     ret = 0xff;
     if ((signed)ret >= (signed)v1) goto loc_2168A0;
-    ret = *(u32*)*(t1 + 0xfc);
+    ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
     v1 = 0xff;
 loc_216898:
-    ret = ret | a0;
-    *(u32*)*(t1 + 0xfc) = ret;
+    *(u32*)(t1 + 0xfc) = ret | a0;
 loc_2168A0:
-    *(u8*)*(t2 + 2) = v1;
+    *(u8*)(t2 + 2) = v1;
     if (a3 == 0) goto loc_21697C;
     v1 = (signed)t0 >> 0xc;
     a1 = (signed)a2 >> 0xc;
     a0 = (signed)t3 >> 0xc;
-    *(u32*)*(t1 + 0x64) = v1;
+    *(u32*)(t1 + 0x64) = v1;
     a2 = 0x01000000;
-    *(u32*)*(t1 + 0x68) = a0;
-    *(u32*)*(t1 + 0x6c) = a1;
+    *(u32*)(t1 + 0x68) = a0;
+    *(u32*)(t1 + 0x6c) = a1;
     if ((signed)v1 < -0x8000) {
-        ret = *(u32*)*(t1 + 0xfc);
+        ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
         v1 = -0x8000;
     } else {
-        ret = 0x7fff;
         ret = ((signed)ret < (signed)v1) ? 1 : 0;
         if ((signed)a0 < -0x8000) {
-            ret = *(u32*)*(t1 + 0xfc);
+            ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
             v1 = 0x7fff;
             }
-            ret = ret | a2;
-            *(u32*)*(t1 + 0xfc) = ret;
+            *(u32*)(t1 + 0xfc) = ret | a2;
         }
-    *(u32*)*(t1 + 0x24) = v1;
+    *(u32*)(t1 + 0x24) = v1;
     a2 = 0x00800000;
     if ((signed)a0 < -0x8000) {
-        ret = *(u32*)*(t1 + 0xfc);
+        ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
         v1 = -0x8000;
         goto loc_216930;
     }
     ret = 0x7fff;
     v1 = a0;
-    if (likely((signed)ret >= (signed)a0)) goto loc_216938;
-    ret = *(u32*)*(t1 + 0xfc);
+    if ((signed)ret >= (signed)a0) goto loc_216938;
+    ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
     v1 = 0x7fff;
 loc_216930:
-    ret = ret | a2;
-    *(u32*)*(t1 + 0xfc) = ret;
+    *(u32*)(t1 + 0xfc) = ret | a2;
 loc_216938:
-    *(u32*)*(t1 + 0x28) = v1;
+    *(u32*)(t1 + 0x28) = v1;
     a0 = 0x00400000;
     if ((signed)a1 < -0x8000) {
-        ret = *(u32*)*(t1 + 0xfc);
+        ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
         v1 = -0x8000;
         goto loc_216970;
     }
     ret = 0x7fff;
     v1 = a1;
-    if (likely((signed)ret >= (signed)a1)) goto loc_216978;
-    ret = *(u32*)*(t1 + 0xfc);
+    if ((signed)ret >= (signed)a1) goto loc_216978;
+    ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
     v1 = 0x7fff;
 loc_216970:
-    ret = ret | a0;
-    *(u32*)*(t1 + 0xfc) = ret;
+    *(u32*)(t1 + 0xfc) = ret | a0;
 loc_216978:
-    *(u32*)*(t1 + 0x2c) = v1;
+    *(u32*)(t1 + 0x2c) = v1;
 loc_21697C:
     return ret;
 }
 
 /* Function at 0x00216988 - 0x002169F0 */
-int GTE_RTPS()
+u32 GTE_RTPS(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, t0, t1, t2, t3, t4;
+    u32 ret, v1, a1, a2, a3, t0, t1, t2, t3, t4;
     ret = a0;
     a3 = ret + 0x34;
     t0 = 1;
@@ -1748,34 +1648,34 @@ int GTE_RTPS()
     STORE_WORD_LEFT(*(ret + 0x33), v1);
     STORE_WORD_RIGHT(*(ret + 0x30), v1);
     v1 = ret + 0x38;
-    t3 = *(u32*)*(ret + 0x44);
+    t3 = *(u32*)(ret + 0x44);  /* GTE data: sz1 */
     a1 = ret;
-    t2 = *(u32*)*(ret + 0x48);
+    t2 = *(u32*)(ret + 0x48);  /* GTE data: sz2 */
     a2 = v1;
-    t1 = *(u32*)*(ret + 0x4c);
+    t1 = *(u32*)(ret + 0x4c);  /* GTE data: sz3 */
     t4 = LOAD_WORD_LEFT(*(v1 + 3));
     t4 = LOAD_WORD_RIGHT((v1));
     STORE_WORD_LEFT(*(a3 + 3), t4);
     STORE_WORD_RIGHT((a3), t4);
     a3 = a1 + 0x4c;
-    *(u32*)*(ret + 0x40) = t3;
-    *(u32*)*(ret + 0x44) = t2;
-    *(u32*)*(ret + 0x48) = t1;
+    *(u32*)(ret + 0x40) = t3;
+    *(u32*)(ret + 0x44) = t2;
+    *(u32*)(ret + 0x48) = t1;
     return GTE_RTPS_Core(a0, a1, a2, a3);
 }
 
 /* Function at 0x002169F0 - 0x00216A58 */
-int GTE_RTPT()
+u32 GTE_RTPT(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3, s0, t0;
+    u32 ret, a1, a2, a3, s0, t0;
     t0 = 0;
     s0 = a0;
     a1 = s0;
     a2 = s0 + 0x30;
     a3 = s0 + 0x44;
-    ret = *(u32*)*(s0 + 0x4c);
-    *(u32*)*(s0 + 0x40) = ret;
+    ret = *(u32*)(s0 + 0x4c);  /* GTE data: sz3 */
+    *(u32*)(s0 + 0x40) = ret;
     ret = GTE_RTPS_Core(a0, a1, a2, a3);
     a0 = s0;
     a1 = s0 + 8;
@@ -1792,10 +1692,10 @@ int GTE_RTPT()
 }
 
 /* Function at 0x00216A58 - 0x00216AA0 */
-int GTE_NCDS()
+u32 GTE_NCDS(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, t3;
+    u32 ret, v1, a1, a2, a3, t3;
     a1 = a0;
     v1 = a1 + 0x54;
     ret = a1 + 0x58;
@@ -1806,39 +1706,39 @@ int GTE_NCDS()
     STORE_WORD_RIGHT(*(a1 + 0x50), a2);
     a2 = ret;
     t3 = LOAD_WORD_LEFT(*(ret + 3));
-    t3 = LOAD_WORD_RIGHT((v0));
+    t3 = LOAD_WORD_RIGHT((ret));
     STORE_WORD_LEFT(*(v1 + 3), t3);
     STORE_WORD_RIGHT((v1), t3);
-    return GTE_NCDS_Prologue(a0, a1, a2, a3);
+    return GTE_NCDS_Prologue(a0, a1);
 }
 
 /* Function at 0x00216AA0 - 0x00216AF8 */
-int GTE_NCDT()
+u32 GTE_NCDT(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3, s0;
+    u32 ret, a1, a2, a3, s0;
     a3 = 0;
     s0 = a0;
     a1 = s0;
     a2 = s0 + 0x50;
-    ret = GTE_NCDS_Prologue(a0, a1, a2, a3);
+    GTE_NCDS_Prologue(a0, a1);
     a0 = s0;
     a1 = s0 + 8;
     a2 = s0 + 0x54;
     a3 = 0;
-    ret = GTE_NCDS_Prologue(a0, a1, a2, a3);
+    GTE_NCDS_Prologue(a0, a1);
     a0 = s0;
     a3 = 1;
     a1 = a0 + 0x10;
     a2 = a0 + 0x58;
-    return GTE_NCDS_Prologue(a0, a1, a2, a3);
+    return GTE_NCDS_Prologue(a0, a1);
 }
 
 /* Function at 0x00216AF8 - 0x00216B40 */
-int GTE_NCCS()
+u32 GTE_NCCS(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, t3;
+    u32 ret, v1, a1, a2, a3, t3;
     a1 = a0;
     v1 = a1 + 0x54;
     ret = a1 + 0x58;
@@ -1849,61 +1749,61 @@ int GTE_NCCS()
     STORE_WORD_RIGHT(*(a1 + 0x50), a2);
     a2 = ret;
     t3 = LOAD_WORD_LEFT(*(ret + 3));
-    t3 = LOAD_WORD_RIGHT((v0));
+    t3 = LOAD_WORD_RIGHT((ret));
     STORE_WORD_LEFT(*(v1 + 3), t3);
     STORE_WORD_RIGHT((v1), t3);
-    return GTE_NCCS_Prologue(a0, a1, a2, a3);
+    return GTE_NCCS_Prologue(a0, a1);
 }
 
 /* Function at 0x00216B40 - 0x00216B98 */
-int GTE_NCCT()
+u32 GTE_NCCT(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3, s0;
+    u32 ret, a1, a2, a3, s0;
     a3 = 0;
     s0 = a0;
     a1 = s0;
     a2 = s0 + 0x50;
-    ret = GTE_NCCS_Prologue(a0, a1, a2, a3);
+    GTE_NCCS_Prologue(a0, a1);
     a0 = s0;
     a1 = s0 + 8;
     a2 = s0 + 0x54;
     a3 = 0;
-    ret = GTE_NCCS_Prologue(a0, a1, a2, a3);
+    GTE_NCCS_Prologue(a0, a1);
     a0 = s0;
     a3 = 1;
     a1 = a0 + 0x10;
     a2 = a0 + 0x58;
-    return GTE_NCCS_Prologue(a0, a1, a2, a3);
+    return GTE_NCCS_Prologue(a0, a1);
 }
 
 /* Function at 0x00216B98 - 0x00217080 */
-int GTE_CC()
+u32 GTE_CC(u32 a0)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, t0, t1, t2, t3, t4, t5, t6, t7;
+    u32 ret, v1, a1, a2, a3, t0, t1, t2, t3, t4, t5, t6, t7;
     t1 = a0;
     t0 = t1 + 0x54;
     t4 = t1 + 0x58;
     t5 = __sp;
-    v1 = *(u32*)*(t1 + 0x24);
+    v1 = *(u32*)(t1 + 0x24);  /* GTE data: ir1 */
     t6 = __sp + 4;
-    a0 = *(u32*)*(t1 + 0x28);
+    a0 = *(u32*)(t1 + 0x28);  /* GTE data: ir2 */
     t7 = __sp + 8;
-    ret = *(u32*)*(t1 + 0x2c);
+    ret = *(u32*)(t1 + 0x2c);  /* GTE data: ir3 */
     t2 = 0x01000000;
-    *(u32*)(sp) = v1;
-    *(u32*)*(__sp + 4) = a0;
-    *(u32*)*(__sp + 8) = ret;
-    a1 = *(s16*)(sp);
-    a3 = *(s16*)*(__sp + 4);
-    ret = *(s16*)*(t1 + 0xc0);
-    a0 = *(s16*)*(t1 + 0xc2);
-    a2 = *(s16*)*(__sp + 8);
+    *(u32*)(__sp) = v1;
+    *(u32*)(__sp + 4) = a0;
+    *(u32*)(__sp + 8) = ret;
+    a1 = *(s16*)(__sp);
+    a3 = *(s16*)(__sp + 4);
+    ret = *(s16*)(t1 + 0xc0);  /* GTE ctrl: lc[0,1] */
+    a0 = *(s16*)(t1 + 0xc2);
+    a2 = *(s16*)(__sp + 8);
     ac2 = (s32)((s64)ret * (s64)a1); HI_LO = (s64)ret * (s64)a1;
-    v1 = *(s16*)*(t1 + 0xc4);
+    v1 = *(s16*)(t1 + 0xc4);  /* GTE ctrl: lc[2,3] */
     a0 = (s32)((s64)a0 * (s64)a3); HI_LO = (s64)a0 * (s64)a3;
-    a1 = *(u32*)*(t1 + 0xb4);
+    a1 = *(u32*)(t1 + 0xb4);  /* GTE ctrl: rbk */
     ac3 = (s32)((s64)v1 * (s64)a2); HI_LO = (s64)v1 * (s64)a2;
     a2 = LOAD_WORD_LEFT(*(t0 + 3));
     a2 = LOAD_WORD_RIGHT((t0));
@@ -1915,156 +1815,145 @@ int GTE_CC()
     STORE_WORD_LEFT(*(t0 + 3), a0);
     ret = (signed)ret >> 1;
     v1 = (signed)v1 >> 1;
-    ret = ret + v1;
     ret = (signed)ret >> 0xb;
     a1 = a1 + ret;
     STORE_WORD_RIGHT((t0), a0);
     if ((signed)a1 < 0) {
-        ret = *(u32*)*(t1 + 0xfc);
+        ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
         t3 = 0;
         goto loc_216C60;
     }
     ret = 0x7fff;
     t3 = a1;
-    if (likely((signed)ret >= (signed)a1)) goto loc_216C68;
-    ret = *(u32*)*(t1 + 0xfc);
+    if ((signed)ret >= (signed)a1) goto loc_216C68;
+    ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
     t3 = 0x7fff;
 loc_216C60:
-    ret = ret | t2;
-    *(u32*)*(t1 + 0xfc) = ret;
+    *(u32*)(t1 + 0xfc) = ret | t2;
 loc_216C68:
     a1 = *(s16*)(t5);
     t2 = 0x00800000;
     a3 = *(s16*)(t6);
-    ret = *(s16*)*(t1 + 0xc6);
-    a0 = *(s16*)*(t1 + 0xc8);
+    ret = *(s16*)(t1 + 0xc6);
+    a0 = *(s16*)(t1 + 0xc8);  /* GTE ctrl: lc[4,5] */
     a2 = *(s16*)(t7);
     ac2 = (s32)((s64)ret * (s64)a1); HI_LO = (s64)ret * (s64)a1;
-    v1 = *(s16*)*(t1 + 0xca);
+    v1 = *(s16*)(t1 + 0xca);
     a0 = (s32)((s64)a0 * (s64)a3); HI_LO = (s64)a0 * (s64)a3;
-    a1 = *(u32*)*(t1 + 0xb8);
+    a1 = *(u32*)(t1 + 0xb8);  /* GTE ctrl: gbk */
     ac3 = (s32)((s64)v1 * (s64)a2); HI_LO = (s64)v1 * (s64)a2;
     a2 = *(u16*)(t6);
     a3 = *(u16*)(t5);
-    ret = ret + a0;
     ret = (signed)ret >> 1;
     v1 = (signed)v1 >> 1;
-    ret = ret + v1;
     ret = (signed)ret >> 0xb;
     a1 = a1 + ret;
     a0 = *(u16*)(t7);
     if ((signed)a1 < 0) {
-        ret = *(u32*)*(t1 + 0xfc);
+        ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
         t0 = 0;
     } else {
         ret = 0x7fff;
         t0 = a1;
         if ((signed)ret < (signed)a1) {
-            ret = *(u32*)*(t1 + 0xfc);
+            ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
             t0 = 0x7fff;
             }
-            ret = ret | t2;
-            *(u32*)*(t1 + 0xfc) = ret;
+            *(u32*)(t1 + 0xfc) = ret | t2;
         }
     a1 = a3 << 0x10;
-    a3 = *(s16*)*(t1 + 0xce);
+    a3 = *(s16*)(t1 + 0xce);
     a2 = a2 << 0x10;
-    ret = *(s16*)*(t1 + 0xcc);
+    ret = *(s16*)(t1 + 0xcc);  /* GTE ctrl: lc[6,7] */
     a1 = (signed)a1 >> 0x10;
     a2 = (signed)a2 >> 0x10;
     v1 = a0 << 0x10;
-    a0 = *(s16*)*(t1 + 0xd0);
+    a0 = *(s16*)(t1 + 0xd0);  /* GTE ctrl: lc5.LB3 */
     ac2 = (s32)((s64)ret * (s64)a1); HI_LO = (s64)ret * (s64)a1;
-    a1 = *(u32*)*(t1 + 0xbc);
-    __asm("mult1 a3, a3, a2");
+    a1 = *(u32*)(t1 + 0xbc);  /* GTE ctrl: bbk */
+    a3 = a3 * a2;
     v1 = (signed)v1 >> 0x10;
     a0 = (s32)((s64)a0 * (s64)v1); HI_LO = (s64)a0 * (s64)v1;
-    ret = ret + a3;
     ret = (signed)ret >> 1;
     a0 = (signed)a0 >> 1;
-    ret = ret + a0;
     ret = (signed)ret >> 0xb;
     v1 = a1 + ret;
     a2 = 0x00400000;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t1 + 0xfc);
+        ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
         v1 = 0;
     } else {
         ret = 0x7fff;
         *(u32*)(t5) = t3;
         if ((signed)ret < (signed)v1) {
-            ret = *(u32*)*(t1 + 0xfc);
+            ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
             v1 = 0x7fff;
             }
-            ret = ret | a2;
-            *(u32*)*(t1 + 0xfc) = ret;
+            *(u32*)(t1 + 0xfc) = ret | a2;
             *(u32*)(t5) = t3;
         }
     t2 = __sp;
     *(u32*)(t6) = t0;
     t0 = 0x01000000;
     *(u32*)(t7) = v1;
-    v1 = *(u8*)*(t1 + 0x18);
-    ret = *(s16*)(sp);
+    v1 = *(u8*)(t1 + 0x18);  /* GTE data: rgbc */
+    ret = *(s16*)(__sp);
     v1 = v1 << 4;
-    a1 = *(u8*)*(t1 + 0x19);
-    a0 = *(u8*)*(t1 + 0x1a);
+    a1 = *(u8*)(t1 + 0x19);  /* GTE data: rgbc.G */
+    a0 = *(u8*)(t1 + 0x1a);  /* GTE data: rgbc.B */
     ac3 = (s32)((s64)v1 * (s64)ret); HI_LO = (s64)v1 * (s64)ret;
-    a3 = *(s16*)*(__sp + 8);
+    a3 = *(s16*)(__sp + 8);
     a1 = a1 << 4;
-    ret = *(s16*)*(__sp + 4);
+    ret = *(s16*)(__sp + 4);
     a0 = a0 << 4;
-    a2 = *(u32*)*(t1 + 0xd4);
+    a2 = *(u32*)(t1 + 0xd4);  /* GTE ctrl: rfc */
     a0 = (s32)((s64)a0 * (s64)a3); HI_LO = (s64)a0 * (s64)a3;
     a1 = (s32)((s64)a1 * (s64)ret); HI_LO = (s64)a1 * (s64)ret;
     ret = (signed)v1 >> 0xc;
     a2 = a2 - ret;
-    *(u32*)(sp) = v1;
-    a3 = *(s16*)*(t1 + 0x20);
-    *(u32*)*(__sp + 4) = a1;
-    *(u32*)*(__sp + 8) = a0;
+    *(u32*)(__sp) = v1;
+    a3 = *(s16*)(t1 + 0x20);  /* GTE data: ir0 */
+    *(u32*)(__sp + 4) = a1;
+    *(u32*)(__sp + 8) = a0;
     if ((signed)a2 < -0x8000) {
-        ret = *(u32*)*(t1 + 0xfc);
+        ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
         a2 = -0x8000;
         goto loc_216DF8;
     }
-    ret = 0x7fff;
-    ret = ((signed)ret < (signed)a2) ? 1 : 0;
     ret = a2 << 0x10;
     if (ret == 0) goto loc_216E04;
-    ret = *(u32*)*(t1 + 0xfc);
+    ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
     a2 = 0x7fff;
 loc_216DF8:
     ret = ret | t0;
-    *(u32*)*(t1 + 0xfc) = ret;
+    *(u32*)(t1 + 0xfc) = ret;
     ret = a2 << 0x10;
 loc_216E04:
     ret = (signed)ret >> 0x10;
     v1 = *(u32*)(t2);
     ac2 = (s32)((s64)a3 * (s64)ret); HI_LO = (s64)a3 * (s64)ret;
-    a0 = *(u32*)*(t1 + 0xd8);
-    v1 = v1 + ret;
-    *(u32*)(t2) = v1;
+    a0 = *(u32*)(t1 + 0xd8);  /* GTE ctrl: gfc */
+    *(u32*)(t2) = v1 + ret;
     a1 = *(u32*)(t6);
     ret = (signed)a1 >> 0xc;
     a0 = a0 - ret;
     v1 = ((signed)a0 < -0x8000) ? 1 : 0;
     a2 = 0x00800000;
     if (v1 != 0) {
-        ret = *(u32*)*(t1 + 0xfc);
+        ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
         v1 = -0x8000;
     } else {
         ret = 0x7fff;
         v1 = a0;
         if ((signed)ret < (signed)a0) {
-            ret = *(u32*)*(t1 + 0xfc);
+            ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
             v1 = 0x7fff;
             }
             ret = ret | a2;
-            *(u32*)*(t1 + 0xfc) = ret;
+            *(u32*)(t1 + 0xfc) = ret;
         }
     ret = v1 << 0x10;
-    a0 = *(u32*)*(t1 + 0xdc);
+    a0 = *(u32*)(t1 + 0xdc);  /* GTE ctrl: bfc */
     ret = (signed)ret >> 0x10;
     ac3 = (s32)((s64)a3 * (s64)ret); HI_LO = (s64)a3 * (s64)ret;
     ret = v1 + a1;
@@ -2075,164 +1964,159 @@ loc_216E04:
     v1 = ((signed)a0 < -0x8000) ? 1 : 0;
     a2 = 0x00400000;
     if (v1 != 0) {
-        ret = *(u32*)*(t1 + 0xfc);
+        ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
         v1 = -0x8000;
         goto loc_216EB8;
     }
     ret = 0x7fff;
     v1 = a0;
-    if (likely((signed)ret >= (signed)a0)) goto loc_216EC0;
-    ret = *(u32*)*(t1 + 0xfc);
+    if ((signed)ret >= (signed)a0) goto loc_216EC0;
+    ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
     v1 = 0x7fff;
 loc_216EB8:
     ret = ret | a2;
-    *(u32*)*(t1 + 0xfc) = ret;
+    *(u32*)(t1 + 0xfc) = ret;
 loc_216EC0:
     ret = v1 << 0x10;
-    v1 = *(u8*)*(t1 + 0x1b);
+    v1 = *(u8*)(t1 + 0x1b);  /* GTE data: rgbc.code */
     ret = (signed)ret >> 0x10;
     a0 = (s32)((s64)a3 * (s64)ret); HI_LO = (s64)a3 * (s64)ret;
-    *(u8*)*(t4 + 3) = v1;
+    *(u8*)(t4 + 3) = v1;
     ret = a0 + a1;
     a1 = 0x00200000;
     *(u32*)(t7) = ret;
-    v1 = *(u32*)(sp);
-    a0 = *(u32*)*(__sp + 4);
+    v1 = *(u32*)(__sp);
+    a0 = *(u32*)(__sp + 4);
     v1 = (signed)v1 >> 0x10;
-    a2 = *(u32*)*(__sp + 8);
+    a2 = *(u32*)(__sp + 8);
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t1 + 0xfc);
+        ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
         v1 = 0;
     } else {
         ret = 0xff;
         a0 = (signed)a0 >> 0x10;
         if ((signed)ret < (signed)v1) {
-            ret = *(u32*)*(t1 + 0xfc);
+            ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
             v1 = 0xff;
             }
-            ret = ret | a1;
-            *(u32*)*(t1 + 0xfc) = ret;
+            *(u32*)(t1 + 0xfc) = ret | a1;
             a0 = (signed)a0 >> 0x10;
         }
     *(u8*)(t4) = v1;
     v1 = 0x00100000;
     if ((signed)a0 < 0) {
-        ret = *(u32*)*(t1 + 0xfc);
+        ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
         a0 = 0;
         goto loc_216F58;
     }
     ret = 0xff;
     v1 = (signed)a2 >> 0x10;
-    if (likely((signed)ret >= (signed)a0)) goto loc_216F64;
-    ret = *(u32*)*(t1 + 0xfc);
+    if ((signed)ret >= (signed)a0) goto loc_216F64;
+    ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
     a0 = 0xff;
 loc_216F58:
-    ret = ret | v1;
-    *(u32*)*(t1 + 0xfc) = ret;
+    *(u32*)(t1 + 0xfc) = ret | v1;
     v1 = (signed)a2 >> 0x10;
 loc_216F64:
-    *(u8*)*(t4 + 1) = a0;
+    *(u8*)(t4 + 1) = a0;
     a0 = 8 << 16;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t1 + 0xfc);
+        ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
         a2 = 0;
         goto loc_216F98;
     }
     ret = 0xff;
     a2 = v1;
-    if (likely((signed)ret >= (signed)v1)) goto loc_216FA0;
-    ret = *(u32*)*(t1 + 0xfc);
+    if ((signed)ret >= (signed)v1) goto loc_216FA0;
+    ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
     a2 = 0xff;
 loc_216F98:
-    ret = ret | a0;
-    *(u32*)*(t1 + 0xfc) = ret;
+    *(u32*)(t1 + 0xfc) = ret | a0;
 loc_216FA0:
-    v1 = *(u32*)(sp);
+    v1 = *(u32*)(__sp);
     a3 = 0x01000000;
-    a0 = *(u32*)*(__sp + 4);
-    a1 = *(u32*)*(__sp + 8);
+    a0 = *(u32*)(__sp + 4);
+    a1 = *(u32*)(__sp + 8);
     v1 = (signed)v1 >> 0xc;
     a0 = (signed)a0 >> 0xc;
-    *(u8*)*(t4 + 2) = a2;
+    *(u8*)(t4 + 2) = a2;
     a1 = (signed)a1 >> 0xc;
-    *(u32*)*(t1 + 0x64) = v1;
-    *(u32*)*(t1 + 0x68) = a0;
-    *(u32*)*(t1 + 0x6c) = a1;
+    *(u32*)(t1 + 0x64) = v1;
+    *(u32*)(t1 + 0x68) = a0;
+    *(u32*)(t1 + 0x6c) = a1;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t1 + 0xfc);
+        ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
         v1 = 0;
         goto loc_216FF8;
     }
     ret = 0x7fff;
-    *(u32*)*(t1 + 0x24) = v1;
-    if (likely((signed)ret >= (signed)v1)) goto loc_217004;
-    ret = *(u32*)*(t1 + 0xfc);
+    *(u32*)(t1 + 0x24) = v1;
+    if ((signed)ret >= (signed)v1) goto loc_217004;
+    ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
     v1 = 0x7fff;
 loc_216FF8:
-    ret = ret | a3;
-    *(u32*)*(t1 + 0xfc) = ret;
-    *(u32*)*(t1 + 0x24) = v1;
+    *(u32*)(t1 + 0xfc) = ret | a3;
+    *(u32*)(t1 + 0x24) = v1;
 loc_217004:
     a2 = 0x00800000;
     if ((signed)a0 < 0) {
-        ret = *(u32*)*(t1 + 0xfc);
+        ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
         v1 = 0;
     } else {
         ret = 0x7fff;
         v1 = a0;
         if ((signed)ret < (signed)a0) {
-            ret = *(u32*)*(t1 + 0xfc);
+            ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
             v1 = 0x7fff;
             }
-            ret = ret | a2;
-            *(u32*)*(t1 + 0xfc) = ret;
+            *(u32*)(t1 + 0xfc) = ret | a2;
         }
-    *(u32*)*(t1 + 0x28) = v1;
+    *(u32*)(t1 + 0x28) = v1;
     a0 = 0x00400000;
     if ((signed)a1 < 0) {
-        ret = *(u32*)*(t1 + 0xfc);
+        ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
         v1 = 0;
     } else {
         ret = 0x7fff;
         v1 = a1;
         if ((signed)ret < (signed)a1) {
-            ret = *(u32*)*(t1 + 0xfc);
+            ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
             v1 = 0x7fff;
             }
             ret = ret | a0;
-            *(u32*)*(t1 + 0xfc) = ret;
+            *(u32*)(t1 + 0xfc) = ret;
         }
-    *(u32*)*(t1 + 0x2c) = v1;
+    *(u32*)(t1 + 0x2c) = v1;
     return ret;
 }
 
 /* Function at 0x00217080 - 0x00217438 */
-int GTE_CDP()
+u32 GTE_CDP(u32 a0)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, t0, t1, t2, t3, t4, t5, t6, t7;
+    u32 ret, v1, a1, a2, a3, t0, t1, t2, t3, t4, t5, t6, t7;
     t1 = a0;
     t0 = t1 + 0x54;
     t2 = t1 + 0x58;
     t7 = __sp;
-    v1 = *(u32*)*(t1 + 0x24);
+    v1 = *(u32*)(t1 + 0x24);  /* GTE data: ir1 */
     t5 = __sp + 4;
-    a0 = *(u32*)*(t1 + 0x28);
+    a0 = *(u32*)(t1 + 0x28);  /* GTE data: ir2 */
     t6 = __sp + 8;
-    ret = *(u32*)*(t1 + 0x2c);
+    ret = *(u32*)(t1 + 0x2c);  /* GTE data: ir3 */
     t3 = 0x01000000;
-    *(u32*)(sp) = v1;
-    *(u32*)*(__sp + 4) = a0;
-    *(u32*)*(__sp + 8) = ret;
-    a1 = *(s16*)(sp);
-    a3 = *(s16*)*(__sp + 4);
-    ret = *(s16*)*(t1 + 0xc0);
-    a0 = *(s16*)*(t1 + 0xc2);
-    a2 = *(s16*)*(__sp + 8);
+    *(u32*)(__sp) = v1;
+    *(u32*)(__sp + 4) = a0;
+    *(u32*)(__sp + 8) = ret;
+    a1 = *(s16*)(__sp);
+    a3 = *(s16*)(__sp + 4);
+    ret = *(s16*)(t1 + 0xc0);  /* GTE ctrl: lc[0,1] */
+    a0 = *(s16*)(t1 + 0xc2);
+    a2 = *(s16*)(__sp + 8);
     ac2 = (s32)((s64)ret * (s64)a1); HI_LO = (s64)ret * (s64)a1;
-    v1 = *(s16*)*(t1 + 0xc4);
+    v1 = *(s16*)(t1 + 0xc4);  /* GTE ctrl: lc[2,3] */
     a0 = (s32)((s64)a0 * (s64)a3); HI_LO = (s64)a0 * (s64)a3;
-    a1 = *(u32*)*(t1 + 0xb4);
+    a1 = *(u32*)(t1 + 0xb4);  /* GTE ctrl: rbk */
     ac3 = (s32)((s64)v1 * (s64)a2); HI_LO = (s64)v1 * (s64)a2;
     a2 = LOAD_WORD_LEFT(*(t0 + 3));
     a2 = LOAD_WORD_RIGHT((t0));
@@ -2244,223 +2128,210 @@ int GTE_CDP()
     STORE_WORD_LEFT(*(t0 + 3), a0);
     ret = (signed)ret >> 1;
     v1 = (signed)v1 >> 1;
-    ret = ret + v1;
     ret = (signed)ret >> 0xb;
     a1 = a1 + ret;
     STORE_WORD_RIGHT((t0), a0);
     if ((signed)a1 < 0) {
-        ret = *(u32*)*(t1 + 0xfc);
+        ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
         t4 = 0;
         goto loc_217148;
     }
     ret = 0x7fff;
     t4 = a1;
-    if (likely((signed)ret >= (signed)a1)) goto loc_217150;
-    ret = *(u32*)*(t1 + 0xfc);
+    if ((signed)ret >= (signed)a1) goto loc_217150;
+    ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
     t4 = 0x7fff;
 loc_217148:
-    ret = ret | t3;
-    *(u32*)*(t1 + 0xfc) = ret;
+    *(u32*)(t1 + 0xfc) = ret | t3;
 loc_217150:
     a1 = *(s16*)(t7);
     t3 = 0x00800000;
     a3 = *(s16*)(t5);
-    ret = *(s16*)*(t1 + 0xc6);
-    a0 = *(s16*)*(t1 + 0xc8);
+    ret = *(s16*)(t1 + 0xc6);
+    a0 = *(s16*)(t1 + 0xc8);  /* GTE ctrl: lc[4,5] */
     a2 = *(s16*)(t6);
     ac2 = (s32)((s64)ret * (s64)a1); HI_LO = (s64)ret * (s64)a1;
-    v1 = *(s16*)*(t1 + 0xca);
+    v1 = *(s16*)(t1 + 0xca);
     a0 = (s32)((s64)a0 * (s64)a3); HI_LO = (s64)a0 * (s64)a3;
-    a1 = *(u32*)*(t1 + 0xb8);
+    a1 = *(u32*)(t1 + 0xb8);  /* GTE ctrl: gbk */
     ac3 = (s32)((s64)v1 * (s64)a2); HI_LO = (s64)v1 * (s64)a2;
     a2 = *(u16*)(t5);
     a3 = *(u16*)(t7);
-    ret = ret + a0;
     ret = (signed)ret >> 1;
     v1 = (signed)v1 >> 1;
-    ret = ret + v1;
     ret = (signed)ret >> 0xb;
     a1 = a1 + ret;
     a0 = *(u16*)(t6);
     if ((signed)a1 < 0) {
-        ret = *(u32*)*(t1 + 0xfc);
+        ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
         t0 = 0;
     } else {
         ret = 0x7fff;
         t0 = a1;
         if ((signed)ret < (signed)a1) {
-            ret = *(u32*)*(t1 + 0xfc);
+            ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
             t0 = 0x7fff;
             }
-            ret = ret | t3;
-            *(u32*)*(t1 + 0xfc) = ret;
+            *(u32*)(t1 + 0xfc) = ret | t3;
         }
     a1 = a3 << 0x10;
-    a3 = *(s16*)*(t1 + 0xce);
+    a3 = *(s16*)(t1 + 0xce);
     a2 = a2 << 0x10;
-    ret = *(s16*)*(t1 + 0xcc);
+    ret = *(s16*)(t1 + 0xcc);  /* GTE ctrl: lc[6,7] */
     a1 = (signed)a1 >> 0x10;
     a2 = (signed)a2 >> 0x10;
     v1 = a0 << 0x10;
-    a0 = *(s16*)*(t1 + 0xd0);
+    a0 = *(s16*)(t1 + 0xd0);  /* GTE ctrl: lc5.LB3 */
     ac2 = (s32)((s64)ret * (s64)a1); HI_LO = (s64)ret * (s64)a1;
-    a1 = *(u32*)*(t1 + 0xbc);
-    __asm("mult1 a3, a3, a2");
+    a1 = *(u32*)(t1 + 0xbc);  /* GTE ctrl: bbk */
+    a3 = a3 * a2;
     v1 = (signed)v1 >> 0x10;
     a0 = (s32)((s64)a0 * (s64)v1); HI_LO = (s64)a0 * (s64)v1;
-    ret = ret + a3;
     ret = (signed)ret >> 1;
     a0 = (signed)a0 >> 1;
-    ret = ret + a0;
     ret = (signed)ret >> 0xb;
     v1 = a1 + ret;
     a2 = 0x00400000;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t1 + 0xfc);
+        ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
         v1 = 0;
     } else {
         ret = 0x7fff;
         *(u32*)(t7) = t4;
         if ((signed)ret < (signed)v1) {
-            ret = *(u32*)*(t1 + 0xfc);
+            ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
             v1 = 0x7fff;
             }
-            ret = ret | a2;
-            *(u32*)*(t1 + 0xfc) = ret;
+            *(u32*)(t1 + 0xfc) = ret | a2;
             *(u32*)(t7) = t4;
         }
     *(u32*)(t5) = t0;
     t0 = 0x00200000;
     *(u32*)(t6) = v1;
-    v1 = *(u8*)*(t1 + 0x18);
-    a0 = *(u8*)*(t1 + 0x19);
-    a1 = *(u8*)*(t1 + 0x1a);
+    v1 = *(u8*)(t1 + 0x18);  /* GTE data: rgbc */
+    a0 = *(u8*)(t1 + 0x19);  /* GTE data: rgbc.G */
+    a1 = *(u8*)(t1 + 0x1a);  /* GTE data: rgbc.B */
     v1 = v1 << 4;
-    ret = *(s16*)(sp);
+    ret = *(s16*)(__sp);
     a0 = a0 << 4;
-    a2 = *(s16*)*(__sp + 4);
+    a2 = *(s16*)(__sp + 4);
     a1 = a1 << 4;
-    a3 = *(s16*)*(__sp + 8);
+    a3 = *(s16*)(__sp + 8);
     ac3 = (s32)((s64)v1 * (s64)ret); HI_LO = (s64)v1 * (s64)ret;
-    __asm("mult1 a0, a0, a2");
-    ret = *(u8*)*(t1 + 0x1b);
+    a0 = a0 * a2;
+    ret = *(u8*)(t1 + 0x1b);  /* GTE data: rgbc.code */
     a1 = (s32)((s64)a1 * (s64)a3); HI_LO = (s64)a1 * (s64)a3;
-    *(u8*)*(t2 + 3) = ret;
+    *(u8*)(t2 + 3) = ret;
     a2 = (signed)v1 >> 0x10;
-    *(u32*)(sp) = v1;
-    *(u32*)*(__sp + 4) = a0;
-    *(u32*)*(__sp + 8) = a1;
+    *(u32*)(__sp) = v1;
+    *(u32*)(__sp + 4) = a0;
+    *(u32*)(__sp + 8) = a1;
     if ((signed)a2 < 0) {
-        ret = *(u32*)*(t1 + 0xfc);
+        ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
         v1 = 0;
     } else {
         ret = 0xff;
         v1 = a2;
         if ((signed)ret < (signed)a2) {
-            ret = *(u32*)*(t1 + 0xfc);
+            ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
             v1 = 0xff;
             }
-            ret = ret | t0;
-            *(u32*)*(t1 + 0xfc) = ret;
+            *(u32*)(t1 + 0xfc) = ret | t0;
         }
     a0 = (signed)a0 >> 0x10;
     *(u8*)(t2) = v1;
     v1 = 0x00100000;
     if ((signed)a0 < 0) {
-        ret = *(u32*)*(t1 + 0xfc);
+        ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
         a0 = 0;
         goto loc_217310;
     }
     ret = 0xff;
     a1 = (signed)a1 >> 0x10;
-    if (likely((signed)ret >= (signed)a0)) goto loc_21731C;
-    ret = *(u32*)*(t1 + 0xfc);
+    if ((signed)ret >= (signed)a0) goto loc_21731C;
+    ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
     a0 = 0xff;
 loc_217310:
-    ret = ret | v1;
-    *(u32*)*(t1 + 0xfc) = ret;
+    *(u32*)(t1 + 0xfc) = ret | v1;
     a1 = (signed)a1 >> 0x10;
 loc_21731C:
-    *(u8*)*(t2 + 1) = a0;
+    *(u8*)(t2 + 1) = a0;
     v1 = 8 << 16;
     if ((signed)a1 < 0) {
-        ret = *(u32*)*(t1 + 0xfc);
+        ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
         a1 = 0;
         goto loc_217350;
     }
     ret = 0xff;
-    v1 = *(u32*)(sp);
-    if (likely((signed)ret >= (signed)a1)) goto loc_21735C;
-    ret = *(u32*)*(t1 + 0xfc);
+    v1 = *(u32*)(__sp);
+    if ((signed)ret >= (signed)a1) goto loc_21735C;
+    ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
     a1 = 0xff;
 loc_217350:
-    ret = ret | v1;
-    *(u32*)*(t1 + 0xfc) = ret;
-    v1 = *(u32*)(sp);
+    *(u32*)(t1 + 0xfc) = ret | v1;
+    v1 = *(u32*)(__sp);
 loc_21735C:
     a3 = 0x01000000;
-    a0 = *(u32*)*(__sp + 4);
-    a2 = *(u32*)*(__sp + 8);
+    a0 = *(u32*)(__sp + 4);
+    a2 = *(u32*)(__sp + 8);
     v1 = (signed)v1 >> 0xc;
     a0 = (signed)a0 >> 0xc;
-    *(u8*)*(t2 + 2) = a1;
+    *(u8*)(t2 + 2) = a1;
     a2 = (signed)a2 >> 0xc;
-    *(u32*)*(t1 + 0x64) = v1;
-    *(u32*)*(t1 + 0x68) = a0;
-    *(u32*)*(t1 + 0x6c) = a2;
+    *(u32*)(t1 + 0x64) = v1;
+    *(u32*)(t1 + 0x68) = a0;
+    *(u32*)(t1 + 0x6c) = a2;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t1 + 0xfc);
+        ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
         v1 = 0;
         goto loc_2173B0;
     }
     ret = 0x7fff;
-    *(u32*)*(t1 + 0x24) = v1;
-    if (likely((signed)ret >= (signed)v1)) goto loc_2173BC;
-    ret = *(u32*)*(t1 + 0xfc);
+    *(u32*)(t1 + 0x24) = v1;
+    if ((signed)ret >= (signed)v1) goto loc_2173BC;
+    ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
     v1 = 0x7fff;
 loc_2173B0:
-    ret = ret | a3;
-    *(u32*)*(t1 + 0xfc) = ret;
-    *(u32*)*(t1 + 0x24) = v1;
+    *(u32*)(t1 + 0xfc) = ret | a3;
+    *(u32*)(t1 + 0x24) = v1;
 loc_2173BC:
     a1 = 0x00800000;
     if ((signed)a0 < 0) {
-        ret = *(u32*)*(t1 + 0xfc);
+        ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
         v1 = 0;
     } else {
         ret = 0x7fff;
         v1 = a0;
         if ((signed)ret < (signed)a0) {
-            ret = *(u32*)*(t1 + 0xfc);
+            ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
             v1 = 0x7fff;
             }
-            ret = ret | a1;
-            *(u32*)*(t1 + 0xfc) = ret;
+            *(u32*)(t1 + 0xfc) = ret | a1;
         }
-    *(u32*)*(t1 + 0x28) = v1;
+    *(u32*)(t1 + 0x28) = v1;
     a0 = 0x00400000;
     if ((signed)a2 < 0) {
-        ret = *(u32*)*(t1 + 0xfc);
+        ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
         v1 = 0;
     } else {
         ret = 0x7fff;
         v1 = a2;
         if ((signed)ret < (signed)a2) {
-            ret = *(u32*)*(t1 + 0xfc);
+            ret = *(u32*)(t1 + 0xfc);  /* GTE ctrl: flag */
             v1 = 0x7fff;
             }
             ret = ret | a0;
-            *(u32*)*(t1 + 0xfc) = ret;
+            *(u32*)(t1 + 0xfc) = ret;
         }
-    *(u32*)*(t1 + 0x2c) = v1;
+    *(u32*)(t1 + 0x2c) = v1;
     return ret;
 }
 
 /* Function at 0x00217438 - 0x00217480 */
-int GTE_NCS()
+u32 GTE_NCS(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, t3;
+    u32 ret, v1, a1, a2, a3, t3;
     a1 = a0;
     v1 = a1 + 0x54;
     ret = a1 + 0x58;
@@ -2471,39 +2342,39 @@ int GTE_NCS()
     STORE_WORD_RIGHT(*(a1 + 0x50), a2);
     a2 = ret;
     t3 = LOAD_WORD_LEFT(*(ret + 3));
-    t3 = LOAD_WORD_RIGHT((v0));
+    t3 = LOAD_WORD_RIGHT((ret));
     STORE_WORD_LEFT(*(v1 + 3), t3);
     STORE_WORD_RIGHT((v1), t3);
-    return GTE_NCS_Prologue(a0, a1, a2, a3);
+    return GTE_NCS_Prologue(a0, a1);
 }
 
 /* Function at 0x00217480 - 0x002174E4 */
-int GTE_NCT()
+u32 GTE_NCT(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3, s0;
+    u32 ret, a1, a2, a3, s0;
     a3 = 0;
     s0 = a0;
     a1 = s0;
     a2 = s0 + 0x50;
-    ret = GTE_NCS_Prologue(a0, a1, a2, a3);
+    GTE_NCS_Prologue(a0, a1);
     a0 = s0;
     a1 = s0 + 8;
     a2 = s0 + 0x54;
     a3 = 0;
-    ret = GTE_NCS_Prologue(a0, a1, a2, a3);
+    GTE_NCS_Prologue(a0, a1);
     a0 = s0;
     a3 = 1;
     a1 = a0 + 0x10;
     a2 = a0 + 0x58;
-    return GTE_NCS_Prologue(a0, a1, a2, a3);
+    return GTE_NCS_Prologue(a0, a1);
 }
 
 /* Function at 0x002174E4 - 0x002178AC */
-int GTE_MVMVA()
+u32 GTE_MVMVA(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
+    u32 ret, v1, a3, s0, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
     t0 = ret & 3;
     ret = (unsigned)a1 >> 0x11;
     a3 = 1;
@@ -2514,7 +2385,7 @@ int GTE_MVMVA()
     t9 = v1 & 1;
     a1 = a1 & 3;
     if (t0 != a3) {
-        t6 = *(u32*)*(t4 + 0x94);
+        t6 = *(u32*)(t4 + 0x94);  /* GTE ctrl: trx */
         if (t0 != 0) {
             ret = 2;
             if (t0 != 3) {
@@ -2524,46 +2395,46 @@ int GTE_MVMVA()
                 if (t0 == ret) goto loc_21756C;
                 ret = 1;
                 } else {
-                t7 = *(u32*)*(t4 + 0x98);
-                t8 = *(u32*)*(t4 + 0x9c);
+                t7 = *(u32*)(t4 + 0x98);  /* GTE ctrl: try */
+                t8 = *(u32*)(t4 + 0x9c);  /* GTE ctrl: trz */
                 goto loc_21756C;
                 }
-                t6 = *(u32*)*(t4 + 0xb4);
-                t7 = *(u32*)*(t4 + 0xb8);
-                t8 = *(u32*)*(t4 + 0xbc);
+                t6 = *(u32*)(t4 + 0xb4);  /* GTE ctrl: rbk */
+                t7 = *(u32*)(t4 + 0xb8);  /* GTE ctrl: gbk */
+                t8 = *(u32*)(t4 + 0xbc);  /* GTE ctrl: bbk */
             } else {
-                t6 = *(u32*)*(t4 + 0xd4);
-                t7 = *(u32*)*(t4 + 0xd8);
-                t8 = *(u32*)*(t4 + 0xdc);
+                t6 = *(u32*)(t4 + 0xd4);  /* GTE ctrl: rfc */
+                t7 = *(u32*)(t4 + 0xd8);  /* GTE ctrl: gfc */
+                t8 = *(u32*)(t4 + 0xdc);  /* GTE ctrl: bfc */
             }
         loc_21756C:
         ret = 1;
     }
-    v1 = *(s16*)*(t4 + 8);
+    v1 = *(s16*)(t4 + 8);
     if (a1 != ret) {
         v1 = *(s16*)(t4);
         if (a1 != 0) {
             ret = 2;
             if (a1 != 3) {
-                v1 = *(s16*)*(t4 + 0x24);
+                v1 = *(s16*)(t4 + 0x24);  /* GTE data: ir1 */
                 if (a1 != ret) {
                     t5 = 0;
                     goto loc_2175E0;
                     }
-                    t2 = *(s16*)*(t4 + 2);
-                    t5 = *(s16*)*(t4 + 4);
+                    t2 = *(s16*)(t4 + 2);
+                    t5 = *(s16*)(t4 + 4);
                     goto loc_2175E8;
                     }
-                    t2 = *(s16*)*(t4 + 0xa);
-                    t5 = *(s16*)*(t4 + 0xc);
+                    t2 = *(s16*)(t4 + 0xa);
+                    t5 = *(s16*)(t4 + 0xc);  /* GTE data: vz1 */
                     goto loc_2175E8;
                     }
-                    v1 = *(s16*)*(t4 + 0x10);
-                    t2 = *(s16*)*(t4 + 0x12);
-                    t5 = *(s16*)*(t4 + 0x14);
+                    v1 = *(s16*)(t4 + 0x10);  /* GTE data: vxy2 */
+                    t2 = *(s16*)(t4 + 0x12);
+                    t5 = *(s16*)(t4 + 0x14);  /* GTE data: vz2 */
                 } else {
-                    t2 = *(s16*)*(t4 + 0x28);
-                    t5 = *(s16*)*(t4 + 0x2c);
+                    t2 = *(s16*)(t4 + 0x28);  /* GTE data: ir2 */
+                    t5 = *(s16*)(t4 + 0x2c);  /* GTE data: ir3 */
                     goto loc_2175E8;
                     loc_2175E0:
                     t2 = 0;
@@ -2571,64 +2442,64 @@ int GTE_MVMVA()
                 }
 loc_2175E8:
     ret = 1;
-    a3 = *(s16*)*(t4 + 0xa0);
+    a3 = *(s16*)(t4 + 0xa0);  /* GTE ctrl: l[0,1] */
     if (a0 != ret) {
-        a3 = *(s16*)*(t4 + 0x80);
+        a3 = *(s16*)(t4 + 0x80);  /* GTE ctrl: rt[0,1] */
         if (a0 != 0) {
             ret = 2;
-            a3 = *(s16*)*(t4 + 0xc0);
+            a3 = *(s16*)(t4 + 0xc0);  /* GTE ctrl: lc[0,1] */
             if (a0 != ret) {
                 a1 = 0;
                 } else {
-                t3 = *(s16*)*(t4 + 0x86);
-                t0 = *(s16*)*(t4 + 0x8c);
+                t3 = *(s16*)(t4 + 0x86);  /* GTE ctrl: rt2.R21 */
+                t0 = *(s16*)(t4 + 0x8c);  /* GTE ctrl: rt[6,7] */
                 a3 = (s32)((s64)a3 * (s64)v1); HI_LO = (s64)a3 * (s64)v1;
-                a2 = *(s16*)*(t4 + 0x82);
+                a2 = *(s16*)(t4 + 0x82);  /* GTE ctrl: rt.R12 */
                 t3 = (s32)((s64)t3 * (s64)v1); HI_LO = (s64)t3 * (s64)v1;
-                t1 = *(s16*)*(t4 + 0x88);
+                t1 = *(s16*)(t4 + 0x88);  /* GTE ctrl: rt[4,5] */
                 t0 = (s32)((s64)t0 * (s64)v1); HI_LO = (s64)t0 * (s64)v1;
-                a1 = *(s16*)*(t4 + 0x8e);
+                a1 = *(s16*)(t4 + 0x8e);  /* GTE ctrl: rt4.R32 */
                 a2 = (s32)((s64)a2 * (s64)t2); HI_LO = (s64)a2 * (s64)t2;
-                a0 = *(s16*)*(t4 + 0x84);
+                a0 = *(s16*)(t4 + 0x84);  /* GTE ctrl: rt[2,3] */
                 t1 = (s32)((s64)t1 * (s64)t2); HI_LO = (s64)t1 * (s64)t2;
-                v1 = *(s16*)*(t4 + 0x8a);
+                v1 = *(s16*)(t4 + 0x8a);  /* GTE ctrl: rt3.R23 */
                 a1 = (s32)((s64)a1 * (s64)t2); HI_LO = (s64)a1 * (s64)t2;
-                ret = *(s16*)*(t4 + 0x90);
+                ret = *(s16*)(t4 + 0x90);  /* GTE ctrl: rt5.R33 */
                 goto loc_2176C8;
                 }
-                t3 = *(s16*)*(t4 + 0xa6);
-                t0 = *(s16*)*(t4 + 0xac);
+                t3 = *(s16*)(t4 + 0xa6);  /* GTE ctrl: l2.L21 */
+                t0 = *(s16*)(t4 + 0xac);  /* GTE ctrl: l[6,7] */
                 a3 = (s32)((s64)a3 * (s64)v1); HI_LO = (s64)a3 * (s64)v1;
-                a2 = *(s16*)*(t4 + 0xa2);
+                a2 = *(s16*)(t4 + 0xa2);  /* GTE ctrl: l.L12 */
                 t3 = (s32)((s64)t3 * (s64)v1); HI_LO = (s64)t3 * (s64)v1;
-                t1 = *(s16*)*(t4 + 0xa8);
+                t1 = *(s16*)(t4 + 0xa8);  /* GTE ctrl: l[4,5] */
                 t0 = (s32)((s64)t0 * (s64)v1); HI_LO = (s64)t0 * (s64)v1;
-                a1 = *(s16*)*(t4 + 0xae);
+                a1 = *(s16*)(t4 + 0xae);  /* GTE ctrl: l4.L32 */
                 a2 = (s32)((s64)a2 * (s64)t2); HI_LO = (s64)a2 * (s64)t2;
-                a0 = *(s16*)*(t4 + 0xa4);
+                a0 = *(s16*)(t4 + 0xa4);  /* GTE ctrl: l[2,3] */
                 t1 = (s32)((s64)t1 * (s64)t2); HI_LO = (s64)t1 * (s64)t2;
-                v1 = *(s16*)*(t4 + 0xaa);
+                v1 = *(s16*)(t4 + 0xaa);  /* GTE ctrl: l3.L23 */
                 a1 = (s32)((s64)a1 * (s64)t2); HI_LO = (s64)a1 * (s64)t2;
-                ret = *(s16*)*(t4 + 0xb0);
+                ret = *(s16*)(t4 + 0xb0);  /* GTE ctrl: l5.L33 */
                 goto loc_2176C8;
             }
-        t3 = *(s16*)*(t4 + 0xc6);
-        t0 = *(s16*)*(t4 + 0xcc);
+        t3 = *(s16*)(t4 + 0xc6);
+        t0 = *(s16*)(t4 + 0xcc);  /* GTE ctrl: lc[6,7] */
         a3 = (s32)((s64)a3 * (s64)v1); HI_LO = (s64)a3 * (s64)v1;
-        a2 = *(s16*)*(t4 + 0xc2);
+        a2 = *(s16*)(t4 + 0xc2);
         t3 = (s32)((s64)t3 * (s64)v1); HI_LO = (s64)t3 * (s64)v1;
-        t1 = *(s16*)*(t4 + 0xc8);
+        t1 = *(s16*)(t4 + 0xc8);  /* GTE ctrl: lc[4,5] */
         t0 = (s32)((s64)t0 * (s64)v1); HI_LO = (s64)t0 * (s64)v1;
-        a1 = *(s16*)*(t4 + 0xce);
+        a1 = *(s16*)(t4 + 0xce);
         a2 = (s32)((s64)a2 * (s64)t2); HI_LO = (s64)a2 * (s64)t2;
-        a0 = *(s16*)*(t4 + 0xc4);
+        a0 = *(s16*)(t4 + 0xc4);  /* GTE ctrl: lc[2,3] */
         t1 = (s32)((s64)t1 * (s64)t2); HI_LO = (s64)t1 * (s64)t2;
-        v1 = *(s16*)*(t4 + 0xca);
+        v1 = *(s16*)(t4 + 0xca);
         a1 = (s32)((s64)a1 * (s64)t2); HI_LO = (s64)a1 * (s64)t2;
-        ret = *(s16*)*(t4 + 0xd0);
+        ret = *(s16*)(t4 + 0xd0);  /* GTE ctrl: lc5.LB3 */
         loc_2176C8:
         a0 = (s32)((s64)a0 * (s64)t5); HI_LO = (s64)a0 * (s64)t5;
-        __asm("mult1 v1, v1, t5");
+        v1 = v1 * t5;
         t2 = a3 + a2;
         ac2 = (s32)((s64)ret * (s64)t5); HI_LO = (s64)ret * (s64)t5;
         a2 = t3 + t1;
@@ -2655,117 +2526,111 @@ loc_2176F8:
         a2 = (signed)a2 >> 12;
         a1 = (signed)a1 >> 12;
     }
-    v1 = (u64)t0 << 32;
     v1 = (s64)v1 >> 32;
     a0 = (u64)a2 << 32;
     a0 = (s64)a0 >> 32;
     a1 = (u64)a1 << 32;
     a1 = (s64)a1 >> 32;
-    *(u32*)*(t4 + 0x64) = v1;
-    *(u32*)*(t4 + 0x68) = a0;
-    *(u32*)*(t4 + 0x6c) = a1;
-    if (s0 != 0) goto loc_2177F0;
-    a2 = 0x01000000;
-    if ((signed)v1 < -0x8000) {
-        ret = *(u32*)*(t4 + 0xfc);
-        v1 = -0x8000;
-        goto loc_217788;
-    }
-    ret = 0x7fff;
-    ret = ((signed)ret < (signed)v1) ? 1 : 0;
-    if ((signed)a0 >= -0x8000) goto loc_217794;
-    ret = *(u32*)*(t4 + 0xfc);
-    v1 = 0x7fff;
-loc_217788:
-    ret = ret | a2;
-    *(u32*)*(t4 + 0xfc) = ret;
-loc_217794:
-    *(u32*)*(t4 + 0x24) = v1;
-    a2 = 0x00800000;
-    if ((signed)a0 < -0x8000) {
-        ret = *(u32*)*(t4 + 0xfc);
-        v1 = -0x8000;
-        goto loc_2177C8;
-    }
-    ret = 0x7fff;
-    v1 = a0;
-    if (likely((signed)ret >= (signed)a0)) goto loc_2177D0;
-    ret = *(u32*)*(t4 + 0xfc);
-    v1 = 0x7fff;
-loc_2177C8:
-    ret = ret | a2;
-    *(u32*)*(t4 + 0xfc) = ret;
-loc_2177D0:
-    *(u32*)*(t4 + 0x28) = v1;
-    a0 = 0x00400000;
-    if ((signed)a1 >= -0x8000) goto loc_217878;
-    ret = *(u32*)*(t4 + 0xfc);
-    v1 = -0x8000;
-    goto loc_217890;
-loc_2177F0:
-    a2 = 0x01000000;
-    if ((signed)v1 < 0) {
-        ret = *(u32*)*(t4 + 0xfc);
-        v1 = 0;
-        goto loc_217820;
-    }
-    ret = 0x7fff;
-    *(u32*)*(t4 + 0x24) = v1;
-    if (likely((signed)ret >= (signed)v1)) goto loc_21782C;
-    ret = *(u32*)*(t4 + 0xfc);
-    v1 = 0x7fff;
-loc_217820:
-    ret = ret | a2;
-    *(u32*)*(t4 + 0xfc) = ret;
-    *(u32*)*(t4 + 0x24) = v1;
-loc_21782C:
-    a2 = 0x00800000;
-    if ((signed)a0 < 0) {
-        ret = *(u32*)*(t4 + 0xfc);
-        v1 = 0;
-    } else {
+    *(u32*)(t4 + 0x64) = v1;
+    *(u32*)(t4 + 0x68) = a0;
+    *(u32*)(t4 + 0x6c) = a1;
+    if (s0 == 0) {
+        a2 = 0x01000000;
+        if ((signed)v1 < -0x8000) {
+            ret = *(u32*)(t4 + 0xfc);  /* GTE ctrl: flag */
+            v1 = -0x8000;
+            goto loc_217788;
+        }
+        ret = ((signed)ret < (signed)v1) ? 1 : 0;
+        if ((signed)a0 >= -0x8000) goto loc_217794;
+        ret = *(u32*)(t4 + 0xfc);  /* GTE ctrl: flag */
+        v1 = 0x7fff;
+        loc_217788:
+        *(u32*)(t4 + 0xfc) = ret | a2;
+        loc_217794:
+        *(u32*)(t4 + 0x24) = v1;
+        a2 = 0x00800000;
+        if ((signed)a0 < -0x8000) {
+            ret = *(u32*)(t4 + 0xfc);  /* GTE ctrl: flag */
+            v1 = -0x8000;
+            goto loc_2177C8;
+        }
         ret = 0x7fff;
         v1 = a0;
-        if ((signed)ret < (signed)a0) {
-            ret = *(u32*)*(t4 + 0xfc);
-            v1 = 0x7fff;
-            }
-            ret = ret | a2;
-            *(u32*)*(t4 + 0xfc) = ret;
+        if ((signed)ret >= (signed)a0) goto loc_2177D0;
+        ret = *(u32*)(t4 + 0xfc);  /* GTE ctrl: flag */
+        v1 = 0x7fff;
+        loc_2177C8:
+        *(u32*)(t4 + 0xfc) = ret | a2;
+        loc_2177D0:
+        *(u32*)(t4 + 0x28) = v1;
+        a0 = 0x00400000;
+        if ((signed)a1 >= -0x8000) goto loc_217878;
+        ret = *(u32*)(t4 + 0xfc);  /* GTE ctrl: flag */
+        v1 = -0x8000;
+    } else {
+        a2 = 0x01000000;
+        if ((signed)v1 < 0) {
+            ret = *(u32*)(t4 + 0xfc);  /* GTE ctrl: flag */
+            v1 = 0;
+            goto loc_217820;
         }
-    *(u32*)*(t4 + 0x28) = v1;
-    a0 = 0x00400000;
-    if ((signed)a1 >= 0) goto loc_217878;
-    ret = *(u32*)*(t4 + 0xfc);
-    v1 = 0;
-    goto loc_217890;
-loc_217878:
-    ret = 0x7fff;
-    v1 = a1;
-    if (likely((signed)ret >= (signed)a1)) goto loc_217898;
-    ret = *(u32*)*(t4 + 0xfc);
-    v1 = 0x7fff;
+        ret = 0x7fff;
+        *(u32*)(t4 + 0x24) = v1;
+        if ((signed)ret >= (signed)v1) goto loc_21782C;
+        ret = *(u32*)(t4 + 0xfc);  /* GTE ctrl: flag */
+        v1 = 0x7fff;
+        loc_217820:
+        *(u32*)(t4 + 0xfc) = ret | a2;
+        *(u32*)(t4 + 0x24) = v1;
+        loc_21782C:
+        a2 = 0x00800000;
+        if ((signed)a0 < 0) {
+            ret = *(u32*)(t4 + 0xfc);  /* GTE ctrl: flag */
+            v1 = 0;
+        } else {
+            ret = 0x7fff;
+            v1 = a0;
+            if ((signed)ret < (signed)a0) {
+                ret = *(u32*)(t4 + 0xfc);  /* GTE ctrl: flag */
+                v1 = 0x7fff;
+                }
+                *(u32*)(t4 + 0xfc) = ret | a2;
+            }
+        *(u32*)(t4 + 0x28) = v1;
+        a0 = 0x00400000;
+        if ((signed)a1 >= 0) goto loc_217878;
+        ret = *(u32*)(t4 + 0xfc);  /* GTE ctrl: flag */
+        v1 = 0;
+        goto loc_217890;
+        loc_217878:
+        ret = 0x7fff;
+        v1 = a1;
+        if ((signed)ret >= (signed)a1) goto loc_217898;
+        ret = *(u32*)(t4 + 0xfc);  /* GTE ctrl: flag */
+        v1 = 0x7fff;
+    }
 loc_217890:
     ret = ret | a0;
-    *(u32*)*(t4 + 0xfc) = ret;
+    *(u32*)(t4 + 0xfc) = ret;
 loc_217898:
-    *(u32*)*(t4 + 0x2c) = v1;
+    *(u32*)(t4 + 0x2c) = v1;
     return ret;
 }
 
 /* Function at 0x002178AC - 0x00217C10 */
-int GTE_DCPL()
+u32 GTE_DCPL(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, t0, t1, t2, t3, t4, t5;
-    ret = *(u32*)*(t0 + 0x24);
+    u32 ret, v1, a0, a1, a2, a3, t0, t1, t2, t3, t4, t5;
+    ret = *(u32*)(t0 + 0x24);  /* GTE data: ir1 */
     v1 = t0 + 0x54;
     a0 = LOAD_WORD_LEFT(*(v1 + 3));
     a0 = LOAD_WORD_RIGHT((v1));
     STORE_WORD_LEFT(*(t0 + 0x53), a0);
     STORE_WORD_RIGHT(*(t0 + 0x50), a0);
     t1 = t0 + 0x58;
-    *(u32*)(sp) = ret;
+    *(u32*)(__sp) = ret;
     t3 = __sp;
     t4 = __sp + 4;
     t5 = __sp + 8;
@@ -2774,70 +2639,67 @@ int GTE_DCPL()
     STORE_WORD_LEFT(*(v1 + 3), ret);
     t2 = 0x01000000;
     STORE_WORD_RIGHT((v1), ret);
-    v1 = *(u32*)*(t0 + 0x28);
-    a0 = *(u32*)*(t0 + 0x2c);
-    a1 = *(u8*)*(t0 + 0x18);
-    ret = *(s16*)(sp);
-    *(u32*)*(__sp + 4) = v1;
+    v1 = *(u32*)(t0 + 0x28);  /* GTE data: ir2 */
+    a0 = *(u32*)(t0 + 0x2c);  /* GTE data: ir3 */
+    a1 = *(u8*)(t0 + 0x18);  /* GTE data: rgbc */
+    ret = *(s16*)(__sp);
+    *(u32*)(__sp + 4) = v1;
     a1 = a1 << 4;
-    *(u32*)*(__sp + 8) = a0;
+    *(u32*)(__sp + 8) = a0;
     a1 = (s32)((s64)a1 * (s64)ret); HI_LO = (s64)a1 * (s64)ret;
-    ret = *(s16*)*(__sp + 4);
-    v1 = *(u8*)*(t0 + 0x19);
-    a0 = *(u8*)*(t0 + 0x1a);
-    a3 = *(s16*)*(__sp + 8);
+    ret = *(s16*)(__sp + 4);
+    v1 = *(u8*)(t0 + 0x19);  /* GTE data: rgbc.G */
+    a0 = *(u8*)(t0 + 0x1a);  /* GTE data: rgbc.B */
+    a3 = *(s16*)(__sp + 8);
     v1 = v1 << 4;
     a0 = a0 << 4;
-    a2 = *(u32*)*(t0 + 0xd4);
+    a2 = *(u32*)(t0 + 0xd4);  /* GTE ctrl: rfc */
     ac3 = (s32)((s64)v1 * (s64)ret); HI_LO = (s64)v1 * (s64)ret;
     ret = (signed)a1 >> 0xc;
     a0 = (s32)((s64)a0 * (s64)a3); HI_LO = (s64)a0 * (s64)a3;
     a2 = a2 - ret;
-    *(u32*)(sp) = a1;
-    a3 = *(s16*)*(t0 + 0x20);
-    *(u32*)*(__sp + 4) = v1;
-    *(u32*)*(__sp + 8) = a0;
+    *(u32*)(__sp) = a1;
+    a3 = *(s16*)(t0 + 0x20);  /* GTE data: ir0 */
+    *(u32*)(__sp + 4) = v1;
+    *(u32*)(__sp + 8) = a0;
     if ((signed)a2 < -0x8000) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         a2 = -0x8000;
     } else {
-        ret = 0x7fff;
-        ret = ((signed)ret < (signed)a2) ? 1 : 0;
         ret = a2 << 0x10;
         if (ret != 0) {
-            ret = *(u32*)*(t0 + 0xfc);
+            ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
             a2 = 0x7fff;
             }
             ret = ret | t2;
-            *(u32*)*(t0 + 0xfc) = ret;
+            *(u32*)(t0 + 0xfc) = ret;
             ret = a2 << 0x10;
         }
     ret = (signed)ret >> 0x10;
     v1 = *(u32*)(t3);
     ac2 = (s32)((s64)a3 * (s64)ret); HI_LO = (s64)a3 * (s64)ret;
-    a0 = *(u32*)*(t0 + 0xd8);
-    v1 = v1 + ret;
-    *(u32*)(t3) = v1;
+    a0 = *(u32*)(t0 + 0xd8);  /* GTE ctrl: gfc */
+    *(u32*)(t3) = v1 + ret;
     a1 = *(u32*)(t4);
     ret = (signed)a1 >> 0xc;
     a0 = a0 - ret;
     v1 = ((signed)a0 < -0x8000) ? 1 : 0;
     a2 = 0x00800000;
     if (v1 != 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = -0x8000;
     } else {
         ret = 0x7fff;
         v1 = a0;
         if ((signed)ret < (signed)a0) {
-            ret = *(u32*)*(t0 + 0xfc);
+            ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
             v1 = 0x7fff;
             }
             ret = ret | a2;
-            *(u32*)*(t0 + 0xfc) = ret;
+            *(u32*)(t0 + 0xfc) = ret;
         }
     ret = v1 << 0x10;
-    a0 = *(u32*)*(t0 + 0xdc);
+    a0 = *(u32*)(t0 + 0xdc);  /* GTE ctrl: bfc */
     ret = (signed)ret >> 0x10;
     ac3 = (s32)((s64)a3 * (s64)ret); HI_LO = (s64)a3 * (s64)ret;
     ret = v1 + a1;
@@ -2848,163 +2710,157 @@ int GTE_DCPL()
     v1 = ((signed)a0 < -0x8000) ? 1 : 0;
     a2 = 0x00400000;
     if (v1 != 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = -0x8000;
         goto loc_217A38;
     }
     ret = 0x7fff;
     v1 = a0;
-    if (likely((signed)ret >= (signed)a0)) goto loc_217A40;
-    ret = *(u32*)*(t0 + 0xfc);
+    if ((signed)ret >= (signed)a0) goto loc_217A40;
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     v1 = 0x7fff;
 loc_217A38:
     ret = ret | a2;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret;
 loc_217A40:
     ret = v1 << 0x10;
-    v1 = *(u8*)*(t0 + 0x1b);
+    v1 = *(u8*)(t0 + 0x1b);  /* GTE data: rgbc.code */
     ret = (signed)ret >> 0x10;
     a0 = (s32)((s64)a3 * (s64)ret); HI_LO = (s64)a3 * (s64)ret;
-    *(u8*)*(t1 + 3) = v1;
+    *(u8*)(t1 + 3) = v1;
     ret = a0 + a1;
     a1 = 0x00200000;
     *(u32*)(t5) = ret;
-    v1 = *(u32*)(sp);
-    a0 = *(u32*)*(__sp + 4);
+    v1 = *(u32*)(__sp);
+    a0 = *(u32*)(__sp + 4);
     v1 = (signed)v1 >> 0x10;
-    a2 = *(u32*)*(__sp + 8);
+    a2 = *(u32*)(__sp + 8);
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = 0;
     } else {
         ret = 0xff;
         a0 = (signed)a0 >> 0x10;
         if ((signed)ret < (signed)v1) {
-            ret = *(u32*)*(t0 + 0xfc);
+            ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
             v1 = 0xff;
             }
-            ret = ret | a1;
-            *(u32*)*(t0 + 0xfc) = ret;
+            *(u32*)(t0 + 0xfc) = ret | a1;
             a0 = (signed)a0 >> 0x10;
         }
     *(u8*)(t1) = v1;
     v1 = 0x00100000;
     if ((signed)a0 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         a0 = 0;
         goto loc_217AD8;
     }
     ret = 0xff;
     v1 = (signed)a2 >> 0x10;
-    if (likely((signed)ret >= (signed)a0)) goto loc_217AE4;
-    ret = *(u32*)*(t0 + 0xfc);
+    if ((signed)ret >= (signed)a0) goto loc_217AE4;
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     a0 = 0xff;
 loc_217AD8:
-    ret = ret | v1;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret | v1;
     v1 = (signed)a2 >> 0x10;
 loc_217AE4:
-    *(u8*)*(t1 + 1) = a0;
+    *(u8*)(t1 + 1) = a0;
     a0 = 8 << 16;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         a2 = 0;
         goto loc_217B18;
     }
     ret = 0xff;
     a2 = v1;
-    if (likely((signed)ret >= (signed)v1)) goto loc_217B20;
-    ret = *(u32*)*(t0 + 0xfc);
+    if ((signed)ret >= (signed)v1) goto loc_217B20;
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     a2 = 0xff;
 loc_217B18:
-    ret = ret | a0;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret | a0;
 loc_217B20:
-    v1 = *(u32*)(sp);
+    v1 = *(u32*)(__sp);
     a3 = 0x01000000;
-    a0 = *(u32*)*(__sp + 4);
-    a1 = *(u32*)*(__sp + 8);
+    a0 = *(u32*)(__sp + 4);
+    a1 = *(u32*)(__sp + 8);
     v1 = (signed)v1 >> 0xc;
     a0 = (signed)a0 >> 0xc;
     ret = ((signed)v1 < -0x8000) ? 1 : 0;
     a1 = (signed)a1 >> 0xc;
-    *(u8*)*(t1 + 2) = a2;
-    *(u32*)*(t0 + 0x64) = v1;
-    *(u32*)*(t0 + 0x68) = a0;
-    *(u32*)*(t0 + 0x6c) = a1;
+    *(u8*)(t1 + 2) = a2;
+    *(u32*)(t0 + 0x64) = v1;
+    *(u32*)(t0 + 0x68) = a0;
+    *(u32*)(t0 + 0x6c) = a1;
     if (ret != 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = -0x8000;
     } else {
-        ret = 0x7fff;
         ret = ((signed)ret < (signed)v1) ? 1 : 0;
         if ((signed)a0 < -0x8000) {
-            ret = *(u32*)*(t0 + 0xfc);
+            ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
             v1 = 0x7fff;
             }
-            ret = ret | a3;
-            *(u32*)*(t0 + 0xfc) = ret;
+            *(u32*)(t0 + 0xfc) = ret | a3;
         }
-    *(u32*)*(t0 + 0x24) = v1;
+    *(u32*)(t0 + 0x24) = v1;
     a2 = 0x00800000;
     if ((signed)a0 < -0x8000) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = -0x8000;
         goto loc_217BB8;
     }
     ret = 0x7fff;
     v1 = a0;
-    if (likely((signed)ret >= (signed)a0)) goto loc_217BC0;
-    ret = *(u32*)*(t0 + 0xfc);
+    if ((signed)ret >= (signed)a0) goto loc_217BC0;
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     v1 = 0x7fff;
 loc_217BB8:
-    ret = ret | a2;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret | a2;
 loc_217BC0:
-    *(u32*)*(t0 + 0x28) = v1;
+    *(u32*)(t0 + 0x28) = v1;
     a0 = 0x00400000;
     if ((signed)a1 < -0x8000) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = -0x8000;
         goto loc_217BF8;
     }
     ret = 0x7fff;
     v1 = a1;
-    if (likely((signed)ret >= (signed)a1)) goto loc_217C00;
-    ret = *(u32*)*(t0 + 0xfc);
+    if ((signed)ret >= (signed)a1) goto loc_217C00;
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     v1 = 0x7fff;
 loc_217BF8:
     ret = ret | a0;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret;
 loc_217C00:
-    *(u32*)*(t0 + 0x2c) = v1;
+    *(u32*)(t0 + 0x2c) = v1;
     return ret;
 }
 
 /* Function at 0x00217C10 - 0x00217F70 */
-int GTE_INTPL()
+u32 GTE_INTPL(u32 a0)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s1, t0, t1, t2, t3, t4, t5;
+    u32 ret, v1, a1, a2, a3, s1, t0, t1, t2, t3, t4, t5;
     t0 = a0;
     a3 = t0 + 0x54;
     t1 = t0 + 0x58;
     t3 = __sp;
     t4 = __sp + 4;
-    ret = *(u32*)*(t0 + 0x24);
+    ret = *(u32*)(t0 + 0x24);  /* GTE data: ir1 */
     t5 = __sp + 8;
-    v1 = *(u32*)*(t0 + 0x28);
+    v1 = *(u32*)(t0 + 0x28);  /* GTE data: ir2 */
     t2 = 0x01000000;
-    *(u32*)(sp) = ret;
-    ret = *(u32*)*(t0 + 0x2c);
-    a1 = *(s16*)(sp);
-    *(u32*)*(__sp + 4) = v1;
-    *(u32*)*(__sp + 8) = ret;
+    *(u32*)(__sp) = ret;
+    ret = *(u32*)(t0 + 0x2c);  /* GTE data: ir3 */
+    a1 = *(s16*)(__sp);
+    *(u32*)(__sp + 4) = v1;
+    *(u32*)(__sp + 8) = ret;
     a1 = a1 << 0xc;
     a0 = (signed)a1 >> 0xc;
-    ret = *(s16*)*(__sp + 4);
-    a2 = *(u32*)*(t0 + 0xd4);
-    v1 = *(s16*)*(__sp + 8);
+    ret = *(s16*)(__sp + 4);
+    a2 = *(u32*)(t0 + 0xd4);  /* GTE ctrl: rfc */
+    v1 = *(s16*)(__sp + 8);
     ret = ret << 0xc;
     a2 = a2 - a0;
     a0 = LOAD_WORD_LEFT(*(a3 + 3));
@@ -3017,50 +2873,49 @@ int GTE_INTPL()
     s1 = LOAD_WORD_RIGHT((t1));
     STORE_WORD_LEFT(*(a3 + 3), s1);
     STORE_WORD_RIGHT((a3), s1);
-    *(u32*)*(__sp + 4) = ret;
-    *(u32*)*(__sp + 8) = v1;
-    *(u32*)(sp) = a1;
-    a3 = *(s16*)*(t0 + 0x20);
+    *(u32*)(__sp + 4) = ret;
+    *(u32*)(__sp + 8) = v1;
+    *(u32*)(__sp) = a1;
+    a3 = *(s16*)(t0 + 0x20);  /* GTE data: ir0 */
     if (a0 != 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         a0 = -0x8000;
     } else {
         ret = 0x7fff;
         a0 = a2;
         if ((signed)ret < (signed)a2) {
-            ret = *(u32*)*(t0 + 0xfc);
+            ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
             a0 = 0x7fff;
             }
             ret = ret | t2;
-            *(u32*)*(t0 + 0xfc) = ret;
+            *(u32*)(t0 + 0xfc) = ret;
         }
     ret = a0 << 0x10;
-    a0 = *(u32*)*(t0 + 0xd8);
+    a0 = *(u32*)(t0 + 0xd8);  /* GTE ctrl: gfc */
     ret = (signed)ret >> 0x10;
     v1 = *(u32*)(t3);
     ac2 = (s32)((s64)a3 * (s64)ret); HI_LO = (s64)a3 * (s64)ret;
-    v1 = v1 + ret;
-    *(u32*)(t3) = v1;
+    *(u32*)(t3) = v1 + ret;
     a1 = *(u32*)(t4);
     ret = (signed)a1 >> 0xc;
     a0 = a0 - ret;
     v1 = ((signed)a0 < -0x8000) ? 1 : 0;
     a2 = 0x00800000;
     if (v1 != 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = -0x8000;
     } else {
         ret = 0x7fff;
         v1 = a0;
         if ((signed)ret < (signed)a0) {
-            ret = *(u32*)*(t0 + 0xfc);
+            ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
             v1 = 0x7fff;
             }
             ret = ret | a2;
-            *(u32*)*(t0 + 0xfc) = ret;
+            *(u32*)(t0 + 0xfc) = ret;
         }
     ret = v1 << 0x10;
-    a0 = *(u32*)*(t0 + 0xdc);
+    a0 = *(u32*)(t0 + 0xdc);  /* GTE ctrl: bfc */
     ret = (signed)ret >> 0x10;
     ac3 = (s32)((s64)a3 * (s64)ret); HI_LO = (s64)a3 * (s64)ret;
     ret = v1 + a1;
@@ -3071,143 +2926,136 @@ int GTE_INTPL()
     v1 = ((signed)a0 < -0x8000) ? 1 : 0;
     a2 = 0x00400000;
     if (v1 != 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = -0x8000;
         goto loc_217D90;
     }
     ret = 0x7fff;
     v1 = a0;
-    if (likely((signed)ret >= (signed)a0)) goto loc_217D98;
-    ret = *(u32*)*(t0 + 0xfc);
+    if ((signed)ret >= (signed)a0) goto loc_217D98;
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     v1 = 0x7fff;
 loc_217D90:
     ret = ret | a2;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret;
 loc_217D98:
     ret = v1 << 0x10;
-    v1 = *(u8*)*(t0 + 0x1b);
+    v1 = *(u8*)(t0 + 0x1b);  /* GTE data: rgbc.code */
     ret = (signed)ret >> 0x10;
-    a2 = *(u32*)*(__sp + 4);
+    a2 = *(u32*)(__sp + 4);
     a0 = (s32)((s64)a3 * (s64)ret); HI_LO = (s64)a3 * (s64)ret;
-    *(u8*)*(t1 + 3) = v1;
+    *(u8*)(t1 + 3) = v1;
     ret = a0 + a1;
-    a1 = *(u32*)*(__sp + 8);
+    a1 = *(u32*)(__sp + 8);
     *(u32*)(t5) = ret;
-    v1 = *(u32*)(sp);
     v1 = (signed)v1 >> 0x10;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = 0;
     } else {
         ret = 0xff;
         a0 = (signed)a2 >> 0x10;
         if ((signed)ret < (signed)v1) {
-            ret = *(u32*)*(t0 + 0xfc);
+            ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
             v1 = 0xff;
             }
-            ret = ret | a0;
-            *(u32*)*(t0 + 0xfc) = ret;
+            *(u32*)(t0 + 0xfc) = ret | a0;
             a0 = (signed)a2 >> 0x10;
         }
     *(u8*)(t1) = v1;
     v1 = 0x00100000;
     if ((signed)a0 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         a0 = 0;
         goto loc_217E30;
     }
     ret = 0xff;
     v1 = (signed)a1 >> 0x10;
-    if (likely((signed)ret >= (signed)a0)) goto loc_217E3C;
-    ret = *(u32*)*(t0 + 0xfc);
+    if ((signed)ret >= (signed)a0) goto loc_217E3C;
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     a0 = 0xff;
 loc_217E30:
-    ret = ret | v1;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret | v1;
     v1 = (signed)a1 >> 0x10;
 loc_217E3C:
-    *(u8*)*(t1 + 1) = a0;
+    *(u8*)(t1 + 1) = a0;
     a0 = 8 << 16;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         a2 = 0;
         goto loc_217E70;
     }
     ret = 0xff;
     a2 = v1;
-    if (likely((signed)ret >= (signed)v1)) goto loc_217E78;
-    ret = *(u32*)*(t0 + 0xfc);
+    if ((signed)ret >= (signed)v1) goto loc_217E78;
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     a2 = 0xff;
 loc_217E70:
-    ret = ret | a0;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret | a0;
 loc_217E78:
-    v1 = *(u32*)(sp);
+    v1 = *(u32*)(__sp);
     a3 = 0x01000000;
-    a0 = *(u32*)*(__sp + 4);
-    a1 = *(u32*)*(__sp + 8);
+    a0 = *(u32*)(__sp + 4);
+    a1 = *(u32*)(__sp + 8);
     v1 = (signed)v1 >> 0xc;
     a0 = (signed)a0 >> 0xc;
     ret = ((signed)v1 < -0x8000) ? 1 : 0;
     a1 = (signed)a1 >> 0xc;
-    *(u8*)*(t1 + 2) = a2;
-    *(u32*)*(t0 + 0x64) = v1;
-    *(u32*)*(t0 + 0x68) = a0;
-    *(u32*)*(t0 + 0x6c) = a1;
+    *(u8*)(t1 + 2) = a2;
+    *(u32*)(t0 + 0x64) = v1;
+    *(u32*)(t0 + 0x68) = a0;
+    *(u32*)(t0 + 0x6c) = a1;
     if (ret != 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = -0x8000;
     } else {
-        ret = 0x7fff;
         ret = ((signed)ret < (signed)v1) ? 1 : 0;
         if ((signed)a0 < -0x8000) {
-            ret = *(u32*)*(t0 + 0xfc);
+            ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
             v1 = 0x7fff;
             }
-            ret = ret | a3;
-            *(u32*)*(t0 + 0xfc) = ret;
+            *(u32*)(t0 + 0xfc) = ret | a3;
         }
-    *(u32*)*(t0 + 0x24) = v1;
+    *(u32*)(t0 + 0x24) = v1;
     a2 = 0x00800000;
     if ((signed)a0 < -0x8000) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = -0x8000;
         goto loc_217F10;
     }
     ret = 0x7fff;
     v1 = a0;
-    if (likely((signed)ret >= (signed)a0)) goto loc_217F18;
-    ret = *(u32*)*(t0 + 0xfc);
+    if ((signed)ret >= (signed)a0) goto loc_217F18;
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     v1 = 0x7fff;
 loc_217F10:
-    ret = ret | a2;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret | a2;
 loc_217F18:
-    *(u32*)*(t0 + 0x28) = v1;
+    *(u32*)(t0 + 0x28) = v1;
     a0 = 0x00400000;
     if ((signed)a1 < -0x8000) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = -0x8000;
         goto loc_217F50;
     }
     ret = 0x7fff;
     v1 = a1;
-    if (likely((signed)ret >= (signed)a1)) goto loc_217F58;
-    ret = *(u32*)*(t0 + 0xfc);
+    if ((signed)ret >= (signed)a1) goto loc_217F58;
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     v1 = 0x7fff;
 loc_217F50:
     ret = ret | a0;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret;
 loc_217F58:
-    *(u32*)*(t0 + 0x2c) = v1;
+    *(u32*)(t0 + 0x2c) = v1;
     return ret;
 }
 
 /* Function at 0x00217F70 - 0x00217FC0 */
-int GTE_DPCS()
+u32 GTE_DPCS(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, t3;
+    u32 ret, v1, a1, a2, a3, t3;
     a1 = a0;
     v1 = a1 + 0x54;
     ret = a1 + 0x58;
@@ -3219,17 +3067,17 @@ int GTE_DPCS()
     a1 = a1 + 0x18;
     a2 = ret;
     t3 = LOAD_WORD_LEFT(*(ret + 3));
-    t3 = LOAD_WORD_RIGHT((v0));
+    t3 = LOAD_WORD_RIGHT((ret));
     STORE_WORD_LEFT(*(v1 + 3), t3);
     STORE_WORD_RIGHT((v1), t3);
     return GTE_DPCS_Core(a0, a1, a2, a3);
 }
 
 /* Function at 0x00217FC0 - 0x00218798 */
-int GTE_DPCT()
+u32 GTE_DPCT(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3, s0;
+    u32 ret, a1, a2, a3, s0, t0, t1, t2, t3, v1;
     a3 = 0;
     s0 = a0;
     a1 = s0 + 0x50;
@@ -3245,175 +3093,165 @@ int GTE_DPCT()
     a2 = a1;
     a3 = 1;
     return GTE_DPCS_Core(a0, a1, a2, a3);
-    }
-    a3->gpr[20] = a0;  /* gpr[20] (store) */
-    a3->gpr[3] = a2;  /* gpr[3] (store) */
+    ((PSX_State*)a3)->gpr[20] = a0;  /* gpr[20] (store) */
+    ((PSX_State*)a3)->gpr[3] = a2;  /* gpr[3] (store) */
     return ret;
-    }
-    *(u32*)*(t0 + 0x60) = a2;
-    *(u32*)*(t0 + 0x1c) = a0;
+    *(u32*)(t0 + 0x60) = a2;
+    *(u32*)(t0 + 0x1c) = a0;
     return ret;
-    }
-    *(u32*)*(t2 + 0x60) = v1;
+    *(u32*)(t2 + 0x60) = v1;
     return ret;
-    }
-    a2->gpr[21] = a0;  /* gpr[21] (store) */
+    ((PSX_State*)a2)->gpr[21] = a0;  /* gpr[21] (store) */
     a1 = 0x01000000;
-    a2->gpr[22] = a3;  /* gpr[22] (store) */
-    a2->gpr[23] = v1;  /* gpr[23] (store) */
+    ((PSX_State*)a2)->gpr[22] = a3;  /* gpr[22] (store) */
+    ((PSX_State*)a2)->gpr[23] = v1;  /* gpr[23] (store) */
     if ((signed)a0 < 0) {
-        ret = a2->cop0[27];  /* cop0[27] */
+        ret = ((PSX_State*)a2)->cop0[27];  /* cop0[27] */
         a0 = 0;
         goto loc_2181C8;
     }
     ret = 0x7fff;
-    a2->gpr[5] = a0;  /* gpr[5] (store) */
-    if (likely((signed)ret >= (signed)a0)) goto loc_2181D4;
-    ret = a2->cop0[27];  /* cop0[27] */
+    ((PSX_State*)a2)->gpr[5] = a0;  /* gpr[5] (store) */
+    if ((signed)ret >= (signed)a0) goto loc_2181D4;
+    ret = ((PSX_State*)a2)->cop0[27];  /* cop0[27] */
     a0 = 0x7fff;
 loc_2181C8:
     ret = ret | a1;
-    a2->cop0[27] = ret;  /* cop0[27] (store) */
-    a2->gpr[5] = a0;  /* gpr[5] (store) */
+    ((PSX_State*)a2)->cop0[27] = ret;  /* cop0[27] (store) */
+    ((PSX_State*)a2)->gpr[5] = a0;  /* gpr[5] (store) */
 loc_2181D4:
     a1 = 0x00800000;
     if ((signed)a3 < 0) {
-        ret = a2->cop0[27];  /* cop0[27] */
+        ret = ((PSX_State*)a2)->cop0[27];  /* cop0[27] */
         a0 = 0;
     } else {
         ret = 0x7fff;
         a0 = a3;
         if ((signed)ret < (signed)a3) {
-            ret = a2->cop0[27];  /* cop0[27] */
+            ret = ((PSX_State*)a2)->cop0[27];  /* cop0[27] */
             a0 = 0x7fff;
             }
             ret = ret | a1;
-            a2->cop0[27] = ret;  /* cop0[27] (store) */
+            ((PSX_State*)a2)->cop0[27] = ret;  /* cop0[27] (store) */
         }
-    a2->gpr[6] = a0;  /* gpr[6] (store) */
+    ((PSX_State*)a2)->gpr[6] = a0;  /* gpr[6] (store) */
     a0 = 0x00400000;
     if ((signed)v1 < 0) {
-        ret = a2->cop0[27];  /* cop0[27] */
+        ret = ((PSX_State*)a2)->cop0[27];  /* cop0[27] */
         v1 = 0;
     } else {
         ret = 0x7fff;
         if ((signed)ret < (signed)v1) {
-            ret = a2->cop0[27];  /* cop0[27] */
+            ret = ((PSX_State*)a2)->cop0[27];  /* cop0[27] */
             v1 = 0x7fff;
             }
             ret = ret | a0;
-            a2->cop0[27] = ret;  /* cop0[27] (store) */
+            ((PSX_State*)a2)->cop0[27] = ret;  /* cop0[27] (store) */
         }
-    a2->gpr[7] = v1;  /* gpr[7] (store) */
+    ((PSX_State*)a2)->gpr[7] = v1;  /* gpr[7] (store) */
     return ret;
-    }
-    *(u32*)*(t0 + 0x64) = t1;
-    *(u32*)*(t0 + 0x68) = a3;
+    *(u32*)(t0 + 0x64) = t1;
+    *(u32*)(t0 + 0x68) = a3;
     a0 = 0x01000000;
-    *(u32*)*(t0 + 0x6c) = a2;
+    *(u32*)(t0 + 0x6c) = a2;
     if ((signed)t1 < -0x8000) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = -0x8000;
     } else {
         ret = 0x7fff;
         v1 = t1;
         if ((signed)ret < (signed)t1) {
-            ret = *(u32*)*(t0 + 0xfc);
+            ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
             v1 = 0x7fff;
             }
-            ret = ret | a0;
-            *(u32*)*(t0 + 0xfc) = ret;
+            *(u32*)(t0 + 0xfc) = ret | a0;
         }
-    *(u32*)*(t0 + 0x24) = v1;
+    *(u32*)(t0 + 0x24) = v1;
     a0 = 0x00800000;
     if ((signed)a3 < -0x8000) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = -0x8000;
         goto loc_218320;
     }
     ret = 0x7fff;
     v1 = a3;
-    if (likely((signed)ret >= (signed)a3)) goto loc_218328;
-    ret = *(u32*)*(t0 + 0xfc);
+    if ((signed)ret >= (signed)a3) goto loc_218328;
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     v1 = 0x7fff;
 loc_218320:
-    ret = ret | a0;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret | a0;
 loc_218328:
-    *(u32*)*(t0 + 0x28) = v1;
+    *(u32*)(t0 + 0x28) = v1;
     v1 = 0x00400000;
     if ((signed)a2 < -0x8000) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         a0 = -0x8000;
         goto loc_218360;
     }
     ret = 0x7fff;
     a0 = a2;
-    if (likely((signed)ret >= (signed)a2)) goto loc_218368;
-    ret = *(u32*)*(t0 + 0xfc);
+    if ((signed)ret >= (signed)a2) goto loc_218368;
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     a0 = 0x7fff;
 loc_218360:
     ret = ret | v1;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret;
 loc_218368:
-    ret = *(u8*)*(t0 + 0x1b);
+    ret = *(u8*)(t0 + 0x1b);  /* GTE data: rgbc.code */
     v1 = (signed)t1 >> 4;
-    *(u32*)*(t0 + 0x2c) = a0;
+    *(u32*)(t0 + 0x2c) = a0;
     a1 = 0x00200000;
-    *(u8*)*(t0 + 0x5b) = ret;
+    *(u8*)(t0 + 0x5b) = ret;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         a0 = 0;
         goto loc_2183A8;
     }
     ret = 0xff;
     a0 = v1;
-    if (likely((signed)ret >= (signed)v1)) goto loc_2183B0;
-    ret = *(u32*)*(t0 + 0xfc);
+    if ((signed)ret >= (signed)v1) goto loc_2183B0;
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     a0 = 0xff;
 loc_2183A8:
-    ret = ret | a1;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret | a1;
 loc_2183B0:
     v1 = (signed)a3 >> 4;
-    *(u8*)*(t0 + 0x58) = a0;
+    *(u8*)(t0 + 0x58) = a0;
     a1 = 0x00100000;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         a0 = 0;
         goto loc_2183E8;
     }
     ret = 0xff;
     a0 = v1;
-    if (likely((signed)ret >= (signed)v1)) goto loc_2183F0;
-    ret = *(u32*)*(t0 + 0xfc);
+    if ((signed)ret >= (signed)v1) goto loc_2183F0;
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     a0 = 0xff;
 loc_2183E8:
-    ret = ret | a1;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret | a1;
 loc_2183F0:
     v1 = (signed)a2 >> 4;
-    *(u8*)*(t0 + 0x59) = a0;
+    *(u8*)(t0 + 0x59) = a0;
     a0 = 8 << 16;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = 0;
         goto loc_218428;
     }
     ret = 0xff;
     if ((signed)ret >= (signed)v1) goto loc_218430;
-    ret = *(u32*)*(t0 + 0xfc);
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     v1 = 0xff;
 loc_218428:
     ret = ret | a0;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret;
 loc_218430:
-    *(u8*)*(t0 + 0x5a) = v1;
+    *(u8*)(t0 + 0x5a) = v1;
     return ret;
-    }
     t2 = 0x01000000;
-    a0 = *(u32*)*(t0 + 0x68);
-    v1 = *(u32*)*(t0 + 0x6c);
+    a0 = *(u32*)(t0 + 0x68);  /* GTE data: mac2 */
+    v1 = *(u32*)(t0 + 0x6c);  /* GTE data: mac3 */
     t1 = t1 + ret;
     a1 = (u64)t1 << 32;
     a1 = (s64)a1 >> 32;
@@ -3423,205 +3261,196 @@ loc_218430:
     a3 = (s64)a3 >> 32;
     a2 = (u64)a2 << 32;
     a2 = (s64)a2 >> 32;
-    *(u32*)*(t0 + 0x64) = a1;
-    *(u32*)*(t0 + 0x68) = a3;
-    *(u32*)*(t0 + 0x6c) = a2;
+    *(u32*)(t0 + 0x64) = a1;
+    *(u32*)(t0 + 0x68) = a3;
+    *(u32*)(t0 + 0x6c) = a2;
     if ((signed)a1 < -0x8000) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = -0x8000;
         goto loc_218510;
     }
     ret = 0x7fff;
     v1 = a1;
-    if (likely((signed)ret >= (signed)a1)) goto loc_218518;
-    ret = *(u32*)*(t0 + 0xfc);
+    if ((signed)ret >= (signed)a1) goto loc_218518;
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     v1 = 0x7fff;
 loc_218510:
-    ret = ret | t2;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret | t2;
 loc_218518:
-    *(u32*)*(t0 + 0x24) = v1;
+    *(u32*)(t0 + 0x24) = v1;
     a0 = 0x00800000;
     if ((signed)a3 < -0x8000) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = -0x8000;
         goto loc_218550;
     }
     ret = 0x7fff;
     v1 = a3;
-    if (likely((signed)ret >= (signed)a3)) goto loc_218558;
-    ret = *(u32*)*(t0 + 0xfc);
+    if ((signed)ret >= (signed)a3) goto loc_218558;
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     v1 = 0x7fff;
 loc_218550:
-    ret = ret | a0;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret | a0;
 loc_218558:
-    *(u32*)*(t0 + 0x28) = v1;
+    *(u32*)(t0 + 0x28) = v1;
     v1 = 0x00400000;
     if ((signed)a2 < -0x8000) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         a0 = -0x8000;
         goto loc_218590;
     }
     ret = 0x7fff;
     a0 = a2;
-    if (likely((signed)ret >= (signed)a2)) goto loc_218598;
-    ret = *(u32*)*(t0 + 0xfc);
+    if ((signed)ret >= (signed)a2) goto loc_218598;
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     a0 = 0x7fff;
 loc_218590:
     ret = ret | v1;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret;
 loc_218598:
-    ret = *(u8*)*(t0 + 0x1b);
+    ret = *(u8*)(t0 + 0x1b);  /* GTE data: rgbc.code */
     v1 = (signed)a1 >> 4;
-    *(u32*)*(t0 + 0x2c) = a0;
+    *(u32*)(t0 + 0x2c) = a0;
     a1 = 0x00200000;
-    *(u8*)*(t0 + 0x5b) = ret;
+    *(u8*)(t0 + 0x5b) = ret;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         a0 = 0;
         goto loc_2185D8;
     }
     ret = 0xff;
     a0 = v1;
-    if (likely((signed)ret >= (signed)v1)) goto loc_2185E0;
-    ret = *(u32*)*(t0 + 0xfc);
+    if ((signed)ret >= (signed)v1) goto loc_2185E0;
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     a0 = 0xff;
 loc_2185D8:
-    ret = ret | a1;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret | a1;
 loc_2185E0:
     v1 = (signed)a3 >> 4;
-    *(u8*)*(t0 + 0x58) = a0;
+    *(u8*)(t0 + 0x58) = a0;
     a1 = 0x00100000;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         a0 = 0;
         goto loc_218618;
     }
     ret = 0xff;
     a0 = v1;
-    if (likely((signed)ret >= (signed)v1)) goto loc_218620;
-    ret = *(u32*)*(t0 + 0xfc);
+    if ((signed)ret >= (signed)v1) goto loc_218620;
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     a0 = 0xff;
 loc_218618:
-    ret = ret | a1;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret | a1;
 loc_218620:
     v1 = (signed)a2 >> 4;
-    *(u8*)*(t0 + 0x59) = a0;
+    *(u8*)(t0 + 0x59) = a0;
     a0 = 8 << 16;
     if ((signed)v1 < 0) {
-        ret = *(u32*)*(t0 + 0xfc);
+        ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
         v1 = 0;
         goto loc_218658;
     }
     ret = 0xff;
     if ((signed)ret >= (signed)v1) goto loc_218660;
-    ret = *(u32*)*(t0 + 0xfc);
+    ret = *(u32*)(t0 + 0xfc);  /* GTE ctrl: flag */
     v1 = 0xff;
 loc_218658:
     ret = ret | a0;
-    *(u32*)*(t0 + 0xfc) = ret;
+    *(u32*)(t0 + 0xfc) = ret;
 loc_218660:
-    *(u8*)*(t0 + 0x5a) = v1;
+    *(u8*)(t0 + 0x5a) = v1;
     return ret;
-    }
-    *(u32*)*(t3 + 0x64) = t2;
-    *(u32*)*(t3 + 0x68) = v1;
+    *(u32*)(t3 + 0x64) = t2;
+    *(u32*)(t3 + 0x68) = v1;
     a1 = 0x01000000;
-    *(u32*)*(t3 + 0x6c) = a0;
+    *(u32*)(t3 + 0x6c) = a0;
     if ((signed)t2 < -0x8000) {
-        ret = *(u32*)*(t3 + 0xfc);
+        ret = *(u32*)(t3 + 0xfc);  /* GTE ctrl: flag */
         t2 = -0x8000;
         goto loc_218700;
     }
-    ret = 0x7fff;
     ret = ((signed)ret < (signed)t2) ? 1 : 0;
     if ((signed)v1 >= -0x8000) goto loc_21870C;
-    ret = *(u32*)*(t3 + 0xfc);
+    ret = *(u32*)(t3 + 0xfc);  /* GTE ctrl: flag */
     t2 = 0x7fff;
 loc_218700:
-    ret = ret | a1;
-    *(u32*)*(t3 + 0xfc) = ret;
+    *(u32*)(t3 + 0xfc) = ret | a1;
 loc_21870C:
-    *(u32*)*(t3 + 0x24) = t2;
+    *(u32*)(t3 + 0x24) = t2;
     a1 = 0x00800000;
     if ((signed)v1 < -0x8000) {
-        ret = *(u32*)*(t3 + 0xfc);
+        ret = *(u32*)(t3 + 0xfc);  /* GTE ctrl: flag */
         v1 = -0x8000;
         goto loc_218740;
     }
-    ret = 0x7fff;
     ret = ((signed)ret < (signed)v1) ? 1 : 0;
     if ((signed)a0 >= -0x8000) goto loc_21874C;
-    ret = *(u32*)*(t3 + 0xfc);
+    ret = *(u32*)(t3 + 0xfc);  /* GTE ctrl: flag */
     v1 = 0x7fff;
 loc_218740:
-    ret = ret | a1;
-    *(u32*)*(t3 + 0xfc) = ret;
+    *(u32*)(t3 + 0xfc) = ret | a1;
 loc_21874C:
-    *(u32*)*(t3 + 0x28) = v1;
+    *(u32*)(t3 + 0x28) = v1;
     v1 = 0x00400000;
     if ((signed)a0 < -0x8000) {
-        ret = *(u32*)*(t3 + 0xfc);
+        ret = *(u32*)(t3 + 0xfc);  /* GTE ctrl: flag */
         a0 = -0x8000;
         goto loc_218780;
     }
     ret = 0x7fff;
     if ((signed)ret >= (signed)a0) goto loc_218788;
-    ret = *(u32*)*(t3 + 0xfc);
+    ret = *(u32*)(t3 + 0xfc);  /* GTE ctrl: flag */
     a0 = 0x7fff;
 loc_218780:
     ret = ret | v1;
-    *(u32*)*(t3 + 0xfc) = ret;
+    *(u32*)(t3 + 0xfc) = ret;
 loc_218788:
-    *(u32*)*(t3 + 0x2c) = a0;
+    *(u32*)(t3 + 0x2c) = a0;
     return ret;
 }
 
 /* Function at 0x00218798 - 0x00219B78 */
-int GTE_COP2Loop()
+void GTE_COP2Loop(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 48 bytes */
-    int ret, v1, a0, a1, a2, a3, s1, s3, s4, t0, t1;
-    s1 = a0;
-    ret = s1->irq_pending;  /* irq_pending */
+    u32 ret, v1, psx, s3, s4, t0, t1, s0, s2;
+    psx = a0;
+    ret = ((PSX_State*)psx)->irq_pending;  /* irq_pending */
     a0 = 0;
     if (ret != 0) {
-        s1->irq_pending = 0;  /* irq_pending (store) */
+        ((PSX_State*)psx)->irq_pending = 0;  /* irq_pending (store) */
         a1 = 0;
         ret = PSX_HandleException(a0, a1, a2, a3);
     }
-    a0 = s1->cop2_insn_count;  /* cop2_insn_count */
-    if ((signed)a0 <= 0) goto loc_219B54;
+    a0 = ((PSX_State*)psx)->cop2_insn_count;  /* cop2_insn_count */
+    if ((signed)a0 <= 0) GTE_COP2Loop(a0, a1, a2, a3); return;
 loc_2187E0:
-    a2 = *(u32*)(s1);
+    a2 = *(u32*)(psx);
 loc_2187E4:
     a0 = a0 + -1;
-    a1 = s1->mem_ctrl[0];  /* mem_ctrl[0] */
+    a1 = ((PSX_State*)psx)->mem_ctrl[0];  /* mem_ctrl[0] */
     s4 = 0;
     ret = (unsigned)a2 >> 0x1c;
     v1 = a2 & 3;
     ret = ret << 4;
-    s1->cop2_insn_count = a0;  /* cop2_insn_count (store) */
+    ((PSX_State*)psx)->cop2_insn_count = a0;  /* cop2_insn_count (store) */
     a1 = a1 + ret;
     if (v1 != 0) {
         a1 = a2;
         a0 = 4;
         ret = PSX_HandleException(a0, a1, a2, a3);
         t1 = -1;
-        a2 = *(u32*)(s1);
+        a2 = *(u32*)(psx);
     } else {
-        ret = *(u32*)*(a1 + 8);
+        ret = *(u32*)(a1 + 8);
         a0 = a2;
         if (ret != 0) {
             a1 = 4;
-            ret = (ret)(a0, a1, a2, a3); /* indirect call */
-            a2 = *(u32*)(s1);
+            ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
+            a2 = *(u32*)(psx);
             t1 = ret;
         } else {
-            ret = *(u32*)*(a1 + 4);
+            ret = *(u32*)(a1 + 4);
             v1 = *(u32*)(a1);
             ret = a2 & ret;
             v1 = v1 + ret;
@@ -3629,8 +3458,8 @@ loc_2187E4:
             }
         }
     ret = a2 + 4;
-    *(u32*)(s1) = ret;
-    if (t1 == 0) goto loc_219B20;
+    *(u32*)(psx) = ret;
+    if (t1 == 0) GTE_COP2Loop(a0, a1, a2, a3); return;
     a3 = (unsigned)t1 >> 0x1a;
     ret = (unsigned)t1 >> 0x15;
     v1 = (unsigned)t1 >> 0xb;
@@ -3639,431 +3468,341 @@ loc_2187E4:
     a2 = ret & 0x1f;
     t0 = v1 & 0x1f;
     s3 = a0 & 0x1f;
-    if (a1 == 0) goto loc_219B10;
-    ret = a3 << 2;
-    v1 = 0x00500000;
-    v1 = v1 + ret;
-    v1 = *(u32*)*(v1 + -0x1120);
-    goto *v1; /* computed jump */
-    v1 = t1 & 0x3f;
-    a0 = *(u32*)(s1);
-    if (likely((unsigned)v1 >= 0x2c)) goto loc_218DAC;
-    ret = v1 << 2;
-    v1 = 0x00500000;
-    v1 = v1 + ret;
-    v1 = *(u32*)*(v1 + -0x1030);
-    goto *v1; /* computed jump */
-    ret = s3 << 2;
-    if (t0 == 0) goto loc_219B20;
-    a1 = (unsigned)t1 >> 6;
-    ret = ret + s1;
-    a0 = t0 << 2;
-    v1 = *(u32*)*(ret + 0x10);
-    a1 = a1 & 0x1f;
-    a0 = a0 + s1;
-    v1 = v1 << a1;
-    *(u32*)*(a0 + 0x10) = v1;
-    goto loc_219B20;
-    *(u32*)(a3) = a0;
-    goto loc_219B20;
-    ret = LO;
-    v1 = HI;
-    s1->hi = ret;  /* hi (store) */
-    s1->next_pc = v1;  /* next_pc (store) */
-    goto loc_219B20;
-loc_218DAC:
-    a1 = t1;
-    a0 = a0 + -4;
-    ret = SPU_DebugDisasm(a0, a1, a2, a3);
-    BREAK(); /* breakpoint */
-    a0 = 0xa;
-    goto loc_219184;
-                    }
-                    v1 = *(u32*)*(ret + 0x10);
-                    s4 = 1;
-                    if (likely((signed)v1 >= 0)) goto loc_219B20;
-                    ret = t1 << 0x10;
-                    goto loc_218F68;
-                    }
-                    ret = ret + s1;
-                    v1 = *(u32*)*(ret + 0x10);
-                    ret = t1 << 0x10;
-                    if ((signed)v1 < 0) goto loc_218F78;
-                    v1 = *(u32*)(s1);
-                    } else {
-                    a1 = *(u32*)(s1);
-                    ret = a2 << 2;
-                    ret = ret + s1;
-                    v1 = a1 + 4;
-                    s1->gpr[31] = v1;  /* gpr[31] (store) */
-                    a0 = *(u32*)*(ret + 0x10);
-                    s4 = 1;
-                    if (likely((signed)a0 >= 0)) goto loc_219B20;
-                    ret = t1 << 0x10;
-                } else {
-                    a1 = *(u32*)(s1);
-                    ret = a2 << 2;
-                    ret = ret + s1;
-                    v1 = a1 + 4;
-                    s1->gpr[31] = v1;  /* gpr[31] (store) */
-                    a0 = *(u32*)*(ret + 0x10);
-                    ret = t1 << 0x10;
-                    if ((signed)a0 < 0) goto loc_218F78;
-                }
-                ret = (signed)ret >> 0xe;
-                ret = a1 + ret;
-                s1->mem_ctrl[2] = ret;  /* mem_ctrl[2] (store) */
-                goto loc_218F78;
-                loc_218F68:
-                v1 = *(u32*)(s1);
-            }
-    ret = (signed)ret >> 0xe;
-    v1 = v1 + ret;
-    s1->mem_ctrl[2] = v1;  /* mem_ctrl[2] (store) */
-loc_218F78:
-    s4 = 1;
-    goto loc_219B20;
-    *(u32*)*(ret + 0x10) = a2;
-    goto loc_219B20;
-    ret = ret + s1;
-    *(u32*)*(ret + 0x10) = v1;
-    goto loc_219B20;
-    a0 = t0;
-    ret = (ret)(a0, a1, a2, a3); /* indirect call */
-    v1 = s3 << 2;
-    v1 = v1 + s1;
-    v1->vxy2 = ret;  /* vxy2 (store) */
-    goto loc_219B20;
-    ret = ret + s1;
-    a0 = t0;
-    a1 = *(u32*)*(ret + 0x10);
-    ret = (v1)(a0, a1, a2, a3); /* indirect call */
-    ret = s1->mem_ctrl[1];  /* mem_ctrl[1] */
-    goto loc_219B24;
-loc_219184:
-    a1 = 0;
-    ret = PSX_HandleException(a0, a1, a2, a3);
-    ret = s1->mem_ctrl[1];  /* mem_ctrl[1] */
-    goto loc_219B24;
-    ret = a3->hw_state[0];  /* hw_state[0] */
-    a0 = 0x01FFFFFF;
-    a0 = t1 & a0;
-    ret = (ret)(a0, a1, a2, a3); /* indirect call */
-    v1 = s1->cop2_insn_count;  /* cop2_insn_count */
-    v1 = v1 - ret;
-    s1->cop2_insn_count = v1;  /* cop2_insn_count (store) */
-    goto loc_219B20;
-    }
-    ret = v1->vz0;  /* vz0 */
-    v1 = *(u32*)(v1);
-    ret = s0 & ret;
-    v1 = v1 + ret;
-    ret = *(u8*)(v1);
-    ret = ret << 0x18;
-    a2 = (signed)ret >> 0x18;
-    if (s3 == 0) goto loc_219A28;
-    ret = s3 << 2;
-    ret = ret + s1;
-    *(u32*)*(ret + 0x10) = a2;
-    goto loc_219A28;
-    }
-    ret = *(u32*)*(a1 + 8);
-    a0 = s0;
-    if (ret != 0) {
-        a1 = 2;
-        ret = (ret)(a0, a1, a2, a3); /* indirect call */
-        ret = ret << 0x10;
-        goto loc_2192B8;
-    }
-    ret = *(u32*)*(a1 + 4);
-    v1 = *(u32*)(a1);
-    ret = s0 & ret;
-    v1 = v1 + ret;
-    ret = *(u16*)(v1);
-    ret = ret << 0x10;
-loc_2192B8:
-    a2 = (signed)ret >> 0x10;
-    if (s3 == 0) goto loc_219A28;
-    ret = s3 << 2;
-    ret = ret + s1;
-    *(u32*)*(ret + 0x10) = a2;
-    goto loc_219A28;
-    }
-    v1 = *(u32*)(v1);
-    ret = a0 & ret;
-    v1 = v1 + ret;
-    a2 = *(u32*)(v1);
-    ret = 0x18;
-    if (s3 == 0) goto loc_219A28;
-    a1 = s3 << 2;
-    v1 = 0x00FFFFFF;
-    a1 = a1 + 0x10;
-    v1 = (unsigned)v1 >> s2;
-    a1 = s1 + a1;
-    a0 = *(u32*)(a1);
-    ret = ret - s2;
-    v1 = (u64)v1 << 32;
-    v1 = (s64)v1 >> 32;
-    ret = a2 << ret;
-    a0 = a0 & v1;
-    ret = ret | a0;
-    *(u32*)(a1) = ret;
-    goto loc_219A28;
-    }
-    ret = *(u32*)*(a1 + 8);
-    a0 = s0;
-    if (ret != 0) {
-        a1 = 4;
-        ret = (ret)(a0, a1, a2, a3); /* indirect call */
-        a2 = ret;
-        goto loc_2193FC;
-    }
-    ret = *(u32*)*(a1 + 4);
-    v1 = *(u32*)(a1);
-    ret = s0 & ret;
-    v1 = v1 + ret;
-    a2 = *(u32*)(v1);
-loc_2193FC:
-    ret = s3 << 2;
-    if (s3 == 0) goto loc_219A28;
-    ret = ret + s1;
-    *(u32*)*(ret + 0x10) = a2;
-    goto loc_219A28;
-    }
-    ret = v1->vz0;  /* vz0 */
-    v1 = *(u32*)(v1);
-    ret = s0 & ret;
-    v1 = v1 + ret;
-    ret = *(u8*)(v1);
-    a2 = ret & 0xff;
-    ret = s3 << 2;
-    if (s3 == 0) goto loc_219A28;
-    ret = ret + s1;
-    *(u32*)*(ret + 0x10) = a2;
-    goto loc_219A28;
-    }
-    ret = *(u32*)*(a1 + 8);
-    a0 = s0;
-    if (ret != 0) {
-        a1 = 2;
-        ret = (ret)(a0, a1, a2, a3); /* indirect call */
-        a2 = ret & 0xffff;
-        goto loc_219508;
-    }
-    ret = *(u32*)*(a1 + 4);
-    v1 = *(u32*)(a1);
-    ret = s0 & ret;
-    v1 = v1 + ret;
-    ret = *(u16*)(v1);
-    a2 = ret & 0xffff;
-loc_219508:
-    ret = s3 << 2;
-    if (s3 == 0) goto loc_219A28;
-    ret = ret + s1;
-    *(u32*)*(ret + 0x10) = a2;
-    goto loc_219A28;
-    }
-    v1 = *(u32*)(v1);
-    ret = a0 & ret;
-    v1 = v1 + ret;
-    a2 = *(u32*)(v1);
-    v1 = 0x18;
-    if (s3 == 0) goto loc_219A28;
-    a1 = s3 << 2;
-    a1 = a1 + 0x10;
-    v1 = v1 - s2;
-    a1 = s1 + a1;
-    ret = 0 | 0xffff;
-    ret = ret << 16;
-    ret = ret | 0xff00;
-    ret = ret << v1;
-    v1 = (unsigned)a2 >> s2;
-    a0 = *(u32*)(a1);
-    ret = (u64)ret << 32;
-    ret = (s64)ret >> 32;
-    a0 = a0 & ret;
-    v1 = v1 | a0;
-    *(u32*)(a1) = v1;
-    goto loc_219A28;
-    }
-    ret = v1->vz0;  /* vz0 */
-    v1 = *(u32*)(v1);
-    ret = s0 & ret;
-    v1 = v1 + ret;
-    *(u8*)(v1) = a1;
-    goto loc_219B20;
-    }
-    ret = *(u32*)*(a2 + 4);
-    v1 = *(u32*)(a2);
-    ret = s0 & ret;
-    v1 = v1 + ret;
-    *(u16*)(v1) = a1;
-    goto loc_219B20;
-    }
-    v1 = *(u32*)(v1);
-    ret = a0 & ret;
-    v1 = v1 + ret;
-    a2 = *(u32*)(v1);
-    ret = -4;
-    a1 = s3 << 2;
-    t1 = s0 & ret;
-    a1 = a1 + s1;
-    ret = (unsigned)t1 >> 0x1c;
-    v1 = 0 | 0xffff;
-    v1 = v1 << 16;
-    v1 = v1 | 0xff00;
-    ret = ret << 4;
-    v1 = v1 << s2;
-    a3 = a3 + ret;
-    ret = 0x18;
-    a0 = *(u32*)*(a1 + 0x10);
-    v1 = (u64)v1 << 32;
-    v1 = (s64)v1 >> 32;
-    ret = ret - s2;
-    t0 = a3->lo;  /* lo */
-    a0 = (unsigned)a0 >> ret;
-    v1 = a2 & v1;
-    a2 = a0 | v1;
-    goto loc_2198E4;
-    }
-    v1 = *(u32*)(v1);
-    ret = a0 & ret;
-    v1 = v1 + ret;
-    a2 = *(u32*)(v1);
-    ret = -4;
-    a1 = s3 << 2;
-    t1 = s0 & ret;
-    ret = 0x00FFFFFF;
-    a0 = 0x18;
-    v1 = (unsigned)t1 >> 0x1c;
-    v1 = v1 << 4;
-    a0 = a0 - s2;
-    a1 = a1 + s1;
-    a3 = a3 + v1;
-    ret = (unsigned)ret >> a0;
-    v1 = *(u32*)*(a1 + 0x10);
-    ret = (u64)ret << 32;
-    ret = (s64)ret >> 32;
-    t0 = a3->lo;  /* lo */
-    ret = a2 & ret;
-    v1 = v1 << s2;
-    a2 = v1 | ret;
-loc_2198E4:
-    ret = a3->next_pc;  /* next_pc */
-    if (t0 != 0) {
-        a1 = a2;
-        a2 = 4;
-        a0 = t1;
-        ret = (t0)(a0, a1, a2, a3); /* indirect call */
-        ret = s1->mem_ctrl[1];  /* mem_ctrl[1] */
-        goto loc_219B24;
-    }
-    v1 = *(u32*)(a3);
-    ret = t1 & ret;
-    v1 = v1 + ret;
-    *(u32*)(v1) = a2;
-    goto loc_219B20;
-    }
-    ret = *(u32*)*(a1 + 8);
-    ret = *(u32*)*(a1 + 4);
-    if (ret != 0) {
-        a0 = s0;
-        a1 = 4;
-        ret = (ret)(a0, a1, a2, a3); /* indirect call */
-        v1 = s1->exec_handlers[1];  /* exec_handlers[1] */
-    } else {
-        v1 = *(u32*)(a1);
-        ret = s0 & ret;
-        v1 = v1 + ret;
-        ret = *(u32*)(v1);
-        loc_219998:
-        v1 = s1->exec_handlers[1];  /* exec_handlers[1] */
-        goto loc_219A1C;
-        }
-        ret = *(u32*)*(a1 + 8);
-        ret = *(u32*)*(a1 + 4);
-        if (ret != 0) {
+    if (a1 != 0) {
+        ret = a3 << 2;
+        v1 = *(u32*)(v1 + -0x1120);
+        goto *v1; /* computed jump */
+        v1 = t1 & 0x3f;
+        a0 = *(u32*)(psx);
+        if ((unsigned)v1 < 0x2c) {
+            ret = v1 << 2;
+            v1 = *(u32*)(v1 + -0x1030);
+            goto *v1; /* computed jump */
+            ret = s3 << 2;
+            if (t0 == 0) GTE_COP2Loop(a0, a1, a2, a3); return;
+            a1 = (unsigned)t1 >> 6;
+            ret = ret + psx;
+            a0 = t0 << 2;
+            v1 = *(u32*)(ret + 0x10);  /* GTE data: vxy2 */
+            a1 = a1 & 0x1f;
+            a0 = a0 + psx;
+            *(u32*)(a0 + 0x10) = v1 << a1;
+            GTE_COP2Loop(a0, a1, a2, a3); return;
+                            }
+                            v1 = *(u32*)(ret + 0x10);  /* GTE data: vxy2 */
+                            s4 = 1;
+                            if ((signed)v1 >= 0) GTE_COP2Loop(a0, a1, a2, a3); return;
+                            ret = t1 << 0x10;
+                            GTE_COP2Loop(a0, a1, a2, a3); return;
+                            }
+                            ret = ret + psx;
+                            v1 = *(u32*)(ret + 0x10);  /* GTE data: vxy2 */
+                            ret = t1 << 0x10;
+                            if ((signed)v1 < 0) GTE_COP2Loop(a0, a1, a2, a3); return;
+                            v1 = *(u32*)(psx);
+                            } else {
+                            a1 = *(u32*)(psx);
+                            ret = ret + psx;
+                            v1 = a1 + 4;
+                            ((PSX_State*)psx)->gpr[31] = v1;  /* gpr[31] (store) */
+                            a0 = *(u32*)(ret + 0x10);  /* GTE data: vxy2 */
+                            s4 = 1;
+                            if ((signed)a0 >= 0) GTE_COP2Loop(a0, a1, a2, a3); return;
+                            ret = t1 << 0x10;
+                        } else {
+                            a1 = *(u32*)(psx);
+                            ret = ret + psx;
+                            v1 = a1 + 4;
+                            ((PSX_State*)psx)->gpr[31] = v1;  /* gpr[31] (store) */
+                            a0 = *(u32*)(ret + 0x10);  /* GTE data: vxy2 */
+                            ret = t1 << 0x10;
+                            if ((signed)a0 < 0) GTE_COP2Loop(a0, a1, a2, a3); return;
+                        ret = a1 + ret;
+                        ((PSX_State*)psx)->mem_ctrl[2] = ret;  /* mem_ctrl[2] (store) */
+                        goto loc_218F78;
+                        loc_218F68:
+                        v1 = *(u32*)(psx);
+            ret = (signed)ret >> 0xe;
+            v1 = v1 + ret;
+            ((PSX_State*)psx)->mem_ctrl[2] = v1;  /* mem_ctrl[2] (store) */
+            loc_218F78:
+            s4 = 1;
+            goto loc_219B20;
+            loc_219184:
+            a1 = 0;
+            ret = PSX_HandleException(a0, a1, a2, a3);
+            ret = ((PSX_State*)psx)->mem_ctrl[1];  /* mem_ctrl[1] */
+            goto loc_219B24;
+            ret = ((GTE_DataRegs*)v1)->vz0;  /* vz0 */
+            v1 = *(u32*)(v1);
+            ret = s0 & ret;
+            v1 = v1 + ret;
+            ret = ret << 0x18;
+            a2 = (signed)ret >> 0x18;
+            if (s3 == 0) goto loc_219A28;
+            ret = ret + psx;
+            *(u32*)(ret + 0x10) = a2;
+            goto loc_219A28;
+            ret = *(u32*)(a1 + 8);
             a0 = s0;
-            a1 = 4;
-            ret = (ret)(a0, a1, a2, a3); /* indirect call */
-            v1 = s1->gte_read_ctrl;  /* gte_read_ctrl */
-        } else {
+            if (ret != 0) {
+                a1 = 2;
+                ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
+                ret = ret << 0x10;
+                goto loc_2192B8;
+            }
+            ret = *(u32*)(a1 + 4);
             v1 = *(u32*)(a1);
             ret = s0 & ret;
             v1 = v1 + ret;
-            ret = *(u32*)(v1);
-            loc_219A18:
-            v1 = s1->gte_read_ctrl;  /* gte_read_ctrl */
+            ret = ret << 0x10;
+            loc_2192B8:
+            a2 = (signed)ret >> 0x10;
+            if (s3 == 0) goto loc_219A28;
+            ret = ret + psx;
+            *(u32*)(ret + 0x10) = a2;
+            goto loc_219A28;
+            v1 = *(u32*)(v1);
+            ret = a0 & ret;
+            v1 = v1 + ret;
+            a2 = *(u32*)(v1);
+            ret = 0x18;
+            if (s3 == 0) goto loc_219A28;
+            a1 = s3 << 2;
+            v1 = 0x00FFFFFF;
+            a1 = a1 + 0x10;
+            v1 = (unsigned)v1 >> s2;
+            a1 = psx + a1;
+            a0 = *(u32*)(a1);
+            ret = ret - s2;
+            v1 = (s64)v1 >> 32;
+            ret = a2 << ret;
+            a0 = a0 & v1;
+            ret = ret | a0;
+            *(u32*)(a1) = ret;
+            goto loc_219A28;
+            ret = *(u32*)(a1 + 8);
+            a0 = s0;
+            if (ret != 0) {
+                a1 = 4;
+                ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
+                a2 = ret;
+                goto loc_2193FC;
             }
-        }
-loc_219A1C:
-    a1 = ret;
-    a0 = s3;
-    ret = (v1)(a0, a1, a2, a3); /* indirect call */
-loc_219A28:
-    ret = s1->cop2_insn_count;  /* cop2_insn_count */
-    ret = ret + -4;
-    s1->cop2_insn_count = ret;  /* cop2_insn_count (store) */
-    goto loc_219B20;
-    a1 = s0;
-    a0 = 5;
-    ret = PSX_HandleException(a0, a1, a2, a3);
-    ret = s1->mem_ctrl[1];  /* mem_ctrl[1] */
-    goto loc_219B24;
-    ret = *(u32*)*(a0 + 0xc);
-    ret = *(u32*)*(a0 + 4);
-    if (ret != 0) {
-        a0 = s0;
-        loc_219AE8:
-        a2 = 4;
-        ret = (ret)(a0, a1, a2, a3); /* indirect call */
-        ret = s1->mem_ctrl[1];  /* mem_ctrl[1] */
-    } else {
-        v1 = *(u32*)(a0);
-        loc_219AFC:
-        ret = s0 & ret;
-        v1 = v1 + ret;
-        *(u32*)(v1) = a1;
-        goto loc_219B20;
-        loc_219B10:
-        BREAK(); /* breakpoint */
-        a0 = 0xa;
-        a1 = 0;
-        ret = PSX_HandleException(a0, a1, a2, a3);
+            ret = *(u32*)(a1 + 4);
+            v1 = *(u32*)(a1);
+            ret = s0 & ret;
+            v1 = v1 + ret;
+            a2 = *(u32*)(v1);
+            loc_2193FC:
+            ret = s3 << 2;
+            if (s3 == 0) goto loc_219A28;
+            ret = ret + psx;
+            *(u32*)(ret + 0x10) = a2;
+            goto loc_219A28;
+            ret = ((GTE_DataRegs*)v1)->vz0;  /* vz0 */
+            v1 = *(u32*)(v1);
+            ret = s0 & ret;
+            v1 = v1 + ret;
+            ret = *(u8*)(v1);
+            a2 = ret & 0xff;
+            ret = s3 << 2;
+            if (s3 == 0) goto loc_219A28;
+            ret = ret + psx;
+            *(u32*)(ret + 0x10) = a2;
+            goto loc_219A28;
+            ret = *(u32*)(a1 + 8);
+            a0 = s0;
+            if (ret != 0) {
+                a1 = 2;
+                ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
+                a2 = ret & 0xffff;
+                goto loc_219508;
+            }
+            ret = *(u32*)(a1 + 4);
+            v1 = *(u32*)(a1);
+            ret = s0 & ret;
+            v1 = v1 + ret;
+            ret = *(u16*)(v1);
+            a2 = ret & 0xffff;
+            loc_219508:
+            ret = s3 << 2;
+            if (s3 == 0) goto loc_219A28;
+            ret = ret + psx;
+            *(u32*)(ret + 0x10) = a2;
+            goto loc_219A28;
+            v1 = *(u32*)(v1);
+            ret = a0 & ret;
+            v1 = v1 + ret;
+            a2 = *(u32*)(v1);
+            v1 = 0x18;
+            if (s3 == 0) goto loc_219A28;
+            a1 = s3 << 2;
+            a1 = a1 + 0x10;
+            v1 = v1 - s2;
+            a1 = psx + a1;
+            ret = ret << v1;
+            v1 = (unsigned)a2 >> s2;
+            a0 = *(u32*)(a1);
+            ret = (s64)ret >> 32;
+            a0 = a0 & ret;
+            v1 = v1 | a0;
+            *(u32*)(a1) = v1;
+            goto loc_219A28;
+            ret = ((GTE_DataRegs*)v1)->vz0;  /* vz0 */
+            v1 = *(u32*)(v1);
+            ret = s0 & ret;
+            v1 = v1 + ret;
+            *(u8*)(v1) = a1;
+            goto loc_219B20;
+            ret = *(u32*)(a2 + 4);
+            v1 = *(u32*)(a2);
+            ret = s0 & ret;
+            v1 = v1 + ret;
+            *(u16*)(v1) = a1;
+            goto loc_219B20;
+            v1 = *(u32*)(v1);
+            ret = a0 & ret;
+            v1 = v1 + ret;
+            a2 = *(u32*)(v1);
+            ret = -4;
+            a1 = s3 << 2;
+            t1 = s0 & ret;
+            a1 = a1 + psx;
+            ret = (unsigned)t1 >> 0x1c;
+            v1 = v1 | 0xff00;
+            ret = ret << 4;
+            v1 = v1 << s2;
+            a3 = a3 + ret;
+            ret = 0x18;
+            a0 = *(u32*)(a1 + 0x10);  /* GTE data: vxy2 */
+            v1 = (s64)v1 >> 32;
+            ret = ret - s2;
+            t0 = ((PSX_State*)a3)->lo;  /* lo */
+            a0 = (unsigned)a0 >> ret;
+            v1 = a2 & v1;
+            a2 = a0 | v1;
+            goto loc_2198E4;
+            v1 = *(u32*)(v1);
+            ret = a0 & ret;
+            v1 = v1 + ret;
+            a2 = *(u32*)(v1);
+            ret = -4;
+            a1 = s3 << 2;
+            t1 = s0 & ret;
+            ret = 0x00FFFFFF;
+            a0 = 0x18;
+            v1 = v1 << 4;
+            a0 = a0 - s2;
+            a1 = a1 + psx;
+            a3 = a3 + v1;
+            ret = (unsigned)ret >> a0;
+            v1 = *(u32*)(a1 + 0x10);  /* GTE data: vxy2 */
+            ret = (s64)ret >> 32;
+            t0 = ((PSX_State*)a3)->lo;  /* lo */
+            ret = a2 & ret;
+            v1 = v1 << s2;
+            a2 = v1 | ret;
+            loc_2198E4:
+            ret = ((PSX_State*)a3)->next_pc;  /* next_pc */
+            if (t0 != 0) {
+                a1 = a2;
+                a2 = 4;
+                a0 = t1;
+                ret = CALL_INDIRECT(t0)(a0, a1, a2, a3);
+                ret = ((PSX_State*)psx)->mem_ctrl[1];  /* mem_ctrl[1] */
+                goto loc_219B24;
+            }
+            v1 = *(u32*)(a3);
+            ret = t1 & ret;
+            v1 = v1 + ret;
+            *(u32*)(v1) = a2;
+            goto loc_219B20;
+            ret = *(u32*)(a1 + 4);
+            if (ret != 0) {
+                a0 = s0;
+                a1 = 4;
+                ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
+                v1 = ((PSX_State*)psx)->exec_handlers[1];  /* exec_handlers[1] */
+            } else {
+                v1 = *(u32*)(a1);
+                ret = s0 & ret;
+                v1 = v1 + ret;
+                ret = *(u32*)(v1);
+                loc_219998:
+                v1 = ((PSX_State*)psx)->exec_handlers[1];  /* exec_handlers[1] */
+                goto loc_219A1C;
+                }
+                ret = *(u32*)(a1 + 4);
+                if (ret != 0) {
+                    a0 = s0;
+                    a1 = 4;
+                    ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
+                    v1 = ((PSX_State*)psx)->gte_read_ctrl;  /* gte_read_ctrl */
+                } else {
+                    v1 = *(u32*)(a1);
+                    ret = s0 & ret;
+                    v1 = v1 + ret;
+                    ret = *(u32*)(v1);
+                    loc_219A18:
+                    v1 = ((PSX_State*)psx)->gte_read_ctrl;  /* gte_read_ctrl */
+                    }
+            loc_219A1C:
+            a1 = ret;
+            a0 = s3;
+            ret = CALL_INDIRECT(v1)(a0, a1, a2, a3);
+            loc_219A28:
+            ret = ((PSX_State*)psx)->cop2_insn_count;  /* cop2_insn_count */
+            ret = ret + -4;
+            ((PSX_State*)psx)->cop2_insn_count = ret;  /* cop2_insn_count (store) */
+            goto loc_219B20;
+                loc_219AE8:
+                a2 = 4;
+                ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
+                ret = ((PSX_State*)psx)->mem_ctrl[1];  /* mem_ctrl[1] */
+            } else {
+                v1 = *(u32*)(a0);
+                loc_219AFC:
+                ret = s0 & ret;
+                v1 = v1 + ret;
+                *(u32*)(v1) = a1;
+            } else {
+                BREAK(); /* breakpoint */
+                a0 = 0xa;
+                a1 = 0;
+                ret = PSX_HandleException(a0, a1, a2, a3);
         loc_219B20:
-        ret = s1->mem_ctrl[1];  /* mem_ctrl[1] */
-    }
+        ret = ((PSX_State*)psx)->mem_ctrl[1];  /* mem_ctrl[1] */
 loc_219B24:
     a0 = 1;
-    *(u32*)(s1) = ret;
-    if (likely(ret != a0)) goto loc_219B30;
+    *(u32*)(psx) = ret;
+    if (ret != a0) goto loc_219B30;
 loc_219B30:
-    v1 = s1->mem_ctrl[2];  /* mem_ctrl[2] */
-    ret = s1->cop2_insn_count;  /* cop2_insn_count */
-    s1->mem_ctrl[2] = a0;  /* mem_ctrl[2] (store) */
-    s1->mem_ctrl[1] = v1;  /* mem_ctrl[1] (store) */
+    v1 = ((PSX_State*)psx)->mem_ctrl[2];  /* mem_ctrl[2] */
+    ret = ((PSX_State*)psx)->cop2_insn_count;  /* cop2_insn_count */
+    ((PSX_State*)psx)->mem_ctrl[2] = a0;  /* mem_ctrl[2] (store) */
+    ((PSX_State*)psx)->mem_ctrl[1] = v1;  /* mem_ctrl[1] (store) */
     a0 = ret;
     if ((signed)ret > 0) goto loc_2187E0;
-    a2 = *(u32*)(s1);
-    if (likely(s4 != 0)) goto loc_2187E4;
+    a2 = *(u32*)(psx);
+    if (s4 != 0) goto loc_2187E4;
 loc_219B54:
-    return ret;
+    return;
 }
 
 /* Function at 0x00219B78 - 0x00219BCC */
-int R3000_ReadByte()
+u32 R3000_ReadByte(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
-    ret = (unsigned)a2 >> 0x1c;
+    u32 ret, v1;
     ret = ret << 4;
     v1 = a0 + ret;
-    ret = *(u32*)*(v1 + 8);
+    ret = *(u32*)(v1 + 8);
     a0 = a2;
     if (ret != 0) {
-        ret = (ret)(a0, a1, a2, a3); /* indirect call */
+        ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
     } else {
-        ret = *(u32*)*(v1 + 4);
+        ret = *(u32*)(v1 + 4);
         v1 = *(u32*)(v1);
         ret = a2 & ret;
         v1 = v1 + ret;
@@ -4073,10 +3812,10 @@ int R3000_ReadByte()
 }
 
 /* Function at 0x00219BCC - 0x00219C44 */
-int R3000_ReadHalf()
+u32 R3000_ReadHalf(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1;
     ret = (unsigned)a3 >> 0x1c;
     v1 = a3 & 1;
     ret = ret << 4;
@@ -4084,17 +3823,17 @@ int R3000_ReadHalf()
     a0 = 4;
     if (v1 != 0) {
         ret = PSX_HandleException(a0, a1, a2, a3);
-        ret = 0 | 0xffff;
+        ret = 0xffff;
         goto loc_219C34;
     }
-    ret = *(u32*)*(a2 + 8);
+    ret = *(u32*)(a2 + 8);
     a0 = a3;
     if (ret != 0) {
         a1 = 2;
-        ret = (ret)(a0, a1, a2, a3); /* indirect call */
+        ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
         goto loc_219C38;
     }
-    ret = *(u32*)*(a2 + 4);
+    ret = *(u32*)(a2 + 4);
     v1 = *(u32*)(a2);
     ret = a3 & ret;
     v1 = v1 + ret;
@@ -4105,10 +3844,10 @@ loc_219C38:
 }
 
 /* Function at 0x00219C44 - 0x00219CBC */
-int R3000_ReadWord()
+u32 R3000_ReadWord(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1;
     ret = (unsigned)a3 >> 0x1c;
     v1 = a3 & 3;
     ret = ret << 4;
@@ -4119,14 +3858,14 @@ int R3000_ReadWord()
         ret = -1;
         goto loc_219CAC;
     }
-    ret = *(u32*)*(a2 + 8);
+    ret = *(u32*)(a2 + 8);
     a0 = a3;
     if (ret != 0) {
         a1 = 4;
-        ret = (ret)(a0, a1, a2, a3); /* indirect call */
+        ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
         goto loc_219CB0;
     }
-    ret = *(u32*)*(a2 + 4);
+    ret = *(u32*)(a2 + 4);
     v1 = *(u32*)(a2);
     ret = a3 & ret;
     v1 = v1 + ret;
@@ -4137,22 +3876,21 @@ loc_219CB0:
 }
 
 /* Function at 0x00219CBC - 0x00219D1C */
-int R3000_WriteByte()
+u32 R3000_WriteByte(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, t0;
-    ret = (unsigned)a3 >> 0x1c;
+    u32 ret, v1, t0;
     ret = ret << 4;
     t0 = a2;
     v1 = a0 + ret;
     a0 = a3;
-    ret = *(u32*)*(v1 + 0xc);
+    ret = *(u32*)(v1 + 0xc);  /* GTE data: vz1 */
     a1 = t0;
     a2 = 1;
     if (ret != 0) {
-        ret = (ret)(a0, a1, a2, a3); /* indirect call */
+        ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
     } else {
-        ret = *(u32*)*(v1 + 4);
+        ret = *(u32*)(v1 + 4);
         v1 = *(u32*)(v1);
         ret = a3 & ret;
         v1 = v1 + ret;
@@ -4162,10 +3900,10 @@ int R3000_WriteByte()
 }
 
 /* Function at 0x00219D1C - 0x00219D8C */
-int R3000_WriteHalf()
+u32 R3000_WriteHalf(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, t0;
+    u32 ret, v1, a3, t0;
     ret = (unsigned)t0 >> 0x1c;
     v1 = t0 & 1;
     ret = ret << 4;
@@ -4174,14 +3912,14 @@ int R3000_WriteHalf()
     if (v1 != 0) {
         return PSX_HandleException(a0, a1, a2, a3);
     }
-    ret = *(u32*)*(a3 + 0xc);
+    ret = *(u32*)(a3 + 0xc);  /* GTE data: vz1 */
     a1 = a2;
     if (ret != 0) {
         a2 = 2;
         a0 = t0;
-        ret = (ret)(a0, a1, a2, a3); /* indirect call */
+        ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
     } else {
-        ret = *(u32*)*(a3 + 4);
+        ret = *(u32*)(a3 + 4);
         v1 = *(u32*)(a3);
         ret = t0 & ret;
         v1 = v1 + ret;
@@ -4191,10 +3929,10 @@ int R3000_WriteHalf()
 }
 
 /* Function at 0x00219D8C - 0x00219DF8 */
-int R3000_WriteWord()
+u32 R3000_WriteWord(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, t0;
+    u32 ret, v1, a3, t0;
     ret = (unsigned)t0 >> 0x1c;
     v1 = t0 & 3;
     ret = ret << 4;
@@ -4203,14 +3941,14 @@ int R3000_WriteWord()
     if (v1 != 0) {
         return PSX_HandleException(a0, a1, a2, a3);
     }
-    ret = *(u32*)*(a3 + 0xc);
+    ret = *(u32*)(a3 + 0xc);  /* GTE data: vz1 */
     a1 = a2;
     if (ret != 0) {
         a2 = 4;
         a0 = t0;
-        ret = (ret)(a0, a1, a2, a3); /* indirect call */
+        ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
     } else {
-        ret = *(u32*)*(a3 + 4);
+        ret = *(u32*)(a3 + 4);
         v1 = *(u32*)(a3);
         ret = t0 & ret;
         v1 = v1 + ret;
@@ -4220,107 +3958,97 @@ int R3000_WriteWord()
 }
 
 /* Function at 0x00219DF8 - 0x0021A0F0 */
-int GPU_RenderPrimitive()
+u32 GPU_RenderPrimitive(u32 a0)
 {
     /* Stack frame: 32 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, t0, t1, t2, t3;
+    u32 ret, v1, a1, a2, a3, s0, s1, s2, t0, t1, t2, t3;
     s1 = a0;
     s2 = 0x00300000;
-    ret = *(u32*)*(s2 + -0x1030);
-    a0 = *(u32*)*(s1 + 0x64);
+    ret = *(u32*)(s2 + -0x1030);
+    a0 = *(u32*)(s1 + 0x64);  /* GTE data: mac1 */
     a3 = 0x00300000;
     if (ret == a0) {
-        v1 = *(u32*)*(s1 + 0x60);
-        ret = *(u32*)*(a3 + -0x102c);
+        v1 = *(u32*)(s1 + 0x60);  /* GTE data: mac0 */
+        ret = *(u32*)(a3 + -0x102c);
         t0 = 0x00300000;
         if (ret == v1) {
-            v1 = *(u32*)*(s1 + 0x68);
-            ret = *(u32*)*(t0 + -0x1028);
+            v1 = *(u32*)(s1 + 0x68);  /* GTE data: mac2 */
+            ret = *(u32*)(t0 + -0x1028);
             if (0x70000000 == v1) goto loc_219E98;
-            a1 = *(u32*)*(s1 + 0x68);
+            a1 = *(u32*)(s1 + 0x68);  /* GTE data: mac2 */
             goto loc_219E58;
             }
             t0 = 0x00300000;
         }
-    a1 = *(u32*)*(s1 + 0x68);
+    a1 = *(u32*)(s1 + 0x68);  /* GTE data: mac2 */
 loc_219E58:
     ret = s2 + -0x1030;
-    v1 = *(u32*)*(s1 + 0x60);
+    v1 = *(u32*)(s1 + 0x60);  /* GTE data: mac0 */
     a3 = 0x002FEFD4;
     t0 = 0x002FEFD8;
     *(u32*)(a3) = v1;
-    *(u32*)(v0) = a0;
+    *(u32*)(ret) = a0;
     a0 = 5;
     *(u32*)(t0) = a1;
-    a1 = *(s16*)(v0);
+    a1 = *(s16*)(ret);
     a2 = *(s16*)(a3);
     a3 = *(s16*)(t0);
     ret = EEKernel_HandlePadInput(a0, a1, a2, a3);
-    *(u64*)*(0x120000E0 + 0) = 0;
+    *(u64*)(0x120000E0 + 0) = 0;
     ret = 0x70000000;
 loc_219E98:
-    a1 = *(s16*)*(s1 + 0x2c);
+    a1 = *(s16*)(s1 + 0x2c);  /* GTE data: ir3 */
     s0 = ret + 0x3278;
-    a2 = *(s16*)*(s1 + 0x1c);
-    a3 = *(s16*)*(s1 + 0x20);
+    a2 = *(s16*)(s1 + 0x1c);  /* GTE data: otz */
+    a3 = *(s16*)(s1 + 0x20);  /* GTE data: ir0 */
     a0 = s0;
     t0 = 0;
     t1 = 0;
     ret = EEKernel_ConfigurePeripherals(a0, a1, a2, a3);
-    v1 = *(u32*)*(s1 + 0x60);
-    if (likely(v1 == 0x50)) goto loc_21A074;
-    ret = *(u32*)*(s1 + 0xc);
+    if ((*(u32*)(s1 + 0x60)) == 0x50) goto loc_21A074;  /* GTE data: mac0 */
+    ret = *(u32*)(s1 + 0xc);  /* GTE data: vz1 */
     s0 = 0x70000000;
-    if (likely(ret == 0)) goto loc_21A074;
-    ret = *(u32*)*(s1 + 0x10);
+    if (ret == 0) goto loc_21A074;
+    ret = *(u32*)(s1 + 0x10);  /* GTE data: vxy2 */
     t1 = s0 + -0x2188;
     if (ret == 0) goto loc_21A070;
     ret = -0x1000;
-    a0 = *(u64*)*(t1 + 8608);
+    a0 = *(u64*)(t1 + 8608);
     a2 = 0xFF800FFF;
-    a1 = *(u32*)*(s1 + 4);
+    a1 = *(u32*)(s1 + 4);
     a3 = 2;
-    v1 = a0 << 9;
     v1 = (s64)v1 >> 32;
     a0 = a0 & ret;
     v1 = v1 & 0xf;
-    ret = v1 << 1;
-    ret = ret + v1;
     ret = ret << 1;
     a1 = a1 + ret;
     a1 = a1 + 6;
     a1 = a1 & 0xfff;
     a0 = a0 | a1;
-    *(u64*)*(t1 + 8608) = a0;
+    *(u64*)(t1 + 8608) = a0;
     a0 = a0 & a2;
-    ret = *(u32*)*(s1 + 8);
-    v1 = *(u32*)*(s1 + 0x64);
-    ret = ret << v1;
-    ret = ret & 0x7ff;
+    ret = *(u32*)(s1 + 8);
+    v1 = *(u32*)(s1 + 0x64);  /* GTE data: mac1 */
     ret = ret << 12;
     a0 = a0 | ret;
-    *(u64*)*(t1 + 8608) = a0;
+    *(u64*)(t1 + 8608) = a0;
     a0 = a0 << 9;
     a0 = (s64)a0 >> 32;
     a0 = a0 & 0xf;
-    ret = *(u32*)*(s1 + 0x2c);
-    t0 = *(u32*)*(s1 + 0xc);
+    ret = *(u32*)(s1 + 0x2c);  /* GTE data: ir3 */
+    t0 = *(u32*)(s1 + 0xc);  /* GTE data: vz1 */
     if (ret == a3) {
-        ret = a0 << 2;
         ret = ret + 4;
         goto loc_219F78;
     }
-    ret = a0 << 3;
     ret = ret + 8;
 loc_219F78:
-    __asm("div zero, t0, v0");
     BREAK(); /* breakpoint */
-    if (likely(ret == 0)) goto loc_219F84;
+    if (ret == 0) goto loc_219F84;
 loc_219F84:
-    v1 = HI;
     v1 = t0 - v1;
     ret = v1 + -1;
-    v1 = *(u64*)*(t1 + 8608);
+    v1 = *(u64*)(t1 + 8608);
     ret = ret & 0xfff;
     t3 = -0x1000;
     t3 = t3 << 16;
@@ -4332,14 +4060,10 @@ loc_219F84:
     a0 = 0x70000000;
     v1 = v1 | ret;
     t2 = a0 + 0x10f0;
-    *(u64*)*(t1 + 8608) = v1;
+    *(u64*)(t1 + 8608) = v1;
     a0 = 6;
-    a2 = *(u64*)*(t2 + 8608);
-    ret = a2 << 9;
-    ret = (s64)ret >> 32;
-    ret = ret & 0xf;
-    ret = *(u32*)*(s1 + 0x10);
-    if (likely(ret != a0)) goto loc_21A038;
+    a2 = *(u64*)(t2 + 8608);
+    if ((*(u32*)(s1 + 0x10)) != a0) goto loc_21A038;  /* GTE data: vxy2 */
     a3 = (s64)a2 >> 32;
     a2 = a2 & t3;
     a3 = a3 & 0xfff;
@@ -4348,67 +4072,56 @@ loc_219F84:
     a0 = t0 + -1;
     v1 = v1 + 1;
     a0 = ((signed)a0 < 0xa72) ? 1 : 0;
-    __asm("div zero, v1, a1");
     BREAK(); /* breakpoint */
-    if (likely(a1 == 0)) goto loc_21A00C;
+    if (a1 == 0) goto loc_21A00C;
 loc_21A00C:
-    v1 = LO;
-    ret = v1 << 3;
-    ret = ret - v1;
+    v1 = (signed)v1 / (signed)a1;
     ret = ret << 1;
     ac3 = (s32)((s64)a0 * (s64)ret); HI_LO = (s64)a0 * (s64)ret;
     a0 = v1 + a3;
     a0 = a0 & 0xfff;
     a0 = (u64)a0 << 32;
     a2 = a2 | a0;
-    *(u64*)*(t2 + 8608) = a2;
-    ret = *(u32*)*(s1 + 0x10);
+    *(u64*)(t2 + 8608) = a2;
+    ret = *(u32*)(s1 + 0x10);  /* GTE data: vxy2 */
 loc_21A038:
-    v1 = 0xFF800FFF;
-    v1 = v1 << 16;
     v1 = v1 | 0xffff;
-    v1 = v1 << 16;
-    v1 = v1 | 0xffff;
-    a0 = *(u32*)*(s1 + 0x64);
+    a0 = *(u32*)(s1 + 0x64);  /* GTE data: mac1 */
     v1 = a2 & v1;
-    ret = ret + -1;
-    ret = ret << a0;
-    ret = ret & 0x7ff;
     ret = (u64)ret << 44;
-    v1 = v1 | ret;
-    *(u64*)*(t2 + 8608) = v1;
+    *(u64*)(t2 + 8608) = v1 | ret;
 loc_21A070:
     s0 = 0x70000000;
 loc_21A074:
     s0 = 0x70003280;
     ret = 0x12000020;
-    v1 = *(u64*)*(s0 + 0);
+    v1 = *(u64*)(s0 + 0);
     a0 = s1;
-    *(u64*)*(ret + 0) = v1;
-    ret = GPU_BuildGSFlags(a0, a1, a2, a3);
-    a1 = *(u64*)*(s0 + 16);
+    *(u64*)(ret + 0) = v1;
+    ret = GPU_BuildGSFlags(a0);
+    a1 = *(u64*)(s0 + 16);
     ret = 0x12000080;
     v1 = 0x120000A0;
-    *(u64*)*(ret + 0) = a1;
+    *(u64*)(ret + 0) = a1;
     a0 = s1;
-    *(u64*)*(v1 + 0) = a1;
-    ret = GPU_SetDrawMode(a0, a1, a2, a3);
-    ret = *(u32*)*(s2 + -0x1030);
-    a0 = *(u32*)*(s1 + 0x64);
+    *(u64*)(v1 + 0) = a1;
+    ret = GPU_SetDrawMode(a0);
+    ret = *(u32*)(s2 + -0x1030);
+    a0 = *(u32*)(s1 + 0x64);  /* GTE data: mac1 */
     if (ret != a0) {
-        goto loc_20B3C8;
+        return Counter_RegisterIO(a0, a1, a2, a3);
     }
     return ret;
 }
 
 /* Function at 0x0021A0F0 - 0x0021A1D0 */
-int GPU_BuildGSFlags()
+u32 GPU_BuildGSFlags(u32 a0)
 {
-    int ret, v1, a0, a1, a2, a3, t0, t1, t2, t3;
-    ret = *(u32*)*(a0 + 36);  /* lwu */
+    u32 ret, v1, a1, a2, a3, t0, t1, t2, t3;
+    ret = *(u32*)(a0 + 36);  /* lwu */
     a1 = 0x700010F0;
     a2 = -0x200;
-    v1 = *(u64*)*(a1 + 8600);
+    v1 = *(u64*)(a1 + 8600);
     ret = ret & 0x1ff;
     a3 = -0x7e01;
     t0 = 0xFFF07FFF;
@@ -4416,7 +4129,7 @@ int GPU_BuildGSFlags()
     a2 = 0x12000000;
     v1 = v1 | ret;
     t2 = 0x7ff;
-    *(u64*)*(a1 + 8600) = v1;
+    *(u64*)(a1 + 8600) = v1;
     v1 = v1 & a3;
     t1 = -0x800;
     t1 = t1 << 16;
@@ -4428,187 +4141,152 @@ int GPU_BuildGSFlags()
     t3 = t3 | 0xffff;
     t3 = t3 << 16;
     t3 = t3 | 0xffff;
-    ret = *(u32*)*(a0 + 40);  /* lwu */
+    ret = *(u32*)(a0 + 40);  /* lwu */
     a2 = 0x12000070;
     a3 = 0x12000090;
-    ret = ret & 0x3f;
     ret = ret << 9;
     v1 = v1 | ret;
-    *(u64*)*(a1 + 8600) = v1;
+    *(u64*)(a1 + 8600) = v1;
     v1 = v1 & t0;
-    ret = *(u32*)*(a0 + 44);  /* lwu */
-    ret = ret & 0x1f;
+    ret = *(u32*)(a0 + 44);  /* lwu */
     ret = ret << 15;
     v1 = v1 | ret;
-    *(u64*)*(a1 + 8600) = v1;
+    *(u64*)(a1 + 8600) = v1;
     v1 = v1 & t1;
-    ret = *(u32*)*(a0 + 20);  /* lwu */
-    ret = ret & t2;
+    ret = *(u32*)(a0 + 20);  /* lwu */
     ret = (u64)ret << 32;
     v1 = v1 | ret;
-    *(u64*)*(a1 + 8600) = v1;
+    *(u64*)(a1 + 8600) = v1;
     v1 = v1 & t3;
-    ret = *(u32*)*(a0 + 24);  /* lwu */
-    ret = ret & t2;
+    ret = *(u32*)(a0 + 24);  /* lwu */
     ret = (u64)ret << 43;
     v1 = v1 | ret;
     ret = v1;
-    *(u64*)*(a1 + 8600) = v1;
-    *(u64*)*(a2 + 0) = ret;
-    *(u64*)*(a3 + 0) = ret;
+    *(u64*)(a1 + 8600) = v1;
+    *(u64*)(a2 + 0) = ret;
+    *(u64*)(a3 + 0) = ret;
     return ret;
 }
 
 /* Function at 0x0021A1D0 - 0x0021A490 */
-int GPU_CommandDispatch()
+void GPU_CommandDispatch(u32 a0, u32 a1, u32 a2)
 {
-    int ret, v0, v1, a0, a1, a2, a3, t0;
+    u32 ret, v1, a3, t0;
     a1 = *(u32*)(a1);
     a3 = *(u32*)(a2);
-    if ((unsigned)a0 >= 0x15) goto loc_21A480;
-    ret = a0 << 2;
-    v1 = 0x00500000;
-    v1 = v1 + ret;
-    v1 = *(u32*)*(v1 + -0xf00);
-    goto *v1; /* computed jump */
-    t0 = 0x100;
-    v1 = a1;
-    a0 = 0x100;
-    if (a1 != t0) {
-        do {
-            a0 = a0 - v1;
-            if ((signed)a0 < (signed)v1) {
-                v1 = v1 - a0;
-            }
-            ret = ((signed)a0 < (signed)v1) ? 1 : 0;
-        } while (v1 != a0);
-    }
-    __asm("div zero, a1, v1");
-    BREAK(); /* breakpoint */
-    if (likely(v1 == 0)) goto loc_21A240;
-loc_21A240:
-    ret = LO;
-    ac2 = (s32)((s64)ret * (s64)t0); HI_LO = (s64)ret * (s64)t0;
-    __asm("divu1 zero, v0, a1");
-    __asm("mflo1 v0, zero, zero");
-    __asm("divu zero, a3, v0");
-    v1 = HI;
-    ac2 = (s32)((s64)a1 * (s64)a3); HI_LO = (s64)a1 * (s64)a3;
-    if (v1 != 0) {
-        ret = ret - v1;
-        a3 = a3 + ret;
+    if ((unsigned)a0 < 0x15) {
+        ret = a0 << 2;
+        v1 = *(u32*)(v1 + -0xf00);
+        goto *v1; /* computed jump */
+        t0 = 0x100;
+        v1 = a1;
+        a0 = 0x100;
+        if (a1 != t0) {
+            do {
+                a0 = a0 - v1;
+                if ((signed)a0 < (signed)v1) {
+                    v1 = v1 - a0;
+                }
+                ret = ((signed)a0 < (signed)v1) ? 1 : 0;
+            } while (v1 != a0);
+        }
+        BREAK(); /* breakpoint */
+        if (v1 == 0) goto loc_21A240;
+        loc_21A240:
+        ret = (signed)a1 / (signed)v1;
+        ac2 = (s32)((s64)ret * (s64)t0); HI_LO = (s64)ret * (s64)t0;
+        ret = (unsigned)ret / (unsigned)a1;
+        v1 = (unsigned)a3 % (unsigned)ret;
         ac2 = (s32)((s64)a1 * (s64)a3); HI_LO = (s64)a1 * (s64)a3;
-    }
-    ret = (unsigned)ret >> 5;
-    goto loc_21A484;
-            }
-            ret = ((signed)a0 < (signed)v1) ? 1 : 0;
-        } while (v1 != a0);
-    }
-    __asm("div zero, a1, v1");
-    BREAK(); /* breakpoint */
-    if (likely(v1 == 0)) goto loc_21A2C0;
-loc_21A2C0:
-    ret = LO;
-    ac2 = (s32)((s64)ret * (s64)t0); HI_LO = (s64)ret * (s64)t0;
-    __asm("divu1 zero, v0, a1");
-    __asm("mflo1 v0, zero, zero");
-    __asm("divu zero, a3, v0");
-    v1 = HI;
-    ac2 = (s32)((s64)a1 * (s64)a3); HI_LO = (s64)a1 * (s64)a3;
-    if (v1 != 0) {
-        ret = ret - v1;
-        a3 = a3 + ret;
+        if (v1 != 0) {
+            ret = ret - v1;
+            a3 = a3 + ret;
+            ac2 = (s32)((s64)a1 * (s64)a3); HI_LO = (s64)a1 * (s64)a3;
+        }
+        ret = (unsigned)ret >> 5;
+        GPU_CommandDispatch(a0, a1, a2); return;
+                do {
+                ret = ((signed)a0 < (signed)v1) ? 1 : 0;
+                } while (v1 != a0);
+        BREAK(); /* breakpoint */
+        if (v1 == 0) goto loc_21A2C0;
+        loc_21A2C0:
+        ret = (signed)a1 / (signed)v1;
+        ac2 = (s32)((s64)ret * (s64)t0); HI_LO = (s64)ret * (s64)t0;
+        ret = (unsigned)ret / (unsigned)a1;
+        v1 = (unsigned)a3 % (unsigned)ret;
         ac2 = (s32)((s64)a1 * (s64)a3); HI_LO = (s64)a1 * (s64)a3;
-    }
-    ret = (unsigned)ret >> 4;
-    goto loc_21A484;
-            }
-            ret = ((signed)a0 < (signed)v1) ? 1 : 0;
-        } while (v1 != a0);
-    }
-    __asm("div zero, a1, v1");
-    BREAK(); /* breakpoint */
-    if (likely(v1 == 0)) goto loc_21A340;
-loc_21A340:
-    ret = LO;
-    ac2 = (s32)((s64)ret * (s64)t0); HI_LO = (s64)ret * (s64)t0;
-    __asm("divu1 zero, v0, a1");
-    __asm("mflo1 v0, zero, zero");
-    __asm("divu zero, a3, v0");
-    v1 = HI;
-    ac2 = (s32)((s64)a1 * (s64)a3); HI_LO = (s64)a1 * (s64)a3;
-    if (v1 != 0) {
-        ret = ret - v1;
-        a3 = a3 + ret;
+        if (v1 != 0) {
+            ret = ret - v1;
+            a3 = a3 + ret;
+            ac2 = (s32)((s64)a1 * (s64)a3); HI_LO = (s64)a1 * (s64)a3;
+        }
+        ret = (unsigned)ret >> 4;
+        goto loc_21A484;
+                ret = ((signed)a0 < (signed)v1) ? 1 : 0;
+        BREAK(); /* breakpoint */
+        if (v1 == 0) goto loc_21A340;
+        loc_21A340:
+        ret = (signed)a1 / (signed)v1;
+        ac2 = (s32)((s64)ret * (s64)t0); HI_LO = (s64)ret * (s64)t0;
+        ret = (unsigned)ret / (unsigned)a1;
+        v1 = (unsigned)a3 % (unsigned)ret;
         ac2 = (s32)((s64)a1 * (s64)a3); HI_LO = (s64)a1 * (s64)a3;
-    }
-    ret = (unsigned)ret >> 3;
-    goto loc_21A484;
-            }
-            ret = ((signed)a0 < (signed)v1) ? 1 : 0;
-        } while (v1 != a0);
-    }
-    __asm("div zero, a1, v1");
-    BREAK(); /* breakpoint */
-    if (likely(v1 == 0)) goto loc_21A3C0;
-loc_21A3C0:
-    ret = LO;
-    ac2 = (s32)((s64)ret * (s64)t0); HI_LO = (s64)ret * (s64)t0;
-    __asm("divu1 zero, v0, a1");
-    __asm("mflo1 v0, zero, zero");
-    __asm("divu zero, a3, v0");
-    v1 = HI;
-    ac3 = (s32)((s64)a1 * (s64)a3); HI_LO = (s64)a1 * (s64)a3;
-    if (v1 != 0) {
-        ret = ret - v1;
-        a3 = a3 + ret;
+        if (v1 != 0) {
+            ret = ret - v1;
+            a3 = a3 + ret;
+            ac2 = (s32)((s64)a1 * (s64)a3); HI_LO = (s64)a1 * (s64)a3;
+        }
+        ret = (unsigned)ret >> 3;
+        goto loc_21A484;
+                ret = ((signed)a0 < (signed)v1) ? 1 : 0;
+        BREAK(); /* breakpoint */
+        if (v1 == 0) goto loc_21A3C0;
+        loc_21A3C0:
+        ret = (signed)a1 / (signed)v1;
+        ac2 = (s32)((s64)ret * (s64)t0); HI_LO = (s64)ret * (s64)t0;
+        ret = (unsigned)ret / (unsigned)a1;
+        v1 = (unsigned)a3 % (unsigned)ret;
         ac3 = (s32)((s64)a1 * (s64)a3); HI_LO = (s64)a1 * (s64)a3;
-    }
-    ret = v1 << 1;
-    ret = ret + v1;
-    ret = (unsigned)ret >> 4;
-    goto loc_21A484;
-            }
-            ret = ((signed)a0 < (signed)v1) ? 1 : 0;
-        } while (v1 != a0);
-    }
-    __asm("div zero, a1, v1");
-    BREAK(); /* breakpoint */
-    if (likely(v1 == 0)) goto loc_21A448;
-loc_21A448:
-    ret = LO;
-    ac2 = (s32)((s64)ret * (s64)t0); HI_LO = (s64)ret * (s64)t0;
-    __asm("divu1 zero, v0, a1");
-    __asm("mflo1 v0, zero, zero");
-    __asm("divu zero, a3, v0");
-    v1 = HI;
-    ac2 = (s32)((s64)a1 * (s64)a3); HI_LO = (s64)a1 * (s64)a3;
-    if (v1 != 0) {
-        ret = ret - v1;
-        a3 = a3 + ret;
+        if (v1 != 0) {
+            ret = ret - v1;
+            a3 = a3 + ret;
+            ac3 = (s32)((s64)a1 * (s64)a3); HI_LO = (s64)a1 * (s64)a3;
+        }
+        ret = (unsigned)ret >> 4;
+        goto loc_21A484;
+                ret = ((signed)a0 < (signed)v1) ? 1 : 0;
+        BREAK(); /* breakpoint */
+        if (v1 == 0) goto loc_21A448;
+        loc_21A448:
+        ret = (signed)a1 / (signed)v1;
+        ac2 = (s32)((s64)ret * (s64)t0); HI_LO = (s64)ret * (s64)t0;
+        ret = (unsigned)ret / (unsigned)a1;
+        v1 = (unsigned)a3 % (unsigned)ret;
         ac2 = (s32)((s64)a1 * (s64)a3); HI_LO = (s64)a1 * (s64)a3;
-    }
-    ret = (unsigned)ret >> 2;
-    goto loc_21A484;
-loc_21A480:
+        if (v1 != 0) {
+            ret = ret - v1;
+            a3 = a3 + ret;
+            ac2 = (s32)((s64)a1 * (s64)a3); HI_LO = (s64)a1 * (s64)a3;
+        }
+        ret = (unsigned)ret >> 2;
+    }  /* end dispatch */
     ret = -1;
 loc_21A484:
     *(u32*)(a2) = a3;
-    return ret;
 }
 
 /* Function at 0x0021A490 - 0x0021A4F8 */
-int GPU_FlushGSRegs()
+u32 GPU_FlushGSRegs(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, t0, t1;
+    u32 ret, v1, a1, a2, a3, t0, t1;
     ret = a0;
-    t1 = *(u32*)*(ret + 0x68);
+    t1 = *(u32*)(ret + 0x68);  /* GTE data: mac2 */
     v1 = 0x002FEFD8;
-    t0 = *(u32*)*(ret + 0x64);
+    t0 = *(u32*)(ret + 0x64);  /* GTE data: mac1 */
     a2 = 0x002FEFD0;
-    a1 = *(u32*)*(ret + 0x60);
+    a1 = *(u32*)(ret + 0x60);  /* GTE data: mac0 */
     a3 = 0x002FEFD4;
     *(u32*)(a2) = t0;
     a0 = 0;
@@ -4618,18 +4296,18 @@ int GPU_FlushGSRegs()
     a2 = *(s16*)(a3);
     a3 = *(s16*)(v1);
     ret = EEKernel_HandlePadInput(a0, a1, a2, a3);
-    *(u64*)*(0x120000E0 + 0) = 0;
+    *(u64*)(0x120000E0 + 0) = 0;
     return ret;
 }
 
 /* Function at 0x0021A4F8 - 0x0021A568 */
-int GPU_SetDrawMode()
+u32 GPU_SetDrawMode(u32 a0)
 {
-    int ret, v1, a0, a1, a2, a3, t0, t1, t2, t3;
+    u32 ret, v1, a1, a2, a3, t0, t1, t2, t3;
     v1 = 1;
     a1 = 0x700010F0;
     a2 = -3;
-    ret = *(u64*)*(a1 + 8584);
+    ret = *(u64*)(a1 + 8584);
     a3 = -0x1d;
     t0 = 4;
     t2 = 0x20;
@@ -4641,34 +4319,26 @@ int GPU_SetDrawMode()
     t1 = -0x41;
     ret = ret | t0;
     t3 = 1 << 16;
-    ret = ret | t2;
-    ret = ret & t1;
     ret = ret | v1;
-    *(u64*)*(a1 + 8584) = ret;
-    v1 = *(u32*)(a0);
-    v1 = ((unsigned)v1 < 1) ? 1 : 0;
-    v1 = v1 + -1;
-    *(u8*)*(a1 + 0x2189) = v1;
-    ret = *(u64*)*(a1 + 8584);
+    *(u64*)(a1 + 8584) = ret;
+    *(u8*)(a1 + 0x2189) = v1 + -1;
     ret = ret | t3;
-    *(u64*)*(a2 + 0) = ret;
+    *(u64*)(a2 + 0) = ret;
     return ret;
 }
 
 /* Function at 0x0021A568 - 0x0021A698 */
-int GPU_SubmitGIFPacket()
+u32 GPU_SubmitGIFPacket(u32 a0)
 {
     /* Stack frame: 32 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, t4;
+    u32 ret, v1, a1, a2, a3, s0, s1, s2, t4;
     s1 = a0;
     v1 = (unsigned)s1 >> 0x18;
     a0 = v1 & 0xff;
     if ((unsigned)a0 < 2) {
         s2 = 0x70000000;
         v1 = s2 + 0x10f0;
-        ret = *(u32*)*(v1 + 0x2264);
-        ret = ret | 1;
-        *(u32*)*(v1 + 0x2264) = ret;
+        *(u32*)(v1 + 0x2264) = ret | 1;
         v1 = s2 + 0x10f0;
         goto loc_21A5CC;
     }
@@ -4676,33 +4346,31 @@ int GPU_SubmitGIFPacket()
     s2 = 0x70000000;
     if (a0 == ret) {
         v1 = v1 & 0xf;
-        *(u32*)*(0x00300000 + -0x1024) = v1;
+        *(u32*)(0x00300000 + -0x1024) = v1;
     }
     v1 = s2 + 0x10f0;
 loc_21A5CC:
-    ret = *(u32*)*(v1 + 0x227c);
+    ret = *(u32*)(v1 + 0x227c);
     a0 = s2 + 0x10f0;
     if ((signed)ret >= 0x20) {
         s0 = v1;
         do {
-            a0 = *(u32*)*(s0 + 0x2b14);
-            ret = UI_Kern_PollSema(a0, a1, a2, a3);
-            a0 = *(u32*)*(s0 + 0x2b14);
-            ret = UI_Kern_SignalSema(a0, a1, a2, a3);
-            v1 = *(u32*)*(s0 + 0x227c);
-            v1 = ((signed)v1 < 0x20) ? 1 : 0;
-        } while (v1 == 0);
+            a0 = *(u32*)(s0 + 0x2b14);
+            ret = UI_Kern_PollSema();
+            a0 = *(u32*)(s0 + 0x2b14);
+            ret = UI_Kern_SignalSema();
+        } while ((((signed)v1 < 0x20) ? 1 : 0) == 0);
         a0 = s2 + 0x10f0;
     }
-    ret = *(u32*)*(a0 + 0x2284);
+    ret = *(u32*)(a0 + 0x2284);
     v1 = ret << 2;
     ret = ret + 1;
     a1 = ((unsigned)ret < 0x20) ? 1 : 0;
     v1 = v1 + a0;
-    __asm("movz v0, zero, a1");
-    *(u32*)*(v1 + 0x2040) = s1;
-    *(u32*)*(a0 + 0x2284) = ret;
-    v1 = COP0_REG(t4); /* mfc0 */
+    if (a1 == 0) ret = 0;
+    *(u32*)(v1 + 0x2040) = s1;
+    *(u32*)(a0 + 0x2284) = ret;
+    v1 = COP0_REG(12); /* mfc0 */
     ret = 1 << 16;
     v1 = v1 & ret;
     s0 = s2 + 0x10f0;
@@ -4711,26 +4379,25 @@ loc_21A5CC:
         do {
             DI();
             SYNC(); /* memory barrier */
-            ret = COP0_REG(t4); /* mfc0 */
+            ret = COP0_REG(12); /* mfc0 */
             ret = ret & v1;
         } while (ret != 0);
         s0 = s2 + 0x10f0;
     }
-    ret = *(u32*)*(s0 + 0x227c);
     ret = ret + 1;
-    *(u32*)*(s0 + 0x227c) = ret;
+    *(u32*)(s0 + 0x227c) = ret;
     EI();
-    a0 = *(u32*)*(s0 + 0x2b14);
-    ret = UI_Kern_PollSema(a0, a1, a2, a3);
-    a0 = *(u32*)*(s0 + 0x2b14);
-    return UI_Kern_SignalSema(a0, a1, a2, a3);
+    a0 = *(u32*)(s0 + 0x2b14);
+    ret = UI_Kern_PollSema();
+    a0 = *(u32*)(s0 + 0x2b14);
+    return UI_Kern_SignalSema();
 }
 
 /* Function at 0x0021A698 - 0x0021A808 */
-int GPU_ProcessQueue()
+void GPU_ProcessQueue(void)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1;
+    u32 ret, v1, a0, a1, a2, a3, s0, s1;
     a1 = 0x00300000 + -0x1024;
     ret = *(u32*)(a1);
     s1 = 0;
@@ -4741,103 +4408,94 @@ int GPU_ProcessQueue()
         *(u32*)(a1) = ret;
         if (v1 != 0) {
             ret = a0 << 2;
-            v1 = 0x00500000;
-            v1 = v1 + ret;
-            v1 = *(u32*)*(v1 + -0xe70);
+            v1 = *(u32*)(v1 + -0xe70);
             goto *v1; /* computed jump */
-            s1 = *(u32*)*(0x700010F0 + 0x2240);
+            s1 = *(u32*)(0x700010F0 + 0x2240);
             ret = s1;
-            goto loc_21A7F4;
+            GPU_ProcessQueue(); return;
                 }
-                ret = *(u32*)*(s0 + 0x2288);
                 ret = ret + -1;
-                *(u32*)*(s0 + 0x2288) = ret;
+                *(u32*)(s0 + 0x2288) = ret;
                 EI();
-                ret = *(u32*)*(s0 + 0x2288);
                 ret = s1;
-                if (likely(ret != 0)) goto loc_21A7F4;
-                a0 = *(u32*)*(s0 + 0x2b14);
-                ret = UI_Kern_PollSema(a0, a1, a2, a3);
-                a0 = *(u32*)*(s0 + 0x2b14);
-                ret = UI_Kern_SignalSema(a0, a1, a2, a3);
+                if (ret != 0) GPU_ProcessQueue(); return;
+                a0 = *(u32*)(s0 + 0x2b14);
+                ret = UI_Kern_PollSema();
+                a0 = *(u32*)(s0 + 0x2b14);
+                ret = UI_Kern_SignalSema();
                 }
-        }
             ret = s1;
-        }
 loc_21A7F4:
-    return ret;
+    return;
 }
 
 /* Function at 0x0021A808 - 0x0021A9A0 */
-int GPU_BufferData()
+u32 GPU_BufferData(u32 a0, u32 a1)
 {
     /* Stack frame: 48 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, t4;
+    u32 ret, v1, a2, a3, s0, s1, s2, s3, s4, t4;
     s2 = a1;
     s3 = 0x70000000;
     s4 = a0;
     a2 = s3 + 0x10f0;
     ret = 0x00FFFFFF;
-    v1 = *(u32*)*(a2 + 0x2270);
-    if (v1 != 0x70000000) goto loc_21A87C;
-    ret = *(u32*)*(a2 + 0x2288);
+    if ((*(u32*)(a2 + 0x2270)) != 0x70000000) goto loc_21A87C;
+    ret = *(u32*)(a2 + 0x2288);
     s0 = s3 + 0x10f0;
-    if (likely(ret == 0)) goto loc_21A8DC;
-    v1 = *(u32*)*(a2 + 0x2140);
+    if (ret == 0) goto loc_21A8DC;
+    v1 = *(u32*)(a2 + 0x2140);
     ret = a2 + 0x20c0;
     if (v1 != 0x70000000) goto loc_21A87C;
-    ret = *(u32*)*(a2 + 0x2290);
     ret = ret + s2;
     s0 = s3 + 0x10f0;
-    if (likely((unsigned)ret < 0x20)) goto loc_21A8DC;
+    if ((unsigned)ret < 0x20) goto loc_21A8DC;
     ret = 0x70000000;
 loc_21A87C:
     s0 = ret + 0x10f0;
     s1 = 0x00FFFFFF;
     goto loc_21A8A8;
 loc_21A890:
-    a0 = *(u32*)*(s0 + 0x2b14);
-    ret = UI_Kern_PollSema(a0, a1, a2, a3);
-    a0 = *(u32*)*(s0 + 0x2b14);
-    ret = UI_Kern_SignalSema(a0, a1, a2, a3);
-    a0 = *(u32*)*(s0 + 0x2b18);
-    ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+    a0 = *(u32*)(s0 + 0x2b14);
+    ret = UI_Kern_PollSema();
+    a0 = *(u32*)(s0 + 0x2b14);
+    ret = UI_Kern_SignalSema();
+    a0 = *(u32*)(s0 + 0x2b18);
+    ret = UI_Kern_WaitSema();
 loc_21A8A8:
-    ret = *(u32*)*(s0 + 0x2270);
+    ret = *(u32*)(s0 + 0x2270);
     v1 = 0;
     if (ret == s1) {
-        ret = *(u32*)*(s0 + 0x2288);
+        ret = *(u32*)(s0 + 0x2288);
         v1 = ((unsigned)ret < 1) ? 1 : 0;
     }
     if (v1 == 0) goto loc_21A890;
     s0 = s3 + 0x10f0;
-    a0 = *(u32*)*(s0 + 0x2b14);
-    ret = UI_Kern_PollSema(a0, a1, a2, a3);
-    a0 = *(u32*)*(s0 + 0x2b14);
-    ret = UI_Kern_SignalSema(a0, a1, a2, a3);
+    a0 = *(u32*)(s0 + 0x2b14);
+    ret = UI_Kern_PollSema();
+    a0 = *(u32*)(s0 + 0x2b14);
+    ret = UI_Kern_SignalSema();
     s0 = s3 + 0x10f0;
 loc_21A8DC:
-    ret = *(u32*)*(s0 + 0x2288);
-    a0 = *(u32*)*(s0 + 0x2290);
+    ret = *(u32*)(s0 + 0x2288);
+    a0 = *(u32*)(s0 + 0x2290);
     if (ret == 0) {
         v1 = s0 + 0x20c0;
         ret = 0x00FFFFFF;
-        *(u32*)*(s0 + 0x228c) = 0;
-        *(u32*)*(s0 + 0x2270) = ret;
-        *(u32*)*(s0 + 0x2290) = 0;
-        *(u32*)*(s0 + 0x2140) = v1;
-        a0 = *(u32*)*(s0 + 0x2290);
+        *(u32*)(s0 + 0x228c) = 0;
+        *(u32*)(s0 + 0x2270) = ret;
+        *(u32*)(s0 + 0x2290) = 0;
+        *(u32*)(s0 + 0x2140) = v1;
+        a0 = *(u32*)(s0 + 0x2290);
     }
     a1 = s4;
-    ret = *(u32*)*(s0 + 0x2140);
+    ret = *(u32*)(s0 + 0x2140);
     a2 = s2 << 2;
     a0 = a0 << 2;
     a0 = ret + a0;
-    ret = Compiler_MemoryCopy(a0, a1, a2, a3);
-    ret = *(u32*)*(s0 + 0x2290);
+    ret = Compiler_MemoryCopy(a0, a1, a2);
     ret = ret + s2;
-    *(u32*)*(s0 + 0x2290) = ret;
-    v1 = COP0_REG(t4); /* mfc0 */
+    *(u32*)(s0 + 0x2290) = ret;
+    v1 = COP0_REG(12); /* mfc0 */
     ret = 1 << 16;
     v1 = v1 & ret;
     s0 = s3 + 0x10f0;
@@ -4846,218 +4504,205 @@ loc_21A8DC:
         do {
             DI();
             SYNC(); /* memory barrier */
-            ret = COP0_REG(t4); /* mfc0 */
+            ret = COP0_REG(12); /* mfc0 */
             ret = ret & v1;
             s0 = s3 + 0x10f0;
         } while (ret != 0);
     }
-    ret = *(u32*)*(s0 + 0x2288);
     ret = ret + s2;
-    *(u32*)*(s0 + 0x2288) = ret;
+    *(u32*)(s0 + 0x2288) = ret;
     EI();
-    a0 = *(u32*)*(s0 + 0x2b14);
-    ret = UI_Kern_PollSema(a0, a1, a2, a3);
-    a0 = *(u32*)*(s0 + 0x2b14);
-    return UI_Kern_SignalSema(a0, a1, a2, a3);
+    a0 = *(u32*)(s0 + 0x2b14);
+    ret = UI_Kern_PollSema();
+    a0 = *(u32*)(s0 + 0x2b14);
+    return UI_Kern_SignalSema();
 }
 
 /* Function at 0x0021A9A0 - 0x0021AA18 */
-int GPU_WaitBufferReady()
+u32 GPU_WaitBufferReady(void)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1;
+    u32 ret, v1, a0, a1, a2, a3, s0, s1;
     s1 = 0x70000000;
     goto loc_21A9D0;
 loc_21A9B8:
-    a0 = *(u32*)*(s0 + 0x2b14);
-    ret = UI_Kern_PollSema(a0, a1, a2, a3);
-    a0 = *(u32*)*(s0 + 0x2b14);
-    ret = UI_Kern_SignalSema(a0, a1, a2, a3);
-    a0 = *(u32*)*(s0 + 0x2b18);
-    ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+    a0 = *(u32*)(s0 + 0x2b14);
+    ret = UI_Kern_PollSema();
+    a0 = *(u32*)(s0 + 0x2b14);
+    ret = UI_Kern_SignalSema();
+    a0 = *(u32*)(s0 + 0x2b18);
+    ret = UI_Kern_WaitSema();
 loc_21A9D0:
     s0 = s1 + 0x10f0;
-    v1 = *(u32*)*(s0 + 0x2270);
+    v1 = *(u32*)(s0 + 0x2270);
     ret = 0x00FFFFFF;
     a0 = 0;
     if (v1 == ret) {
-        ret = *(u32*)*(s0 + 0x2288);
+        ret = *(u32*)(s0 + 0x2288);
         a0 = ((unsigned)ret < 1) ? 1 : 0;
     }
     if (a0 == 0) goto loc_21A9B8;
-    a0 = *(u32*)*(s0 + 0x2b14);
-    ret = UI_Kern_PollSema(a0, a1, a2, a3);
-    a0 = *(u32*)*(s0 + 0x2b14);
-    return UI_Kern_SignalSema(a0, a1, a2, a3);
+    a0 = *(u32*)(s0 + 0x2b14);
+    ret = UI_Kern_PollSema();
+    a0 = *(u32*)(s0 + 0x2b14);
+    return UI_Kern_SignalSema();
 }
 
 /* Function at 0x0021AA18 - 0x0021AA78 */
-int GPU_ResetPendingCount()
+u32 GPU_ResetPendingCount(void)
 {
-    int ret, v1, a0, a1, t4;
-    ret = COP0_REG(t4); /* mfc0 */
+    u32 ret, v1, a0, a1, t4;
+    ret = COP0_REG(12); /* mfc0 */
     v1 = 1 << 16;
-    ret = ret & v1;
-    if (ret != 0) {
+    if ((ret & v1) != 0) {
         do {
             DI();
             SYNC(); /* memory barrier */
-            ret = COP0_REG(t4); /* mfc0 */
+            ret = COP0_REG(12); /* mfc0 */
             ret = ret & v1;
             a1 = 0x70000000;
         } while (ret != 0);
     }
     a1 = 0x700010F0;
-    ret = *(u32*)*(a1 + 0x2260);
-    *(u32*)*(a1 + 0x2260) = 0;
-    v1 = *(u32*)*(a1 + 0x226c);
+    ret = *(u32*)(a1 + 0x2260);
+    *(u32*)(a1 + 0x2260) = 0;
     v1 = v1 - ret;
-    a0 = ((signed)v1 < 0) ? 1 : 0;
-    __asm("movn v1, zero, a0");
-    *(u32*)*(a1 + 0x226c) = v1;
+    if ((signed)v1 < (signed)0) v1 = 0;
+    *(u32*)(a1 + 0x226c) = v1;
     EI();
     return ret;
 }
 
 /* Function at 0x0021AA78 - 0x0021AAD8 */
-int GPU_WaitForSync()
+u32 GPU_WaitForSync(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1, a0, a1, a2, a3;
     a2 = 0x70000000 + 0x10f0;
     a1 = a2;
-    a0 = *(u32*)*(a1 + 0x2270);
+    a0 = *(u32*)(a1 + 0x2270);
     if (a0 != 0x00FFFFFF) {
-        ret = *(u32*)*(a1 + 0x2260);
-        v1 = *(u32*)*(a1 + 0x226c);
+        ret = *(u32*)(a1 + 0x2260);
+        v1 = *(u32*)(a1 + 0x226c);
         ret = ((signed)ret < (signed)v1) ? 1 : 0;
-        a0 = *(u32*)*(a2 + 0x2b18);
-            ret = *(u32*)*(a1 + 0x2288);
-            if (ret != 0) {
-                a0 = *(u32*)*(a2 + 0x2b18);
+        a0 = *(u32*)(a2 + 0x2b18);
+            if ((*(u32*)(a1 + 0x2288)) != 0) {
+                a0 = *(u32*)(a2 + 0x2b18);
                 }
-                return UI_Kern_WaitSema(a0, a1, a2, a3);
+                return UI_Kern_WaitSema();
             }
     return ret;
 }
 
 /* Function at 0x0021AAD8 - 0x0021AB18 */
-int GPU_AddPendingCount()
+u32 GPU_AddPendingCount(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3, s0;
+    u32 ret, a1, a2, a3, s0;
     s0 = 0x700010F0;
-    ret = *(u32*)*(s0 + 0x226c);
     ret = ret + a0;
-    a0 = *(u32*)*(s0 + 0x2b14);
-    *(u32*)*(s0 + 0x226c) = ret;
-    ret = UI_Kern_PollSema(a0, a1, a2, a3);
-    a0 = *(u32*)*(s0 + 0x2b14);
-    return UI_Kern_SignalSema(a0, a1, a2, a3);
+    a0 = *(u32*)(s0 + 0x2b14);
+    *(u32*)(s0 + 0x226c) = ret;
+    ret = UI_Kern_PollSema();
+    a0 = *(u32*)(s0 + 0x2b14);
+    return UI_Kern_SignalSema();
 }
 
 /* Function at 0x0021AB18 - 0x0021ABF0 */
-int GPU_FlushAndWait()
+u32 GPU_FlushAndWait(void)
 {
     /* Stack frame: 48 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, t4;
-    ret = COP0_REG(t4); /* mfc0 */
+    u32 ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, t4;
+    ret = COP0_REG(12); /* mfc0 */
     v1 = 1 << 16;
-    ret = ret & v1;
-    if (ret != 0) {
+    if ((ret & v1) != 0) {
         do {
             DI();
             SYNC(); /* memory barrier */
-            ret = COP0_REG(t4); /* mfc0 */
+            ret = COP0_REG(12); /* mfc0 */
             ret = ret & v1;
             s3 = 0x70000000;
         } while (ret != 0);
     }
     v1 = s3 + 0x10f0;
     ret = 0x00FFFFFF;
-    s2 = *(u32*)*(v1 + 0x2270);
-    *(u32*)*(v1 + 0x2270) = ret;
+    s2 = *(u32*)(v1 + 0x2270);
+    *(u32*)(v1 + 0x2270) = ret;
     EI();
     s0 = v1;
     s1 = ret;
     goto loc_21ABA0;
 loc_21AB88:
-    a0 = *(u32*)*(s0 + 0x2b14);
-    ret = UI_Kern_PollSema(a0, a1, a2, a3);
-    a0 = *(u32*)*(s0 + 0x2b14);
-    ret = UI_Kern_SignalSema(a0, a1, a2, a3);
-    a0 = *(u32*)*(s0 + 0x2b18);
-    ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+    a0 = *(u32*)(s0 + 0x2b14);
+    ret = UI_Kern_PollSema();
+    a0 = *(u32*)(s0 + 0x2b14);
+    ret = UI_Kern_SignalSema();
+    a0 = *(u32*)(s0 + 0x2b18);
+    ret = UI_Kern_WaitSema();
 loc_21ABA0:
-    ret = *(u32*)*(s0 + 0x2270);
+    ret = *(u32*)(s0 + 0x2270);
     v1 = 0;
     if (ret == s1) {
-        ret = *(u32*)*(s0 + 0x2288);
+        ret = *(u32*)(s0 + 0x2288);
         v1 = ((unsigned)ret < 1) ? 1 : 0;
     }
     if (v1 == 0) goto loc_21AB88;
     s0 = s3 + 0x10f0;
-    a0 = *(u32*)*(s0 + 0x2b14);
-    ret = UI_Kern_PollSema(a0, a1, a2, a3);
-    a0 = *(u32*)*(s0 + 0x2b14);
-    ret = UI_Kern_SignalSema(a0, a1, a2, a3);
-    ret = s2;
-    return ret;
+    a0 = *(u32*)(s0 + 0x2b14);
+    ret = UI_Kern_PollSema();
+    a0 = *(u32*)(s0 + 0x2b14);
+    ret = UI_Kern_SignalSema();
+    return s2;
 }
 
 /* Function at 0x0021ABF0 - 0x0021AC00 */
-int GPU_GetDisplayListID()
+u32 GPU_GetDisplayListID(void)
 {
-    int ret;
-    ret = *(u32*)*(0x700010F0 + 0x2270);
-    return ret;
+    u32 ret;
+    return *(u32*)(0x700010F0 + 0x2270);
 }
 
 /* Function at 0x0021AC00 - 0x0021AC30 */
-int GPU_IsBufferReady()
+u32 GPU_IsBufferReady(void)
 {
-    int ret, v1, a0, a1;
+    u32 ret, v1, a0, a1;
     a1 = 0x70000000 + 0x10f0;
     v1 = 0x00FFFFFF;
-    ret = *(u32*)*(a1 + 0x2270);
+    ret = *(u32*)(a1 + 0x2270);
     a0 = 0;
     if (ret == v1) {
-        ret = *(u32*)*(a1 + 0x2288);
+        ret = *(u32*)(a1 + 0x2288);
         a0 = ((unsigned)ret < 1) ? 1 : 0;
     }
-    ret = a0;
-    return ret;
+    return a0;
 }
 
 /* Function at 0x0021AC30 - 0x0021AC40 */
-int GPU_GetFrameCount()
+u32 GPU_GetFrameCount(void)
 {
-    int ret;
-    ret = *(u32*)*(0x700010F0 + 0x223c);
-    return ret;
+    u32 ret;
+    return *(u32*)(0x700010F0 + 0x223c);
 }
 
 /* Function at 0x0021AC40 - 0x0021AD70 */
-int GPU_ReadBackBuffer()
+u32 GPU_ReadBackBuffer(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, t0, t4;
+    u32 ret, v1, a0, a1, a2, a3, s0, t0, t4;
     t0 = 0x70000000;
     a2 = t0 + 0x10f0;
     v1 = 3;
-    ret = *(u32*)*(a2 + 0x223c);
-    ret = (unsigned)ret >> 0x1d;
     ret = ret & 3;
-    if (likely(ret != v1)) goto loc_21AD48;
-    ret = *(u32*)*(a2 + 0x2288);
+    if (ret != v1) goto loc_21AD48;
+    ret = *(u32*)(a2 + 0x2288);
     a0 = 0x00500000;
-    if (likely(ret == 0)) goto loc_21AD48;
-    ret = *(u32*)*(a2 + 0x2288);
-    a1 = *(u32*)*(a2 + 0x2288);
-    if (likely((signed)ret < (signed)a1)) goto loc_21AC88;
+    if (ret == 0) goto loc_21AD48;
+    ret = *(u32*)(a2 + 0x2288);
+    a1 = *(u32*)(a2 + 0x2288);
+    if ((signed)ret < (signed)a1) goto loc_21AC88;
 loc_21AC88:
-    ret = *(u32*)*(a2 + 0x228c);
-    v1 = *(u32*)*(a2 + 0x2140);
+    ret = *(u32*)(a2 + 0x228c);
+    v1 = *(u32*)(a2 + 0x2140);
     a2 = a1 + -1;
     ret = ret << 2;
     v1 = v1 + ret;
@@ -5072,10 +4717,9 @@ loc_21AC88:
         } while (a2 != a3);
     }
     a0 = t0 + 0x10f0;
-    ret = *(u32*)*(a0 + 0x228c);
     ret = ret + a1;
-    *(u32*)*(a0 + 0x228c) = ret;
-    v1 = COP0_REG(t4); /* mfc0 */
+    *(u32*)(a0 + 0x228c) = ret;
+    v1 = COP0_REG(12); /* mfc0 */
     ret = 1 << 16;
     v1 = v1 & ret;
     s0 = t0 + 0x10f0;
@@ -5084,21 +4728,20 @@ loc_21AC88:
         do {
             DI();
             SYNC(); /* memory barrier */
-            ret = COP0_REG(t4); /* mfc0 */
+            ret = COP0_REG(12); /* mfc0 */
             ret = ret & v1;
             s0 = t0 + 0x10f0;
         } while (ret != 0);
     }
-    ret = *(u32*)*(s0 + 0x2288);
     ret = ret - a1;
-    *(u32*)*(s0 + 0x2288) = ret;
+    *(u32*)(s0 + 0x2288) = ret;
     EI();
-    ret = *(u32*)*(s0 + 0x2288);
-    if (likely(ret != 0)) goto loc_21AD60;
-    a0 = *(u32*)*(s0 + 0x2b14);
-    ret = UI_Kern_PollSema(a0, a1, a2, a3);
-    a0 = *(u32*)*(s0 + 0x2b14);
-    return UI_Kern_SignalSema(a0, a1, a2, a3);
+    ret = *(u32*)(s0 + 0x2288);
+    if (ret != 0) goto loc_21AD60;
+    a0 = *(u32*)(s0 + 0x2b14);
+    ret = UI_Kern_PollSema();
+    a0 = *(u32*)(s0 + 0x2b14);
+    return UI_Kern_SignalSema();
 loc_21AD48:
     a0 = a0 + -0xe50;
     return AssertionFailed(a0, a1, a2, a3);
@@ -5107,10 +4750,10 @@ loc_21AD60:
 }
 
 /* Function at 0x0021AD70 - 0x0021AEB0 */
-int GPU_ConfigureBuffer()
+u32 GPU_ConfigureBuffer(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 64 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, t4;
+    u32 ret, v1, s0, s1, s2, s3, s4, s5, t4;
     s2 = a0;
     s3 = a2;
     s4 = a3;
@@ -5118,27 +4761,27 @@ int GPU_ConfigureBuffer()
     s1 = 0x70000000;
     goto loc_21ADC0;
 loc_21ADA8:
-    a0 = *(u32*)*(s0 + 0x2b14);
-    ret = UI_Kern_PollSema(a0, a1, a2, a3);
-    a0 = *(u32*)*(s0 + 0x2b14);
-    ret = UI_Kern_SignalSema(a0, a1, a2, a3);
-    a0 = *(u32*)*(s0 + 0x2b18);
-    ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+    a0 = *(u32*)(s0 + 0x2b14);
+    ret = UI_Kern_PollSema();
+    a0 = *(u32*)(s0 + 0x2b14);
+    ret = UI_Kern_SignalSema();
+    a0 = *(u32*)(s0 + 0x2b18);
+    ret = UI_Kern_WaitSema();
 loc_21ADC0:
     s0 = s1 + 0x10f0;
-    v1 = *(u32*)*(s0 + 0x2270);
+    v1 = *(u32*)(s0 + 0x2270);
     ret = 0x00FFFFFF;
     a0 = 0;
     if (v1 == ret) {
-        ret = *(u32*)*(s0 + 0x2288);
+        ret = *(u32*)(s0 + 0x2288);
         a0 = ((unsigned)ret < 1) ? 1 : 0;
     }
     if (a0 == 0) goto loc_21ADA8;
-    a0 = *(u32*)*(s0 + 0x2b14);
-    ret = UI_Kern_PollSema(a0, a1, a2, a3);
-    a0 = *(u32*)*(s0 + 0x2b14);
-    ret = UI_Kern_SignalSema(a0, a1, a2, a3);
-    v1 = COP0_REG(t4); /* mfc0 */
+    a0 = *(u32*)(s0 + 0x2b14);
+    ret = UI_Kern_PollSema();
+    a0 = *(u32*)(s0 + 0x2b14);
+    ret = UI_Kern_SignalSema();
+    v1 = COP0_REG(12); /* mfc0 */
     ret = 1 << 16;
     v1 = v1 & ret;
     if (v1 != 0) {
@@ -5146,115 +4789,114 @@ loc_21ADC0:
         do {
             DI();
             SYNC(); /* memory barrier */
-            ret = COP0_REG(t4); /* mfc0 */
+            ret = COP0_REG(12); /* mfc0 */
             ret = ret & v1;
         } while (ret != 0);
     }
     ret = s1 + 0x10f0;
     if (s3 != 0) {
-        *(u32*)*(ret + 0x2270) = s2;
-        *(u32*)*(ret + 0x2140) = 0;
-        *(u32*)*(ret + 0x2288) = 0;
-        *(u32*)*(ret + 0x2260) = 0;
-        *(u32*)*(ret + 0x226c) = s4;
+        *(u32*)(ret + 0x2270) = s2;
+        *(u32*)(ret + 0x2140) = 0;
+        *(u32*)(ret + 0x2288) = 0;
+        *(u32*)(ret + 0x2260) = 0;
+        *(u32*)(ret + 0x226c) = s4;
         s0 = s1 + 0x10f0;
     } else {
         v1 = s1 + 0x10f0;
-        *(u32*)*(v1 + 0x2270) = 0x00FFFFFF;
-        *(u32*)*(v1 + 0x2140) = s2;
-        *(u32*)*(v1 + 0x2288) = s5;
-        *(u32*)*(v1 + 0x2260) = 0;
-        *(u32*)*(v1 + 0x226c) = 0;
+        *(u32*)(v1 + 0x2270) = 0x00FFFFFF;
+        *(u32*)(v1 + 0x2140) = s2;
+        *(u32*)(v1 + 0x2288) = s5;
+        *(u32*)(v1 + 0x2260) = 0;
+        *(u32*)(v1 + 0x226c) = 0;
         s0 = s1 + 0x10f0;
     }
-    *(u32*)*(s0 + 0x2290) = 0;
-    *(u32*)*(s0 + 0x228c) = 0;
+    *(u32*)(s0 + 0x2290) = 0;
+    *(u32*)(s0 + 0x228c) = 0;
     EI();
-    a0 = *(u32*)*(s0 + 0x2b14);
-    ret = UI_Kern_PollSema(a0, a1, a2, a3);
-    a0 = *(u32*)*(s0 + 0x2b14);
-    return UI_Kern_SignalSema(a0, a1, a2, a3);
+    a0 = *(u32*)(s0 + 0x2b14);
+    ret = UI_Kern_PollSema();
+    a0 = *(u32*)(s0 + 0x2b14);
+    return UI_Kern_SignalSema();
 }
 
 /* Function at 0x0021AEB0 - 0x0021AF20 */
-int GPU_VBlankHandler()
+u32 GPU_VBlankHandler(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, s0;
+    u32 ret, v1, a0, a1, a2, a3, s0;
     s0 = 0x70000000 + 0x10f0;
     do {
-        a0 = *(u32*)*(s0 + 0x2b1c);
-        ret = UI_Kern_WaitSema(a0, a1, a2, a3);
-        v1 = *(u32*)*(s0 + 0x264c);
-        if (likely(v1 != 0)) goto loc_21AF0C;
-        ret = *(u32*)*(s0 + 0x2214);
-        if (likely(ret == 0)) goto loc_21AF0C;
-        ret = *(u32*)*(s0 + 0x21c8);
-        v1 = *(u32*)*(s0 + 0x225c);
+        a0 = *(u32*)(s0 + 0x2b1c);
+        ret = UI_Kern_WaitSema();
+        if ((*(u32*)(s0 + 0x264c)) != 0) goto loc_21AF0C;
+        ret = *(u32*)(s0 + 0x2214);
+        if (ret == 0) goto loc_21AF0C;
+        ret = *(u32*)(s0 + 0x21c8);
+        v1 = *(u32*)(s0 + 0x225c);
         ret = ret & 1;
-        a0 = *(u32*)*(s0 + 0x2268);
-        v1 = v1 ^ ret;
+        a0 = *(u32*)(s0 + 0x2268);
         v1 = ((unsigned)v1 < 1) ? 1 : 0;
     } while (a0 == v1);
 loc_21AF0C:
     a0 = 0x80000000;
-    return GPU_SubmitGIFPacket(a0, a1, a2, a3);
+    return GPU_SubmitGIFPacket(a0);
 }
 
 /* Function at 0x0021AF20 - 0x0021AF38 */
-int GPU_SubmitVBlankPacket()
+u32 GPU_SubmitVBlankPacket(void)
 {
     /* Stack frame: 16 bytes */
-    int a0, a1, a2, a3;
+    u32 a0, a1, a2, a3;
     a0 = 0x81000000;
-    return GPU_SubmitGIFPacket(a0, a1, a2, a3);
+    return GPU_SubmitGIFPacket(a0);
 }
 
 /* Function at 0x0021AF38 - 0x0021AFC0 */
-int GPU_InitState()
+u32 GPU_InitState(u32 a0, u32 a1)
 {
     /* Stack frame: 32 bytes */
-    int ret, a0, a1, a2, a3, s0, s1, s2;
+    u32 ret, a2, a3, s0, s1, s2;
     a2 = 0x2b40;
     s0 = 0x700010F0;
     s2 = a0;
     s1 = a1;
     a1 = 0;
     a0 = s0;
-    ret = Libc_Memset(a0, a1, a2, a3);
-    *(u32*)*(s0 + 0x229c) = 0;
+    ret = Libc_Memset(a0, a1, a2);
+    *(u32*)(s0 + 0x229c) = 0;
     ret = 0x64;
-    a2 = *(u32*)*(s0 + 0x22a0);
-    *(u32*)*(s0 + 0x22f4) = ret;
-    *(u32*)*(s0 + 0x22f0) = ret;
+    a2 = *(u32*)(s0 + 0x22a0);
+    *(u32*)(s0 + 0x22f4) = ret;
+    *(u32*)(s0 + 0x22f0) = ret;
     a1 = 0;
     a0 = 0x004FF1D8;
     ret = AssertionFailed(a0, a1, a2, a3);
     a0 = 2;
-    ret = GPU_Configure(a0, a1, a2, a3);
-    *(u32*)*(s0 + 0x2274) = s2;
-    *(u32*)*(s0 + 0x2278) = s1;
+    ret = GPU_Configure(a0);
+    *(u32*)(s0 + 0x2274) = s2;
+    *(u32*)(s0 + 0x2278) = s1;
     return 0;
 }
 
 /* Function at 0x0021AFC0 - 0x0021B680 */
-int GPU_Configure()
+u32 GPU_Configure(u32 a0)
 {
     /* Stack frame: 288 bytes */
-    int local_24;
-    int local_28;
-    int local_44;
-    int local_48;
-    int local_64;
-    int local_68;
-    int local_84;
-    int local_88;
-    int local_A4;
-    int local_A8;
-    int local_AC;
-    int local_B0;
-    int local_B4;
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
+    u32 local_24;
+    u32 local_28;
+    u32 local_44;
+    u32 local_48;
+    u32 local_64;
+    u32 local_68;
+    u32 local_84;
+    u32 local_88;
+    u32 local_A4;
+    u32 local_A8;
+    u32 local_AC;
+    u32 ret, v1, a3, a1, a2, s1, s7, s2, s5, s6, s0, s3, s4, t9, t0, t1, t2, t5, t4, t8, t3, t6, t7;
+    u32 local_B0;
+    u32 local_B4;
+    u32 ret, v1, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
     a1 = 0;
     s7 = a0;
     a2 = 0x18;
@@ -5264,69 +4906,69 @@ int GPU_Configure()
     s1 = 0x700010F0;
     __fp = 0x20000000;
     s4 = s1 + 0x21b0;
-    ret = Libc_Memset(a0, a1, a2, a3);
+    ret = Libc_Memset(a0, a1, a2);
     a0 = __sp;
-    *(u32*)*(__sp + 4) = s2;
-    *(u32*)*(__sp + 8) = 0;
-    ret = UI_Kern_CreateSema(a0, a1, a2, a3);
+    *(u32*)(__sp + 4) = s2;
+    *(u32*)(__sp + 8) = 0;
+    ret = UI_Kern_CreateSema();
     s0 = __sp + 0x20;
-    *(u32*)*(s1 + 0x2b1c) = ret;
+    *(u32*)(s1 + 0x2b1c) = ret;
     a1 = 0;
     a2 = 0x18;
     a0 = s0;
-    ret = Libc_Memset(a0, a1, a2, a3);
+    ret = Libc_Memset(a0, a1, a2);
     a0 = s0;
     local_24 = s2;
     local_28 = 0;
-    ret = UI_Kern_CreateSema(a0, a1, a2, a3);
+    ret = UI_Kern_CreateSema();
     s0 = __sp + 0x40;
-    *(u32*)*(s1 + 0x2b14) = ret;
+    *(u32*)(s1 + 0x2b14) = ret;
     a1 = 0;
     a2 = 0x18;
     a0 = s0;
-    ret = Libc_Memset(a0, a1, a2, a3);
+    ret = Libc_Memset(a0, a1, a2);
     a0 = s0;
     local_44 = s2;
     local_48 = 0;
-    ret = UI_Kern_CreateSema(a0, a1, a2, a3);
+    ret = UI_Kern_CreateSema();
     s0 = __sp + 0x60;
-    *(u32*)*(s1 + 0x2b18) = ret;
+    *(u32*)(s1 + 0x2b18) = ret;
     a1 = 0;
     a2 = 0x18;
     a0 = s0;
-    ret = Libc_Memset(a0, a1, a2, a3);
+    ret = Libc_Memset(a0, a1, a2);
     a0 = s0;
     local_64 = s2;
     local_68 = 0;
-    ret = UI_Kern_CreateSema(a0, a1, a2, a3);
+    ret = UI_Kern_CreateSema();
     s0 = __sp + 0x80;
-    *(u32*)*(s1 + 0x2b24) = ret;
+    *(u32*)(s1 + 0x2b24) = ret;
     a2 = 0x18;
     a1 = 0;
     a0 = s0;
-    ret = Libc_Memset(a0, a1, a2, a3);
+    ret = Libc_Memset(a0, a1, a2);
     a0 = s0;
     local_84 = s2;
     local_88 = 0;
-    ret = UI_Kern_CreateSema(a0, a1, a2, a3);
-    *(u32*)*(s1 + 0x2b20) = ret;
+    ret = UI_Kern_CreateSema();
+    *(u32*)(s1 + 0x2b20) = ret;
     a1 = 0x00100000;
     a0 = 0x80;
-    ret = EEKernel_SyscallWrapper(a0, a1, a2, a3);
+    ret = EEKernel_SyscallWrapper(a0, a1);
     a0 = 0;
     s0 = ret;
-    ret = UI_Kern_GsPutIMR(a0, a1, a2, a3);
+    ret = UI_Kern_GsPutIMR();
     s0 = s0 | __fp;
     a1 = 0x00100000;
-    *(u32*)*(s1 + 0x2294) = s0;
+    *(u32*)(s1 + 0x2294) = s0;
     a0 = 0x80;
-    ret = EEKernel_SyscallWrapper(a0, a1, a2, a3);
+    ret = EEKernel_SyscallWrapper(a0, a1);
     a0 = 0;
     s0 = ret;
-    ret = UI_Kern_GsPutIMR(a0, a1, a2, a3);
+    ret = UI_Kern_GsPutIMR();
     s0 = s0 | __fp;
-    *(u32*)*(s1 + 0x2298) = s0;
-    ret = HDD_SampleTexture(a0, a1, a2, a3);
+    *(u32*)(s1 + 0x2298) = s0;
+    ret = HDD_SampleTexture();
     t0 = 0x10;
     t1 = 0xf0;
     a3 = 0x10003000;
@@ -5334,92 +4976,89 @@ int GPU_Configure()
     ret = 2;
     a1 = 0x200;
     a2 = 0xa00;
-    *(u32*)*(s1 + 0x21b8) = t0;
-    *(u32*)*(s1 + 0x21c0) = t1;
+    *(u32*)(s1 + 0x21b8) = t0;
+    *(u32*)(s1 + 0x21c0) = t1;
     a0 = s4;
-    *(u32*)*(s1 + 0x21d8) = t0;
-    *(u32*)*(s1 + 0x21d0) = t1;
-    *(u32*)*(s1 + 0x21cc) = v1;
-    *(u32*)*(s1 + 0x21dc) = ret;
-    *(u32*)*(s1 + 0x21b4) = a1;
-    *(u32*)*(s1 + 0x21bc) = a2;
-    *(u32*)*(s1 + 0x2210) = s7;
-    *(u32*)*(s1 + 0x21d4) = 0;
-    *(u32*)*(s1 + 0x21c4) = 0;
-    *(u32*)*(s1 + 0x21c8) = 0;
-    *(u32*)*(s1 + 0x21b0) = 0;
-    *(u32*)*(s1 + 0x2214) = 0;
-    *(u32*)*(s1 + 0x2218) = s2;
+    *(u32*)(s1 + 0x21d8) = t0;
+    *(u32*)(s1 + 0x21d0) = t1;
+    *(u32*)(s1 + 0x21cc) = v1;
+    *(u32*)(s1 + 0x21dc) = ret;
+    *(u32*)(s1 + 0x21b4) = a1;
+    *(u32*)(s1 + 0x21bc) = a2;
+    *(u32*)(s1 + 0x2210) = s7;
+    *(u32*)(s1 + 0x21d4) = 0;
+    *(u32*)(s1 + 0x21c4) = 0;
+    *(u32*)(s1 + 0x21c8) = 0;
+    *(u32*)(s1 + 0x21b0) = 0;
+    *(u32*)(s1 + 0x2214) = 0;
+    *(u32*)(s1 + 0x2218) = s2;
     *(u32*)(a3) = s2;
-    ret = GPU_FlushGSRegs(a0, a1, a2, a3);
+    ret = GPU_FlushGSRegs(a0);
     a0 = s4;
-    ret = GPU_RenderPrimitive(a0, a1, a2, a3);
-    *(u32*)*(s1 + 0x2b10) = s3;
+    ret = GPU_RenderPrimitive(a0);
+    *(u32*)(s1 + 0x2b10) = s3;
     a2 = 0;
-    a1 = 0x0021CD68;
+    a1 = (u32)GPU_SetTextureWrap;
     a0 = 2;
-    ret = UI_Kern_RemoveIntcHandler(a0, a1, a2, a3);
+    ret = UI_Kern_RemoveIntcHandler();
     a0 = 2;
-    *(u32*)*(s1 + 0x2b30) = ret;
-    ret = UI_DisableDmacSync(a0, a1, a2, a3);
+    *(u32*)(s1 + 0x2b30) = ret;
+    ret = UI_DisableDmacSync(a0);
     a2 = 0;
-    a1 = 0x0021CDD0;
+    a1 = (u32)GPU_SetDither;
     a0 = 3;
-    ret = UI_Kern_RemoveIntcHandler(a0, a1, a2, a3);
+    ret = UI_Kern_RemoveIntcHandler();
     a0 = 3;
-    *(u32*)*(s1 + 0x2b34) = ret;
-    ret = UI_DisableDmacSync(a0, a1, a2, a3);
+    *(u32*)(s1 + 0x2b34) = ret;
+    ret = UI_DisableDmacSync(a0);
     a2 = 0;
-    a1 = 0x0021BE78;
+    a1 = (u32)GPU_StartGIFTransfer;
     a0 = 1;
-    ret = UI_Kern_DisableIntc(a0, a1, a2, a3);
+    ret = UI_Kern_DisableIntc();
     a0 = 1;
-    *(u32*)*(s1 + 0x2b2c) = ret;
-    ret = UI_ReleaseAlarmSync(a0, a1, a2, a3);
+    *(u32*)(s1 + 0x2b2c) = ret;
+    ret = UI_ReleaseAlarmSync(a0);
     a2 = 0;
-    a1 = 0x0021CD08;
+    a1 = (u32)GPU_SetAlphaFlags;
     a0 = 0;
-    ret = UI_Kern_RemoveIntcHandler(a0, a1, a2, a3);
+    ret = UI_Kern_RemoveIntcHandler();
     a0 = 0;
-    *(u32*)*(s1 + 0x2b28) = ret;
-    ret = UI_DisableDmacSync(a0, a1, a2, a3);
+    *(u32*)(s1 + 0x2b28) = ret;
+    ret = UI_DisableDmacSync(a0);
     v1 = 0x12001000;
     a0 = 2;
     a1 = -0x201;
     ret = 0x12001010;
-    *(u64*)*(v1 + 0) = a0;
-    *(u64*)*(ret + 0) = a1;
-    ret = GPU_SetBlendMode(a0, a1, a2, a3);
-    *(u32*)*(s1 + 0x22b4) = 0;
-    *(u32*)*(s1 + 0x2264) = 0;
+    *(u64*)(v1 + 0) = a0;
+    *(u64*)(ret + 0) = a1;
+    ret = GPU_SetBlendMode();
+    *(u32*)(s1 + 0x22b4) = 0;
+    *(u32*)(s1 + 0x2264) = 0;
     ret = 0x00FFFFFF;
-    *(u32*)*(s1 + 0x22b8) = 0;
-    *(u32*)*(s1 + 0x2288) = 0;
-    *(u32*)*(s1 + 0x22bc) = s3;
-    *(u32*)*(s1 + 0x2270) = ret;
-    ret = HDD_InitColorLUT(a0, a1, a2, a3);
-    *(u32*)*(s1 + 0x2658) = s3;
-    *(u32*)*(s1 + 0x2654) = s3;
-    *(u32*)*(s1 + 0x2680) = 0;
-    *(u32*)*(s1 + 0x268c) = 0;
-    *(u32*)*(s1 + 0x2698) = 0;
-    ret = HDD_GetConstantValue(a0, a1, a2, a3);
+    *(u32*)(s1 + 0x22b8) = 0;
+    *(u32*)(s1 + 0x2288) = 0;
+    *(u32*)(s1 + 0x22bc) = s3;
+    *(u32*)(s1 + 0x2270) = ret;
+    ret = HDD_InitColorLUT();
+    *(u32*)(s1 + 0x2658) = s3;
+    *(u32*)(s1 + 0x2654) = s3;
+    *(u32*)(s1 + 0x2680) = 0;
+    *(u32*)(s1 + 0x268c) = 0;
+    *(u32*)(s1 + 0x2698) = 0;
+    ret = HDD_GetConstantValue();
     a0 = 0x80;
     a1 = ret;
-    ret = EEKernel_SyscallWrapper(a0, a1, a2, a3);
+    ret = EEKernel_SyscallWrapper(a0, a1);
     a0 = 0;
     s0 = ret;
-    ret = UI_Kern_GsPutIMR(a0, a1, a2, a3);
+    ret = UI_Kern_GsPutIMR();
     s0 = s0 | __fp;
-    *(u32*)*(s1 + 0x2660) = s0;
-    ret = HDD_InitializeMemoryBuffer(a0, a1, a2, a3);
+    *(u32*)(s1 + 0x2660) = s0;
+    ret = HDD_InitializeMemoryBuffer();
     t0 = s1;
-    ret = (unsigned)t0 >> 2;
-    __asm("negu v0, v0");
+    ret = -ret;
     v1 = 0x002489C0;
     a3 = ret & 3;
-    ret = 0x80;
-    ret = (u64)ret << 32;
     ret = ret | 0x68;
     t1 = s1 + 0x221c;
     a1 = 0x80;
@@ -5432,15 +5071,15 @@ int GPU_Configure()
     a2 = (u64)a2 << 32;
     a2 = a2 | 0x68;
     a3 = a3 + -1;
-    *(u64*)*(s1 + 9008) = a1;
-    *(u64*)*(s1 + 8992) = a0;
+    *(u64*)(s1 + 9008) = a1;
+    *(u64*)(s1 + 8992) = a0;
     t3 = v1 + 0x10;
-    *(u64*)*(s1 + 9000) = ret;
-    *(u64*)*(s1 + 9016) = a2;
-    *(u32*)*(t1 + 4) = s1;
+    *(u64*)(s1 + 9000) = ret;
+    *(u64*)(s1 + 9016) = a2;
+    *(u32*)(t1 + 4) = s1;
     *(u32*)(t1) = s1;
-    *(u32*)*(t1 + 8) = 0;
-    t2 = *(u32*)*(v1 + 0xc);
+    *(u32*)(t1 + 8) = 0;
+    t2 = *(u32*)(v1 + 0xc);  /* GTE data: vz1 */
     a1 = *(u16*)(v1);
     if (a3 != s3) {
         ret = -1;
@@ -5450,14 +5089,12 @@ int GPU_Configure()
             t0 = t0 + 4;
         } while (a3 != ret);
     }
-    a0 = *(u32*)*(t1 + 8);
+    a0 = *(u32*)(t1 + 8);
     ret = t0 - a0;
     if (a0 != 0) {
         v1 = *(u32*)(a0);
-        ret = (signed)ret >> 4;
         ret = ret + -1;
-        v1 = v1 + ret;
-        *(u32*)(a0) = v1;
+        *(u32*)(a0) = v1 + ret;
     }
     ret = t0 + 0x10;
     s1 = 0x70000000;
@@ -5469,15 +5106,15 @@ int GPU_Configure()
     *(u32*)(t0) = a0;
     ret = (unsigned)a2 >> 2;
     v1 = t3 & v1;
-    __asm("negu v0, v0");
+    ret = -ret;
     a1 = -1;
     a0 = ret & 3;
     ret = 0x11000000;
     a0 = a0 + -1;
-    *(u32*)*(t0 + 4) = v1;
-    *(u32*)*(t0 + 8) = ret;
-    *(u32*)*(t0 + 0xc) = t2;
-    *(u32*)*(t1 + 8) = 0;
+    *(u32*)(t0 + 4) = v1;
+    *(u32*)(t0 + 8) = ret;
+    *(u32*)(t0 + 0xc) = t2;
+    *(u32*)(t1 + 8) = 0;
     if (a0 != a1) {
         ret = -1;
         do {
@@ -5486,17 +5123,15 @@ int GPU_Configure()
             a2 = a2 + 4;
         } while (a0 != ret);
     }
-    a0 = *(u32*)*(a3 + 8);
+    a0 = *(u32*)(a3 + 8);
     ret = a2 - a0;
     if (a0 != 0) {
         v1 = *(u32*)(a0);
-        ret = (signed)ret >> 4;
         ret = ret + -1;
-        v1 = v1 + ret;
-        *(u32*)(a0) = v1;
+        *(u32*)(a0) = v1 + ret;
     }
     ret = a2 + 8;
-    *(u32*)*(a3 + 0xc) = 0;
+    *(u32*)(a3 + 0xc) = 0;
     *(u32*)(a3) = ret;
     ret = 0x10000000;
     t9 = s1 + 0x330c;
@@ -5504,16 +5139,15 @@ int GPU_Configure()
     __fp = *(u32*)(t9);
     *(u32*)(a2) = ret;
     v1 = __fp & v1;
-    *(u32*)*(a3 + 8) = a2;
+    *(u32*)(a3 + 8) = a2;
     a1 = v1 + 0xc;
     v1 = v1 + 0x1c;
-    a0 = ((unsigned)a1 < (unsigned)__fp) ? 1 : 0;
-    __asm("movn a1, v1, a0");
-    *(u32*)*(a2 + 4) = 0;
+    if ((signed)a1 < (signed)__fp) a1 = v1;
+    *(u32*)(a2 + 4) = 0;
     if ((unsigned)__fp < (unsigned)a1) {
         do {
             v1 = __fp + 4;
-            *(u32*)(fp) = 0;
+            *(u32*)(__fp) = 0;
             ret = ((unsigned)v1 < (unsigned)a1) ? 1 : 0;
             *(u32*)(t9) = v1;
             __fp = v1;
@@ -5522,7 +5156,6 @@ int GPU_Configure()
     ret = __fp + 4;
     s1 = 0x7000330C;
     *(u32*)(t9) = ret;
-    v1 = (u64)v1 << 32;
     v1 = v1 | 0x8000;
     a0 = 0xe;
     a1 = 1;
@@ -5534,32 +5167,32 @@ int GPU_Configure()
     t1 = t1 | 0x7362;
     t1 = t1 << 16;
     t1 = t1 | 0x415;
-    *(u64*)*(ret + 0) = v1;
+    *(u64*)(ret + 0) = v1;
     v1 = 0x50000000;
-    *(u32*)*(s1 + 0x14) = ret;
+    *(u32*)(s1 + 0x14) = ret;
     ret = ret + 8;
-    *(u64*)*(ret + 0) = a0;
+    *(u64*)(ret + 0) = a0;
     ret = ret + 8;
     a0 = 0x46;
     t2 = 0x45;
-    *(u64*)*(ret + 8) = a0;
-    a0 = 0 | 0x8000;
+    *(u64*)(ret + 8) = a0;
+    a0 = 0x8000;
     a0 = a0 << 17;
-    *(u64*)*(ret + 144) = a0;
+    *(u64*)(ret + 144) = a0;
     a0 = 0x44;
-    *(u64*)*(ret + 192) = a0;
+    *(u64*)(ret + 192) = a0;
     t3 = 0x80;
     t3 = (u64)t3 << 32;
     t3 = t3 | 0x807f;
-    *(u64*)*(ret + 72) = a0;
-    a0 = 0 | 0x8000;
+    *(u64*)(ret + 72) = a0;
+    a0 = 0x8000;
     a0 = a0 << 17;
     t4 = 0x3b;
     t5 = 0x02100000;
     t6 = 0x4c;
     t7 = 0x4e;
     t8 = 0x42;
-    *(u64*)*(ret + 128) = a0;
+    *(u64*)(ret + 128) = a0;
     a2 = 0x22;
     s0 = 0x4f;
     s2 = 0x4000;
@@ -5571,124 +5204,119 @@ int GPU_Configure()
     a0 = a0 << 16;
     a0 = a0 | 0x3ff;
     a0 = a0 << 16;
-    *(u32*)*(t9 + 0xc) = __fp;
+    *(u32*)(t9 + 0xc) = __fp;
     s7 = 0x40;
-    *(u64*)*(ret + 40) = a3;
+    *(u64*)(ret + 40) = a3;
     s6 = 0x48;
-    *(u64*)*(ret + 56) = t0;
+    *(u64*)(ret + 56) = t0;
     s5 = 6;
-    *(u64*)*(ret + 64) = t1;
-    *(u64*)*(ret + 88) = t2;
-    *(u64*)*(ret + 96) = t3;
-    *(u64*)*(ret + 104) = t4;
-    *(u64*)*(ret + 112) = t5;
-    *(u64*)*(ret + 120) = t6;
-    *(u64*)*(ret + 136) = t7;
-    *(u64*)*(ret + 200) = t8;
-    *(u64*)*(ret + 24) = a2;
-    *(u64*)*(ret + 152) = s0;
-    *(u64*)*(ret + 160) = s2;
-    *(u64*)*(ret + 168) = s3;
-    *(u64*)*(ret + 184) = s4;
-    *(u64*)*(ret + 0) = a1;
-    *(u64*)*(ret + 32) = a1;
-    *(u64*)*(ret + 48) = a1;
-    *(u64*)*(ret + 16) = 0;
-    *(u64*)*(ret + 80) = 0;
-    *(u64*)*(ret + 176) = 0;
-    *(u32*)(fp) = v1;
+    *(u64*)(ret + 64) = t1;
+    *(u64*)(ret + 88) = t2;
+    *(u64*)(ret + 96) = t3;
+    *(u64*)(ret + 104) = t4;
+    *(u64*)(ret + 112) = t5;
+    *(u64*)(ret + 120) = t6;
+    *(u64*)(ret + 136) = t7;
+    *(u64*)(ret + 200) = t8;
+    *(u64*)(ret + 24) = a2;
+    *(u64*)(ret + 152) = s0;
+    *(u64*)(ret + 160) = s2;
+    *(u64*)(ret + 168) = s3;
+    *(u64*)(ret + 184) = s4;
+    *(u64*)(ret + 0) = a1;
+    *(u64*)(ret + 32) = a1;
+    *(u64*)(ret + 48) = a1;
+    *(u64*)(ret + 16) = 0;
+    *(u64*)(ret + 80) = 0;
+    *(u64*)(ret + 176) = 0;
+    *(u32*)(__fp) = v1;
     v1 = ret + 0x140;
-    *(u64*)*(ret + 208) = a0;
+    *(u64*)(ret + 208) = a0;
     a0 = 0x47;
-    *(u64*)*(ret + 232) = a0;
+    *(u64*)(ret + 232) = a0;
     a0 = 3 << 16;
-    *(u64*)*(ret + 240) = a0;
+    *(u64*)(ret + 240) = a0;
     a0 = 0x40004000;
-    *(u64*)*(ret + 288) = a0;
+    *(u64*)(ret + 288) = a0;
     a0 = 0x60008000;
-    *(u64*)*(ret + 304) = a0;
+    *(u64*)(ret + 304) = a0;
     a0 = 5;
-    *(u64*)*(ret + 312) = a0;
+    *(u64*)(ret + 312) = a0;
     a0 = 3 << 16;
-    *(u64*)*(ret + 224) = a0;
+    *(u64*)(ret + 224) = a0;
     a0 = 5;
     *(u32*)(s1) = v1;
-    *(u64*)*(ret + 216) = s7;
-    *(u64*)*(ret + 248) = s6;
-    *(u64*)*(ret + 256) = s5;
-    *(u64*)*(ret + 280) = a1;
-    *(u64*)*(ret + 296) = a0;
-    *(u64*)*(ret + 264) = 0;
-    *(u64*)*(ret + 272) = 0;
-    ret = GPU_BuildGIFTag(a0, a1, a2, a3);
-    ret = GPU_SetupRegisters(a0, a1, a2, a3);
+    *(u64*)(ret + 216) = s7;
+    *(u64*)(ret + 248) = s6;
+    *(u64*)(ret + 256) = s5;
+    *(u64*)(ret + 280) = a1;
+    *(u64*)(ret + 296) = a0;
+    *(u64*)(ret + 264) = 0;
+    *(u64*)(ret + 272) = 0;
+    ret = GPU_BuildGIFTag();
+    ret = GPU_SetupRegisters();
     s0 = __sp + 0xa0;
     a1 = 0;
     a0 = s0;
     a2 = 0x30;
-    ret = Libc_Memset(a0, a1, a2, a3);
+    ret = Libc_Memset(a0, a1, a2);
     ret = 0x00852980;
-    v1 = 0x0021C6A0;
+    v1 = (u32)GPU_DrawTexturedPoly;
     a2 = 0x1c;
     local_A8 = ret;
     a1 = 0x0050A670;
     a0 = s0;
-    ret = 0 | 0x8000;
+    ret = 0x8000;
     local_B0 = a1;
     local_A4 = v1;
     local_AC = ret;
     local_B4 = a2;
-    ret = UI_Kern_CreateThread(a0, a1, a2, a3);
-    *(u32*)*(s1 + 0x8f4) = ret;
+    ret = UI_Kern_CreateThread();
+    *(u32*)(s1 + 0x8f4) = ret;
     a0 = ret;
     a1 = 0;
-    ret = UI_Kern_StartThread(a0, a1, a2, a3);
-    return ret;
+    return UI_Kern_StartThread();
 }
 
 /* Function at 0x0021B680 - 0x0021B930 */
-int GPU_BuildGIFTag()
+u32 GPU_BuildGIFTag(void)
 {
     /* Stack frame: 32 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, t0, t1, t2;
+    u32 ret, v1, a0, a1, a2, a3, s0, s1, t0, t1, t2;
     a1 = 2;
     s1 = 0x70000000;
     t2 = s1 + 0x330c;
-    t0 = *(u32*)*(t2 + 0x14);
+    t0 = *(u32*)(t2 + 0x14);  /* GTE data: vz2 */
     t1 = *(u32*)(t2);
-    a3 = *(u64*)*(t0 + 0);
-    ret = t1 - t0;
+    a3 = *(u64*)(t0 + 0);
     ret = (signed)ret >> 3;
     v1 = (u64)a3 >> 58;
     a2 = ret + -2;
     v1 = v1 & 3;
     a0 = (unsigned)a2 >> 1;
     ret = v1 ^ 1;
-    __asm("movn a2, a0, v0");
+    if (ret != 0) a2 = a0;
     if (v1 == a1) goto loc_21B6F4;
     ret = (u64)a3 >> 60;
     a0 = 0x10;
-    __asm("movz v0, a0, v0");
+    if (ret == 0) ret = a0;
     v1 = a2 + ret;
     BREAK(); /* breakpoint */
-    if (likely(ret == 0)) goto loc_21B6E4;
+    if (ret == 0) goto loc_21B6E4;
 loc_21B6E4:
-    v1 = v1 + -1;
-    __asm("divu zero, v1, v0");
-    v1 = LO;
-    a2 = v1;
+    a2 = (unsigned)v1 / (unsigned)ret;
 loc_21B6F4:
     a1 = t1;
     ret = (u64)a2 << 32;
     v1 = (unsigned)a1 >> 2;
     ret = (u64)ret >> 32;
-    __asm("negu v1, v1");
+    v1 = -v1;
     ret = a3 + ret;
     v1 = v1 & 3;
     a0 = -1;
     v1 = v1 + -1;
-    *(u64*)*(t0 + 0) = ret;
-    *(u32*)*(t2 + 0x14) = 0;
+    *(u64*)(t0 + 0) = ret;
+    *(u32*)(t2 + 0x14) = 0;
     if (v1 != a0) {
         ret = -1;
         do {
@@ -5700,21 +5328,20 @@ loc_21B6F4:
     *(u32*)(t2) = a1;
     t0 = s1 + 0x330c;
     a2 = -1;
-    a1 = *(u32*)*(t0 + 0xc);
+    a1 = *(u32*)(t0 + 0xc);  /* GTE data: vz1 */
     ret = *(u32*)(t0);
     a0 = *(u32*)(a1);
     a3 = ret;
-    ret = ret - a1;
     ret = ret + -4;
     v1 = (unsigned)a3 >> 2;
     ret = (signed)ret >> 2;
-    __asm("negu v1, v1");
+    v1 = -v1;
     ret = (unsigned)ret >> 2;
     v1 = v1 & 3;
     a0 = a0 + ret;
     v1 = v1 + -1;
     *(u32*)(a1) = a0;
-    *(u32*)*(t0 + 0xc) = 0;
+    *(u32*)(t0 + 0xc) = 0;
     if (v1 != a2) {
         ret = -1;
         do {
@@ -5723,36 +5350,31 @@ loc_21B6F4:
             a3 = a3 + 4;
         } while (v1 != ret);
     }
-    a0 = *(u32*)*(t0 + 8);
+    a0 = *(u32*)(t0 + 8);
     ret = a3 - a0;
     if (a0 != 0) {
         v1 = *(u32*)(a0);
-        ret = (signed)ret >> 4;
         ret = ret + -1;
-        v1 = v1 + ret;
-        *(u32*)(a0) = v1;
+        *(u32*)(a0) = v1 + ret;
     }
     *(u32*)(t0) = a3;
     s0 = s1 + 0x330c;
-    ret = *(u32*)*(s0 + 4);
+    ret = *(u32*)(s0 + 4);
     a1 = *(u32*)(s0);
-    *(u32*)*(t0 + 8) = 0;
+    *(u32*)(t0 + 8) = 0;
     a0 = ret;
     a1 = a1 - ret;
     a1 = (unsigned)a1 >> 4;
-    ret = GPU_BuildVertexData(a0, a1, a2, a3);
+    ret = GPU_BuildVertexData(a0, a1);
     v1 = s0 + -0x221c;
-    ret = *(u32*)*(v1 + 0x2220);
+    ret = *(u32*)(v1 + 0x2220);
     a0 = s0 + -0x121c;
     a1 = -1;
-    *(u32*)*(s0 + 8) = 0;
+    *(u32*)(s0 + 8) = 0;
     ret = ret ^ v1;
-    __asm("movz v1, a0, v0");
+    if (ret == 0) v1 = a0;
     a2 = v1;
-    *(u32*)*(s0 + 4) = v1;
-    ret = (unsigned)a2 >> 2;
-    __asm("negu v0, v0");
-    ret = ret & 3;
+    *(u32*)(s0 + 4) = v1;
     ret = ret + -1;
     *(u32*)(s0) = v1;
     if (ret != a1) {
@@ -5763,17 +5385,15 @@ loc_21B6F4:
             a2 = a2 + 4;
         } while (ret != v1);
     }
-    a0 = *(u32*)*(s0 + 8);
+    a0 = *(u32*)(s0 + 8);
     ret = a2 - a0;
     if (a0 != 0) {
         v1 = *(u32*)(a0);
-        ret = (signed)ret >> 4;
         ret = ret + -1;
-        v1 = v1 + ret;
-        *(u32*)(a0) = v1;
+        *(u32*)(a0) = v1 + ret;
     }
     ret = a2 + 8;
-    *(u32*)*(s0 + 0xc) = 0;
+    *(u32*)(s0 + 0xc) = 0;
     *(u32*)(s0) = ret;
     ret = 0x10000000;
     t0 = s1 + 0x330c;
@@ -5781,12 +5401,11 @@ loc_21B6F4:
     a3 = *(u32*)(t0);
     *(u32*)(a2) = ret;
     v1 = a3 & v1;
-    *(u32*)*(s0 + 8) = a2;
+    *(u32*)(s0 + 8) = a2;
     a1 = v1 + 0xc;
     v1 = v1 + 0x1c;
-    a0 = ((unsigned)a1 < (unsigned)a3) ? 1 : 0;
-    __asm("movn a1, v1, a0");
-    *(u32*)*(a2 + 4) = 0;
+    if ((signed)a1 < (signed)a3) a1 = v1;
+    *(u32*)(a2 + 4) = 0;
     if ((unsigned)a3 < (unsigned)a1) {
         do {
             v1 = a3 + 4;
@@ -5804,60 +5423,56 @@ loc_21B6F4:
     a2 = 0xe;
     ret = *(u32*)(a0);
     v1 = 0x50000000;
-    *(u64*)*(ret + 0) = a1;
-    *(u32*)*(a0 + 0x14) = ret;
+    *(u64*)(ret + 0) = a1;
+    *(u32*)(a0 + 0x14) = ret;
     ret = ret + 8;
-    *(u64*)*(ret + 0) = a2;
+    *(u64*)(ret + 0) = a2;
     ret = ret + 8;
     *(u32*)(a0) = ret;
     *(u32*)(a3) = v1;
-    *(u32*)*(t0 + 0xc) = a3;
+    *(u32*)(t0 + 0xc) = a3;
     return ret;
 }
 
 /* Function at 0x0021B930 - 0x0021BB70 */
-int GPU_BuildGIFChain()
+u32 GPU_BuildGIFChain(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, t0, t1, t2, t3;
+    u32 ret, v1, a0, a1, a2, a3, t0, t1, t2, t3;
     t3 = 0x70000000;
     t2 = t3 + 0x330c;
     a1 = 2;
-    t0 = *(u32*)*(t2 + 0x14);
+    t0 = *(u32*)(t2 + 0x14);  /* GTE data: vz2 */
     t1 = *(u32*)(t2);
-    a3 = *(u64*)*(t0 + 0);
-    ret = t1 - t0;
+    a3 = *(u64*)(t0 + 0);
     ret = (signed)ret >> 3;
     v1 = (u64)a3 >> 58;
     a2 = ret + -2;
     v1 = v1 & 3;
     a0 = (unsigned)a2 >> 1;
     ret = v1 ^ 1;
-    __asm("movn a2, a0, v0");
+    if (ret != 0) a2 = a0;
     if (v1 == a1) goto loc_21B99C;
     ret = (u64)a3 >> 60;
     a0 = 0x10;
-    __asm("movz v0, a0, v0");
+    if (ret == 0) ret = a0;
     v1 = a2 + ret;
     BREAK(); /* breakpoint */
-    if (likely(ret == 0)) goto loc_21B98C;
+    if (ret == 0) goto loc_21B98C;
 loc_21B98C:
-    v1 = v1 + -1;
-    __asm("divu zero, v1, v0");
-    v1 = LO;
-    a2 = v1;
+    a2 = (unsigned)v1 / (unsigned)ret;
 loc_21B99C:
     a1 = t1;
     ret = (u64)a2 << 32;
     v1 = (unsigned)a1 >> 2;
     ret = (u64)ret >> 32;
-    __asm("negu v1, v1");
+    v1 = -v1;
     ret = a3 + ret;
     v1 = v1 & 3;
     a0 = -1;
     v1 = v1 + -1;
-    *(u64*)*(t0 + 0) = ret;
-    *(u32*)*(t2 + 0x14) = 0;
+    *(u64*)(t0 + 0) = ret;
+    *(u32*)(t2 + 0x14) = 0;
     if (v1 != a0) {
         ret = -1;
         do {
@@ -5869,21 +5484,20 @@ loc_21B99C:
     *(u32*)(t2) = a1;
     t1 = t3 + 0x330c;
     a2 = -1;
-    a1 = *(u32*)*(t1 + 0xc);
+    a1 = *(u32*)(t1 + 0xc);  /* GTE data: vz1 */
     ret = *(u32*)(t1);
     a0 = *(u32*)(a1);
     t0 = ret;
-    ret = ret - a1;
     ret = ret + -4;
     v1 = (unsigned)t0 >> 2;
     ret = (signed)ret >> 2;
-    __asm("negu v1, v1");
+    v1 = -v1;
     ret = (unsigned)ret >> 2;
     v1 = v1 & 3;
     a0 = a0 + ret;
     v1 = v1 + -1;
     *(u32*)(a1) = a0;
-    *(u32*)*(t1 + 0xc) = 0;
+    *(u32*)(t1 + 0xc) = 0;
     if (v1 != a2) {
         ret = -1;
         do {
@@ -5892,17 +5506,15 @@ loc_21B99C:
             t0 = t0 + 4;
         } while (v1 != ret);
     }
-    a0 = *(u32*)*(t1 + 8);
+    a0 = *(u32*)(t1 + 8);
     ret = t0 - a0;
     if (a0 != 0) {
         v1 = *(u32*)(a0);
-        ret = (signed)ret >> 4;
         ret = ret + -1;
-        v1 = v1 + ret;
-        *(u32*)(a0) = v1;
+        *(u32*)(a0) = v1 + ret;
     }
     ret = t0 + 8;
-    *(u32*)*(t1 + 0xc) = 0;
+    *(u32*)(t1 + 0xc) = 0;
     *(u32*)(t1) = ret;
     ret = 0x70000000;
     t2 = t3 + 0x330c;
@@ -5910,12 +5522,11 @@ loc_21B99C:
     a3 = *(u32*)(t2);
     *(u32*)(t0) = ret;
     v1 = a3 & v1;
-    *(u32*)*(t1 + 8) = t0;
+    *(u32*)(t1 + 8) = t0;
     a1 = v1 + 0xc;
     v1 = v1 + 0x1c;
-    a0 = ((unsigned)a1 < (unsigned)a3) ? 1 : 0;
-    __asm("movn a1, v1, a0");
-    *(u32*)*(t0 + 4) = 0;
+    if ((signed)a1 < (signed)a3) a1 = v1;
+    *(u32*)(t0 + 4) = 0;
     if ((unsigned)a3 < (unsigned)a1) {
         do {
             v1 = a3 + 4;
@@ -5934,32 +5545,29 @@ loc_21B99C:
     a0 = 0x50000000;
     ret = *(u32*)(v1);
     *(u32*)(a3) = a0;
-    *(u64*)*(ret + 0) = a1;
-    *(u32*)*(v1 + 0x14) = ret;
+    *(u64*)(ret + 0) = a1;
+    *(u32*)(v1 + 0x14) = ret;
     ret = ret + 8;
-    *(u64*)*(ret + 0) = a2;
+    *(u64*)(ret + 0) = a2;
     ret = ret + 8;
     *(u32*)(v1) = ret;
-    *(u32*)*(t2 + 0xc) = a3;
-    ret = GPU_BuildGIFTag(a0, a1, a2, a3);
+    *(u32*)(t2 + 0xc) = a3;
+    ret = GPU_BuildGIFTag();
     v1 = 0x10009000;
     do {
-        ret = *(u32*)(v1);
         ret = ret & 0x100;
     } while (0x10000000 != 0);
     a0 = -0xd;
     ret = 0x1000E000;
-    v1 = *(u32*)(v0);
-    v1 = v1 & a0;
-    *(u32*)(v0) = v1;
+    *(u32*)(ret) = v1 & a0;
     return ret;
 }
 
 /* Function at 0x0021BB70 - 0x0021BE78 */
-int GPU_SetupTexture()
+u32 GPU_SetupTexture(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 96 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3, t4, t5, t6;
+    u32 ret, v1, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3, t4, t5, t6;
     s1 = 0x70000000;
     s2 = a1;
     s3 = a0;
@@ -5972,26 +5580,26 @@ int GPU_SetupTexture()
     a2 = __sp + 0x60;
     a0 = s4;
     a1 = __sp;
-    s0 = *(u32*)*(s1 + 0x2440);
-    *(u32*)(sp) = t3;
+    s0 = *(u32*)(s1 + 0x2440);
+    *(u32*)(__sp) = t3;
     ret = s0 + 1;
     s0 = s0 << 3;
     ret = ret & 0x3f;
     s0 = s0 + 0x2440;
-    *(u32*)*(s1 + 0x2440) = ret;
-    ret = GPU_CommandDispatch(a0, a1, a2, a3);
+    *(u32*)(s1 + 0x2440) = ret;
+    GPU_CommandDispatch(a0, a1, a2);
     a3 = *(u32*)(s3);
     a1 = s1 + s0;
     v1 = (unsigned)a3 >> 2;
     a0 = 0x0FFFFFFF;
-    __asm("negu v1, v1");
+    v1 = -v1;
     s2 = s2 & a0;
     a2 = v1 & 3;
     v1 = -1;
     s1 = a1;
     a2 = a2 + -1;
-    *(u32*)*(s1 + 8) = ret;
-    *(u32*)*(a1 + 0xc) = s2;
+    *(u32*)(s1 + 8) = ret;
+    *(u32*)(a1 + 0xc) = s2;
     if (a2 != v1) {
         ret = -1;
         do {
@@ -6000,28 +5608,25 @@ int GPU_SetupTexture()
             a3 = a3 + 4;
         } while (a2 != ret);
     }
-    a0 = *(u32*)*(s3 + 8);
+    a0 = *(u32*)(s3 + 8);
     ret = a3 - a0;
     if (a0 != 0) {
         v1 = *(u32*)(a0);
-        ret = (signed)ret >> 4;
         ret = ret + -1;
-        v1 = v1 + ret;
-        *(u32*)(a0) = v1;
+        *(u32*)(a0) = v1 + ret;
     }
     a2 = a3 + 8;
-    ret = -0x10;
     ret = a2 & ret;
     a0 = 0x90000000;
     a1 = ret + 0xc;
     ret = ret + 0x1c;
     v1 = ((unsigned)a1 < (unsigned)a2) ? 1 : 0;
     *(u32*)(a3) = a0;
-    __asm("movn a1, v0, v1");
-    *(u32*)*(s3 + 8) = a3;
-    *(u32*)*(a3 + 4) = 0;
+    if (v1 != 0) a1 = ret;
+    *(u32*)(s3 + 8) = a3;
+    *(u32*)(a3 + 4) = 0;
     *(u32*)(s3) = a2;
-    *(u32*)*(s3 + 0xc) = 0;
+    *(u32*)(s3 + 0xc) = 0;
     if ((unsigned)a2 < (unsigned)a1) {
         v1 = a2;
         *(u32*)(v1) = 0;
@@ -6029,7 +5634,7 @@ int GPU_SetupTexture()
             v1 = v1 + 4;
             ret = ((unsigned)v1 < (unsigned)a1) ? 1 : 0;
             *(u32*)(v1) = 0;
-        } while (likely(ret != 0));
+        } while (ret != 0);
         *(u32*)(s3) = v1;
     }
     v1 = *(u32*)(s3);
@@ -6047,43 +5652,41 @@ int GPU_SetupTexture()
     a2 = a2 | a0;
     a0 = v1 + 4;
     t0 = t0 | ret;
-    ret = (u64)ret << 32;
     ret = ret | 0x8000;
     a1 = (u64)s4 << 32;
     t6 = t5;
-    *(u64*)*(a0 + 0) = ret;
+    *(u64*)(a0 + 0) = ret;
     ret = (unsigned)t6 >> 2;
     a1 = (unsigned)a1 >> 8;
-    a3 = *(u32*)*(__sp + 96);  /* lwu */
+    a3 = *(u32*)(__sp + 96);  /* lwu */
     a2 = a2 | a1;
     a1 = 0xe;
-    __asm("negu v0, v0");
-    t1 = *(u32*)*(__sp + 0);  /* lwu */
+    ret = -ret;
+    t1 = *(u32*)(__sp + 0);  /* lwu */
     a3 = (u64)a3 << 32;
-    *(u64*)*(v1 + 36) = a2;
+    *(u64*)(v1 + 36) = a2;
     a2 = ret & 3;
-    ret = (u64)ret << 32;
     ret = ret | 0x8000;
     t1 = t1 | a3;
     a3 = 0x3f;
-    *(u64*)*(v1 + 12) = a1;
+    *(u64*)(v1 + 12) = a1;
     a1 = -1;
     t2 = 0x50;
     t3 = 0x51;
     t4 = 0x52;
     ret = ret + 6;
     a2 = a2 + -1;
-    *(u64*)*(v1 + 28) = a3;
-    *(u64*)*(v1 + 44) = t2;
-    *(u64*)*(v1 + 52) = t0;
-    *(u64*)*(v1 + 60) = t3;
-    *(u64*)*(v1 + 68) = t1;
-    *(u64*)*(v1 + 76) = t4;
-    *(u64*)*(v1 + 20) = 0;
-    *(u32*)*(s3 + 0xc) = v1;
+    *(u64*)(v1 + 28) = a3;
+    *(u64*)(v1 + 44) = t2;
+    *(u64*)(v1 + 52) = t0;
+    *(u64*)(v1 + 60) = t3;
+    *(u64*)(v1 + 68) = t1;
+    *(u64*)(v1 + 76) = t4;
+    *(u64*)(v1 + 20) = 0;
+    *(u32*)(s3 + 0xc) = v1;
     *(u32*)(s3) = t5;
-    *(u32*)*(s3 + 0x14) = 0;
-    *(u64*)*(a0 + 0) = ret;
+    *(u32*)(s3 + 0x14) = 0;
+    *(u64*)(a0 + 0) = ret;
     if (a2 != a1) {
         ret = -1;
         do {
@@ -6092,18 +5695,17 @@ int GPU_SetupTexture()
             t6 = t6 + 4;
         } while (a2 != ret);
     }
-    a0 = *(u32*)*(s3 + 0xc);
+    a0 = *(u32*)(s3 + 0xc);  /* GTE data: vz1 */
     a2 = t6;
     ret = (unsigned)a2 >> 2;
     a1 = -1;
     v1 = *(u32*)(a0);
-    __asm("negu v0, v0");
     ret = ret & 3;
     *(u32*)(s3) = t6;
     v1 = v1 + 7;
     ret = ret + -1;
     *(u32*)(a0) = v1;
-    *(u32*)*(s3 + 0xc) = 0;
+    *(u32*)(s3 + 0xc) = 0;
     if (ret != a1) {
         v1 = -1;
         do {
@@ -6112,41 +5714,34 @@ int GPU_SetupTexture()
             a2 = a2 + 4;
         } while (ret != v1);
     }
-    a0 = *(u32*)*(s3 + 8);
+    a0 = *(u32*)(s3 + 8);
     ret = a2 - a0;
     if (a0 != 0) {
         v1 = *(u32*)(a0);
-        ret = (signed)ret >> 4;
         ret = ret + -1;
-        v1 = v1 + ret;
-        *(u32*)(a0) = v1;
+        *(u32*)(a0) = v1 + ret;
     }
     *(u32*)(s3) = a2;
-    *(u32*)*(s3 + 8) = 0;
+    *(u32*)(s3 + 8) = 0;
     return ret;
 }
 
 /* Function at 0x0021BE78 - 0x0021C0B0 */
-int GPU_StartGIFTransfer()
+u32 GPU_StartGIFTransfer(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, t0, t1;
-    ret = 0x10009000;
-    ret = *(u32*)(v0);
+    u32 ret, v1, a0, a1, a2, a3, s0, t0, t1;
+    ret = *(u32*)(ret);
     s0 = 0x70000000;
     if ((signed)ret < 0) {
         a0 = ret & 0xffff;
         v1 = s0 + 0x10f0;
-        *(u32*)*(v1 + 0x2430) = a0;
+        *(u32*)(v1 + 0x2430) = a0;
         ret = 0x10009030;
-        a2 = *(u32*)*(v1 + 0x2444);
-        a0 = *(u32*)(v0);
+        a2 = *(u32*)(v1 + 0x2444);
+        a0 = *(u32*)(ret);
         a1 = 0x1000D000;
-        *(u32*)*(v1 + 0x2438) = a0;
-        do {
-            ret = *(u32*)(a1);
-            ret = ret & 0x100;
-        } while (ret != 0);
+        *(u32*)(v1 + 0x2438) = a0;
         a3 = -0xd;
         a0 = 0x1000E000;
         v1 = a2 << 3;
@@ -6158,37 +5753,35 @@ int GPU_StartGIFTransfer()
         *(u32*)(a0) = ret;
         a1 = 0x10009020;
         a2 = t0;
-        a3 = *(u32*)*(t0 + 8);
+        a3 = *(u32*)(t0 + 8);
         t0 = -1;
         *(u32*)(a1) = a3;
         a3 = 2;
         ret = 0x10009010;
         v1 = 0x12001010;
-        a1 = *(u32*)*(a2 + 0xc);
+        a1 = *(u32*)(a2 + 0xc);  /* GTE data: vz1 */
         a0 = 0x12001000;
         t1 = 0x1F000000;
-        *(u32*)(v0) = a1;
+        *(u32*)(ret) = a1;
         a2 = 0x10003C00;
-        *(u64*)*(v1 + 0) = t0;
-        *(u64*)*(a0 + 0) = a3;
+        *(u64*)(v1 + 0) = t0;
+        *(u64*)(a0 + 0) = a3;
         do {
-            ret = *(u32*)(a2);
             ret = ret & t1;
             v1 = 0x61;
         } while (ret != 0);
         ret = 0;
-        __asm("mmi2 v1, v1, v0");
+        __asm("mmi2 v1, v1, ret");
         a1 = 0x10005000;
         ret = 0x53;
         __asm("ext v1, a1, 0, 1");
         a0 = 1;
-        __asm("mmi2 v0, v0, a0");
-        __asm("ext v0, a1, 0, 1");
+        __asm("mmi2 ret, ret, a0");
+        __asm("ext ret, a1, 0, 1");
         SYNC(); /* memory barrier */
         a0 = 2;
         v1 = 0x12001000;
         do {
-            ret = *(u64*)*(v1 + 0);
             ret = ret & a0;
         } while (0x10000000 == 0);
         ret = 0x10003C00;
@@ -6197,26 +5790,24 @@ int GPU_StartGIFTransfer()
         v1 = 0x00800000;
         a2 = 1;
         a3 = 0x100;
-        *(u32*)(v0) = v1;
-        *(u64*)*(a0 + 0) = a2;
+        *(u32*)(ret) = v1;
+        *(u64*)(a0 + 0) = a2;
         a0 = -0x201;
         *(u32*)(a1) = a3;
         a1 = 2;
         s0 = 0x700010F0;
         v1 = 0x12001010;
         ret = 0x12001000;
-        *(u64*)*(v1 + 0) = a0;
-        *(u64*)*(ret + 0) = a1;
-        a0 = *(u32*)*(s0 + 0x2b24);
-        ret = UI_Kern_iPollSema(a0, a1, a2, a3);
-        v1 = *(u32*)*(s0 + 0x2444);
-        v1 = v1 + 1;
+        *(u64*)(v1 + 0) = a0;
+        *(u64*)(ret + 0) = a1;
+        a0 = *(u32*)(s0 + 0x2b24);
+        ret = UI_Kern_iPollSema();
         v1 = v1 & 0x3f;
-        *(u32*)*(s0 + 0x2444) = v1;
+        *(u32*)(s0 + 0x2444) = v1;
     } else {
         ret = 0x12001040;
         v1 = 0x10003C00;
-        *(u64*)*(ret + 0) = 0;
+        *(u64*)(ret + 0) = 0;
         *(u32*)(v1) = 0;
         a2 = 0x1000E000;
         ret = *(u32*)(a2);
@@ -6226,14 +5817,13 @@ int GPU_StartGIFTransfer()
         a0 = 0x10009030;
         *(u32*)(a2) = ret;
         *(u32*)(a3) = 0;
-        v1 = *(u32*)*(a1 + 0x2438);
-        *(u32*)(a0) = v1;
-        ret = *(u32*)*(a1 + 0x2430);
-        a0 = *(u32*)*(a1 + 0x2b24);
+        *(u32*)(a0) = *(u32*)(a1 + 0x2438);
+        ret = *(u32*)(a1 + 0x2430);
+        a0 = *(u32*)(a1 + 0x2b24);
         ret = ret | 0x100;
         __at = 0x10010000;
-        *(u32*)*(__at + -0x7000) = ret;
-        ret = UI_Kern_iSignalSema(a0, a1, a2, a3);
+        *(u32*)(__at + -0x7000) = ret;
+        ret = UI_Kern_iSignalSema();
     }
     SYNC(); /* memory barrier */
     EI();
@@ -6241,10 +5831,10 @@ int GPU_StartGIFTransfer()
 }
 
 /* Function at 0x0021C0B0 - 0x0021C290 */
-int GPU_SetupRegisters()
+u32 GPU_SetupRegisters(void)
 {
     /* Stack frame: 80 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
+    u32 ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
     v1 = 0x70000000;
     s0 = 0x42;
     s1 = 0x4a;
@@ -6257,254 +5847,243 @@ int GPU_SetupRegisters()
     s6 = v1 + 0x221c;
     a2 = 1;
     a0 = -1;
-    ret = *(u32*)*(v1 + 0x22a0);
+    ret = *(u32*)(v1 + 0x22a0);
     a1 = 2;
-    *(u32*)*(v1 + 0x22bc) = a0;
+    *(u32*)(v1 + 0x22bc) = a0;
     a0 = 0x200;
     ret = ret & 1;
-    *(u32*)*(v1 + 0x21dc) = a1;
-    *(u32*)*(v1 + 0x22d0) = ret;
+    *(u32*)(v1 + 0x21dc) = a1;
+    *(u32*)(v1 + 0x22d0) = ret;
     t0 = 0x40;
     t0 = (u64)t0 << 32;
     t0 = t0 | 0x64;
-    *(u32*)*(v1 + 0x2218) = a2;
-    a3 = 0 | 0xff00;
+    *(u32*)(v1 + 0x2218) = a2;
+    a3 = 0xff00;
     a3 = a3 << 16;
     a3 = a3 | 0xff5;
-    *(u32*)*(v1 + 0x22a8) = 0;
+    *(u32*)(v1 + 0x22a8) = 0;
     t6 = 0x0003040B;
-    *(u32*)*(v1 + 0x22b0) = 0;
+    *(u32*)(v1 + 0x22b0) = 0;
     t3 = 0x47;
-    *(u32*)*(v1 + 0x22e0) = 0;
+    *(u32*)(v1 + 0x22e0) = 0;
     t1 = 0x40;
-    *(u32*)*(v1 + 0x2144) = 0;
+    *(u32*)(v1 + 0x2144) = 0;
     t7 = 0x000307FB;
-    *(u32*)*(v1 + 0x2154) = 0;
+    *(u32*)(v1 + 0x2154) = 0;
     t4 = 0x48;
-    *(u32*)*(v1 + 0x2158) = 0;
+    *(u32*)(v1 + 0x2158) = 0;
     t9 = 0xf0;
-    *(u32*)*(v1 + 0x215c) = 0;
+    *(u32*)(v1 + 0x215c) = 0;
     t8 = 0x100;
-    *(u32*)*(v1 + 0x2150) = 0;
+    *(u32*)(v1 + 0x2150) = 0;
     t5 = 0xa00;
-    *(u32*)*(v1 + 0x2148) = 0;
+    *(u32*)(v1 + 0x2148) = 0;
     t2 = 0x10;
-    *(u32*)*(v1 + 0x214c) = 0;
-    *(u32*)*(v1 + 0x2178) = 0;
-    *(u32*)*(v1 + 0x217c) = 0;
-    *(u32*)*(v1 + 0x2180) = 0;
-    *(u32*)*(v1 + 0x2184) = 0;
-    *(u32*)*(v1 + 0x2168) = 0;
-    *(u32*)*(v1 + 0x216c) = 0;
-    *(u32*)*(v1 + 0x2170) = 0;
-    *(u32*)*(v1 + 0x2174) = 0;
-    *(u32*)*(v1 + 0x2160) = 0;
-    *(u32*)*(v1 + 0x2164) = 0;
+    *(u32*)(v1 + 0x214c) = 0;
+    *(u32*)(v1 + 0x2178) = 0;
+    *(u32*)(v1 + 0x217c) = 0;
+    *(u32*)(v1 + 0x2180) = 0;
+    *(u32*)(v1 + 0x2184) = 0;
+    *(u32*)(v1 + 0x2168) = 0;
+    *(u32*)(v1 + 0x216c) = 0;
+    *(u32*)(v1 + 0x2170) = 0;
+    *(u32*)(v1 + 0x2174) = 0;
+    *(u32*)(v1 + 0x2160) = 0;
+    *(u32*)(v1 + 0x2164) = 0;
     ret = *(u32*)(s6);
-    *(u32*)*(v1 + 0x21b4) = a0;
-    *(u64*)*(ret + 0) = 0;
+    *(u32*)(v1 + 0x21b4) = a0;
+    *(u64*)(ret + 0) = 0;
     ret = ret + 8;
-    *(u64*)*(ret + 0) = s7;
+    *(u64*)(ret + 0) = s7;
     ret = ret + 8;
-    *(u64*)*(ret + 8) = s0;
+    *(u64*)(ret + 8) = s0;
     a1 = ret + 0x90;
-    *(u64*)*(ret + 24) = s1;
-    *(u64*)*(ret + 32) = t6;
-    *(u64*)*(ret + 40) = t3;
-    *(u64*)*(ret + 56) = t1;
-    *(u64*)*(ret + 0) = t0;
-    *(u64*)*(ret + 16) = 0;
-    *(u64*)*(ret + 48) = 0;
-    *(u64*)*(v1 + 8976) = a3;
-    *(u64*)*(ret + 72) = s4;
-    *(u64*)*(ret + 88) = s5;
-    *(u64*)*(ret + 104) = s2;
-    *(u64*)*(ret + 64) = a3;
-    *(u64*)*(ret + 80) = t0;
-    *(u64*)*(ret + 112) = t7;
-    *(u64*)*(ret + 120) = t4;
-    *(u64*)*(ret + 96) = 0;
+    *(u64*)(ret + 24) = s1;
+    *(u64*)(ret + 32) = t6;
+    *(u64*)(ret + 40) = t3;
+    *(u64*)(ret + 56) = t1;
+    *(u64*)(ret + 0) = t0;
+    *(u64*)(ret + 16) = 0;
+    *(u64*)(ret + 48) = 0;
+    *(u64*)(v1 + 8976) = a3;
+    *(u64*)(ret + 72) = s4;
+    *(u64*)(ret + 88) = s5;
+    *(u64*)(ret + 104) = s2;
+    *(u64*)(ret + 64) = a3;
+    *(u64*)(ret + 80) = t0;
+    *(u64*)(ret + 112) = t7;
+    *(u64*)(ret + 120) = t4;
+    *(u64*)(ret + 96) = 0;
     *(u32*)(s6) = a1;
-    a0 = *(u64*)*(v1 + 8976);
-    *(u32*)*(v1 + 0x22c8) = 0;
-    *(u64*)*(ret + 136) = s3;
-    *(u32*)*(v1 + 0x22cc) = 0;
-    *(u32*)*(v1 + 0x22d8) = 0;
-    *(u32*)*(v1 + 0x22dc) = a2;
-    *(u32*)*(v1 + 0x2214) = 0;
-    *(u32*)*(v1 + 0x21d0) = t9;
-    *(u32*)*(v1 + 0x21cc) = t8;
-    *(u32*)*(v1 + 0x21c4) = 0;
-    *(u32*)*(v1 + 0x21c8) = 0;
-    *(u64*)*(ret + 128) = a0;
-    *(u32*)*(v1 + 0x21bc) = t5;
-    *(u32*)*(v1 + 0x21b8) = t2;
-    *(u32*)*(v1 + 0x21c0) = t9;
-    *(u32*)*(v1 + 0x22ac) = t8;
-    *(u32*)*(v1 + 0x21b0) = 0;
-    return GPU_BuildGIFTag(a0, a1, a2, a3);
+    a0 = *(u64*)(v1 + 8976);
+    *(u32*)(v1 + 0x22c8) = 0;
+    *(u64*)(ret + 136) = s3;
+    *(u32*)(v1 + 0x22cc) = 0;
+    *(u32*)(v1 + 0x22d8) = 0;
+    *(u32*)(v1 + 0x22dc) = a2;
+    *(u32*)(v1 + 0x2214) = 0;
+    *(u32*)(v1 + 0x21d0) = t9;
+    *(u32*)(v1 + 0x21cc) = t8;
+    *(u32*)(v1 + 0x21c4) = 0;
+    *(u32*)(v1 + 0x21c8) = 0;
+    *(u64*)(ret + 128) = a0;
+    *(u32*)(v1 + 0x21bc) = t5;
+    *(u32*)(v1 + 0x21b8) = t2;
+    *(u32*)(v1 + 0x21c0) = t9;
+    *(u32*)(v1 + 0x22ac) = t8;
+    *(u32*)(v1 + 0x21b0) = 0;
+    return GPU_BuildGIFTag();
 }
 
 /* Function at 0x0021C290 - 0x0021C400 */
-int GPU_FlushDMAQueue()
+u32 GPU_FlushDMAQueue(void)
 {
     /* Stack frame: 64 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, t4;
+    u32 ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, t4;
     s3 = 0x70000000;
     s2 = s3 + 0x10f0;
     s4 = 0x08000000;
     s5 = s3;
     s6 = 0;
 loc_21C2C8:
-    ret = *(u32*)*(s2 + 0x227c);
+    ret = *(u32*)(s2 + 0x227c);
     s0 = s3 + 0x10f0;
     if (ret == 0) goto loc_21C370;
-    ret = *(u32*)*(s2 + 0x227c);
-    ret = *(u32*)*(s2 + 0x22ac);
-    if (ret != 0) {
+    if ((*(u32*)(s2 + 0x22ac)) != 0) {
         s0 = s5 + 0x10f0;
         s1 = 1 << 16;
-        v1 = *(u32*)*(s0 + 0x2280);
+        v1 = *(u32*)(s0 + 0x2280);
         do {
             ret = v1 << 2;
             v1 = v1 + 1;
             a0 = ((unsigned)v1 < 0x20) ? 1 : 0;
             ret = ret + s0;
-            __asm("movz v1, zero, a0");
-            a0 = *(u32*)*(ret + 0x2040);
-            *(u32*)*(s0 + 0x2280) = v1;
-            ret = COP0_REG(t4); /* mfc0 */
-            ret = ret & s1;
-            if (ret != 0) {
+            if (a0 == 0) v1 = 0;
+            a0 = *(u32*)(ret + 0x2040);
+            *(u32*)(s0 + 0x2280) = v1;
+            ret = COP0_REG(12); /* mfc0 */
+            if ((ret & s1) != 0) {
                 v1 = 1 << 16;
                 do {
                     DI();
                     SYNC(); /* memory barrier */
-                    ret = COP0_REG(t4); /* mfc0 */
+                    ret = COP0_REG(12); /* mfc0 */
                     ret = ret & v1;
                 } while (ret != 0);
             }
-            ret = *(u32*)*(s0 + 0x227c);
             ret = ret + -1;
-            *(u32*)*(s0 + 0x227c) = ret;
+            *(u32*)(s0 + 0x227c) = ret;
             EI();
-            ret = HDD_HandleGTECommand(a0, a1, a2, a3);
-            ret = *(u32*)*(s0 + 0x227c);
-            v1 = *(u32*)*(s0 + 0x2280);
-        } while (likely(ret != 0));
-        ret = *(u32*)*(s2 + 0x22ac);
+            ret = HDD_HandleGTECommand(a0);
+            ret = *(u32*)(s0 + 0x227c);
+            v1 = *(u32*)(s0 + 0x2280);
+        } while (ret != 0);
+        ret = *(u32*)(s2 + 0x22ac);
     }
     s0 = s3 + 0x10f0;
     if (ret == 0) goto loc_21C370;
-    ret = HDD_ProcessVectorData(a0, a1, a2, a3);
+    ret = HDD_ProcessVectorData();
 loc_21C370:
-    ret = *(u32*)*(s0 + 0x2288);
-    if (ret == 0) {
+    if ((*(u32*)(s0 + 0x2288)) == 0) {
         s6 = 1;
         goto loc_21C3B8;
     }
-    a0 = *(u32*)*(s0 + 0x2b18);
-    ret = UI_Kern_SignalSema(a0, a1, a2, a3);
-    v1 = *(u32*)*(s0 + 0x223c);
-    a0 = *(u32*)*(s0 + 0x2b14);
-    v1 = v1 | s4;
-    *(u32*)*(s0 + 0x223c) = v1;
-    ret = UI_Kern_WaitSema(a0, a1, a2, a3);
-    a0 = *(u32*)*(s0 + 0x2b18);
-    ret = UI_Kern_PollSema(a0, a1, a2, a3);
-    v1 = *(u32*)*(s0 + 0x2264);
+    a0 = *(u32*)(s0 + 0x2b18);
+    ret = UI_Kern_SignalSema();
+    v1 = *(u32*)(s0 + 0x223c);
+    a0 = *(u32*)(s0 + 0x2b14);
+    *(u32*)(s0 + 0x223c) = v1 | s4;
+    ret = UI_Kern_WaitSema();
+    a0 = *(u32*)(s0 + 0x2b18);
+    ret = UI_Kern_PollSema();
+    v1 = *(u32*)(s0 + 0x2264);
     if (v1 == 0) goto loc_21C2C8;
 loc_21C3B8:
     v1 = s3 + 0x10f0;
-    a1 = *(u32*)*(v1 + 0x223c);
+    a1 = *(u32*)(v1 + 0x223c);
     ret = s6;
     a0 = 0xF7FFFFFF;
     a1 = a1 & a0;
-    *(u32*)*(v1 + 0x223c) = a1;
-    *(u32*)*(v1 + 0x2288) = 0;
+    *(u32*)(v1 + 0x223c) = a1;
+    *(u32*)(v1 + 0x2288) = 0;
     return ret;
 }
 
 /* Function at 0x0021C400 - 0x0021C6A0 */
-int GPU_ProcessDMAChain()
+u32 GPU_ProcessDMAChain(u32 a0)
 {
     /* Stack frame: 64 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, t0, t1, t2, t3, t4;
+    u32 ret, v1, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, t0, t1, t2, t3, t4;
     s3 = 0x70000000;
     s1 = s3 + 0x10f0;
     s4 = s1 + 0x221c;
     s5 = s3;
     s6 = a0;
 loc_21C438:
-    ret = *(u32*)*(s1 + 0x227c);
+    ret = *(u32*)(s1 + 0x227c);
     v1 = s3 + 0x10f0;
     if (ret == 0) goto loc_21C4E4;
-    ret = *(u32*)*(s1 + 0x227c);
-    ret = *(u32*)*(s1 + 0x22ac);
-    if (ret != 0) {
+    if ((*(u32*)(s1 + 0x22ac)) != 0) {
         s0 = s5 + 0x10f0;
         s2 = 1 << 16;
-        v1 = *(u32*)*(s0 + 0x2280);
+        v1 = *(u32*)(s0 + 0x2280);
         do {
             ret = v1 << 2;
             v1 = v1 + 1;
             a0 = ((unsigned)v1 < 0x20) ? 1 : 0;
             ret = ret + s0;
-            __asm("movz v1, zero, a0");
-            a0 = *(u32*)*(ret + 0x2040);
-            *(u32*)*(s0 + 0x2280) = v1;
-            ret = COP0_REG(t4); /* mfc0 */
-            ret = ret & s2;
-            if (ret != 0) {
+            if (a0 == 0) v1 = 0;
+            a0 = *(u32*)(ret + 0x2040);
+            *(u32*)(s0 + 0x2280) = v1;
+            ret = COP0_REG(12); /* mfc0 */
+            if ((ret & s2) != 0) {
                 v1 = 1 << 16;
                 do {
                     DI();
                     SYNC(); /* memory barrier */
-                    ret = COP0_REG(t4); /* mfc0 */
+                    ret = COP0_REG(12); /* mfc0 */
                     ret = ret & v1;
                 } while (ret != 0);
             }
-            ret = *(u32*)*(s0 + 0x227c);
             ret = ret + -1;
-            *(u32*)*(s0 + 0x227c) = ret;
+            *(u32*)(s0 + 0x227c) = ret;
             EI();
-            ret = HDD_HandleGTECommand(a0, a1, a2, a3);
-            ret = *(u32*)*(s0 + 0x227c);
-            v1 = *(u32*)*(s0 + 0x2280);
-        } while (likely(ret != 0));
-        ret = *(u32*)*(s1 + 0x22ac);
+            ret = HDD_HandleGTECommand(a0);
+            ret = *(u32*)(s0 + 0x227c);
+            v1 = *(u32*)(s0 + 0x2280);
+        } while (ret != 0);
+        ret = *(u32*)(s1 + 0x22ac);
     }
     v1 = s3 + 0x10f0;
     if (ret == 0) goto loc_21C4E4;
-    ret = HDD_ProcessVectorData(a0, a1, a2, a3);
+    ret = HDD_ProcessVectorData();
     v1 = s3 + 0x10f0;
 loc_21C4E4:
-    ret = *(u32*)*(v1 + 0x2288);
-    t3 = *(u32*)*(v1 + 0x2274);
+    ret = *(u32*)(v1 + 0x2288);
+    t3 = *(u32*)(v1 + 0x2274);
     if (ret != 0) {
-        ret = *(u32*)*(v1 + 0x228c);
-        v1 = *(u32*)*(v1 + 0x2140);
+        ret = *(u32*)(v1 + 0x228c);
+        v1 = *(u32*)(v1 + 0x2140);
         ret = ret << 2;
         v1 = v1 + ret;
         __asm("pref 0, (v1)");
-        ret = *(u32*)*(s1 + 0x2288);
+        ret = *(u32*)(s1 + 0x2288);
         *(u32*)(s6) = v1;
     } else {
-        ret = COP0_REG(t4); /* mfc0 */
+        ret = COP0_REG(12); /* mfc0 */
         v1 = 1 << 16;
-        ret = ret & v1;
-        if (ret != 0) {
+        if ((ret & v1) != 0) {
             do {
                 DI();
                 SYNC(); /* memory barrier */
-                ret = COP0_REG(t4); /* mfc0 */
+                ret = COP0_REG(12); /* mfc0 */
                 ret = ret & v1;
             } while (ret != 0);
         }
-        v1 = *(u32*)*(s1 + 0x2270);
+        v1 = *(u32*)(s1 + 0x2270);
         ret = 0x00FFFFFF;
-        t1 = *(u32*)*(s1 + 0x226c);
-        a1 = *(u32*)*(s1 + 0x2260);
+        t1 = *(u32*)(s1 + 0x226c);
+        a1 = *(u32*)(s1 + 0x2260);
         if (v1 != ret) {
             s0 = s3 + 0x10f0;
             if ((signed)a1 >= (signed)t1) goto loc_21C5DC;
@@ -6520,70 +6099,63 @@ loc_21C4E4:
                     a0 = a0 + 4;
                     v1 = ret & a3;
                     ret = (unsigned)ret >> 0x18;
-                    __asm("movz v1, a3, v1");
+                    if (v1 == 0) v1 = a3;
                     if (ret != 0) {
                     __asm("pref 0, (a0)");
-                    *(u32*)*(t2 + 0x2288) = ret;
-                    *(u32*)*(t2 + 0x2260) = a1;
-                    *(u32*)*(t2 + 0x2270) = v1;
+                    *(u32*)(t2 + 0x2288) = ret;
+                    *(u32*)(t2 + 0x2260) = a1;
+                    *(u32*)(t2 + 0x2270) = v1;
                     EI();
-                    *(u32*)*(t2 + 0x2140) = a0;
-                    *(u32*)*(t2 + 0x228c) = 0;
+                    *(u32*)(t2 + 0x2140) = a0;
+                    *(u32*)(t2 + 0x228c) = 0;
                     *(u32*)(s6) = a0;
                     } else {
                     s0 = s3 + 0x10f0;
                     if (v1 == a3) goto loc_21C5DC;
                     ret = v1 & t0;
+                    }
                 } while (a2 != 0);
         }
             s0 = s3 + 0x10f0;
             loc_21C5DC:
-            *(u32*)*(s0 + 0x2260) = a1;
-            *(u32*)*(s0 + 0x2270) = v1;
+            *(u32*)(s0 + 0x2260) = a1;
+            *(u32*)(s0 + 0x2270) = v1;
             EI();
             ret = *(u32*)(s4);
-            v1 = *(u32*)*(s4 + 4);
-            ret = ret - v1;
-            ret = (unsigned)ret >> 4;
-            ret = ((unsigned)ret < 3) ? 1 : 0;
+            v1 = *(u32*)(s4 + 4);
             ret = ret ^ 1;
             if (ret != 0) {
-                ret = GPU_BuildGIFTag(a0, a1, a2, a3);
+                ret = GPU_BuildGIFTag();
             }
-            ret = *(u32*)*(s0 + 0x2264);
-            if (likely(0 != 0)) goto loc_21C678;
-            a0 = *(u32*)*(s0 + 0x2b18);
-            ret = UI_Kern_SignalSema(a0, a1, a2, a3);
-            v1 = *(u32*)*(s0 + 0x22bc);
+            ret = *(u32*)(s0 + 0x2264);
+            a0 = *(u32*)(s0 + 0x2b18);
+            ret = UI_Kern_SignalSema();
+            v1 = *(u32*)(s0 + 0x22bc);
             if ((signed)v1 < 0) {
-                ret = *(u32*)*(s0 + 0x223c);
+                ret = *(u32*)(s0 + 0x223c);
                 v1 = 0x14000000;
                 goto loc_21C648;
             }
-            ret = *(u32*)*(s0 + 0x223c);
+            ret = *(u32*)(s0 + 0x223c);
             v1 = 0x10000000;
             loc_21C648:
             ret = ret | v1;
-            *(u32*)*(s0 + 0x223c) = ret;
-            a0 = *(u32*)*(s1 + 0x2b14);
-            ret = UI_Kern_WaitSema(a0, a1, a2, a3);
-            a0 = *(u32*)*(s1 + 0x2b18);
-            ret = UI_Kern_PollSema(a0, a1, a2, a3);
-            v1 = *(u32*)*(s1 + 0x223c);
-            v1 = v1 & 0xEBFFFFFF;
-            *(u32*)*(s1 + 0x223c) = v1;
+            *(u32*)(s0 + 0x223c) = ret;
+            a0 = *(u32*)(s1 + 0x2b14);
+            ret = UI_Kern_WaitSema();
+            a0 = *(u32*)(s1 + 0x2b18);
+            ret = UI_Kern_PollSema();
+            *(u32*)(s1 + 0x223c) = v1 & 0xEBFFFFFF;
             goto loc_21C438;
             }
         }
-loc_21C678:
     return ret;
-}
 
 /* Function at 0x0021C6A0 - 0x0021C888 */
-int GPU_DrawTexturedPoly()
+void GPU_DrawTexturedPoly(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 96 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t4;
+    u32 ret, v1, s0, s1, s2, s3, s4, s5, s6, s7, t4;
     s2 = 0x70000000 + 0x10f0;
     v1 = 0x00500000;
     s3 = s2;
@@ -6593,112 +6165,101 @@ int GPU_DrawTexturedPoly()
     s7 = s2 + 0x221c;
     __fp = v1 + -0xa40;
 loc_21C6F0:
-    ret = *(u32*)*(s2 + 0x2288);
-    ret = *(u32*)*(s2 + 0x228c);
+    ret = *(u32*)(s2 + 0x228c);
     if (ret == 0) {
         ret = 0x70000000;
         s1 = -1;
         s0 = ret + 0x10f0;
         do {
-            ret = *(u32*)*(s0 + 0x2264);
-            if (ret != 0) {
-                *(u32*)*(s0 + 0x2264) = 0;
+            if ((*(u32*)(s0 + 0x2264)) != 0) {
+                *(u32*)(s0 + 0x2264) = 0;
                 s4 = 0;
-                *(u32*)*(s0 + 0x22bc) = s1;
+                *(u32*)(s0 + 0x22bc) = s1;
             }
             a0 = __sp;
-            ret = GPU_ProcessDMAChain(a0, a1, a2, a3);
-            a1 = ret;
+            a1 = GPU_ProcessDMAChain(a0);
             a2 = a1;
         } while (a1 == 0);
         goto loc_21C758;
     }
-    v1 = *(u32*)*(s2 + 0x2140);
+    v1 = *(u32*)(s2 + 0x2140);
     ret = ret << 2;
-    a1 = *(u32*)*(s2 + 0x2288);
-    v1 = v1 + ret;
-    *(u32*)(sp) = v1;
+    a1 = *(u32*)(s2 + 0x2288);
+    *(u32*)(__sp) = v1 + ret;
     a2 = a1;
 loc_21C758:
-    ret = *(u32*)(sp);
+    ret = *(u32*)(__sp);
     if (s4 == 0) {
         a1 = a1 + -1;
         s5 = s2 + 0x2004;
-        a0 = *(u32*)(v0);
+        a0 = *(u32*)(ret);
         ret = ret + 4;
-        *(u32*)(sp) = ret;
+        *(u32*)(__sp) = ret;
         v1 = (unsigned)a0 >> 0x18;
-        *(u32*)*(s2 + 0x2000) = a0;
+        *(u32*)(s2 + 0x2000) = a0;
         ret = v1 << 3;
-        *(u32*)*(s2 + 0x22bc) = v1;
+        *(u32*)(s2 + 0x22bc) = v1;
         a0 = ret + __fp;
         ret = ret + 0x004FF5C4;
         v1 = *(u32*)(a0);
         s4 = v1 + -1;
-        s6 = *(u32*)(v0);
+        s6 = *(u32*)(ret);
         if (s4 == 0) goto loc_21C7E0;
     }
     ret = ((signed)s4 < (signed)a1) ? 1 : 0;
     if (a1 == 0) goto loc_21C7E0;
     a0 = a1;
-    __asm("movn a0, s4, v0");
+    if (ret != 0) a0 = s4;
     s4 = s4 - a0;
     a1 = a1 - a0;
     do {
-        ret = *(u32*)(sp);
+        ret = *(u32*)(__sp);
         a0 = a0 + -1;
-        v1 = *(u32*)(v0);
-        ret = ret + 4;
-        *(u32*)(sp) = ret;
+        v1 = *(u32*)(ret);
+        *(u32*)(__sp) = ret + 4;
         *(u32*)(s5) = v1;
         s5 = s5 + 4;
     } while (a0 != 0);
 loc_21C7E0:
     a0 = a2 - a1;
-    ret = COP0_REG(t4); /* mfc0 */
+    ret = COP0_REG(12); /* mfc0 */
     v1 = 1 << 16;
-    ret = ret & v1;
-    if (ret != 0) {
+    if ((ret & v1) != 0) {
         do {
             DI();
             SYNC(); /* memory barrier */
-            ret = COP0_REG(t4); /* mfc0 */
+            ret = COP0_REG(12); /* mfc0 */
             ret = ret & v1;
         } while (ret != 0);
     }
-    ret = *(u32*)*(s3 + 0x2288);
-    v1 = *(u32*)*(s3 + 0x228c);
+    ret = *(u32*)(s3 + 0x2288);
+    v1 = *(u32*)(s3 + 0x228c);
     ret = ret - a0;
-    *(u32*)*(s3 + 0x2288) = ret;
-    v1 = v1 + a0;
-    *(u32*)*(s3 + 0x228c) = v1;
-    ret = *(u32*)*(s3 + 0x2260);
+    *(u32*)(s3 + 0x2288) = ret;
+    *(u32*)(s3 + 0x228c) = v1 + a0;
     ret = ret + a0;
-    *(u32*)*(s3 + 0x2260) = ret;
+    *(u32*)(s3 + 0x2260) = ret;
     EI();
     if (s4 != 0) goto loc_21C6F0;
     ret = -1;
-    if (likely(s6 == 0)) goto loc_21C87C;
-    ret = (s6)(a0, a1, a2, a3); /* indirect call */
+    if (s6 == 0) goto loc_21C87C;
+    ret = CALL_INDIRECT(s6)(a0, a1, a2, a3);
     ret = *(u32*)(s7);
-    v1 = *(u32*)*(s7 + 4);
-    ret = ret - v1;
-    ret = (unsigned)ret >> 4;
-    ret = ((unsigned)ret < 0x80) ? 1 : 0;
+    v1 = *(u32*)(s7 + 4);
     ret = ret ^ 1;
     if (-1 == 0) goto loc_21C87C;
-    ret = GPU_BuildGIFTag(a0, a1, a2, a3);
+    ret = GPU_BuildGIFTag();
     ret = -1;
 loc_21C87C:
-    *(u32*)*(s2 + 0x22bc) = ret;
+    *(u32*)(s2 + 0x22bc) = ret;
     goto loc_21C6F0;
 }
 
 /* Function at 0x0021C888 - 0x0021C988 */
-int GPU_DrawSimplePoly()
+u32 GPU_DrawSimplePoly(u32 a0, u32 a1)
 {
     /* Stack frame: 64 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, t4;
+    u32 ret, v1, a2, a3, s0, s1, s2, s3, t4;
     s1 = a1;
     s2 = a0;
     if (s1 == 0) goto loc_21C968;
@@ -6707,46 +6268,40 @@ int GPU_DrawSimplePoly()
     s0 = ret + 0x10f0;
     goto loc_21C8CC;
 loc_21C8C0:
-    v1 = *(u32*)*(s0 + 0x2264);
-    if (likely(v1 != 0)) goto loc_21C970;
+    if ((*(u32*)(s0 + 0x2264)) != 0) goto loc_21C970;
 loc_21C8CC:
     a0 = __sp;
-    ret = GPU_ProcessDMAChain(a0, a1, a2, a3);
+    ret = GPU_ProcessDMAChain(a0);
     a1 = ret;
     if (a1 == 0) goto loc_21C8C0;
-    ret = ((signed)s1 < (signed)a1) ? 1 : 0;
-    __asm("movn a1, s1, v0");
+    if ((signed)s1 < (signed)a1) a1 = s1;
     s1 = s1 - a1;
     a0 = a1;
     do {
-        ret = *(u32*)(sp);
+        ret = *(u32*)(__sp);
         a0 = a0 + -1;
-        v1 = *(u32*)(v0);
-        ret = ret + 4;
-        *(u32*)(sp) = ret;
+        v1 = *(u32*)(ret);
+        *(u32*)(__sp) = ret + 4;
         *(u32*)(s2) = v1;
         s2 = s2 + 4;
     } while (a0 != 0);
-    ret = COP0_REG(t4); /* mfc0 */
+    ret = COP0_REG(12); /* mfc0 */
     ret = ret & s3;
     v1 = 1 << 16;
     if (ret != 0) {
         do {
             DI();
             SYNC(); /* memory barrier */
-            ret = COP0_REG(t4); /* mfc0 */
+            ret = COP0_REG(12); /* mfc0 */
             ret = ret & v1;
         } while (ret != 0);
     }
-    ret = *(u32*)*(s0 + 0x2288);
-    v1 = *(u32*)*(s0 + 0x228c);
+    ret = *(u32*)(s0 + 0x2288);
+    v1 = *(u32*)(s0 + 0x228c);
     ret = ret - a1;
-    *(u32*)*(s0 + 0x2288) = ret;
-    v1 = v1 + a1;
-    *(u32*)*(s0 + 0x228c) = v1;
-    ret = *(u32*)*(s0 + 0x2260);
-    ret = ret + a1;
-    *(u32*)*(s0 + 0x2260) = ret;
+    *(u32*)(s0 + 0x2288) = ret;
+    *(u32*)(s0 + 0x228c) = v1 + a1;
+    *(u32*)(s0 + 0x2260) = ret + a1;
     EI();
     if (s1 != 0) goto loc_21C8CC;
 loc_21C968:
@@ -6756,103 +6311,98 @@ loc_21C970:
 }
 
 /* Function at 0x0021C988 - 0x0021CA60 */
-int GPU_SetViewport()
+u32 GPU_SetViewport(void)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, t4;
+    u32 ret, v1, a0, a1, a2, a3, s0, s1, s2, t4;
     s2 = 0x70000000;
     v1 = s2 + 0x10f0;
-    ret = *(u32*)*(v1 + 0x227c);
+    ret = *(u32*)(v1 + 0x227c);
     s0 = v1;
     if (ret != 0) {
         s1 = 1 << 16;
-        v1 = *(u32*)*(s0 + 0x2280);
+        v1 = *(u32*)(s0 + 0x2280);
         do {
             ret = v1 << 2;
             v1 = v1 + 1;
             a0 = ((unsigned)v1 < 0x20) ? 1 : 0;
             ret = ret + s0;
-            __asm("movz v1, zero, a0");
-            a0 = *(u32*)*(ret + 0x2040);
-            *(u32*)*(s0 + 0x2280) = v1;
-            ret = COP0_REG(t4); /* mfc0 */
-            ret = ret & s1;
-            if (ret != 0) {
+            if (a0 == 0) v1 = 0;
+            a0 = *(u32*)(ret + 0x2040);
+            *(u32*)(s0 + 0x2280) = v1;
+            ret = COP0_REG(12); /* mfc0 */
+            if ((ret & s1) != 0) {
                 v1 = 1 << 16;
                 do {
                     DI();
                     SYNC(); /* memory barrier */
-                    ret = COP0_REG(t4); /* mfc0 */
+                    ret = COP0_REG(12); /* mfc0 */
                     ret = ret & v1;
                 } while (ret != 0);
             }
-            ret = *(u32*)*(s0 + 0x227c);
             ret = ret + -1;
-            *(u32*)*(s0 + 0x227c) = ret;
+            *(u32*)(s0 + 0x227c) = ret;
             EI();
-            ret = HDD_HandleGTECommand(a0, a1, a2, a3);
-            ret = *(u32*)*(s0 + 0x227c);
-            v1 = *(u32*)*(s0 + 0x2280);
-        } while (likely(ret != 0));
+            ret = HDD_HandleGTECommand(a0);
+            ret = *(u32*)(s0 + 0x227c);
+            v1 = *(u32*)(s0 + 0x2280);
+        } while (ret != 0);
     }
     ret = s2 + 0x10f0;
-    v1 = *(u32*)*(ret + 0x22ac);
-    if (v1 != 0) {
-        return HDD_ProcessVectorData(a0, a1, a2, a3);
+    if ((*(u32*)(ret + 0x22ac)) != 0) {
+        return HDD_ProcessVectorData();
     }
     return ret;
 }
 
 /* Function at 0x0021CA60 - 0x0021CAB8 */
-int GPU_SetScissor()
+u32 GPU_SetScissor(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, s0;
+    u32 ret, v1, a0, a1, a2, a3, s0;
     s0 = 0x70000000 + 0x10f0;
-    *(u32*)*(s0 + 0x223c) = 0;
-    *(u32*)*(s0 + 0x2240) = 0;
-    *(u32*)*(s0 + 0x2244) = 0;
-    *(u32*)*(s0 + 0x2248) = 0;
-    *(u32*)*(s0 + 0x224c) = 0;
-    ret = GPU_SetupRegisters(a0, a1, a2, a3);
-    ret = *(u32*)*(s0 + 0x264c);
+    *(u32*)(s0 + 0x223c) = 0;
+    *(u32*)(s0 + 0x2240) = 0;
+    *(u32*)(s0 + 0x2244) = 0;
+    *(u32*)(s0 + 0x2248) = 0;
+    *(u32*)(s0 + 0x224c) = 0;
+    ret = GPU_SetupRegisters();
+    ret = *(u32*)(s0 + 0x264c);
     v1 = 1 << 16;
     if (ret != 0) {
-        ret = *(u32*)*(s0 + 0x22ac);
-        ret = ret | v1;
-        *(u32*)*(s0 + 0x22ac) = ret;
+        *(u32*)(s0 + 0x22ac) = ret | v1;
     }
-    return HDD_ProcessVectorData(a0, a1, a2, a3);
+    return HDD_ProcessVectorData();
 }
 
 /* Function at 0x0021CAB8 - 0x0021CB20 */
-int GPU_SetDepthTest()
+u32 GPU_SetDepthTest(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, s0;
+    u32 ret, v1, a0, a1, a2, a3, s0;
     s0 = 0x700010F0;
     v1 = 2;
     ret = 0x12001000;
-    a0 = *(u32*)*(s0 + 0x2b20);
-    *(u64*)*(ret + 0) = v1;
-    ret = UI_Kern_PollSema(a0, a1, a2, a3);
+    a0 = *(u32*)(s0 + 0x2b20);
+    *(u64*)(ret + 0) = v1;
+    ret = UI_Kern_PollSema();
     a0 = s0 + 0x221c;
     ret = *(u32*)(a0);
     v1 = 0x61;
-    *(u64*)*(ret + 0) = 0;
+    *(u64*)(ret + 0) = 0;
     ret = ret + 8;
-    *(u64*)*(ret + 0) = v1;
+    *(u64*)(ret + 0) = v1;
     ret = ret + 8;
     *(u32*)(a0) = ret;
-    ret = GPU_BuildGIFTag(a0, a1, a2, a3);
-    a0 = *(u32*)*(s0 + 0x2b20);
-    return UI_Kern_WaitSema(a0, a1, a2, a3);
+    ret = GPU_BuildGIFTag();
+    a0 = *(u32*)(s0 + 0x2b20);
+    return UI_Kern_WaitSema();
 }
 
 /* Function at 0x0021CB20 - 0x0021CB90 */
-int GPU_SetBlendMode()
+u32 GPU_SetBlendMode(void)
 {
-    int ret, v1, a0, a1, a2, a3, t0, t1, t2, t3, t4;
+    u32 ret, v1, a0, a1, a2, a3, t0, t1, t2, t3, t4;
     ret = 0x00100000;
     t2 = 0x1000E050;
     t1 = 0x1000E040;
@@ -6875,26 +6425,21 @@ int GPU_SetBlendMode()
 }
 
 /* Function at 0x0021CB90 - 0x0021CD08 */
-int GPU_BuildVertexData()
+u32 GPU_BuildVertexData(u32 a0, u32 a1)
 {
     /* Stack frame: 80 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t4;
+    u32 ret, v1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t4;
     v1 = 0x1000D000;
     s1 = a1;
     do {
-        ret = *(u32*)(v1);
         ret = ret & 0x100;
     } while (0x10000000 != 0);
-    ret = 0x1000D010;
-    a2 = *(u32*)(v0);
+    a2 = *(u32*)(0x1000D010);
     v1 = 0x10009030;
     a1 = 0x000FFFF0;
 loc_21CC00:
-    ret = *(u32*)(v1);
     ret = ret - a2;
     if (ret == 0) goto loc_21CC00;
-    ret = ret + -1;
-    ret = ret & a1;
     ret = (unsigned)ret >> 4;
     if ((unsigned)ret < (unsigned)s1) goto loc_21CC00;
     ret = 0x70000000;
@@ -6907,20 +6452,17 @@ loc_21CC00:
     s4 = 0x1000D000;
     __fp = 0x100;
     while (1) {
-        ret = COP0_REG(t4); /* mfc0 */
-        ret = ret & s6;
-        if (ret != 0) {
+        ret = COP0_REG(12); /* mfc0 */
+        if ((ret & s6) != 0) {
             v1 = 1 << 16;
             do {
                 DI();
                 SYNC(); /* memory barrier */
-                ret = COP0_REG(t4); /* mfc0 */
+                ret = COP0_REG(12); /* mfc0 */
                 ret = ret & v1;
             } while (ret != 0);
         }
-        ret = *(u32*)(s0);
-        ret = ret & 0xc;
-        if (ret != 0) {
+        if ((ret & 0xc) != 0) {
             *(u32*)(s2) = s5;
             *(u32*)(s3) = s1;
             *(u32*)(s4) = __fp;
@@ -6928,28 +6470,26 @@ loc_21CC00:
             return ret;
         }
         EI();
-        a0 = *(u32*)*(s7 + 0x2b24);
-        ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+        a0 = *(u32*)(s7 + 0x2b24);
+        ret = UI_Kern_WaitSema();
     }
 }
 
 /* Function at 0x0021CD08 - 0x0021CD68 */
-int GPU_SetAlphaFlags()
+u32 GPU_SetAlphaFlags(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, s0;
+    u32 ret, v1, a0, a1, a2, a3, s0;
     v1 = 0x12001000;
     a0 = 2;
-    ret = *(u64*)*(v1 + 0);
-    ret = ret & a0;
-    if (ret != 0) {
+    if ((ret & a0) != 0) {
         __at = 0x12000000;
-        *(u64*)*(__at + 4096) = a0;
+        *(u64*)(__at + 4096) = a0;
         s0 = 0x700010F0;
-        a0 = *(u32*)*(s0 + 0x2b20);
-        ret = UI_Kern_iPollSema(a0, a1, a2, a3);
-        a0 = *(u32*)*(s0 + 0x2b20);
-        ret = UI_Kern_iSignalSema(a0, a1, a2, a3);
+        a0 = *(u32*)(s0 + 0x2b20);
+        ret = UI_Kern_iPollSema();
+        a0 = *(u32*)(s0 + 0x2b20);
+        ret = UI_Kern_iSignalSema();
     }
     SYNC(); /* memory barrier */
     EI();
@@ -6957,38 +6497,32 @@ int GPU_SetAlphaFlags()
 }
 
 /* Function at 0x0021CD68 - 0x0021CDD0 */
-int GPU_SetTextureWrap()
+u32 GPU_SetTextureWrap(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, s0;
+    u32 ret, v1, a0, a1, a2, a3, s0;
     s0 = 0x70000000 + 0x10f0;
-    v1 = *(u32*)*(s0 + 0x264c);
-    if (v1 == 0) {
-        ret = *(u64*)*(0x12001000 + 0);
-        ret = ret << 19;
-        ret = (s64)ret >> 32;
-        ret = ret ^ 1;
+    if ((*(u32*)(s0 + 0x264c)) == 0) {
         ret = ret & 1;
-        *(u32*)*(s0 + 0x225c) = ret;
+        *(u32*)(s0 + 0x225c) = ret;
     }
-    a0 = *(u32*)*(s0 + 0x2b1c);
-    ret = UI_Kern_iPollSema(a0, a1, a2, a3);
-    a0 = *(u32*)*(s0 + 0x2b1c);
-    ret = UI_Kern_iSignalSema(a0, a1, a2, a3);
+    a0 = *(u32*)(s0 + 0x2b1c);
+    ret = UI_Kern_iPollSema();
+    a0 = *(u32*)(s0 + 0x2b1c);
+    ret = UI_Kern_iSignalSema();
     SYNC(); /* memory barrier */
     EI();
     return -1;
 }
 
 /* Function at 0x0021CDD0 - 0x0021CE10 */
-int GPU_SetDither()
+u32 GPU_SetDither(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
-    v1 = *(u32*)*(0x700010F0 + 0x2648);
-    if (v1 != 0) {
-        a0 = *(u32*)*(ret + 0x2b1c);
-        ret = UI_Kern_iPollSema(a0, a1, a2, a3);
+    u32 ret, v1, a0, a1, a2, a3;
+    if ((*(u32*)(0x700010F0 + 0x2648)) != 0) {
+        a0 = *(u32*)(ret + 0x2b1c);
+        ret = UI_Kern_iPollSema();
     }
     SYNC(); /* memory barrier */
     EI();
@@ -6996,56 +6530,47 @@ int GPU_SetDither()
 }
 
 /* Function at 0x0021CE10 - 0x0021D690 */
-int GPU_RenderFrame()
+u32 GPU_RenderFrame(void)
 {
     /* Stack frame: 96 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
+    u32 ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
     a0 = 0x70000000 + 0x30f0;
-    *(u32*)(sp) = 0;
-    v1 = *(u32*)*(a0 + 8);
-    ret = v1 & 0x3ff;
+    *(u32*)(__sp) = 0;
+    v1 = *(u32*)(a0 + 8);
     ret = (unsigned)v1 >> 0x10;
     if (ret == 0) goto loc_21D5A4;
     ret = ret & 0x1ff;
     v1 = a0 + -0x2000;
     if (ret == 0) goto loc_21D5A4;
-    ret = *(u32*)*(v1 + 0x215c);
-    if (0x70000000 != 0) goto loc_21CE98;
-    ret = *(u32*)*(v1 + 0x2218);
-    if (0x70000000 != 0) goto loc_21CE98;
-    ret = *(u32*)*(v1 + 0x2214);
-    if (0x70000000 == 0) goto loc_21CE98;
-    ret = *(u32*)*(v1 + 0x2268);
-    ret = ret | 2;
-    *(u32*)(sp) = ret;
-    ret = 0x70000000;
+    ret = *(u32*)(v1 + 0x215c);
+    goto loc_21CE98;
 loc_21CE98:
     a3 = 0x22;
     a1 = ret + 0x330c;
     t4 = 0x45;
     v1 = a1 + -0x21c;
     ret = *(u32*)(a1);
-    a2 = *(u32*)*(v1 + 8);
+    a2 = *(u32*)(v1 + 8);
     t2 = 0x49;
-    a0 = *(u32*)*(v1 + 4);
+    a0 = *(u32*)(v1 + 4);
     t3 = 0x4a;
-    v1 = *(u32*)(sp);
+    v1 = *(u32*)(__sp);
     s4 = (unsigned)a2 >> 0x10;
     t7 = a0 & 0x3f0;
     t5 = (unsigned)a0 >> 0x10;
-    *(u64*)*(ret + 0) = v1;
+    *(u64*)(ret + 0) = v1;
     ret = ret + 8;
     v1 = a2 & 0x3ff;
     a2 = 0x47;
-    *(u32*)*(__sp + 4) = v1;
+    *(u32*)(__sp + 4) = v1;
     a0 = 3 << 16;
-    *(u64*)*(ret + 0) = a3;
+    *(u64*)(ret + 0) = a3;
     ret = ret + 8;
     t1 = ret + 0x50;
     t0 = 0x40;
-    a3 = *(u32*)*(__sp + 4);
+    a3 = *(u32*)(__sp + 4);
     t5 = t5 & 0x1ff;
-    *(u64*)*(ret + 8) = t4;
+    *(u64*)(ret + 8) = t4;
     s4 = s4 & 0x1ff;
     v1 = t7 + a3;
     a3 = 0x01FF0000;
@@ -7053,21 +6578,21 @@ loc_21CE98:
     a3 = a3 | 0x3ff;
     a3 = a3 << 16;
     v1 = ((unsigned)v1 < 0x401) ? 1 : 0;
-    *(u64*)*(ret + 24) = t2;
-    *(u64*)*(ret + 40) = t3;
-    *(u64*)*(ret + 48) = a0;
-    *(u64*)*(ret + 56) = a2;
-    *(u64*)*(ret + 64) = a3;
-    *(u64*)*(ret + 72) = t0;
+    *(u64*)(ret + 24) = t2;
+    *(u64*)(ret + 40) = t3;
+    *(u64*)(ret + 48) = a0;
+    *(u64*)(ret + 56) = a2;
+    *(u64*)(ret + 64) = a3;
+    *(u64*)(ret + 72) = t0;
     *(u32*)(a1) = t1;
-    *(u64*)*(ret + 0) = 0;
-    *(u64*)*(ret + 16) = 0;
-    *(u64*)*(ret + 32) = 0;
+    *(u64*)(ret + 0) = 0;
+    *(u64*)(ret + 16) = 0;
+    *(u64*)(ret + 32) = 0;
     if (v1 == 0) {
         t4 = 0x400 - t7;
         goto loc_21CF5C;
     }
-    t4 = *(u32*)*(__sp + 4);
+    t4 = *(u32*)(__sp + 4);
 loc_21CF5C:
     ret = t5 + s4;
     t3 = s4;
@@ -7076,27 +6601,27 @@ loc_21CF5C:
     }
     t2 = t5 + t3;
     v1 = 0x70000000;
-    *(u32*)*(__sp + 8) = t2;
+    *(u32*)(__sp + 8) = t2;
     s5 = v1 + 0x330c;
     s6 = t7 + t4;
     t1 = (unsigned)t7 >> 6;
-    a3 = *(u32*)*(__sp + 8);
+    a3 = *(u32*)(__sp + 8);
     ret = s6 + -1;
     t2 = *(u32*)(s5);
     ret = (unsigned)ret >> 6;
     a2 = a3 << 4;
     a3 = 6;
-    *(u64*)*(t2 + 0) = a3;
+    *(u64*)(t2 + 0) = a3;
     t2 = t2 + 8;
-    *(u64*)*(t2 + 0) = 0;
+    *(u64*)(t2 + 0) = 0;
     t2 = t2 + 8;
     ret = ret - t1;
     s7 = s5 + -0x221c;
     a3 = 1;
     ret = ret + 1;
-    t0 = *(u32*)*(s7 + 0x2000);
+    t0 = *(u32*)(s7 + 0x2000);
     ret = a3 << ret;
-    a3 = *(u32*)*(__sp + 8);
+    a3 = *(u32*)(__sp + 8);
     v1 = 0x00F8F8F8;
     a2 = a2 + 0x4000;
     a2 = (u64)a2 << 32;
@@ -7113,13 +6638,13 @@ loc_21CF5C:
     a0 = s6 << 4;
     a1 = a1 + 0x4000;
     a0 = a0 + 0x4000;
-    *(u64*)*(t2 + 0) = t0;
+    *(u64*)(t2 + 0) = t0;
     a1 = (u64)a1 << 32;
-    *(u64*)*(t2 + 8) = ret;
+    *(u64*)(t2 + 8) = ret;
     a0 = (u64)a0 << 32;
     __fp = t7 << 4;
     s3 = (unsigned)a1 >> 16;
-    ret = *(u32*)*(__sp + 4);
+    ret = *(u32*)(__sp + 4);
     a0 = (u64)a0 >> 32;
     a1 = __fp + 0x4000;
     t6 = 5;
@@ -7129,48 +6654,46 @@ loc_21CF5C:
     s1 = (unsigned)t5 >> 8;
     a2 = (unsigned)a2 >> 8;
     t9 = ret - t4;
-    *(u64*)*(t2 + 16) = a1;
+    *(u64*)(t2 + 16) = a1;
     t8 = s4 - t3;
-    *(u64*)*(t2 + 32) = a0;
-    __asm("movz v1, a3, s1");
-    *(u64*)*(t2 + 24) = t6;
-    *(u64*)*(t2 + 40) = t6;
+    *(u64*)(t2 + 32) = a0;
+    if (s1 == 0) v1 = a3;
+    *(u64*)(t2 + 24) = t6;
+    *(u64*)(t2 + 40) = t6;
     *(u32*)(s5) = s0;
     if (a2 != 0) {
         ret = a3 << 0x10;
         v1 = v1 | ret;
     }
-    ret = *(u32*)*(s7 + 0x22e4);
+    ret = *(u32*)(s7 + 0x22e4);
     a3 = ret | v1;
-    *(u32*)*(s7 + 0x22e4) = a3;
+    *(u32*)(s7 + 0x22e4) = a3;
     if (t9 != 0) {
         ret = t9 + -1;
         v1 = t9 << 4;
         ret = (unsigned)ret >> 6;
         a0 = 1;
         v1 = v1 + 0x4000;
-        ret = ret + 1;
         ret = a0 << ret;
         a0 = 0x4000;
         v1 = (u64)v1 << 32;
         a0 = s3 | a0;
         v1 = (u64)v1 >> 32;
-        *(u64*)*(s0 + 0) = a0;
+        *(u64*)(s0 + 0) = a0;
         v1 = v1 | s2;
         a1 = t2 + 0x50;
         ret = ret + -1;
         a0 = 0;
         *(u32*)(s5) = a1;
-        __asm("movz a0, v0, s1");
-        *(u64*)*(t2 + 64) = v1;
-        *(u64*)*(t2 + 72) = t6;
-        *(u64*)*(t2 + 56) = t6;
+        if (s1 == 0) a0 = ret;
+        *(u64*)(t2 + 64) = v1;
+        *(u64*)(t2 + 72) = t6;
+        *(u64*)(t2 + 56) = t6;
         if (a2 != 0) {
             ret = ret << 0x10;
             a0 = a0 | ret;
         }
-        ret = a3 | a0;
-        *(u32*)*(s7 + 0x22e4) = ret;
+        *(u32*)(s7 + 0x22e4) = a3 | a0;
     }
     a0 = s6 + -1;
     if (t8 != 0) {
@@ -7186,14 +6709,14 @@ loc_21CF5C:
         v1 = v1 + 0x4000;
         ret = ret + 0x4000;
         a0 = a0 - t1;
-        *(u64*)*(a1 + 0) = a2;
+        *(u64*)(a1 + 0) = a2;
         a0 = a0 + 1;
         t0 = 5;
         a1 = a1 + 8;
         v1 = (u64)v1 << 32;
         ret = (u64)ret << 32;
         a2 = 1;
-        *(u64*)*(a1 + 0) = t0;
+        *(u64*)(a1 + 0) = t0;
         a1 = a1 + 8;
         a2 = a2 << a0;
         a0 = t8 + -1;
@@ -7203,18 +6726,16 @@ loc_21CF5C:
         a3 = a1 + 0x10;
         a2 = a2 + -1;
         a0 = (unsigned)a0 >> 8;
-        *(u64*)*(a1 + 0) = v1;
+        *(u64*)(a1 + 0) = v1;
         a2 = a2 << t1;
-        *(u64*)*(a1 + 8) = t0;
+        *(u64*)(a1 + 8) = t0;
         *(u32*)(t2) = a3;
         if (a0 != 0) {
             ret = a2 << 0x10;
             a2 = a2 | ret;
         }
         v1 = t2 + -0x221c;
-        ret = *(u32*)*(v1 + 0x22e4);
-        ret = ret | a2;
-        *(u32*)*(v1 + 0x22e4) = ret;
+        *(u32*)(v1 + 0x22e4) = ret | a2;
     }
     s7 = 0x70000000;
     if (t9 == 0) goto loc_21D244;
@@ -7228,13 +6749,13 @@ loc_21CF5C:
     v1 = v1 + 0x4000;
     ret = ret + 0x4000;
     a2 = t9 + -1;
-    *(u64*)*(a0 + 0) = a1;
+    *(u64*)(a0 + 0) = a1;
     t0 = 5;
     v1 = (u64)v1 << 32;
     a0 = a0 + 8;
     ret = (u64)ret << 32;
     a2 = (unsigned)a2 >> 6;
-    *(u64*)*(a0 + 0) = t0;
+    *(u64*)(a0 + 0) = t0;
     ret = (unsigned)ret >> 16;
     v1 = (u64)v1 >> 32;
     a0 = a0 + 8;
@@ -7245,52 +6766,50 @@ loc_21CF5C:
     ret = a0 + 0x10;
     a1 = a1 << a2;
     a3 = (unsigned)a3 >> 8;
-    *(u64*)*(a0 + 0) = v1;
+    *(u64*)(a0 + 0) = v1;
     a1 = a1 + -1;
-    *(u64*)*(a0 + 8) = t0;
+    *(u64*)(a0 + 8) = t0;
     *(u32*)(t2) = ret;
     if (a3 != 0) {
         ret = a1 << 0x10;
         a1 = a1 | ret;
     }
     v1 = t2 + -0x221c;
-    ret = *(u32*)*(v1 + 0x22e4);
-    ret = ret | a1;
-    *(u32*)*(v1 + 0x22e4) = ret;
+    *(u32*)(v1 + 0x22e4) = ret | a1;
     s7 = 0x70000000;
 loc_21D244:
     t6 = s7 + 0x10f0;
-    ret = *(u32*)*(t6 + 0x264c);
+    ret = *(u32*)(t6 + 0x264c);
     v1 = s7 + 0x10f0;
     if (ret == 0) goto loc_21D4C0;
-    ret = *(u32*)*(t6 + 0x2648);
+    ret = *(u32*)(t6 + 0x2648);
     t2 = 0x40;
     if (ret != 0) goto loc_21D4C4;
-    ret = *(u32*)*(t6 + 0x2214);
-    a2 = *(u32*)*(__sp + 4);
+    ret = *(u32*)(t6 + 0x2214);
+    a2 = *(u32*)(__sp + 4);
     if (ret != 0) {
-        ret = *(u32*)*(t6 + 0x2218);
+        ret = *(u32*)(t6 + 0x2218);
         s2 = t6;
             a0 = t7;
             a1 = t5;
             a3 = s4;
             t0 = -1;
-            ret = HDD_AddVector(a0, a1, a2, a3);
+            HDD_AddVector(a0, a1, a2);
             v1 = s7 + 0x10f0;
             goto loc_21D4C0;
         }
     t6 = t6 + 0x221c;
     ret = *(u32*)(t6);
     a1 = 0x22;
-    a0 = *(u32*)*(s2 + 0x2664);
+    a0 = *(u32*)(s2 + 0x2664);
     s0 = 0x4b;
-    *(u64*)*(ret + 0) = 0;
+    *(u64*)(ret + 0) = 0;
     ret = ret + 8;
-    v1 = *(u32*)*(s2 + 0x2668);
+    v1 = *(u32*)(s2 + 0x2668);
     t0 = t7 << a0;
-    t2 = *(u32*)*(__sp + 8);
+    t2 = *(u32*)(__sp + 8);
     s1 = 3 << 16;
-    *(u64*)*(ret + 0) = a1;
+    *(u64*)(ret + 0) = a1;
     ret = ret + 8;
     a2 = t5 << v1;
     t5 = 0x41;
@@ -7307,27 +6826,27 @@ loc_21D244:
     t4 = t4 | 0x3ff;
     t4 = t4 << 16;
     t1 = s6 << a0;
-    *(u64*)*(ret + 8) = s0;
+    *(u64*)(ret + 8) = s0;
     a0 = t9 << a0;
-    *(u64*)*(ret + 16) = s1;
+    *(u64*)(ret + 16) = s1;
     t0 = t0 + 0x4000;
-    *(u64*)*(ret + 24) = a1;
+    *(u64*)(ret + 24) = a1;
     a1 = 0x4000;
-    *(u64*)*(ret + 32) = t2;
+    *(u64*)(ret + 32) = t2;
     t2 = 1;
-    *(u64*)*(ret + 40) = t3;
+    *(u64*)(ret + 40) = t3;
     t3 = 2;
-    *(u64*)*(ret + 56) = t5;
+    *(u64*)(ret + 56) = t5;
     a2 = a2 + 0x4000;
-    *(u64*)*(ret + 48) = t4;
+    *(u64*)(ret + 48) = t4;
     t1 = t1 + 0x4000;
     *(u32*)(t6) = t7;
     a3 = a3 + 0x4000;
-    *(u64*)*(ret + 0) = 0;
+    *(u64*)(ret + 0) = 0;
     ret = 0x40000000;
     a0 = a0 + 0x4000;
     v1 = v1 + 0x4000;
-    t4 = *(u32*)(sp);
+    t4 = *(u32*)(__sp);
     t0 = (u64)t0 << 32;
     a2 = (u64)a2 << 32;
     t1 = (u64)t1 << 32;
@@ -7340,7 +6859,7 @@ loc_21D244:
     a3 = (unsigned)a3 >> 16;
     a0 = (u64)a0 >> 32;
     v1 = (unsigned)v1 >> 16;
-    __asm("movn t3, t2, t4");
+    if (t4 != 0) t3 = t2;
     s1 = a2 | a1;
     a1 = t0 | a2;
     s0 = t0 | ret;
@@ -7358,99 +6877,98 @@ loc_21D244:
     a3 = 0x4d;
     ret = *(u32*)(t6);
 loc_21D3D8:
-    *(u64*)*(ret + 0) = s6;
+    *(u64*)(ret + 0) = s6;
     ret = ret + 8;
-    *(u64*)*(ret + 0) = 0;
+    *(u64*)(ret + 0) = 0;
     ret = ret + 8;
     v1 = ret + 0x20;
     a0 = ret + 0x40;
-    *(u64*)*(ret + 0) = a1;
-    *(u64*)*(ret + 8) = t2;
-    *(u64*)*(ret + 16) = a2;
-    *(u64*)*(ret + 24) = t2;
+    *(u64*)(ret + 0) = a1;
+    *(u64*)(ret + 8) = t2;
+    *(u64*)(ret + 16) = a2;
+    *(u64*)(ret + 24) = t2;
     *(u32*)(t6) = v1;
     if (t9 != 0) {
-        *(u64*)*(v1 + 0) = s1;
+        *(u64*)(v1 + 0) = s1;
         *(u32*)(t6) = a0;
-        *(u64*)*(ret + 40) = t2;
-        *(u64*)*(ret + 48) = t5;
-        *(u64*)*(ret + 56) = t2;
+        *(u64*)(ret + 40) = t2;
+        *(u64*)(ret + 48) = t5;
+        *(u64*)(ret + 56) = t2;
     }
     if (t8 != 0) {
         ret = *(u32*)(t6);
-        *(u64*)*(ret + 0) = s0;
+        *(u64*)(ret + 0) = s0;
         ret = ret + 8;
-        *(u64*)*(ret + 0) = t2;
+        *(u64*)(ret + 0) = t2;
         ret = ret + 8;
         v1 = ret + 0x10;
-        *(u64*)*(ret + 0) = t4;
+        *(u64*)(ret + 0) = t4;
         *(u32*)(t6) = v1;
-        *(u64*)*(ret + 8) = t2;
+        *(u64*)(ret + 8) = t2;
     }
     if (t9 == 0) goto loc_21D47C;
     if (t8 == 0) goto loc_21D47C;
     ret = *(u32*)(t6);
-    *(u64*)*(ret + 0) = s5;
+    *(u64*)(ret + 0) = s5;
     ret = ret + 8;
-    *(u64*)*(ret + 0) = t2;
+    *(u64*)(ret + 0) = t2;
     ret = ret + 8;
     v1 = ret + 0x10;
-    *(u64*)*(ret + 0) = t7;
+    *(u64*)(ret + 0) = t7;
     *(u32*)(t6) = v1;
-    *(u64*)*(ret + 8) = t2;
+    *(u64*)(ret + 8) = t2;
 loc_21D47C:
     t3 = t3 + -1;
     if (t3 == s4) {
-        a0 = *(u32*)*(s2 + 0x2658);
+        a0 = *(u32*)(s2 + 0x2658);
         v1 = t1;
         ret = *(u32*)(t6);
-        __asm("movn v1, s3, a0");
-        v1 = t0 | v1;
-        *(u64*)*(ret + 0) = v1;
+        if (a0 != 0) v1 = s3;
+        *(u64*)(ret + 0) = t0 | v1;
         ret = ret + 8;
-        *(u64*)*(ret + 0) = a3;
+        *(u64*)(ret + 0) = a3;
         ret = ret + 8;
         *(u32*)(t6) = ret;
     }
     ret = *(u32*)(t6);
-    if (likely(t3 != 0)) goto loc_21D3D8;
-    ret = HDD_WriteDMAPacket(a0, a1, a2, a3);
+    if (t3 != 0) goto loc_21D3D8;
+    ret = HDD_WriteDMAPacket();
     v1 = s7 + 0x10f0;
 loc_21D4C0:
     t2 = 0x40;
 loc_21D4C4:
-    ret = *(u32*)*(v1 + 8564);  /* lwu */
+    ret = *(u32*)(v1 + 8564);  /* lwu */
     t1 = v1 + 0x221c;
-    a2 = *(u32*)*(v1 + 8556);  /* lwu */
+    a2 = *(u32*)(v1 + 8556);  /* lwu */
     t0 = 0x0003040B;
-    a1 = *(u32*)*(v1 + 8560);  /* lwu */
+    a1 = *(u32*)(v1 + 8560);  /* lwu */
     ret = (u64)ret << 48;
-    a0 = *(u32*)*(v1 + 8552);  /* lwu */
+    a0 = *(u32*)(v1 + 8552);  /* lwu */
     a2 = (u64)a2 << 32;
     a1 = a1 << 16;
-    a3 = *(u32*)*(v1 + 8904);  /* lwu */
+    a3 = *(u32*)(v1 + 8904);  /* lwu */
     a2 = a2 | a1;
     a1 = 0x47;
     a0 = a0 | ret;
     ret = *(u32*)(t1);
     a0 = a0 | a2;
-    a2 = *(u32*)*(v1 + 8908);  /* lwu */
-    *(u64*)*(ret + 0) = a0;
+    a2 = *(u32*)(v1 + 8908);  /* lwu */
+    *(u64*)(ret + 0) = a0;
     ret = ret + 8;
-    *(u64*)*(ret + 0) = t2;
+    *(u64*)(ret + 0) = t2;
     ret = ret + 8;
     a3 = a3 << 14;
     v1 = 0x4a;
     a3 = a3 | t0;
     a0 = ret + 0x20;
-    *(u64*)*(ret + 0) = a2;
-    *(u64*)*(ret + 8) = v1;
-    *(u64*)*(ret + 16) = a3;
-    *(u64*)*(ret + 24) = a1;
+    *(u64*)(ret + 0) = a2;
+    *(u64*)(ret + 8) = v1;
+    *(u64*)(ret + 16) = a3;
+    *(u64*)(ret + 24) = a1;
     *(u32*)(t1) = a0;
-    ret = GPU_BuildGIFTag(a0, a1, a2, a3);
-    ret = HDD_SetupVertexBuffer(a0, a1, a2, a3);
-    ret = COP0_REG(t4); /* mfc0 */
+    ret = GPU_BuildGIFTag();
+    ret = HDD_SetupVertexBuffer();
+    ret = COP0_REG(12); /* mfc0 */
     v1 = 1 << 16;
     ret = ret & v1;
     a1 = s7 + 0x10f0;
@@ -7458,50 +6976,44 @@ loc_21D4C4:
         do {
             DI();
             SYNC(); /* memory barrier */
-            ret = COP0_REG(t4); /* mfc0 */
+            ret = COP0_REG(12); /* mfc0 */
             ret = ret & v1;
             a1 = s7 + 0x10f0;
         } while (ret != 0);
     }
-    ret = *(u32*)*(a1 + 0x2008);
-    a0 = *(u32*)*(a1 + 0x2260);
+    ret = *(u32*)(a1 + 0x2008);
+    a0 = *(u32*)(a1 + 0x2260);
     v1 = (unsigned)ret >> 0x10;
     ret = ret & 0x3ff;
     v1 = v1 & 0x1ff;
     ac2 = (s32)((s64)ret * (s64)v1); HI_LO = (s64)ret * (s64)v1;
     ret = (signed)ret >> 3;
     a0 = a0 + ret;
-    *(u32*)*(a1 + 0x2260) = a0;
+    *(u32*)(a1 + 0x2260) = a0;
     EI();
 loc_21D5A4:
     return ret;
-        }
-        ret = *(u32*)*(t0 + 0x2150);
-        ret = ret << 3;
         ret = ret + t0;
-        v1 = *(u64*)*(ret + 8992);
-        *(u64*)*(t0 + 8984) = v1;
-    }
-    ret = *(u32*)*(t2 + 0x2000);
+        v1 = *(u64*)(ret + 8992);
+        *(u64*)(t0 + 8984) = v1;
+    ret = *(u32*)(t2 + 0x2000);
     v1 = (unsigned)ret >> 0xa;
-    ret = (unsigned)ret >> 9;
     ret = ret & 1;
-    v1 = v1 & 1;
-    *(u32*)*(t2 + 0x215c) = v1;
-    *(u32*)*(t2 + 0x2158) = ret;
+    *(u32*)(t2 + 0x215c) = v1 & 1;
+    *(u32*)(t2 + 0x2158) = ret;
     return ret;
 }
 
 /* Function at 0x0021D690 - 0x0021D778 */
-int GPU_UpdateTexturePage()
+u32 GPU_UpdateTexturePage(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, t0, t1, t2, t3, t4, t5, t6, t7;
+    u32 ret, v1, a0, a1, a2, a3, s0, s1, t0, t1, t2, t3, t4, t5, t6, t7;
     t1 = 0x700010F0;
     t7 = 1;
     t3 = 0xff;
     a0 = 3;
-    a3 = *(u32*)*(t1 + 0x2000);
+    a3 = *(u32*)(t1 + 0x2000);
     v1 = t7;
     s0 = t1 + 0x221c;
     t5 = (unsigned)a3 >> 5;
@@ -7522,8 +7034,8 @@ int GPU_UpdateTexturePage()
     t3 = a2 ^ t3;
     a1 = t4 << 3;
     ret = a3 << 3;
-    __asm("movn v1, a0, t2");
-    __asm("movz a0, t7, t3");
+    if (t2 != 0) v1 = a0;
+    if (t3 == 0) a0 = t7;
     a1 = (u64)a1 << 34;
     a2 = a2 << 4;
     ret = ret << 14;
@@ -7536,34 +7048,33 @@ int GPU_UpdateTexturePage()
     ret = *(u32*)(s0);
     a0 = a0 | v1;
     v1 = 8;
-    *(u64*)*(t1 + 8976) = a0;
-    *(u64*)*(ret + 0) = a0;
+    *(u64*)(t1 + 8976) = a0;
+    *(u64*)(ret + 0) = a0;
     ret = ret + 8;
-    *(u64*)*(ret + 0) = v1;
-    ret = ret + 8;
-    *(u32*)(s0) = ret;
-    *(u32*)*(t1 + 0x2240) = s1;
-    *(u32*)*(t1 + 0x2178) = t6;
-    *(u32*)*(t1 + 0x217c) = t5;
-    *(u32*)*(t1 + 0x2180) = a3;
-    *(u32*)*(t1 + 0x2184) = t4;
+    *(u64*)(ret + 0) = v1;
+    *(u32*)(s0) = ret + 8;
+    *(u32*)(t1 + 0x2240) = s1;
+    *(u32*)(t1 + 0x2178) = t6;
+    *(u32*)(t1 + 0x217c) = t5;
+    *(u32*)(t1 + 0x2180) = a3;
+    *(u32*)(t1 + 0x2184) = t4;
     return ret;
 }
 
 /* Function at 0x0021D778 - 0x0021D890 */
-int GPU_UpdateCLUT()
+u32 GPU_UpdateCLUT(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, t0, t1, t2, t3, t4, t5;
+    u32 ret, v1, a1, a2, a3, t0, t1, t2, t3, t4, t5;
     t3 = 0x70000000 + 0x10f0;
     t1 = t3 + 0x221c;
-    a2 = *(u32*)*(t3 + 0x2000);
+    a2 = *(u32*)(t3 + 0x2000);
     t0 = 0xFF07FFFF;
-    a0 = *(u32*)*(t3 + 8564);  /* lwu */
+    a0 = *(u32*)(t3 + 8564);  /* lwu */
     t2 = 0x40;
     a3 = (unsigned)a2 >> 0xa;
     a2 = a2 & 0x3ff;
-    ret = *(u32*)*(t3 + 8560);  /* lwu */
+    ret = *(u32*)(t3 + 8560);  /* lwu */
     a3 = a3 & 0x3ff;
     a0 = (u64)a0 << 48;
     v1 = (u64)a3 << 32;
@@ -7572,28 +7083,28 @@ int GPU_UpdateCLUT()
     v1 = v1 | ret;
     ret = *(u32*)(t1);
     a0 = a0 | v1;
-    v1 = *(u32*)*(t3 + 0x22b0);
-    a1 = *(u32*)*(t3 + 0x2000);
+    v1 = *(u32*)(t3 + 0x22b0);
+    a1 = *(u32*)(t3 + 0x2000);
     t4 = (unsigned)a2 >> 6;
-    *(u64*)*(ret + 0) = a0;
+    *(u64*)(ret + 0) = a0;
     ret = ret + 8;
     a1 = a1 & t0;
-    *(u64*)*(ret + 0) = t2;
+    *(u64*)(ret + 0) = t2;
     ret = ret + 8;
-    *(u32*)*(t3 + 0x2168) = a2;
+    *(u32*)(t3 + 0x2168) = a2;
     t5 = (unsigned)a3 >> 8;
     *(u32*)(t1) = ret;
-    *(u32*)*(t3 + 0x2244) = a1;
-    *(u32*)*(t3 + 0x216c) = a3;
-    a2 = *(u32*)*(t3 + 0x2174);
-    a0 = *(u32*)*(t3 + 0x2170);
+    *(u32*)(t3 + 0x2244) = a1;
+    *(u32*)(t3 + 0x216c) = a3;
+    a2 = *(u32*)(t3 + 0x2174);
+    a0 = *(u32*)(t3 + 0x2170);
     if (v1 != 0) {
         a0 = (unsigned)a0 >> 6;
         ret = 1;
         a0 = a0 - t4;
-        a1 = *(u32*)*(t3 + 0x22e4);
+        a1 = *(u32*)(t3 + 0x22e4);
         a0 = a0 + 1;
-        v1 = *(u32*)*(t3 + 0x22e0);
+        v1 = *(u32*)(t3 + 0x22e0);
         ret = ret << a0;
         a0 = 0;
         ret = ret + -1;
@@ -7601,69 +7112,68 @@ int GPU_UpdateCLUT()
         ret = ret << t4;
         a2 = (unsigned)a2 >> 8;
         v1 = ret << 0x10;
-        __asm("movz a0, v0, t5");
-        *(u32*)*(t3 + 0x22e4) = a1;
+        if (t5 == 0) a0 = ret;
+        *(u32*)(t3 + 0x22e4) = a1;
         if (a2 != 0) {
             a0 = a0 | v1;
         }
-        ret = *(u32*)*(t3 + 0x264c);
-        *(u32*)*(t3 + 0x22e0) = a0;
-        *(u32*)*(t3 + 0x22b0) = 0;
+        ret = *(u32*)(t3 + 0x264c);
+        *(u32*)(t3 + 0x22e0) = a0;
+        *(u32*)(t3 + 0x22b0) = 0;
         if (ret != 0) {
-            ret = *(u32*)*(t3 + 0x2648);
-            if (ret == 0) {
-                return HDD_CalculateVertexPositions(a0, a1, a2, a3);
+            if ((*(u32*)(t3 + 0x2648)) == 0) {
+                return HDD_CalculateVertexPositions();
                 }
-                *(u32*)*(t3 + 0x22b0) = 1;
+                *(u32*)(t3 + 0x22b0) = 1;
                 }
             }
     return ret;
 }
 
 /* Function at 0x0021D890 - 0x0021DA80 */
-int GPU_ProcessDisplayList()
+u32 GPU_ProcessDisplayList(u32 a0, u32 a1)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, t0, t1, t2, t3, t4, t5;
+    u32 ret, v1, a2, a3, t0, t1, t2, t3, t4, t5;
     t3 = 0x70000000 + 0x10f0;
     t1 = t3 + 0x221c;
-    a2 = *(u32*)*(t3 + 0x2000);
+    a2 = *(u32*)(t3 + 0x2000);
     t0 = 0xFF07FFFF;
-    a1 = *(u32*)*(t3 + 8556);  /* lwu */
+    a1 = *(u32*)(t3 + 8556);  /* lwu */
     t2 = 0x40;
     a3 = (unsigned)a2 >> 0xa;
     a2 = a2 & 0x3ff;
     a3 = a3 & 0x3ff;
-    v1 = *(u32*)*(t3 + 8552);  /* lwu */
+    v1 = *(u32*)(t3 + 8552);  /* lwu */
     ret = (u64)a3 << 48;
     a0 = a2 << 16;
     a1 = (u64)a1 << 32;
     v1 = v1 | ret;
     a1 = a1 | a0;
-    a0 = *(u32*)*(t3 + 0x2000);
+    a0 = *(u32*)(t3 + 0x2000);
     ret = *(u32*)(t1);
     v1 = v1 | a1;
     a0 = a0 & t0;
     t5 = (unsigned)a2 >> 6;
-    *(u64*)*(ret + 0) = v1;
+    *(u64*)(ret + 0) = v1;
     ret = ret + 8;
-    v1 = *(u32*)*(t3 + 0x22b0);
+    v1 = *(u32*)(t3 + 0x22b0);
     t4 = (unsigned)a3 >> 8;
-    *(u64*)*(ret + 0) = t2;
+    *(u64*)(ret + 0) = t2;
     ret = ret + 8;
-    *(u32*)*(t3 + 0x2170) = a2;
-    *(u32*)*(t3 + 0x2174) = a3;
+    *(u32*)(t3 + 0x2170) = a2;
+    *(u32*)(t3 + 0x2174) = a3;
     *(u32*)(t1) = ret;
-    *(u32*)*(t3 + 0x2248) = a0;
-    a2 = *(u32*)*(t3 + 0x2168);
-    a3 = *(u32*)*(t3 + 0x216c);
+    *(u32*)(t3 + 0x2248) = a0;
+    a2 = *(u32*)(t3 + 0x2168);
+    a3 = *(u32*)(t3 + 0x216c);
     if (v1 != 0) {
         a2 = (unsigned)a2 >> 6;
         v1 = 1;
         ret = t5 - a2;
-        a1 = *(u32*)*(t3 + 0x22e4);
+        a1 = *(u32*)(t3 + 0x22e4);
         ret = ret + 1;
-        a0 = *(u32*)*(t3 + 0x22e0);
+        a0 = *(u32*)(t3 + 0x22e0);
         v1 = v1 << ret;
         a3 = (unsigned)a3 >> 8;
         v1 = v1 + -1;
@@ -7671,42 +7181,40 @@ int GPU_ProcessDisplayList()
         v1 = v1 << a2;
         a2 = 0;
         ret = v1 << 0x10;
-        __asm("movz a2, v1, a3");
-        *(u32*)*(t3 + 0x22e4) = a1;
+        if (a3 == 0) a2 = v1;
+        *(u32*)(t3 + 0x22e4) = a1;
         if (t4 != 0) {
             a2 = a2 | ret;
         }
-        ret = *(u32*)*(t3 + 0x264c);
-        *(u32*)*(t3 + 0x22e0) = a2;
-        *(u32*)*(t3 + 0x22b0) = 0;
+        ret = *(u32*)(t3 + 0x264c);
+        *(u32*)(t3 + 0x22e0) = a2;
+        *(u32*)(t3 + 0x22b0) = 0;
         if (ret != 0) {
-            ret = *(u32*)*(t3 + 0x2648);
-            if (ret == 0) {
-                return HDD_CalculateVertexPositions(a0, a1, a2, a3);
+            if ((*(u32*)(t3 + 0x2648)) == 0) {
+                return HDD_CalculateVertexPositions();
                 }
-                *(u32*)*(t3 + 0x22b0) = 1;
+                *(u32*)(t3 + 0x22b0) = 1;
                 }
             }
     return ret;
-    }
-    ret = *(u32*)*(a1 + 0x22a0);
-    *(u32*)*(a1 + 0x22d4) = 0;
+    ret = *(u32*)(a1 + 0x22a0);
+    *(u32*)(a1 + 0x22d4) = 0;
     ret = ret & 1;
-    *(u32*)*(a1 + 0x22d0) = ret;
-    v1 = *(u32*)*(t3 + 0x2000);
+    *(u32*)(a1 + 0x22d0) = ret;
+    v1 = *(u32*)(t3 + 0x2000);
     a0 = -0x1801;
     ret = *(u32*)(t4);
     t1 = 0x4a;
     t2 = v1 & 1;
-    a2 = *(u32*)*(t3 + 0x223c);
+    a2 = *(u32*)(t3 + 0x223c);
     a3 = (u64)t2 << 32;
     t0 = (unsigned)v1 >> 1;
     a3 = (u64)a3 >> 32;
     t0 = t0 & 1;
-    *(u64*)*(ret + 0) = a3;
+    *(u64*)(ret + 0) = a3;
     ret = ret + 8;
     v1 = v1 & 3;
-    *(u64*)*(ret + 0) = t1;
+    *(u64*)(ret + 0) = t1;
     a2 = a2 & a0;
     a0 = 0x0003040B;
     ret = ret + 8;
@@ -7718,39 +7226,39 @@ int GPU_ProcessDisplayList()
     v1 = ret + 0x20;
     t1 = 0x4b;
     *(u32*)(t4) = v1;
-    *(u32*)*(t3 + 0x223c) = a2;
-    *(u64*)*(ret + 0) = a1;
-    *(u64*)*(ret + 8) = a0;
-    *(u64*)*(ret + 16) = a3;
-    *(u64*)*(ret + 24) = t1;
-    *(u32*)*(t3 + 0x22c8) = t0;
-    *(u32*)*(t3 + 0x22cc) = t2;
+    *(u32*)(t3 + 0x223c) = a2;
+    *(u64*)(ret + 0) = a1;
+    *(u64*)(ret + 8) = a0;
+    *(u64*)(ret + 16) = a3;
+    *(u64*)(ret + 24) = t1;
+    *(u32*)(t3 + 0x22c8) = t0;
+    *(u32*)(t3 + 0x22cc) = t2;
     return ret;
 }
 
 /* Function at 0x0021DA80 - 0x0021E340 */
-int GPU_DrawTextured()
+u32 GPU_DrawTextured(void)
 {
     /* Stack frame: 128 bytes */
-    int local_18;
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3, t4, t5, t6, t7;
+    u32 local_18;
+    u32 ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3, t4, t5, t6, t7;
     t0 = 0x70000000 + 0x30f0;
     v1 = t0 + -0x2000;
     a0 = 0;
     t7 = 0;
-    a1 = *(u32*)*(v1 + 0x2160);
-    ret = *(u32*)*(v1 + 0x215c);
-    *(u32*)*(__sp + 4) = a1;
-    a1 = *(u32*)*(v1 + 0x2164);
-    *(u32*)*(__sp + 8) = a1;
+    a1 = *(u32*)(v1 + 0x2160);
+    ret = *(u32*)(v1 + 0x215c);
+    *(u32*)(__sp + 4) = a1;
+    a1 = *(u32*)(v1 + 0x2164);
+    *(u32*)(__sp + 8) = a1;
     if (ret == 0) {
-        ret = *(u32*)*(v1 + 0x2218);
+        ret = *(u32*)(v1 + 0x2218);
         t3 = *(u32*)(t0);
-        if (likely(ret != 0)) goto loc_21DAFC;
-        ret = *(u32*)*(v1 + 0x2214);
+        if (ret != 0) goto loc_21DAFC;
+        ret = *(u32*)(v1 + 0x2214);
         t3 = *(u32*)(t0);
-        if (likely(ret == 0)) goto loc_21DAFC;
-        ret = *(u32*)*(v1 + 0x2268);
+        if (ret == 0) goto loc_21DAFC;
+        ret = *(u32*)(v1 + 0x2268);
         a0 = ret | 2;
     }
     t3 = *(u32*)(t0);
@@ -7758,7 +7266,7 @@ loc_21DAFC:
     t0 = t0 + 4;
     a0 = (u64)a0 << 32;
     __fp = 0x70000000;
-    *(u64*)*(__sp + 16) = a0;
+    *(u64*)(__sp + 16) = a0;
     a0 = (u64)a0 >> 32;
     t5 = __fp + 0x330c;
     v1 = -2;
@@ -7770,41 +7278,40 @@ loc_21DAFC:
     ret = 0x22;
     a1 = -3;
     v1 = (unsigned)t3 >> 0x1a;
-    *(u64*)*(t1 + 0) = a0;
+    *(u64*)(t1 + 0) = a0;
     t1 = t1 + 8;
     v1 = v1 & 2;
     s1 = s1 & a1;
     t4 = t5 + -0x221c;
-    *(u64*)*(t1 + 0) = ret;
+    *(u64*)(t1 + 0) = ret;
     s1 = s1 | v1;
     v1 = 0x49;
     t1 = t1 + 8;
     ret = (unsigned)t3 >> 0x1a;
     a0 = -5;
-    a1 = *(u32*)*(t4 + 0x22d8);
+    a1 = *(u32*)(t4 + 0x22d8);
     ret = ret & 4;
     s1 = s1 & a0;
     t6 = t1 + 0x10;
-    *(u64*)*(t1 + 8) = v1;
+    *(u64*)(t1 + 8) = v1;
     s1 = s1 | ret;
-    *(u64*)*(t1 + 0) = 0;
+    *(u64*)(t1 + 0) = 0;
     a2 = 0;
     *(u32*)(t5) = t6;
     if (a1 == 0) {
-        ret = *(u32*)*(t4 + 0x22a0);
         ret = ret & 1;
         a2 = ((unsigned)0 < (unsigned)ret) ? 1 : 0;
     }
     v1 = *(u32*)(t0);
     t0 = t0 + 4;
-    a1 = *(u32*)*(__sp + 4);
+    a1 = *(u32*)(__sp + 4);
     s0 = -9;
     a0 = v1 << 0x15;
     v1 = v1 << 5;
-    ret = *(u32*)*(t4 + 0x22d4);
+    ret = *(u32*)(t4 + 0x22d4);
     a0 = (signed)a0 >> 0x15;
     a0 = a0 + a1;
-    a1 = *(u32*)*(__sp + 8);
+    a1 = *(u32*)(__sp + 8);
     ret = ret | a2;
     v1 = (signed)v1 >> 0x15;
     ret = ret & 1;
@@ -7817,8 +7324,8 @@ loc_21DAFC:
     ret = v1 + 0x800;
     t2 = 0x00F8F8F8;
     a3 = ((signed)a0 < -0x400) ? 1 : 0;
-    __asm("movn v1, v0, a2");
-    __asm("movn a0, a1, a3");
+    if (a2 != 0) v1 = ret;
+    if (a3 != 0) a0 = a1;
     a1 = t3 & t2;
     a2 = 0x7F000000;
     ret = (unsigned)s1 >> 2;
@@ -7828,9 +7335,9 @@ loc_21DAFC:
     v1 = v1 << 0x10;
     t3 = t1 + 0x20;
     ret = ret & 1;
-    *(u64*)*(t6 + 0) = s6;
+    *(u64*)(t6 + 0) = s6;
     s2 = (signed)a0 >> 0x10;
-    *(u64*)*(t1 + 24) = a1;
+    *(u64*)(t1 + 24) = a1;
     s5 = (signed)v1 >> 0x10;
     *(u32*)(t5) = t3;
     if (ret != 0) {
@@ -7841,10 +7348,10 @@ loc_21DAFC:
     }
     ret = *(u32*)(t0);
     t0 = s1 & 1;
-    a0 = *(u32*)*(__sp + 4);
+    a0 = *(u32*)(__sp + 4);
     v1 = ret << 0x15;
     ret = ret << 5;
-    a1 = *(u32*)*(__sp + 8);
+    a1 = *(u32*)(__sp + 8);
     v1 = (signed)v1 >> 0x15;
     ret = (signed)ret >> 0x15;
     v1 = v1 + a0;
@@ -7853,37 +7360,36 @@ loc_21DAFC:
     a3 = ((signed)v1 < -0x400) ? 1 : 0;
     a2 = ((signed)ret < -0x400) ? 1 : 0;
     a0 = ret + 0x800;
-    __asm("movn v1, a1, a3");
-    __asm("movn v0, a0, a2");
+    if (a3 != 0) v1 = a1;
+    if (a2 != 0) ret = a0;
     v1 = v1 << 0x10;
     ret = ret << 0x10;
     s3 = (signed)v1 >> 0x10;
     s4 = (signed)ret >> 0x10;
     if (t0 != 0) {
-        v1 = *(u64*)*(t4 + 8984);
+        v1 = *(u64*)(t4 + 8984);
         a0 = 0x42;
-        ret = *(u32*)*(t4 + 8904);  /* lwu */
+        ret = *(u32*)(t4 + 8904);  /* lwu */
         a1 = 3 << 16;
-        *(u64*)*(t3 + 0) = v1;
+        *(u64*)(t3 + 0) = v1;
         a2 = t1 + 0x50;
-        *(u64*)*(t1 + 40) = a0;
+        *(u64*)(t1 + 40) = a0;
         a0 = 0x43;
         ret = ret << 14;
         *(u32*)(t5) = a2;
-        v1 = *(u64*)*(t4 + 8984);
+        v1 = *(u64*)(t4 + 8984);
         ret = ret | a1;
         a1 = 0x48;
         s1 = s1 & s0;
-        *(u64*)*(t1 + 48) = v1;
-        *(u64*)*(t1 + 56) = a0;
-        *(u64*)*(t1 + 64) = ret;
-        *(u64*)*(t1 + 72) = a1;
+        *(u64*)(t1 + 48) = v1;
+        *(u64*)(t1 + 56) = a0;
+        *(u64*)(t1 + 64) = ret;
+        *(u64*)(t1 + 72) = a1;
     } else {
-        ret = (unsigned)s1 >> 3;
         ret = ret & 1;
         v1 = 3 << 16;
         if (ret != 0) {
-            ret = *(u32*)*(t4 + 8904);  /* lwu */
+            ret = *(u32*)(t4 + 8904);  /* lwu */
             a0 = 0x44;
             a3 = t1 + 0x50;
             ret = ret << 14;
@@ -7891,51 +7397,44 @@ loc_21DAFC:
             ret = ret | v1;
             v1 = 0x48;
             a2 = 0x43;
-            *(u64*)*(t3 + 0) = a0;
+            *(u64*)(t3 + 0) = a0;
             *(u32*)(t5) = a3;
-            *(u64*)*(t1 + 40) = a1;
-            *(u64*)*(t1 + 48) = a0;
-            *(u64*)*(t1 + 56) = a2;
-            *(u64*)*(t1 + 64) = ret;
-            *(u64*)*(t1 + 72) = v1;
+            *(u64*)(t1 + 40) = a1;
+            *(u64*)(t1 + 48) = a0;
+            *(u64*)(t1 + 56) = a2;
+            *(u64*)(t1 + 64) = ret;
+            *(u64*)(t1 + 72) = v1;
         } else {
-            ret = *(u32*)*(t4 + 8904);  /* lwu */
+            ret = *(u32*)(t4 + 8904);  /* lwu */
             a0 = 0x000307FB;
             v1 = t1 + 0x30;
             a1 = 0x48;
             ret = ret << 14;
             *(u32*)(t5) = v1;
-            ret = ret | a0;
-            *(u64*)*(t3 + 0) = ret;
-            *(u64*)*(t1 + 40) = a1;
+            *(u64*)(t3 + 0) = ret | a0;
+            *(u64*)(t1 + 40) = a1;
             }
         }
-    ret = (unsigned)s1 >> 1;
-    local_18 = ret;
+    local_18 = (unsigned)s1 >> 1;
     goto loc_21DE80;
 loc_21DD70:
     a1 = 1;
-    *(u128*)*(__sp + 32) = t7;  /* sq */
-    ret = GPU_DrawSimplePoly(a0, a1, a2, a3);
-    __asm("ld.b w0, -0x51(zero)");
+    *(u128*)(__sp + 32) = t7;  /* sq */
+    ret = GPU_DrawSimplePoly(a0, a1);
+    __asm("ld.b w0, -0x51(0)");
     if (ret == 0) goto loc_21E294;
-    a1 = *(u32*)(sp);
-    v1 = 0xF000F000;
+    a1 = *(u32*)(__sp);
     v1 = a1 & v1;
     ret = 0x50005000;
     s0 = __fp + 0x330c;
     if (v1 == ret) goto loc_21E294;
     ret = *(u32*)(s0);
-    v1 = *(u32*)*(s0 + 4);
-    ret = ret - v1;
-    ret = (unsigned)ret >> 4;
-    ret = ((unsigned)ret < 0x80) ? 1 : 0;
-    ret = ret ^ 1;
+    v1 = *(u32*)(s0 + 4);
     ret = (unsigned)s1 >> 2;
     if (ret != 0) {
-        ret = GPU_BuildGIFTag(a0, a1, a2, a3);
-        a1 = *(u32*)(sp);
-        __asm("ld.b w0, -0x51(zero)");
+        ret = GPU_BuildGIFTag();
+        a1 = *(u32*)(__sp);
+        __asm("ld.b w0, -0x51(0)");
         ret = (unsigned)s1 >> 2;
     }
     s6 = t7;
@@ -7950,23 +7449,22 @@ loc_21DD70:
         a1 = 1;
         t7 = ret | a0;
         a0 = __sp;
-        *(u64*)*(v1 + 0) = t7;
+        *(u64*)(v1 + 0) = t7;
         v1 = v1 + 8;
-        *(u64*)*(v1 + 0) = a1;
-        v1 = v1 + 8;
-        *(u32*)(s0) = v1;
+        *(u64*)(v1 + 0) = a1;
+        *(u32*)(s0) = v1 + 8;
         a1 = 1;
-        *(u128*)*(__sp + 32) = t7;  /* sq */
-        ret = GPU_DrawSimplePoly(a0, a1, a2, a3);
-        __asm("ld.b w0, -0x51(zero)");
+        *(u128*)(__sp + 32) = t7;  /* sq */
+        ret = GPU_DrawSimplePoly(a0, a1);
+        __asm("ld.b w0, -0x51(0)");
         if (ret == 0) goto loc_21E294;
-        a1 = *(u32*)(sp);
+        a1 = *(u32*)(__sp);
     }
     ret = a1 << 0x15;
     v1 = a1 << 5;
-    a0 = *(u32*)*(__sp + 4);
+    a0 = *(u32*)(__sp + 4);
     ret = (signed)ret >> 0x15;
-    a1 = *(u32*)*(__sp + 8);
+    a1 = *(u32*)(__sp + 8);
     v1 = (signed)v1 >> 0x15;
     ret = ret + a0;
     v1 = v1 + a1;
@@ -7974,8 +7472,8 @@ loc_21DD70:
     a3 = ((signed)ret < -0x400) ? 1 : 0;
     a2 = ((signed)v1 < -0x400) ? 1 : 0;
     a0 = v1 + 0x800;
-    __asm("movn v0, a1, a3");
-    __asm("movn v1, a0, a2");
+    if (a3 != 0) ret = a1;
+    if (a2 != 0) v1 = a0;
     ret = ret << 0x10;
     v1 = v1 << 0x10;
     s3 = (signed)ret >> 0x10;
@@ -7985,7 +7483,7 @@ loc_21DE80:
     v1 = s3 - s2;
     ret = ((signed)a1 < 0) ? 1 : 0;
     a0 = s5 - s4;
-    __asm("movn a1, v1, v0");
+    if (ret != 0) a1 = v1;
     if ((signed)a0 >= 0) {
         ret = a0 << 1;
         v1 = -0x400;
@@ -8016,22 +7514,21 @@ loc_21DEB4:
     v1 = (u64)v1 >> 32;
     a1 = (u64)a1 << 32;
     t0 = ret | a0;
-    ret = *(u64*)*(a2 + 8952);
+    ret = *(u64*)(a2 + 8952);
     t1 = v1 | a1;
-    v1 = *(u64*)*(a2 + 8960);
-    __asm("mmi1 v0, t0, v0");
+    v1 = *(u64*)(a2 + 8960);
+    __asm("mmi1 ret, t0, ret");
     __asm("mmi0 v1, t0, v1");
-    __asm("mmi1 v0, t1, v0");
+    __asm("mmi1 ret, t1, ret");
     __asm("mmi0 v1, t1, v1");
-    *(u64*)*(a2 + 8952) = ret;
-    *(u64*)*(a2 + 8960) = v1;
-    __asm("mmi0 t0, zero, t0");
-    __asm("mmi0 t1, zero, t1");
+    *(u64*)(a2 + 8952) = ret;
+    *(u64*)(a2 + 8960) = v1;
+    __asm("mmi0 t0, 0, t0");
+    __asm("mmi0 t1, 0, t1");
     t2 = 1;
     t4 = (unsigned)s1 >> 2;
     a3 = (unsigned)s1 >> 3;
     ret = t4 & 1;
-    v1 = a3 & 1;
     v1 = v1 << 7;
     ret = ret << 3;
     a0 = s1 & 1;
@@ -8039,12 +7536,11 @@ loc_21DEB4:
     a2 = a2 + 0x221c;
     a0 = a0 << 6;
     a1 = *(u32*)(a2);
-    ret = ret | a0;
     ret = ret | t2;
     v1 = t4 & 1;
-    *(u64*)*(a1 + 0) = ret;
+    *(u64*)(a1 + 0) = ret;
     a1 = a1 + 8;
-    *(u64*)*(a1 + 0) = 0;
+    *(u64*)(a1 + 0) = 0;
     a1 = a1 + 8;
     *(u32*)(a2) = a1;
     t3 = t4;
@@ -8055,40 +7551,38 @@ loc_21DEB4:
         v1 = a1 + 0x40;
         ret = (u64)ret >> 32;
         *(u32*)(a2) = v1;
-        *(u64*)*(a1 + 0) = ret;
-        *(u64*)*(a1 + 16) = t0;
-        *(u64*)*(a1 + 40) = t2;
-        *(u64*)*(a1 + 48) = t1;
-        *(u64*)*(a1 + 56) = a0;
-        *(u64*)*(a1 + 8) = t2;
-        *(u64*)*(a1 + 24) = a0;
-        *(u64*)*(a1 + 32) = t7;
+        *(u64*)(a1 + 0) = ret;
+        *(u64*)(a1 + 16) = t0;
+        *(u64*)(a1 + 40) = t2;
+        *(u64*)(a1 + 48) = t1;
+        *(u64*)(a1 + 56) = a0;
+        *(u64*)(a1 + 8) = t2;
+        *(u64*)(a1 + 24) = a0;
+        *(u64*)(a1 + 32) = t7;
     } else {
         v1 = 5;
-        ret = a1 + 0x20;
-        *(u32*)(a2) = ret;
-        *(u64*)*(a1 + 0) = t0;
-        *(u64*)*(a1 + 16) = t1;
-        *(u64*)*(a1 + 24) = v1;
-        *(u64*)*(a1 + 8) = v1;
+        *(u32*)(a2) = a1 + 0x20;
+        *(u64*)(a1 + 0) = t0;
+        *(u64*)(a1 + 16) = t1;
+        *(u64*)(a1 + 24) = v1;
+        *(u64*)(a1 + 8) = v1;
     }
     t1 = t6 + 0x10f0;
-    ret = *(u32*)*(t1 + 0x2658);
+    ret = *(u32*)(t1 + 0x2658);
     t2 = t1 + 0x221c;
     if ((signed)ret < 0) goto loc_21E284;
     ret = 0x22;
     t0 = *(u32*)(t2);
     t6 = 0;
-    *(u64*)*(t0 + 0) = 0;
+    *(u64*)(t0 + 0) = 0;
     t0 = t0 + 8;
-    *(u64*)*(t0 + 0) = ret;
+    *(u64*)(t0 + 0) = ret;
     t0 = t0 + 8;
     *(u32*)(t2) = t0;
     if (s2 != s3) {
-        v1 = t3 & 1;
-            v1 = *(u32*)*(t1 + 0x2668);
+            v1 = *(u32*)(t1 + 0x2668);
             a1 = s3 + 1;
-            ret = *(u32*)*(t1 + 0x2664);
+            ret = *(u32*)(t1 + 0x2664);
             a0 = s4 + 1;
             t4 = (unsigned)s1 >> 2;
             a0 = a0 << v1;
@@ -8119,9 +7613,9 @@ loc_21DEB4:
             a0 = v1 | a0;
             v1 = __fp + 0x330c;
             ret = *(u32*)(v1);
-            *(u64*)*(ret + 0) = a0;
+            *(u64*)(ret + 0) = a0;
             ret = ret + 8;
-            *(u64*)*(ret + 0) = 0;
+            *(u64*)(ret + 0) = 0;
             ret = ret + 8;
             *(u32*)(v1) = ret;
         } else {
@@ -8133,8 +7627,8 @@ loc_21DEB4:
             v1 = v1 | ret;
             ret = t0 + 0x10;
             a0 = a3 & 1;
-            a3 = *(u32*)*(t1 + 0x2668);
-            a1 = *(u32*)*(t1 + 0x2664);
+            a3 = *(u32*)(t1 + 0x2668);
+            a1 = *(u32*)(t1 + 0x2664);
             a0 = a0 << 7;
             v1 = v1 | a2;
             *(u32*)(t2) = ret;
@@ -8143,8 +7637,8 @@ loc_21DEB4:
             ret = s3 << a1;
             a1 = s2 << a1;
             a3 = s4 << a3;
-            *(u64*)*(t0 + 0) = v1;
-            *(u64*)*(t0 + 8) = 0;
+            *(u64*)(t0 + 0) = v1;
+            *(u64*)(t0 + 8) = 0;
             t2 = a1 + 0x4000;
             t3 = a0 + 0x4000;
             t1 = ret + 0x4000;
@@ -8153,9 +7647,7 @@ loc_21DEB4:
     a0 = t2 | a1;
     v1 = t1 | t3;
     a0 = a0 | v1;
-    ret = 0 | 0xffff;
-    ret = ((unsigned)ret < (unsigned)a0) ? 1 : 0;
-    ret = *(u64*)*(__sp + 16);
+    ret = *(u64*)(__sp + 16);
     if (ret != 0) goto loc_21E260;
     v1 = (u64)t3 << 32;
     ret = (u64)t2 << 32;
@@ -8170,81 +7662,79 @@ loc_21DEB4:
     t3 = a0 | v1;
     if (ret != 0) {
         a2 = __fp + 0x330c;
-        if (likely(t6 == 0)) goto loc_21E1E8;
-        t2 = a2 | v1;
-        if (s2 != s3) {
-            a3 = a0 | t0;
-            goto loc_21E188;
+        if (t6 != 0) {
+            t2 = a2 | v1;
+            if (s2 != s3) {
+                a3 = a0 | t0;
+                goto loc_21E188;
+            }
+            t2 = a0 | t0;
+            a3 = a2 | v1;
+            loc_21E188:
+            a2 = __fp + 0x330c;
+            v1 = (u64)s6 << 32;
+            ret = *(u32*)(a2);
+            v1 = (u64)v1 >> 32;
+            a1 = 1;
+            a0 = 5;
+            *(u64*)(ret + 0) = v1;
+            ret = ret + 8;
+            *(u64*)(ret + 0) = a1;
+            ret = ret + 8;
+            v1 = ret + 0x50;
+            *(u64*)(ret + 0) = t1;
+            *(u32*)(a2) = v1;
+            *(u64*)(ret + 16) = t2;
+            *(u64*)(ret + 40) = a1;
+            *(u64*)(ret + 48) = a3;
+            *(u64*)(ret + 64) = t3;
+            *(u64*)(ret + 72) = a0;
+            *(u64*)(ret + 8) = a0;
+            *(u64*)(ret + 24) = a0;
+            *(u64*)(ret + 32) = t7;
+            *(u64*)(ret + 56) = a0;
+        } else {
+            v1 = (u64)s6 << 32;
+            ret = *(u32*)(a2);
+            v1 = (u64)v1 >> 32;
+            a0 = 1;
+            a1 = 5;
+            *(u64*)(ret + 0) = v1;
+            ret = ret + 8;
+            *(u64*)(ret + 0) = a0;
+            ret = ret + 8;
+            v1 = ret + 0x30;
+            *(u64*)(ret + 0) = t1;
+            *(u32*)(a2) = v1;
+            *(u64*)(ret + 24) = a0;
+            *(u64*)(ret + 32) = t3;
+            *(u64*)(ret + 40) = a1;
+            *(u64*)(ret + 8) = a1;
+            *(u64*)(ret + 16) = t7;
+            } else {
+            a0 = __fp + 0x330c;
+            a1 = 5;
+            ret = *(u32*)(a0);
+            *(u64*)(ret + 0) = t1;
+            ret = ret + 8;
+            *(u64*)(ret + 0) = a1;
+            ret = ret + 8;
+            v1 = ret + 0x10;
+            *(u64*)(ret + 0) = t3;
+            *(u32*)(a0) = v1;
+            *(u64*)(ret + 8) = a1;
+            }
         }
-        t2 = a0 | t0;
-        a3 = a2 | v1;
-        loc_21E188:
-        a2 = __fp + 0x330c;
-        v1 = (u64)s6 << 32;
-        ret = *(u32*)(a2);
-        v1 = (u64)v1 >> 32;
-        a1 = 1;
-        a0 = 5;
-        *(u64*)*(ret + 0) = v1;
-        ret = ret + 8;
-        *(u64*)*(ret + 0) = a1;
-        ret = ret + 8;
-        v1 = ret + 0x50;
-        *(u64*)*(ret + 0) = t1;
-        *(u32*)(a2) = v1;
-        *(u64*)*(ret + 16) = t2;
-        *(u64*)*(ret + 40) = a1;
-        *(u64*)*(ret + 48) = a3;
-        *(u64*)*(ret + 64) = t3;
-        *(u64*)*(ret + 72) = a0;
-        *(u64*)*(ret + 8) = a0;
-        *(u64*)*(ret + 24) = a0;
-        *(u64*)*(ret + 32) = t7;
-        *(u64*)*(ret + 56) = a0;
-        goto loc_21E25C;
-        loc_21E1E8:
-        v1 = (u64)s6 << 32;
-        ret = *(u32*)(a2);
-        v1 = (u64)v1 >> 32;
-        a0 = 1;
-        a1 = 5;
-        *(u64*)*(ret + 0) = v1;
-        ret = ret + 8;
-        *(u64*)*(ret + 0) = a0;
-        ret = ret + 8;
-        v1 = ret + 0x30;
-        *(u64*)*(ret + 0) = t1;
-        *(u32*)(a2) = v1;
-        *(u64*)*(ret + 24) = a0;
-        *(u64*)*(ret + 32) = t3;
-        *(u64*)*(ret + 40) = a1;
-        *(u64*)*(ret + 8) = a1;
-        *(u64*)*(ret + 16) = t7;
-    } else {
-        a0 = __fp + 0x330c;
-        a1 = 5;
-        ret = *(u32*)(a0);
-        *(u64*)*(ret + 0) = t1;
-        ret = ret + 8;
-        *(u64*)*(ret + 0) = a1;
-        ret = ret + 8;
-        v1 = ret + 0x10;
-        *(u64*)*(ret + 0) = t3;
-        *(u32*)(a0) = v1;
-        *(u64*)*(ret + 8) = a1;
-    }
-loc_21E25C:
-    ret = *(u64*)*(__sp + 16);
+    ret = *(u64*)(__sp + 16);
 loc_21E260:
     a1 = __fp + 0x330c;
     a0 = 0x22;
     v1 = (u64)ret >> 32;
     ret = *(u32*)(a1);
-    *(u64*)*(ret + 0) = v1;
+    *(u64*)(ret + 0) = v1;
     ret = ret + 8;
-    *(u64*)*(ret + 0) = a0;
-    ret = ret + 8;
-    *(u32*)(a1) = ret;
+    *(u64*)(ret + 0) = a0;
+    *(u32*)(a1) = ret + 8;
 loc_21E284:
     v1 = local_18;
 loc_21E288:
@@ -8269,61 +7759,61 @@ loc_21E294:
         ret = ret | a2;
         a1 = a1 + 0x4000;
         v1 = v1 + 0x4000;
-        *(u64*)*(a0 + 0) = ret;
+        *(u64*)(a0 + 0) = ret;
         a0 = a0 + 8;
         a1 = (u64)a1 << 32;
         v1 = (u64)v1 << 32;
-        *(u64*)*(a0 + 0) = 0;
+        *(u64*)(a0 + 0) = 0;
         a0 = a0 + 8;
         v1 = (unsigned)v1 >> 16;
         a1 = (u64)a1 >> 32;
         a1 = a1 | v1;
         v1 = 5;
         ret = a0 + 0x10;
-        *(u64*)*(a0 + 0) = a1;
+        *(u64*)(a0 + 0) = a1;
         *(u32*)(a3) = ret;
-        *(u64*)*(a0 + 8) = v1;
+        *(u64*)(a0 + 8) = v1;
     }
     return ret;
 }
 
 /* Function at 0x0021E340 - 0x0021F870 */
-int GPU_CommandHandler()
+u32 GPU_CommandHandler(void)
 {
     /* Stack frame: 160 bytes */
-    int local_28;
-    int local_2C;
-    int local_30;
-    int local_34;
-    int local_38;
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
+    u32 local_28;
+    u32 local_2C;
+    u32 local_30;
+    u32 local_34;
+    u32 local_38;
+    u32 ret, v1, a0, a1, a2, a3, s0, psx_1, psx, s3, s4, s5, s6, s7, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
     t3 = 0x70000000 + 0x30f0;
     a2 = t3 + -0x2000;
     v1 = -5;
-    __asm("ext s2, sp, 1, 1");
+    __asm("ext psx, sp, 1, 1");
     s5 = s5 & v1;
     a1 = -9;
-    ret = *(u32*)*(a2 + 0x22d0);
-    *(u32*)(sp) = 0;
+    ret = *(u32*)(a2 + 0x22d0);
+    *(u32*)(__sp) = 0;
     ret = ret & 1;
-    v1 = *(u32*)*(a2 + 0x22d8);
+    v1 = *(u32*)(a2 + 0x22d8);
     ret = ret << 2;
     local_28 = 0;
     s5 = s5 | ret;
     v1 = v1 & 1;
     s5 = s5 & a1;
-    a0 = *(u32*)*(a2 + 0x215c);
+    a0 = *(u32*)(a2 + 0x215c);
     v1 = v1 << 3;
     local_34 = 0;
     s5 = s5 | v1;
     local_38 = 0;
     if (a0 == 0) {
-        ret = *(u32*)*(a2 + 0x2218);
+        ret = *(u32*)(a2 + 0x2218);
         v1 = 0;
         if (ret == 0) {
-            ret = *(u32*)*(a2 + 0x2214);
+            ret = *(u32*)(a2 + 0x2214);
             if (-4 != 0) {
-                ret = *(u32*)*(a2 + 0x2268);
+                ret = *(u32*)(a2 + 0x2268);
                 v1 = ret | 2;
                 }
                 ret = -4;
@@ -8356,7 +7846,7 @@ int GPU_CommandHandler()
     ret = (unsigned)a2 >> 0x14;
     s5 = s5 | v1;
     v1 = -0x101;
-    a0 = *(u32*)*(a1 + 0x2158);
+    a0 = *(u32*)(a1 + 0x2158);
     a1 = -5;
     ret = ret & 0x100;
     s5 = s5 & v1;
@@ -8367,7 +7857,6 @@ int GPU_CommandHandler()
     s5 = s5 & a3;
     s5 = s5 | a0;
     v1 = (unsigned)s5 >> 2;
-    ret = (unsigned)s5 >> 5;
     ret = ret & v1;
     v1 = -0x401;
     ret = ret & 1;
@@ -8379,7 +7868,6 @@ int GPU_CommandHandler()
     ret = s0 & 1;
     t3 = t3 + 4;
     if (ret != 0) {
-        ret = (unsigned)s5 >> 6;
         ret = ret & 1;
         t5 = 0x80000000;
         if (ret == 0) goto loc_21E4D4;
@@ -8393,7 +7881,7 @@ loc_21E4D4:
     v1 = 0xff;
     ret = ret & 1;
     t4 = 0xf8;
-    __asm("movn t4, v1, v0");
+    if (ret != 0) t4 = v1;
     a0 = s0 & 1;
     ret = t4 << 8;
     v1 = t4 << 0x10;
@@ -8401,23 +7889,21 @@ loc_21E4D4:
     t7 = *(u32*)(t3);
     t4 = t4 | ret;
     t3 = t3 + 4;
-    ret = a2 & t4;
-    ret = ret | t5;
     ret = (u64)ret << 32;
-    *(u64*)*(__sp + 16) = ret;
-    *(u64*)*(__sp + 32) = ret;
-    *(u64*)*(__sp + 8) = ret;
-    *(u64*)*(__sp + 24) = ret;
+    *(u64*)(__sp + 16) = ret;
+    *(u64*)(__sp + 32) = ret;
+    *(u64*)(__sp + 8) = ret;
+    *(u64*)(__sp + 24) = ret;
     if (a0 != 0) {
         v1 = *(u32*)(t3);
         t3 = t3 + 4;
         ret = (u64)v1 << 32;
         v1 = (unsigned)v1 >> 0x10;
-        *(u32*)(sp) = v1;
+        *(u32*)(__sp) = v1;
         ret = (u64)ret >> 32;
-        v1 = *(u64*)*(__sp + 32);
+        v1 = *(u64*)(__sp + 32);
         ret = v1 | ret;
-        *(u64*)*(__sp + 8) = ret;
+        *(u64*)(__sp + 8) = ret;
     }
     v1 = (unsigned)s5 >> 8;
     ret = v1 & 1;
@@ -8425,10 +7911,7 @@ loc_21E4D4:
     if (ret != 0) {
         ret = *(u32*)(t3);
         t3 = t3 + 4;
-        ret = ret & t4;
-        ret = ret | t5;
-        ret = (u64)ret << 32;
-        *(u64*)*(__sp + 16) = ret;
+        *(u64*)(__sp + 16) = (u64)ret << 32;
         t6 = *(u32*)(t3);
     }
     t3 = t3 + 4;
@@ -8436,15 +7919,15 @@ loc_21E4D4:
         ret = *(u32*)(t3);
         t3 = t3 + 4;
         a0 = 0x70000000;
-        a1 = *(u64*)*(__sp + 16);
+        a1 = *(u64*)(__sp + 16);
         v1 = (u64)ret << 32;
         ret = (unsigned)ret >> 0x10;
         t2 = a0 + 0x10f0;
         v1 = (u64)v1 >> 32;
-        a0 = *(u32*)*(t2 + 0x2144);
+        a0 = *(u32*)(t2 + 0x2144);
         a1 = a1 | v1;
         t1 = ret & 0x1ff;
-        *(u64*)*(__sp + 16) = a1;
+        *(u64*)(__sp + 16) = a1;
         if (t1 != a0) {
             a0 = (unsigned)t1 >> 5;
             v1 = (unsigned)t1 >> 4;
@@ -8454,31 +7937,27 @@ loc_21E4D4:
             a2 = 1;
             ret = ret + t2;
             a1 = t1 & 0xf;
-            a3 = *(u64*)*(ret + 8992);
+            a3 = *(u64*)(ret + 8992);
             ret = 3;
             t0 = (unsigned)t1 >> 7;
-            *(u32*)*(t2 + 0x22dc) = a2;
-            *(u32*)*(t2 + 0x2148) = a1;
-            *(u32*)*(t2 + 0x214c) = v1;
-            *(u64*)*(t2 + 8984) = a3;
-            *(u32*)*(t2 + 0x2144) = t1;
-            *(u32*)*(t2 + 0x2150) = a0;
-            *(u32*)*(t2 + 0x2154) = t0;
+            *(u32*)(t2 + 0x22dc) = a2;
+            *(u32*)(t2 + 0x2148) = a1;
+            *(u32*)(t2 + 0x214c) = v1;
+            *(u64*)(t2 + 8984) = a3;
+            *(u32*)(t2 + 0x2144) = t1;
+            *(u32*)(t2 + 0x2150) = a0;
+            *(u32*)(t2 + 0x2154) = t0;
             if (t0 == ret) {
-                *(u32*)*(t2 + 0x2154) = 2;
+                *(u32*)(t2 + 0x2154) = 2;
             }
-            ret = *(u32*)*(t2 + 0x223c);
+            ret = *(u32*)(t2 + 0x223c);
             v1 = -0x200;
-            ret = ret & v1;
-            ret = ret | t1;
-            *(u32*)*(t2 + 0x223c) = ret;
+            *(u32*)(t2 + 0x223c) = ret | t1;
         }
         a2 = 0x70000000;
         a0 = -0x401;
         ret = a2 + 0x10f0;
         s5 = s5 & a0;
-        v1 = *(u32*)*(ret + 0x22dc);
-        v1 = v1 & 1;
         v1 = v1 << 0xa;
         s5 = s5 | v1;
         s0 = (unsigned)s5 >> 5;
@@ -8489,21 +7968,17 @@ loc_21E4D4:
     if (a3 != 0) {
         ret = *(u32*)(t3);
         t3 = t3 + 4;
-        ret = ret & t4;
-        ret = ret | t5;
-        ret = (u64)ret << 32;
-        *(u64*)*(__sp + 24) = ret;
+        *(u64*)(__sp + 24) = (u64)ret << 32;
     }
     a0 = *(u32*)(t3);
     t3 = t3 + 4;
     if (v1 != 0) {
         ret = *(u32*)(t3);
         t3 = t3 + 4;
-        t2 = *(u64*)*(__sp + 24);
-        ret = (u64)ret << 32;
+        t2 = *(u64*)(__sp + 24);
         ret = (u64)ret >> 32;
         t2 = t2 | ret;
-        *(u64*)*(__sp + 24) = t2;
+        *(u64*)(__sp + 24) = t2;
     }
     s4 = (unsigned)s5 >> 7;
     ret = s4 & 1;
@@ -8512,28 +7987,24 @@ loc_21E4D4:
         ret = *(u32*)(t3);
         if (a3 != 0) {
             t3 = t3 + 4;
-            ret = ret & t4;
-            ret = ret | t5;
             ret = (u64)ret << 32;
-            *(u64*)*(__sp + 32) = ret;
+            *(u64*)(__sp + 32) = ret;
             ret = *(u32*)(t3);
         }
         t3 = t3 + 4;
         local_28 = ret;
         if (v1 != 0) {
-            ret = *(u32*)*(t3 + 0);  /* lwu */
-            v1 = *(u64*)*(__sp + 32);
-            v1 = v1 | ret;
-            *(u64*)*(__sp + 32) = v1;
+            ret = *(u32*)(t3 + 0);  /* lwu */
+            *(u64*)(__sp + 32) = v1 | ret;
         }
         a1 = 0x70000000;
     }
     ret = t7 << 5;
     v1 = a1 + 0x10f0;
     a1 = t7 << 0x15;
-    t9 = *(u32*)*(v1 + 0x2164);
+    t9 = *(u32*)(v1 + 0x2164);
     a2 = t6 << 0x15;
-    t8 = *(u32*)*(v1 + 0x2160);
+    t8 = *(u32*)(v1 + 0x2160);
     v1 = t6 << 5;
     a3 = a0 << 0x15;
     a0 = a0 << 5;
@@ -8550,10 +8021,10 @@ loc_21E4D4:
     a3 = a3 + t8;
     a0 = a0 + t9;
     s3 = ((signed)a1 < -0x400) ? 1 : 0;
-    s1 = a1 + 0x800;
-    s2 = ((signed)ret < -0x400) ? 1 : 0;
+    psx_1 = a1 + 0x800;
+    psx = ((signed)ret < -0x400) ? 1 : 0;
     t7 = ret + 0x800;
-    __asm("movn a1, s1, s3");
+    if (s3 != 0) a1 = psx_1;
     s3 = a2;
     s0 = ((signed)a2 < -0x400) ? 1 : 0;
     t5 = a2 + 0x800;
@@ -8563,101 +8034,94 @@ loc_21E4D4:
     t1 = a3 + 0x800;
     t2 = ((signed)a0 < -0x400) ? 1 : 0;
     t0 = a0 + 0x800;
-    __asm("movn v0, t7, s2");
+    if (psx != 0) ret = t7;
     s6 = v1;
     s7 = a3;
     __fp = a0;
     s4 = s4 & 1;
     local_2C = a1;
     local_30 = ret;
-    __asm("movn s3, t5, s0");
-    __asm("movn s6, t3, t6");
-    __asm("movn s7, t1, t4");
-    __asm("movn fp, t0, t2");
-    if (s4 == 0) goto loc_21E8A8;
-    a2 = local_28;
-    t1 = s3 - s7;
-    a3 = t1;
-    ret = a2 << 0x15;
-    a0 = a2 << 5;
-    ret = (signed)ret >> 0x15;
-    a0 = (signed)a0 >> 0x15;
-    ret = ret + t8;
-    a0 = a0 + t9;
-    a1 = ((signed)ret < -0x400) ? 1 : 0;
-    v1 = ret + 0x800;
-    __asm("movn v0, v1, a1");
-    v1 = a0 + 0x800;
-    local_34 = ret;
-    ret = ((signed)t1 < 0) ? 1 : 0;
-    a2 = ((signed)a0 < -0x400) ? 1 : 0;
-    a1 = s7 - s3;
-    t2 = local_34;
-    __asm("movn a0, v1, a2");
-    local_38 = a0;
-    t0 = s3 - t2;
-    __asm("movn a3, a1, v0");
-    if ((signed)t0 >= 0) {
-        a3 = a3 | t0;
-        goto loc_21E80C;
-    }
-    v1 = local_34;
-    ret = v1 - s3;
-    a3 = a3 | ret;
-loc_21E80C:
-    a0 = local_34;
-    ret = s7 - a0;
-    a2 = s6 - __fp;
-    if ((signed)ret < 0) {
-        a1 = local_34;
-        ret = a1 - s7;
-    }
-    a3 = a3 | ret;
-    if ((signed)a2 >= 0) {
-        ret = a2 << 1;
-        goto loc_21E840;
-    }
-    ret = __fp - s6;
-    ret = ret << 1;
-loc_21E840:
-    a3 = a3 | ret;
-    t2 = local_38;
-    ret = s6 - t2;
-    ret = ret << 1;
-    if ((signed)ret < 0) {
-        v1 = local_38;
-        ret = v1 - s6;
+    if (s0 != 0) s3 = t5;
+    if (t6 != 0) s6 = t3;
+    if (t4 != 0) s7 = t1;
+    if (t2 != 0) __fp = t0;
+    if (s4 != 0) {
+        a2 = local_28;
+        t1 = s3 - s7;
+        a3 = t1;
+        ret = a2 << 0x15;
+        a0 = a2 << 5;
+        ret = (signed)ret >> 0x15;
+        a0 = (signed)a0 >> 0x15;
+        ret = ret + t8;
+        a0 = a0 + t9;
+        a1 = ((signed)ret < -0x400) ? 1 : 0;
+        v1 = ret + 0x800;
+        if (a1 != 0) ret = v1;
+        v1 = a0 + 0x800;
+        local_34 = ret;
+        ret = ((signed)t1 < 0) ? 1 : 0;
+        a2 = ((signed)a0 < -0x400) ? 1 : 0;
+        a1 = s7 - s3;
+        t2 = local_34;
+        if (a2 != 0) a0 = v1;
+        local_38 = a0;
+        t0 = s3 - t2;
+        if (ret != 0) a3 = a1;
+        if ((signed)t0 >= 0) {
+            a3 = a3 | t0;
+            goto loc_21E80C;
+        }
+        v1 = local_34;
+        ret = v1 - s3;
+        a3 = a3 | ret;
+        loc_21E80C:
+        a0 = local_34;
+        ret = s7 - a0;
+        a2 = s6 - __fp;
+        if ((signed)ret < 0) {
+            a1 = local_34;
+            ret = a1 - s7;
+        }
+        a3 = a3 | ret;
+        if ((signed)a2 >= 0) {
+            ret = a2 << 1;
+            goto loc_21E840;
+        }
         ret = ret << 1;
-    }
-    a3 = a3 | ret;
-    a0 = local_38;
-    ret = __fp - a0;
-    ret = ret << 1;
-    if ((signed)ret < 0) {
-        a1 = local_38;
-        ret = a1 - __fp;
+        loc_21E840:
+        a3 = a3 | ret;
+        t2 = local_38;
         ret = ret << 1;
+        if ((signed)ret < 0) {
+            v1 = local_38;
+            ret = ret << 1;
+        }
+        a3 = a3 | ret;
+        a0 = local_38;
+        ret = ret << 1;
+        if ((signed)ret < 0) {
+            a1 = local_38;
+            ret = ret << 1;
+        }
+        a3 = a3 | ret;
+        ret = -0x400;
+        v1 = -0x1001;
+        a3 = a3 & ret;
+        s5 = s5 & v1;
+        ret = ret << 0xc;
+        s5 = s5 | ret;
+    } else {
+        s5 = s5 | 0x1000;
+        t1 = s3 - s7;
+        a2 = s6 - __fp;
     }
-    a3 = a3 | ret;
-    ret = -0x400;
-    v1 = -0x1001;
-    a3 = a3 & ret;
-    s5 = s5 & v1;
-    ret = ((unsigned)0 < (unsigned)a3) ? 1 : 0;
-    ret = ret << 0xc;
-    s5 = s5 | ret;
-    goto loc_21E8B4;
-loc_21E8A8:
-    s5 = s5 | 0x1000;
-    t1 = s3 - s7;
-    a2 = s6 - __fp;
-loc_21E8B4:
     a3 = local_2C;
     ret = a3 - s3;
     a0 = s3 - a3;
     v1 = ((signed)ret < 0) ? 1 : 0;
     a1 = a3 - s7;
-    __asm("movz a0, v0, v1");
+    if (v1 == 0) a0 = ret;
     if ((signed)a1 >= 0) {
         a0 = a0 | a1;
     } else {
@@ -8673,27 +8137,22 @@ loc_21E8B4:
     a0 = a0 | ret;
 loc_21E8FC:
     v1 = local_30;
-    ret = v1 - s6;
     ret = ret << 1;
     if ((signed)ret < 0) {
         a1 = local_30;
-        ret = s6 - a1;
         ret = ret << 1;
     }
     a0 = a0 | ret;
     a3 = local_30;
-    ret = a3 - __fp;
     ret = ret << 1;
     if ((signed)ret < 0) {
         t2 = local_30;
-        ret = __fp - t2;
         ret = ret << 1;
     }
     a0 = a0 | ret;
     if ((signed)a2 >= 0) {
         ret = a2 << 1;
     } else {
-        ret = __fp - s6;
         ret = ret << 1;
     }
     a0 = a0 | ret;
@@ -8708,7 +8167,7 @@ loc_21E8FC:
     v1 = s5 & 0x1800;
     if (0x70000000 == a0) goto loc_21F840;
     ret = v1 + 0x10f0;
-    v1 = *(u32*)*(ret + 0x22f4);
+    v1 = *(u32*)(ret + 0x22f4);
     ret = (unsigned)s5 >> 0xb;
     if (v1 == 0) goto loc_21EB48;
     ret = ret & 1;
@@ -8721,15 +8180,13 @@ loc_21E8FC:
     ret = s6 - a2;
     v1 = __fp - a2;
     a1 = (s32)((s64)a1 * (s64)v1); HI_LO = (s64)a1 * (s64)v1;
-    __asm("mult1 a0, a0, v0");
-    ret = a1 - a0;
+    a0 = a0 * ret;
     ret = a0 - a1;
-    if (likely((signed)ret < 0)) goto loc_21E9C8;
+    if ((signed)ret < 0) goto loc_21E9C8;
 loc_21E9C8:
     ret = (signed)ret >> 1;
     a2 = ret;
 loc_21E9D0:
-    ret = (unsigned)s5 >> 0xc;
     ret = ret & 1;
     a3 = local_38;
     if (ret != 0) goto loc_21EA10;
@@ -8739,10 +8196,9 @@ loc_21E9D0:
     v1 = a3 - s6;
     a0 = t2 - s3;
     a1 = (s32)((s64)a1 * (s64)v1); HI_LO = (s64)a1 * (s64)v1;
-    __asm("mult1 a0, a0, v0");
-    ret = a1 - a0;
+    a0 = a0 * ret;
     ret = a0 - a1;
-    if (likely((signed)ret < 0)) goto loc_21EA08;
+    if ((signed)ret < 0) goto loc_21EA08;
 loc_21EA08:
     ret = (signed)ret >> 1;
     a2 = ret + a2;
@@ -8783,42 +8239,38 @@ loc_21EA94:
     a2 = ret;
 loc_21EAA0:
     v1 = 0x70000000 + 0x10f0;
-    ret = *(u32*)*(v1 + 0x215c);
+    ret = *(u32*)(v1 + 0x215c);
     v1 = 0x70000000;
-    if (likely(ret != 0)) goto loc_21EAD0;
-    ret = *(u32*)*(v1 + 0x2218);
-    if (likely(ret != 0)) goto loc_21EAD0;
-    v1 = *(u32*)*(v1 + 0x2214);
+    if (ret != 0) goto loc_21EAD0;
+    ret = *(u32*)(v1 + 0x2218);
+    if (ret != 0) goto loc_21EAD0;
+    v1 = *(u32*)(v1 + 0x2214);
     ret = (signed)a2 >> 1;
-    __asm("movn a2, v0, v1");
+    if (v1 != 0) a2 = ret;
     v1 = 0x70000000;
 loc_21EAD0:
     a0 = a2;
     ret = v1 + 0x10f0;
-    a1 = *(u32*)*(ret + 0x22f4);
+    a1 = *(u32*)(ret + 0x22f4);
     ret = EEKernel_Integer_Multiply64(a0, a1, a2, a3);
     a1 = 0x64;
     a0 = ret;
     ret = EEKernel_Integer_Divide64(a0, a1, a2, a3);
     a2 = ret;
-    ret = COP0_REG(t4); /* mfc0 */
+    ret = COP0_REG(12); /* mfc0 */
     v1 = 1 << 16;
-    ret = ret & v1;
-    if (ret != 0) {
+    if ((ret & v1) != 0) {
         do {
             DI();
             SYNC(); /* memory barrier */
-            ret = COP0_REG(t4); /* mfc0 */
+            ret = COP0_REG(12); /* mfc0 */
             ret = ret & v1;
             a1 = 0x70000000;
         } while (ret != 0);
     }
-    v1 = (u64)a2 << 32;
     v1 = (s64)v1 >> 32;
     a0 = a1 + 0x10f0;
-    ret = *(u32*)*(a0 + 0x2260);
-    ret = ret + v1;
-    *(u32*)*(a0 + 0x2260) = ret;
+    *(u32*)(a0 + 0x2260) = ret + v1;
     EI();
     s4 = 0x70000000;
     goto loc_21EB50;
@@ -8827,123 +8279,114 @@ loc_21EB48:
     s4 = 0x70000000;
 loc_21EB50:
     v1 = (unsigned)s5 >> 9;
-    s1 = s4 + 0x330c;
-    a2 = *(u64*)*(__sp + 8);
-    ret = *(u32*)(s1);
+    psx_1 = s4 + 0x330c;
+    a2 = *(u64*)(__sp + 8);
+    ret = *(u32*)(psx_1);
     v1 = v1 & 1;
     a1 = 0x45;
     a0 = (u64)a2 >> 32;
-    *(u64*)*(ret + 0) = v1;
+    *(u64*)(ret + 0) = v1;
     ret = ret + 8;
-    *(u64*)*(ret + 0) = a1;
+    *(u64*)(ret + 0) = a1;
     ret = ret + 8;
-    a2 = 0 | 0xfe00;
+    a2 = 0xfe00;
     a2 = (u64)a2 << 46;
     a3 = ret + 0x10;
     a0 = a0 | a2;
     v1 = 1;
     a1 = s0 & 1;
-    *(u64*)*(ret + 0) = a0;
-    *(u64*)*(ret + 8) = v1;
-    *(u32*)(s1) = a3;
+    *(u64*)(ret + 0) = a0;
+    *(u64*)(ret + 8) = v1;
+    *(u32*)(psx_1) = a3;
     if (a1 != 0) {
-        ret = (unsigned)s5 >> 0xa;
         ret = ret & 1;
-        a3 = *(u32*)(sp);
+        a3 = *(u32*)(__sp);
         if (ret != 0) {
-            ret = HDD_SetupVertexBuffer(a0, a1, a2, a3);
-            a3 = *(u32*)(sp);
+            ret = HDD_SetupVertexBuffer();
+            a3 = *(u32*)(__sp);
         }
-        ret = (unsigned)s5 >> 6;
         ret = ret & 1;
         v1 = a3 & 0x7fc0;
         a1 = (unsigned)v1 >> 6;
         v1 = a3 & 0x3f;
-        a3 = *(u64*)&s1->cop0[23];  /* cop0[23] */
+        a3 = *(u64*)&((PSX_State*)psx_1)->cop0[23];  /* cop0[23] */
         if (ret != 0) {
-            ret = 0 | 0x8000;
             ret = ret << 20;
             a3 = a3 | ret;
         }
         a0 = v1 << 6;
         v1 = a1 << 12;
-        ret = *(u32*)(s1);
+        ret = *(u32*)(psx_1);
         a0 = a0 | v1;
         v1 = 0x10;
         a1 = 0x1c;
         a0 = a0 | v1;
         a2 = 6;
-        *(u64*)*(ret + 0) = a0;
+        *(u64*)(ret + 0) = a0;
         ret = ret + 8;
-        *(u64*)*(ret + 0) = a1;
+        *(u64*)(ret + 0) = a1;
         ret = ret + 8;
         v1 = ret + 0x20;
         a0 = 7;
-        *(u32*)(s1) = v1;
-        *(u64*)*(ret + 8) = a2;
-        *(u64*)*(ret + 16) = a3;
-        *(u64*)*(ret + 24) = a0;
-        *(u64*)*(ret + 0) = a3;
+        *(u32*)(psx_1) = v1;
+        *(u64*)(ret + 8) = a2;
+        *(u64*)(ret + 16) = a3;
+        *(u64*)(ret + 24) = a0;
+        *(u64*)(ret + 0) = a3;
     }
     t2 = 0x70000000;
     t3 = t2 + 0x10f0;
-    ret = *(u32*)*(t3 + 0x2658);
+    ret = *(u32*)(t3 + 0x2658);
     t4 = t3 + 0x221c;
     if ((signed)ret >= 0) {
         ret = 0x49;
         v1 = *(u32*)(t4);
         a0 = 0x22;
-        t2 = *(u32*)*(t4 + 0x14);
+        t2 = *(u32*)(t4 + 0x14);  /* GTE data: vz2 */
         a1 = 9;
-        *(u64*)*(v1 + 0) = 0;
+        *(u64*)(v1 + 0) = 0;
         v1 = v1 + 8;
-        *(u64*)*(v1 + 0) = ret;
+        *(u64*)(v1 + 0) = ret;
         v1 = v1 + 8;
-        *(u64*)*(v1 + 8) = a0;
+        *(u64*)(v1 + 8) = a0;
         t1 = v1 + 0x30;
-        *(u64*)*(v1 + 0) = 0;
-        ret = t1 - t2;
+        *(u64*)(v1 + 0) = 0;
         ret = (signed)ret >> 3;
         a3 = 0x43;
-        a0 = *(u64*)*(t3 + 8976);
+        a0 = *(u64*)(t3 + 8976);
         t0 = ret + -2;
-        *(u64*)*(v1 + 24) = a1;
+        *(u64*)(v1 + 24) = a1;
         a2 = 2;
-        *(u64*)*(v1 + 16) = a0;
+        *(u64*)(v1 + 16) = a0;
         a0 = (unsigned)t0 >> 1;
         *(u32*)(t4) = t1;
-        ret = *(u64*)*(t3 + 8984);
-        *(u64*)*(v1 + 40) = a3;
-        *(u64*)*(v1 + 32) = ret;
-        a3 = *(u64*)*(t2 + 0);
-        ret = (u64)a3 >> 58;
+        ret = *(u64*)(t3 + 8984);
+        *(u64*)(v1 + 40) = a3;
+        *(u64*)(v1 + 32) = ret;
+        a3 = *(u64*)(t2 + 0);
         ret = ret & 3;
-        v1 = ret ^ 1;
-        __asm("movn t0, a0, v1");
+        if ((ret ^ 1) != 0) t0 = a0;
         if (ret == a2) goto loc_21ECEC;
         ret = (u64)a3 >> 60;
         a0 = 0x10;
-        __asm("movz v0, a0, v0");
+        if (ret == 0) ret = a0;
         v1 = t0 + ret;
         BREAK(); /* breakpoint */
-        if (likely(ret == 0)) goto loc_21ECDC;
+        if (ret == 0) goto loc_21ECDC;
         loc_21ECDC:
-        v1 = v1 + -1;
-        __asm("divu zero, v1, v0");
-        v1 = LO;
-        t0 = v1;
+        t0 = (unsigned)v1 / (unsigned)ret;
         loc_21ECEC:
         a1 = t1;
         ret = (u64)t0 << 32;
         v1 = (unsigned)a1 >> 2;
         ret = (u64)ret >> 32;
-        __asm("negu v1, v1");
+        v1 = -v1;
         ret = a3 + ret;
         v1 = v1 & 3;
         a0 = -1;
         v1 = v1 + -1;
-        *(u64*)*(t2 + 0) = ret;
-        *(u32*)*(t4 + 0x14) = 0;
+        *(u64*)(t2 + 0) = ret;
+        *(u32*)(t4 + 0x14) = 0;
         if (v1 != a0) {
             ret = -1;
             do {
@@ -8955,40 +8398,39 @@ loc_21EB50:
         *(u32*)(t4) = a1;
         a1 = (unsigned)s5 >> 0xb;
         t3 = s4 + 0x330c;
-        a3 = 0 | 0x8000;
-        s2 = *(u32*)(t3);
+        a3 = 0x8000;
+        psx = *(u32*)(t3);
         a0 = (unsigned)s5 >> 0xc;
-        t2 = *(u32*)*(t3 + 0xc);
+        t2 = *(u32*)(t3 + 0xc);  /* GTE data: vz1 */
         a1 = a1 & 1;
         a0 = a0 & 1;
         t1 = a3;
-        ret = s2 - t2;
+        ret = psx - t2;
         t0 = *(u32*)(t2);
-        ret = ret + -4;
         ret = (signed)ret >> 2;
         a2 = (unsigned)s5 >> 7;
         ret = (unsigned)ret >> 2;
-        __asm("movz a3, zero, a1");
+        if (a1 == 0) a3 = 0;
         t0 = t0 + ret;
         ret = 0x11000000;
-        __asm("movz t1, zero, a0");
+        if (a0 == 0) t1 = 0;
         a0 = 0x6C120000;
         a2 = a2 & 1;
         v1 = 0x01000404;
         *(u32*)(t2) = t0;
         t0 = 4;
-        s2->next_pc = ret;  /* next_pc (store) */
-        a1 = s2 + 0x190;
-        s2->hi = v1;  /* hi (store) */
-        s2->lo = a0;  /* lo (store) */
-        s2->gpr[3] = a2;  /* gpr[3] (store) */
-        s2->gpr[7] = a3;  /* gpr[7] (store) */
-        s2->gpr[11] = t1;  /* gpr[11] (store) */
-        *(u32*)(s2) = 0;
+        ((PSX_State*)psx)->next_pc = ret;  /* next_pc (store) */
+        a1 = psx + 0x190;
+        ((PSX_State*)psx)->hi = v1;  /* hi (store) */
+        ((PSX_State*)psx)->lo = a0;  /* lo (store) */
+        ((PSX_State*)psx)->gpr[3] = a2;  /* gpr[3] (store) */
+        ((PSX_State*)psx)->gpr[7] = a3;  /* gpr[7] (store) */
+        ((PSX_State*)psx)->gpr[11] = t1;  /* gpr[11] (store) */
+        *(u32*)(psx) = 0;
         *(u32*)(t3) = a1;
-        ret = *(u32*)*(t3 + 0x448);
+        ret = *(u32*)(t3 + 0x448);
         FPU_REG(f0) = 0; /* mtc1 */
-        *(u32*)*(t3 + 0xc) = 0;
+        *(u32*)(t3 + 0xc) = 0;
         if (ret != t0) {
             __at = 0x3F800000;
             FPU_REG(f0) = __at; /* mtc1 */
@@ -8996,18 +8438,18 @@ loc_21EB50:
         v1 = 0x70000000;
         a0 = 4;
         ret = v1 + 0x10f0;
-        __asm("swc1 f0, 0x10(s2)");
-        v1 = *(u32*)*(ret + 0x2668);
+        *(float*)(psx + 0x10) = FPU_F(f0);
+        v1 = *(u32*)(ret + 0x2668);
         FPU_REG(f0) = 0; /* mtc1 */
         a0 = 0x70000000;
         if (v1 != a0) {
             __at = 0x3F800000;
             FPU_REG(f0) = __at; /* mtc1 */
         }
-        __asm("swc1 f0, 0x14(s2)");
+        *(float*)(psx + 0x14) = FPU_F(f0);
         ret = a0 + 0x10f0;
         a0 = 4;
-        v1 = *(u32*)*(ret + 0x2664);
+        v1 = *(u32*)(ret + 0x2664);
         __at = 0x3F800000;
         FPU_REG(f0) = __at; /* mtc1 */
         a1 = 0x70000000;
@@ -9017,8 +8459,8 @@ loc_21EB50:
             a0 = 4;
         }
         ret = a1 + 0x10f0;
-        __asm("swc1 f0, 0x20(s2)");
-        v1 = *(u32*)*(ret + 0x2668);
+        *(float*)(psx + 0x20) = FPU_F(f0);
+        v1 = *(u32*)(ret + 0x2668);
         __at = 0x3F800000;
         FPU_REG(f1) = __at; /* mtc1 */
         if (v1 != a0) {
@@ -9027,231 +8469,131 @@ loc_21EB50:
         }
         __at = 0x44800000;
         FPU_REG(f0) = __at; /* mtc1 */
-        ret = (unsigned)s5 >> 4;
         ret = ret & 1;
-        __asm("swc1 f1, 0x24(s2)");
-        __asm("swc1 f0, 0x34(s2)");
-        __asm("swc1 f0, 0x30(s2)");
+        *(float*)(psx + 0x24) = FPU_F(f1);
+        *(float*)(psx + 0x34) = FPU_F(f0);
+        *(float*)(psx + 0x30) = FPU_F(f0);
         if (ret != 0) {
             ret = s0 & 1;
-            if (2 != 0) {
-                a2 = 0x70000000;
-                s2->gpr[2] = ret;  /* gpr[2] (store) */
-                ret = a2 + 0x10f0;
-                v1 = (unsigned)s5 >> 8;
-                a0 = 0x254;
-                v1 = v1 & 1;
-                a3 = *(u32*)*(ret + 8904);  /* lwu */
-                v1 = v1 << 3;
-                ret = 0x214;
-                a0 = v1 | a0;
-                v1 = v1 | ret;
-                a2 = (unsigned)s5 >> 2;
-                a3 = a3 << 14;
-                a2 = a2 & 1;
-                t2 = 0x0003040B;
-                ret = 0x30004000;
-                ret = (u64)ret << 32;
-                ret = ret | 4;
-                a1 = 0x30004000;
-                a1 = (u64)a1 << 32;
-                a1 = a1 | 0x8004;
-                a0 = (u64)a0 << 47;
-                v1 = (u64)v1 << 47;
-                t0 = 0x60;
-                t1 = 0x000307F9;
-                a0 = a0 | ret;
-                ret = 0xeef;
-                t1 = a3 | t1;
-                a3 = a3 | t2;
-                v1 = v1 | a1;
-                a1 = 0xeee;
-                __asm("movz t0, zero, a2");
-                a2 = 0 | 0x807f;
-                t3 = (u64)t3 << 32;
-                t3 = t3 | 1;
-                t4 = 0x15;
-                t5 = 0x48;
-                t6 = 0x512;
-                t2 = 0x3b;
-                *(u64*)&s2->gpr[14] = ret;  /* gpr[14] (store) */
-                *(u64*)&s2->gpr[20] = t0;  /* gpr[20] (store) */
-                *(u64*)&s2->gpr[24] = a3;  /* gpr[24] (store) */
-                *(u64*)&s2->gpr[28] = a0;  /* gpr[28] (store) */
-                *(u64*)&s2->cop0[0] = t3;  /* cop0[0] (store) */
-                *(u64*)&s2->cop0[2] = a1;  /* cop0[2] (store) */
-                *(u64*)&s2->cop0[4] = a2;  /* cop0[4] (store) */
-                *(u64*)&s2->cop0[6] = t2;  /* cop0[6] (store) */
-                *(u64*)&s2->cop0[10] = t4;  /* cop0[10] (store) */
-                *(u64*)&s2->cop0[12] = t1;  /* cop0[12] (store) */
-                *(u64*)&s2->cop0[14] = t5;  /* cop0[14] (store) */
-                *(u64*)&s2->cop0[16] = v1;  /* cop0[16] (store) */
-                *(u64*)&s2->cop0[18] = t6;  /* cop0[18] (store) */
-                *(u64*)&s2->gpr[12] = t3;  /* gpr[12] (store) */
-                *(u64*)&s2->gpr[22] = t4;  /* gpr[22] (store) */
-                *(u64*)&s2->gpr[26] = t5;  /* gpr[26] (store) */
-                *(u64*)&s2->gpr[30] = t6;  /* gpr[30] (store) */
-                *(u64*)&s2->cop0[8] = 0;  /* cop0[8] (store) */
-            } else {
-                ret = 1;
-                a3 = 0x70000000;
-                s2->gpr[2] = ret;  /* gpr[2] (store) */
-                ret = 0x244;
-                v1 = (unsigned)s5 >> 8;
-                a0 = a3 + 0x10f0;
-                v1 = v1 & 1;
-                a1 = *(u32*)*(a0 + 8904);  /* lwu */
-                v1 = v1 << 3;
-                a0 = 0x000307FB;
-                v1 = v1 | ret;
-                ret = 0x30004000;
-                ret = (u64)ret << 32;
-                ret = ret | 0x8004;
-                a1 = a1 << 14;
-                v1 = (u64)v1 << 47;
-                a1 = a1 | a0;
-                a0 = (u64)a0 << 32;
-                a0 = a0 | 1;
-                v1 = v1 | ret;
-                ret = 0xeff;
-                a2 = 0x48;
-                a3 = 0x512;
-                *(u64*)&s2->gpr[12] = a0;  /* gpr[12] (store) */
-                *(u64*)&s2->gpr[14] = ret;  /* gpr[14] (store) */
-                *(u64*)&s2->gpr[24] = a1;  /* gpr[24] (store) */
-                *(u64*)&s2->gpr[26] = a2;  /* gpr[26] (store) */
-                *(u64*)&s2->gpr[28] = v1;  /* gpr[28] (store) */
-                *(u64*)&s2->gpr[30] = a3;  /* gpr[30] (store) */
-                goto loc_21F234;
-        }
-            ret = (unsigned)s5 >> 2;
+            a2 = 0x70000000;
+            ((PSX_State*)psx)->gpr[2] = ret;  /* gpr[2] (store) */
+            ret = a2 + 0x10f0;
+            v1 = (unsigned)s5 >> 8;
+            a0 = 0x254;
+            v1 = v1 & 1;
+            a3 = *(u32*)(ret + 8904);  /* lwu */
+            v1 = v1 << 3;
+            ret = 0x214;
+            a0 = v1 | a0;
+            v1 = v1 | ret;
+            a2 = (unsigned)s5 >> 2;
+            a3 = a3 << 14;
+            a2 = a2 & 1;
+            t2 = 0x0003040B;
+            ret = ret | 4;
+            a1 = 0x30004000;
+            a1 = (u64)a1 << 32;
+            a1 = a1 | 0x8004;
+            a0 = (u64)a0 << 47;
+            v1 = (u64)v1 << 47;
+            t0 = 0x60;
+            t1 = 0x000307F9;
+            a0 = a0 | ret;
+            ret = 0xeef;
+            t1 = a3 | t1;
+            a3 = a3 | t2;
+            v1 = v1 | a1;
+            a1 = 0xeee;
+            if (a2 == 0) t0 = 0;
+            a2 = 0x807f;
+            t3 = (u64)t3 << 32;
+            t3 = t3 | 1;
+            t4 = 0x15;
+            t5 = 0x48;
+            t6 = 0x512;
+            t2 = 0x3b;
+            *(u64*)&((PSX_State*)psx)->gpr[14] = ret;  /* gpr[14] (store) */
+            *(u64*)&((PSX_State*)psx)->gpr[20] = t0;  /* gpr[20] (store) */
+            *(u64*)&((PSX_State*)psx)->gpr[24] = a3;  /* gpr[24] (store) */
+            *(u64*)&((PSX_State*)psx)->gpr[28] = a0;  /* gpr[28] (store) */
+            *(u64*)&((PSX_State*)psx)->cop0[0] = t3;  /* COP0: Index (store) */
+            *(u64*)&((PSX_State*)psx)->cop0[2] = a1;  /* COP0: EntryLo0 (store) */
+            *(u64*)&((PSX_State*)psx)->cop0[4] = a2;  /* COP0: Context (store) */
+            *(u64*)&((PSX_State*)psx)->cop0[6] = t2;  /* COP0: TAR (store) */
+            *(u64*)&((PSX_State*)psx)->cop0[10] = t4;  /* COP0: EntryHi (store) */
+            *(u64*)&((PSX_State*)psx)->cop0[12] = t1;  /* COP0: SR (store) */
+            *(u64*)&((PSX_State*)psx)->cop0[14] = t5;  /* COP0: EPC (store) */
+            *(u64*)&((PSX_State*)psx)->cop0[16] = v1;  /* cop0[16] (store) */
+            *(u64*)&((PSX_State*)psx)->cop0[18] = t6;  /* cop0[18] (store) */
+            *(u64*)&((PSX_State*)psx)->gpr[12] = t3;  /* gpr[12] (store) */
+            *(u64*)&((PSX_State*)psx)->gpr[22] = t4;  /* gpr[22] (store) */
+            *(u64*)&((PSX_State*)psx)->gpr[26] = t5;  /* gpr[26] (store) */
+            *(u64*)&((PSX_State*)psx)->gpr[30] = t6;  /* gpr[30] (store) */
+            *(u64*)&((PSX_State*)psx)->cop0[8] = 0;  /* COP0: BadVaddr (store) */
             ret = ret & 1;
-            if (3 != 0) {
-                t2 = 0x70000000;
-                s2->gpr[2] = ret;  /* gpr[2] (store) */
-                ret = 0x214;
-                a0 = (unsigned)s5 >> 8;
-                v1 = t2 + 0x10f0;
-                a0 = a0 & 1;
-                a1 = *(u32*)*(v1 + 8904);  /* lwu */
-                a0 = a0 << 3;
-                a2 = 0x000307F9;
-                a0 = a0 | ret;
-                ret = 0x30004000;
-                ret = (u64)ret << 32;
-                ret = ret | 4;
-                a1 = a1 << 14;
-                a0 = (u64)a0 << 47;
-                v1 = 0x000307FB;
-                t1 = 0x00030809;
-                t2 = 0x30004000;
-                t2 = (u64)t2 << 32;
-                t2 = t2 | 0x8004;
-                t3 = (u64)t3 << 32;
-                t3 = t3 | 1;
-                t4 = 0x48;
-                t5 = 0x512;
-                t1 = a1 | t1;
-                t2 = a0 | t2;
-                v1 = a1 | v1;
-                a1 = a1 | a2;
-                a0 = a0 | ret;
-                ret = 0xeef;
-                s0 = 0x15;
-                s1 = 0x3b;
-                a2 = 0xeee;
-                a3 = 0 | 0x807f;
-                t0 = 0x60;
-                t6 = 0xefe;
-                t7 = 0x80;
-                t7 = (u64)t7 << 32;
-                t7 = t7 | 0x8000;
-                *(u64*)&s2->gpr[14] = ret;  /* gpr[14] (store) */
-                *(u64*)&s2->gpr[24] = v1;  /* gpr[24] (store) */
-                *(u64*)&s2->cop0[2] = a2;  /* cop0[2] (store) */
-                *(u64*)&s2->cop0[4] = a3;  /* cop0[4] (store) */
-                *(u64*)&s2->cop0[8] = t0;  /* cop0[8] (store) */
-                *(u64*)&s2->cop0[10] = s0;  /* cop0[10] (store) */
-                *(u64*)&s2->cop0[12] = a1;  /* cop0[12] (store) */
-                *(u64*)&s2->cop0[16] = a0;  /* cop0[16] (store) */
-                *(u64*)&s2->cop0[20] = t3;  /* cop0[20] (store) */
-                *(u64*)&s2->cop0[22] = t6;  /* cop0[22] (store) */
-                *(u64*)&s2->cop0[24] = t7;  /* cop0[24] (store) */
-                *(u64*)&s2->cop0[26] = s1;  /* cop0[26] (store) */
-                *(u64*)&s2->hw_state[0] = t1;  /* hw_state[0] (store) */
-                *(u64*)&s2->hw_state[2] = t4;  /* hw_state[2] (store) */
-                *(u64*)&s2->hw_state[4] = t2;  /* hw_state[4] (store) */
-                *(u64*)&s2->hw_state[6] = t5;  /* hw_state[6] (store) */
-                *(u64*)&s2->gpr[12] = t3;  /* gpr[12] (store) */
-                *(u64*)&s2->gpr[20] = 0;  /* gpr[20] (store) */
-                *(u64*)&s2->gpr[22] = s0;  /* gpr[22] (store) */
-                *(u64*)&s2->gpr[26] = t4;  /* gpr[26] (store) */
-                *(u64*)&s2->gpr[28] = a0;  /* gpr[28] (store) */
-                *(u64*)&s2->gpr[30] = t5;  /* gpr[30] (store) */
-                *(u64*)&s2->cop0[0] = t3;  /* cop0[0] (store) */
-                *(u64*)&s2->cop0[6] = s1;  /* cop0[6] (store) */
-                *(u64*)&s2->cop0[14] = t4;  /* cop0[14] (store) */
-                *(u64*)&s2->cop0[18] = t5;  /* cop0[18] (store) */
-            } else {
-                ret = 1;
-                v1 = (u64)v1 << 32;
-                v1 = v1 | 1;
-                a0 = 0xeef;
-                a1 = 0x15;
-                a2 = s0 & 1;
-                s2->gpr[2] = ret;  /* gpr[2] (store) */
-                *(u64*)&s2->gpr[12] = v1;  /* gpr[12] (store) */
-                *(u64*)&s2->gpr[14] = a0;  /* gpr[14] (store) */
-                *(u64*)&s2->gpr[22] = a1;  /* gpr[22] (store) */
-                *(u64*)&s2->gpr[20] = 0;  /* gpr[20] (store) */
-                if (a2 != 0) goto loc_21F1C8;
-                v1 = 0x70000000 + 0x10f0;
-                ret = *(u32*)*(v1 + 0x22d4);
-                ret = (unsigned)s5 >> 8;
-                if (ret == 0) goto loc_21F1C8;
-                a0 = *(u32*)*(v1 + 8904);  /* lwu */
-                ret = ret & 1;
-                v1 = 0x284;
-                ret = ret << 3;
-                a1 = 3 << 16;
-                ret = ret | v1;
-                v1 = 0x30004000;
-                v1 = (u64)v1 << 32;
-                v1 = v1 | 0x8004;
-                a0 = a0 << 14;
-                ret = (u64)ret << 47;
-                a0 = a0 | a1;
-                a1 = 0x48;
-                ret = ret | v1;
-                v1 = 0x512;
-                goto loc_21F224;
-                loc_21F1C8:
-                ret = (unsigned)s5 >> 8;
-                a0 = 0x70000000;
-                v1 = s0 & 1;
-                ret = ret & 1;
-                v1 = v1 << 4;
-                a1 = a0 + 0x10f0;
-                ret = ret << 3;
-                a0 = *(u32*)*(a1 + 8904);  /* lwu */
-                ret = ret | v1;
-                ret = ret | 0x204;
-                v1 = 0x30004000;
-                v1 = (u64)v1 << 32;
-                v1 = v1 | 0x8004;
-                a1 = 0x000307FB;
-                a0 = a0 << 14;
-                ret = (u64)ret << 47;
-                a0 = a0 | a1;
-                ret = ret | v1;
-                v1 = 0x512;
-                a1 = 0x48;
-                loc_21F224:
-                *(u64*)&s2->gpr[24] = a0;  /* gpr[24] (store) */
-                *(u64*)&s2->gpr[26] = a1;  /* gpr[26] (store) */
-                *(u64*)&s2->gpr[28] = ret;  /* gpr[28] (store) */
-                *(u64*)&s2->gpr[30] = v1;  /* gpr[30] (store) */
-                }
+            t2 = 0x70000000;
+            ((PSX_State*)psx)->gpr[2] = ret;  /* gpr[2] (store) */
+            ret = 0x214;
+            a0 = (unsigned)s5 >> 8;
+            v1 = t2 + 0x10f0;
+            a0 = a0 & 1;
+            a1 = *(u32*)(v1 + 8904);  /* lwu */
+            a0 = a0 << 3;
+            a2 = 0x000307F9;
+            a0 = a0 | ret;
+            ret = ret | 4;
+            a1 = a1 << 14;
+            a0 = (u64)a0 << 47;
+            v1 = 0x000307FB;
+            t1 = 0x00030809;
+            t2 = 0x30004000;
+            t2 = (u64)t2 << 32;
+            t2 = t2 | 0x8004;
+            t3 = (u64)t3 << 32;
+            t3 = t3 | 1;
+            t4 = 0x48;
+            t5 = 0x512;
+            t1 = a1 | t1;
+            t2 = a0 | t2;
+            v1 = a1 | v1;
+            a1 = a1 | a2;
+            a0 = a0 | ret;
+            ret = 0xeef;
+            s0 = 0x15;
+            psx_1 = 0x3b;
+            a2 = 0xeee;
+            a3 = 0x807f;
+            t0 = 0x60;
+            t6 = 0xefe;
+            t7 = 0x80;
+            t7 = (u64)t7 << 32;
+            t7 = t7 | 0x8000;
+            *(u64*)&((PSX_State*)psx)->gpr[14] = ret;  /* gpr[14] (store) */
+            *(u64*)&((PSX_State*)psx)->gpr[24] = v1;  /* gpr[24] (store) */
+            *(u64*)&((PSX_State*)psx)->cop0[2] = a2;  /* COP0: EntryLo0 (store) */
+            *(u64*)&((PSX_State*)psx)->cop0[4] = a3;  /* COP0: Context (store) */
+            *(u64*)&((PSX_State*)psx)->cop0[8] = t0;  /* COP0: BadVaddr (store) */
+            *(u64*)&((PSX_State*)psx)->cop0[10] = s0;  /* COP0: EntryHi (store) */
+            *(u64*)&((PSX_State*)psx)->cop0[12] = a1;  /* COP0: SR (store) */
+            *(u64*)&((PSX_State*)psx)->cop0[16] = a0;  /* cop0[16] (store) */
+            *(u64*)&((PSX_State*)psx)->cop0[20] = t3;  /* cop0[20] (store) */
+            *(u64*)&((PSX_State*)psx)->cop0[22] = t6;  /* cop0[22] (store) */
+            *(u64*)&((PSX_State*)psx)->cop0[24] = t7;  /* cop0[24] (store) */
+            *(u64*)&((PSX_State*)psx)->cop0[26] = psx_1;  /* cop0[26] (store) */
+            *(u64*)&((PSX_State*)psx)->hw_state[0] = t1;  /* hw_state[0] (store) */
+            *(u64*)&((PSX_State*)psx)->hw_state[2] = t4;  /* hw_state[2] (store) */
+            *(u64*)&((PSX_State*)psx)->hw_state[4] = t2;  /* hw_state[4] (store) */
+            *(u64*)&((PSX_State*)psx)->hw_state[6] = t5;  /* hw_state[6] (store) */
+            *(u64*)&((PSX_State*)psx)->gpr[12] = t3;  /* gpr[12] (store) */
+            *(u64*)&((PSX_State*)psx)->gpr[20] = 0;  /* gpr[20] (store) */
+            *(u64*)&((PSX_State*)psx)->gpr[22] = s0;  /* gpr[22] (store) */
+            *(u64*)&((PSX_State*)psx)->gpr[26] = t4;  /* gpr[26] (store) */
+            *(u64*)&((PSX_State*)psx)->gpr[28] = a0;  /* gpr[28] (store) */
+            *(u64*)&((PSX_State*)psx)->gpr[30] = t5;  /* gpr[30] (store) */
+            *(u64*)&((PSX_State*)psx)->cop0[0] = t3;  /* COP0: Index (store) */
+            *(u64*)&((PSX_State*)psx)->cop0[6] = psx_1;  /* COP0: TAR (store) */
+            *(u64*)&((PSX_State*)psx)->cop0[14] = t4;  /* COP0: EPC (store) */
+            *(u64*)&((PSX_State*)psx)->cop0[18] = t5;  /* cop0[18] (store) */
             }
         loc_21F234:
         t3 = s4 + 0x330c;
@@ -9266,7 +8608,7 @@ loc_21EB50:
         v1 = v1 + 0x1c;
         a0 = a0 - ret;
         ret = ((unsigned)t2 < (unsigned)t1) ? 1 : 0;
-        __asm("movn t2, v1, v0");
+        if (ret != 0) t2 = v1;
         ret = 0x15000000;
         a0 = (signed)a0 >> 3;
         a0 = a0 | ret;
@@ -9275,35 +8617,35 @@ loc_21EB50:
         a2 = 0x01000103;
         a3 = 0x64040014;
         ret = 0x11000000;
-        s2->hw_state[8] = v1;  /* hw_state[8] (store) */
-        s2->hw_state[9] = a1;  /* hw_state[9] (store) */
+        ((PSX_State*)psx)->hw_state[8] = v1;  /* hw_state[8] (store) */
+        ((PSX_State*)psx)->hw_state[9] = a1;  /* hw_state[9] (store) */
         t0 = ((unsigned)t1 < (unsigned)t2) ? 1 : 0;
-        s2->hw_state[18] = a2;  /* hw_state[18] (store) */
-        s2->hw_state[19] = a3;  /* hw_state[19] (store) */
-        s2->hw_state[28] = a0;  /* hw_state[28] (store) */
-        s2->hw_state[29] = ret;  /* hw_state[29] (store) */
-        s2->hw_state[31] = 0;  /* hw_state[31] (store) */
-        a1 = *(u64*)*(__sp + 8);
-        *(u64*)&s2->hw_state[10] = a1;  /* hw_state[10] (store) */
-        a2 = *(u64*)*(__sp + 16);
-        *(u64*)&s2->hw_state[12] = a2;  /* hw_state[12] (store) */
-        a3 = *(u64*)*(__sp + 24);
-        *(u64*)&s2->hw_state[14] = a3;  /* hw_state[14] (store) */
-        ret = *(u64*)*(__sp + 32);
-        *(u64*)&s2->hw_state[16] = ret;  /* hw_state[16] (store) */
+        ((PSX_State*)psx)->hw_state[18] = a2;  /* hw_state[18] (store) */
+        ((PSX_State*)psx)->hw_state[19] = a3;  /* hw_state[19] (store) */
+        ((PSX_State*)psx)->hw_state[28] = a0;  /* hw_state[28] (store) */
+        ((PSX_State*)psx)->hw_state[29] = ret;  /* hw_state[29] (store) */
+        ((PSX_State*)psx)->hw_state[31] = 0;  /* hw_state[31] (store) */
+        a1 = *(u64*)(__sp + 8);
+        *(u64*)&((PSX_State*)psx)->hw_state[10] = a1;  /* hw_state[10] (store) */
+        a2 = *(u64*)(__sp + 16);
+        *(u64*)&((PSX_State*)psx)->hw_state[12] = a2;  /* hw_state[12] (store) */
+        a3 = *(u64*)(__sp + 24);
+        *(u64*)&((PSX_State*)psx)->hw_state[14] = a3;  /* hw_state[14] (store) */
+        ret = *(u64*)(__sp + 32);
+        *(u64*)&((PSX_State*)psx)->hw_state[16] = ret;  /* hw_state[16] (store) */
         v1 = local_2C;
-        s2->hw_state[20] = v1;  /* hw_state[20] (store) */
+        ((PSX_State*)psx)->hw_state[20] = v1;  /* hw_state[20] (store) */
         a0 = local_30;
-        s2->hw_state[22] = s3;  /* hw_state[22] (store) */
-        s2->hw_state[21] = a0;  /* hw_state[21] (store) */
-        s2->hw_state[23] = s6;  /* hw_state[23] (store) */
-        s2->hw_state[24] = s7;  /* hw_state[24] (store) */
-        s2->hw_state[25] = __fp;  /* hw_state[25] (store) */
+        ((PSX_State*)psx)->hw_state[22] = s3;  /* hw_state[22] (store) */
+        ((PSX_State*)psx)->hw_state[21] = a0;  /* hw_state[21] (store) */
+        ((PSX_State*)psx)->hw_state[23] = s6;  /* hw_state[23] (store) */
+        ((PSX_State*)psx)->hw_state[24] = s7;  /* hw_state[24] (store) */
+        ((PSX_State*)psx)->hw_state[25] = __fp;  /* hw_state[25] (store) */
         a1 = local_34;
-        s2->hw_state[26] = a1;  /* hw_state[26] (store) */
+        ((PSX_State*)psx)->hw_state[26] = a1;  /* hw_state[26] (store) */
         a2 = local_38;
-        s2->hw_state[30] = 0;  /* hw_state[30] (store) */
-        s2->hw_state[27] = a2;  /* hw_state[27] (store) */
+        ((PSX_State*)psx)->hw_state[30] = 0;  /* hw_state[30] (store) */
+        ((PSX_State*)psx)->hw_state[27] = a2;  /* hw_state[27] (store) */
         if (t0 != 0) {
             do {
                 v1 = t1 + 4;
@@ -9326,22 +8668,22 @@ loc_21EB50:
         a3 = a3 | 0x807f;
         t0 = 0x3b;
         *(u32*)(t1) = v1;
-        *(u64*)*(ret + 0) = a1;
-        *(u32*)*(a0 + 0x14) = ret;
+        *(u64*)(ret + 0) = a1;
+        *(u32*)(a0 + 0x14) = ret;
         ret = ret + 8;
-        *(u64*)*(ret + 0) = a2;
+        *(u64*)(ret + 0) = a2;
         ret = ret + 8;
         v1 = ret + 0x10;
-        *(u64*)*(ret + 0) = a3;
+        *(u64*)(ret + 0) = a3;
         *(u32*)(a0) = v1;
-        *(u64*)*(ret + 8) = t0;
-        *(u32*)*(t3 + 0xc) = t1;
+        *(u64*)(ret + 8) = t0;
+        *(u32*)(t3 + 0xc) = t1;
     } else {
         t8 = 0 << 16;
     }
     a3 = 0x70000000;
     t0 = a3 + 0x10f0;
-    ret = *(u32*)*(t0 + 0x264c);
+    ret = *(u32*)(t0 + 0x264c);
     if (-5 != 0) {
         s5 = s5 & ret;
     }
@@ -9354,7 +8696,6 @@ loc_21EB50:
     ret = ret + 0x4000;
     v1 = (u64)v1 << 32;
     ret = (u64)ret << 32;
-    v1 = (u64)v1 >> 32;
     v1 = v1 | ret;
     __asm("mmi2 t7, a2, v1");
     ret = s3 << 4;
@@ -9363,9 +8704,8 @@ loc_21EB50:
     v1 = v1 + 0x4000;
     ret = (u64)ret << 32;
     v1 = (u64)v1 << 32;
-    ret = (u64)ret >> 32;
     ret = ret | v1;
-    __asm("mmi2 t5, a2, v0");
+    __asm("mmi2 t5, a2, ret");
     v1 = s7 << 4;
     a0 = __fp << 4;
     v1 = v1 + 0x4000;
@@ -9377,10 +8717,10 @@ loc_21EB50:
     v1 = (u64)v1 >> 32;
     ret = (u64)ret << 47;
     v1 = v1 | a0;
-    __asm("mmi2 t4, v0, v1");
-    a1 = *(u64*)*(t0 + 8952);
-    __asm("mmi3 s2, zero, zero");
-    a3 = *(u64*)*(t0 + 8960);
+    __asm("mmi2 t4, ret, v1");
+    a1 = *(u64*)(t0 + 8952);
+    __asm("mmi3 psx, 0, 0");
+    a3 = *(u64*)(t0 + 8960);
     __asm("mmi1 a1, t7, a1");
     __asm("mmi0 a3, t7, a3");
     __asm("mmi1 a1, t5, a1");
@@ -9393,113 +8733,105 @@ loc_21EB50:
     if (ret == 0) {
         v1 = local_34;
         a0 = local_38;
-        ret = v1 << 4;
         ret = ret + 0x4000;
-        v1 = a0 << 4;
         v1 = v1 + 0x4000;
         ret = (u64)ret << 32;
         v1 = (u64)v1 << 32;
-        ret = (u64)ret >> 32;
         ret = ret | v1;
-        __asm("mmi2 s2, a2, v0");
-        __asm("mmi1 a1, s2, a1");
-        __asm("mmi0 a3, s2, a3");
+        __asm("mmi2 psx, a2, ret");
+        __asm("mmi1 a1, psx, a1");
+        __asm("mmi0 a3, psx, a3");
         a2 = t0 + 0x221c;
     }
     v1 = s5 & 3;
     ret = *(u32*)(a2);
     a0 = 0x22;
-    *(u64*)*(t0 + 8952) = a1;
+    *(u64*)(t0 + 8952) = a1;
     t6 = (unsigned)s5 >> 4;
-    *(u64*)*(t0 + 8960) = a3;
+    *(u64*)(t0 + 8960) = a3;
     a3 = 0;
-    *(u64*)*(ret + 0) = v1;
+    *(u64*)(ret + 0) = v1;
     ret = ret + 8;
-    *(u64*)*(ret + 0) = a0;
+    *(u64*)(ret + 0) = a0;
     ret = ret + 8;
     a1 = t6 & 1;
     *(u32*)(a2) = ret;
-    if (a1 == 0) goto loc_21F510;
-    v1 = s5 & 0xc;
-    ret = 0xc;
-    if (v1 != -5) {
-        s5 = s5 & ret;
+    if (a1 != 0) {
+        v1 = s5 & 0xc;
+        ret = 0xc;
+        if (v1 != -5) {
+            s5 = s5 & ret;
+            s0 = (unsigned)s5 >> 5;
+            t2 = (unsigned)s5 >> 0xc;
+            a3 = s0 & 1;
+            t6 = (unsigned)s5 >> 4;
+            goto loc_21F504;
+        }
+        s0 = (unsigned)s5 >> 5;
+        loc_21F504:
+        a2 = *(u64*)(t0 + 8984);
+    } else {
+        ret = s5 << 2;
+        v1 = -0x11;
+        ret = ret & 0x10;
+        s5 = s5 & v1;
+        s5 = s5 | ret;
+        a2 = 0x44;
         s0 = (unsigned)s5 >> 5;
         t2 = (unsigned)s5 >> 0xc;
-        a3 = s0 & 1;
         t6 = (unsigned)s5 >> 4;
-        goto loc_21F504;
     }
-    s0 = (unsigned)s5 >> 5;
-loc_21F504:
-    a2 = *(u64*)*(t0 + 8984);
-    goto loc_21F534;
-loc_21F510:
-    ret = s5 << 2;
-    v1 = -0x11;
-    ret = ret & 0x10;
-    s5 = s5 & v1;
-    s5 = s5 | ret;
-    a2 = 0x44;
-    s0 = (unsigned)s5 >> 5;
-    t2 = (unsigned)s5 >> 0xc;
-    t6 = (unsigned)s5 >> 4;
-loc_21F534:
-    s1 = s4 + 0x330c;
+    psx_1 = s4 + 0x330c;
     v1 = (unsigned)s5 >> 2;
-    ret = *(u32*)(s1);
+    ret = *(u32*)(psx_1);
     v1 = v1 & 1;
     a1 = v1 << 6;
     v1 = v1 << 5;
-    *(u64*)*(ret + 0) = a3;
+    *(u64*)(ret + 0) = a3;
     ret = ret + 8;
     a0 = 0x49;
     v1 = v1 | a1;
-    *(u64*)*(ret + 0) = a0;
+    *(u64*)(ret + 0) = a0;
     a0 = 0x42;
     ret = ret + 8;
     a1 = 0x14;
-    *(u64*)*(ret + 0) = a2;
+    *(u64*)(ret + 0) = a2;
     a2 = 2;
-    *(u64*)*(ret + 8) = a0;
+    *(u64*)(ret + 8) = a0;
     t1 = ret + 0x20;
-    *(u64*)*(ret + 16) = v1;
-    *(u64*)*(ret + 24) = a1;
-    t3 = s1->gpr[1];  /* gpr[1] */
-    *(u32*)(s1) = t1;
-    t0 = *(u64*)*(t3 + 0);
-    ret = t1 - t3;
+    *(u64*)(ret + 16) = v1;
+    *(u64*)(ret + 24) = a1;
+    t3 = ((PSX_State*)psx_1)->gpr[1];  /* gpr[1] */
+    *(u32*)(psx_1) = t1;
+    t0 = *(u64*)(t3 + 0);
     ret = (signed)ret >> 3;
     v1 = (u64)t0 >> 58;
     a3 = ret + -2;
     v1 = v1 & 3;
     a0 = (unsigned)a3 >> 1;
     ret = v1 ^ 1;
-    __asm("movn a3, a0, v0");
+    if (ret != 0) a3 = a0;
     if (v1 == a2) goto loc_21F5DC;
     ret = (u64)t0 >> 60;
     a0 = 0x10;
-    __asm("movz v0, a0, v0");
+    if (ret == 0) ret = a0;
     v1 = a3 + ret;
     BREAK(); /* breakpoint */
-    if (likely(ret == 0)) goto loc_21F5CC;
+    if (ret == 0) goto loc_21F5CC;
 loc_21F5CC:
-    v1 = v1 + -1;
-    __asm("divu zero, v1, v0");
-    v1 = LO;
-    a3 = v1;
+    a3 = (unsigned)v1 / (unsigned)ret;
 loc_21F5DC:
     a1 = t1;
     ret = (u64)a3 << 32;
     v1 = (unsigned)a1 >> 2;
     ret = (u64)ret >> 32;
-    __asm("negu v1, v1");
+    v1 = -v1;
     ret = t0 + ret;
     v1 = v1 & 3;
     a0 = -1;
     v1 = v1 + -1;
-    *(u64*)*(t3 + 0) = ret;
-    s1->gpr[1] = 0;  /* gpr[1] (store) */
+    *(u64*)(t3 + 0) = ret;
+    ((PSX_State*)psx_1)->gpr[1] = 0;  /* gpr[1] (store) */
     if (v1 != a0) {
         ret = -1;
         do {
@@ -9508,13 +8840,13 @@ loc_21F5DC:
             a1 = a1 + 4;
         } while (v1 != ret);
     }
-    *(u32*)(s1) = a1;
-    s1 = (unsigned)s5 >> 8;
+    *(u32*)(psx_1) = a1;
+    psx_1 = (unsigned)s5 >> 8;
     t1 = s4 + 0x330c;
-    v1 = s1 & 1;
+    v1 = psx_1 & 1;
     t3 = *(u32*)(t1);
     a1 = s0 & 1;
-    t0 = *(u32*)*(t1 + 0xc);
+    t0 = *(u32*)(t1 + 0xc);  /* GTE data: vz1 */
     a0 = 0x100;
     a2 = 4;
     v1 = v1 << 3;
@@ -9539,29 +8871,25 @@ loc_21F5DC:
     *(u32*)(t0) = a2;
     *(u32*)(t1) = ret;
     v1 = (u64)v1 << 47;
-    *(u32*)*(t3 + 4) = a0;
-    *(u32*)*(t3 + 8) = a1;
-    *(u32*)*(t3 + 0xc) = a3;
-    *(u32*)*(t1 + 0xc) = 0;
+    *(u32*)(t3 + 4) = a0;
+    *(u32*)(t3 + 8) = a1;
+    *(u32*)(t3 + 0xc) = a3;
+    *(u32*)(t1 + 0xc) = 0;
     *(u32*)(t3) = 0;
     if (t2 != 0) {
-        ret = 0x30004000;
-        ret = (u64)ret << 32;
         ret = ret | 0x8003;
         a1 = v1 | ret;
         goto loc_21F6F4;
     }
-    ret = 0x30004000;
-    ret = (u64)ret << 32;
     ret = ret | 0x8004;
     a1 = v1 | ret;
 loc_21F6F4:
-    ret = s1 & 1;
+    ret = psx_1 & 1;
     v1 = 0x5f0;
     a3 = 0x510;
     a0 = s0 & 1;
-    *(u64*)*(t3 + 16) = a1;
-    __asm("movz a3, v1, v0");
+    *(u64*)(t3 + 16) = a1;
+    if (ret == 0) a3 = v1;
     if (a0 != 0) {
         ret = 3;
     } else {
@@ -9579,37 +8907,36 @@ loc_21F6F4:
     t1 = ret + 0xc;
     ret = ret + 0x1c;
     v1 = ((unsigned)t1 < (unsigned)t2) ? 1 : 0;
-    __asm("movn t1, v0, v1");
+    if (v1 != 0) t1 = ret;
     a1 = 0x01000203;
     v1 = 0x6E084001;
-    *(u64*)*(t3 + 24) = t6;
+    *(u64*)(t3 + 24) = t6;
     ret = 0x15000000;
-    *(u32*)*(t3 + 0x20) = a1;
+    *(u32*)(t3 + 0x20) = a1;
     a0 = (signed)a0 >> 3;
-    *(u32*)*(t3 + 0x24) = v1;
+    *(u32*)(t3 + 0x24) = v1;
     a0 = a0 | ret;
-    v1 = *(u64*)*(__sp + 8);
+    v1 = *(u64*)(__sp + 8);
     a2 = 0x01000103;
     a3 = 0x6C040003;
     ret = 0x11000000;
-    *(u64*)*(t3 + 40) = v1;
+    *(u64*)(t3 + 40) = v1;
     t0 = ((unsigned)t2 < (unsigned)t1) ? 1 : 0;
-    a1 = *(u64*)*(__sp + 16);
-    *(u64*)*(t3 + 48) = a1;
-    v1 = *(u64*)*(__sp + 24);
-    *(u64*)*(t3 + 56) = v1;
-    a1 = *(u64*)*(__sp + 32);
-    *(u32*)*(t3 + 0x48) = a2;
-    *(u64*)*(t3 + 64) = a1;
-    *(u32*)*(t3 + 0x4c) = a3;
-    __asm("subu.qb zero, t3, t7");
-    *(u128*)*(t3 + 96) = t5;  /* sq */
+    a1 = *(u64*)(__sp + 16);
+    *(u64*)(t3 + 48) = a1;
+    *(u64*)(t3 + 56) = *(u64*)(__sp + 24);
+    a1 = *(u64*)(__sp + 32);
+    *(u32*)(t3 + 0x48) = a2;
+    *(u64*)(t3 + 64) = a1;
+    *(u32*)(t3 + 0x4c) = a3;
+    __asm("subu.qb 0, t3, t7");
+    *(u128*)(t3 + 96) = t5;  /* sq */
     __asm("dps.w.ph ac0, t3, t4");
-    __asm("ext s2, t3, 2, 1");
-    *(u32*)*(t3 + 0x90) = a0;
-    *(u32*)*(t3 + 0x94) = ret;
-    *(u32*)*(t3 + 0x9c) = 0;
-    *(u32*)*(t3 + 0x98) = 0;
+    __asm("ext psx, t3, 2, 1");
+    *(u32*)(t3 + 0x90) = a0;
+    *(u32*)(t3 + 0x94) = ret;
+    *(u32*)(t3 + 0x9c) = 0;
+    *(u32*)(t3 + 0x98) = 0;
     if (t0 != 0) {
         do {
             v1 = t2 + 4;
@@ -9628,13 +8955,12 @@ loc_21F6F4:
     v1 = 0x50000000;
     ret = *(u32*)(a0);
     *(u32*)(t2) = v1;
-    *(u64*)*(ret + 0) = a1;
-    *(u32*)*(a0 + 0x14) = ret;
+    *(u64*)(ret + 0) = a1;
+    *(u32*)(a0 + 0x14) = ret;
     ret = ret + 8;
-    *(u64*)*(ret + 0) = a2;
-    ret = ret + 8;
-    *(u32*)(a0) = ret;
-    *(u32*)*(s0 + 0xc) = t2;
+    *(u64*)(ret + 0) = a2;
+    *(u32*)(a0) = ret + 8;
+    *(u32*)(s0 + 0xc) = t2;
 loc_21F840:
     __asm("xori.b w1, w0, 0xb2");
     return ret;

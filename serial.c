@@ -3,94 +3,94 @@
 /* 30 functions */
 
 #include "pops_types.h"
+#include "functions.h"
 
 /* Forward declarations */
-int Serial_Init();
-int Serial_RegisterIO();
-int Serial_PollPorts();
-int Serial_GetDeviceType();
-int Serial_ProcessCommand();
-int Serial_ExchangeData();
-int Serial_HandleMemcard();
-int Serial_MemcardTransfer();
-int Serial_DispatchByte();
-int Serial_FlushPorts();
-int Serial_InvalidateCache();
-int Serial_InitPads();
-int Serial_SyncCallback();
-int MemCard_BackupCards();
-int Serial_MemcardCommand();
-int Serial_CalcMemcardAddr();
-int Serial_VerifyMemcard();
-int MemCard_InitStorage();
-int Serial_DecodeMdecBlock();
-int Serial_IDCT();
-int Serial_YuvToRgb15();
-int Serial_YuvToRgb24();
-int Serial_DecodeMacroblock();
-int Serial_MdecInterrupt();
-int Serial_MdecOutput();
-int Serial_ReadVram();
-int Serial_WriteVram();
-int Serial_WriteGpuReg();
-int Serial_GetBase();
-int Serial_Reset();
+u32 Serial_Init(void);
+u32 Serial_RegisterIO(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 Serial_PollPorts(u32 a0);
+u32 Serial_GetDeviceType(u32 a0);
+u32 Serial_ProcessCommand(void);
+u32 Serial_ExchangeData(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 Serial_HandleMemcard(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 Serial_MemcardTransfer(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 Serial_DispatchByte(u32 a0, u32 a1, u32 a2);
+u32 Serial_FlushPorts(void);
+u32 Serial_InvalidateCache(void);
+u32 Serial_InitPads(void);
+u32 Serial_SyncCallback(void);
+void MemCard_BackupCards(u32 a0, u32 a1, u32 a2);
+u32 Serial_MemcardCommand(u32 a0, u32 a1, u32 a2);
+void Serial_CalcMemcardAddr(u32 a0, u32 a1);
+u32 Serial_VerifyMemcard(u32 a0);
+u32 MemCard_InitStorage(void);
+u32 Serial_DecodeMdecBlock(u32 a0, u32 a1, u32 a2);
+u32 Serial_IDCT(u32 a0, u32 a1, u32 a2);
+u32 Serial_YuvToRgb15(u32 a0, u32 a1);
+u32 Serial_YuvToRgb24(u32 a0, u32 a1);
+u32 Serial_DecodeMacroblock(u32 a0);
+u32 Serial_MdecInterrupt(void);
+u32 Serial_MdecOutput(void);
+u32 Serial_ReadVram(u32 a0, u32 a1);
+u32 Serial_WriteVram(u32 a0, u32 a1);
+u32 Serial_WriteGpuReg(u32 a0, u32 a1);
+void Serial_GetBase(void);
+u32 Serial_Reset(u32 a0);
 
 /* ======================================== */
 
 /* Function at 0x0020BB68 - 0x0020BB74 */
-int Serial_Init()
+u32 Serial_Init(void)
 {
-    int a0, a2, a3;
+    u32 a0, a2, a3;
     a2 = 0x00210000;
     a3 = 0x00210000;
-    a0 = 0x1F800000;
+    a0 = PSX_IO_BASE;  /* 0x1F800000 */
+    return Serial_RegisterIO(a0, 0, a2, a3);
 }
 
 /* Function at 0x0020BB74 - 0x0020BBA8 */
-int Serial_RegisterIO()
+u32 Serial_RegisterIO(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
+    u32 ret;
     a2 = a2 + -0x4800;
     a3 = a3 + -0x4768;
-    a0 = a0 | 0x1040;
-    a1 = 0x20;
+    a0 = a0 | 0x1040;  /* PSX_SIO_BASE: Serial I/O (Joy/Memcard) (0x1F801040) */
+    a1 = 0x20;  /* I/O range size */
     ret = R3000_SetupIOHandlers(a0, a1, a2, a3);
-    ret = GPU_Reset(a0, a1, a2, a3);
+    ret = GPU_Reset();
     return 1;
 }
 
 /* Function at 0x0020BBA8 - 0x0020BC00 */
-int Serial_PollPorts()
+u32 Serial_PollPorts(u32 a0)
 {
     /* Stack frame: 32 bytes */
-    int ret, v0, a0, a1, a2, a3, s0, s1;
+    u32 ret, a1, a2, a3, s0, s1;
     a1 = 0;
     s0 = a0;
     a2 = 1;
     a3 = 0;
-    ret = System_PadMul9(a0, a1, a2, a3);
+    System_PadMul9(a0, a1);
     a0 = s0;
     a1 = 0;
     a2 = 2;
     a3 = 0;
     s1 = ret;
-    ret = System_PadMul9(a0, a1, a2, a3);
-    __asm("movz v0, s1, v0");
+    System_PadMul9(a0, a1);
+    if (ret == 0) ret = s1;
     return ret;
 }
 
 /* Function at 0x0020BC00 - 0x0020BC60 */
-int Serial_GetDeviceType()
+u32 Serial_GetDeviceType(u32 a0)
 {
-    int ret, v1, a0;
+    u32 ret, v1;
     a0 = a0 + -2;
     if ((unsigned)a0 < 6) {
         ret = a0 << 2;
-        v1 = 0x00500000;
-        v1 = v1 + ret;
-        v1 = *(u32*)*(v1 + -0x6910);
+        v1 = *(u32*)(v1 + -0x6910);
         goto *v1; /* computed jump */
         return 0x23;
     }
@@ -98,11 +98,11 @@ int Serial_GetDeviceType()
 }
 
 /* Function at 0x0020BC60 - 0x0020C118 */
-int Serial_ProcessCommand()
+u32 Serial_ProcessCommand(void)
 {
     /* Stack frame: 96 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7;
-    *(u32*)(sp) = 0;
+    u32 ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7;
+    *(u32*)(__sp) = 0;
     s3 = 0;
     __fp = 0x80808080;
     __fp = __fp << 16;
@@ -113,288 +113,280 @@ loc_20BCB0:
     v1 = 0x00500000;
     a0 = s3;
     ret = v1 + 0x7000;
-    v1 = *(u32*)(sp);
+    v1 = *(u32*)(__sp);
     a1 = 0;
     s0 = v1 + ret;
-    ret = System_PadMul4(a0, a1, a2, a3);
+    System_PadMul4(a0, a1);
     a0 = ret;
-    v1 = *(u32*)*(s0 + 0x2c);
-    if (likely(a0 != 0)) goto loc_20BCF8;
-    ret = *(u32*)*(s0 + 0x2c);
-    a0 = s0;
-    if (ret == 0) goto loc_20C0D0;
-    a1 = 0x90;
-    ret = Compiler_MemoryClear(a0, a1, a2, a3);
-loc_20BCEC:
-    *(u64*)*(s0 + 0) = __fp;
-    goto loc_20C0D0;
-loc_20BCF8:
-    s1 = 0x46;
-    ret = ((unsigned)v1 < 0x47) ? 1 : 0;
-    if (v1 != s1) {
-        if (6 == 0) goto loc_20C010;
-        ret = 0x28;
-        if (v1 != 0) {
-            if (v1 != 6) {
-                goto loc_20C010;
-                }
-                v1 = 2;
-                ret = 6;
-                if (a0 == v1) {
-                a0 = 1;
-                *(u32*)*(s0 + 0x3c) = a0;
-                } else {
-                v1 = *(u32*)(sp);
-                if (likely(a0 != ret)) goto loc_20C0D4;
-                *(u32*)*(s0 + 0x3c) = v1;
-                a0 = s3;
-                a1 = 0;
-                a2 = 4;
-                a3 = -1;
-                s2 = 0;
-                ret = System_PadMul9(a0, a1, a2, a3);
-                *(u32*)*(s0 + 0x40) = ret;
-                if ((signed)ret > 0) {
-                    s1 = s0 + 0x44;
-                    do {
-                        a3 = s2;
-                        s2 = s2 + 1;
+    v1 = *(u32*)(s0 + 0x2c);  /* PSX: gpr[7]/$a3 */
+    if (a0 == 0) {
+        ret = *(u32*)(s0 + 0x2c);  /* PSX: gpr[7]/$a3 */
+        a0 = s0;
+        if (ret == 0) goto loc_20C0D0;
+        a1 = 0x90;
+        ret = Compiler_MemoryClear(a0, a1);
+        while (1) {
+            *(u64*)(s0 + 0) = __fp;
+            } else {
+            s1 = 0x46;
+            ret = ((unsigned)v1 < 0x47) ? 1 : 0;
+            if (v1 != s1) {
+                ret = 0x28;
+                if (v1 != 0) {
+                    if (v1 != 6) {
+                        goto loc_20C010;
+                        }
+                        v1 = 2;
+                        ret = 6;
+                        if (a0 == v1) {
+                        a0 = 1;
+                        *(u32*)(s0 + 0x3c) = a0;
+                        } else {
+                        v1 = *(u32*)(__sp);
+                        if (a0 != ret) goto loc_20C0D4;
+                        *(u32*)(s0 + 0x3c) = v1;
                         a0 = s3;
                         a1 = 0;
                         a2 = 4;
-                        ret = System_PadMul9(a0, a1, a2, a3);
-                        *(u32*)(s1) = ret;
-                        ret = *(u32*)*(s0 + 0x40);
-                        ret = ((signed)s2 < (signed)ret) ? 1 : 0;
-                        s1 = s1 + 4;
-                    } while (ret != 0);
-                }
-                a0 = s3;
-                a1 = 0;
-                a2 = -1;
-                a3 = 0;
-                ret = System_PadMul7(a0, a1, a2, a3);
-                s2 = 0;
-                *(u32*)*(s0 + 0x54) = ret;
-                if ((signed)ret > 0) {
-                    s7 = s0 + 8;
-                    s6 = s0 + 9;
-                    s5 = s0 + 0xa;
-                    s4 = s0 + 0xb;
-                    s1 = 0x50;
-                    do {
-                        a2 = s2;
-                        a0 = s3;
-                        a1 = 0;
-                        a3 = 1;
-                        ret = System_PadMul7(a0, a1, a2, a3);
-                        v1 = s7 + s1;
-                        *(u8*)(v1) = ret;
-                        a2 = s2;
-                        a0 = s3;
-                        a1 = 0;
-                        a3 = 2;
-                        ret = System_PadMul7(a0, a1, a2, a3);
-                        a2 = s2;
-                        v1 = s6 + s1;
-                        a0 = s3;
-                        *(u8*)(v1) = ret;
-                        a1 = 0;
-                        a3 = 3;
-                        ret = System_PadMul7(a0, a1, a2, a3);
-                        v1 = s5 + s1;
-                        *(u8*)(v1) = ret;
-                        a2 = s2;
-                        a0 = s3;
-                        a1 = 0;
-                        a3 = 4;
-                        s2 = s2 + 1;
-                        ret = System_PadMul7(a0, a1, a2, a3);
-                        v1 = s4 + s1;
-                        *(u8*)(v1) = ret;
-                        ret = *(u32*)*(s0 + 0x54);
-                        ret = ((signed)s2 < (signed)ret) ? 1 : 0;
-                        s1 = s1 + 4;
-                    } while (ret != 0);
-                }
-                a0 = s3;
-                a1 = 0;
-                a2 = -1;
-                a3 = 0;
-                ret = System_PadMul8(a0, a1, a2, a3);
-                s2 = 0;
-                *(u32*)*(s0 + 0x68) = ret;
-                if ((signed)ret > 0) {
-                    s7 = s0 + 0xc;
-                    s6 = s0 + 0xd;
-                    s5 = s0 + 0xe;
-                    s4 = s0 + 0xf;
-                    s1 = 0x60;
-                    do {
-                        a2 = s2;
-                        a0 = s3;
-                        a1 = 0;
                         a3 = -1;
-                        ret = System_PadMul8(a0, a1, a2, a3);
-                        v1 = s7 + s1;
-                        *(u8*)(v1) = ret;
-                        a2 = s2;
+                        s2 = 0;
+                        System_PadMul9(a0, a1);
+                        *(u32*)(s0 + 0x40) = ret;
+                        if ((signed)ret > 0) {
+                            s1 = s0 + 0x44;
+                            do {
+                                a3 = s2;
+                                s2 = s2 + 1;
+                                a0 = s3;
+                                a1 = 0;
+                                a2 = 4;
+                                System_PadMul9(a0, a1);
+                                *(u32*)(s1) = ret;
+                                ret = ((signed)s2 < (signed)ret) ? 1 : 0;
+                                s1 = s1 + 4;
+                            } while (ret != 0);
+                        }
                         a0 = s3;
                         a1 = 0;
+                        a2 = -1;
                         a3 = 0;
-                        ret = System_PadMul8(a0, a1, a2, a3);
-                        a2 = s2;
-                        v1 = s6 + s1;
+                        System_PadMul7(a0, a1);
+                        s2 = 0;
+                        *(u32*)(s0 + 0x54) = ret;
+                        if ((signed)ret > 0) {
+                            s7 = s0 + 8;
+                            s6 = s0 + 9;
+                            s5 = s0 + 0xa;
+                            s4 = s0 + 0xb;
+                            s1 = 0x50;
+                            do {
+                                a2 = s2;
+                                a0 = s3;
+                                a1 = 0;
+                                a3 = 1;
+                                System_PadMul7(a0, a1);
+                                v1 = s7 + s1;
+                                *(u8*)(v1) = ret;
+                                a2 = s2;
+                                a0 = s3;
+                                a1 = 0;
+                                a3 = 2;
+                                System_PadMul7(a0, a1);
+                                a2 = s2;
+                                v1 = s6 + s1;
+                                a0 = s3;
+                                *(u8*)(v1) = ret;
+                                a1 = 0;
+                                a3 = 3;
+                                System_PadMul7(a0, a1);
+                                v1 = s5 + s1;
+                                *(u8*)(v1) = ret;
+                                a2 = s2;
+                                a0 = s3;
+                                a1 = 0;
+                                a3 = 4;
+                                s2 = s2 + 1;
+                                System_PadMul7(a0, a1);
+                                v1 = s4 + s1;
+                                *(u8*)(v1) = ret;
+                                ret = ((signed)s2 < (signed)ret) ? 1 : 0;
+                                s1 = s1 + 4;
+                            } while (ret != 0);
+                        }
                         a0 = s3;
-                        *(u8*)(v1) = ret;
                         a1 = 0;
-                        a3 = 1;
-                        ret = System_PadMul8(a0, a1, a2, a3);
-                        v1 = s5 + s1;
-                        *(u8*)(v1) = ret;
-                        a2 = s2;
+                        a2 = -1;
+                        a3 = 0;
+                        System_PadMul8(a0, a1);
+                        s2 = 0;
+                        *(u32*)(s0 + 0x68) = ret;
+                        if ((signed)ret > 0) {
+                            s7 = s0 + 0xc;
+                            s6 = s0 + 0xd;
+                            s5 = s0 + 0xe;
+                            s4 = s0 + 0xf;
+                            s1 = 0x60;
+                            do {
+                                a2 = s2;
+                                a0 = s3;
+                                a1 = 0;
+                                a3 = -1;
+                                System_PadMul8(a0, a1);
+                                v1 = s7 + s1;
+                                *(u8*)(v1) = ret;
+                                a2 = s2;
+                                a0 = s3;
+                                a1 = 0;
+                                a3 = 0;
+                                System_PadMul8(a0, a1);
+                                a2 = s2;
+                                v1 = s6 + s1;
+                                a0 = s3;
+                                *(u8*)(v1) = ret;
+                                a1 = 0;
+                                a3 = 1;
+                                System_PadMul8(a0, a1);
+                                v1 = s5 + s1;
+                                *(u8*)(v1) = ret;
+                                a2 = s2;
+                                a0 = s3;
+                                a1 = 0;
+                                a3 = 2;
+                                s2 = s2 + 1;
+                                System_PadMul8(a0, a1);
+                                v1 = s4 + s1;
+                                *(u8*)(v1) = ret;
+                                ret = ((signed)s2 < (signed)ret) ? 1 : 0;
+                                s1 = s1 + 4;
+                            } while (ret != 0);
+                            }
+                        }
                         a0 = s3;
-                        a1 = 0;
-                        a3 = 2;
-                        s2 = s2 + 1;
-                        ret = System_PadMul8(a0, a1, a2, a3);
-                        v1 = s4 + s1;
-                        *(u8*)(v1) = ret;
-                        ret = *(u32*)*(s0 + 0x68);
-                        ret = ((signed)s2 < (signed)ret) ? 1 : 0;
-                        s1 = s1 + 4;
-                    } while (ret != 0);
+                        ret = Serial_PollPorts(a0);
+                        *(u32*)(s0 + 0x30) = ret;
+                        a0 = ret;
+                        ret = Serial_GetDeviceType(a0);
+                        *(u32*)(s0 + 0x2c) = 0x63;
+                        v1 = v1 << 1;
+                        *(u64*)(s0 + 0) = __fp;
+                        v1 = v1 + 3;
+                        *(u32*)(s0 + 0x34) = ret;
+                        *(u32*)(s0 + 0x38) = v1;
+                        goto loc_20C0D0;
                     }
-                }
                 a0 = s3;
-                ret = Serial_PollPorts(a0, a1, a2, a3);
-                *(u32*)*(s0 + 0x30) = ret;
+                a1 = 0;
+                System_PadMul6(a0, a1);
+                v1 = *(u32*)(__sp);
+                if (ret != 0) goto loc_20C0D4;
+                a0 = s3;
+                ret = Serial_PollPorts(a0);
+                *(u32*)(s0 + 0x30) = ret;
                 a0 = ret;
-                ret = Serial_GetDeviceType(a0, a1, a2, a3);
-                *(u32*)*(s0 + 0x2c) = 0x63;
+                ret = Serial_GetDeviceType(a0);
+                *(u64*)(s0 + 0) = __fp;
                 v1 = ret & 3;
+                a3 = -1;
                 v1 = v1 << 1;
-                *(u64*)*(s0 + 0) = __fp;
+                *(u32*)(s0 + 0x34) = ret;
                 v1 = v1 + 3;
-                *(u32*)*(s0 + 0x34) = ret;
-                *(u32*)*(s0 + 0x38) = v1;
-                goto loc_20C0D0;
+                ret = 0x63;
+                *(u32*)(s0 + 0x38) = v1;
+                v1 = 1;
+                *(u8*)(s0 + 0x80) = a3;
+                a0 = s3;
+                *(u32*)(s0 + 0x2c) = ret;
+                a1 = 0;
+                *(u8*)(s0 + 0x7c) = 0;
+                a2 = s0 + 0x7c;
+                *(u8*)(s0 + 0x7d) = v1;
+                *(u8*)(s0 + 0x7f) = a3;
+                *(u8*)(s0 + 0x7e) = a3;
+                *(u8*)(s0 + 0x81) = a3;
+                ret = System_PadSetConfig2(a0, a1, a2);
+                a0 = 1;
+                *(u32*)(s0 + 0x2c) = s1;
+                if (ret == a0) goto loc_20C0D0;
+                v1 = *(u32*)(__sp);
+                goto loc_20C0D4;
             }
+            a0 = s3;
+            a1 = 0;
+            System_PadMul6(a0, a1);
+            v1 = 1;
+            a0 = 0x63;
+            if (ret == v1) {
+                *(u32*)(s0 + 0x2c) = a0;
+            }
+            *(u64*)(s0 + 0) = __fp;
+            if (ret != 0) goto loc_20C0D0;
+            ret = 0x63;
+            *(u32*)(s0 + 0x28) = v1;
+            *(u32*)(s0 + 0x2c) = ret;
+        }
+        loc_20C010:
+        if (a0 != 2) {
+            v1 = *(u32*)(__sp);
+            if (a0 != ret) goto loc_20C0D4;
+        }
         a0 = s3;
         a1 = 0;
-        ret = System_PadMul6(a0, a1, a2, a3);
-        v1 = *(u32*)(sp);
-        if (ret != 0) goto loc_20C0D4;
-        a0 = s3;
-        ret = Serial_PollPorts(a0, a1, a2, a3);
-        *(u32*)*(s0 + 0x30) = ret;
-        a0 = ret;
-        ret = Serial_GetDeviceType(a0, a1, a2, a3);
-        *(u64*)*(s0 + 0) = __fp;
-        v1 = ret & 3;
-        a3 = -1;
-        v1 = v1 << 1;
-        *(u32*)*(s0 + 0x34) = ret;
-        v1 = v1 + 3;
-        ret = 0x63;
-        *(u32*)*(s0 + 0x38) = v1;
-        v1 = 1;
-        *(u8*)*(s0 + 0x80) = a3;
-        a0 = s3;
-        *(u32*)*(s0 + 0x2c) = ret;
-        a1 = 0;
-        *(u8*)*(s0 + 0x7c) = 0;
-        a2 = s0 + 0x7c;
-        *(u8*)*(s0 + 0x7d) = v1;
-        *(u8*)*(s0 + 0x7f) = a3;
-        *(u8*)*(s0 + 0x7e) = a3;
-        *(u8*)*(s0 + 0x81) = a3;
-        ret = System_PadSetConfig2(a0, a1, a2, a3);
-        a0 = 1;
-        *(u32*)*(s0 + 0x2c) = s1;
-        if (likely(ret == a0)) goto loc_20C0D0;
-        v1 = *(u32*)(sp);
-        goto loc_20C0D4;
-    }
-    a0 = s3;
-    a1 = 0;
-    ret = System_PadMul6(a0, a1, a2, a3);
-    v1 = 1;
-    a0 = 0x63;
-    if (ret == v1) {
-        *(u32*)*(s0 + 0x2c) = a0;
-    }
-    *(u64*)*(s0 + 0) = __fp;
-    if (likely(ret != 0)) goto loc_20C0D0;
-    ret = 0x63;
-    *(u32*)*(s0 + 0x28) = v1;
-    *(u32*)*(s0 + 0x2c) = ret;
-    goto loc_20BCEC;
-loc_20C010:
-    if (a0 != 2) {
-        v1 = *(u32*)(sp);
-        if (a0 != ret) goto loc_20C0D4;
-    }
-    a0 = s3;
-    a1 = 0;
-    a2 = s0;
-    ret = System_PadMul3(a0, a1, a2, a3);
-    *(u64*)*(s0 + 0) = __fp;
-    if (likely(ret == 0)) goto loc_20C0D0;
-    ret = *(u8*)*(s0 + 1);
-    v1 = *(u32*)*(s0 + 0x30);
-    ret = (unsigned)ret >> 4;
-    a1 = s0 + 3;
-    if (ret != v1) {
-        a0 = s3;
-        ret = Serial_PollPorts(a0, a1, a2, a3);
-        *(u32*)*(s0 + 0x30) = ret;
-        a0 = ret;
-        ret = Serial_GetDeviceType(a0, a1, a2, a3);
-        *(u32*)*(s0 + 0x28) = 0;
-        v1 = ret & 3;
-        *(u32*)*(s0 + 0x34) = ret;
-        v1 = v1 << 1;
-        v1 = v1 + 3;
-        *(u32*)*(s0 + 0x38) = v1;
+        a2 = s0;
+        System_PadMul3(a0, a1);
+        *(u64*)(s0 + 0) = __fp;
+        if (ret == 0) goto loc_20C0D0;
+        ret = *(u8*)(s0 + 1);
+        v1 = *(u32*)(s0 + 0x30);  /* PSX: gpr[8]/$t0 */
+        ret = (unsigned)ret >> 4;
         a1 = s0 + 3;
+        if (ret != v1) {
+            a0 = s3;
+            ret = Serial_PollPorts(a0);
+            *(u32*)(s0 + 0x30) = ret;
+            a0 = ret;
+            ret = Serial_GetDeviceType(a0);
+            *(u32*)(s0 + 0x28) = 0;
+            v1 = ret & 3;
+            *(u32*)(s0 + 0x34) = ret;
+            *(u32*)(s0 + 0x38) = v1 + 3;
+            a1 = s0 + 3;
+        }
+        a0 = s0 + 2;
+        ret = HDD_CompileDisplayList(a0, a1);
+        v1 = *(u32*)(__sp);
+        if (ret == 0) goto loc_20C0D4;
+        ret = Serial_FlushPorts();
+        ret = SPU_Stop();
+        a0 = 1;
+        a1 = 0x004F9708;
+        ret = UI_LoadHDDModules(a0, a1);
     }
-    a0 = s0 + 2;
-    ret = HDD_CompileDisplayList(a0, a1, a2, a3);
-    v1 = *(u32*)(sp);
-    if (ret == 0) goto loc_20C0D4;
-    ret = Serial_FlushPorts(a0, a1, a2, a3);
-    ret = SPU_Stop(a0, a1, a2, a3);
-    a0 = 1;
-    a1 = 0x004F9708;
-    ret = UI_LoadHDDModules(a0, a1, a2, a3);
 loc_20C0D0:
-    v1 = *(u32*)(sp);
+    v1 = *(u32*)(__sp);
 loc_20C0D4:
     s3 = s3 + 1;
-    v1 = v1 + 0x90;
-    *(u32*)(sp) = v1;
+    *(u32*)(__sp) = v1 + 0x90;
     if ((signed)s3 < 2) goto loc_20BCB0;
     return ret;
 }
 
 /* Function at 0x0020C118 - 0x0020C4B0 */
-int Serial_ExchangeData()
+u32 Serial_ExchangeData(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 32 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, t0, t1;
+    u32 ret, v1, s0, s1, t0, t1;
     v1 = 8;
     s0 = a3;
     t1 = s0 + 0xc;
     ret = a0 + t1;
-    s1 = *(u8*)*(ret + 0x6d);
+    s1 = *(u8*)(ret + 0x6d);
     __at = 0x00500000;
     __at = __at + a0;
-    *(u8*)*(__at + 0x2ebd) = a2;
+    *(u8*)(__at + 0x2ebd) = a2;
     ret = s1;
     if (a0 != v1) goto loc_20C204;
     a2 = s0 + 0x7c;
-    v1 = *(u8*)*(__gp + -0x77b0);  /* g_serial_ctrl0 */
+    v1 = (u8)g_serial_ctrl0;
     ret = *(u8*)(a2);
     a3 = 0;
     if (ret != v1) goto loc_20C194;
@@ -408,7 +400,7 @@ int Serial_ExchangeData()
         v1 = *(u8*)(v1);
         ret = *(u8*)(a0);
         a3 = a3 + 1;
-    } while (likely(ret == v1));
+    } while (ret == v1);
 loc_20C194:
     ret = 6;
     t0 = t1 + 0x70;
@@ -418,59 +410,39 @@ loc_20C194:
         do {
             ret = a3 + t1;
             a3 = a3 + 1;
-            v1 = *(u8*)(v0);
+            v1 = *(u8*)(ret);
             a0 = ((unsigned)a3 < 6) ? 1 : 0;
             *(u8*)(t0) = v1;
             t0 = t0 + 1;
         } while (a0 != 0);
         a0 = a1;
         a1 = 0;
-        ret = System_PadSetConfig2(a0, a1, a2, a3);
+        ret = System_PadSetConfig2(a0, a1, a2);
         v1 = 1;
-        ret = s1;
-        if (ret != v1) goto loc_20C204;
-        v1 = 0x80808080;
-        v1 = v1 << 16;
+        if (s1 != v1) goto loc_20C204;
         v1 = v1 | 0xffff;
-        v1 = v1 << 16;
-        v1 = v1 | 0xffff;
-        *(u32*)*(s0 + 0x2c) = 0x46;
-        *(u64*)*(s0 + 0) = v1;
+        *(u32*)(s0 + 0x2c) = 0x46;
+        *(u64*)(s0 + 0) = v1;
     }
     ret = s1;
 loc_20C204:
     return ret;
-                }
-                ret = *(u8*)*(a3 + 0x82);
+                ret = *(u8*)(a3 + 0x82);
                 if (a0 != ret) {
                     return 0;
                     }
                     return 0;
-                    }
-                    ret = *(u8*)*(a3 + 0x82);
-                    ret = ret << 2;
-                    ret = ret + a3;
-                    ret = *(u8*)*(ret + 0x45);
-                    return ret;
-                }
-    ret = ret << 2;
-    ret = ret + a3;
-    ret = *(u8*)*(ret + 0x44);
-    return ret;
-    }
+                    return *(u8*)(ret + 0x45);
+    return *(u8*)(ret + 0x44);  /* PSX: gpr[13]/$t5 */
     return 0;
-    }
-    return 0;
-    ret = a3;
-    return ret;
     return 0;
 }
 
 /* Function at 0x0020C4B0 - 0x0020C5B0 */
-int Serial_HandleMemcard()
+u32 Serial_HandleMemcard(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, s0;
+    u32 ret, v1, s0;
     v1 = a0;
     a2 = a2 & 0xff;
     ret = 3;
@@ -479,18 +451,16 @@ int Serial_HandleMemcard()
     a1 = 0;
     a3 = a2;
     if (v1 == ret) {
-        *(u8*)*(s0 + 0x82) = a2;
+        *(u8*)(s0 + 0x82) = a2;
     }
-    if (likely(v1 != 4)) goto loc_20C554;
-    a2 = *(u8*)*(s0 + 0x82);
+    if (v1 != 4) goto loc_20C554;
+    a2 = *(u8*)(s0 + 0x82);
     ret = System_PadSetConfig1(a0, a1, a2, a3);
-    if (likely(ret != 1)) goto loc_20C554;
-    ret = *(u8*)*(s0 + 0x82);
-    ret = ret << 2;
+    if (ret != 1) goto loc_20C554;
     ret = ret + s0;
-    a0 = *(u32*)*(ret + 0x44);
-    *(u32*)*(s0 + 0x30) = a0;
-    ret = Serial_GetDeviceType(a0, a1, a2, a3);
+    a0 = *(u32*)(ret + 0x44);  /* PSX: gpr[13]/$t5 */
+    *(u32*)(s0 + 0x30) = a0;
+    ret = Serial_GetDeviceType(a0);
     a1 = 0x80808080;
     a1 = a1 << 16;
     a1 = a1 | 0xffff;
@@ -499,65 +469,56 @@ int Serial_HandleMemcard()
     v1 = ret & 3;
     a0 = 0x28;
     v1 = v1 << 1;
-    *(u32*)*(s0 + 0x2c) = a0;
+    *(u32*)(s0 + 0x2c) = a0;
     v1 = v1 + 3;
-    *(u64*)*(s0 + 0) = a1;
-    *(u32*)*(s0 + 0x38) = v1;
-    *(u32*)*(s0 + 0x34) = ret;
+    *(u64*)(s0 + 0) = a1;
+    *(u32*)(s0 + 0x38) = v1;
+    *(u32*)(s0 + 0x34) = ret;
 loc_20C554:
     return 0;
-    ret = *(u32*)*(a3 + 0x20);
-    v1 = 0;
-    if (ret == 0) {
-        v1 = *(u8*)*(a1 + -1);
-    }
-    ret = v1;
-    return ret;
+    return v1;
 }
 
 /* Function at 0x0020C5B0 - 0x0020C634 */
-int Serial_MemcardTransfer()
+u32 Serial_MemcardTransfer(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1;
+    u32 ret, v1, s0, s1;
     a2 = a2 & 0xff;
     s0 = a0;
     s1 = a3;
-    ret = *(u32*)*(s1 + 0x28);
+    ret = *(u32*)(s1 + 0x28);  /* PSX: gpr[6]/$a2 */
     a0 = a1;
     if (ret != 0) {
         __at = 0x00500000;
         __at = __at + s0;
-        *(u8*)*(__at + 0x2ec5) = a2;
+        *(u8*)(__at + 0x2ec5) = a2;
         a2 = __gp + -0x77a8;
-        ret = *(u32*)*(s1 + 0x38);
         ret = ret + -1;
         v1 = s0 + s1;
         if (s0 == ret) {
             a1 = 0;
-            ret = System_PadProcessResult(a0, a1, a2, a3);
+            ret = System_PadProcessResult(a0, a1, a2);
             }
             v1 = s0 + s1;
         }
-    ret = *(u8*)*(v1 + -1);
-    return ret;
+    return *(u8*)(v1 + -1);
 }
 
 /* Function at 0x0020C634 - 0x0020C6F0 */
-int Serial_DispatchByte()
+u32 Serial_DispatchByte(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 16 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, t0;
-    ret = ret + a1;
+    u32 ret, v1, a3, t0;
     ret = ret << 4;
     a2 = a2 & 0xff;
     a3 = 0x00507000;
     a3 = a3 + ret;
-    v1 = *(u32*)*(a3 + 0x2c);
+    v1 = *(u32*)(a3 + 0x2c);  /* PSX: gpr[7]/$a3 */
     t0 = 0x1ff;
     if (v1 == 0) goto loc_20C6DC;
     ret = 1;
-    a0 = *(u32*)*(a3 + 0x24);
+    a0 = *(u32*)(a3 + 0x24);  /* PSX: gpr[5]/$a1 */
     if (a0 != ret) {
         t0 = 0xff;
         if (a0 == 0) goto loc_20C6DC;
@@ -566,66 +527,61 @@ int Serial_DispatchByte()
         if (a0 == ret) goto loc_20C6DC;
         ret = g_serial_ctrl2;
     } else {
-        *(u32*)*(a3 + 0x20) = a0;
+        *(u32*)(a3 + 0x20) = a0;
         if (a0 == 0) {
             ret = a2 + 0xbe;
             v1 = 0x42;
-            ret = ret & 0xff;
             ret = ((unsigned)ret < 2) ? 1 : 0;
-            __asm("movz a2, v1, v0");
+            if (ret == 0) a2 = v1;
         }
         ret = a2 & 0xf;
         t0 = 0xf3;
         ret = ret << 2;
-        v1 = 0x00500000;
-        v1 = v1 + ret;
-        v1 = *(u32*)*(v1 + -0x6848);
-        g_serial_ctrl2 = v1;
+        g_serial_ctrl2 = *(u32*)(v1 + -0x6848);
         if (a0 != 0) goto loc_20C6DC;
-        t0 = *(u32*)*(a3 + 0x34);
+        t0 = *(u32*)(a3 + 0x34);  /* PSX: gpr[9]/$t1 */
         goto loc_20C6DC;
     }
-    ret = (ret)(a0, a1, a2, a3); /* indirect call */
+    ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
     t0 = ret;
 loc_20C6DC:
-    ret = t0;
-    return ret;
+    return t0;
 }
 
 /* Function at 0x0020C6F0 - 0x0020C730 */
-int Serial_FlushPorts()
+u32 Serial_FlushPorts(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, s0;
-    s0 = 0;
-    a0 = s0;
+    u32 ret, v1, a0, a1, a2, a3, i;
+    i = 0;
+    a0 = i;
     do {
-        s0 = s0 + 1;
+        i = i + 1;
         a1 = 0;
-        ret = System_PadMul1(a0, a1, a2, a3);
-        v1 = ((signed)s0 < 2) ? 1 : 0;
-        a0 = s0;
+        System_PadMul1(a0, a1);
+        v1 = ((signed)i < 2) ? 1 : 0;
+        a0 = i;
     } while (v1 != 0);
-    return System_PadConfigPort2(a0, a1, a2, a3);
+    return System_PadConfigPort2();
 }
 
 /* Function at 0x0020C730 - 0x0020C750 */
-int Serial_InvalidateCache()
+u32 Serial_InvalidateCache(void)
 {
     /* Stack frame: 16 bytes */
-    int a0, a1, a2, a3;
+    u32 a0, a1, a2, a3;
     a1 = 0x120;
     a0 = 0x00507000;
-    return Compiler_MemoryClear(a0, a1, a2, a3);
+    return Compiler_MemoryClear(a0, a1);
 }
 
 /* Function at 0x0020C750 - 0x0020C80C */
-int Serial_InitPads()
+u32 Serial_InitPads(void)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1;
+    u32 ret, v1, a0, a1, a2, a3, s0, s1;
     a0 = 0;
-    ret = Pad_InitLibpad(a0, a1, a2, a3);
+    ret = Pad_InitLibpad(a0);
     v1 = ret;
     ret = 1;
     a0 = 0;
@@ -636,152 +592,124 @@ int Serial_InitPads()
         a0 = 0x004F97F8;
         goto loc_20C7D4;
     }
-    ret = System_PadConfigAnalog(a0, a1, a2, a3);
-    v1 = ret;
-    s0 = v1;
+    s0 = System_PadConfigAnalog(a0, a1, a2);
     a0 = 0x004F9818;
     a2 = 0x00506F00;
     a1 = 0;
     if (v1 != s1) goto loc_20C7D4;
     a0 = 1;
-    ret = System_PadConfigAnalog(a0, a1, a2, a3);
+    ret = System_PadConfigAnalog(a0, a1, a2);
     a0 = 0x004F9818;
-    if (ret == s0) goto loc_20C7E8;
-loc_20C7D4:
-    ret = AssertionFailed(a0, a1, a2, a3);
-    ret = 0;
-    goto loc_20C7F4;
-loc_20C7E8:
-    ret = Serial_InvalidateCache(a0, a1, a2, a3);
-    ret = 1;
-loc_20C7F4:
+    if (ret != s0) {
+        loc_20C7D4:
+        ret = AssertionFailed(a0, a1, a2, a3);
+        ret = 0;
+    } else {
+        ret = Serial_InvalidateCache();
+        ret = 1;
+    }
     return ret;
 }
 
 /* Function at 0x0020C80C - 0x0020C838 */
-int Serial_SyncCallback()
+u32 Serial_SyncCallback(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
+    u32 ret, a0, a1, a2, a3;
     g_memcard_ctrl1 = -1;
-    ret = UI_Kern_iSignalSema(a0, a1, a2, a3);
+    ret = UI_Kern_iSignalSema();
     SYNC(); /* memory barrier */
     EI();
     return ret;
 }
 
 /* Function at 0x0020CA68 - 0x0020CC08 */
-int MemCard_BackupCards()
+void MemCard_BackupCards(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1, a3, t0;
     ret = 0x86;
     a2 = a2 & 0xff;
     if (a0 != ret) {
         v1 = 0x88;
         if ((unsigned)a0 < 0x87) {
             ret = 5;
-            v1 = *(u32*)*(a1 + 4);
+            v1 = *(u32*)(a1 + 4);
             if (a0 != ret) {
-                ret = ((unsigned)a0 < 6) ? 1 : 0;
-                if (6 != 0) {
-                    ret = 4;
-                    v1 = *(u32*)*(a1 + 8);
+                ret = 4;
+                v1 = *(u32*)(a1 + 8);
+                if (a0 != ret) {
+                    ret = *(u32*)(a1 + 4);
+                    goto loc_20CBC0;
+                    }
+                    ret = *(u32*)(a1 + 4);
                     if (a0 != ret) {
-                        ret = *(u32*)*(a1 + 4);
-                        goto loc_20CBC0;
-                        }
-                        ret = *(u32*)*(a1 + 4);
+                        v1 = *(u32*)(a1 + 8);
+                        } else {
+                        ret = 0x5d;
+                        if (a0 == v1) goto loc_20CBF0;
+                        v1 = ((unsigned)a0 < 0x88) ? 1 : 0;
+                        ret = 0x5c;
+                        if (v1 != 0) goto loc_20CBF0;
+                        ret = *(u32*)(a1 + 8);
                         if (a0 != ret) {
-                            v1 = *(u32*)*(a1 + 8);
+                            ret = *(u32*)(a1 + 4);
                             } else {
-                            ret = 0x5d;
-                            if (a0 == v1) goto loc_20CBF0;
-                            v1 = ((unsigned)a0 < 0x88) ? 1 : 0;
-                            ret = 0x5c;
-                            if (v1 != 0) goto loc_20CBF0;
-                            ret = 0x89;
-                            ret = *(u32*)*(a1 + 8);
-                            if (a0 != ret) {
-                                ret = *(u32*)*(a1 + 4);
-                                } else {
-                                ret = a2 << 8;
-                                *(u32*)*(a1 + 4) = ret;
-                                ret = 0;
-                                v1 = v1 ^ a2;
-                                *(u32*)*(a1 + 8) = v1;
-                                } else {
-                                ret = *(u32*)*(a1 + 8);
-                                v1 = v1 | a2;
-                                ret = ret ^ a2;
-                                *(u32*)*(a1 + 4) = v1;
-                                *(u32*)*(a1 + 8) = ret;
-                                ret = (unsigned)v1 >> 8;
-                                goto loc_20CBF0;
-                                }
-                                v1 = *(u32*)*(a1 + 8);
-                                ret = ret << 7;
-                                ret = ret + a1;
-                                v1 = v1 ^ a2;
-                                *(u32*)*(a1 + 8) = v1;
-                                *(u8*)*(ret + 0x10) = a2;
-                                ret = *(u8*)*(a1 + 4);
-                                } else {
-                                ret = *(u32*)*(a1 + 8);
-                                v1 = *(u32*)*(a1 + 4);
-                                ret = ret ^ a2;
-                                *(u32*)*(a1 + 8) = ret;
-                                v1 = v1 << 7;
-                                v1 = v1 + a1;
-                                ret = *(u8*)*(v1 + 0x8f);
+                            ret = a2 << 8;
+                            *(u32*)(a1 + 4) = ret;
+                            ret = 0;
+                            v1 = v1 ^ a2;
+                            *(u32*)(a1 + 8) = v1;
                             } else {
-                                if (0x14e != 0) goto loc_20CBF0;
-                                v1 = *(u32*)*(a1 + 4);
-                                ret = 0x3f;
-                                a0 = g_memcard_ctrl1;
-                                if (v1 != ret) {
-                                    ret = *(u32*)(a1);
-                                    ret = ret | 2;
-                                    *(u32*)(a1) = ret;
-                                    if ((signed)a0 >= 0) {
-                                        ret = UI_Kern_SetVCommonHandler(a0, a1, a2, a3);
-                                        g_memcard_ctrl1 = -1;
-                                    }
-                                    a0 = 0x3d68;
-                                    a1 = 0x0020C808;
-                                    a2 = 0;
-                                    ret = UI_Kern_SetVTLBRefillHandler(a0, a1, a2, a3);
-                                    g_memcard_ctrl1 = ret;
+                            ret = *(u32*)(a1 + 8);
+                            v1 = v1 | a2;
+                            ret = ret ^ a2;
+                            *(u32*)(a1 + 4) = v1;
+                            *(u32*)(a1 + 8) = ret;
+                            ret = (unsigned)v1 >> 8;
+                            goto loc_20CBF0;
+                            }
+                            v1 = *(u32*)(a1 + 8);
+                            ret = ret + a1;
+                            *(u32*)(a1 + 8) = v1 ^ a2;
+                            *(u8*)(ret + 0x10) = a2;
+                            ret = *(u8*)(a1 + 4);
+                            } else {
+                            ret = *(u32*)(a1 + 8);
+                            v1 = *(u32*)(a1 + 4);
+                            ret = ret ^ a2;
+                            *(u32*)(a1 + 8) = ret;
+                            v1 = v1 + a1;
+                            ret = *(u8*)(v1 + 0x8f);
+                        } else {
+                            goto loc_20CBF0;
                                 }
-                                ret = 0x147;
-                                goto loc_20CBF0;
-                                }
-                                loc_20CBC0:
-                                v1 = *(u32*)*(a1 + 8);
-                                }
-                                ret = ret << 7;
+                                a0 = 0x3d68;
+                                a1 = 0x0020C808;
+                                a2 = 0;
+                                ret = UI_Kern_SetVTLBRefillHandler();
+                                g_memcard_ctrl1 = ret;
+                            }
+                            ret = 0x147;
+                            goto loc_20CBF0;
+                            }
+                            loc_20CBC0:
+                            v1 = *(u32*)(a1 + 8);
                                 ret = ret + a0;
                                 v1 = v1 ^ a2;
                                 ret = ret + a1;
-                                *(u32*)*(a1 + 8) = v1;
-                                *(u8*)*(ret + 0xa) = a2;
-                                v1 = *(u32*)*(a1 + 4);
-                                v1 = v1 << 7;
-                                v1 = v1 + a0;
+                                *(u32*)(a1 + 8) = v1;
+                                *(u8*)(ret + 0xa) = a2;
                                 v1 = v1 + a1;
-                                ret = *(u8*)*(v1 + 9);
+                                ret = *(u8*)(v1 + 9);
+    }
                                 }
-                                }
-                            }
 loc_20CBF0:
-    return ret;
-}
-
-/* Function at 0x0020CC08 - 0x0020CD20 */
-int Serial_MemcardCommand()
+    return;
+u32 Serial_MemcardCommand(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, t0;
+    u32 ret, v1, a3, t0;
     ret = 1;
     a3 = a1;
     a2 = a2 & 0xff;
@@ -802,32 +730,30 @@ int Serial_MemcardCommand()
         a0 = v1 + 0x7920;
         a1 = ret << 4;
         v1 = a1 + a0;
-        ret = *(u32*)(v1);
-        ret = ret & 1;
         ret = a0 + a1;
         if (ret == 0) {
             v1 = a0 + a1;
             ret = 0x0020CC00;
             t0 = 0x101;
-            *(u32*)*(v1 + 0xc) = ret;
+            *(u32*)(v1 + 0xc) = ret;
         } else {
             v1 = 0x52;
-            *(u32*)*(ret + 8) = 0;
+            *(u32*)(ret + 8) = 0;
             t0 = 0;
             if (a2 == v1) {
                 v1 = a0 + a1;
-                *(u32*)*(v1 + 0xc) = 0x0020C970;
+                *(u32*)(v1 + 0xc) = 0x0020C970;
                 goto loc_20CD10;
             }
             ret = 0x57;
             if (a2 == 0x00210000) {
                 v1 = a0 + a1;
-                *(u32*)*(v1 + 0xc) = 0x0020CA68;
+                *(u32*)(v1 + 0xc) = MemCard_BackupCards;
             } else {
                 v1 = a0 + a1;
                 ret = ret + -0x3400;
                 t0 = 0x1ff;
-                *(u32*)*(v1 + 0xc) = ret;
+                *(u32*)(v1 + 0xc) = ret;
                 goto loc_20CD10;
                 }
                 a1 = a1 + a3;
@@ -835,33 +761,31 @@ int Serial_MemcardCommand()
                 a1 = a1 << 4;
                 v1 = ret + a1;
                 a1 = a1 + ret;
-                ret = *(u32*)*(v1 + 0xc);
-                ret = (ret)(a0, a1, a2, a3); /* indirect call */
+                ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
                 t0 = ret;
                 }
             }
 loc_20CD10:
-    ret = t0;
-    return ret;
+    return;
 }
 
 /* Function at 0x0020CD20 - 0x0020CD24 */
-int Serial_CalcMemcardAddr()
+void Serial_CalcMemcardAddr(u32 a0, u32 a1)
 {
-    int ret, a1;
+    u32 ret;
     ret = a1 << 0xd;
 }
 
 /* Function at 0x0020CEA0 - 0x0020CF00 */
-int Serial_VerifyMemcard()
+u32 Serial_VerifyMemcard(u32 a0)
 {
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1, a1, a2, a3;
     ret = *(u8*)(a0);
     v1 = 0x4d;
     a3 = 0;
     a1 = a0;
     if (ret == v1) {
-        v1 = *(u8*)*(a0 + 1);
+        v1 = *(u8*)(a0 + 1);
         ret = 0x43;
         a2 = 0;
         if (v1 == ret) goto loc_20CEDC;
@@ -874,21 +798,18 @@ loc_20CED0:
 loc_20CEDC:
     a2 = a2 + 1;
     if ((signed)a2 < 0x7f) goto loc_20CED0;
-    ret = *(u8*)*(a0 + 0x7f);
-    ret = ret ^ a3;
-    ret = ((unsigned)ret < 1) ? 1 : 0;
-    return ret;
+    return ((unsigned)ret < 1) ? 1 : 0;
 }
 
 /* Function at 0x0020D190 - 0x0020D2A8 */
-int MemCard_InitStorage()
+u32 MemCard_InitStorage(void)
 {
-    int ret, v0, v1, a0, a1, a2, a3, t0, t1, t2, t3, t4, t5, t6;
-    ret = 0x00590000;
+    u32 ret, v1, a0, a1, a2, a3, t0, t1, t2, t3, t4, t5, t6;
+    ret = 0x00590000;  /* SERIAL_DATA_BASE: Serial controller data area */
     a0 = 0x00500000;
     t2 = ret + 0x7d60;
     ret = 0x00500000;
-    v1 = 0x00590000;
+    v1 = 0x00590000;  /* SERIAL_DATA_BASE: Serial controller data area */
     t6 = a0 + -0x65a8;
     t5 = v1 + 0x7ce0;
     t4 = ret + -0x6528;
@@ -901,17 +822,16 @@ loc_20D1C0:
     ret = a3 << 1;
     a1 = *(u8*)(v1);
     ret = ret + t6;
-    v1 = *(s16*)(v0);
+    v1 = *(s16*)(ret);
     a2 = (unsigned)t1 >> 6;
     a0 = a0 | a1;
     ret = a2 << 6;
     a0 = a0 + t5;
     ret = ret + a3;
     t0 = *(u8*)(a0);
-    ret = ret << 1;
     ret = ret + t2;
     t0 = (s32)((s64)t0 * (s64)v1); HI_LO = (s64)t0 * (s64)v1;
-    *(u16*)(v0) = 0;
+    *(u16*)(ret) = 0;
     a1 = t0;
     if (a3 == 0) {
         ret = a2 << 7;
@@ -936,7 +856,7 @@ loc_20D1C0:
     ret = ret << 1;
     v1 = ret + t2;
     ret = ret + t3;
-    *(u16*)*(v1 + 0x100) = a0;
+    *(u16*)(v1 + 0x100) = a0;
     a0 = ret + 0x200;
     do {
         a1 = a1 + t0;
@@ -954,21 +874,21 @@ loc_20D290:
 }
 
 /* Function at 0x0020D2A8 - 0x0020D3B8 */
-int Serial_DecodeMdecBlock()
+u32 Serial_DecodeMdecBlock(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 32 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, t0;
+    u32 ret, v1, a3, s0, s1, s2, t0;
     s2 = a1;
     s1 = a0;
     a1 = 0x80;
     a0 = s2;
     s0 = a2;
-    ret = Compiler_MemoryClear(a0, a1, a2, a3);
+    ret = Compiler_MemoryClear(a0, a1);
     ret = s1;
     s1 = s1 + 2;
-    a2 = *(u16*)(v0);
+    a2 = *(u16*)(ret);
     a0 = s1;
-    a1 = 0 | 0xfe00;
+    a1 = 0xfe00;
     a3 = 1;
     ret = a2 << 0x16;
     v1 = (unsigned)a2 >> 0xa;
@@ -988,29 +908,26 @@ int Serial_DecodeMdecBlock()
         v1 = a2 << 0x16;
         ret = ((unsigned)a3 < 0x40) ? 1 : 0;
         a2 = (signed)v1 >> 0x16;
-        __asm("movz a3, a1, v0");
+        if (ret == 0) a3 = a1;
         a0 = a3 + a0;
         a3 = a3 + 1;
         ret = *(u8*)(a0);
         v1 = ((unsigned)a3 < 0x40) ? 1 : 0;
-        ret = ret << 1;
         ret = ret + s2;
-        *(u16*)(v0) = a2;
+        *(u16*)(ret) = a2;
         if (v1 == 0) goto loc_20D368;
         v1 = s1;
         a2 = *(u16*)(v1);
-        ret = 0 | 0xfe00;
+        ret = 0xfe00;
         s1 = s1 + 2;
     } while (a2 != ret);
 loc_20D368:
     v1 = *(u16*)(s1);
-    ret = 0 | 0xfe00;
     ret = s1;
     if (v1 == ret) {
-        v1 = 0 | 0xfe00;
+        v1 = 0xfe00;
         do {
             s1 = s1 + 2;
-            ret = *(u16*)(s1);
             ret = s1;
         } while (ret == v1);
     }
@@ -1018,27 +935,27 @@ loc_20D368:
 }
 
 /* Function at 0x0020D3B8 - 0x0020D6D8 */
-int Serial_IDCT()
+u32 Serial_IDCT(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 336 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
+    u32 ret, v1, a3, s0, s1, s2, s3, s4, s5, i, s7, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
     t3 = __sp;
     s2 = a1;
     s3 = a0;
     s4 = a2;
     s5 = __sp;
-    s6 = 0;
+    i = 0;
     s7 = 0x16a0;
     __fp = -0x29cf;
     do {
-        s0 = *(s16*)*(s3 + 0x20);
-        s1 = *(s16*)*(s3 + 0x40);
-        t8 = *(s16*)*(s3 + 0x60);
-        t9 = *(s16*)*(s3 + 0x10);
-        t4 = *(s16*)*(s3 + 0x30);
-        t7 = *(s16*)*(s3 + 0x70);
+        s0 = *(s16*)(s3 + 0x20);  /* PSX: gpr[4]/$a0 */
+        s1 = *(s16*)(s3 + 0x40);  /* PSX: gpr[12]/$t4 */
+        t8 = *(s16*)(s3 + 0x60);  /* PSX: gpr[20]/$s4 */
+        t9 = *(s16*)(s3 + 0x10);  /* PSX: gpr[0]/$zero */
+        t4 = *(s16*)(s3 + 0x30);  /* PSX: gpr[8]/$t0 */
+        t7 = *(s16*)(s3 + 0x70);  /* PSX: gpr[24]/$t8 */
         a0 = t9 | t8;
-        t6 = *(s16*)*(s3 + 0x50);
+        t6 = *(s16*)(s3 + 0x50);  /* PSX: gpr[16]/$s0 */
         v1 = s1 | t4;
         ret = s0 | t7;
         a1 = *(s16*)(s3);
@@ -1048,31 +965,31 @@ int Serial_IDCT()
         ret = ret | a0;
         t5 = (s32)((s64)a1 * (s64)v1); HI_LO = (s64)a1 * (s64)v1;
         if (ret == 0) {
-            *(u32*)*(t3 + 0xe0) = t5;
+            *(u32*)(t3 + 0xe0) = t5;
             s3 = s3 + 2;
             *(u32*)(t3) = t5;
             s2 = s2 + 2;
-            *(u32*)*(t3 + 0x20) = t5;
-            *(u32*)*(t3 + 0x40) = t5;
-            *(u32*)*(t3 + 0x60) = t5;
-            *(u32*)*(t3 + 0x80) = t5;
-            *(u32*)*(t3 + 0xa0) = t5;
-            *(u32*)*(t3 + 0xc0) = t5;
+            *(u32*)(t3 + 0x20) = t5;
+            *(u32*)(t3 + 0x40) = t5;
+            *(u32*)(t3 + 0x60) = t5;
+            *(u32*)(t3 + 0x80) = t5;
+            *(u32*)(t3 + 0xa0) = t5;
+            *(u32*)(t3 + 0xc0) = t5;
         } else {
-            a3 = *(s16*)*(s2 + 0x20);
+            a3 = *(s16*)(s2 + 0x20);  /* PSX: gpr[4]/$a0 */
             s3 = s3 + 2;
-            ret = *(s16*)*(s2 + 0x60);
-            v1 = *(s16*)*(s2 + 0x10);
-            __asm("mult1 s0, s0, a3");
-            a0 = *(s16*)*(s2 + 0x30);
+            ret = *(s16*)(s2 + 0x60);  /* PSX: gpr[20]/$s4 */
+            v1 = *(s16*)(s2 + 0x10);  /* PSX: gpr[0]/$zero */
+            s0 = s0 * a3;
+            a0 = *(s16*)(s2 + 0x30);  /* PSX: gpr[8]/$t0 */
             t8 = (s32)((s64)t8 * (s64)ret); HI_LO = (s64)t8 * (s64)ret;
-            a2 = *(s16*)*(s2 + 0x50);
-            __asm("mult1 t9, t9, v1");
-            a1 = *(s16*)*(s2 + 0x70);
+            a2 = *(s16*)(s2 + 0x50);  /* PSX: gpr[16]/$s0 */
+            t9 = t9 * v1;
+            a1 = *(s16*)(s2 + 0x70);  /* PSX: gpr[24]/$t8 */
             t4 = (s32)((s64)t4 * (s64)a0); HI_LO = (s64)t4 * (s64)a0;
             t6 = (s32)((s64)t6 * (s64)a2); HI_LO = (s64)t6 * (s64)a2;
-            ret = *(s16*)*(s2 + 0x40);
-            __asm("mult1 t7, t7, a1");
+            ret = *(s16*)(s2 + 0x40);  /* PSX: gpr[12]/$t4 */
+            t7 = t7 * a1;
             a0 = 0x1d90;
             s1 = (s32)((s64)s1 * (s64)ret); HI_LO = (s64)s1 * (s64)ret;
             ret = s0 - t8;
@@ -1081,12 +998,12 @@ int Serial_IDCT()
             t0 = t6 - t4;
             t8 = t6 + t4;
             a2 = t9 - t7;
-            __asm("mult1 a1, t0, fp");
+            a1 = t0 * __fp;
             v1 = t0 + a2;
             t6 = t9 + t7;
             ac3 = (s32)((s64)v1 * (s64)a0); HI_LO = (s64)v1 * (s64)a0;
             a0 = 0x1151;
-            __asm("mult1 a2, a2, a0");
+            a2 = a2 * a0;
             a0 = t6 - t8;
             a0 = (s32)((s64)a0 * (s64)s7); HI_LO = (s64)a0 * (s64)s7;
             ret = (signed)ret >> 0xc;
@@ -1116,34 +1033,34 @@ int Serial_IDCT()
             a0 = s1 + t4;
             a1 = t8 + t9;
             *(u32*)(t3) = ret;
-            *(u32*)*(t3 + 0xe0) = a2;
+            *(u32*)(t3 + 0xe0) = a2;
             s2 = s2 + 2;
-            *(u32*)*(t3 + 0x20) = v1;
-            *(u32*)*(t3 + 0xc0) = a3;
-            *(u32*)*(t3 + 0x40) = a0;
-            *(u32*)*(t3 + 0xa0) = t0;
-            *(u32*)*(t3 + 0x80) = a1;
-            *(u32*)*(t3 + 0x60) = t1;
+            *(u32*)(t3 + 0x20) = v1;
+            *(u32*)(t3 + 0xc0) = a3;
+            *(u32*)(t3 + 0x40) = a0;
+            *(u32*)(t3 + 0xa0) = t0;
+            *(u32*)(t3 + 0x80) = a1;
+            *(u32*)(t3 + 0x60) = t1;
         }
-        s6 = s6 + 1;
-        ret = ((unsigned)s6 < 8) ? 1 : 0;
+        i = i + 1;
+        ret = ((unsigned)i < 8) ? 1 : 0;
         t3 = t3 + 4;
     } while (ret != 0);
     s2 = 0;
     s3 = 0x16a0;
     __fp = 0x1d90;
     s7 = 0x1151;
-    s6 = -0x29cf;
+    i = -0x29cf;
     do {
-        t1 = *(u32*)*(s5 + 0x18);
+        t1 = *(u32*)(s5 + 0x18);  /* PSX: gpr[2]/$v0 */
         s2 = s2 + 1;
-        a2 = *(u32*)*(s5 + 0x14);
+        a2 = *(u32*)(s5 + 0x14);  /* PSX: gpr[1]/$at */
         t3 = ((unsigned)s2 < 8) ? 1 : 0;
-        v1 = *(u32*)*(s5 + 0xc);
-        a1 = *(u32*)*(s5 + 4);
-        ret = *(u32*)*(s5 + 0x1c);
+        v1 = *(u32*)(s5 + 0xc);  /* PSX: lo */
+        a1 = *(u32*)(s5 + 4);
+        ret = *(u32*)(s5 + 0x1c);  /* PSX: gpr[3]/$v1 */
         t8 = a2 + v1;
-        t2 = *(u32*)*(s5 + 8);
+        t2 = *(u32*)(s5 + 8);
         t0 = a2 - v1;
         a2 = a1 - ret;
         t6 = a1 + ret;
@@ -1151,13 +1068,12 @@ int Serial_IDCT()
         t2 = t2 + t1;
         v1 = t0 + a2;
         a0 = (s32)((s64)a0 * (s64)s3); HI_LO = (s64)a0 * (s64)s3;
-        a3 = (s32)((s64)t0 * (s64)s6); HI_LO = (s64)t0 * (s64)s6;
+        a3 = (s32)((s64)t0 * (s64)i); HI_LO = (s64)t0 * (s64)i;
         t0 = *(u32*)(s5);
         ac3 = (s32)((s64)v1 * (s64)__fp); HI_LO = (s64)v1 * (s64)__fp;
-        ret = t6 - t8;
-        __asm("mult1 v0, v0, s3");
+        ret = ret * s3;
         a1 = (s32)((s64)a2 * (s64)s7); HI_LO = (s64)a2 * (s64)s7;
-        a2 = *(u32*)*(s5 + 0x10);
+        a2 = *(u32*)(s5 + 0x10);  /* PSX: gpr[0]/$zero */
         s5 = s5 + 0x20;
         a0 = (signed)a0 >> 0xc;
         a3 = (signed)a3 >> 0xc;
@@ -1194,25 +1110,25 @@ int Serial_IDCT()
         a1 = (signed)a1 >> 6;
         t1 = (signed)t1 >> 6;
         *(u16*)(s4) = ret;
-        *(u16*)*(s4 + 0xe) = a2;
-        *(u16*)*(s4 + 2) = v1;
-        *(u16*)*(s4 + 0xc) = a3;
-        *(u16*)*(s4 + 4) = a0;
-        *(u16*)*(s4 + 0xa) = t0;
-        *(u16*)*(s4 + 8) = a1;
-        *(u16*)*(s4 + 6) = t1;
+        *(u16*)(s4 + 0xe) = a2;
+        *(u16*)(s4 + 2) = v1;
+        *(u16*)(s4 + 0xc) = a3;
+        *(u16*)(s4 + 4) = a0;
+        *(u16*)(s4 + 0xa) = t0;
+        *(u16*)(s4 + 8) = a1;
+        *(u16*)(s4 + 6) = t1;
         s4 = s4 + 0x10;
     } while (t3 != 0);
     return ret;
 }
 
 /* Function at 0x0020D6D8 - 0x0020D9F8 */
-int Serial_YuvToRgb15()
+u32 Serial_YuvToRgb15(u32 a0, u32 a1)
 {
     /* Stack frame: 16 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
+    u32 ret, v1, a2, a3, s0, s1, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
     t5 = a0;
-    ret = 0x005A0000;
+    ret = 0x005A0000;  /* SUBSYS_DATA_BASE: Subsystem data (CDROM/MDEC/serial) */
     s1 = 0x166e;
     t4 = a1;
     t0 = ret + -0x4100;
@@ -1224,16 +1140,16 @@ int Serial_YuvToRgb15()
     do {
         v1 = t1 + 0x80;
         ret = t7 ^ 8;
-        __asm("movz t1, v1, v0");
+        if (ret == 0) t1 = v1;
         t6 = 3;
         do {
-            ret = *(s16*)*(t5 + 0x80);
+            ret = *(s16*)(t5 + 0x80);  /* PSX: gpr[28]/$gp */
             t6 = t6 + -1;
             a0 = *(s16*)(t5);
             a1 = (s32)((s64)ret * (s64)t9); HI_LO = (s64)ret * (s64)t9;
-            __asm("mult1 v0, v0, s1");
+            ret = ret * s1;
             ac3 = (s32)((s64)a0 * (s64)s0); HI_LO = (s64)a0 * (s64)s0;
-            __asm("mult1 a0, a0, t8");
+            a0 = a0 * t8;
             a3 = *(s16*)(t1);
             a1 = (signed)a1 >> 0xc;
             t2 = (signed)ret >> 0xc;
@@ -1244,29 +1160,27 @@ int Serial_YuvToRgb15()
             v1 = a2 + a3;
             ret = ret + t0;
             v1 = v1 + t0;
-            a1 = *(u8*)*(ret + 0x180);
-            a0 = *(u8*)*(v1 + 0x180);
-            ret = t3 + a3;
+            a1 = *(u8*)(ret + 0x180);  /* PSX: hw_state[28] */
+            a0 = *(u8*)(v1 + 0x180);  /* PSX: hw_state[28] */
             ret = ret + t0;
             a1 = (unsigned)a1 >> 3;
-            v1 = *(u8*)*(ret + 0x180);
+            v1 = *(u8*)(ret + 0x180);  /* PSX: hw_state[28] */
             a0 = (unsigned)a0 >> 3;
             a0 = a0 << 5;
             a1 = a1 << 0xa;
             a1 = a1 | a0;
-            v1 = (unsigned)v1 >> 3;
             v1 = v1 | a1;
             *(u16*)(t4) = v1;
-            a3 = *(s16*)*(t1 + 2);
+            a3 = *(s16*)(t1 + 2);
             v1 = t2 + a3;
             a0 = a2 + a3;
             v1 = v1 + t0;
             a0 = a0 + t0;
-            a1 = *(u8*)*(v1 + 0x180);
+            a1 = *(u8*)(v1 + 0x180);  /* PSX: hw_state[28] */
             ret = t3 + a3;
-            v1 = *(u8*)*(a0 + 0x180);
+            v1 = *(u8*)(a0 + 0x180);  /* PSX: hw_state[28] */
             ret = ret + t0;
-            a0 = *(u8*)*(ret + 0x180);
+            a0 = *(u8*)(ret + 0x180);  /* PSX: hw_state[28] */
             a1 = (unsigned)a1 >> 3;
             v1 = (unsigned)v1 >> 3;
             a1 = a1 << 0xa;
@@ -1274,17 +1188,17 @@ int Serial_YuvToRgb15()
             a0 = (unsigned)a0 >> 3;
             a1 = a1 | v1;
             a0 = a0 | a1;
-            *(u16*)*(t4 + 2) = a0;
-            a3 = *(s16*)*(t1 + 0x10);
+            *(u16*)(t4 + 2) = a0;
+            a3 = *(s16*)(t1 + 0x10);  /* PSX: gpr[0]/$zero */
             v1 = t2 + a3;
             a0 = a2 + a3;
             v1 = v1 + t0;
             a0 = a0 + t0;
-            a1 = *(u8*)*(v1 + 0x180);
+            a1 = *(u8*)(v1 + 0x180);  /* PSX: hw_state[28] */
             ret = t3 + a3;
-            v1 = *(u8*)*(a0 + 0x180);
+            v1 = *(u8*)(a0 + 0x180);  /* PSX: hw_state[28] */
             ret = ret + t0;
-            a0 = *(u8*)*(ret + 0x180);
+            a0 = *(u8*)(ret + 0x180);  /* PSX: hw_state[28] */
             a1 = (unsigned)a1 >> 3;
             v1 = (unsigned)v1 >> 3;
             a1 = a1 << 0xa;
@@ -1292,17 +1206,17 @@ int Serial_YuvToRgb15()
             a0 = (unsigned)a0 >> 3;
             a1 = a1 | v1;
             a0 = a0 | a1;
-            *(u16*)*(t4 + 0x20) = a0;
-            a3 = *(s16*)*(t1 + 0x12);
+            *(u16*)(t4 + 0x20) = a0;
+            a3 = *(s16*)(t1 + 0x12);
             a1 = t2 + a3;
             a2 = a2 + a3;
             a1 = a1 + t0;
             a2 = a2 + t0;
-            ret = *(u8*)*(a1 + 0x180);
+            ret = *(u8*)(a1 + 0x180);  /* PSX: hw_state[28] */
             v1 = t3 + a3;
-            a0 = *(u8*)*(a2 + 0x180);
+            a0 = *(u8*)(a2 + 0x180);  /* PSX: hw_state[28] */
             v1 = v1 + t0;
-            a1 = *(u8*)*(v1 + 0x180);
+            a1 = *(u8*)(v1 + 0x180);  /* PSX: hw_state[28] */
             ret = (unsigned)ret >> 3;
             a0 = (unsigned)a0 >> 3;
             ret = ret << 0xa;
@@ -1310,15 +1224,15 @@ int Serial_YuvToRgb15()
             a1 = (unsigned)a1 >> 3;
             ret = ret | a0;
             a1 = a1 | ret;
-            *(u16*)*(t4 + 0x22) = a1;
-            ret = *(s16*)*(t5 + 0x88);
-            a1 = *(s16*)*(t5 + 8);
+            *(u16*)(t4 + 0x22) = a1;
+            ret = *(s16*)(t5 + 0x88);  /* PSX: gpr[30]/$fp */
+            a1 = *(s16*)(t5 + 8);
             t5 = t5 + 2;
             a0 = (s32)((s64)ret * (s64)t9); HI_LO = (s64)ret * (s64)t9;
-            __asm("mult1 v0, v0, s1");
+            ret = ret * s1;
             ac3 = (s32)((s64)a1 * (s64)s0); HI_LO = (s64)a1 * (s64)s0;
-            __asm("mult1 a1, a1, t8");
-            a3 = *(s16*)*(t1 + 0x80);
+            a1 = a1 * t8;
+            a3 = *(s16*)(t1 + 0x80);  /* PSX: gpr[28]/$gp */
             a0 = (signed)a0 >> 0xc;
             t2 = (signed)ret >> 0xc;
             v1 = (signed)v1 >> 0xc;
@@ -1328,29 +1242,26 @@ int Serial_YuvToRgb15()
             v1 = a2 + a3;
             ret = ret + t0;
             v1 = v1 + t0;
-            a1 = *(u8*)*(ret + 0x180);
-            a0 = *(u8*)*(v1 + 0x180);
-            ret = t3 + a3;
+            a1 = *(u8*)(ret + 0x180);  /* PSX: hw_state[28] */
+            a0 = *(u8*)(v1 + 0x180);  /* PSX: hw_state[28] */
             ret = ret + t0;
             a1 = (unsigned)a1 >> 3;
-            v1 = *(u8*)*(ret + 0x180);
+            v1 = *(u8*)(ret + 0x180);  /* PSX: hw_state[28] */
             a0 = (unsigned)a0 >> 3;
             a0 = a0 << 5;
             a1 = a1 << 0xa;
             a1 = a1 | a0;
-            v1 = (unsigned)v1 >> 3;
             v1 = v1 | a1;
-            *(u16*)*(t4 + 0x10) = v1;
-            a3 = *(s16*)*(t1 + 0x82);
+            *(u16*)(t4 + 0x10) = v1;
+            a3 = *(s16*)(t1 + 0x82);
             a0 = a2 + a3;
-            v1 = t2 + a3;
             v1 = v1 + t0;
             a0 = a0 + t0;
-            a1 = *(u8*)*(v1 + 0x180);
+            a1 = *(u8*)(v1 + 0x180);  /* PSX: hw_state[28] */
             ret = t3 + a3;
-            v1 = *(u8*)*(a0 + 0x180);
+            v1 = *(u8*)(a0 + 0x180);  /* PSX: hw_state[28] */
             ret = ret + t0;
-            a0 = *(u8*)*(ret + 0x180);
+            a0 = *(u8*)(ret + 0x180);  /* PSX: hw_state[28] */
             a1 = (unsigned)a1 >> 3;
             v1 = (unsigned)v1 >> 3;
             a1 = a1 << 0xa;
@@ -1358,17 +1269,16 @@ int Serial_YuvToRgb15()
             a0 = (unsigned)a0 >> 3;
             a1 = a1 | v1;
             a0 = a0 | a1;
-            *(u16*)*(t4 + 0x12) = a0;
-            a3 = *(s16*)*(t1 + 0x90);
+            *(u16*)(t4 + 0x12) = a0;
+            a3 = *(s16*)(t1 + 0x90);  /* PSX: cop0[0]/0 */
             a0 = a2 + a3;
-            v1 = t2 + a3;
             v1 = v1 + t0;
             a0 = a0 + t0;
-            a1 = *(u8*)*(v1 + 0x180);
+            a1 = *(u8*)(v1 + 0x180);  /* PSX: hw_state[28] */
             ret = t3 + a3;
-            v1 = *(u8*)*(a0 + 0x180);
+            v1 = *(u8*)(a0 + 0x180);  /* PSX: hw_state[28] */
             ret = ret + t0;
-            a0 = *(u8*)*(ret + 0x180);
+            a0 = *(u8*)(ret + 0x180);  /* PSX: hw_state[28] */
             a1 = (unsigned)a1 >> 3;
             v1 = (unsigned)v1 >> 3;
             a1 = a1 << 0xa;
@@ -1376,18 +1286,18 @@ int Serial_YuvToRgb15()
             a0 = (unsigned)a0 >> 3;
             a1 = a1 | v1;
             a0 = a0 | a1;
-            *(u16*)*(t4 + 0x30) = a0;
-            a3 = *(s16*)*(t1 + 0x92);
+            *(u16*)(t4 + 0x30) = a0;
+            a3 = *(s16*)(t1 + 0x92);
             t1 = t1 + 4;
             a1 = t2 + a3;
             a2 = a2 + a3;
             a1 = a1 + t0;
             a2 = a2 + t0;
-            ret = *(u8*)*(a1 + 0x180);
+            ret = *(u8*)(a1 + 0x180);  /* PSX: hw_state[28] */
             v1 = t3 + a3;
-            a0 = *(u8*)*(a2 + 0x180);
+            a0 = *(u8*)(a2 + 0x180);  /* PSX: hw_state[28] */
             v1 = v1 + t0;
-            a1 = *(u8*)*(v1 + 0x180);
+            a1 = *(u8*)(v1 + 0x180);  /* PSX: hw_state[28] */
             ret = (unsigned)ret >> 3;
             a0 = (unsigned)a0 >> 3;
             ret = ret << 0xa;
@@ -1395,7 +1305,7 @@ int Serial_YuvToRgb15()
             a1 = (unsigned)a1 >> 3;
             ret = ret | a0;
             a1 = a1 | ret;
-            *(u16*)*(t4 + 0x32) = a1;
+            *(u16*)(t4 + 0x32) = a1;
             t4 = t4 + 4;
         } while ((signed)t6 >= 0);
         t7 = t7 + 2;
@@ -1408,11 +1318,11 @@ int Serial_YuvToRgb15()
 }
 
 /* Function at 0x0020D9F8 - 0x0020DBB8 */
-int Serial_YuvToRgb24()
+u32 Serial_YuvToRgb24(u32 a0, u32 a1)
 {
     /* Stack frame: 48 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
-    ret = 0x005A0000;
+    u32 ret, v1, a2, a3, s0, s1, s2, s3, s4, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
+    ret = 0x005A0000;  /* SUBSYS_DATA_BASE: Subsystem data (CDROM/MDEC/serial) */
     s0 = a0;
     t6 = s0;
     s2 = -0xb6d;
@@ -1442,70 +1352,65 @@ int Serial_YuvToRgb24()
             a2 = a2 + ret;
             t0 = *(s16*)(t6);
             a2 = a2 << 2;
-            __asm("mult1 v1, v1, s2");
+            v1 = v1 * s2;
             a2 = a2 + t9;
             a3 = (s32)((s64)t0 * (s64)s3); HI_LO = (s64)t0 * (s64)s3;
             a0 = *(s16*)(a2);
             t1 = (signed)t1 >> 0xc;
-            __asm("mult1 t0, t0, s1");
+            t0 = t0 * s1;
             t5 = t5 + 1;
             ret = t1 + a0;
             v1 = (signed)v1 >> 0xc;
             ret = ret + t4;
             a3 = (signed)a3 >> 0xc;
-            a1 = *(u8*)*(ret + 0x180);
+            a1 = *(u8*)(ret + 0x180);  /* PSX: hw_state[28] */
             a3 = a3 + v1;
             v1 = a3 + a0;
             t0 = (signed)t0 >> 0xc;
-            *(u8*)*(t3 + 2) = a1;
+            *(u8*)(t3 + 2) = a1;
             v1 = v1 + t4;
             a0 = t0 + a0;
             t2 = ((unsigned)t5 < 8) ? 1 : 0;
-            ret = *(u8*)*(v1 + 0x180);
+            ret = *(u8*)(v1 + 0x180);  /* PSX: hw_state[28] */
             a0 = a0 + t4;
             t6 = t6 + 2;
-            *(u8*)*(t3 + 1) = ret;
-            v1 = *(u8*)*(a0 + 0x180);
+            *(u8*)(t3 + 1) = ret;
+            v1 = *(u8*)(a0 + 0x180);  /* PSX: hw_state[28] */
             *(u8*)(t3) = v1;
-            a0 = *(s16*)*(a2 + 2);
+            a0 = *(s16*)(a2 + 2);
             ret = t1 + a0;
             v1 = a3 + a0;
             ret = ret + t4;
             v1 = v1 + t4;
-            a1 = *(u8*)*(ret + 0x180);
+            a1 = *(u8*)(ret + 0x180);  /* PSX: hw_state[28] */
             a0 = t0 + a0;
             a0 = a0 + t4;
-            *(u8*)*(t3 + 5) = a1;
-            ret = *(u8*)*(v1 + 0x180);
-            *(u8*)*(t3 + 4) = ret;
-            v1 = *(u8*)*(a0 + 0x180);
-            *(u8*)*(t3 + 3) = v1;
-            a0 = *(s16*)*(a2 + 0x10);
+            *(u8*)(t3 + 5) = a1;
+            *(u8*)(t3 + 4) = *(u8*)(v1 + 0x180);
+            v1 = *(u8*)(a0 + 0x180);  /* PSX: hw_state[28] */
+            *(u8*)(t3 + 3) = v1;
+            a0 = *(s16*)(a2 + 0x10);  /* PSX: gpr[0]/$zero */
             ret = t1 + a0;
             v1 = a3 + a0;
             ret = ret + t4;
             v1 = v1 + t4;
-            a1 = *(u8*)*(ret + 0x180);
+            a1 = *(u8*)(ret + 0x180);  /* PSX: hw_state[28] */
             a0 = t0 + a0;
             a0 = a0 + t4;
-            *(u8*)*(t3 + 0x32) = a1;
-            ret = *(u8*)*(v1 + 0x180);
-            *(u8*)*(t3 + 0x31) = ret;
-            v1 = *(u8*)*(a0 + 0x180);
-            *(u8*)*(t3 + 0x30) = v1;
-            a0 = *(s16*)*(a2 + 0x12);
+            *(u8*)(t3 + 0x32) = a1;
+            *(u8*)(t3 + 0x31) = *(u8*)(v1 + 0x180);
+            *(u8*)(t3 + 0x30) = *(u8*)(a0 + 0x180);
+            a0 = *(s16*)(a2 + 0x12);
             t1 = t1 + a0;
             a3 = a3 + a0;
             t1 = t1 + t4;
             a3 = a3 + t4;
-            v1 = *(u8*)*(t1 + 0x180);
+            v1 = *(u8*)(t1 + 0x180);  /* PSX: hw_state[28] */
             t0 = t0 + a0;
             t0 = t0 + t4;
-            *(u8*)*(t3 + 0x35) = v1;
-            ret = *(u8*)*(a3 + 0x180);
-            *(u8*)*(t3 + 0x34) = ret;
-            v1 = *(u8*)*(t0 + 0x180);
-            *(u8*)*(t3 + 0x33) = v1;
+            *(u8*)(t3 + 0x35) = v1;
+            *(u8*)(t3 + 0x34) = *(u8*)(a3 + 0x180);
+            *(u8*)(t3 + 0x33) = *(u8*)(t0 + 0x180);
             t3 = t3 + 6;
         } while (t2 != 0);
         t8 = t8 + 1;
@@ -1516,195 +1421,190 @@ int Serial_YuvToRgb24()
 }
 
 /* Function at 0x0020DBB8 - 0x0020DE28 */
-int Serial_DecodeMacroblock()
+u32 Serial_DecodeMacroblock(u32 a0)
 {
     /* Stack frame: 96 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0;
-    ret = 0x00590000 + 0x7cc0;
+    u32 ret, v1, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0;
+    ret = 0x00590000 + 0x7cc0;  /* SERIAL_DATA_BASE: Serial controller data area */
     t0 = 0x200;
     __fp = a0;
     a0 = 0x00540000;
     s4 = a0 + 0x7940;
-    a1 = *(u32*)*(ret + 0xc);
-    v1 = *(u32*)*(ret + 0x10);
-    a2 = *(u32*)*(ret + 8);
+    a1 = *(u32*)(ret + 0xc);  /* PSX: lo */
+    v1 = *(u32*)(ret + 0x10);  /* PSX: gpr[0]/$zero */
+    a2 = *(u32*)(ret + 8);
     a0 = a1 << 1;
-    a3 = *(u32*)*(ret + 0x18);
+    a3 = *(u32*)(ret + 0x18);  /* PSX: gpr[2]/$v0 */
     v1 = v1 - a1;
     s1 = a2 + a0;
     a0 = 0x300;
     ret = v1 << 1;
-    __asm("movz a0, t0, fp");
+    if (__fp == 0) a0 = t0;
     s7 = s1 + ret;
     s6 = a3 + s4;
-    *(u32*)(sp) = a0;
+    *(u32*)(__sp) = a0;
     if (v1 != 0) {
         if ((unsigned)s1 < (unsigned)s7) {
             ret = ((unsigned)s4 < (unsigned)s6) ? 1 : 0;
-            if (0x00540000 != 0) {
-                a0 = 0x00590000;
-                v1 = 0x00590000;
-                ret = 0x00597D60;
-                s0 = a0 + 0x7940;
-                s2 = v1 + 0x79c0;
-                s3 = __gp + -0x7790;
-                s5 = ret + 0x80;
-                a0 = s1;
-                    do {
-                        a1 = s0;
-                        a2 = s3;
-                        ret = Serial_DecodeMdecBlock(a0, a1, a2, a3);
-                        a1 = g_serial_base;
-                        s1 = ret;
-                        v1 = 0x00597D60;
-                        a1 = a1 << 8;
-                        a1 = a1 + v1;
-                        a0 = s0;
-                        a2 = s2;
-                        ret = Serial_IDCT(a0, a1, a2, a3);
-                        a0 = s1;
-                        a1 = s0;
-                        a2 = s3;
-                        ret = Serial_DecodeMdecBlock(a0, a1, a2, a3);
-                        a1 = g_serial_base;
-                        s1 = ret;
-                        ret = 0x00597D60;
-                        a1 = a1 << 8;
-                        a1 = a1 + ret;
-                        a0 = s0;
-                        a2 = s2 + 0x80;
-                        ret = Serial_IDCT(a0, a1, a2, a3);
-                        a0 = s1;
-                        a1 = s0;
-                        a2 = s3;
-                        ret = Serial_DecodeMdecBlock(a0, a1, a2, a3);
-                        a1 = g_serial_base;
-                        s1 = ret;
-                        a0 = s0;
-                        a1 = a1 << 8;
-                        a2 = s2 + 0x100;
-                        a1 = a1 + s5;
-                        ret = Serial_IDCT(a0, a1, a2, a3);
-                        a0 = s1;
-                        a1 = s0;
-                        a2 = s3;
-                        ret = Serial_DecodeMdecBlock(a0, a1, a2, a3);
-                        a1 = g_serial_base;
-                        s1 = ret;
-                        a0 = s0;
-                        a1 = a1 << 8;
-                        a2 = s2 + 0x180;
-                        a1 = a1 + s5;
-                        ret = Serial_IDCT(a0, a1, a2, a3);
-                        a0 = s1;
-                        a1 = s0;
-                        a2 = s3;
-                        ret = Serial_DecodeMdecBlock(a0, a1, a2, a3);
-                        a1 = g_serial_base;
-                        s1 = ret;
-                        a0 = s0;
-                        a1 = a1 << 8;
-                        a2 = s2 + 0x200;
-                        a1 = a1 + s5;
-                        ret = Serial_IDCT(a0, a1, a2, a3);
-                        a0 = s1;
-                        a1 = s0;
-                        a2 = s3;
-                        ret = Serial_DecodeMdecBlock(a0, a1, a2, a3);
-                        a1 = g_serial_base;
-                        a0 = s0;
-                        a2 = s2 + 0x280;
-                        a1 = a1 << 8;
-                        s1 = ret;
-                        a1 = a1 + s5;
-                        ret = Serial_IDCT(a0, a1, a2, a3);
-                        a0 = s2;
-                        a1 = s4;
-                        if (__fp == 0) {
-                        ret = Serial_YuvToRgb15(a0, a1, a2, a3);
-                        v1 = *(u32*)(sp);
-                        } else {
-                        a1 = s4;
-                        ret = Serial_YuvToRgb24(a0, a1, a2, a3);
-                        v1 = *(u32*)(sp);
-                        }
-                        s4 = s4 + v1;
-                        if ((unsigned)s1 < (unsigned)s7) {
-                        ret = ((unsigned)s4 < (unsigned)s6) ? 1 : 0;
-                        a0 = s1;
-                    } while (ret != 0);
-                }
-                a0 = 0x00590000;
-                }
+            a0 = 0x00590000;  /* SERIAL_DATA_BASE: Serial controller data area */
+            v1 = 0x00590000;  /* SERIAL_DATA_BASE: Serial controller data area */
+            ret = 0x00597D60;
+            s0 = a0 + 0x7940;
+            s2 = v1 + 0x79c0;
+            s3 = __gp + -0x7790;
+            s5 = ret + 0x80;
+            a0 = s1;
+                do {
+                    a1 = s0;
+                    a2 = s3;
+                    ret = Serial_DecodeMdecBlock(a0, a1, a2);
+                    a1 = g_serial_base;
+                    s1 = ret;
+                    v1 = 0x00597D60;
+                    a1 = a1 << 8;
+                    a1 = a1 + v1;
+                    a0 = s0;
+                    a2 = s2;
+                    ret = Serial_IDCT(a0, a1, a2);
+                    a0 = s1;
+                    a1 = s0;
+                    a2 = s3;
+                    ret = Serial_DecodeMdecBlock(a0, a1, a2);
+                    a1 = g_serial_base;
+                    s1 = ret;
+                    ret = 0x00597D60;
+                    a1 = a1 << 8;
+                    a1 = a1 + ret;
+                    a0 = s0;
+                    a2 = s2 + 0x80;
+                    ret = Serial_IDCT(a0, a1, a2);
+                    a0 = s1;
+                    a1 = s0;
+                    a2 = s3;
+                    ret = Serial_DecodeMdecBlock(a0, a1, a2);
+                    a1 = g_serial_base;
+                    s1 = ret;
+                    a0 = s0;
+                    a1 = a1 << 8;
+                    a2 = s2 + 0x100;
+                    a1 = a1 + s5;
+                    ret = Serial_IDCT(a0, a1, a2);
+                    a0 = s1;
+                    a1 = s0;
+                    a2 = s3;
+                    ret = Serial_DecodeMdecBlock(a0, a1, a2);
+                    a1 = g_serial_base;
+                    s1 = ret;
+                    a0 = s0;
+                    a1 = a1 << 8;
+                    a2 = s2 + 0x180;
+                    a1 = a1 + s5;
+                    ret = Serial_IDCT(a0, a1, a2);
+                    a0 = s1;
+                    a1 = s0;
+                    a2 = s3;
+                    ret = Serial_DecodeMdecBlock(a0, a1, a2);
+                    a1 = g_serial_base;
+                    s1 = ret;
+                    a0 = s0;
+                    a1 = a1 << 8;
+                    a2 = s2 + 0x200;
+                    a1 = a1 + s5;
+                    ret = Serial_IDCT(a0, a1, a2);
+                    a0 = s1;
+                    a1 = s0;
+                    a2 = s3;
+                    ret = Serial_DecodeMdecBlock(a0, a1, a2);
+                    a1 = g_serial_base;
+                    a0 = s0;
+                    a2 = s2 + 0x280;
+                    a1 = a1 << 8;
+                    s1 = ret;
+                    a1 = a1 + s5;
+                    ret = Serial_IDCT(a0, a1, a2);
+                    a0 = s2;
+                    a1 = s4;
+                    if (__fp == 0) {
+                    ret = Serial_YuvToRgb15(a0, a1);
+                    v1 = *(u32*)(__sp);
+                    } else {
+                    a1 = s4;
+                    ret = Serial_YuvToRgb24(a0, a1);
+                    v1 = *(u32*)(__sp);
+                    }
+                    s4 = s4 + v1;
+                    if ((unsigned)s1 < (unsigned)s7) {
+                    ret = ((unsigned)s4 < (unsigned)s6) ? 1 : 0;
+                    a0 = s1;
+                    }
+                } while (ret != 0);
+            }
+            a0 = 0x00590000;  /* SERIAL_DATA_BASE: Serial controller data area */
                 ret = 0x00540000;
             }
         s0 = a0 + 0x7cc0;
         a1 = ret + 0x7940;
-        ret = *(u32*)*(s0 + 8);
-        a0 = *(u32*)*(s0 + 0x14);
+        ret = *(u32*)(s0 + 8);
+        a0 = *(u32*)(s0 + 0x14);  /* PSX: gpr[1]/$at */
         ret = s1 - ret;
-        a2 = *(u32*)*(s0 + 0x18);
+        a2 = *(u32*)(s0 + 0x18);  /* PSX: gpr[2]/$v0 */
         ret = (signed)ret >> 1;
-        *(u32*)*(s0 + 0xc) = ret;
-        ret = Compiler_MemoryCopy(a0, a1, a2, a3);
-        *(u32*)*(s0 + 0x18) = 0;
+        *(u32*)(s0 + 0xc) = ret;
+        ret = Compiler_MemoryCopy(a0, a1, a2);
+        *(u32*)(s0 + 0x18) = 0;
     }
     return ret;
-}
 
 /* Function at 0x0020DE28 - 0x0020DE68 */
-int Serial_MdecInterrupt()
+u32 Serial_MdecInterrupt(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1, a0, a1, a2, a3;
     a0 = 1;
-    ret = Interrupt_ProcessChannel(a0, a1, a2, a3);
-    ret = *(u32*)*(0x00597CC0 + 0x10);
+    ret = Interrupt_ProcessChannel(a0);
+    ret = *(u32*)(PSX_SERIAL_PORTS + 0x10);  /* 0x00597CC0 - Serial_Port array (2 ports) */
     a0 = 0xDFFFFFFF;
     if (ret == 0) {
-        ret = *(u32*)*(v1 + 4);
         ret = ret & a0;
-        *(u32*)*(v1 + 4) = ret;
+        *(u32*)(v1 + 4) = ret;
     }
     return ret;
 }
 
 /* Function at 0x0020DE68 - 0x0020DEEC */
-int Serial_MdecOutput()
+u32 Serial_MdecOutput(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, s0;
-    s0 = 0x00590000 + 0x7cc0;
-    v1 = *(u32*)*(s0 + 0x10);
-    if (v1 == 0) goto loc_20DEBC;
-    ret = *(u32*)*(s0 + 0x18);
-    if (likely(ret == 0)) goto loc_20DEC0;
+    u32 ret, v1, a0, a1, a2, a3, s0;
+    s0 = 0x00590000 + 0x7cc0;  /* SERIAL_DATA_BASE: Serial controller data area */
+    if ((*(u32*)(s0 + 0x10)) == 0) goto loc_20DEBC;  /* PSX: gpr[0]/$zero */
+    if ((*(u32*)(s0 + 0x18)) == 0) goto loc_20DEC0;  /* PSX: gpr[2]/$v0 */
     a0 = *(u32*)(s0);
     a0 = (signed)a0 >> 0x1b;
     a0 = a0 ^ 1;
     a0 = a0 & 1;
-    ret = Serial_DecodeMacroblock(a0, a1, a2, a3);
-    ret = *(u32*)*(s0 + 0xc);
-    v1 = *(u32*)*(s0 + 0x10);
+    ret = Serial_DecodeMacroblock(a0);
+    ret = *(u32*)(s0 + 0xc);  /* PSX: lo */
+    v1 = *(u32*)(s0 + 0x10);  /* PSX: gpr[0]/$zero */
     ret = ret + 2;
-    *(u32*)*(s0 + 0x10) = 0;
-    if (likely((unsigned)ret >= (unsigned)v1)) goto loc_20DEBC;
+    *(u32*)(s0 + 0x10) = 0;
+    if ((unsigned)ret >= (unsigned)v1) goto loc_20DEBC;
 loc_20DEBC:
 loc_20DEC0:
     return ret;
 }
 
 /* Function at 0x0020DEEC - 0x0020E084 */
-int Serial_ReadVram()
+u32 Serial_ReadVram(u32 a0, u32 a1)
 {
     /* Stack frame: 16 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, t0;
+    u32 ret, v1, a2, a3, s0, t0;
     a2 = a0 & v1;
     s0 = a1 << 2;
     if ((unsigned)ret >= (unsigned)a2) {
         ret = g_psx;
         v1 = 0x001FFFFF;
-        a0 = *(u32*)*(ret + 0x2d0);  /* counter_0 */
+        a0 = *(u32*)(ret + 0x2d0);  /* counter_0 */
         v1 = a2 & v1;
         a3 = a0 + v1;
         goto loc_20DF90;
@@ -1714,27 +1614,27 @@ int Serial_ReadVram()
     a0 = 0xE0400000;
     if ((unsigned)ret < 0x400) {
         v1 = g_psx;
-        ret = *(u32*)*(v1 + 0x2d8);  /* counter_2 */
+        ret = *(u32*)(v1 + 0x2d8);  /* counter_2 */
     } else {
         ret = 7 << 16;
         v1 = a2 + a0;
         ret = 0x0007FFFF;
         v1 = g_psx;
         if ((unsigned)ret >= (unsigned)v1) {
-            ret = *(u32*)*(v1 + 0x2d4);  /* counter_1 */
+            ret = *(u32*)(v1 + 0x2d4);  /* counter_1 */
         } else {
             a0 = 0xE0800400;
             ret = a2 + a0;
             a3 = 0;
-            if (likely((unsigned)ret >= 0x400)) goto loc_20DF90;
+            if ((unsigned)ret >= 0x400) goto loc_20DF90;
             v1 = g_psx;
-            ret = *(u32*)*(v1 + 0x2dc);  /* counter_3 */
+            ret = *(u32*)(v1 + 0x2dc);  /* counter_3 */
             }
         }
     ret = ret + a2;
     a3 = ret + a0;
 loc_20DF90:
-    ret = 0x00590000;
+    ret = 0x00590000;  /* SERIAL_DATA_BASE: Serial controller data area */
     v1 = 1;
     a1 = ret + 0x7cc0;
     a2 = *(u32*)(a1);
@@ -1747,24 +1647,23 @@ loc_20DF90:
             ret = s0;
             if (a0 != ret) {
                 } else {
-                *(u32*)*(a1 + 8) = a3;
+                *(u32*)(a1 + 8) = a3;
                 ret = a2 & ret;
-                *(u32*)*(a1 + 0xc) = 0;
-                ret = *(u32*)*(a1 + 4);
+                *(u32*)(a1 + 0xc) = 0;
                 ret = ret | 0x20000000;
-                *(u32*)*(a1 + 4) = ret;
-                ret = Serial_MdecOutput(a0, a1, a2, a3);
+                *(u32*)(a1 + 4) = ret;
+                ret = Serial_MdecOutput();
                 ret = s0;
                 } else {
                 a1 = a3;
                 a0 = 0x00597CE0;
                 a2 = 0x80;
-                ret = Compiler_MemoryCopy(a0, a1, a2, a3);
-                ret = MemCard_InitStorage(a0, a1, a2, a3);
+                ret = Compiler_MemoryCopy(a0, a1, a2);
+                ret = MemCard_InitStorage();
                 ret = s0;
                 goto loc_20E054;
             }
-            ret = 0x005A0000;
+            ret = 0x005A0000;  /* SUBSYS_DATA_BASE: Subsystem data (CDROM/MDEC/serial) */
             a2 = 0;
             t0 = ret + -0x41a0;
             do {
@@ -1774,7 +1673,7 @@ loc_20DF90:
                 ret = ret + t0;
                 a0 = *(s16*)(v1);
                 a1 = ((unsigned)a2 < 0x40) ? 1 : 0;
-                *(u16*)(v0) = a0;
+                *(u16*)(ret) = a0;
             } while (a1 != 0);
             ret = s0;
         }
@@ -1784,16 +1683,16 @@ loc_20DF90:
 }
 
 /* Function at 0x0020E084 - 0x0020E1E8 */
-int Serial_WriteVram()
+u32 Serial_WriteVram(u32 a0, u32 a1)
 {
     /* Stack frame: 32 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1;
+    u32 ret, v1, a2, a3, s0, s1;
     a2 = a0 & v1;
     s1 = a1 << 2;
     if ((unsigned)ret >= (unsigned)a2) {
         ret = g_psx;
         v1 = 0x001FFFFF;
-        a0 = *(u32*)*(ret + 0x2d0);  /* counter_0 */
+        a0 = *(u32*)(ret + 0x2d0);  /* counter_0 */
         v1 = a2 & v1;
         a0 = a0 + v1;
     } else {
@@ -1802,21 +1701,21 @@ int Serial_WriteVram()
         a0 = 0xE0400000;
         if ((unsigned)ret < 0x400) {
             v1 = g_psx;
-            ret = *(u32*)*(v1 + 0x2d8);  /* counter_2 */
+            ret = *(u32*)(v1 + 0x2d8);  /* counter_2 */
         } else {
             ret = 7 << 16;
             v1 = a2 + a0;
             ret = 0x0007FFFF;
             v1 = g_psx;
             if ((unsigned)ret >= (unsigned)v1) {
-                ret = *(u32*)*(v1 + 0x2d4);  /* counter_1 */
+                ret = *(u32*)(v1 + 0x2d4);  /* counter_1 */
             } else {
                 a0 = 0xE0800400;
                 ret = a2 + a0;
                 a0 = 0;
                 if ((unsigned)ret < 0x400) {
                     v1 = g_psx;
-                    ret = *(u32*)*(v1 + 0x2dc);  /* counter_3 */
+                    ret = *(u32*)(v1 + 0x2dc);  /* counter_3 */
                     }
                     }
                     ret = ret + a2;
@@ -1825,96 +1724,86 @@ int Serial_WriteVram()
                 }
     v1 = 5 << 16;
     ret = ((unsigned)v1 < (unsigned)s1) ? 1 : 0;
-    s0 = 0x00597CC0;
-    __asm("movn s1, v1, v0");
-    s0->callback = a0;  /* callback (store) */
-    s0->event_handle = s1;  /* event_handle (store) */
-    ret = Serial_MdecOutput(a0, a1, a2, a3);
-    ret = *(u32*)(s0);
+    s0 = PSX_SERIAL_PORTS;  /* 0x00597CC0 - Serial_Port array (2 ports) */
+    if (ret != 0) s1 = v1;
+    ((GPU_HandlerSlot*)s0)->callback = a0;  /* callback (store) */
+    ((DMA_Channel*)s0)->event_handle = s1;  /* event_handle (store) */
+    ret = Serial_MdecOutput();
     ret = ret & 0x08000000;
     v1 = (unsigned)s1 >> 9;
     if (ret != 0) {
-        ret = v1 << 1;
         ret = ret + v1;
         a0 = ret << 0xa;
         goto loc_20E188;
     }
-    ret = 0x300;
-    __asm("divu zero, s1, v0");
-    ret = LO;
-    v1 = ret << 1;
+    ret = (unsigned)s1 / (unsigned)ret;
     v1 = v1 + ret;
     a0 = v1 << 0xa;
 loc_20E188:
     a2 = 0;
-    a1 = 0x0020DE28;
-    ret = PSX_GetEventTimeout(a0, a1, a2, a3);
-    ret = s1;
-    return ret;
-    ret = a1;
-    return ret;
+    a1 = (u32)Serial_MdecInterrupt;
+    PSX_GetEventTimeout();
+    return s1;
 }
 
 /* Function at 0x0020E1E8 - 0x0020E280 */
-int Serial_WriteGpuReg()
+u32 Serial_WriteGpuReg(u32 a0, u32 a1)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1, a2, a3;
     v1 = g_psx;
     a0 = a0 & 0xf;
-    ret = *(u32*)*(v1 + 0x2c4);  /* cop2_insn_count */
+    ret = *(u32*)(v1 + 0x2c4);  /* cop2_insn_count */
     ret = ret + 6;
-    *(u32*)*(v1 + 0x2c4) = ret;  /* cop2_insn_count (store) */
+    *(u32*)(v1 + 0x2c4) = ret;  /* cop2_insn_count (store) */
     if (a0 != 0) {
         if (a0 != 4) {
             goto loc_20E274;
             }
-            a2 = 0x00590000 + 0x7cc0;
+            a2 = 0x00590000 + 0x7cc0;  /* SERIAL_DATA_BASE: Serial controller data area */
             a0 = 0x30000000;
             v1 = a1 & v1;
             *(u32*)(a2) = a1;
             if (v1 != a0) goto loc_20E270;
-            ret = a1 & 0xffff;
-            ret = ret << 1;
-            *(u32*)*(a2 + 0x10) = ret;
+            *(u32*)(a2 + 0x10) = ret << 1;
             goto loc_20E270;
         }
     if ((signed)a1 >= 0) goto loc_20E270;
     a1 = 0;
-    a0 = 0x00597CC0;
+    a0 = PSX_SERIAL_PORTS;  /* 0x00597CC0 - Serial_Port array (2 ports) */
     a2 = 0x1c;
-    return Libc_Memset(a0, a1, a2, a3);
+    return Libc_Memset(a0, a1, a2);
 loc_20E270:
 loc_20E274:
     return ret;
 }
 
 /* Function at 0x0020E280 - 0x0020E284 */
-int Serial_GetBase()
+void Serial_GetBase(void)
 {
-    int a0;
-    a0 = 0x00590000;
+    u32 a0;
+    a0 = 0x00590000;  /* SERIAL_DATA_BASE: Serial controller data area */
 }
 
 /* Function at 0x0020E284 - 0x0020E2E0 */
-int Serial_Reset()
+u32 Serial_Reset(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
+    u32 ret, a1, a2, a3;
     a1 = 0;
     a0 = a0 + 0x7cc0;
     a2 = 0x1c;
-    ret = Libc_Memset(a0, a1, a2, a3);
+    ret = Libc_Memset(a0, a1, a2);
     a0 = 0x00597CE0;
     a1 = 0;
     a2 = 0x80;
-    ret = Libc_Memset(a0, a1, a2, a3);
+    ret = Libc_Memset(a0, a1, a2);
     a0 = 0x00597D60;
     a1 = 0;
     a2 = 0x4100;
-    ret = Libc_Memset(a0, a1, a2, a3);
+    ret = Libc_Memset(a0, a1, a2);
     a0 = 0x0059BE60;
     a1 = 0;
     a2 = 0x80;
-    return Libc_Memset(a0, a1, a2, a3);
+    return Libc_Memset(a0, a1, a2);
 }

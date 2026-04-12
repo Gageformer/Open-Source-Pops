@@ -3,265 +3,252 @@
 /* 8 functions */
 
 #include "pops_types.h"
+#include "functions.h"
 
 /* Forward declarations */
-int DMA_Init();
-int DMA_RegisterIO();
-int DMA_StartTransfer();
-int DMA_CalcProgress();
-int DMA_ScheduleEvent();
-int DMA_ReadRegister();
-int DMA_WriteRegister();
-int DMA_ResetChannels();
+u32 DMA_Init(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 DMA_RegisterIO(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 DMA_StartTransfer(u32 a0);
+u32 DMA_CalcProgress(u32 a0);
+u32 DMA_ScheduleEvent(u32 a0);
+u32 DMA_ReadRegister(u32 a0);
+u32 DMA_WriteRegister(u32 a0, u32 a1);
+u32 DMA_ResetChannels(u32 a0, u32 a1, u32 a2, u32 a3);
 
 /* ======================================== */
 
 /* Function at 0x0020AF68 - 0x0020AF74 */
-int DMA_Init()
+u32 DMA_Init(u32 a0, u32 a1, u32 a2, u32 a3)
 {
-    int a0, a2, a3;
+    u32 a0, a2, a3;
     a2 = 0x00210000;
     a3 = 0x00210000;
-    a0 = 0x1F800000;
+    a0 = PSX_IO_BASE;  /* 0x1F800000 */
+    return DMA_RegisterIO(a0, 0, a2, a3);
 }
 
 /* Function at 0x0020AF74 - 0x0020AFC8 */
-int DMA_RegisterIO()
+u32 DMA_RegisterIO(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
+    u32 ret;
     a3 = a3 + -0x57c0;
     a2 = a2 + -0x5a08;
-    a0 = a0 | 0x1080;
-    a1 = 0x80;
+    a0 = a0 | 0x1080;  /* PSX_DMA_BASE: DMA Controller (0x1F801080) */
+    a1 = 0x80;  /* I/O range size */
     ret = R3000_SetupIOHandlers(a0, a1, a2, a3);
     a2 = 0x128;
-    a0 = 0x00506C08;
+    a0 = PSX_DMA_STATE;  /* 0x00506C08 - DMA/interrupt state base */
     a1 = 0;
-    ret = Libc_Memset(a0, a1, a2, a3);
+    ret = Libc_Memset(a0, a1, a2);
     a1 = 0x0020AA78;
-    a0 = 6;
-    ret = Interrupt_SetCallback(a0, a1, a2, a3);
+    a0 = IRQ_CB_DMA;  /* DMA completion handler */
+    ret = Interrupt_SetCallback(a0, a1);
     return 1;
 }
 
 /* Function at 0x0020AFC8 - 0x0020B040 */
-int DMA_StartTransfer()
+u32 DMA_StartTransfer(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, s0;
+    u32 ret, v1, a1, a2, a3, s0;
     s0 = a0;
     v1 = *(u32*)(s0);
-    ret = v1 & 0x10;
     ret = v1 & 0x40;
     if (ret != 0) {
-        a0 = *(u32*)*(s0 + 0x1c);
-        ret = Compiler_SetCacheFlushFlag(a0, a1, a2, a3);
-        a0 = *(u32*)*(s0 + 0x1c);
-        ret = Compiler_GetCacheStatus(a0, a1, a2, a3);
+        a0 = *(u32*)(s0 + 0x1c);  /* PSX: gpr[3]/$v1 */
+        Compiler_SetCacheFlushFlag(a0);
+        a0 = *(u32*)(s0 + 0x1c);  /* PSX: gpr[3]/$v1 */
+        ret = Compiler_GetCacheStatus();
         v1 = *(u32*)(s0);
         ret = v1 & 0x40;
     }
-    *(u32*)*(s0 + 0xc) = 0;
+    *(u32*)(s0 + 0xc) = 0;
     if (ret == 0) {
-        ret = -0x31;
-        ret = v1 & ret;
-        *(u32*)(s0) = ret;
-        *(u32*)*(s0 + 0xc) = 0;
+        *(u32*)(s0) = v1 & ret;
+        *(u32*)(s0 + 0xc) = 0;
     }
-    *(u32*)*(s0 + 8) = 0;
-    ret = PSX_GetElapsedTime(a0, a1, a2, a3);
-    *(u32*)*(s0 + 0x18) = 0;
-    *(u32*)*(s0 + 0x10) = ret;
+    *(u32*)(s0 + 8) = 0;
+    ret = PSX_GetElapsedTime();
+    *(u32*)(s0 + 0x18) = 0;
+    *(u32*)(s0 + 0x10) = ret;
     a0 = s0;
-    return DMA_ScheduleEvent(a0, a1, a2, a3);
+    return DMA_ScheduleEvent(a0);
 }
 
 /* Function at 0x0020B040 - 0x0020B0B8 */
-int DMA_CalcProgress()
+u32 DMA_CalcProgress(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, t0;
+    u32 ret, v1, a1, a2, a3, s0, t0;
     s0 = a0;
-    ret = PSX_GetElapsedTime(a0, a1, a2, a3);
+    ret = PSX_GetElapsedTime();
     t0 = ret;
-    ret = *(u32*)*(s0 + 0x10);
-    a0 = *(u32*)*(s0 + 0xc);
+    ret = *(u32*)(s0 + 0x10);  /* PSX: gpr[0]/$zero */
+    a0 = *(u32*)(s0 + 0xc);  /* PSX: lo */
     a2 = 1 << 16;
-    a3 = *(u32*)*(s0 + 4);
+    a3 = *(u32*)(s0 + 4);
     ret = t0 - ret;
     v1 = *(u32*)(s0);
     a0 = a0 + ret;
-    a1 = *(u32*)*(s0 + 0x14);
-    __asm("movz a3, a2, a3");
+    a1 = *(u32*)(s0 + 0x14);  /* PSX: gpr[1]/$at */
+    if (a3 == 0) a3 = a2;
     v1 = v1 & 8;
-    *(u32*)*(s0 + 0xc) = a0;
-    __asm("movz a3, a2, v1");
+    *(u32*)(s0 + 0xc) = a0;
+    if (v1 == 0) a3 = a2;
     a0 = (unsigned)a0 >> a1;
-    *(u32*)*(s0 + 0x10) = t0;
+    *(u32*)(s0 + 0x10) = t0;
     if ((unsigned)a0 >= (unsigned)a3) {
-        __asm("divu zero, a0, a3");
-        a0 = HI;
+        a0 = (unsigned)a0 % (unsigned)a3;
     }
-    *(u32*)*(s0 + 8) = a0;
+    *(u32*)(s0 + 8) = a0;
     return ret;
 }
 
 /* Function at 0x0020B0B8 - 0x0020B150 */
-int DMA_ScheduleEvent()
+u32 DMA_ScheduleEvent(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0;
+    u32 ret, v1, a1, a2, a3, s0;
     s0 = a0;
-    ret = DMA_CalcProgress(a0, a1, a2, a3);
-    ret = *(u32*)*(s0 + 0x18);
+    ret = DMA_CalcProgress(a0);
+    ret = *(u32*)(s0 + 0x18);  /* PSX: gpr[2]/$v0 */
     a0 = ret;
     if (ret != 0) {
-        ret = PSX_CancelEvent(a0, a1, a2, a3);
-        *(u32*)*(s0 + 0x18) = 0;
+        ret = PSX_CancelEvent(a0);
+        *(u32*)(s0 + 0x18) = 0;
     }
     ret = *(u32*)(s0);
     a1 = ret & 8;
     ret = ret & 0x10;
-    if (likely(ret == 0)) goto loc_20B13C;
-    ret = *(u32*)*(s0 + 4);
+    if (ret == 0) goto loc_20B13C;
+    ret = *(u32*)(s0 + 4);
     a0 = 1 << 16;
-    v1 = *(u32*)*(s0 + 8);
-    __asm("movz v0, a0, v0");
-    __asm("movz v0, a0, a1");
+    v1 = *(u32*)(s0 + 8);
+    if (ret == 0) ret = a0;
+    if (a1 == 0) ret = a0;
     a3 = ret - v1;
-    v1 = ((unsigned)v1 < (unsigned)ret) ? 1 : 0;
-    if (likely(v1 == 0)) goto loc_20B13C;
-    a0 = *(u32*)*(s0 + 0x14);
-    a1 = 0x0020AFC8;
+    if ((((unsigned)v1 < (unsigned)ret) ? 1 : 0) == 0) goto loc_20B13C;
+    a0 = *(u32*)(s0 + 0x14);  /* PSX: gpr[1]/$at */
+    a1 = (u32)DMA_StartTransfer;
     a2 = s0;
     a0 = a3 << a0;
-    ret = PSX_GetEventTimeout(a0, a1, a2, a3);
-    *(u32*)*(s0 + 0x18) = ret;
+    ret = PSX_GetEventTimeout();
+    *(u32*)(s0 + 0x18) = ret;
 loc_20B13C:
     return ret;
 }
 
 /* Function at 0x0020B150 - 0x0020B1C8 */
-int DMA_ReadRegister()
+u32 DMA_ReadRegister(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, s0;
+    u32 ret, v1, a1, a2, a3, channel;
     ret = ret & 0x60;
     v1 = 4;
-    s0 = 0x00506D30;
-    s0 = s0 + ret;
+    channel = PSX_DMA_CHANNELS;  /* 0x00506D30 - DMA_Channel array (7 channels) */
+    channel = channel + ret;
     if (a0 != v1) {
         ret = ((unsigned)a0 < 5) ? 1 : 0;
-        if (8 != 0) {
-            if (a0 != 0) {
+        if (a0 != 0) {
+            ret = 0;
+            } else {
+            ret = ((DMA_Channel*)channel)->bcr;  /* bcr */
+            if (a0 != ret) {
                 ret = 0;
                 } else {
-                ret = s0->bcr;  /* bcr */
-                if (a0 != ret) {
-                    ret = 0;
-                    } else {
-                    a0 = s0;
-                    ret = DMA_CalcProgress(a0, a1, a2, a3);
-                    ret = s0->blocks_done;  /* blocks_done */
-                    } else {
-                    ret = *(u32*)(s0);
-                    }
-                    }
-                    }
+                a0 = channel;
+                ret = DMA_CalcProgress(a0);
+                ret = ((DMA_Channel*)channel)->blocks_done;  /* blocks_done */
+                } else {
+                ret = *(u32*)(channel);
                 }
-    ret = ret & 0xffff;
-    return ret;
+                }
+                }
+    return ret & 0xffff;
 }
 
 /* Function at 0x0020B1C8 - 0x0020B330 */
-int DMA_WriteRegister()
+u32 DMA_WriteRegister(u32 a0, u32 a1)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2;
+    u32 ret, v1, a2, a3, channel, s1, s2;
     ret = (unsigned)a0 >> 4;
     s2 = ret & 3;
     ret = s2 << 5;
     v1 = 4;
     a0 = a0 & 0xf;
     s1 = a1 & 0xffff;
-    s0 = 0x00506D30;
-    s0 = s0 + ret;
+    channel = PSX_DMA_CHANNELS;  /* 0x00506D30 - DMA_Channel array (7 channels) */
+    channel = channel + ret;
     if (a0 != v1) {
         ret = ((unsigned)a0 < 5) ? 1 : 0;
-        if (8 != 0) {
-            s0->elapsed = 0;  /* elapsed (store) */
-            if (a0 != 0) {
-                } else {
-                ret = s0->bcr;  /* bcr */
-                if (likely(a0 == ret)) goto loc_20B2E8;
+        ((DMA_Channel*)channel)->elapsed = 0;  /* elapsed (store) */
+        if (a0 != 0) {
             } else {
-                s0->blocks_done = 0;  /* blocks_done (store) */
-                ret = PSX_GetElapsedTime(a0, a1, a2, a3);
-                a0 = s0;
-                s0->start_time = ret;  /* start_time (store) */
-                return DMA_ScheduleEvent(a0, a1, a2, a3);
-    }
-            ret = *(u32*)(s0);
-            ret = ret & 0x3ff;
-            if (likely(ret == s1)) goto loc_20B318;
-            a0 = s0;
-            ret = DMA_CalcProgress(a0, a1, a2, a3);
-            *(u32*)(s0) = s1;
-            s0->speed_shift = 0;  /* speed_shift (store) */
-            if (s2 != 0) goto loc_20B28C;
-            ret = s1 & 0x100;
-            if (0xb == 0) goto loc_20B28C;
-            s0->speed_shift = ret;  /* speed_shift (store) */
-            loc_20B28C:
-            ret = 1;
-            if (s2 == 2) {
-                ret = s1 & 0x100;
-                if (0xb != 0) {
-                    s0->speed_shift = ret;  /* speed_shift (store) */
+            ret = ((DMA_Channel*)channel)->bcr;  /* bcr */
+            if (a0 != ret) {
+                } else {
+                ((DMA_Channel*)channel)->blocks_done = 0;  /* blocks_done (store) */
+                ret = PSX_GetElapsedTime();
+                a0 = channel;
+                ((DMA_Channel*)channel)->start_time = ret;  /* start_time (store) */
+                return DMA_ScheduleEvent(a0);
                 }
+                ret = ret & 0x3ff;
+                if (ret == s1) goto loc_20B318;
+                a0 = channel;
+                ret = DMA_CalcProgress(a0);
+                *(u32*)(channel) = s1;
+                ((DMA_Channel*)channel)->speed_shift = 0;  /* speed_shift (store) */
+                if (s2 == 0) {
+                ret = s1 & 0x100;
+                ((DMA_Channel*)channel)->speed_shift = ret;  /* speed_shift (store) */
+                }
+                ret = 1;
+                if (s2 == 2) {
+                ret = s1 & 0x100;
+                ((DMA_Channel*)channel)->speed_shift = ret;  /* speed_shift (store) */
                 ret = 2;
-            }
-            a0 = s0;
-            if (s2 == ret) {
-                ret = s1 & 0x200;
-                if (ret != 0) {
-                    s0->speed_shift = 3;  /* speed_shift (store) */
-                    a0 = s0;
+                }
+                a0 = channel;
+                if (s2 == ret) {
+                if ((s1 & 0x200) != 0) {
+                    ((DMA_Channel*)channel)->speed_shift = 3;  /* speed_shift (store) */
+                    a0 = channel;
                     }
                 }
-            return DMA_ScheduleEvent(a0, a1, a2, a3);
-            loc_20B2E8:
-            if (likely(ret == s1)) goto loc_20B318;
-            a0 = s0;
-            ret = DMA_CalcProgress(a0, a1, a2, a3);
-            s0->bcr = s1;  /* bcr (store) */
-            a0 = s0;
-            return DMA_ScheduleEvent(a0, a1, a2, a3);
+                return DMA_ScheduleEvent(a0);
             }
+        if (ret == s1) goto loc_20B318;
+        a0 = channel;
+        ret = DMA_CalcProgress(a0);
+        ((DMA_Channel*)channel)->bcr = s1;  /* bcr (store) */
+        a0 = channel;
+        return DMA_ScheduleEvent(a0);
         }
 loc_20B318:
     return ret;
 }
 
 /* Function at 0x0020B330 - 0x0020B390 */
-int DMA_ResetChannels()
+u32 DMA_ResetChannels(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, s0;
+    u32 ret, v1, a0, a1, a2, a3, s0;
     a1 = 0;
-    s0 = 0x00506D30;
+    s0 = PSX_DMA_CHANNELS;  /* 0x00506D30 - DMA_Channel array (7 channels) */
     a2 = 0x60;
     a0 = s0;
     s0 = s0 + 0x1c;
-    ret = Libc_Memset(a0, a1, a2, a3);
+    ret = Libc_Memset(a0, a1, a2);
     a0 = 0;
     do {
         ret = a0 + 4;
         a0 = a0 + 1;
         v1 = ((unsigned)a0 < 3) ? 1 : 0;
         *(u32*)(s0) = ret;
-        *(u32*)*(s0 + -8) = 0;
+        *(u32*)(s0 + -8) = 0;
         s0 = s0 + 0x20;
     } while (v1 != 0);
     return ret;

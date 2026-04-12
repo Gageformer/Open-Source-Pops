@@ -3,169 +3,159 @@
 /* 21 functions */
 
 #include "pops_types.h"
+#include "functions.h"
 
 /* Forward declarations */
-int PlayStationInit();
-int AssertionCheck();
-int PSX_Reset();
-int PSX_SetRunning();
-int PSX_SetBiosVersion();
-int PSX_GetRunning();
-int PSX_RunLoop();
-int PSX_EmulatedTimeInit();
-int PSX_BeginFrame();
-int PSX_EndFrame();
-int PSX_GetElapsedTime();
-int PSX_GetEventTimeout();
-int PSX_ScheduleEvent();
-int PSX_CancelEvent();
-int PSX_CheckPendingIRQ();
-int PSX_SetIRQBit();
-int PSX_ClearIRQBit();
-int PSX_WriteCOP0Register();
-int PSX_HandleRFE();
-int PSX_HandleException();
-int PSX_ResetCPUState();
+u32 PlayStationInit(void);
+void AssertionCheck(void);
+u32 PSX_Reset(u32 a0);
+u32 PSX_SetRunning(u32 a0);
+u32 PSX_SetBiosVersion(u32 a0);
+void PSX_GetRunning(void);
+u32 PSX_RunLoop(void);
+u32 PSX_EmulatedTimeInit(u32 a0);
+u32 PSX_BeginFrame(u32 a0);
+u32 PSX_EndFrame(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 PSX_GetElapsedTime(void);
+u32 PSX_GetEventTimeout(void);
+u32 PSX_ScheduleEvent(u32 a0, u32 a1, u32 a2);
+u32 PSX_CancelEvent(u32 a0);
+u32 PSX_CheckPendingIRQ(void);
+u32 PSX_SetIRQBit(u32 a0);
+u32 PSX_ClearIRQBit(u32 a0);
+u32 PSX_WriteCOP0Register(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 PSX_HandleRFE(u32 a0);
+u32 PSX_HandleException(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 PSX_ResetCPUState(u32 a0);
 
 /* ======================================== */
 
 /* Function at 0x00200944 - 0x00200C60 */
 /* String ref: "initSucceeded" */
-int PlayStationInit()
+u32 PlayStationInit(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3, t0;
-    ret = R3000_Init(a0, a1, a2, a3);
-    if (ret == 0) {
+    u32 ret, a0, a1, a2, a3, t0;
+    if ((R3000_Init()) == 0) {
         a0 = 0x004F8E58;
-        a1 = 0x004F8EA0;
-        a2 = 0x004F8EB0;
-        a3 = 0x004F8ED0;
+        a1 = 0x004F8EA0;  /* "initSucceeded" */
+        a2 = 0x004F8EB0;  /* "R3000InitializationError" */
+        a3 = 0x004F8ED0;  /* "./crossplatform/psx.c" */
         t0 = 0x27;
         ret = AssertionFailed(a0, a1, a2, a3);
         ret = 0;
     } else {
         a0 = g_psx;
-        ret = R3000_Reset(a0, a1, a2, a3);
-        if (ret == 0) {
+        if ((R3000_Reset(a0)) == 0) {
             a0 = 0x004F8E58;
-            a1 = 0x004F8EA0;
-            a2 = 0x004F8EB0;
-            a3 = 0x004F8ED0;
+            a1 = 0x004F8EA0;  /* "initSucceeded" */
+            a2 = 0x004F8EB0;  /* "R3000InitializationError" */
+            a3 = 0x004F8ED0;  /* "./crossplatform/psx.c" */
             t0 = 0x29;
             ret = AssertionFailed(a0, a1, a2, a3);
             ret = 0;
             goto loc_200C50;
         }
-        ret = Interrupt_Init(a0, a1, a2, a3);
-        if (ret == 0) {
+        if ((Interrupt_Init()) == 0) {
             a0 = 0x004F8E58;
-            a1 = 0x004F8EA0;
-            a2 = 0x004F8EE8;
-            a3 = 0x004F8ED0;
+            a1 = 0x004F8EA0;  /* "initSucceeded" */
+            a2 = 0x004F8EE8;  /* "InterruptInitializationError" */
+            a3 = 0x004F8ED0;  /* "./crossplatform/psx.c" */
             t0 = 0x2b;
             ret = AssertionFailed(a0, a1, a2, a3);
             ret = 0;
             goto loc_200C50;
         }
-        ret = Counter_Init(a0, a1, a2, a3);
-        if (ret == 0) {
+        if ((Counter_Init()) == 0) {
             a0 = 0x004F8E58;
-            a1 = 0x004F8EA0;
-            a2 = 0x004F8F08;
-            a3 = 0x004F8ED0;
+            a1 = 0x004F8EA0;  /* "initSucceeded" */
+            a2 = 0x004F8F08;  /* "CounterInitializationError" */
+            a3 = 0x004F8ED0;  /* "./crossplatform/psx.c" */
             t0 = 0x2d;
             ret = AssertionFailed(a0, a1, a2, a3);
             ret = 0;
             goto loc_200C50;
         }
-        ret = DMA_Init(a0, a1, a2, a3);
-        if (ret == 0) {
+        if ((DMA_Init(a0, a1, a2, a3)) == 0) {
             a0 = 0x004F8E58;
-            a1 = 0x004F8EA0;
-            a2 = 0x004F8F28;
-            a3 = 0x004F8ED0;
+            a1 = 0x004F8EA0;  /* "initSucceeded" */
+            a2 = 0x004F8F28;  /* "DMAInitializationError" */
+            a3 = 0x004F8ED0;  /* "./crossplatform/psx.c" */
             t0 = 0x2f;
             ret = AssertionFailed(a0, a1, a2, a3);
             ret = 0;
             goto loc_200C50;
         }
-        ret = GPU_Init(a0, a1, a2, a3);
-        if (ret == 0) {
+        if ((GPU_Init()) == 0) {
             a0 = 0x004F8E58;
-            a1 = 0x004F8EA0;
-            a2 = 0x004F8F40;
-            a3 = 0x004F8ED0;
+            a1 = 0x004F8EA0;  /* "initSucceeded" */
+            a2 = 0x004F8F40;  /* "GPUInitializationError" */
+            a3 = 0x004F8ED0;  /* "./crossplatform/psx.c" */
             t0 = 0x31;
             ret = AssertionFailed(a0, a1, a2, a3);
             ret = 0;
             goto loc_200C50;
         }
-        ret = MDEC_Init(a0, a1, a2, a3);
-        if (ret == 0) {
+        if ((MDEC_Init()) == 0) {
             a0 = 0x004F8E58;
-            a1 = 0x004F8EA0;
-            a2 = 0x004F8F58;
-            a3 = 0x004F8ED0;
+            a1 = 0x004F8EA0;  /* "initSucceeded" */
+            a2 = 0x004F8F58;  /* "MDECInitializationError" */
+            a3 = 0x004F8ED0;  /* "./crossplatform/psx.c" */
             t0 = 0x33;
             ret = AssertionFailed(a0, a1, a2, a3);
             ret = 0;
             goto loc_200C50;
         }
-        ret = SPU_Init(a0, a1, a2, a3);
-        if (ret == 0) {
+        if ((SPU_Init()) == 0) {
             a0 = 0x004F8E58;
-            a1 = 0x004F8EA0;
-            a2 = 0x004F8F70;
-            a3 = 0x004F8ED0;
+            a1 = 0x004F8EA0;  /* "initSucceeded" */
+            a2 = 0x004F8F70;  /* "SPUInitializationError" */
+            a3 = 0x004F8ED0;  /* "./crossplatform/psx.c" */
             t0 = 0x35;
             ret = AssertionFailed(a0, a1, a2, a3);
             ret = 0;
             goto loc_200C50;
         }
-        ret = GTE_Init(a0, a1, a2, a3);
-        if (ret == 0) {
+        if ((GTE_Init()) == 0) {
             a0 = 0x004F8E58;
-            a1 = 0x004F8EA0;
-            a2 = 0x004F8F88;
-            a3 = 0x004F8ED0;
+            a1 = 0x004F8EA0;  /* "initSucceeded" */
+            a2 = 0x004F8F88;  /* "GTEInitializationError" */
+            a3 = 0x004F8ED0;  /* "./crossplatform/psx.c" */
             t0 = 0x39;
             ret = AssertionFailed(a0, a1, a2, a3);
             ret = 0;
             goto loc_200C50;
         }
-        ret = CDROM_Init(a0, a1, a2, a3);
-        if (ret == 0) {
+        if ((CDROM_Init()) == 0) {
             a0 = 0x004F8E58;
-            a1 = 0x004F8EA0;
-            a2 = 0x004F8FA0;
-            a3 = 0x004F8ED0;
+            a1 = 0x004F8EA0;  /* "initSucceeded" */
+            a2 = 0x004F8FA0;  /* "CDROMInitializationError" */
+            a3 = 0x004F8ED0;  /* "./crossplatform/psx.c" */
             t0 = 0x3b;
             ret = AssertionFailed(a0, a1, a2, a3);
             ret = 0;
             goto loc_200C50;
         }
-        ret = Serial_Init(a0, a1, a2, a3);
-        if (ret == 0) {
+        if ((Serial_Init()) == 0) {
             a0 = 0x004F8E58;
-            a1 = 0x004F8EA0;
-            a2 = 0x004F8FC0;
-            a3 = 0x004F8ED0;
+            a1 = 0x004F8EA0;  /* "initSucceeded" */
+            a2 = 0x004F8FC0;  /* "SerialInitializationError" */
+            a3 = 0x004F8ED0;  /* "./crossplatform/psx.c" */
             t0 = 0x3d;
             ret = AssertionFailed(a0, a1, a2, a3);
             ret = 0;
             goto loc_200C50;
         }
-        ret = Compiler_Init(a0, a1, a2, a3);
+        ret = Compiler_Init();
         a0 = 0x00500000;
         if (ret != 0) {
-            ret = AssertionCheck(a0, a1, a2, a3);
+            AssertionCheck();
             ret = 1;
         } else {
             a0 = 0x004F8E58;
-            a1 = 0x004F8EA0;
-            a2 = 0x004F8FE0;
-            a3 = 0x004F8ED0;
+            a1 = 0x004F8EA0;  /* "initSucceeded" */
+            a2 = 0x004F8FE0;  /* "CompilerInitializationError" */
+            a3 = 0x004F8ED0;  /* "./crossplatform/psx.c" */
             t0 = 0x43;
             ret = AssertionFailed(a0, a1, a2, a3);
             ret = 0;
@@ -176,109 +166,109 @@ loc_200C50:
 }
 
 /* Function at 0x00200C60 - 0x00200C64 */
-int AssertionCheck()
+void AssertionCheck(void)
 {
-    int a0;
+    u32 a0;
     a0 = 0x02040000;
 }
 
 /* Function at 0x00200C64 - 0x00200D10 */
-int PSX_Reset()
+u32 PSX_Reset(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
+    u32 ret, a1, a2, a3;
     a0 = a0 | 0xcc00;
-    ret = PSX_EmulatedTimeInit(a0, a1, a2, a3);
+    ret = PSX_EmulatedTimeInit(a0);
     a0 = g_psx;
-    ret = PSX_ResetCPUState(a0, a1, a2, a3);
-    ret = Interrupt_ResetAll(a0, a1, a2, a3);
-    ret = Counter_ScheduleIRQ(a0, a1, a2, a3);
-    ret = Serial_GetBase(a0, a1, a2, a3);
-    ret = CDROM_GetBase(a0, a1, a2, a3);
-    ret = GTE_Nop(a0, a1, a2, a3);
+    ret = PSX_ResetCPUState(a0);
+    ret = Interrupt_ResetAll();
+    ret = Counter_ScheduleIRQ(a0);
+    Serial_GetBase();
+    CDROM_GetBase();
+    ret = GTE_Nop();
     ret = DMA_ResetChannels(a0, a1, a2, a3);
-    ret = Compiler_ResetCacheState(a0, a1, a2, a3);
-    ret = MDEC_ResetState(a0, a1, a2, a3);
-    ret = GPU_Reset(a0, a1, a2, a3);
-    ret = R3000_GetCurrentBlock(a0, a1, a2, a3);
+    ret = Compiler_ResetCacheState();
+    ret = MDEC_ResetState();
+    ret = GPU_Reset();
+    R3000_GetCurrentBlock();
     ret = g_psx;
     a1 = 0x00200000;
-    a0 = *(u32*)*(ret + 0x2d0);  /* counter_0 */
-    ret = Compiler_MemoryClear(a0, a1, a2, a3);
+    a0 = *(u32*)(ret + 0x2d0);  /* counter_0 */
+    ret = Compiler_MemoryClear(a0, a1);
     ret = g_psx;
     a1 = 0x400;
-    a0 = *(u32*)*(ret + 0x2d8);  /* counter_2 */
-    ret = Compiler_MemoryClear(a0, a1, a2, a3);
+    a0 = *(u32*)(ret + 0x2d8);  /* counter_2 */
+    ret = Compiler_MemoryClear(a0, a1);
     ret = g_psx;
     a1 = 0x400;
-    a0 = *(u32*)*(ret + 0x2dc);  /* counter_3 */
-    return Compiler_MemoryClear(a0, a1, a2, a3);
+    a0 = *(u32*)(ret + 0x2dc);  /* counter_3 */
+    return Compiler_MemoryClear(a0, a1);
 }
 
 /* Function at 0x00200D10 - 0x00200D18 */
-int PSX_SetRunning()
+u32 PSX_SetRunning(u32 a0)
 {
-    int ret, a0;
-    *(u32*)*(__gp + -0x7f58) = a0;  /* g_running */
+    u32 ret;
+    g_running = a0;
     return ret;
 }
 
 /* Function at 0x00200D18 - 0x00200D50 */
-int PSX_SetBiosVersion()
+u32 PSX_SetBiosVersion(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3, s0;
-    ret = *(u32*)*(__gp + -0x7f54);  /* g_bios_version */
+    u32 ret, a1, a2, a3, s0;
+    ret = g_bios_version;
     s0 = a0;
     if (s0 != ret) {
-        ret = R3000_InvalidateAllBlocks(a0, a1, a2, a3);
-        *(u32*)*(__gp + -0x7f54) = s0;  /* g_bios_version */
+        ret = R3000_InvalidateAllBlocks();
+        g_bios_version = s0;
     }
     return ret;
 }
 
 /* Function at 0x00200D50 - 0x00200D54 */
-int PSX_GetRunning()
+void PSX_GetRunning(void)
 {
-    int ret;
-    ret = *(u32*)*(__gp + -0x7f58);  /* g_running */
+    u32 ret;
+    ret = g_running;
 }
 
 /* Function at 0x00200D54 - 0x00200D98 */
-int PSX_RunLoop()
+u32 PSX_RunLoop(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1, a0, a1, a2, a3;
     if (ret != 0) {
         do {
             a0 = 0;
-            ret = PSX_BeginFrame(a0, a1, a2, a3);
+            ret = PSX_BeginFrame(a0);
             v1 = g_psx;
-            *(u32*)*(v1 + 0x2c4) = ret;  /* cop2_insn_count (store) */
+            *(u32*)(v1 + 0x2c4) = ret;  /* cop2_insn_count (store) */
             ret = R3000_ExecutionLoop(a0, a1, a2, a3);
             ret = PSX_EndFrame(a0, a1, a2, a3);
-            ret = *(u32*)*(__gp + -0x7f58);  /* g_running */
+            ret = g_running;
         } while (ret != 0);
     }
     return ret;
 }
 
 /* Function at 0x00200D98 - 0x00200E30 */
-int PSX_EmulatedTimeInit()
+u32 PSX_EmulatedTimeInit(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, s0;
-    __asm("lwc1 f0, -0x7ff0(gp)");
+    u32 ret, v1, a1, a2, a3, s0;
+    FPU_F(f0) = *(float*)(__gp + -0x7ff0);
     s0 = 0x005032C8;
     g_time_scale = a0;
     a1 = 0;
     a2 = 0x600;
     a0 = s0;
-    __asm("swc1 f0, -0x77e0(gp)");
+    *(float*)(__gp + -0x77e0) = FPU_F(f0);
     g_target_cycles = 0;
     g_cycle_base = 0;
     g_time_accum = 0;
-    ret = Libc_Memset(a0, a1, a2, a3);
+    ret = Libc_Memset(a0, a1, a2);
     a0 = 0;
     g_event_active_list = 0;
     g_event_free_list = 0;
@@ -286,12 +276,12 @@ int PSX_EmulatedTimeInit()
     g_event_pending = 0;
     v1 = s0;
     g_event_timeout = 0;
-    a2 = *(u32*)*(__gp + -0x7f4c);  /* g_init_flag */
+    a2 = g_init_flag;
     do {
         a0 = a0 + 1;
         *(u32*)(v1) = a1;
         ret = ((unsigned)a0 < 0x40) ? 1 : 0;
-        *(u32*)*(v1 + 4) = a2;
+        *(u32*)(v1 + 4) = a2;
         a1 = v1;
         v1 = v1 + 0x18;
     } while (ret != 0);
@@ -301,78 +291,73 @@ int PSX_EmulatedTimeInit()
 }
 
 /* Function at 0x00200E30 - 0x00200E98 */
-int PSX_BeginFrame()
+u32 PSX_BeginFrame(u32 a0)
 {
     /* Stack frame: 32 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1;
+    u32 ret, v1, a1, a2, a3, s0, s1;
     s0 = g_time_scale;
     if (a0 != 0) {
-        ret = ((unsigned)a0 < (unsigned)s0) ? 1 : 0;
-        __asm("movn s0, a0, v0");
+        if ((signed)a0 < (signed)s0) s0 = a0;
     }
     s1 = g_event_active_list;
     a0 = s0;
     if (s1 != 0) {
-        ret = PSX_GetElapsedTime(a0, a1, a2, a3);
-        v1 = *(u32*)*(s1 + 8);
+        ret = PSX_GetElapsedTime();
+        v1 = *(u32*)(s1 + 8);
         a0 = v1 - ret;
         ret = ((unsigned)s0 < (unsigned)a0) ? 1 : 0;
-        __asm("movn a0, s0, v0");
+        if (ret != 0) a0 = s0;
     }
     v1 = g_cycle_base;
     ret = a0;
-    v1 = v1 + a0;
-    g_target_cycles = v1;
+    g_target_cycles = v1 + a0;
     return ret;
 }
 
 /* Function at 0x00200E98 - 0x00201008 */
-int PSX_EndFrame()
+u32 PSX_EndFrame(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1;
+    u32 ret, v1, s0, s1;
     a1 = g_psx;
     a0 = g_target_cycles;
-    v1 = *(u32*)*(a1 + 0x2c4);  /* cop2_insn_count */
+    v1 = *(u32*)(a1 + 0x2c4);  /* cop2_insn_count */
     ret = g_cycle_base;
     a0 = a0 - v1;
-    __asm("lwc1 f2, -0x77e0(gp)");
+    FPU_F(f2) = *(float*)(__gp + -0x77e0);
     ret = a0 - ret;
-    __asm("lwc1 f1, -0x77e4(gp)");
+    FPU_F(f1) = *(float*)(__gp + -0x77e4);
     FPU_REG(f0) = ret; /* mtc1 */
-    __asm("cvt.s.w f0, f0");
+    FPU_F(f0) = (float)(s32)FPU_REG(f0);
     a2 = g_event_active_list;
     g_target_cycles = a0;
     g_cycle_base = a0;
     s0 = a2;
-    __asm("mul.s f0, f0, f2"); /* FPU */
-    __asm("add.s f1, f1, f0"); /* FPU */
-    __asm("swc1 f1, -0x77e4(gp)");
-    *(u32*)*(a1 + 0x2c4) = 0;  /* cop2_insn_count (store) */
+    FPU_F(f0) = FPU_F(f0) * FPU_F(f2); /* FPU */
+    FPU_F(f1) = FPU_F(f1) + FPU_F(f0); /* FPU */
+    *(float*)(__gp + -0x77e4) = FPU_F(f1);
+    *(u32*)(a1 + 0x2c4) = 0;  /* cop2_insn_count (store) */
     if (a2 == 0) goto loc_200F58;
-    ret = *(u32*)*(a2 + 8);
+    ret = *(u32*)(a2 + 8);
     g_event_pending = 1;
     ret = ret - a0;
     v1 = ((signed)ret < 2) ? 1 : 0;
     a0 = a2;
     if (v1 == 0) goto loc_200F5C;
-    v1 = *(u32*)*(s0 + 8);
+    v1 = *(u32*)(s0 + 8);
     do {
         s1 = g_cycle_base;
         g_event_timeout = ret;
-        a0 = *(u32*)*(s0 + 0x10);
-        ret = *(u32*)*(s0 + 0xc);
+        a0 = *(u32*)(s0 + 0x10);  /* PSX: gpr[0]/$zero */
+        ret = *(u32*)(s0 + 0xc);  /* PSX: lo */
         g_cycle_base = v1;
-        ret = (ret)(a0, a1, a2, a3); /* indirect call */
+        ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
         g_cycle_base = s1;
         s0 = *(u32*)(s0);
         a2 = g_event_active_list;
         if (s0 == 0) goto loc_200F58;
-        ret = *(u32*)*(s0 + 8);
         ret = ret - s1;
-        v1 = ((signed)ret < 2) ? 1 : 0;
-        v1 = *(u32*)*(s0 + 8);
-    } while (likely(v1 != 0));
+    } while ((*(u32*)(s0 + 8)) != 0);
     a2 = g_event_active_list;
 loc_200F58:
     a0 = a2;
@@ -380,264 +365,234 @@ loc_200F5C:
     g_event_timeout = 0;
     g_event_pending = 0;
     if (a0 == s0) goto loc_200FA4;
-    v1 = *(u32*)*(__gp + -0x7f4c);  /* g_init_flag */
+    v1 = g_init_flag;
     ret = g_event_free_list;
     a2 = *(u32*)(a0);
 loc_200F78:
-    *(u32*)*(a2 + 4) = 0;
-    if (likely(a2 != 0)) goto loc_200F80;
+    *(u32*)(a2 + 4) = 0;
+    if (a2 != 0) goto loc_200F80;
 loc_200F80:
     *(u32*)(a0) = ret;
     ret = a0;
-    *(u32*)*(a0 + 4) = v1;
+    *(u32*)(a0 + 4) = v1;
     a0 = a2;
     a2 = *(u32*)(a0);
-    if (likely(a0 != s0)) goto loc_200F78;
+    if (a0 != s0) goto loc_200F78;
     g_event_free_list = ret;
     g_event_active_list = a0;
 loc_200FA4:
     a0 = a2;
     if (a0 != 0) {
-        ret = *(u32*)*(a0 + 0x14);
+        ret = *(u32*)(a0 + 0x14);  /* PSX: gpr[1]/$at */
         do {
             s0 = *(u32*)(a0);
             if (ret != 0) {
-                ret = PSX_CancelEvent(a0, a1, a2, a3);
+                ret = PSX_CancelEvent(a0);
             }
             a0 = s0;
-            ret = *(u32*)*(a0 + 0x14);
-        } while (likely(a0 != 0));
+            ret = *(u32*)(a0 + 0x14);  /* PSX: gpr[1]/$at */
+        } while (a0 != 0);
     }
     return ret;
-loc_200FE8:
     ret = g_psx;
     v1 = g_target_cycles;
-    a0 = *(u32*)*(ret + 0x2c4);  /* cop2_insn_count */
-    v1 = v1 - a0;
-    g_target_cycles = v1;
-    *(u32*)*(ret + 0x2c4) = 0;  /* cop2_insn_count (store) */
+    a0 = *(u32*)(ret + 0x2c4);  /* cop2_insn_count */
+    g_target_cycles = v1 - a0;
+    *(u32*)(ret + 0x2c4) = 0;  /* cop2_insn_count (store) */
     return ret;
 }
 
 /* Function at 0x00201008 - 0x00201088 */
-int PSX_GetElapsedTime()
+u32 PSX_GetElapsedTime(void)
 {
-    int ret, v1, a0;
+    u32 ret, v1, a0;
     v1 = g_psx;
     a0 = g_target_cycles;
-    ret = *(u32*)*(v1 + 0x2c4);  /* cop2_insn_count */
-    ret = a0 - ret;
-    return ret;
-        }
-        __asm("lwc1 f1, -0x77e4(gp)");
-        __asm("mul.s f0, f2, f0"); /* FPU */
-        __asm("add.s f0, f1, f0"); /* FPU */
-    }
-    return ret;
+    ret = *(u32*)(v1 + 0x2c4);  /* cop2_insn_count */
+    return a0 - ret;
 }
 
 /* Function at 0x00201088 - 0x0020108C */
-int PSX_GetEventTimeout()
+u32 PSX_GetEventTimeout(void)
 {
-    int v1;
+    u32 v1;
     v1 = g_event_timeout;
+    return v1;
 }
 
 /* Function at 0x0020108C - 0x002011D8 */
 /* String ref: "event != NULL" */
 /* String ref: "RanOutOfEvents" */
 /* String ref: "./crossplatform/EmulatedTime.c" */
-int PSX_ScheduleEvent()
+u32 PSX_ScheduleEvent(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 48 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, t0;
+    u32 ret, v1, a3, s0, s1, s2, s3, t0;
     s1 = a0;
-    __asm("negu v0, v1");
+    ret = -v1;
     v1 = s1 + v1;
     ret = ((signed)s1 < (signed)ret) ? 1 : 0;
     s0 = g_event_free_list;
-    __asm("movz s1, v1, v0");
+    if (ret == 0) s1 = v1;
     s2 = a2;
     s3 = a1;
     if (s0 == 0) {
         a0 = 0x004F9000;
-        a1 = 0x004F9048;
-        a2 = 0x004F9058;
-        a3 = 0x004F9068;
+        a1 = 0x004F9048;  /* "event != NULL" */
+        a2 = 0x004F9058;  /* "RanOutOfEvents" */
+        a3 = 0x004F9068;  /* "./crossplatform/EmulatedTime.c" */
         t0 = 0xcd;
         ret = AssertionFailed(a0, a1, a2, a3);
         ret = s0;
     } else {
         ret = *(u32*)(s0);
         g_event_free_list = ret;
-        ret = PSX_GetElapsedTime(a0, a1, a2, a3);
+        ret = PSX_GetElapsedTime();
         v1 = g_target_cycles;
         ret = ret + s1;
-        *(u32*)*(s0 + 0xc) = s3;
+        *(u32*)(s0 + 0xc) = s3;
         a1 = v1 - ret;
-        *(u32*)*(s0 + 0x10) = s2;
-        *(u32*)*(s0 + 8) = ret;
-        *(u32*)*(s0 + 0x14) = 0;
+        *(u32*)(s0 + 0x10) = s2;
+        *(u32*)(s0 + 8) = ret;
+        *(u32*)(s0 + 0x14) = 0;
         if ((signed)a1 <= 0) goto loc_201144;
         ret = g_cycle_base;
         a0 = g_psx;
         if (ret == v1) goto loc_201144;
-        v1 = v1 - a1;
-        g_target_cycles = v1;
-        ret = *(u32*)*(a0 + 0x2c4);  /* cop2_insn_count */
+        g_target_cycles = v1 - a1;
+        ret = *(u32*)(a0 + 0x2c4);  /* cop2_insn_count */
         ret = ret - a1;
-        *(u32*)*(a0 + 0x2c4) = ret;  /* cop2_insn_count (store) */
+        *(u32*)(a0 + 0x2c4) = ret;  /* cop2_insn_count (store) */
         loc_201144:
         ret = g_event_active_list;
-        a0 = *(u32*)*(s0 + 8);
+        a0 = *(u32*)(s0 + 8);
         if (ret == 0) {
             g_event_active_list = s0;
             ret = s0;
-            *(u32*)*(s0 + 4) = 0;
+            *(u32*)(s0 + 4) = 0;
             *(u32*)(s0) = 0;
             goto loc_2011BC;
         }
         v1 = ret;
-        ret = *(u32*)*(v1 + 8);
+        ret = *(u32*)(v1 + 8);
                 do {
                     a1 = ret - a0;
                     ret = v1;
                     if ((signed)a1 > 0) {
                     *(u32*)(s0) = v1;
-                    ret = *(u32*)*(v1 + 4);
-                    *(u32*)*(s0 + 4) = ret;
-                    *(u32*)*(v1 + 4) = s0;
-                    ret = *(u32*)*(s0 + 4);
+                    ret = *(u32*)(v1 + 4);
+                    *(u32*)(s0 + 4) = ret;
+                    *(u32*)(v1 + 4) = s0;
+                    ret = *(u32*)(s0 + 4);
                     g_event_active_list = s0;
                     if (ret != 0) {
-                    *(u32*)(v0) = s0;
+                    *(u32*)(ret) = s0;
                     } else {
-                    v1 = *(u32*)(v0);
-                    ret = *(u32*)*(v1 + 8);
-                } while (likely(v1 != 0));
-                *(u32*)(v0) = s0;
-                *(u32*)*(s0 + 4) = ret;
+                    v1 = *(u32*)(ret);
+                    ret = *(u32*)(v1 + 8);
+                    }
+                    }
+                } while (v1 != 0);
+                *(u32*)(ret) = s0;
+                *(u32*)(s0 + 4) = ret;
                 *(u32*)(s0) = 0;
                 }
             }
         ret = s0;
-    }
 loc_2011BC:
     return ret;
-}
 
 /* Function at 0x002011D8 - 0x00201240 */
-int PSX_CancelEvent()
+u32 PSX_CancelEvent(u32 a0)
 {
-    int ret, v1, a0;
-    ret = *(u32*)*(__gp + -0x7f4c);  /* g_init_flag */
-    v1 = *(u32*)*(a0 + 4);
+    u32 ret, v1;
+    ret = g_init_flag;
+    v1 = *(u32*)(a0 + 4);
     ret = g_event_pending;
     if (v1 != ret) {
-        if (1 != 0) {
-            *(u32*)*(a0 + 0x14) = ret;
-            return ret;
-        }
-        ret = *(u32*)(a0);
-        if (v1 != 0) {
-            *(u32*)(v1) = ret;
-        } else {
-            g_event_active_list = ret;
-        }
-        v1 = *(u32*)(a0);
-        ret = g_event_free_list;
-        if (v1 != 0) {
-            ret = *(u32*)*(a0 + 4);
-            *(u32*)*(v1 + 4) = ret;
-            ret = g_event_free_list;
-        }
-        v1 = *(u32*)*(__gp + -0x7f4c);  /* g_init_flag */
-        *(u32*)(a0) = ret;
-        g_event_free_list = a0;
-        *(u32*)*(a0 + 4) = v1;
+        *(u32*)(a0 + 0x14) = ret;
+        return ret;
     }
+    v1 = *(u32*)(a0);
+    ret = g_event_free_list;
+    if (v1 != 0) {
+        ret = *(u32*)(a0 + 4);
+        *(u32*)(v1 + 4) = ret;
+        ret = g_event_free_list;
+    }
+    v1 = g_init_flag;
+    *(u32*)(a0) = ret;
+    g_event_free_list = a0;
+    *(u32*)(a0 + 4) = v1;
     return ret;
 }
 
 /* Function at 0x00201240 - 0x00201298 */
-int PSX_CheckPendingIRQ()
+u32 PSX_CheckPendingIRQ(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1;
+    u32 ret, v1, a0, a1;
     a1 = g_psx;
-    ret = a1->cop0[12];  /* cop0[12] */
-    v1 = a1->cop0[13];  /* cop0[13] */
+    ret = ((PSX_State*)a1)->cop0[12];  /* COP0: SR */
+    v1 = ((PSX_State*)a1)->cop0[13];  /* COP0: Cause */
     a0 = ret & 1;
     ret = v1 & ret;
     if (a0 != 0) {
         ret = ret & 0xff00;
         if (ret == 0) goto loc_20128C;
-        ret = a1->irq_pending;  /* irq_pending */
-        if (1 != 0) goto loc_20128C;
-        a1->irq_pending = ret;  /* irq_pending (store) */
-        goto loc_200FE8;
+        ret = ((PSX_State*)a1)->irq_pending;  /* irq_pending */
+        goto loc_20128C;
     }
 loc_20128C:
     return ret;
 }
 
 /* Function at 0x00201298 - 0x002012C8 */
-int PSX_SetIRQBit()
+u32 PSX_SetIRQBit(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1, a1, a2, a3;
     a1 = g_psx;
     a0 = a0 + 0xa;
     ret = 1;
-    v1 = *(u32*)*(a1 + 0xc4);  /* cop0[13] (CAUSE) */
+    v1 = *(u32*)(a1 + 0xc4);  /* cop0[13] (CAUSE) */
     ret = ret << a0;
     v1 = v1 | ret;
-    *(u32*)*(a1 + 0xc4) = v1;  /* cop0[13] (CAUSE) (store) */
-    return PSX_CheckPendingIRQ(a0, a1, a2, a3);
+    *(u32*)(a1 + 0xc4) = v1;  /* cop0[13] (CAUSE) (store) */
+    return PSX_CheckPendingIRQ();
 }
 
 /* Function at 0x002012C8 - 0x00201360 */
-int PSX_ClearIRQBit()
+u32 PSX_ClearIRQBit(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1, a1, a2, a3;
     a1 = g_psx;
     a0 = a0 + 0xa;
     ret = 1;
-    v1 = *(u32*)*(a1 + 0xc4);  /* cop0[13] (CAUSE) */
-    ret = ret << a0;
+    v1 = *(u32*)(a1 + 0xc4);  /* cop0[13] (CAUSE) */
     ret = ~(0 | ret);
     v1 = v1 & ret;
-    *(u32*)*(a1 + 0xc4) = v1;  /* cop0[13] (CAUSE) (store) */
-    return PSX_CheckPendingIRQ(a0, a1, a2, a3);
-    }
-    v1 = a0 << 2;
-    v1 = v1 + a2;
-    ret = *(u32*)(v1);
-    return ret;
+    *(u32*)(a1 + 0xc4) = v1;  /* cop0[13] (CAUSE) (store) */
+    return PSX_CheckPendingIRQ();
 }
 
 /* Function at 0x00201360 - 0x00201424 */
-int PSX_WriteCOP0Register()
+u32 PSX_WriteCOP0Register(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 16 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, t0;
+    u32 ret, v1, t0;
     t0 = v1 + 0x90;
     if ((unsigned)a3 < 0xd) {
         ret = a3 << 2;
-        v1 = 0x00500000;
-        v1 = v1 + ret;
-        v1 = *(u32*)*(v1 + -0x6f30);
+        v1 = *(u32*)(v1 + -0x6f30);
         goto *v1; /* computed jump */
         v1 = a2 << 2;
         a1 = -0x301;
         v1 = v1 + t0;
         a0 = a0 & 0x300;
-        ret = *(u32*)(v1);
-        ret = ret & a1;
-        ret = ret | a0;
-        *(u32*)(v1) = ret;
-        return PSX_CheckPendingIRQ(a0, a1, a2, a3);
+        *(u32*)(v1) = ret | a0;
+        return PSX_CheckPendingIRQ();
         }
         v1 = a2 << 2;
         ret = 0xF27FFF3F;
@@ -646,57 +601,55 @@ int PSX_WriteCOP0Register()
         a0 = a0 & 1;
         *(u32*)(v1) = ret;
         if (a0 != 0) {
-            return PSX_CheckPendingIRQ(a0, a1, a2, a3);
+            return PSX_CheckPendingIRQ();
             }
-            ret = a2 << 2;
             ret = ret + t0;
-            *(u32*)(v0) = a0;
-        }
+            *(u32*)(ret) = a0;
     return ret;
 }
 
 /* Function at 0x00201424 - 0x00201470 */
-int PSX_HandleRFE()
+u32 PSX_HandleRFE(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1, a1, a2, a3;
     a0 = a0 & 0x3f;
     v1 = 0x10;
     a1 = ret + 0x90;
     if (a0 == v1) {
-        ret = *(u32*)*(a1 + 0x30);
+        ret = *(u32*)(a1 + 0x30);  /* PSX: gpr[8]/$t0 */
         a0 = -0x10;
         v1 = (unsigned)ret >> 2;
         ret = ret & a0;
         v1 = v1 & 0xf;
         ret = ret | v1;
-        *(u32*)*(a1 + 0x30) = ret;
-        ret = PSX_CheckPendingIRQ(a0, a1, a2, a3);
+        *(u32*)(a1 + 0x30) = ret;
+        ret = PSX_CheckPendingIRQ();
     }
     return 0;
 }
 
 /* Function at 0x00201470 - 0x00201668 */
-int PSX_HandleException()
+u32 PSX_HandleException(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 80 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7;
+    u32 ret, v1, psx_0, s1, s2, psx, s4, s5, s6, s7;
     ret = 0x7000FF7C;
-    s0 = g_psx;
+    psx_0 = g_psx;
     s2 = a0;
-    s3 = s0 + 0x90;                         /* &cop0[0] base */
+    psx = psx_0 + 0x90;                         /* &cop0[0] base */
     __fp = a1;
-    s1 = *(u32*)(s0);
-    v1 = s3->cop0[13];  /* cop0[13] */
+    s1 = *(u32*)(psx_0);
+    v1 = ((PSX_State*)psx)->cop0[13];  /* COP0: Cause */
     a1 = s1;
-    s6 = s3->cop0[12];  /* cop0[12] */
+    s6 = ((PSX_State*)psx)->cop0[12];  /* COP0: SR */
     s4 = v1 & ret;
     if (s2 == 0) {
         s7 = 0x25;
         s5 = 0x01FFFFFF;
         while (1) {
             ret = (unsigned)a1 >> 0x1c;
-            a0 = s0->mem_ctrl[0];  /* mem_ctrl[0] */
+            a0 = ((PSX_State*)psx_0)->mem_ctrl[0];  /* mem_ctrl[0] */
             ret = ret << 4;
             v1 = a1 & 3;
             a0 = a0 + ret;
@@ -705,12 +658,11 @@ int PSX_HandleException()
                 ret = PSX_HandleException(a0, a1, a2, a3);
                 a0 = -1;
             } else {
-                ret = *(u32*)*(a0 + 8);
-                ret = *(u32*)*(a0 + 4);
+                ret = *(u32*)(a0 + 4);
                 if (ret != 0) {
                     a0 = a1;
                     a1 = 4;
-                    ret = (ret)(a0, a1, a2, a3); /* indirect call */
+                    ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
                     a0 = ret;
                 } else {
                     v1 = *(u32*)(a0);
@@ -719,16 +671,14 @@ int PSX_HandleException()
                     a0 = *(u32*)(v1);
                     }
                 }
-            ret = (unsigned)a0 >> 0x19;
             ret = -0x40;
             if (ret == s7) {
-                v1 = *(u32*)(s0);
+                v1 = *(u32*)(psx_0);
                 a0 = a0 & s5;
-                ret = s0->gte_execute;  /* gte_execute */
-                v1 = v1 + 4;
-                *(u32*)(s0) = v1;
-                ret = (ret)(a0, a1, a2, a3); /* indirect call */
-                a1 = *(u32*)(s0);
+                ret = ((PSX_State*)psx_0)->gte_execute;  /* gte_execute */
+                *(u32*)(psx_0) = v1 + 4;
+                ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
+                a1 = *(u32*)(psx_0);
                 }
                 }
                 ret = -0x40;
@@ -738,65 +688,61 @@ int PSX_HandleException()
     v1 = v1 & 0x3c;
     ret = ret | v1;
     a0 = ((unsigned)s2 < 0x20) ? 1 : 0;
-    s3->cop0[12] = ret;  /* cop0[12] (store) */
+    ((PSX_State*)psx)->cop0[12] = ret;  /* COP0: SR (store) */
     if (a0 != 0) {
         ret = -0x7d;
         v1 = s2 << 2;
         ret = s4 & ret;
         s4 = ret | v1;
     }
-    ret = s0->mem_ctrl[1];  /* mem_ctrl[1] */
+    ret = ((PSX_State*)psx_0)->mem_ctrl[1];  /* mem_ctrl[1] */
     a3 = 1;
     a2 = s1 + -4;
     ret = ret ^ a3;
-    __asm("movn s1, a2, v0");
+    if (ret != 0) s1 = a2;
     a0 = 0x80000080;
     a1 = s6 & a1;
     ret = s1 + -4;
-    v1 = 0xBFC00180;
-    __asm("movz v1, a0, a1");
+    if (a1 == 0) 0xBFC00180 = a0;
     a0 = 0xb;
-    __asm("movn s1, v0, s2");
-    s3->cop0[14] = s1;  /* cop0[14] (store) */
-    s0->mem_ctrl[1] = a3;  /* mem_ctrl[1] (store) */
-    *(u32*)(s0) = v1;
+    if (s2 != 0) s1 = ret;
+    ((PSX_State*)psx)->cop0[14] = s1;  /* COP0: EPC (store) */
+    ((PSX_State*)psx_0)->mem_ctrl[1] = a3;  /* mem_ctrl[1] (store) */
+    *(u32*)(psx_0) = v1;
     if (s2 != a0) {
         ret = ((unsigned)s2 < 0xc) ? 1 : 0;
-        if (0x21 != 0) {
-            s3->cop0[13] = s4;  /* cop0[13] (store) */
-            if (likely((unsigned)s2 >= 6)) goto loc_201638;
-            s3->cop0[8] = __fp;  /* cop0[8] (store) */
-            if ((unsigned)s2 < 4) {
-                s3->cop0[13] = s4;  /* cop0[13] (store) */
-                } else {
-                s3->cop0[13] = s4;  /* cop0[13] (store) */
-                if (likely(s2 != ret)) goto loc_201638;
-                a0 = s0;
-                ret = PSX_ResetCPUState(a0, a1, a2, a3);
-                s3->cop0[13] = s4;  /* cop0[13] (store) */
-                } else {
-                v1 = __fp << 0x1c;
-                ret = 0xCFFFFFFF;
-                ret = s4 & ret;
-                s4 = ret | v1;
-            }
-            s3->cop0[13] = s4;  /* cop0[13] (store) */
-            }
+        ((PSX_State*)psx)->cop0[13] = s4;  /* COP0: Cause (store) */
+        if ((unsigned)s2 >= 6) goto loc_201638;
+        ((PSX_State*)psx)->cop0[8] = __fp;  /* COP0: BadVaddr (store) */
+        if ((unsigned)s2 < 4) {
+            ((PSX_State*)psx)->cop0[13] = s4;  /* COP0: Cause (store) */
+            } else {
+            ((PSX_State*)psx)->cop0[13] = s4;  /* COP0: Cause (store) */
+            if (s2 != ret) goto loc_201638;
+            a0 = psx_0;
+            ret = PSX_ResetCPUState(a0);
+            ((PSX_State*)psx)->cop0[13] = s4;  /* COP0: Cause (store) */
+            } else {
+            v1 = __fp << 0x1c;
+            ret = s4 & ret;
+            s4 = ret | v1;
+        }
+        ((PSX_State*)psx)->cop0[13] = s4;  /* COP0: Cause (store) */
         }
 loc_201638:
     return ret;
 }
 
 /* Function at 0x00201668 - 0x00201770 */
-int PSX_ResetCPUState()
+u32 PSX_ResetCPUState(u32 a0)
 {
-    int ret, v1, a0, a1;
+    u32 ret, v1, a1;
     a1 = a0;
     *(u32*)(a1) = 0xBFC00000;
     v1 = 0;
-    a1->hi = 0;  /* hi (store) */
+    ((PSX_State*)a1)->hi = 0;  /* hi (store) */
     a0 = a1 + 0x10;
-    a1->next_pc = 0;  /* next_pc (store) */
+    ((PSX_State*)a1)->next_pc = 0;  /* next_pc (store) */
     do {
         v1 = v1 + 1;
         *(u32*)(a0) = 0;
@@ -838,11 +784,11 @@ int PSX_ResetCPUState()
     ret = 1;
     v1 = 0x00400000;
     a0 = 0x200;
-    a1->cop0[12] = v1;  /* cop0[12] (store) */
-    a1->cop0[15] = a0;  /* cop0[15] (store) */
-    a1->mem_ctrl[2] = ret;  /* mem_ctrl[2] (store) */
-    a1->cop2_insn_count = 0;  /* cop2_insn_count (store) */
-    a1->mem_ctrl[1] = ret;  /* mem_ctrl[1] (store) */
-    a1->irq_pending = 0;  /* irq_pending (store) */
+    ((PSX_State*)a1)->cop0[12] = v1;  /* COP0: SR (store) */
+    ((PSX_State*)a1)->cop0[15] = a0;  /* COP0: PRId (store) */
+    ((PSX_State*)a1)->mem_ctrl[2] = ret;  /* mem_ctrl[2] (store) */
+    ((PSX_State*)a1)->cop2_insn_count = 0;  /* cop2_insn_count (store) */
+    ((PSX_State*)a1)->mem_ctrl[1] = ret;  /* mem_ctrl[1] (store) */
+    ((PSX_State*)a1)->irq_pending = 0;  /* irq_pending (store) */
     return ret;
 }

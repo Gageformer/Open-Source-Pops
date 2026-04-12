@@ -12,26 +12,108 @@ typedef unsigned int u32;
 typedef signed int s32;
 typedef unsigned long long u64;
 typedef signed long long s64;
+#ifdef __GNUC__
 typedef unsigned __int128 u128;
 typedef signed __int128 s128;
+#else
+/* IntelliSense/MSVC fallback - __int128 not supported */
+typedef u64 u128;
+typedef s64 s128;
+#endif
 
 /* EE-specific macros */
+#ifdef __GNUC__
 #define SYSCALL()           __asm volatile("syscall")
 #define SYNC()              __asm volatile("sync")
 #define EI()                __asm volatile("ei")
 #define DI()                __asm volatile("di")
 #define BREAK()             __asm volatile("break")
 #define CACHE(op, addr)     __asm volatile("cache " #op ", %0" :: "m"(addr))
+#else
+#define SYSCALL()           ((void)0)
+#define SYNC()              ((void)0)
+#define EI()                ((void)0)
+#define DI()                ((void)0)
+#define BREAK()             ((void)0)
+#define CACHE(op, addr)     ((void)0)
+/* Make inline asm a no-op for IntelliSense */
+#define __asm(x)            ((void)0)
+#endif
 #define COP0_REG(n)         __cop0_reg[n]
 #define FPU_REG(n)          __fpu_reg[n]
+#define FPU_F(n)            (*(float*)&__fpu_reg[n])  /* float interpretation */
+#define FPU_D(n)            (*(double*)&__fpu_reg[n]) /* double interpretation (uses fN and fN+1) */
 
+/* Unaligned 64-bit load/store macros (ldl/ldr, sdl/sdr) */
+#ifdef __GNUC__
+#define LOAD_DWORD_LEFT(addr)        __ldl(addr)
+#define LOAD_DWORD_RIGHT(addr)       __ldr(addr)
+#define STORE_DWORD_LEFT(addr, val)  __sdl(addr, val)
+#define STORE_DWORD_RIGHT(addr, val) __sdr(addr, val)
+#else
+#define LOAD_DWORD_LEFT(addr)        (addr)
+#define LOAD_DWORD_RIGHT(addr)       (addr)
+#define STORE_DWORD_LEFT(addr, val)  ((void)(addr), (void)(val))
+#define STORE_DWORD_RIGHT(addr, val) ((void)(addr), (void)(val))
+#endif
+
+/* Indirect function call cast (for MIPS jalr through register) */
+typedef u32 (*func_ptr_t)(u32, u32, u32, u32);
+#define CALL_INDIRECT(addr)  ((func_ptr_t)(addr))
+
+/* FPU register indices for FPU_REG() macro */
+#define f0  0
+#define f1  1
+#define f2  2
+#define f3  3
+#define f4  4
+#define f5  5
+#define f6  6
+#define f7  7
+#define f8  8
+#define f9  9
+#define f10 10
+#define f11 11
+#define f12 12
+#define f13 13
+#define f14 14
+#define f15 15
+#define f16 16
+#define f17 17
+#define f18 18
+#define f19 19
+#define f20 20
+#define f21 21
+#define f22 22
+#define f23 23
+#define f24 24
+#define f25 25
+#define f26 26
+#define f27 27
+#define f28 28
+#define f29 29
+#define f30 30
+#define f31 31
+
+#ifdef __GNUC__
 #define LOAD_WORD_LEFT(addr)        __lwl(addr)
 #define LOAD_WORD_RIGHT(addr)       __lwr(addr)
 #define STORE_WORD_LEFT(addr, val)  __swl(addr, val)
 #define STORE_WORD_RIGHT(addr, val) __swr(addr, val)
+#else
+#define LOAD_WORD_LEFT(addr)        (addr)
+#define LOAD_WORD_RIGHT(addr)       (addr)
+#define STORE_WORD_LEFT(addr, val)  ((void)(addr), (void)(val))
+#define STORE_WORD_RIGHT(addr, val) ((void)(addr), (void)(val))
+#endif
 
+#ifdef __GNUC__
 #define likely(x)   __builtin_expect(!!(x), 1)
 #define unlikely(x) __builtin_expect(!!(x), 0)
+#else
+#define likely(x)   (x)
+#define unlikely(x) (x)
+#endif
 
 /* Hardware register access */
 #define HW_REG8(addr)   (*(volatile u8*)(addr))
@@ -52,6 +134,58 @@ typedef signed __int128 s128;
 #define PSX_RAM_SIZE     0x200000   /* 2MB main RAM */
 #define PSX_BIOS_SIZE    0x80000    /* 512KB BIOS ROM */
 #define PSX_SCRATCH_SIZE 0x400      /* 1KB scratchpad */
+
+/* PS1 I/O Port Base Addresses (emulated hardware registers) */
+#define PSX_IO_BASE       0x1F800000  /* PS1 hardware I/O base */
+#define PSX_MEM_CTRL      0x1F801004  /* Memory Control registers */
+#define PSX_SIO_BASE      0x1F801040  /* Serial I/O: Joy/Memcard (32 bytes) */
+#define PSX_IRQ_BASE      0x1F801070  /* Interrupt Controller: I_STAT/I_MASK (16 bytes) */
+#define PSX_DMA_BASE      0x1F801080  /* DMA Controller: 7 channels (128 bytes) */
+#define PSX_COUNTER_BASE  0x1F801100  /* Counter/Timer registers (48 bytes) */
+#define PSX_CDROM_BASE    0x1F801800  /* CD-ROM Controller (16 bytes) */
+#define PSX_GPU_BASE      0x1F801810  /* GPU: GP0 (data) / GP1 (control) (16 bytes) */
+#define PSX_MDEC_BASE     0x1F801820  /* MDEC: Motion Decoder (8 bytes) */
+#define PSX_MDEC_BASE_ADDR 0x1F801820 /* MDEC command/data port */
+#define PSX_SPU_BASE      0x1F801C00  /* SPU: Sound Processing Unit (608 bytes) */
+#define PSX_EXP2_END      0x1F801F5A  /* Expansion 2 region end */
+
+/* Emulator interrupt callback slots (Interrupt_SetCallback indices) */
+#define IRQ_CB_VBLANK   0   /* VBlank interrupt handler */
+#define IRQ_CB_GPU      1   /* GPU interrupt handler */
+#define IRQ_CB_COUNTER  2   /* Counter/timer VBlank handler */
+#define IRQ_CB_CDROM    3   /* CD-ROM interrupt handler */
+#define IRQ_CB_SPU      4   /* SPU DMA interrupt handler */
+#define IRQ_CB_SIO      5   /* Serial I/O interrupt handler */
+#define IRQ_CB_DMA      6   /* DMA completion handler */
+
+/* PSX DMA Channel Indices */
+#define PSX_DMA_MDEC_IN   0   /* MDEC decoder input */
+#define PSX_DMA_MDEC_OUT  1   /* MDEC decoder output */
+#define PSX_DMA_GPU       2   /* GPU linked list / image transfer */
+#define PSX_DMA_CDROM     3   /* CD-ROM disc reading */
+#define PSX_DMA_SPU       4   /* SPU sound data */
+#define PSX_DMA_PIO       5   /* Parallel I/O (expansion port) */
+#define PSX_DMA_OTC       6   /* Ordering table clear (reverse) */
+
+/* Emulator data structure base addresses */
+#define PSX_DMA_CHANNELS   0x00506D30  /* DMA_Channel array (7 channels, 0x20 each) */
+#define PSX_GPU_HANDLERS   0x00506D90  /* GPU_HandlerSlot array (2 slots, 0x1C each) */
+#define PSX_DMA_STATE      0x00506C08  /* DMA/interrupt state base */
+#define PSX_IRQ_STAT_ADDR  0x00506C00  /* IRQ status register mirror */
+#define PSX_IRQ_MASK_ADDR  0x00506C04  /* IRQ mask register mirror */
+#define PSX_SERIAL_PORTS   0x00597CC0  /* Serial_Port array (2 ports) */
+#define PSX_SPU_STATE      0x00850970  /* SPU_State struct */
+#define PSX_JIT_SLOTS      0x0024AA00  /* JIT_CacheSlot array (10 slots) */
+
+/* Major data region base addresses */
+#define SYS_DATA_BASE      0x00860000  /* System/boot data region */
+#define SYS_CONFIG_BASE    0x004F0000  /* System configuration / SIF state */
+#define SUBSYS_DATA_BASE   0x005A0000  /* Subsystem data (CDROM/MDEC/serial) */
+#define JIT_CODE_CACHE     0x00250000  /* JIT compiled code cache */
+#define SPU_SAMPLE_BUF     0x007AB980  /* SPU sample buffer */
+#define SERIAL_DATA_BASE   0x00590000  /* Serial controller data area */
+#define CDROM_DATA_BASE    0x005B0000  /* CD-ROM data area */
+#define CDROM_SECTOR_BUF   0x00830000  /* CD-ROM sector buffer */
 
 /*
  * MIPS R5900 register variables.
@@ -77,10 +211,12 @@ extern u32 __ra;           /* $ra - return address */
 extern u32 __k0, __k1;     /* $k0-$k1 - kernel temporaries */
 
 extern u32 HI, LO;         /* HI/LO multiply-divide registers */
+extern u32 ac0, ac2, ac3;  /* EE multimedia accumulator registers (pipeline 0/1) */
 extern u64 HI_LO;          /* Combined HI:LO for 64-bit multiply results */
 
 extern u32 __cop0_reg[32]; /* COP0 registers */
 extern u32 __fpu_reg[32];  /* FPU registers (as u32 bit patterns) */
+extern u32 __fpu_cc;       /* FPU condition code flag (c.lt.s result) */
 
 /*
  * ==========================================================================
@@ -233,8 +369,8 @@ typedef struct {
     /* 0x000: CPU core state */
     u32  pc;                /* 0x000: Program Counter (set to 0xBFC00000 on reset) */
     u32  next_pc;           /* 0x004: Next PC / branch delay slot target */
-    u32  field_08;          /* 0x008: HI or additional control */
-    u32  field_0C;          /* 0x00C: LO or additional control */
+    u32  hi;                /* 0x008: HI register (mult/div result high) */
+    u32  lo;                /* 0x00C: LO register (mult/div result low) */
 
     /* 0x010: R3000A General Purpose Registers */
     u32  gpr[32];           /* 0x010-0x08F: GPR[0]=$zero .. GPR[31]=$ra */
@@ -255,14 +391,17 @@ typedef struct {
     GTE_DataRegs gte_data;  /* 0x1B0-0x22F */
 
     /* 0x230: GTE Control Registers (cop2c[0..31]) */
-    GTE_CtrlRegs gte_ctrl;  /* 0x230-0x2AF */
+    union {
+        GTE_CtrlRegs gte_ctrl_s;
+        u32 gte_ctrl[32];   /* indexed access for COP2 ctrl register ops */
+    };  /* 0x230-0x2AF */
 
     /* 0x2B0: GTE Function Dispatch Pointers (set by GTE_Init) */
-    void *gte_read_data;    /* 0x2B0: Read GTE data register handler */
-    void *gte_read_ctrl;    /* 0x2B4: Read GTE control register handler */
-    void *gte_write_data;   /* 0x2B8: Write GTE data register handler */
-    void *gte_write_ctrl;   /* 0x2BC: Write GTE control register handler */
-    void *gte_execute;      /* 0x2C0: GTE command execution handler */
+    u32  gte_read_data;     /* 0x2B0: Read GTE data register handler */
+    u32  gte_read_ctrl;     /* 0x2B4: Read GTE control register handler */
+    u32  gte_write_data;    /* 0x2B8: Write GTE data register handler */
+    u32  gte_write_ctrl;    /* 0x2BC: Write GTE control register handler */
+    u32  gte_execute;       /* 0x2C0: GTE command execution handler */
 
     /* 0x2C4: Execution control */
     u32  cop2_insn_count;   /* 0x2C4: COP2 instruction batch count */
@@ -276,9 +415,37 @@ typedef struct {
     u32  hw_regs_base;      /* 0x2DC: PS1 hardware regs / I/O (1KB, cleared on reset) */
     u32  mem_ctrl[3];       /* 0x2E0-0x2E8: Memory control / execution state */
 
-    /* No verified field accesses exist above 0x2E8.
-       Addresses like 0x39C8, 0x6B80, 0x6C00 observed in code are
-       PS1 memory accesses (0x0050xxxx range), not PSX_State fields. */
+    /* 0x2EC-0x31F: Extended emulator state (reserved/unknown) */
+    u8   _extended[0x320 - 0x2EC];  /* padding to GPU state */
+
+    /* 0x320-0x39F: GPU Display/Rendering State
+       These fields are accessed in ui.c for GPU display list management. */
+    float gpu_depth_bias;       /* 0x320: GPU depth bias / Z offset */
+    u8   _gpu_pad1[0x330 - 0x324];
+
+    /* GPU transformation matrices (4x float each) */
+    float gpu_matrix[4];        /* 0x330-0x33C: GPU model matrix */
+    float gpu_viewport[4];      /* 0x340-0x34C: GPU viewport matrix */
+    u8   _gpu_pad2[0x35E - 0x350];
+
+    /* Display configuration */
+    u16  disp_x_start;          /* 0x35E: Display area X start */
+    u16  disp_y_start;          /* 0x360: Display area Y start */
+    u8   _gpu_pad3[0x364 - 0x362];
+    u16  disp_x_end;            /* 0x364: Display area X end */
+    u8   _gpu_pad4[0x368 - 0x366];
+    u16  disp_width;            /* 0x368: Display width */
+    u16  disp_height;           /* 0x36A: Display height */
+    u32  gpu_ot_head;           /* 0x36C: GPU ordering table head */
+    u8   _gpu_pad5[0x37C - 0x370];
+
+    /* GPU DMA and VRAM */
+    u32  gpu_packet_list;       /* 0x37C: GPU display list / packet list */
+    u8   _gpu_pad6[0x384 - 0x380];
+    u32  gpu_vram_ptr;          /* 0x384: GPU VRAM pointer */
+    u32  gpu_dma_ctrl;          /* 0x388: GPU DMA control */
+    u32  gpu_dma_size;          /* 0x38C: GPU DMA transfer size */
+    u32  gpu_draw_env[3];       /* 0x390-0x398: GPU drawing environment */
 } PSX_State;
 
 /*
@@ -322,6 +489,68 @@ typedef struct {
  *  __gp - 0x7740: u32 g_spu_ctrl5     (SPU control)
  *  __gp - 0x7738: u32 g_spu_ctrl6     (SPU control)
  */
+
+/* GP-relative global variable externs */
+extern PSX_State *g_psx;         /* __gp - 0x7F60: main emulator state pointer */
+extern u32 g_running;            /* __gp - 0x7F58: emulator running flag */
+extern u32 g_bios_version;       /* __gp - 0x7F54: cached BIOS version */
+extern u32 g_init_flag;          /* __gp - 0x7F4C: initialization state */
+extern u32 g_irq_stat;           /* __gp - 0x7F10: interrupt status shadow */
+extern u32 g_irq_mask;           /* __gp - 0x7F0C: interrupt mask shadow */
+extern u32 g_counter_state;      /* __gp - 0x7F00: counter subsystem state */
+extern u32 g_target_cycles;      /* __gp - 0x77EC: target cycle count */
+extern u32 g_time_scale;         /* __gp - 0x77E8: timing scale factor */
+extern u32 g_time_accum;         /* __gp - 0x77E4: timing accumulator */
+extern u32 g_cycle_base;         /* __gp - 0x77E0: cycle base counter */
+extern u32 g_jit_flag;           /* __gp - 0x77CC: JIT enable flag */
+extern u32 g_jit_cache;          /* __gp - 0x77C8: JIT code cache pointer */
+extern u32 g_jit_state;          /* __gp - 0x77C4: JIT compiler state */
+extern u32 g_compiler_irq0;      /* __gp - 0x77C0: compiler/interrupt shared */
+extern u32 g_compiler_irq1;      /* __gp - 0x77BC: compiler/interrupt shared */
+extern u32 g_gpu_state;          /* __gp - 0x77B8: GPU state flag */
+extern u32 g_gpu_ctrl;           /* __gp - 0x77B4: GPU control */
+extern u32 g_serial_ctrl0;       /* __gp - 0x77B0: serial control 0 */
+extern u32 g_serial_ctrl2;       /* __gp - 0x77A0: serial control 2 */
+extern u32 g_memcard_flag;       /* __gp - 0x779C: memcard state flag */
+extern u32 g_memcard_ctrl0;      /* __gp - 0x7798: memcard/serial shared */
+extern u32 g_memcard_ctrl1;      /* __gp - 0x7794: memcard/serial shared */
+extern u32 g_serial_base;        /* __gp - 0x7790: serial port base address */
+extern u32 g_mdec_ctrl;          /* __gp - 0x7788: MDEC control state */
+extern u32 g_cdrom_ctrl0;        /* __gp - 0x7768: CDROM control */
+extern u32 g_cdrom_ctrl1;        /* __gp - 0x7764: CDROM control */
+extern u32 g_cdrom_ctrl2;        /* __gp - 0x7760: CDROM control */
+extern u32 g_cdrom_ctrl3;        /* __gp - 0x775C: CDROM control */
+extern u32 g_spu_ctrl0;          /* __gp - 0x7758: SPU control */
+extern u32 g_spu_ctrl1;          /* __gp - 0x7754: SPU control */
+extern u32 g_spu_ctrl2;          /* __gp - 0x7750: SPU control */
+extern u32 g_spu_ctrl3;          /* __gp - 0x774C: SPU control */
+extern u32 g_spu_ctrl4;          /* __gp - 0x7748: SPU control */
+extern u32 g_spu_ctrl6;          /* __gp - 0x7738: SPU control */
+
+/* Additional globals found in source (not from GP_GLOBALS mapping) */
+extern u32 g_bios_ver2;          /* secondary BIOS version */
+extern u32 g_counter_base;       /* counter base address */
+extern u32 g_hw_init_flag;       /* hardware init flag */
+extern u32 g_hw_reg_base;        /* hardware register base */
+extern u32 g_irq_stat2;          /* secondary IRQ status */
+extern u32 g_irq_mask2;          /* secondary IRQ mask */
+extern u32 g_event_active_list;  /* active event list head */
+extern u32 g_event_free_list;    /* free event list head */
+extern u32 g_event_pending;      /* pending events count */
+extern u32 g_event_timeout;      /* event timeout value */
+extern u32 g_cdrom_dma_flag;     /* CDROM DMA flag */
+extern u32 g_cdrom_state0;       /* CDROM state 0 */
+extern u32 g_cdrom_state1;       /* CDROM state 1 */
+extern u32 g_cdrom_state2;       /* CDROM state 2 */
+extern u32 g_cdrom_state3;       /* CDROM state 3 */
+extern u32 g_mdec_state1;        /* MDEC state 1 */
+extern u32 g_mdec_state2;        /* MDEC state 2 */
+extern u32 g_mdec_state3;        /* MDEC state 3 */
+extern u32 g_mdec_state4;        /* MDEC state 4 */
+extern u32 g_mdec_state5;        /* MDEC state 5 */
+extern u32 g_mdec_state6;        /* MDEC state 6 */
+extern u32 g_spu_state0;         /* SPU state 0 */
+extern u32 g_spu_state1;         /* SPU state 1 */
 
 /*
  * ==========================================================================

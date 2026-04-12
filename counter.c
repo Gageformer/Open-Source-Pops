@@ -3,133 +3,128 @@
 /* 8 functions */
 
 #include "pops_types.h"
+#include "functions.h"
 
 /* Forward declarations */
-int Counter_Init();
-int Counter_RegisterIO();
-int Counter_Sync();
-int Counter_Reset();
-int Counter_ReadRegister();
-int Counter_WriteRegister();
-int Counter_HandleAccess();
-int Counter_ScheduleIRQ();
+u32 Counter_Init(void);
+u32 Counter_RegisterIO(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 Counter_Sync(void);
+u32 Counter_Reset(void);
+u32 Counter_ReadRegister(u32 a0);
+u32 Counter_WriteRegister(u32 a0, u32 a1);
+void Counter_HandleAccess(u32 a0, u32 a1, u32 a2);
+u32 Counter_ScheduleIRQ(u32 a0);
 
 /* ======================================== */
 
 /* Function at 0x0020B390 - 0x0020B39C */
-int Counter_Init()
+u32 Counter_Init(void)
 {
-    int a0, a2, a3;
+    u32 a0, a2, a3;
     a2 = 0x00210000;
     a3 = 0x00210000;
-    a0 = 0x1F800000;
+    a0 = PSX_IO_BASE;  /* 0x1F800000 */
+    return Counter_RegisterIO(a0, 0, a2, a3);
 }
 
 /* Function at 0x0020B39C - 0x0020B3F0 */
-int Counter_RegisterIO()
+u32 Counter_RegisterIO(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
+    u32 ret;
     a2 = a2 + -0x4eb8;
     a3 = a3 + -0x4e38;
-    a0 = a0 | 0x1100;
-    a1 = 0x30;
+    a0 = a0 | 0x1100;  /* PSX_COUNTER_BASE: Counter/Timer registers (0x1F801100) */
+    a1 = 0x30;  /* I/O range size */
     ret = R3000_SetupIOHandlers(a0, a1, a2, a3);
     return 1;
-    ret = 8 << 16;
-    if (a0 != 0) {
-        *(u32*)*(__gp + -0x7f00) = 0x00089F35;  /* g_counter_state */
-        return ret;
-    }
     ret = ret | 0xa3a2;
-    *(u32*)*(__gp + -0x7f00) = ret;  /* g_counter_state */
+    g_counter_state = ret;
     return ret;
 }
 
 /* Function at 0x0020B3F0 - 0x0020B410 */
-int Counter_Sync()
+u32 Counter_Sync(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
+    u32 ret, a0, a1, a2, a3;
     a0 = 0;
-    ret = Compiler_GetCacheStatus(a0, a1, a2, a3);
-    return GPU_SubmitVBlankPacket(a0, a1, a2, a3);
+    ret = Compiler_GetCacheStatus();
+    return GPU_SubmitVBlankPacket();
 }
 
 /* Function at 0x0020B410 - 0x0020B488 */
-int Counter_Reset()
+u32 Counter_Reset(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v0, v1, a0, a1, a2, a3;
-    ret = GPU_VBlankHandler(a0, a1, a2, a3);
+    u32 ret, v1, a0, a1, a2, a3;
+    ret = GPU_VBlankHandler();
     a0 = 0;
-    ret = 0x10000800;
-    *(u32*)(v0) = 0;
-    ret = Compiler_SetCacheFlushFlag(a0, a1, a2, a3);
-    a0 = *(u32*)*(__gp + -0x7f00);  /* g_counter_state */
-    a1 = 0x0020B410;
+    *(u32*)(0x10000800) = 0;
+    Compiler_SetCacheFlushFlag(a0);
+    a0 = g_counter_state;
+    a1 = (u32)Counter_Reset;
     a2 = 0;
-    ret = PSX_GetEventTimeout(a0, a1, a2, a3);
-    v1 = *(u32*)*(__gp + -0x7f00);  /* g_counter_state */
+    PSX_GetEventTimeout();
+    v1 = g_counter_state;
     a3 = 0x20d;
     ret = v1 << 1;
-    a1 = 0x0020B3F0;
+    a1 = (u32)Counter_Sync;
     ret = ret + v1;
     a0 = ret << 4;
     a0 = a0 - ret;
-    __asm("divu zero, a0, a3");
-    a0 = LO;
+    a0 = (unsigned)a0 / (unsigned)a3;
     a2 = 0;
-    ret = PSX_GetEventTimeout(a0, a1, a2, a3);
-    return Serial_ProcessCommand(a0, a1, a2, a3);
+    PSX_GetEventTimeout();
+    return Serial_ProcessCommand();
 }
 
 /* Function at 0x0020B488 - 0x0020B4D8 */
-int Counter_ReadRegister()
+u32 Counter_ReadRegister(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
+    u32 ret, a1, a2, a3;
     a0 = a0 & 0xf;
     if (a0 != 0) {
         ret = 4;
         if (a0 != 0) {
             goto loc_20B4CC;
             }
-            ret = GPU_ProcessQueue(a0, a1, a2, a3);
+            GPU_ProcessQueue();
         } else {
-            ret = GPU_GetFrameCount(a0, a1, a2, a3);
+            ret = GPU_GetFrameCount();
         }
 loc_20B4CC:
     return ret;
 }
 
 /* Function at 0x0020B4D8 - 0x0020B530 */
-int Counter_WriteRegister()
+u32 Counter_WriteRegister(u32 a0, u32 a1)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1, a2, a3;
     v1 = a0 & 0xf;
     a0 = __sp;
-    *(u32*)(sp) = a1;
+    *(u32*)(__sp) = a1;
     if (v1 != 0) {
         if (v1 != 4) {
             goto loc_20B524;
             }
             a1 = 1;
-            ret = GPU_BufferData(a0, a1, a2, a3);
+            ret = GPU_BufferData(a0, a1);
         } else {
             a0 = a1;
-            ret = GPU_SubmitGIFPacket(a0, a1, a2, a3);
+            ret = GPU_SubmitGIFPacket(a0);
         }
 loc_20B524:
     return ret;
 }
 
 /* Function at 0x0020B530 - 0x0020B760 */
-int Counter_HandleAccess()
+void Counter_HandleAccess(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 48 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, t0;
+    u32 ret, v1, a3, s0, s1, s2, s3, t0;
     ret = a2 & 0x400;
     s1 = 0;
     a3 = a1;
@@ -142,7 +137,7 @@ int Counter_HandleAccess()
             ret = g_psx;
             if (s0 == s2) goto loc_20B73C;
             v1 = s0 & s3;
-            a0 = *(u32*)*(ret + 0x2d0);  /* counter_0 */
+            a0 = *(u32*)(ret + 0x2d0);  /* counter_0 */
             a0 = a0 + v1;
             a1 = *(u32*)(a0);
             a0 = a0 + 4;
@@ -151,94 +146,83 @@ int Counter_HandleAccess()
             a1 = ret;
             ret = ret << 2;
             s1 = s1 + ret;
-            ret = GPU_BufferData(a0, a1, a2, a3);
+            ret = GPU_BufferData(a0, a1);
             ret = s1;
         } while (s0 != 0);
         goto loc_20B744;
     }
-    ret = a2 & 1;
-    if (0x1FFF0000 != 0) {
-        ret = 0x1FFFFFFF;
-        v1 = 0x007FFFFF;
-        a1 = a0 & ret;
-        a0 = (unsigned)a3 >> 0x10;
-        v1 = ((unsigned)v1 < (unsigned)a1) ? 1 : 0;
-        t0 = a0 << 4;
-        if (v1 == 0) {
-            ret = g_psx;
-            v1 = 0x001FFFFF;
-            a0 = *(u32*)*(ret + 0x2d0);  /* counter_0 */
-            v1 = a1 & v1;
-            a0 = a0 + v1;
-        } else {
-            a0 = 0xE0800000;
-            ret = a1 + a0;
-            a0 = 0xE0400000;
-            if ((unsigned)ret < 0x400) {
-                v1 = g_psx;
-                ret = *(u32*)*(v1 + 0x2d8);  /* counter_2 */
-            } else {
-                ret = 7 << 16;
-                v1 = a1 + a0;
-                ret = 0x0007FFFF;
-                v1 = g_psx;
-                if ((unsigned)ret >= (unsigned)v1) {
-                    ret = *(u32*)*(v1 + 0x2d4);  /* counter_1 */
-                } else {
-                    a0 = 0xE0800400;
-                    ret = a1 + a0;
-                    a0 = 0;
-                    if ((unsigned)ret < 0x400) {
-                        v1 = g_psx;
-                        ret = *(u32*)*(v1 + 0x2dc);  /* counter_3 */
-                        }
-                        }
-                        ret = ret + a1;
-                        a0 = ret + a0;
-                        }
-                    }
-        a1 = t0;
-        a2 = 0;
-        a3 = 0;
-        s1 = t0 << 2;
-        ret = GPU_ConfigureBuffer(a0, a1, a2, a3);
-        ret = s1;
-        goto loc_20B740;
-    }
-    ret = ret | 0xffff;
+    ret = 0x1FFFFFFF;
     v1 = 0x007FFFFF;
     a1 = a0 & ret;
     a0 = (unsigned)a3 >> 0x10;
     v1 = ((unsigned)v1 < (unsigned)a1) ? 1 : 0;
-    a2 = a0 << 4;
+    t0 = a0 << 4;
     if (v1 == 0) {
         ret = g_psx;
         v1 = 0x001FFFFF;
-        a0 = *(u32*)*(ret + 0x2d0);  /* counter_0 */
+        a0 = *(u32*)(ret + 0x2d0);  /* counter_0 */
         v1 = a1 & v1;
         a0 = a0 + v1;
-        goto loc_20B730;
-    }
+    } else {
+        a0 = 0xE0800000;
+        ret = a1 + a0;
+        a0 = 0xE0400000;
+        if ((unsigned)ret < 0x400) {
+            v1 = g_psx;
+            ret = *(u32*)(v1 + 0x2d8);  /* counter_2 */
+        } else {
+            ret = 7 << 16;
+            v1 = a1 + a0;
+            ret = 0x0007FFFF;
+            v1 = g_psx;
+            if ((unsigned)ret >= (unsigned)v1) {
+                ret = *(u32*)(v1 + 0x2d4);  /* counter_1 */
+            } else {
+                a0 = 0xE0800400;
+                ret = a1 + a0;
+                a0 = 0;
+                if ((unsigned)ret < 0x400) {
+                    v1 = g_psx;
+                    ret = *(u32*)(v1 + 0x2dc);  /* counter_3 */
+                    }
+                    }
+                    ret = ret + a1;
+                    a0 = ret + a0;
+                    }
+                }
+    a1 = t0;
+    a2 = 0;
+    a3 = 0;
+    s1 = t0 << 2;
+    ret = GPU_ConfigureBuffer(a0, a1, a2, a3);
+    ret = s1;
+    goto loc_20B740;
+loc_20B73C:
+    ret = s1;
+loc_20B740:
+loc_20B744:
+    return;
+
     a0 = 0xE0800000;
     ret = a1 + a0;
     a0 = 0xE0400000;
     if ((unsigned)ret < 0x400) {
         v1 = g_psx;
-        ret = *(u32*)*(v1 + 0x2d8);  /* counter_2 */
+        ret = *(u32*)(v1 + 0x2d8);  /* counter_2 */
     } else {
         ret = 7 << 16;
         v1 = a1 + a0;
         ret = 0x0007FFFF;
         v1 = g_psx;
         if ((unsigned)ret >= (unsigned)v1) {
-            ret = *(u32*)*(v1 + 0x2d4);  /* counter_1 */
+            ret = *(u32*)(v1 + 0x2d4);  /* counter_1 */
         } else {
             a0 = 0xE0800400;
             ret = a1 + a0;
             a0 = 0;
-            if (likely((unsigned)ret >= 0x400)) goto loc_20B730;
+            if ((unsigned)ret >= 0x400) goto loc_20B730;
             v1 = g_psx;
-            ret = *(u32*)*(v1 + 0x2dc);  /* counter_3 */
+            ret = *(u32*)(v1 + 0x2dc);  /* counter_3 */
             }
         }
     ret = ret + a1;
@@ -246,21 +230,14 @@ int Counter_HandleAccess()
 loc_20B730:
     a1 = a2;
     s1 = a2 << 2;
-    ret = GPU_ReadBackBuffer(a0, a1, a2, a3);
-loc_20B73C:
-    ret = s1;
-loc_20B740:
-loc_20B744:
-    return ret;
+    ret = GPU_ReadBackBuffer();
 }
-
-/* Function at 0x0020B760 - 0x0020B788 */
-int Counter_ScheduleIRQ()
+u32 Counter_ScheduleIRQ(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int a0, a1, a2, a3;
-    a1 = 0x0020B410;
-    a0 = *(u32*)*(__gp + -0x7f00);  /* g_counter_state */
+    u32 a1, a2, a3;
+    a1 = (u32)Counter_Reset;
+    a0 = g_counter_state;
     a2 = 0;
-    return PSX_GetEventTimeout(a0, a1, a2, a3);
+    return PSX_GetEventTimeout();
 }

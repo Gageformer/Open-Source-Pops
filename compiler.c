@@ -3,122 +3,119 @@
 /* 69 functions */
 
 #include "pops_types.h"
+#include "functions.h"
 
 /* Forward declarations */
-int Compiler_Init();
-int Compiler_FindCacheSlot();
-int Compiler_FindOrAllocateSlot();
-int Compiler_InitializeCacheSlots();
-int Compiler_ClearCacheSlots();
-int Compiler_EmitLoadStoreOp();
-int Compiler_BuildBlockLinkage();
-int Compiler_AllocateBlockSlot();
-int Compiler_CompileInstructionBlock();
-int Compiler_HandleBlockCompilation();
-int Compiler_ProcessMultipleBlocks();
-int Compiler_InitCacheBuffer();
-int Compiler_EmitPrologue();
-int Compiler_EmitEpilogue();
-int Compiler_EmitRegisterLoad();
-int Compiler_EmitRegisterStore();
-int Compiler_EmitAddressCalculation();
-int Compiler_EmitMemoryReference();
-int Compiler_EmitArithmetic();
-int Compiler_EmitLogicalOp();
-int Compiler_EmitComparison();
-int Compiler_EmitSpecialOp();
-int Compiler_EmitLoadOpcode();
-int Compiler_EmitStoreOpcode();
-int Compiler_EmitImmediateOp();
-int Compiler_EmitCoprocessorOp();
-int Compiler_Emit_LW();
-int Compiler_Emit_SW();
-int Compiler_Emit_LH();
-int Compiler_CalculateBufferSize();
-int Compiler_Emit_SH();
-int Compiler_Emit_LB();
-int Compiler_EncodeLoadStoreAddressing();
-int Compiler_EncodeRegisterOp();
-int Compiler_Emit_SB();
-int Compiler_Emit_ADD();
-int Compiler_Emit_ADDI();
-int Compiler_Emit_SUB();
-int Compiler_Emit_SUBI();
-int Compiler_Emit_LUI();
-int Compiler_Emit_JAL();
-int Compiler_Emit_ImmediateArith();
-int Compiler_Emit_IndirectJump();
-int Compiler_EncodeNegateOp();
-int Compiler_Emit_BiImmediate();
-int Compiler_Emit_LoadIndexed();
-int Compiler_Emit_SimpleArithmetic();
-int Compiler_Emit_BranchLinkage();
-int Compiler_Emit_CoprocessorMove();
-int Compiler_Emit_MemoryLoadALU();
-int Compiler_Emit_MemoryStoreALU();
-int Compiler_Emit_GTEOperation();
-int Compiler_Emit_MultiplyDivide();
-int Compiler_Emit_ShiftOp();
-int Compiler_Emit_RotateOp();
-int Compiler_Emit_SystemCall();
-int Compiler_Emit_Exception();
-int Compiler_Emit_InterruptCheck();
-int Compiler_Emit_FloatLoad();
-int Compiler_Emit_NoOp();
-int Compiler_InitializeLookupTables();
-int Compiler_InitializeGTEConstants();
-int Compiler_MemoryCopy();
-int Compiler_MemoryClear();
-int Compiler_SetCacheFlushFlag();
-int Compiler_RequestCacheFlush();
-int Compiler_GetCacheStatus();
-int Compiler_ClearCacheFlushFlag();
-int Compiler_ResetCacheState();
+u32 Compiler_Init(void);
+u32 Compiler_FindCacheSlot(u32 a0);
+u32 Compiler_FindOrAllocateSlot(void);
+u32 Compiler_InitializeCacheSlots(void);
+u32 Compiler_ClearCacheSlots(void);
+u32 Compiler_EmitLoadStoreOp(u32 a0, u32 a1);
+u32 Compiler_BuildBlockLinkage(u32 a0);
+u32 Compiler_AllocateBlockSlot(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 Compiler_CompileInstructionBlock(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 Compiler_HandleBlockCompilation(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 Compiler_ProcessMultipleBlocks(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 Compiler_InitCacheBuffer(u32 a0);
+u32 Compiler_EmitPrologue(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 Compiler_EmitEpilogue(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 Compiler_EmitRegisterLoad(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 Compiler_EmitRegisterStore(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 Compiler_EmitAddressCalculation(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 Compiler_EmitMemoryReference(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 Compiler_EmitArithmetic(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 Compiler_EmitLogicalOp(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 Compiler_EmitComparison(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 Compiler_EmitSpecialOp(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 Compiler_EmitLoadOpcode(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 Compiler_EmitStoreOpcode(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 Compiler_EmitImmediateOp(u32 a0, u32 a1);
+u32 Compiler_EmitCoprocessorOp(u32 a0, u32 a1, u32 a2);
+u32 Compiler_Emit_LW(u32 a0, u32 a1);
+u32 Compiler_Emit_SW(u32 a0, u32 a1);
+u32 Compiler_Emit_LH(u32 a0, u32 a1, u32 a2);
+u32 Compiler_CalculateBufferSize(u32 a0, u32 a1);
+u32 Compiler_Emit_SH(u32 a0, u32 a1, u32 a2);
+u32 Compiler_Emit_LB(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 Compiler_EncodeLoadStoreAddressing(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 Compiler_EncodeRegisterOp(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 Compiler_Emit_SB(u32 a0, u32 a1);
+u32 Compiler_Emit_ADD(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 Compiler_Emit_ADDI(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 Compiler_Emit_SUB(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 Compiler_Emit_SUBI(u32 a0, u32 a1);
+u32 Compiler_Emit_LUI(u32 a0, u32 a1);
+u32 Compiler_Emit_JAL(void);
+u32 Compiler_Emit_ImmediateArith(u32 a0, u32 a1);
+u32 Compiler_Emit_IndirectJump(u32 a0, u32 a1);
+u32 Compiler_EncodeNegateOp(u32 a0, u32 a1);
+u32 Compiler_Emit_BiImmediate(u32 a0, u32 a1, u32 a2);
+u32 Compiler_Emit_LoadIndexed(u32 a0, u32 a1, u32 a2);
+u32 Compiler_Emit_SimpleArithmetic(u32 a0, u32 a1);
+u32 Compiler_Emit_BranchLinkage(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 Compiler_Emit_CoprocessorMove(u32 a0, u32 a1, u32 a2);
+u32 Compiler_Emit_MemoryLoadALU(u32 a0, u32 a1, u32 a2);
+u32 Compiler_Emit_MemoryStoreALU(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 Compiler_Emit_GTEOperation(u32 a0, u32 a1, u32 a2);
+u32 Compiler_Emit_MultiplyDivide(u32 a0);
+u32 Compiler_Emit_ShiftOp(u32 a0);
+u32 Compiler_Emit_RotateOp(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 Compiler_Emit_SystemCall(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 Compiler_Emit_Exception(u32 a0);
+u32 Compiler_Emit_InterruptCheck(u32 a0, u32 a1, u32 a2);
+u32 Compiler_Emit_FloatLoad(u32 a0, u32 a1);
+u32 Compiler_Emit_NoOp(void);
+u32 Compiler_InitializeLookupTables(void);
+u32 Compiler_InitializeGTEConstants(u32 a0);
+u32 Compiler_MemoryCopy(u32 a0, u32 a1, u32 a2);
+u32 Compiler_MemoryClear(u32 a0, u32 a1);
+u32 Compiler_SetCacheFlushFlag(u32 a0);
+u32 Compiler_RequestCacheFlush(u32 a0, u32 a1);
+u32 Compiler_GetCacheStatus(void);
+u32 Compiler_ClearCacheFlushFlag(u32 a0, u32 a1);
+u32 Compiler_ResetCacheState(void);
 
 /* ======================================== */
 
 /* Function at 0x00204E70 - 0x00204FB8 */
-int Compiler_Init()
+u32 Compiler_Init(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
-    ret = R3000_AllocTranslationBuffers(a0, a1, a2, a3);
+    u32 ret, v1, a0, a1, a2, a3;
+    ret = R3000_AllocTranslationBuffers();
     a0 = 8;
     a1 = 0x48;
     if (ret == 0) goto loc_204ED8;
-    ret = EEKernel_SyscallWrapper(a0, a1, a2, a3);
+    ret = EEKernel_SyscallWrapper(a0, a1);
     a1 = 0x48;
     v1 = ret;
     a0 = v1;
     g_jit_cache = v1;
     if (v1 == 0) goto loc_204ED8;
-    ret = Compiler_MemoryClear(a0, a1, a2, a3);
+    ret = Compiler_MemoryClear(a0, a1);
     a0 = 0x00503B20;
     a1 = 0;
     a2 = 0x3060;
-    ret = Libc_Memset(a0, a1, a2, a3);
+    ret = Libc_Memset(a0, a1, a2);
     a0 = g_jit_cache;
-    return Compiler_InitializeGTEConstants(a0, a1, a2, a3);
+    return Compiler_InitializeGTEConstants(a0);
 loc_204ED8:
-    return ret;
-    }
-    ret = v1;
     return ret;
 }
 
 /* Function at 0x00204FB8 - 0x00204FF8 */
-int Compiler_FindCacheSlot()
+u32 Compiler_FindCacheSlot(u32 a0)
 {
-    int ret, v1, a0, a1;
-    ret = 0x00250000;
+    u32 ret, v1, a1;
+    ret = 0x00250000;  /* JIT_CODE_CACHE: JIT compiled code cache */
     a1 = 0;
     v1 = ret + -0x5600;
     do {
-        ret = *(u32*)*(v1 + 4);
+        ret = *(u32*)(v1 + 4);
         a1 = a1 + 1;
         if (ret == a0) {
-            ret = *(u32*)(v1);
-            return ret;
+            return *(u32*)(v1);
         }
         ret = ((signed)a1 < 0xa) ? 1 : 0;
         v1 = v1 + 0x10;
@@ -127,11 +124,11 @@ int Compiler_FindCacheSlot()
 }
 
 /* Function at 0x00204FF8 - 0x00205038 */
-int Compiler_FindOrAllocateSlot()
+u32 Compiler_FindOrAllocateSlot(void)
 {
-    int ret, v0, v1, a0, a1, a2, a3;
+    u32 ret, v1, a0, a1, a2, a3;
     a1 = 0;
-    ret = 0x0024AA00;
+    ret = PSX_JIT_SLOTS;  /* 0x0024AA00 - JIT_CacheSlot array (10 slots) */
     a3 = 0;
     a2 = ret + 4;
     do {
@@ -140,39 +137,38 @@ int Compiler_FindOrAllocateSlot()
         a3 = a3 + 1;
         v1 = a1 + 1;
         a0 = ((unsigned)a3 < 0xa) ? 1 : 0;
-        __asm("movz a1, v1, v0");
+        if (ret == 0) a1 = v1;
     } while (a0 != 0);
-    ret = a1;
-    return ret;
+    return a1;
 }
 
 /* Function at 0x00205038 - 0x00205078 */
-int Compiler_InitializeCacheSlots()
+u32 Compiler_InitializeCacheSlots(void)
 {
-    int ret, v0, v1, a0;
+    u32 ret, v1, a0;
     a0 = 1;
-    ret = 0x0024AA00;
+    ret = PSX_JIT_SLOTS;  /* 0x0024AA00 - JIT_CacheSlot array (10 slots) */
     v1 = 9;
     ret = ret + 0xc;
     do {
         v1 = v1 + -1;
-        *(u32*)*(ret + -8) = 0;
-        *(u32*)(v0) = a0;
+        *(u32*)(ret + -8) = 0;
+        *(u32*)(ret) = a0;
         ret = ret + 0x10;
     } while ((signed)v1 >= 0);
     return ret;
 }
 
 /* Function at 0x00205078 - 0x002050B8 */
-int Compiler_ClearCacheSlots()
+u32 Compiler_ClearCacheSlots(void)
 {
-    int ret, v1, a0;
+    u32 ret, v1, a0;
     a0 = 9;
-    v1 = 0x0024AA00 + 4;
+    v1 = PSX_JIT_SLOTS + 4;  /* 0x0024AA00 - JIT_CacheSlot array (10 slots) */
 loc_205088:
     ret = *(u32*)(v1);
     *(u32*)(v1) = 0;
-    if (likely(ret != 0)) goto loc_205094;
+    if (ret != 0) goto loc_205094;
 loc_205094:
     a0 = a0 + -1;
     v1 = v1 + 0x10;
@@ -181,15 +177,15 @@ loc_205094:
 }
 
 /* Function at 0x002050B8 - 0x00205110 */
-int Compiler_EmitLoadStoreOp()
+u32 Compiler_EmitLoadStoreOp(u32 a0, u32 a1)
 {
-    int ret, v1, a0, a1, a2, a3, t0, t1;
+    u32 ret, v1, a2, a3, t0, t1;
     a0 = a0 << 4;
-    a2 = 0x0024AA00;
+    a2 = PSX_JIT_SLOTS;  /* 0x0024AA00 - JIT_CacheSlot array (10 slots) */
     t1 = 0xAC000000;
     ret = a2 + a0;
     a3 = a0 + a2;
-    v1 = *(u32*)*(ret + 4);
+    v1 = *(u32*)(ret + 4);
     t0 = 0x03800000;
     ret = *(u32*)(a3);
     a2 = a2 + a0;
@@ -199,64 +195,55 @@ int Compiler_EmitLoadStoreOp()
     ret = ret << 0x10;
     v1 = v1 & 0xffff;
     ret = ret | t0;
-    v1 = v1 | t1;
     v1 = v1 | ret;
     ret = a1 + 4;
     *(u32*)(a1) = v1;
-    *(u32*)*(a2 + 0xc) = a0;
+    *(u32*)(a2 + 0xc) = a0;
     return ret;
 }
 
 /* Function at 0x00205110 - 0x002051E0 */
-int Compiler_BuildBlockLinkage()
+u32 Compiler_BuildBlockLinkage(u32 a0)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1;
-    s0 = 0x0024AA00 + 0xc;
-    s1 = 0;
+    u32 ret, v1, a1, a2, a3, s0, i;
+    s0 = PSX_JIT_SLOTS + 0xc;  /* 0x0024AA00 - JIT_CacheSlot array (10 slots) */
+    i = 0;
 loc_205130:
-    ret = *(u32*)*(s0 + -8);
-    s1 = s1 + 1;
-    if (likely(ret == 0)) goto loc_20515C;
+    ret = *(u32*)(s0 + -8);
+    i = i + 1;
+    if (ret == 0) goto loc_20515C;
     ret = *(u32*)(s0);
-    s1 = s1 + 1;
-    if (likely(ret != 0)) goto loc_20515C;
+    i = i + 1;
+    if (ret != 0) goto loc_20515C;
     a1 = a0;
-    a0 = s1;
-    ret = Compiler_EmitLoadStoreOp(a0, a1, a2, a3);
-    a0 = ret;
-    s1 = s1 + 1;
+    a0 = i;
+    a0 = Compiler_EmitLoadStoreOp(a0, a1);
+    i = i + 1;
 loc_20515C:
     s0 = s0 + 0x10;
-    if ((signed)s1 < 0xa) goto loc_205130;
-    a1 = 0x00250000 + -0x560c;
-    v1 = *(u32*)(a1);
-    if (0x1010 != 0) {
-        *(u32*)(a0) = v1;
-        a0 = a0 + 4;
-        *(u32*)(a0) = 0xAF820004;
-        a0 = a0 + 4;
-        *(u32*)(a1) = 0;
-    }
-    a1 = 0x00250000 + -0x5608;
-    v1 = *(u32*)(a1);
-    if (0x1012 != 0) {
-        *(u32*)(a0) = v1;
-        a0 = a0 + 4;
-        *(u32*)(a0) = 0xAF820008;
-        a0 = a0 + 4;
-        *(u32*)(a1) = 0;
-    }
-    ret = a0;
-    return ret;
+    if ((signed)i < 0xa) goto loc_205130;
+    a1 = 0x00250000 + -0x560c;  /* JIT_CODE_CACHE: JIT compiled code cache */
+    *(u32*)(a0) = *(u32*)(a1);
+    a0 = a0 + 4;
+    *(u32*)(a0) = 0xAF820004;
+    a0 = a0 + 4;
+    *(u32*)(a1) = 0;
+    a1 = 0x00250000 + -0x5608;  /* JIT_CODE_CACHE: JIT compiled code cache */
+    *(u32*)(a0) = *(u32*)(a1);
+    a0 = a0 + 4;
+    *(u32*)(a0) = 0xAF820008;
+    a0 = a0 + 4;
+    *(u32*)(a1) = 0;
+    return a0;
 }
 
 /* Function at 0x002051E0 - 0x002052B8 */
-int Compiler_AllocateBlockSlot()
+u32 Compiler_AllocateBlockSlot(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 32 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, t0, t1, t2, t3, t4;
-    t4 = 0x00250000;
+    u32 ret, v1, s0, s1, t0, t1, t2, t3, t4;
+    t4 = 0x00250000;  /* JIT_CODE_CACHE: JIT compiled code cache */
     ret = t4 + -0x5600;
     s0 = 0xa;
     s1 = a2;
@@ -265,7 +252,7 @@ int Compiler_AllocateBlockSlot()
     t0 = ret + 0xc;
     t1 = 0;
     a2 = 0;
-    v1 = *(u32*)*(t0 + -8);
+    v1 = *(u32*)(t0 + -8);
 loc_205218:
     if (v1 == 0) {
         *(u32*)(s1) = a2;
@@ -279,7 +266,7 @@ loc_205218:
         a1 = *(u32*)(t0);
         a0 = ret + 1;
         ret = ret + 2;
-        __asm("movz v0, a0, a1");
+        if (a1 == 0) ret = a0;
         v1 = ((unsigned)t1 < (unsigned)ret) ? 1 : 0;
         t0 = t0 + 0x10;
         if (v1 != 0) {
@@ -287,36 +274,32 @@ loc_205218:
             s0 = a2;
         }
         a2 = a2 + 1;
-        v1 = *(u32*)*(t0 + -8);
-        if (likely((signed)a2 < 0xa)) goto loc_205218;
+        v1 = *(u32*)(t0 + -8);
+        if ((signed)a2 < 0xa) goto loc_205218;
         ret = t4 + -0x5600;
         v1 = s0 << 4;
         ret = ret + v1;
-        a0 = *(u32*)*(ret + 0xc);
+        a0 = *(u32*)(ret + 0xc);  /* GTE data: vz1 */
         *(u32*)(s1) = s0;
         if (a0 == 0) {
             a1 = a3;
             a0 = s0;
-            ret = Compiler_EmitLoadStoreOp(a0, a1, a2, a3);
-            a3 = ret;
+            a3 = Compiler_EmitLoadStoreOp(a0, a1);
             *(u32*)(s1) = s0;
             }
         }
-    ret = a3;
-    return ret;
+    return a3;
 }
 
 /* Function at 0x002052B8 - 0x00205408 */
-int Compiler_CompileInstructionBlock()
+u32 Compiler_CompileInstructionBlock(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 80 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, t0, t1, t2, t3, t4;
+    u32 ret, v1, s0, s1, s2, s3, s4, s5, t0, t1, t2, t3, t4;
     ret = t2;
     s0 = a0;
     s3 = s0 << 2;
-    v1 = 0x00500000;
-    v1 = v1 + s3;
-    v1 = *(u32*)*(v1 + -0x6c40);
+    v1 = *(u32*)(v1 + -0x6c40);
     a0 = a1;
     s1 = a3;
     s2 = t1;
@@ -324,8 +307,8 @@ int Compiler_CompileInstructionBlock()
     a1 = a2;
     *(u32*)(s1) = v1;
     if ((signed)v1 < 0) {
-        s4 = 0x00250000;
-        *(u32*)(sp) = 0;
+        s4 = 0x00250000;  /* JIT_CODE_CACHE: JIT compiled code cache */
+        *(u32*)(__sp) = 0;
         t3 = s4 + -0x5600;
         t1 = 0;
         t0 = 0;
@@ -334,13 +317,13 @@ int Compiler_CompileInstructionBlock()
             do {
                 a3 = t0 << 4;
                 ret = a3 + t4;
-                v1 = *(u32*)(v0);
+                v1 = *(u32*)(ret);
                 t1 = t0 + 1;
                 if (v1 == s0) {
                 v1 = t1 << 4;
                 if (s2 != 0) {
                     ret = a3 + a2;
-                    *(u32*)(v0) = 0;
+                    *(u32*)(ret) = 0;
                 }
                 ret = t2;
                 v1 = v1 + t3;
@@ -349,14 +332,15 @@ int Compiler_CompileInstructionBlock()
                 } else {
                 t0 = t1;
                 ret = ((signed)t0 < 0xa) ? 1 : 0;
-                *(u32*)(sp) = t1;
+                *(u32*)(__sp) = t1;
+                }
             } while (ret != 0);
             a3 = t2;
             a2 = __sp;
             ret = Compiler_AllocateBlockSlot(a0, a1, a2, a3);
             v1 = s4 + -0x5600;
             t2 = ret;
-            ret = *(u32*)(sp);
+            ret = *(u32*)(__sp);
             a3 = ((unsigned)s2 < 1) ? 1 : 0;
             ret = ret << 4;
             a0 = ret + v1;
@@ -364,11 +348,10 @@ int Compiler_CompileInstructionBlock()
             a1 = *(u32*)(a0);
             v1 = a2;
             *(u32*)(s1) = a1;
-            *(u32*)*(v1 + 4) = s0;
-            *(u32*)*(a2 + 0xc) = a3;
+            *(u32*)(v1 + 4) = s0;
+            *(u32*)(a2 + 0xc) = a3;
             if (s5 != 0) {
                 v1 = *(u32*)(s1);
-                ret = s3 + 0x10;
                 ret = ret & 0xffff;
                 a1 = 0x8C000000;
                 v1 = v1 << 0x10;
@@ -383,29 +366,25 @@ int Compiler_CompileInstructionBlock()
         }
     }
     return ret;
-}
 
 /* Function at 0x00205408 - 0x00205590 */
-int Compiler_HandleBlockCompilation()
+u32 Compiler_HandleBlockCompilation(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 48 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, t0, t1, t2;
+    u32 ret, v1, s0, s1, s2, s3, s4, t0, t1, t2;
     s1 = a0;
     ret = s1 << 2;
-    v1 = 0x00500000;
-    v1 = v1 + ret;
-    v1 = *(u32*)*(v1 + -0x6c40);
+    v1 = *(u32*)(v1 + -0x6c40);
     s2 = a2;
     s0 = t0;
     s3 = a1;
     s4 = a3;
     *(u32*)(s2) = v1;
     if ((signed)v1 >= 0) goto loc_205508;
-    ret = Compiler_FindCacheSlot(a0, a1, a2, a3);
-    a1 = ret;
+    a1 = Compiler_FindCacheSlot(a0);
     *(u32*)(s2) = a1;
     if (a1 != 0) {
-        a2 = 0x00250000;
+        a2 = 0x00250000;  /* JIT_CODE_CACHE: JIT compiled code cache */
         v1 = 0;
         a0 = a2 + -0x5600;
         ret = *(u32*)(a0);
@@ -413,15 +392,15 @@ int Compiler_HandleBlockCompilation()
                 a0 = a0 + 0x10;
                 if (ret != a1) {
                 v1 = v1 + 1;
-                ret = ((signed)v1 < 0xa) ? 1 : 0;
+                }
                 ret = *(u32*)(a0);
-            } while (likely(ret != 0));
+            } while (ret != 0);
             v1 = -1;
         }
         ret = a2 + -0x5600;
         v1 = v1 << 4;
         ret = ret + v1;
-        *(u32*)*(ret + 0xc) = 0;
+        *(u32*)(ret + 0xc) = 0;
         goto loc_205508;
     }
     t2 = s0;
@@ -432,8 +411,7 @@ int Compiler_HandleBlockCompilation()
         a3 = s2;
         t0 = 0;
         t1 = 1;
-        ret = Compiler_CompileInstructionBlock(a0, a1, a2, a3);
-        s0 = ret;
+        s0 = Compiler_CompileInstructionBlock(a0, a1, a2, a3);
         goto loc_205508;
     }
     a0 = s1;
@@ -442,12 +420,10 @@ int Compiler_HandleBlockCompilation()
     a3 = s2;
     t0 = 1;
     t1 = 1;
-    ret = Compiler_CompileInstructionBlock(a0, a1, a2, a3);
-    s0 = ret;
+    s0 = Compiler_CompileInstructionBlock(a0, a1, a2, a3);
 loc_205508:
     if (s1 == s3) {
-        ret = *(u32*)(s2);
-        *(u32*)(s4) = ret;
+        *(u32*)(s4) = *(u32*)(s2);
         goto loc_20556C;
     }
     v1 = s3 << 2;
@@ -457,7 +433,7 @@ loc_205508:
     *(u32*)(s4) = a0;
     if ((signed)a0 >= 0) goto loc_20556C;
     a0 = s3;
-    ret = Compiler_FindCacheSlot(a0, a1, a2, a3);
+    ret = Compiler_FindCacheSlot(a0);
     *(u32*)(s4) = ret;
     if (ret != 0) goto loc_20556C;
     t2 = s0;
@@ -467,23 +443,18 @@ loc_205508:
     a2 = 0;
     t0 = 1;
     t1 = 0;
-    ret = Compiler_CompileInstructionBlock(a0, a1, a2, a3);
-    s0 = ret;
+    s0 = Compiler_CompileInstructionBlock(a0, a1, a2, a3);
 loc_20556C:
-    ret = s0;
-    return ret;
-}
+    return s0;
 
 /* Function at 0x00205590 - 0x002057A8 */
-int Compiler_ProcessMultipleBlocks()
+u32 Compiler_ProcessMultipleBlocks(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 80 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2;
+    u32 ret, v1, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2;
     s2 = a0;
     ret = s2 << 2;
-    v1 = 0x00500000;
-    v1 = v1 + ret;
-    v1 = *(u32*)*(v1 + -0x6c40);
+    v1 = *(u32*)(v1 + -0x6c40);
     s5 = a3;
     s0 = a2;
     s1 = a1;
@@ -493,11 +464,10 @@ int Compiler_ProcessMultipleBlocks()
     s7 = 0x00500000;
     *(u32*)(s5) = v1;
     if ((signed)v1 >= 0) goto loc_20569C;
-    ret = Compiler_FindCacheSlot(a0, a1, a2, a3);
-    a1 = ret;
+    a1 = Compiler_FindCacheSlot(a0);
     *(u32*)(s5) = a1;
     if (a1 != 0) {
-        a2 = 0x00250000;
+        a2 = 0x00250000;  /* JIT_CODE_CACHE: JIT compiled code cache */
         v1 = 0;
         a0 = a2 + -0x5600;
         ret = *(u32*)(a0);
@@ -505,23 +475,23 @@ int Compiler_ProcessMultipleBlocks()
                 a0 = a0 + 0x10;
                 if (ret != a1) {
                 v1 = v1 + 1;
-                ret = ((signed)v1 < 0xa) ? 1 : 0;
+                }
                 ret = *(u32*)(a0);
-            } while (likely(ret != 0));
+            } while (ret != 0);
             v1 = -1;
         }
         ret = a2 + -0x5600;
         v1 = v1 << 4;
         ret = ret + v1;
-        *(u32*)*(ret + 0xc) = 0;
+        *(u32*)(ret + 0xc) = 0;
         goto loc_20569C;
     }
     ret = s2 ^ s1;
     v1 = s2 ^ s0;
     a1 = 0;
     a2 = 0;
-    __asm("movn a1, s1, v0");
-    __asm("movn a2, s0, v1");
+    if (ret != 0) a1 = s1;
+    if (v1 != 0) a2 = s0;
     t0 = 0;
     if (s2 != s1) {
         t2 = s3;
@@ -539,26 +509,24 @@ loc_20569C:
         ret = *(u32*)(s5);
         *(u32*)(s4) = ret;
     } else {
-        v1 = s1 << 2;
         v1 = v1 + ret;
         a0 = *(u32*)(v1);
         *(u32*)(s4) = a0;
         if ((signed)a0 >= 0) goto loc_205700;
         a0 = s1;
-        ret = Compiler_FindCacheSlot(a0, a1, a2, a3);
+        ret = Compiler_FindCacheSlot(a0);
         *(u32*)(s4) = ret;
         if (ret != 0) goto loc_205700;
         ret = s1 ^ s0;
         a2 = 0;
         t2 = s3;
-        __asm("movn a2, s0, v0");
+        if (ret != 0) a2 = s0;
         a0 = s1;
         a1 = s2;
         a3 = s4;
         t0 = 1;
         t1 = 0;
-        ret = Compiler_CompileInstructionBlock(a0, a1, a2, a3);
-        s3 = ret;
+        s3 = Compiler_CompileInstructionBlock(a0, a1, a2, a3);
     }
 loc_205700:
     if (s0 == s2) {
@@ -572,13 +540,12 @@ loc_205700:
         *(u32*)(s6) = ret;
         goto loc_205778;
     }
-    v1 = s0 << 2;
     v1 = v1 + ret;
     a0 = *(u32*)(v1);
     *(u32*)(s6) = a0;
     if ((signed)a0 >= 0) goto loc_205778;
     a0 = s0;
-    ret = Compiler_FindCacheSlot(a0, a1, a2, a3);
+    ret = Compiler_FindCacheSlot(a0);
     *(u32*)(s6) = ret;
     if (ret != 0) goto loc_205778;
     t2 = s3;
@@ -588,29 +555,25 @@ loc_205700:
     a3 = s6;
     t0 = 1;
     t1 = 0;
-    ret = Compiler_CompileInstructionBlock(a0, a1, a2, a3);
-    s3 = ret;
+    s3 = Compiler_CompileInstructionBlock(a0, a1, a2, a3);
 loc_205778:
-    ret = s3;
-    return ret;
-}
+    return s3;
 
 /* Function at 0x002057A8 - 0x002057D0 */
-int Compiler_InitCacheBuffer()
+u32 Compiler_InitCacheBuffer(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3, s0;
+    u32 ret, a1, a2, a3, s0;
     s0 = a0;
-    ret = Compiler_InitializeCacheSlots(a0, a1, a2, a3);
-    ret = s0;
-    return ret;
+    ret = Compiler_InitializeCacheSlots();
+    return s0;
 }
 
 /* Function at 0x002057D0 - 0x00205840 */
-int Compiler_EmitPrologue()
+u32 Compiler_EmitPrologue(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 48 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1;
+    u32 ret, v1, s0, s1;
     s0 = a0;
     s1 = a3;
     a0 = a1;
@@ -618,9 +581,9 @@ int Compiler_EmitPrologue()
     a3 = __sp + 4;
     a2 = __sp;
     ret = Compiler_HandleBlockCompilation(a0, a1, a2, a3);
-    a0 = *(u32*)*(__sp + 4);
+    a0 = *(u32*)(__sp + 4);
     s1 = s1 & 0xffff;
-    v1 = *(u32*)(sp);
+    v1 = *(u32*)(__sp);
     s0 = s0 << 0x1a;
     a0 = a0 << 0x15;
     s0 = s0 | s1;
@@ -629,15 +592,14 @@ int Compiler_EmitPrologue()
     v1 = v1 | a0;
     s0 = s0 | v1;
     *(u32*)(a1) = s0;
-    ret = a1 + 4;
-    return ret;
+    return a1 + 4;
 }
 
 /* Function at 0x00205840 - 0x002058B8 */
-int Compiler_EmitEpilogue()
+u32 Compiler_EmitEpilogue(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, t0, t1, t2;
+    u32 ret, v1, s0, t0, t1, t2;
     t2 = t0;
     s0 = a0;
     t0 = __sp + 4;
@@ -647,11 +609,11 @@ int Compiler_EmitEpilogue()
     a2 = a3;
     a3 = __sp;
     ret = Compiler_ProcessMultipleBlocks(a0, a1, a2, a3);
-    a1 = *(u32*)*(__sp + 4);
+    a1 = *(u32*)(__sp + 4);
     t2 = ret;
-    a0 = *(u32*)*(__sp + 8);
+    a0 = *(u32*)(__sp + 8);
     ret = -0x41;
-    v1 = *(u32*)(sp);
+    v1 = *(u32*)(__sp);
     s0 = s0 & ret;
     a1 = a1 << 0x15;
     a0 = a0 << 0x10;
@@ -665,10 +627,10 @@ int Compiler_EmitEpilogue()
 }
 
 /* Function at 0x002058B8 - 0x00205970 */
-int Compiler_EmitRegisterLoad()
+u32 Compiler_EmitRegisterLoad(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 48 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, t0, t1, t2;
+    u32 ret, v1, s0, s1, s2, t0, t1, t2;
     t2 = a3;
     s2 = a1;
     s0 = a0;
@@ -689,29 +651,28 @@ int Compiler_EmitRegisterLoad()
     t1 = 0;
     ret = Compiler_CompileInstructionBlock(a0, a1, a2, a3);
     a2 = 1;
-    a0 = *(u32*)(sp);
+    a0 = *(u32*)(__sp);
     t2 = ret;
-    v1 = *(u32*)*(__sp + 4);
+    v1 = *(u32*)(__sp + 4);
     ret = -0x41;
     a0 = a0 << 0x15;
     s0 = s0 & ret;
-    v1 = v1 << 0x10;
     v1 = v1 | a0;
     s0 = s0 | v1;
     *(u32*)(t2) = s0;
-    a3 = 0x00250000;
-    a1 = 0x00250000;
+    a3 = 0x00250000;  /* JIT_CODE_CACHE: JIT compiled code cache */
+    a1 = 0x00250000;  /* JIT_CODE_CACHE: JIT compiled code cache */
     ret = t2 + 4;
-    *(u32*)*(a1 + -0x5608) = a2;
-    *(u32*)*(a3 + -0x560c) = a2;
+    *(u32*)(a1 + -0x5608) = a2;
+    *(u32*)(a3 + -0x560c) = a2;
     return ret;
 }
 
 /* Function at 0x00205970 - 0x00205AF8 */
-int Compiler_EmitRegisterStore()
+u32 Compiler_EmitRegisterStore(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, t0, t1, t2;
+    u32 ret, v1, s0, t0, t1, t2;
     s0 = a0;
     a0 = a2;
     if (a1 != 0) {
@@ -724,17 +685,15 @@ int Compiler_EmitRegisterStore()
         ret = Compiler_CompileInstructionBlock(a0, a1, a2, a3);
         a3 = ret;
         if (s0 != 0) {
-            ret = *(u32*)(sp);
+            ret = *(u32*)(__sp);
             a1 = 0x03800000;
             v1 = 0xAC000008;
-            ret = ret << 0x10;
             ret = ret | a1;
             a0 = 0x0024A9F8;
         } else {
-            ret = *(u32*)(sp);
+            ret = *(u32*)(__sp);
             a1 = 0x03800000;
             v1 = 0xAC000004;
-            ret = ret << 0x10;
             ret = ret | a1;
             a0 = 0x0024A9F4;
         }
@@ -751,59 +710,48 @@ int Compiler_EmitRegisterStore()
     a2 = 0;
     t0 = 0;
     t1 = 1;
-    ret = Compiler_CompileInstructionBlock(a0, a1, a2, a3);
-    a3 = ret;
+    a3 = Compiler_CompileInstructionBlock(a0, a1, a2, a3);
     if (s0 != 0) {
-        a1 = 0x00250000 + -0x5608;
+        a1 = 0x00250000 + -0x5608;  /* JIT_CODE_CACHE: JIT compiled code cache */
         v1 = *(u32*)(a1);
-        ret = *(u32*)(sp);
+        ret = *(u32*)(__sp);
         if (v1 != 0) {
             a0 = 0x03800000;
             v1 = 0xAC000008;
-            ret = ret << 0xb;
             ret = ret | 0x12;
             goto loc_205A98;
         }
         v1 = 0x8C000008;
     } else {
-        a1 = 0x00250000 + -0x560c;
+        a1 = 0x00250000 + -0x560c;  /* JIT_CODE_CACHE: JIT compiled code cache */
         v1 = *(u32*)(a1);
-        ret = *(u32*)(sp);
+        ret = *(u32*)(__sp);
         if (v1 != 0) {
             a0 = 0x03800000;
             v1 = 0xAC000004;
-            ret = ret << 0xb;
             ret = ret | 0x10;
             loc_205A98:
             *(u32*)(a3) = ret;
             a3 = a3 + 4;
-            ret = *(u32*)(sp);
-            ret = ret << 0x10;
-            ret = ret | a0;
-            ret = ret | v1;
-            *(u32*)(a3) = ret;
+            *(u32*)(a3) = ret | v1;
             a3 = a3 + 4;
             *(u32*)(a1) = 0;
         } else {
             a0 = 0x03800000;
             v1 = 0x8C000004;
             }
-            ret = ret << 0x10;
-            ret = ret | a0;
-            ret = ret | v1;
-            *(u32*)(a3) = ret;
+            *(u32*)(a3) = ret | v1;
             a3 = a3 + 4;
         }
 loc_205AE0:
-    ret = a3;
-    return ret;
+    return a3;
 }
 
 /* Function at 0x00205AF8 - 0x00205B70 */
-int Compiler_EmitAddressCalculation()
+u32 Compiler_EmitAddressCalculation(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 48 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1;
+    u32 ret, v1, s0, s1;
     s0 = a0;
     s1 = a3 & 0xffff;
     a0 = a1;
@@ -813,9 +761,9 @@ int Compiler_EmitAddressCalculation()
     ret = Compiler_HandleBlockCompilation(a0, a1, a2, a3);
     a1 = ret;
     ret = -0x41;
-    a0 = *(u32*)(sp);
+    a0 = *(u32*)(__sp);
     s1 = s1 & 0xff;
-    v1 = *(u32*)*(__sp + 4);
+    v1 = *(u32*)(__sp + 4);
     s0 = s0 & ret;
     s1 = s1 << 6;
     a0 = a0 << 0xb;
@@ -824,15 +772,14 @@ int Compiler_EmitAddressCalculation()
     v1 = v1 << 0x10;
     s0 = s0 | v1;
     *(u32*)(a1) = s0;
-    ret = a1 + 4;
-    return ret;
+    return a1 + 4;
 }
 
 /* Function at 0x00205B70 - 0x00205BE8 */
-int Compiler_EmitMemoryReference()
+u32 Compiler_EmitMemoryReference(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, t0, t1, t2;
+    u32 ret, v1, s0, t0, t1, t2;
     t2 = t0;
     s0 = a0;
     t0 = __sp + 4;
@@ -841,11 +788,11 @@ int Compiler_EmitMemoryReference()
     a1 = a3;
     a3 = __sp;
     ret = Compiler_ProcessMultipleBlocks(a0, a1, a2, a3);
-    a1 = *(u32*)*(__sp + 4);
+    a1 = *(u32*)(__sp + 4);
     t2 = ret;
-    a0 = *(u32*)*(__sp + 8);
+    a0 = *(u32*)(__sp + 8);
     ret = -0x41;
-    v1 = *(u32*)(sp);
+    v1 = *(u32*)(__sp);
     s0 = s0 & ret;
     a1 = a1 << 0x15;
     a0 = a0 << 0x10;
@@ -859,10 +806,10 @@ int Compiler_EmitMemoryReference()
 }
 
 /* Function at 0x00205BE8 - 0x00205D78 */
-int Compiler_EmitArithmetic()
+u32 Compiler_EmitArithmetic(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 80 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, t0, t1, t2, t3, t4;
+    u32 ret, v1, s0, s1, s2, s3, s4, s5, s6, t0, t1, t2, t3, t4;
     ret = a3 << 0x10;
     s2 = a0;
     t4 = t0;
@@ -896,7 +843,7 @@ int Compiler_EmitArithmetic()
     a3 = __sp + 4;
     v1 = s0 & 0x7f;
     if (ret != 0) {
-        *(u32*)*(__sp + 4) = v1;
+        *(u32*)(__sp + 4) = v1;
         goto loc_205CAC;
     }
     ret = Compiler_CompileInstructionBlock(a0, a1, a2, a3);
@@ -904,11 +851,11 @@ int Compiler_EmitArithmetic()
 loc_205CAC:
     a3 = 0x00500000;
     ret = s5 & 0xffff;
-    v1 = *(u32*)*(a3 + 0x2710);
+    v1 = *(u32*)(a3 + 0x2710);
     a0 = s2 << 0x1a;
     a0 = a0 | ret;
     t0 = 0x3C000000;
-    ret = *(u16*)*(v1 + 0x2d2);
+    ret = *(u16*)(v1 + 0x2d2);
     t1 = 5 << 16;
     ret = ret | t0;
     a1 = 0x00202024;
@@ -918,15 +865,10 @@ loc_205CAC:
     t4 = t4 + 4;
     t2 = 0x00800000;
     t3 = 2;
-    ret = *(u32*)(sp);
-    ret = ret << 0x10;
-    ret = ret | a1;
-    *(u32*)(t4) = ret;
+    *(u32*)(t4) = ret | a1;
     t4 = t4 + 4;
     *(u32*)(t4) = a2;
     t4 = t4 + 4;
-    ret = *(u32*)*(__sp + 4);
-    ret = ret << 0x10;
     ret = ret | t2;
     a0 = a0 | ret;
     *(u32*)(t4) = a0;
@@ -939,15 +881,14 @@ loc_205CAC:
             t4 = t4 + 4;
             }
         }
-    ret = t4;
-    return ret;
+    return t4;
 }
 
 /* Function at 0x00205D78 - 0x00206198 */
-int Compiler_EmitLogicalOp()
+u32 Compiler_EmitLogicalOp(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 80 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, t0, t1, t2;
+    u32 ret, v1, s0, s1, s2, s3, s4, s5, t0, t1, t2;
     s5 = a2;
     ret = 0x1FFFFFFF;
     v1 = 4;
@@ -969,21 +910,19 @@ int Compiler_EmitLogicalOp()
         s1 = 0;
         loc_205DFC:
         a0 = s0;
-        ret = Compiler_BuildBlockLinkage(a0, a1, a2, a3);
+        ret = Compiler_BuildBlockLinkage(a0);
         s0 = ret;
-        ret = Compiler_ClearCacheSlots(a0, a1, a2, a3);
-        ret = s3 & 8;
-        ret = s1 << 2;
-        if (ret != 0) {
+        ret = Compiler_ClearCacheSlots();
+        if ((s1 << 2) != 0) {
             a0 = s4;
             t2 = s0;
             a1 = 0;
             a2 = 0;
             a3 = __sp;
             t0 = 1;
-            s1 = 0x00250000;
+            s1 = 0x00250000;  /* JIT_CODE_CACHE: JIT compiled code cache */
             s1 = s1 + ret;
-            s1 = *(u32*)*(s1 + -0x5f80);
+            s1 = *(u32*)(s1 + -0x5f80);
             t1 = 0;
             ret = Compiler_CompileInstructionBlock(a0, a1, a2, a3);
             a0 = s5 + 1;
@@ -998,23 +937,18 @@ int Compiler_EmitLogicalOp()
                     v1 = 6 << 16;
                     ret = a0 | ret;
                     a0 = s0 + 4;
-                    ret = ret | v1;
-                    *(u32*)(s0) = ret;
+                    *(u32*)(s0) = ret | v1;
                 } else {
                     a0 = s0 + 4;
                     *(u32*)(s0) = 0x3C060000;
                     if (a1 != 0) {
-                        v1 = 0x00C60000;
-                        ret = a1 | ret;
-                        ret = ret | v1;
-                        *(u32*)(a0) = ret;
+                        *(u32*)(a0) = ret | 0x00C60000;
                         a0 = s0 + 8;
                         }
                     }
                 s0 = a0;
             }
             a0 = 0x3C000000;
-            v1 = (unsigned)s2 >> 0x10;
             v1 = v1 | a0;
             ret = 4 << 16;
             a1 = (unsigned)s1 >> 0x10;
@@ -1047,15 +981,13 @@ int Compiler_EmitLogicalOp()
             s0 = s0 + 4;
             *(u32*)(s0) = ret;
             s0 = s0 + 4;
-            ret = *(u32*)(sp);
-            ret = ret << 0x15;
             ret = ret | 0x282d;
             goto loc_206164;
         }
         a0 = s4;
-        s1 = 0x00250000;
+        s1 = 0x00250000;  /* JIT_CODE_CACHE: JIT compiled code cache */
         s1 = s1 + ret;
-        s1 = *(u32*)*(s1 + -0x6780);
+        s1 = *(u32*)(s1 + -0x6780);
         t2 = s0;
         a1 = 0;
         a2 = 0;
@@ -1104,7 +1036,6 @@ int Compiler_EmitLogicalOp()
             *(u32*)(s0) = 0x282d;
             s0 = s0 + 4;
         } else {
-            ret = a0;
             ret = 5 << 16;
             if (a0 == ret) {
                 v1 = 5 << 16;
@@ -1118,19 +1049,14 @@ int Compiler_EmitLogicalOp()
                 a0 = s0 + 4;
                 *(u32*)(s0) = ret;
                 if (v1 != 0) {
-                    ret = v1 | t0;
-                    ret = ret | 0x00A50000;
-                    *(u32*)(a0) = ret;
+                    *(u32*)(a0) = ret | 0x00A50000;
                     a0 = s0 + 8;
                     }
                 }
             s0 = a0;
         }
-        v1 = *(u32*)(sp);
-        ret = 0x0040002D;
-        v1 = v1 << 0xb;
-        v1 = v1 | ret;
-        *(u32*)(s0) = v1;
+        v1 = *(u32*)(__sp);
+        *(u32*)(s0) = v1 | 0x0040002D;
     } else {
         s1 = s3 & 8;
         t0 = 0;
@@ -1141,11 +1067,11 @@ int Compiler_EmitLogicalOp()
                 ret = 0x00500000;
             }
         a0 = s4;
-        v1 = *(u32*)*(ret + 0x2710);
+        v1 = *(u32*)(ret + 0x2710);
         t2 = s0;
         a1 = 0;
         a2 = 0;
-        ret = *(u32*)*(v1 + 0x2d0);
+        ret = *(u32*)(v1 + 0x2d0);  /* PSX: ram_base */
         a3 = __sp;
         t1 = ((unsigned)s1 < 1) ? 1 : 0;
         s2 = s2 | ret;
@@ -1153,60 +1079,53 @@ int Compiler_EmitLogicalOp()
         s0 = ret;
         ret = s2 << 0x10;
         v1 = (unsigned)s2 >> 0x10;
-        ret = (unsigned)ret >> 0x1f;
         ret = ret + v1;
         v1 = s3 << 0x1a;
         a0 = 0x3C000000;
         ret = ret & 0xffff;
         a1 = 2 << 16;
-        ret = ret | a0;
         ret = ret | a1;
         a1 = 2;
         *(u32*)(s0) = ret;
         s0 = s0 + 4;
         a2 = s2 & 0xffff;
         a0 = 0x00400000;
-        ret = *(u32*)(sp);
+        ret = *(u32*)(__sp);
         v1 = v1 | a2;
-        ret = ret << 0x10;
         ret = ret | a0;
-        v1 = v1 | ret;
-        *(u32*)(s0) = v1;
+        *(u32*)(s0) = v1 | ret;
         s0 = s0 + 4;
         if (s5 != a1) goto loc_20616C;
         ret = 4;
         a0 = 0x24000000;
-        __asm("movn v0, zero, s1");
-        v1 = 0x037B0000;
-        ret = ret | a0;
-        ret = ret | v1;
+        if (s1 != 0) ret = 0;
+        ret = ret | 0x037B0000;
         loc_206164:
         *(u32*)(s0) = ret;
     }
     s0 = s0 + 4;
 loc_20616C:
-    ret = s0;
-    return ret;
+    return s0;
 }
 
 /* Function at 0x00206198 - 0x00206388 */
-int Compiler_EmitComparison()
+u32 Compiler_EmitComparison(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 128 bytes */
-    int local_20;
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2;
+    u32 local_20;
+    u32 ret, v1, s0, s1, i, s3, s4, s5, s6, s7, t0, t1, t2;
     s4 = a0;
     s0 = s4 + 1;
     s1 = a3;
     s5 = a1;
     s7 = a2;
-    ret = Compiler_FindOrAllocateSlot(a0, a1, a2, a3);
+    ret = Compiler_FindOrAllocateSlot();
     t2 = s1;
     if ((unsigned)ret < (unsigned)s0) {
         a0 = s1;
-        ret = Compiler_BuildBlockLinkage(a0, a1, a2, a3);
+        ret = Compiler_BuildBlockLinkage(a0);
         s1 = ret;
-        ret = Compiler_ClearCacheSlots(a0, a1, a2, a3);
+        ret = Compiler_ClearCacheSlots();
         t2 = s1;
     }
     a0 = s5;
@@ -1215,9 +1134,8 @@ int Compiler_EmitComparison()
     a3 = __sp + 0x20;
     t0 = 1;
     t1 = 0;
-    s2 = 0;
-    ret = Compiler_CompileInstructionBlock(a0, a1, a2, a3);
-    s1 = ret;
+    i = 0;
+    s1 = Compiler_CompileInstructionBlock(a0, a1, a2, a3);
     if (s4 != 0) {
         s6 = 2;
         s3 = __sp;
@@ -1226,12 +1144,11 @@ int Compiler_EmitComparison()
             ret = *(u32*)(s0);
             t0 = 0;
             v1 = ret & 3;
-            ret = (signed)ret >> 3;
             ret = ret & 1;
             if (v1 != s6) {
-                a0 = *(u32*)*(s0 + 4);
+                a0 = *(u32*)(s0 + 4);
                     t0 = 1;
-                    a0 = *(u32*)*(s0 + 4);
+                    a0 = *(u32*)(s0 + 4);
                 }
             s0 = s0 + 0xc;
             t2 = s1;
@@ -1239,29 +1156,25 @@ int Compiler_EmitComparison()
             t1 = ret ^ 1;
             a1 = s5;
             a2 = 0;
-            s2 = s2 + 1;
+            i = i + 1;
             ret = Compiler_CompileInstructionBlock(a0, a1, a2, a3);
             s1 = ret;
-            ret = ((unsigned)s2 < (unsigned)s4) ? 1 : 0;
+            ret = ((unsigned)i < (unsigned)s4) ? 1 : 0;
             s3 = s3 + 4;
         } while (ret != 0);
     }
     ret = 0x00500000;
     a3 = 0x3C000000;
-    a1 = *(u32*)*(ret + 0x2710);
+    a1 = *(u32*)(ret + 0x2710);
     a2 = 5 << 16;
-    ret = *(u16*)*(a1 + 0x2d2);
+    ret = *(u16*)(a1 + 0x2d2);
     v1 = 0x00202024;
     a0 = 0x00A42021;
-    s2 = 0;
-    ret = ret | a3;
+    i = 0;
     ret = ret | a2;
     *(u32*)(s1) = ret;
     s1 = s1 + 4;
-    ret = local_20;
-    ret = ret << 0x10;
-    ret = ret | v1;
-    *(u32*)(s1) = ret;
+    *(u32*)(s1) = ret | v1;
     s1 = s1 + 4;
     *(u32*)(s1) = a0;
     s1 = s1 + 4;
@@ -1275,7 +1188,7 @@ int Compiler_EmitComparison()
         do {
             v1 = *(u32*)(a1);
             a1 = a1 + 4;
-            a0 = *(u16*)*(a2 + 8);
+            a0 = *(u16*)(a2 + 8);
             ret = ret << 0x1a;
             v1 = v1 << 0x10;
             ret = ret | a0;
@@ -1283,32 +1196,28 @@ int Compiler_EmitComparison()
             ret = ret | v1;
             *(u32*)(s1) = ret;
             s1 = s1 + 4;
-            ret = *(u32*)(a2);
             ret = ret & 3;
             a2 = a2 + 0xc;
             if (ret != t0) {
-                s2 = s2 + 1;
+                i = i + 1;
                 if (s5 != a3) {
                     *(u32*)(s1) = 0;
                     s1 = s1 + 4;
                     *(u32*)(s1) = 0;
                     s1 = s1 + 4;
                     }
-                    s2 = s2 + 1;
+                    i = i + 1;
                 }
-            ret = ((unsigned)s2 < (unsigned)s4) ? 1 : 0;
-            ret = *(u32*)(a2);
-        } while (likely(ret != 0));
+        } while ((*(u32*)(a2)) != 0);
     }
-    ret = s1;
-    return ret;
+    return s1;
 }
 
 /* Function at 0x00206388 - 0x00206498 */
-int Compiler_EmitSpecialOp()
+u32 Compiler_EmitSpecialOp(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 48 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, t0, t1, t2;
+    u32 ret, v1, s0, s1, s2, t0, t1, t2;
     v1 = a0;
     ret = 1;
     s1 = a2;
@@ -1324,7 +1233,7 @@ int Compiler_EmitSpecialOp()
         ret = 2;
         if (v1 == 0) goto loc_2063EC;
         s0 = 0x25;
-        if (likely(v1 == ret)) goto loc_2063EC;
+        if (v1 == ret) goto loc_2063EC;
         goto loc_2063EC;
     }
     s0 = 0x21;
@@ -1333,10 +1242,10 @@ loc_2063EC:
     ret = Compiler_CompileInstructionBlock(a0, a1, a2, a3);
     a0 = 0x3C000000;
     t2 = ret;
-    v1 = *(u32*)*(0x00500000 + 0x2710);
+    v1 = *(u32*)(0x00500000 + 0x2710);
     a1 = 5 << 16;
     a2 = s0 << 0x1a;
-    ret = *(u16*)*(v1 + 0x2d2);
+    ret = *(u16*)(v1 + 0x2d2);
     v1 = s1 & 0xffff;
     t0 = 0x00201024;
     ret = ret | a0;
@@ -1347,14 +1256,13 @@ loc_2063EC:
     t2 = t2 + 4;
     a2 = a2 | v1;
     v1 = 0x00420000;
-    ret = *(u32*)(sp);
+    ret = *(u32*)(__sp);
     a3 = 0x00A21021;
     a2 = a2 | v1;
     v1 = 0x03820000;
     ret = ret << 0x10;
     a0 = a0 | a1;
-    ret = ret | t0;
-    *(u32*)(t2) = ret;
+    *(u32*)(t2) = ret | t0;
     t2 = t2 + 4;
     *(u32*)(t2) = a3;
     t2 = t2 + 4;
@@ -1367,10 +1275,10 @@ loc_2063EC:
 }
 
 /* Function at 0x00206498 - 0x00206608 */
-int Compiler_EmitLoadOpcode()
+u32 Compiler_EmitLoadOpcode(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 48 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, t0, t1, t2, t3, t4;
+    u32 ret, v1, s0, s1, t0, t1, t2, t3, t4;
     t2 = a3;
     s0 = a0;
     s1 = a2;
@@ -1380,12 +1288,11 @@ int Compiler_EmitLoadOpcode()
     a2 = 0;
     t0 = 1;
     t1 = 0;
-    ret = Compiler_CompileInstructionBlock(a0, a1, a2, a3);
-    t2 = ret;
-    a0 = *(u32*)*(0x00500000 + 0x2710);
+    t2 = Compiler_CompileInstructionBlock(a0, a1, a2, a3);
+    a0 = *(u32*)(0x00500000 + 0x2710);
     a1 = 0x3C000000;
     a2 = 5 << 16;
-    ret = *(u16*)*(a0 + 0x2d2);
+    ret = *(u16*)(a0 + 0x2d2);
     v1 = 0x00201024;
     a0 = 0x00A21021;
     ret = ret | a1;
@@ -1393,10 +1300,7 @@ int Compiler_EmitLoadOpcode()
     ret = ret | a2;
     *(u32*)(t2) = ret;
     t2 = t2 + 4;
-    ret = *(u32*)(sp);
-    ret = ret << 0x10;
-    ret = ret | v1;
-    *(u32*)(t2) = ret;
+    *(u32*)(t2) = ret | v1;
     t2 = t2 + 4;
     *(u32*)(t2) = a0;
     t2 = t2 + 4;
@@ -1411,16 +1315,16 @@ loc_206548:
     v1 = *(u32*)(a1);
     ret = 0x23;
     if (v1 != t4) {
-        a0 = *(u16*)*(a1 + 8);
-        if (likely(v1 == 0)) goto loc_206578;
+        a0 = *(u16*)(a1 + 8);
+        if (v1 == 0) goto loc_206578;
         ret = 0x25;
         if (v1 != t3) {
-            a0 = *(u16*)*(a1 + 8);
+            a0 = *(u16*)(a1 + 8);
             goto loc_206578;
             }
             ret = 0x21;
         }
-    a0 = *(u16*)*(a1 + 8);
+    a0 = *(u16*)(a1 + 8);
 loc_206578:
     a1 = a1 + 0xc;
     ret = ret << 0x1a;
@@ -1454,15 +1358,14 @@ loc_2065A4:
             t2 = t2 + 4;
         } while (v1 != 0);
     }
-    ret = t2;
-    return ret;
+    return t2;
 }
 
 /* Function at 0x00206608 - 0x00206740 */
-int Compiler_EmitStoreOpcode()
+u32 Compiler_EmitStoreOpcode(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 48 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, t0, t1, t2, t3;
+    u32 ret, v1, s0, s1, t0, t1, t2, t3;
     t2 = a3;
     s0 = a0;
     s1 = a2;
@@ -1472,12 +1375,11 @@ int Compiler_EmitStoreOpcode()
     a2 = 0;
     t0 = 1;
     t1 = 0;
-    ret = Compiler_CompileInstructionBlock(a0, a1, a2, a3);
-    t2 = ret;
-    a0 = *(u32*)*(0x00500000 + 0x2710);
+    t2 = Compiler_CompileInstructionBlock(a0, a1, a2, a3);
+    a0 = *(u32*)(0x00500000 + 0x2710);
     a1 = 0x3C000000;
     a2 = 5 << 16;
-    ret = *(u16*)*(a0 + 0x2d2);
+    ret = *(u16*)(a0 + 0x2d2);
     v1 = 0x00201024;
     a0 = 0x00A21021;
     ret = ret | a1;
@@ -1485,10 +1387,7 @@ int Compiler_EmitStoreOpcode()
     ret = ret | a2;
     *(u32*)(t2) = ret;
     t2 = t2 + 4;
-    ret = *(u32*)(sp);
-    ret = ret << 0x10;
-    ret = ret | v1;
-    *(u32*)(t2) = ret;
+    *(u32*)(t2) = ret | v1;
     t2 = t2 + 4;
     *(u32*)(t2) = a0;
     t2 = t2 + 4;
@@ -1531,141 +1430,99 @@ int Compiler_EmitStoreOpcode()
             t2 = t2 + 4;
         } while (v1 != 0);
     }
-    ret = t2;
-    return ret;
+    return t2;
 }
 
 /* Function at 0x00206740 - 0x00206770 */
-int Compiler_EmitImmediateOp()
+u32 Compiler_EmitImmediateOp(u32 a0, u32 a1)
 {
-    int ret, v0, v1, a0, a1, a2;
+    u32 ret, v1, a2;
     a2 = 0x0C000000;
     v1 = 0x0FFFFFFF;
     ret = a1;
     a0 = a0 & v1;
     a0 = (unsigned)a0 >> 2;
     a0 = a0 | a2;
-    *(u32*)(v0) = a0;
+    *(u32*)(ret) = a0;
     ret = ret + 4;
-    *(u32*)(v0) = 0;
-    ret = ret + 4;
-    return ret;
+    *(u32*)(ret) = 0;
+    return ret + 4;
 }
 
 /* Function at 0x00206770 - 0x002067B0 */
-int Compiler_EmitCoprocessorOp()
+u32 Compiler_EmitCoprocessorOp(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 32 bytes */
-    int ret, a0, a1, a2, a3, s0, s1;
+    u32 ret, a3, s0, s1;
     s1 = a0;
     a0 = a2;
-    ret = Compiler_BuildBlockLinkage(a0, a1, a2, a3);
+    ret = Compiler_BuildBlockLinkage(a0);
     s0 = ret;
-    ret = Compiler_ClearCacheSlots(a0, a1, a2, a3);
+    ret = Compiler_ClearCacheSlots();
     a0 = s1;
     a1 = s0;
-    return Compiler_EmitImmediateOp(a0, a1, a2, a3);
+    return Compiler_EmitImmediateOp(a0, a1);
 }
 
 /* Function at 0x002067B0 - 0x00206CA8 */
-int Compiler_Emit_LW()
+u32 Compiler_Emit_LW(u32 a0, u32 a1)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1;
+    u32 ret, v1, a2, a3, s0, s1, t2, t3;
     s0 = a0;
     a0 = a1;
-    ret = Compiler_BuildBlockLinkage(a0, a1, a2, a3);
+    ret = Compiler_BuildBlockLinkage(a0);
     s1 = ret;
-    ret = Compiler_ClearCacheSlots(a0, a1, a2, a3);
-    ret = s0 & 0x3f;
+    ret = Compiler_ClearCacheSlots();
     ret = ret + -1;
     v1 = ((unsigned)ret < 0x3f) ? 1 : 0;
     a0 = 0;
-    if (v1 == 0) goto loc_206C5C;
+    if (v1 == 0) Compiler_Emit_LW(a0, a1); return;
     ret = ret << 2;
-    v1 = 0x00500000;
-    v1 = v1 + ret;
-    v1 = *(u32*)*(v1 + -0x6bc0);
+    v1 = *(u32*)(v1 + -0x6bc0);
     goto *v1; /* computed jump */
     a0 = 0x00210000 + -0x7738;
-    goto loc_206C5C;
-        }
+    Compiler_Emit_LW(a0, a1); return;
         a1 = a1 & 0xffff;
         *(u32*)(s1) = ret;
         a0 = s1 + 4;
-        if (a1 == 0) goto loc_2068C8;
-        v1 = 0x00A50000;
-        ret = a1 | ret;
-        ret = ret | v1;
-        *(u32*)(a0) = ret;
-        a0 = s1 + 8;
-        loc_2068C8:
+        if (a1 != 0) {
+            *(u32*)(a0) = ret | 0x00A50000;
+            a0 = s1 + 8;
+        }
         s1 = a0;
-    }
     a0 = 0x00210000 + -0x6438;
     goto loc_206C5C;
-        }
         a1 = s1 + 4;
         *(u32*)(s1) = ret;
-        if (a0 == 0) goto loc_206944;
-        v1 = 0x00A50000;
-        ret = a0 | ret;
-        ret = ret | v1;
-        *(u32*)(a1) = ret;
-        a1 = s1 + 8;
-        loc_206944:
+        if (a0 != 0) {
+            *(u32*)(a1) = ret | 0x00A50000;
+            a1 = s1 + 8;
+        }
         s1 = a1;
-    }
     a0 = 0x00210000 + -0x7480;
     goto loc_206C5C;
-        }
         a1 = s1 + 4;
         *(u32*)(s1) = ret;
-        if (a0 == 0) goto loc_2069C4;
-        v1 = 0x00A50000;
-        ret = a0 | ret;
-        ret = ret | v1;
-        *(u32*)(a1) = ret;
-        a1 = s1 + 8;
-        loc_2069C4:
+        if (a0 != 0) {
+            *(u32*)(a1) = ret | 0x00A50000;
+            a1 = s1 + 8;
+        }
         s1 = a1;
-    }
     a0 = 0x00210000 + -0x7478;
     goto loc_206C5C;
-        }
         a1 = a1 & 0xffff;
         *(u32*)(s1) = ret;
         a0 = s1 + 4;
-        if (a1 == 0) goto loc_206A50;
-        v1 = 0x00A50000;
-        ret = a1 | ret;
-        ret = ret | v1;
-        *(u32*)(a0) = ret;
-        a0 = s1 + 8;
-        loc_206A50:
+        if (a1 != 0) {
+            *(u32*)(a0) = ret | 0x00A50000;
+            a0 = s1 + 8;
+        }
         s1 = a0;
-    }
     a0 = 0x00210000 + -0x6518;
     goto loc_206C5C;
-    v1 = 0x03850000;
-    ret = a3 | ret;
-    a3 = 0x1b8;
-    ret = ret | v1;
-    a0 = 1;
-    *(u32*)(s1) = ret;
-    s1 = s1 + 4;
-    if (t1 == a0) goto loc_206BA8;
-    a3 = 0x1b0;
-    if (t1 == 0) goto loc_206BA8;
-    ret = 2;
-    a3 = 0x1c0;
-    if (t1 == ret) goto loc_206BA8;
-    a3 = 0;
-loc_206BA8:
     if (a3 != 0) {
-        v1 = 0x03860000;
-        ret = a3 | ret;
-        ret = ret | v1;
+        ret = ret | 0x03860000;
     } else {
         ret = 0x302d;
     }
@@ -1682,9 +1539,7 @@ loc_206BA8:
     a3 = 0;
 loc_206BF0:
     if (a3 != 0) {
-        v1 = 0x03870000;
-        ret = a3 | ret;
-        ret = ret | v1;
+        ret = ret | 0x03870000;
     } else {
         ret = 0x382d;
     }
@@ -1706,40 +1561,37 @@ loc_206BF0:
     }
 loc_206C5C:
     a1 = 0x0C000000;
-    ret = 0x0FFFFFFF;
     ret = a0 & ret;
     a0 = 0;
     ret = (unsigned)ret >> 2;
     v1 = 0x278401B0;
-    ret = ret | a1;
-    *(u32*)(s1) = ret;
+    *(u32*)(s1) = ret | a1;
     s1 = s1 + 4;
     *(u32*)(s1) = v1;
     a1 = s1 + 4;
-    return Compiler_Emit_LUI(a0, a1, a2, a3);
+    return Compiler_Emit_LUI(a0, a1);
 }
 
 /* Function at 0x00206CA8 - 0x00206CE0 */
-int Compiler_Emit_SW()
+u32 Compiler_Emit_SW(u32 a0, u32 a1)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3, s0;
+    u32 ret, a2, a3, s0;
     s0 = a1;
     if (a0 == 0) {
         a0 = s0;
-        ret = Compiler_BuildBlockLinkage(a0, a1, a2, a3);
+        ret = Compiler_BuildBlockLinkage(a0);
         s0 = ret;
-        ret = Compiler_ClearCacheSlots(a0, a1, a2, a3);
+        ret = Compiler_ClearCacheSlots();
     }
-    ret = s0;
-    return ret;
+    return s0;
 }
 
 /* Function at 0x00206CE0 - 0x00206DB8 */
-int Compiler_Emit_LH()
+u32 Compiler_Emit_LH(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, t0, t1, t2;
+    u32 ret, v1, a3, s0, t0, t1, t2;
     t2 = a2;
     s0 = a0;
     a2 = 0;
@@ -1750,11 +1602,9 @@ int Compiler_Emit_LH()
     t1 = 1;
     ret = Compiler_CompileInstructionBlock(a0, a1, a2, a3);
     t2 = ret;
-    ret = s0 << 0x10;
     ret = (signed)ret >> 0x10;
-    a0 = *(u32*)(sp);
+    a0 = *(u32*)(__sp);
     if (s0 == 0) {
-        ret = a0 << 0xb;
         ret = ret | 0x2d;
         *(u32*)(t2) = ret;
         t2 = t2 + 4;
@@ -1763,14 +1613,12 @@ int Compiler_Emit_LH()
             ret = s0 & 0xffff;
             v1 = 0x24000000;
             a0 = a0 << 0x10;
-            ret = ret | v1;
             ret = ret | a0;
             a1 = t2 + 4;
             *(u32*)(t2) = ret;
         } else {
             ret = (unsigned)s0 >> 0x10;
             a3 = a0 << 0x10;
-            ret = ret | v1;
             ret = ret | a3;
             a2 = s0 & 0xffff;
             a1 = t2 + 4;
@@ -1779,39 +1627,33 @@ int Compiler_Emit_LH()
                 v1 = a0 << 0x15;
                 ret = a2 | ret;
                 v1 = a3 | v1;
-                ret = ret | v1;
-                *(u32*)(a1) = ret;
+                *(u32*)(a1) = ret | v1;
                 a1 = t2 + 8;
                 }
             }
         t2 = a1;
     }
-    ret = t2;
-    return ret;
+    return t2;
 }
 
 /* Function at 0x00206DB8 - 0x00206DD8 */
-int Compiler_CalculateBufferSize()
+u32 Compiler_CalculateBufferSize(u32 a0, u32 a1)
 {
-    int ret, v1, a0, a1;
-    ret = a1 - a0;
+    u32 ret, v1;
     ret = (signed)ret >> 2;
-    v1 = ret << 0x10;
     v1 = (signed)v1 >> 0x10;
-    ret = ret ^ v1;
-    ret = ((unsigned)ret < 1) ? 1 : 0;
-    return ret;
+    return ((unsigned)ret < 1) ? 1 : 0;
 }
 
 /* Function at 0x00206DD8 - 0x00206E98 */
-int Compiler_Emit_SH()
+u32 Compiler_Emit_SH(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2;
+    u32 ret, v1, a3, s0, s1, s2;
     s0 = a2;
     s1 = a0;
     s2 = a1;
-    ret = Compiler_ClearCacheSlots(a0, a1, a2, a3);
+    ret = Compiler_ClearCacheSlots();
     ret = 0x0FFFFFFF;
     v1 = 0x08000000;
     ret = s1 & ret;
@@ -1828,15 +1670,12 @@ int Compiler_Emit_SH()
     }
     if (v1 != 0) {
         *(u32*)(s0) = a2;
-        if (likely((signed)v1 < (signed)a1)) goto loc_206E74;
+        if ((signed)v1 < (signed)a1) goto loc_206E74;
         ret = 0x0003FFFF;
         *(u32*)(s0) = a2;
-        if (likely((signed)ret < (signed)v1)) goto loc_206E74;
+        if ((signed)ret < (signed)v1) goto loc_206E74;
         ret = (signed)v1 >> 2;
-        v1 = 0x10000000;
-        ret = ret & 0xffff;
-        ret = ret | v1;
-        *(u32*)(s0) = ret;
+        *(u32*)(s0) = ret | 0x10000000;
     } else {
         *(u32*)(s0) = a2;
     }
@@ -1848,16 +1687,16 @@ loc_206E74:
 }
 
 /* Function at 0x00206E98 - 0x00206F80 */
-int Compiler_Emit_LB()
+u32 Compiler_Emit_LB(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 48 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3;
+    u32 ret, v1, s0, s1, s2, s3;
     s0 = a2;
     s1 = a3;
     s2 = a0;
     s3 = a1;
-    ret = Compiler_ClearCacheSlots(a0, a1, a2, a3);
-    __asm("negu s0, s0");
+    ret = Compiler_ClearCacheSlots();
+    s0 = -s0;
     v1 = 0x24000000;
     s0 = s0 & 0xffff;
     ret = 0x0FFFFFFF;
@@ -1878,29 +1717,25 @@ int Compiler_Emit_LB()
     }
     if (v1 != 0) {
         *(u32*)(s1) = a1;
-        if (likely((signed)v1 < (signed)a0)) goto loc_206F54;
+        if ((signed)v1 < (signed)a0) goto loc_206F54;
         ret = 0x0003FFFF;
         *(u32*)(s1) = a1;
-        if (likely((signed)ret < (signed)v1)) goto loc_206F54;
+        if ((signed)ret < (signed)v1) goto loc_206F54;
         ret = (signed)v1 >> 2;
-        v1 = 0x10000000;
-        ret = ret & 0xffff;
-        ret = ret | v1;
-        *(u32*)(s1) = ret;
+        *(u32*)(s1) = ret | 0x10000000;
     } else {
         *(u32*)(s1) = a1;
     }
 loc_206F54:
     s1 = s1 + 4;
     *(u32*)(s1) = s0;
-    ret = s1 + 4;
-    return ret;
+    return s1 + 4;
 }
 
 /* Function at 0x00206F80 - 0x00206FD0 */
-int Compiler_EncodeLoadStoreAddressing()
+u32 Compiler_EncodeLoadStoreAddressing(u32 a0, u32 a1, u32 a2, u32 a3)
 {
-    int ret, v0, v1, a0, a1, a2, a3;
+    u32 ret, v1;
     ret = a1 - a3;
     *(u32*)(a0) = a3;
     v1 = 0;
@@ -1910,23 +1745,20 @@ int Compiler_EncodeLoadStoreAddressing()
     a0 = 7;
     ret = 6;
     v1 = (signed)v1 >> 2;
-    __asm("movz v0, a0, a2");
+    if (a2 == 0) ret = a0;
     v1 = v1 & 0xffff;
     ret = ret << 0x1a;
     a1 = 0x03600000;
-    ret = ret | v1;
-    ret = ret | a1;
-    *(u32*)(a3) = ret;
+    *(u32*)(a3) = ret | a1;
     a3 = a3 + 4;
     *(u32*)(a3) = 0;
-    ret = a3 + 4;
-    return ret;
+    return a3 + 4;
 }
 
 /* Function at 0x00206FD0 - 0x00207018 */
-int Compiler_EncodeRegisterOp()
+u32 Compiler_EncodeRegisterOp(u32 a0, u32 a1, u32 a2, u32 a3)
 {
-    int ret, v1, a0, a1, a2, a3, t0;
+    u32 ret, v1, t0;
     *(u32*)(a0) = a3;
     a0 = 0;
     ret = a3 + 4;
@@ -1938,30 +1770,28 @@ int Compiler_EncodeRegisterOp()
     a1 = 7;
     v1 = 6;
     a0 = (signed)a0 >> 2;
-    __asm("movz v1, a1, t0");
+    if (t0 == 0) v1 = a1;
     a0 = a0 & 0xffff;
     v1 = v1 << 0x1a;
     a2 = 0x03600000;
-    v1 = v1 | a0;
-    v1 = v1 | a2;
-    *(u32*)(a3) = v1;
+    *(u32*)(a3) = v1 | a2;
     return ret;
 }
 
 /* Function at 0x00207018 - 0x00207218 */
-int Compiler_Emit_SB()
+u32 Compiler_Emit_SB(u32 a0, u32 a1)
 {
     /* Stack frame: 48 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2;
+    u32 ret, v1, a2, a3, s0, s1, s2;
     s1 = a0;
     a0 = a1;
     s2 = 0x00210000;
-    ret = Compiler_BuildBlockLinkage(a0, a1, a2, a3);
+    ret = Compiler_BuildBlockLinkage(a0);
     s0 = ret;
-    ret = Compiler_ClearCacheSlots(a0, a1, a2, a3);
+    ret = Compiler_ClearCacheSlots();
     a0 = s0;
     a1 = s2 + -0x7da8;
-    ret = Compiler_CalculateBufferSize(a0, a1, a2, a3);
+    ret = Compiler_CalculateBufferSize(a0, a1);
     ret = s1 << 0x10;
     if (ret != 0) {
         ret = (signed)ret >> 0x10;
@@ -1970,7 +1800,6 @@ int Compiler_Emit_SB()
             s0 = s0 + 4;
         } else {
             if (s1 == 0x3C000000) {
-                ret = s1 & 0xffff;
                 ret = ret | 0x24000000;
                 a0 = 2 << 16;
                 ret = ret | a0;
@@ -1979,16 +1808,12 @@ int Compiler_Emit_SB()
             } else {
                 v1 = (unsigned)s1 >> 0x10;
                 a0 = 2 << 16;
-                v1 = v1 | ret;
                 v1 = v1 | a0;
                 a0 = s1 & 0xffff;
                 *(u32*)(s0) = v1;
                 a1 = s0 + 4;
                 if (a0 != 0) {
-                    v1 = 0x00420000;
-                    ret = a0 | ret;
-                    ret = ret | v1;
-                    *(u32*)(a1) = ret;
+                    *(u32*)(a1) = ret | 0x00420000;
                     a1 = s0 + 8;
                     }
                 }
@@ -1998,12 +1823,11 @@ int Compiler_Emit_SB()
         a0 = __sp;
         a1 = s2 + -0x7da8;
         a2 = 1;
-        ret = Compiler_EncodeRegisterOp(a0, a1, a2, a3);
-        s0 = ret;
+        s0 = Compiler_EncodeRegisterOp(a0, a1, a2, a3);
         *(u32*)(s0) = 0xAF820000;
         a1 = s0 + 4;
         a0 = 0x002082C8;
-        ret = Compiler_EmitImmediateOp(a0, a1, a2, a3);
+        ret = Compiler_EmitImmediateOp(a0, a1);
         s0 = ret;
         goto loc_2071FC;
     }
@@ -2018,14 +1842,12 @@ int Compiler_Emit_SB()
         if (s1 == 0) {
             ret = 0x102d;
         } else {
-            ret = s1 & 0xffff;
             ret = ret | 0x24000000;
             a0 = 2 << 16;
             ret = ret | a0;
             } else {
             ret = (unsigned)s1 >> 0x10;
             v1 = 2 << 16;
-            ret = ret | a0;
             ret = ret | v1;
             a2 = 1;
             *(u32*)(s0) = ret;
@@ -2036,20 +1858,15 @@ int Compiler_Emit_SB()
             ret = Compiler_EncodeRegisterOp(a0, a1, a2, a3);
             a0 = 0x34000000;
             s0 = ret;
-            ret = s1 & 0xffff;
-            v1 = 0x00420000;
-            ret = ret | a0;
-            ret = ret | v1;
+            ret = ret | 0x00420000;
             }
         }
     *(u32*)(s0) = ret;
     s0 = s0 + 4;
     a1 = 0x0FFFFFFF;
-    ret = 0x002082C8;
     ret = ret & a1;
     v1 = 0x0C000000;
     a0 = s2 + -0x7da8;
-    ret = (unsigned)ret >> 2;
     ret = ret | v1;
     v1 = 0xAF820000;
     a0 = a0 & a1;
@@ -2065,15 +1882,14 @@ int Compiler_Emit_SB()
     *(u32*)(s0) = v1;
     s0 = s0 + 4;
 loc_2071FC:
-    ret = s0;
-    return ret;
+    return s0;
 }
 
 /* Function at 0x00207218 - 0x00207378 */
-int Compiler_Emit_ADD()
+u32 Compiler_Emit_ADD(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 48 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, t0, t1, t2;
+    u32 ret, v1, s0, s1, s2, t0, t1, t2;
     s0 = a2;
     s1 = a0;
     s2 = t0;
@@ -2102,24 +1918,14 @@ int Compiler_Emit_ADD()
     ret = Compiler_CompileInstructionBlock(a0, a1, a2, a3);
     a0 = s1 + -0x201;
     a2 = ret;
-    ret = ((unsigned)a0 < 6) ? 1 : 0;
-    ret = a0 << 2;
-    if (ret == 0) goto loc_207340;
-    v1 = 0x00500000;
-    v1 = v1 + ret;
-    v1 = *(u32*)*(v1 + -0x6ac0);
+    if ((a0 << 2) == 0) goto loc_207340;
+    v1 = *(u32*)(v1 + -0x6ac0);
     goto *v1; /* computed jump */
-    v1 = *(u32*)(sp);
-    ret = *(u32*)*(__sp + 4);
+    v1 = *(u32*)(__sp);
+    ret = *(u32*)(__sp + 4);
     v1 = v1 << 0x15;
-    ret = ret << 0x10;
-    ret = ret | v1;
     ret = ret | 0x1026;
     goto loc_207338;
-    v1 = v1 << 0x15;
-    ret = ret << 0x10;
-    ret = ret | v1;
-    ret = ret | 0x102a;
 loc_207338:
     *(u32*)(a2) = ret;
     a2 = a2 + 4;
@@ -2134,16 +1940,16 @@ loc_20735C:
 }
 
 /* Function at 0x00207378 - 0x00207440 */
-int Compiler_Emit_ADDI()
+u32 Compiler_Emit_ADDI(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 48 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, t0;
+    u32 ret, v1, s0, s1, s2, s3, t0;
     s1 = a0;
     a0 = t0;
     s2 = a1;
     s3 = a2;
     s0 = a3;
-    ret = Compiler_BuildBlockLinkage(a0, a1, a2, a3);
+    ret = Compiler_BuildBlockLinkage(a0);
     a0 = 0x201;
     a2 = ret;
     ret = 0x8F82000C;
@@ -2161,7 +1967,6 @@ int Compiler_Emit_ADDI()
     ret = (signed)a1 >> 2;
     if (s1 != a0) {
         if (s1 != 0x10000000) {
-            ret = 0x205;
             ret = (signed)a1 >> 2;
             } else {
                 v1 = 0x14000000;
@@ -2169,7 +1974,6 @@ int Compiler_Emit_ADDI()
         }
     ret = ret & 0xffff;
     a0 = 0x00400000;
-    ret = ret | v1;
     ret = ret | a0;
     *(u32*)(a2) = ret;
     a2 = a2 + 4;
@@ -2179,10 +1983,10 @@ int Compiler_Emit_ADDI()
 }
 
 /* Function at 0x00207440 - 0x00207608 */
-int Compiler_Emit_SUB()
+u32 Compiler_Emit_SUB(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 80 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, t0, t1, t2;
+    u32 ret, v1, s0, s1, s2, s3, s4, s5, t0, t1, t2;
     s4 = a0;
     a0 = t2;
     s1 = a2;
@@ -2190,7 +1994,7 @@ int Compiler_Emit_SUB()
     s3 = t0;
     s5 = a3;
     s0 = a1;
-    ret = Compiler_BuildBlockLinkage(a0, a1, a2, a3);
+    ret = Compiler_BuildBlockLinkage(a0);
     a0 = s0;
     a3 = __sp;
     t2 = ret;
@@ -2218,17 +2022,14 @@ int Compiler_Emit_SUB()
     t0 = (signed)t0 >> 2;
     if ((unsigned)a0 >= 6) goto loc_2075C0;
     ret = a0 << 2;
-    v1 = 0x00500000;
-    v1 = v1 + ret;
-    v1 = *(u32*)*(v1 + -0x6aa0);
+    v1 = *(u32*)(v1 + -0x6aa0);
     goto *v1; /* computed jump */
-    a0 = *(u32*)(sp);
+    a0 = *(u32*)(__sp);
     v1 = t0 & 0xffff;
-    ret = *(u32*)*(__sp + 4);
+    ret = *(u32*)(__sp + 4);
     a1 = 0x10000000;
     a0 = a0 << 0x15;
     v1 = v1 | a1;
-    ret = ret << 0x10;
     ret = ret | a0;
     goto loc_2075B4;
 loc_2075B4:
@@ -2236,11 +2037,10 @@ loc_2075B4:
     *(u32*)(a2) = v1;
     a2 = a2 + 4;
 loc_2075C0:
-    __asm("negu v1, s5");
+    v1 = -s5;
     ret = 0x24000000;
     v1 = v1 & 0xffff;
     a0 = 0x037B0000;
-    v1 = v1 | ret;
     v1 = v1 | a0;
     ret = a2 + 4;
     *(u32*)(a2) = v1;
@@ -2248,9 +2048,9 @@ loc_2075C0:
 }
 
 /* Function at 0x00207608 - 0x00207690 */
-int Compiler_Emit_SUBI()
+u32 Compiler_Emit_SUBI(u32 a0, u32 a1)
 {
-    int ret, v1, a0, a1, a2, a3, t0, t1;
+    u32 ret, v1, a2, a3, t0, t1;
     a3 = *(u32*)(a0);
     t0 = a1 - a0;
     a2 = t0 + -4;
@@ -2259,16 +2059,12 @@ int Compiler_Emit_SUBI()
     ret = t1 + -2;
     v1 = v1 & 0xffff;
     if ((unsigned)ret < 2) {
-        ret = 4;
         ret = 7 << 16;
         if (a2 == ret) {
             *(u32*)(a0) = 0;
             return ret;
         }
-        v1 = 0x0003FFFB;
         v1 = v1 + t0;
-        ret = 0x0007FFFE;
-        ret = ((unsigned)ret < (unsigned)v1) ? 1 : 0;
         ret = t1 << 0x1a;
         if (ret == 0) {
             ret = (signed)a2 >> 2;
@@ -2287,30 +2083,29 @@ loc_207680:
 }
 
 /* Function at 0x00207690 - 0x002076B8 */
-int Compiler_Emit_LUI()
+u32 Compiler_Emit_LUI(u32 a0, u32 a1)
 {
-    int ret, v0, v1, a0, a1;
+    u32 ret, v1;
     ret = a1;
     v1 = 0x3C011FFF;
     a0 = 0x3421FFFF;
-    *(u32*)(v0) = v1;
-    *(u32*)*(ret + 4) = a0;
-    ret = ret + 8;
-    return ret;
+    *(u32*)(ret) = v1;
+    *(u32*)(ret + 4) = a0;
+    return ret + 8;
 }
 
 /* Function at 0x002076B8 - 0x002076D0 */
-int Compiler_Emit_JAL()
+u32 Compiler_Emit_JAL(void)
 {
     /* Stack frame: 16 bytes */
-    int a0, a1, a2, a3;
-    return Compiler_BuildBlockLinkage(a0, a1, a2, a3);
+    u32 a0, a1, a2, a3;
+    return Compiler_BuildBlockLinkage(a0);
 }
 
 /* Function at 0x002076D0 - 0x00207770 */
-int Compiler_Emit_ImmediateArith()
+u32 Compiler_Emit_ImmediateArith(u32 a0, u32 a1)
 {
-    int ret, v1, a0, a1, a2;
+    u32 ret, v1, a2;
     a2 = a0;
     ret = a2 << 0x10;
     if (a2 == 0) {
@@ -2325,23 +2120,18 @@ int Compiler_Emit_ImmediateArith()
         a2 = a1 + 4;
         v1 = 0x24000000;
         a0 = 2 << 16;
-        ret = ret | v1;
         ret = ret | a0;
         *(u32*)(a1) = ret;
         goto loc_207758;
     }
     ret = 0x3C000000;
     a0 = 2 << 16;
-    v1 = v1 | ret;
     v1 = v1 | a0;
     a0 = a2 & 0xffff;
     *(u32*)(a1) = v1;
     a2 = a1 + 4;
     if (a0 == 0) goto loc_207758;
-    v1 = 0x00420000;
-    ret = a0 | ret;
-    ret = ret | v1;
-    *(u32*)(a2) = ret;
+    *(u32*)(a2) = ret | 0x00420000;
     a2 = a1 + 8;
 loc_207758:
     a1 = a2;
@@ -2353,10 +2143,10 @@ loc_20775C:
 }
 
 /* Function at 0x00207770 - 0x002077C8 */
-int Compiler_Emit_IndirectJump()
+u32 Compiler_Emit_IndirectJump(u32 a0, u32 a1)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, t0, t1, t2;
+    u32 ret, v1, a2, a3, t0, t1, t2;
     t2 = a1;
     a2 = 0;
     a3 = __sp;
@@ -2365,7 +2155,7 @@ int Compiler_Emit_IndirectJump()
     t1 = 0;
     ret = Compiler_CompileInstructionBlock(a0, a1, a2, a3);
     v1 = 0xAC000000;
-    a0 = *(u32*)(sp);
+    a0 = *(u32*)(__sp);
     a1 = 0x03800000;
     t2 = ret;
     a0 = a0 << 0x10;
@@ -2377,26 +2167,23 @@ int Compiler_Emit_IndirectJump()
 }
 
 /* Function at 0x002077C8 - 0x002077F8 */
-int Compiler_EncodeNegateOp()
+u32 Compiler_EncodeNegateOp(u32 a0, u32 a1)
 {
-    int ret, v0, a0, a1;
-    __asm("negu v0, a0");
+    u32 ret;
+    ret = -a0;
     if (a0 != 0) {
-        ret = ret & 0xffff;
         ret = ret | 0x24000000;
         a0 = 0x037B0000;
-        ret = ret | a0;
-        *(u32*)(a1) = ret;
+        *(u32*)(a1) = ret | a0;
         a1 = a1 + 4;
     }
-    ret = a1;
-    return ret;
+    return a1;
 }
 
 /* Function at 0x002077F8 - 0x00207888 */
-int Compiler_Emit_BiImmediate()
+u32 Compiler_Emit_BiImmediate(u32 a0, u32 a1, u32 a2)
 {
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1, a3;
     ret = a1 << 0x10;
     a0 = a0 + 3;
     v1 = (signed)ret >> 0x10;
@@ -2409,7 +2196,6 @@ int Compiler_Emit_BiImmediate()
     }
     ret = (unsigned)a1 >> 0x10;
     if (a1 == v1) {
-        ret = a1 & 0xffff;
         ret = ret | 0x24000000;
         a0 = a0 << 0x10;
         ret = ret | a0;
@@ -2417,14 +2203,10 @@ int Compiler_Emit_BiImmediate()
         a1 = a1 & 0xffff;
         v1 = 0x3C000000;
         a3 = a0 << 0x10;
-        ret = ret | v1;
-        ret = ret | a3;
-        *(u32*)(a2) = ret;
+        *(u32*)(a2) = ret | a3;
         a2 = a2 + 4;
         if (a1 != 0) {
-            v1 = a0 << 0x15;
             v1 = a3 | v1;
-            ret = a1 | ret;
             ret = ret | v1;
             }
             *(u32*)(a2) = ret;
@@ -2432,26 +2214,25 @@ int Compiler_Emit_BiImmediate()
         }
     a3 = a2;
 loc_207880:
-    ret = a3;
-    return ret;
+    return a3;
 }
 
 /* Function at 0x00207888 - 0x00207930 */
-int Compiler_Emit_LoadIndexed()
+u32 Compiler_Emit_LoadIndexed(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 32 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2;
+    u32 ret, v1, a3, s0, s1, s2;
     ret = a0 + 3;
     s2 = a1 << 2;
     a3 = 0x00500000;
     a3 = a3 + s2;
-    a3 = *(u32*)*(a3 + -0x6c40);
+    a3 = *(u32*)(a3 + -0x6c40);
     s1 = 2;
     s0 = a2;
-    __asm("movn s1, v0, a0");
+    if (a0 != 0) s1 = ret;
     a0 = a1;
     if ((signed)a3 < 0) {
-        ret = Compiler_FindCacheSlot(a0, a1, a2, a3);
+        ret = Compiler_FindCacheSlot(a0);
         a0 = 0x8C000000;
         v1 = s2 + 0x10;
         a3 = ret;
@@ -2460,7 +2241,6 @@ int Compiler_Emit_LoadIndexed()
         ret = s1 << 0x10;
         v1 = v1 | a0;
         ret = ret | a1;
-        v1 = v1 | ret;
             v1 = s1 << 0xb;
             a0 = a3 << 0x15;
             v1 = v1 | 0x2d;
@@ -2475,10 +2255,10 @@ int Compiler_Emit_LoadIndexed()
 }
 
 /* Function at 0x00207930 - 0x00207980 */
-int Compiler_Emit_SimpleArithmetic()
+u32 Compiler_Emit_SimpleArithmetic(u32 a0, u32 a1)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, t0, t1, t2;
+    u32 ret, v1, a2, a3, t0, t1, t2;
     t2 = a1;
     a2 = 0;
     a3 = __sp;
@@ -2486,24 +2266,22 @@ int Compiler_Emit_SimpleArithmetic()
     t0 = 0;
     t1 = 1;
     ret = Compiler_CompileInstructionBlock(a0, a1, a2, a3);
-    v1 = *(u32*)(sp);
+    v1 = *(u32*)(__sp);
     t2 = ret;
     a0 = 0x0040002D;
     v1 = v1 << 0xb;
     ret = t2 + 4;
-    v1 = v1 | a0;
-    *(u32*)(t2) = v1;
+    *(u32*)(t2) = v1 | a0;
     return ret;
 }
 
 /* Function at 0x00207980 - 0x002079C0 */
-int Compiler_Emit_BranchLinkage()
+u32 Compiler_Emit_BranchLinkage(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 16 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, t0;
+    u32 ret, v1, t0;
     v1 = a0 + 3;
-    ret = 2;
-    __asm("movn v0, v1, a0");
+    if (a0 != 0) 2 = v1;
     a0 = 0x23;
     v1 = a1;
     a1 = ret | 0x80;
@@ -2515,10 +2293,10 @@ int Compiler_Emit_BranchLinkage()
 }
 
 /* Function at 0x002079C0 - 0x002079F0 */
-int Compiler_Emit_CoprocessorMove()
+u32 Compiler_Emit_CoprocessorMove(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3, t0;
+    u32 ret, a3, t0;
     ret = a0;
     a3 = a1 << 0x10;
     t0 = a2;
@@ -2530,10 +2308,10 @@ int Compiler_Emit_CoprocessorMove()
 }
 
 /* Function at 0x002079F0 - 0x00207A58 */
-int Compiler_Emit_MemoryLoadALU()
+u32 Compiler_Emit_MemoryLoadALU(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, t0, t1, t2;
+    u32 ret, v1, a3, s0, t0, t1, t2;
     t2 = a2;
     s0 = a1;
     a2 = 0;
@@ -2543,7 +2321,7 @@ int Compiler_Emit_MemoryLoadALU()
     t1 = 1;
     ret = Compiler_CompileInstructionBlock(a0, a1, a2, a3);
     a0 = 0x03800000;
-    v1 = *(u32*)(sp);
+    v1 = *(u32*)(__sp);
     t2 = ret;
     s0 = s0 & 0xffff;
     ret = 0x8C000000;
@@ -2557,10 +2335,10 @@ int Compiler_Emit_MemoryLoadALU()
 }
 
 /* Function at 0x00207A58 - 0x00207B48 */
-int Compiler_Emit_MemoryStoreALU()
+u32 Compiler_Emit_MemoryStoreALU(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 48 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, t0, t1, t2;
+    u32 ret, v1, s0, s1, t0, t1, t2;
     t2 = a3;
     s0 = a0;
     s1 = a2;
@@ -2581,7 +2359,7 @@ int Compiler_Emit_MemoryStoreALU()
     a1 = 0x00021403;
     v1 = v1 | ret;
     if (s0 != a0) {
-        ret = *(u32*)(sp);
+        ret = *(u32*)(__sp);
         if (s0 != 0) {
             if (s0 != 2) {
                 ret = t2;
@@ -2591,15 +2369,12 @@ int Compiler_Emit_MemoryStoreALU()
                 a0 = 0xAC000000;
                 goto loc_207B14;
                 }
-                ret = *(u32*)(sp);
-                ret = ret << 0x10;
-                ret = ret | 0x1400;
-                *(u32*)(t2) = ret;
+                *(u32*)(t2) = ret | 0x1400;
                 t2 = t2 + 4;
                 *(u32*)(t2) = a1;
                 t2 = t2 + 4;
             } else {
-                ret = *(u32*)(sp);
+                ret = *(u32*)(__sp);
                 v1 = s1 & 0xffff;
                 a0 = 0xA4000000;
                 loc_207B14:
@@ -2617,12 +2392,11 @@ loc_207B38:
 }
 
 /* Function at 0x00207B48 - 0x00207B80 */
-int Compiler_Emit_GTEOperation()
+u32 Compiler_Emit_GTEOperation(u32 a0, u32 a1, u32 a2)
 {
-    int ret, v0, v1, a0, a1, a2;
+    u32 ret, v1;
     v1 = a0 + 3;
-    ret = 7;
-    __asm("movn v0, v1, a0");
+    if (a0 != 0) 7 = v1;
     v1 = 0x8C000000;
     a1 = a1 & 0xffff;
     ret = ret << 0x10;
@@ -2636,9 +2410,9 @@ int Compiler_Emit_GTEOperation()
 }
 
 /* Function at 0x00207B80 - 0x00207BC0 */
-int Compiler_Emit_MultiplyDivide()
+u32 Compiler_Emit_MultiplyDivide(u32 a0)
 {
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1, a1, a2, a3;
     a1 = 2 << 16;
     v1 = a0 + 4;
     ret = 0x70401004;
@@ -2648,15 +2422,15 @@ int Compiler_Emit_MultiplyDivide()
     *(u32*)(a0) = ret;
     ret = v1 + 0xc;
     *(u32*)(v1) = a1;
-    *(u32*)*(v1 + 4) = a2;
-    *(u32*)*(v1 + 8) = a3;
+    *(u32*)(v1 + 4) = a2;
+    *(u32*)(v1 + 8) = a3;
     return ret;
 }
 
 /* Function at 0x00207BC0 - 0x00207D20 */
-int Compiler_Emit_ShiftOp()
+u32 Compiler_Emit_ShiftOp(u32 a0)
 {
-    int ret, v1, a0, a1, a2, a3, t0, t1;
+    u32 ret, v1, a1, a2, a3, t0, t1;
     v1 = a0 + 4;
     ret = 0x8F8401E4;
     a1 = 0x8F8501E8;
@@ -2667,63 +2441,59 @@ int Compiler_Emit_ShiftOp()
     *(u32*)(a0) = ret;
     ret = v1 + 0x14;
     *(u32*)(v1) = a1;
-    *(u32*)*(v1 + 4) = a2;
-    *(u32*)*(v1 + 8) = a3;
-    *(u32*)*(v1 + 0xc) = t0;
-    *(u32*)*(v1 + 0x10) = t1;
+    *(u32*)(v1 + 4) = a2;
+    *(u32*)(v1 + 8) = a3;
+    *(u32*)(v1 + 0xc) = t0;
+    *(u32*)(v1 + 0x10) = t1;
     return ret;
 }
 
 /* Function at 0x00207D20 - 0x00207DE0 */
-int Compiler_Emit_RotateOp()
+u32 Compiler_Emit_RotateOp(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 128 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
-    *(u64*)*(__sp + 8) = t0;
-    *(u64*)*(__sp + 16) = t1;
-    *(u64*)*(__sp + 24) = t2;
-    *(u64*)*(__sp + 32) = t3;
-    *(u64*)*(__sp + 40) = t4;
-    *(u64*)*(__sp + 48) = t5;
-    *(u64*)*(__sp + 56) = t6;
-    *(u64*)*(__sp + 64) = t7;
-    *(u64*)*(__sp + 72) = t8;
-    *(u64*)*(__sp + 80) = t9;
-    *(u64*)*(__sp + 88) = a0;
+    u32 ret, v1, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, psx;
+    *(u64*)(__sp + 8) = t0;
+    *(u64*)(__sp + 16) = t1;
+    *(u64*)(__sp + 24) = t2;
+    *(u64*)(__sp + 32) = t3;
+    *(u64*)(__sp + 40) = t4;
+    *(u64*)(__sp + 48) = t5;
+    *(u64*)(__sp + 56) = t6;
+    *(u64*)(__sp + 64) = t7;
+    *(u64*)(__sp + 72) = t8;
+    *(u64*)(__sp + 80) = t9;
+    *(u64*)(__sp + 88) = a0;
     a0 = a0 + a3;
     a0 = a0 & __at;
-    v1 = 0x1F801000;
-    v1 = a0 - v1;
-    v1 = (unsigned)v1 >> 4;
     v1 = v1 << 2;
-    ret = ret + v1;
-    ret = *(u32*)(v0);
-    *(u32*)*(__gp + 0x2c4) = __k1;
+    ret = *(u32*)(ret);
+    ((PSX_State*)psx)->cop2_insn_count = __k1;
     __asm("mmi2 gp, gp, gp");
     __gp = 0x0050A670;
-    ret = (ret)(a0, a1, a2, a3); /* indirect call */
+    ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
     __asm("mmi3 gp, gp, gp");
-    __k1 = *(u32*)*(__gp + 0x2c4);
+    __k1 = ((PSX_State*)psx)->cop2_insn_count;
     __at = 0x1FFFFFFF;
-    t0 = *(u64*)*(__sp + 8);
-    t1 = *(u64*)*(__sp + 16);
-    t2 = *(u64*)*(__sp + 24);
-    t3 = *(u64*)*(__sp + 32);
-    t4 = *(u64*)*(__sp + 40);
-    t5 = *(u64*)*(__sp + 48);
-    t6 = *(u64*)*(__sp + 56);
-    t7 = *(u64*)*(__sp + 64);
-    t8 = *(u64*)*(__sp + 72);
-    t9 = *(u64*)*(__sp + 80);
-    a0 = *(u64*)*(__sp + 88);
+    t0 = *(u64*)(__sp + 8);
+    t1 = *(u64*)(__sp + 16);
+    t2 = *(u64*)(__sp + 24);
+    t3 = *(u64*)(__sp + 32);
+    t4 = *(u64*)(__sp + 40);
+    t5 = *(u64*)(__sp + 48);
+    t6 = *(u64*)(__sp + 56);
+    t7 = *(u64*)(__sp + 64);
+    t8 = *(u64*)(__sp + 72);
+    t9 = *(u64*)(__sp + 80);
+    a0 = *(u64*)(__sp + 88);
     return ret;
 }
 
 /* Function at 0x00207DE0 - 0x00208180 */
-int Compiler_Emit_SystemCall()
+u32 Compiler_Emit_SystemCall(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 48 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, t0, t1, t2, t3, t4, t5, t6, t7;
+    u32 ret, v1, s0, s1, s2, s3, s4, t0, t1, t2, t3, t4, t5, t6, t7;
     s1 = a3;
     v1 = s1 + v1;
     ret = 0x1FFFFFFF;
@@ -2736,12 +2506,12 @@ int Compiler_Emit_SystemCall()
         ret = UI_DMASetup(a0, a1, a2, a3);
         BREAK(); /* breakpoint */
     }
-    ret = *(u32*)*(0x00500000 + 0x6c00);
+    ret = *(u32*)(0x00500000 + 0x6c00);
     s3 = *(u32*)(s4);
-    if (likely((unsigned)s4 >= (unsigned)ret)) goto loc_207E7C;
-    ret = *(u32*)*(0x00500000 + 0x6c04);
+    if ((unsigned)s4 >= (unsigned)ret) goto loc_207E7C;
+    ret = *(u32*)(0x00500000 + 0x6c04);
     s3 = *(u32*)(s4);
-    if (likely((unsigned)s4 < (unsigned)ret)) goto loc_207E7C;
+    if ((unsigned)s4 < (unsigned)ret) goto loc_207E7C;
     a1 = s4;
     a0 = 0x004F95B0;
     a2 = s1;
@@ -2753,7 +2523,7 @@ loc_207E7C:
     ret = 0x1FFE0130;
     s2 = (unsigned)s3 >> 0x1a;
     if (s1 != ret) {
-        ret = 0x1F801F5A;
+        ret = PSX_EXP2_END;  /* 0x1F801F5A */
         if (s1 == 0x1F000000) {
             a1 = s4;
             a0 = 0x004F9578;
@@ -2772,13 +2542,11 @@ loc_207E7C:
                 *(u32*)(s4) = 0;
                 s0 = s4 + 4;
                 } else {
-                v1 = s3 & v1;
                 v1 = v1 | 0x2400FFFF;
                 s0 = s4 + 4;
                 *(u32*)(s4) = v1;
                 goto loc_208130;
             }
-            ret = 0xE07FF000;
             ret = s1 + ret;
             a3 = 0x0FFF0000;
             if ((unsigned)ret >= 0x2000) {
@@ -2826,7 +2594,6 @@ loc_207E7C:
                     if (a0 == ret) {
                         ret = a0 & 0xffff;
                         a0 = s0 + 4;
-                        ret = ret | t4;
                         ret = ret | a2;
                         *(u32*)(s0) = ret;
                     } else {
@@ -2836,9 +2603,7 @@ loc_207E7C:
                         ret = ret | a2;
                         *(u32*)(s0) = ret;
                         if (a1 != 0) {
-                            ret = a1 | t2;
-                            ret = ret | t1;
-                            *(u32*)(a0) = ret;
+                            *(u32*)(a0) = ret | t1;
                             a0 = s0 + 8;
                             }
                         }
@@ -2852,8 +2617,7 @@ loc_207E7C:
                 ret = ret << 0x15;
                 *(u32*)(s0) = v1;
                 s0 = s0 + 4;
-                ret = ret | 0x282d;
-                *(u32*)(s0) = ret;
+                *(u32*)(s0) = ret | 0x282d;
             } else {
                 v1 = 0x00200000 + 0x7ce0;
                 if (a0 != 0) {
@@ -2867,21 +2631,17 @@ loc_207E7C:
                 v1 = s3 << 0x10;
                 ret = (unsigned)ret >> 2;
                 v1 = (signed)v1 >> 0x10;
-                ret = ret | t0;
-                *(u32*)(s0) = ret;
+                *(u32*)(s0) = ret | t0;
                 s0 = s0 + 4;
                 if (v1 == 0) {
                     *(u32*)(s0) = t5;
                     s0 = s0 + 4;
                 } else {
-                    ret = v1;
                     ret = (unsigned)v1 >> 0x10;
                     if (v1 == ret) {
                         ret = v1 & 0xffff;
                         a0 = s0 + 4;
-                        ret = ret | t4;
-                        ret = ret | a2;
-                        *(u32*)(s0) = ret;
+                        *(u32*)(s0) = ret | a2;
                         goto loc_2080F8;
                     }
                     v1 = v1 & 0xffff;
@@ -2890,25 +2650,18 @@ loc_207E7C:
                     ret = ret | a2;
                     *(u32*)(s0) = ret;
                     if (v1 == 0) goto loc_2080F8;
-                    ret = v1 | t2;
-                    ret = ret | t1;
-                    *(u32*)(a0) = ret;
+                    *(u32*)(a0) = ret | t1;
                     a0 = s0 + 8;
                     loc_2080F8:
                     s0 = a0;
                 }
-                v1 = (unsigned)s3 >> 5;
-                v1 = v1 & 0xf800;
-                v1 = v1 | 0x0040002D;
-                *(u32*)(s0) = v1;
+                *(u32*)(s0) = v1 | 0x0040002D;
             }
             s0 = s0 + 4;
             s3 = *(u32*)(s0);
             v1 = 0x20;
             s2 = (unsigned)s3 >> 0x1a;
-            ret = s2 & 0xfff0;
-            ret = (unsigned)s3 >> 0x15;
-            if (ret == v1) goto loc_207F90;
+            if (((unsigned)s3 >> 0x15) == v1) goto loc_207F90;
         }
 loc_208130:
     SYNC(); /* memory barrier */
@@ -2927,53 +2680,51 @@ loc_208130:
 }
 
 /* Function at 0x00208180 - 0x00208258 */
-int Compiler_Emit_Exception()
+u32 Compiler_Emit_Exception(u32 a0)
 {
     /* Stack frame: 128 bytes */
-    int ret, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7;
+    u32 ret, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, psx;
     __gp = a0;
-    __k1 = *(u32*)*(__gp + 0x2c4);
+    __k1 = ((PSX_State*)psx)->cop2_insn_count;
     __at = 0x1FFFFFFF;
-    s0 = *(u32*)*(__gp + 0x18);
-    s1 = *(u32*)*(__gp + 0x1c);
-    s2 = *(u32*)*(__gp + 0x20);
-    s3 = *(u32*)*(__gp + 0x24);
-    s4 = *(u32*)*(__gp + 0x28);
-    s5 = *(u32*)*(__gp + 0x50);
-    s6 = *(u32*)*(__gp + 0x54);
-    s7 = *(u32*)*(__gp + 0x84);
-    __fp = *(u32*)*(__gp + 0x8c);
-    ret = Compiler_Emit_InterruptCheck(a0, a1, a2, a3);
-    return ret;
+    s0 = ((PSX_State*)psx)->gpr[2];
+    s1 = ((PSX_State*)psx)->gpr[3];
+    s2 = ((PSX_State*)psx)->gpr[4];
+    s3 = ((PSX_State*)psx)->gpr[5];
+    s4 = ((PSX_State*)psx)->gpr[6];
+    s5 = ((PSX_State*)psx)->gpr[16];
+    s6 = ((PSX_State*)psx)->gpr[17];
+    s7 = ((PSX_State*)psx)->gpr[29];
+    __fp = ((PSX_State*)psx)->gpr[31];
+    return Compiler_Emit_InterruptCheck(a0, a1, a2);
 loc_2081F0:
-    *(u32*)*(__gp + 0x18) = s0;
-    *(u32*)*(__gp + 0x1c) = s1;
-    *(u32*)*(__gp + 0x20) = s2;
-    *(u32*)*(__gp + 0x24) = s3;
-    *(u32*)*(__gp + 0x28) = s4;
-    *(u32*)*(__gp + 0x50) = s5;
-    *(u32*)*(__gp + 0x54) = s6;
-    *(u32*)*(__gp + 0x84) = s7;
-    *(u32*)*(__gp + 0x8c) = __fp;
-    *(u32*)*(__gp + 0x2c4) = __k1;
+    ((PSX_State*)psx)->gpr[2] = s0;
+    ((PSX_State*)psx)->gpr[3] = s1;
+    ((PSX_State*)psx)->gpr[4] = s2;
+    ((PSX_State*)psx)->gpr[5] = s3;
+    ((PSX_State*)psx)->gpr[6] = s4;
+    ((PSX_State*)psx)->gpr[16] = s5;
+    ((PSX_State*)psx)->gpr[17] = s6;
+    ((PSX_State*)psx)->gpr[29] = s7;
+    ((PSX_State*)psx)->gpr[31] = __fp;
+    ((PSX_State*)psx)->cop2_insn_count = __k1;
     return ret;
 }
 
 /* Function at 0x00208258 - 0x00208568 */
-int Compiler_Emit_InterruptCheck()
+u32 Compiler_Emit_InterruptCheck(u32 a0, u32 a1, u32 a2)
 {
-    int ret, v1, a0, a1, a2;
+    u32 ret, v1;
     ret = *(u32*)(gp);
     if ((signed)__k1 <= 0) {
         ret = 2;
-        goto loc_2081F0;
+        return Compiler_Emit_Exception(a0);
     }
     ret = ret & __at;
     a0 = ((signed)ret < (signed)0x1FC00000) ? 1 : 0;
-    a2 = *(u32*)*(a2 + 0x2748);
+    a2 = *(u32*)(a2 + 0x2748);
     a1 = 0x00200000;
     if (a0 == 0) {
-        ret = ret - v1;
         ret = ret + a1;
     } else {
         a1 = 0x001FFFFF;
@@ -2983,59 +2734,26 @@ int Compiler_Emit_InterruptCheck()
     a2 = *(u32*)(v1);
     if (a2 == 0) {
         ret = 1;
-        goto loc_2081F0;
+        return Compiler_Emit_Exception(a0);
     }
     goto *a2; /* computed jump */
     return ret;
-    }
     ret = ret + a2;
-    a2 = *(u32*)(v0);
+    a2 = *(u32*)(ret);
     if (a2 == 0) {
         ret = 1;
-        goto loc_2081F0;
+        goto loc_2081F0; /* tail call into Compiler_Emit_Exception */
     }
-    ret = a2;
     ret = ret << 4;
-    v1 = 0x0C000000;
-    ret = (unsigned)ret >> 6;
-    ret = ret | v1;
-    *(u32*)*(__ra + -8) = ret;
+    *(u32*)(__ra + -8) = ret | 0x0C000000;
     SYNC(); /* memory barrier */
-    CACHE(0x18, -8(ra)); /* cache op */
+    CACHE(0x18, -8(__ra)); /* cache op */
     SYNC(); /* memory barrier */
     SYNC(); /* memory barrier */
-    CACHE(0xb, -8(ra)); /* cache op */
+    CACHE(0xb, -8(__ra)); /* cache op */
     SYNC(); /* memory barrier */
     goto *a2; /* computed jump */
     return ret;
-    ret = *(u32*)*(__gp + 0xc4);
-    v1 = a0 << 2;
-    a1 = 0xfc;
-    v1 = v1 & a1;
-    a1 = 0x7800FF00;
-    ret = ret & a1;
-    ret = ret | v1;
-    a1 = 0x80000000;
-    ret = ret | a1;
-    *(u32*)*(__gp + 0xc4) = ret;
-    ret = *(u32*)(gp);
-    *(u32*)*(__gp + 0xc8) = ret;
-    ret = *(u32*)*(__gp + 0xc0);
-    v1 = ret << 2;
-    a1 = 0x3c;
-    v1 = v1 & a1;
-    a1 = 0xFFFFFFC0;
-    ret = ret & a1;
-    ret = ret | v1;
-    *(u32*)*(__gp + 0xc0) = ret;
-    a2 = ret;
-    a1 = 0x00400000;
-    a2 = a2 & a1;
-    v1 = 0x80000080;
-    ret = 0xBFC00180;
-    __asm("movz v0, v1, a2");
-    *(u32*)(gp) = ret;
-    return Compiler_Emit_InterruptCheck(a0, a1, a2, a3);
 loc_208520:
     ret = *(u32*)(a0);
     v1 = v1 + -1;
@@ -3047,44 +2765,37 @@ loc_208520:
 }
 
 /* Function at 0x00208568 - 0x00208758 */
-int Compiler_Emit_FloatLoad()
+u32 Compiler_Emit_FloatLoad(u32 a0, u32 a1)
 {
-    int ret, v1, a0, a1, a2, a3, t0, t1, t2, t3;
+    u32 ret, v1, a2, a3, t0, t1, t2, t3;
     ret = 0x1FFFFFFF;
     v1 = 0x007FFFFF;
     t0 = a0 & ret;
     v1 = ((unsigned)v1 < (unsigned)t0) ? 1 : 0;
     t3 = a1;
     if (v1 == 0) {
-        a0 = *(u32*)*(0x00500000 + 0x2710);
-        ret = 0x001FFFFF;
+        a0 = *(u32*)(0x00500000 + 0x2710);
         ret = t0 & ret;
-        v1 = a0->ram_base;  /* ram_base */
+        v1 = ((PSX_State*)a0)->ram_base;  /* ram_base */
         a2 = v1 + ret;
     } else {
         a1 = 0xE0800000;
         ret = t0 + a1;
         a1 = 0xE0400000;
         if ((unsigned)ret < 0x400) {
-            a0 = *(u32*)*(0x00500000 + 0x2710);
-            v1 = a0->scratch_base;  /* scratch_base */
+            a0 = *(u32*)(0x00500000 + 0x2710);
+            v1 = ((PSX_State*)a0)->scratch_base;  /* scratch_base */
             goto loc_20861C;
         }
         ret = 7 << 16;
         v1 = t0 + a1;
-        ret = 0x0007FFFF;
         ret = ((unsigned)ret < (unsigned)v1) ? 1 : 0;
-        if (0x00500000 == 0) {
-            a0 = *(u32*)*(ret + 0x2710);
-            v1 = a0->bios_base;  /* bios_base */
-            goto loc_20861C;
-        }
         a1 = 0xE0800400;
         ret = t0 + a1;
         a2 = 0;
-        if (likely((unsigned)ret >= 0x400)) goto loc_208624;
-        a0 = *(u32*)*(0x00500000 + 0x2710);
-        v1 = a0->hw_regs_base;  /* hw_regs_base */
+        if ((unsigned)ret >= 0x400) goto loc_208624;
+        a0 = *(u32*)(0x00500000 + 0x2710);
+        v1 = ((PSX_State*)a0)->hw_regs_base;  /* hw_regs_base */
         loc_20861C:
         v1 = v1 + t0;
         a2 = v1 + a1;
@@ -3138,7 +2849,7 @@ loc_208624:
     a3 = a3 | v1;
     a0 = 0x00431021;
     t3 = t3 + 4;
-    ret = 0x00830000;
+    ret = 0x00830000;  /* CDROM_SECTOR_BUF: CD-ROM sector buffer */
     *(u32*)(t3) = a0;
     t3 = t3 + 4;
     a3 = a3 | ret;
@@ -3154,8 +2865,7 @@ loc_208624:
     v1 = (unsigned)v1 >> 2;
     *(u32*)(t3) = 0;
     t3 = t3 + 4;
-    v1 = v1 | ret;
-    *(u32*)(t3) = v1;
+    *(u32*)(t3) = v1 | ret;
     t3 = t3 + 4;
     a0 = 0x24020006;
     ret = t3 + 4;
@@ -3164,16 +2874,16 @@ loc_208624:
 }
 
 /* Function at 0x00208758 - 0x00208760 */
-int Compiler_Emit_NoOp()
+u32 Compiler_Emit_NoOp(void)
 {
-    int ret;
+    u32 ret;
     return ret;
 }
 
 /* Function at 0x00208760 - 0x00208800 */
-int Compiler_InitializeLookupTables()
+u32 Compiler_InitializeLookupTables(void)
 {
-    int ret, v0, v1, a0, a1, a2, a3, t0, t1, t2, t3, t4, t5, t6, t7;
+    u32 ret, v1, a0, a1, a2, a3, t0, t1, t2, t3, t4, t5, t6, t7;
     ret = 0x70000300;
     a0 = 0x70000310;
     a1 = 0x70000320;
@@ -3188,40 +2898,40 @@ int Compiler_InitializeLookupTables()
     t5 = 0x00200000;
     t6 = 0x00100000;
     t7 = 8 << 16;
-    *(u32*)(v0) = t0;
-    *(u32*)*(ret + 4) = t1;
-    *(u32*)*(ret + 8) = t2;
-    *(u32*)*(ret + 0xc) = 0;
-    *(u32*)*(a0 + 8) = a3;
-    *(u32*)*(a0 + 0xc) = 0;
-    *(u32*)*(a1 + 8) = t3;
-    *(u32*)*(a1 + 0xc) = 0;
+    *(u32*)(ret) = t0;
+    *(u32*)(ret + 4) = t1;
+    *(u32*)(ret + 8) = t2;
+    *(u32*)(ret + 0xc) = 0;
+    *(u32*)(a0 + 8) = a3;
+    *(u32*)(a0 + 0xc) = 0;
+    *(u32*)(a1 + 8) = t3;
+    *(u32*)(a1 + 0xc) = 0;
     *(u32*)(v1) = t5;
-    *(u32*)*(v1 + 4) = t6;
-    *(u32*)*(v1 + 8) = t7;
-    *(u32*)*(v1 + 0xc) = 0;
-    *(u32*)*(a2 + 8) = t4;
-    *(u32*)*(a2 + 0xc) = 0;
+    *(u32*)(v1 + 4) = t6;
+    *(u32*)(v1 + 8) = t7;
+    *(u32*)(v1 + 0xc) = 0;
+    *(u32*)(a2 + 8) = t4;
+    *(u32*)(a2 + 0xc) = 0;
     *(u32*)(a0) = a3;
-    *(u32*)*(a0 + 4) = a3;
+    *(u32*)(a0 + 4) = a3;
     *(u32*)(a1) = t3;
-    *(u32*)*(a1 + 4) = t3;
+    *(u32*)(a1 + 4) = t3;
     *(u32*)(a2) = t4;
-    *(u32*)*(a2 + 4) = t4;
+    *(u32*)(a2 + 4) = t4;
     return ret;
 }
 
 /* Function at 0x00208800 - 0x00209E00 */
-int Compiler_InitializeGTEConstants()
+u32 Compiler_InitializeGTEConstants(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, t0, t1, t2, t3, t4, t5;
+    u32 ret, v1, a1, a2, a3, s0, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
     s0 = a0;
-    ret = Compiler_InitializeLookupTables(a0, a1, a2, a3);
+    ret = Compiler_InitializeLookupTables();
     ret = 0x00210000;
     v1 = 0x00210000;
-    a2 = 0x00208258;
-    ret = 0x00208180;
+    a2 = (u32)Compiler_Emit_InterruptCheck;
+    ret = (u32)Compiler_Emit_Exception;
     v1 = 0x002082C8;
     a3 = 0x00208360;
     t0 = 0x00208510;
@@ -3231,33 +2941,31 @@ int Compiler_InitializeGTEConstants()
     t4 = 0x002084A0;
     t5 = 0x002084E0;
     *(u32*)(s0) = ret;
-    *(u32*)*(s0 + 4) = v1;
-    *(u32*)*(s0 + 0x10) = a2;
-    a0 = 0x00506C00;
-    *(u32*)*(s0 + 0x14) = a3;
-    a1 = 0x00506C04;
-    *(u32*)*(s0 + 0x18) = t0;
-    *(u32*)*(s0 + 0x1c) = t1;
-    *(u32*)*(s0 + 0x20) = t2;
-    *(u32*)*(s0 + 0x24) = t3;
-    *(u32*)*(s0 + 0x2c) = t4;
-    *(u32*)*(s0 + 0x30) = t5;
-    *(u32*)*(s0 + 8) = a2;
-    *(u32*)*(s0 + 0xc) = a2;
-    *(u32*)*(s0 + 0x3c) = 0;
-    *(u32*)*(s0 + 0x34) = 0;
-    *(u32*)*(s0 + 0x38) = 0;
-    ret = R3000_GetCachePointers(a0, a1, a2, a3);
+    *(u32*)(s0 + 4) = v1;
+    *(u32*)(s0 + 0x10) = a2;
+    a0 = PSX_IRQ_STAT_ADDR;  /* 0x00506C00 - IRQ status register address */
+    *(u32*)(s0 + 0x14) = a3;
+    a1 = PSX_IRQ_MASK_ADDR;  /* 0x00506C04 - IRQ mask register address */
+    *(u32*)(s0 + 0x18) = t0;
+    *(u32*)(s0 + 0x1c) = t1;
+    *(u32*)(s0 + 0x20) = t2;
+    *(u32*)(s0 + 0x24) = t3;
+    *(u32*)(s0 + 0x2c) = t4;
+    *(u32*)(s0 + 0x30) = t5;
+    *(u32*)(s0 + 8) = a2;
+    *(u32*)(s0 + 0xc) = a2;
+    *(u32*)(s0 + 0x3c) = 0;
+    *(u32*)(s0 + 0x34) = 0;
+    *(u32*)(s0 + 0x38) = 0;
+    ret = R3000_GetCachePointers(a0, a1);
     return 1;
-                }
                 t3 = LO;
-            }
             HI_LO = (s64)t0 * (s64)t3;
-            __asm("mult1 zero, t1, t3");
-            t4 = a0->cop0[20];  /* cop0[20] */
-            t5 = a0->cop0[21];  /* cop0[21] */
-            __asm("pmfhl v0, zero, zero");
-            __asm("mmi3 v1, v0, v0");
+            0 = t1 * t3;
+            t4 = ((PSX_State*)a0)->cop0[20];  /* cop0[20] */
+            t5 = ((PSX_State*)a0)->cop0[21];  /* cop0[21] */
+            __asm("pmfhl ret, 0, 0");
+            __asm("mmi3 v1, ret, ret");
             t4 = t4 + ret;
             t5 = t5 + v1;
             t4 = (signed)t4 >> 16;
@@ -3266,107 +2974,105 @@ int Compiler_InitializeGTEConstants()
             v1 = 0x3ff;
             t6 = 0x80004000;
             t7 = ((signed)t4 < (signed)ret) ? 1 : 0;
-            __asm("movn t4, v0, t7");
-            __asm("movn t7, t6, t7");
+            if (t7 != 0) t4 = ret;
+            if (t7 != 0) t7 = t6;
             __at = __at | t7;
             t7 = ((signed)v1 < (signed)t4) ? 1 : 0;
-            __asm("movn t4, v1, t7");
-            __asm("movn t7, t6, t7");
+            if (t7 != 0) t4 = v1;
+            if (t7 != 0) t7 = t6;
             __at = __at | t7;
             t6 = t6 + -0x2000;
             t7 = ((signed)t5 < (signed)ret) ? 1 : 0;
-            __asm("movn t5, v0, t7");
-            __asm("movn t7, t6, t7");
+            if (t7 != 0) t5 = ret;
+            if (t7 != 0) t7 = t6;
             __at = __at | t7;
             t7 = ((signed)v1 < (signed)t5) ? 1 : 0;
-            __asm("movn t5, v1, t7");
-            __asm("movn t7, t6, t7");
+            if (t7 != 0) t5 = v1;
+            if (t7 != 0) t7 = t6;
             __at = __at | t7;
-            *(u16*)*(a1 + 0x30) = t4;
-            *(u16*)*(a1 + 0x32) = t5;
+            *(u16*)(a1 + 0x30) = t4;
+            *(u16*)(a1 + 0x32) = t5;
             t9 = t9 + -1;
             a1 = a1 + 4;
             a2 = a2 + 8;
-        } while (t9 != 0);
-        ret = *(s16*)&a0->cop0[23];  /* cop0[23] */
+        ret = *(s16*)&((PSX_State*)a0)->cop0[23];  /* cop0[23] */
         t3 = (s32)((s64)ret * (s64)t3); HI_LO = (s64)ret * (s64)t3;
-        v1 = a0->cop0[24];  /* cop0[24] */
+        v1 = ((PSX_State*)a0)->cop0[24];  /* cop0[24] */
         t3 = t3 + v1;
-        a0->gpr[20] = t3;  /* gpr[20] (store) */
+        ((PSX_State*)a0)->gpr[20] = t3;  /* gpr[20] (store) */
         t3 = (signed)t3 >> 12;
         v1 = 0x1000;
         t6 = ((signed)t3 < (signed)0) ? 1 : 0;
         t7 = ((signed)v1 < (signed)t3) ? 1 : 0;
-        __asm("movn t3, zero, t6");
-        __asm("movn t3, v1, t7");
+        if (t6 != 0) t3 = 0;
+        if (t7 != 0) t3 = v1;
         t6 = t6 | t7;
         t6 = t6 << 0xc;
         __at = __at | t6;
-        a0->gpr[4] = t3;  /* gpr[4] (store) */
-        a0->cop0[27] = __at;  /* cop0[27] (store) */
+        ((PSX_State*)a0)->gpr[4] = t3;  /* gpr[4] (store) */
+        ((PSX_State*)a0)->cop0[27] = __at;  /* cop0[27] (store) */
         return ret;
-    }
-    __asm("mmi3 t2, zero, zero");
+    __asm("mmi3 t2, 0, 0");
     goto loc_208BA0;
 loc_208BA0:
-    t0 = a0->gpr[4];  /* gpr[4] */
-    __asm("mmi3 at, zero, zero");
+    t0 = ((PSX_State*)a0)->gpr[4];  /* gpr[4] */
+    __asm("mmi3 at, 0, 0");
     __asm("mmi0 t0, t0, t0");
-    t1 = a0->gpr[5];  /* gpr[5] */
-    ret = a0->gpr[6];  /* gpr[6] */
-    v1 = a0->gpr[7];  /* gpr[7] */
-    __asm("mmi0 t1, v0, t1");
+    t1 = ((PSX_State*)a0)->gpr[5];  /* gpr[5] */
+    ret = ((PSX_State*)a0)->gpr[6];  /* gpr[6] */
+    v1 = ((PSX_State*)a0)->gpr[7];  /* gpr[7] */
+    __asm("mmi0 t1, ret, t1");
     __asm("mmi2 t1, v1, t1");
     __asm("mmi0 t0, t0, t0");
-    ret = a0->gpr[17];  /* gpr[17] */
-    v1 = a0->gpr[18];  /* gpr[18] */
-    a0->gpr[16] = ret;  /* gpr[16] (store) */
-    a0->gpr[17] = v1;  /* gpr[17] (store) */
+    ret = ((PSX_State*)a0)->gpr[17];  /* gpr[17] */
+    v1 = ((PSX_State*)a0)->gpr[18];  /* gpr[18] */
+    ((PSX_State*)a0)->gpr[16] = ret;  /* gpr[16] (store) */
+    ((PSX_State*)a0)->gpr[17] = v1;  /* gpr[17] (store) */
     __asm("mmi2 t0, t0, t1");
     ret = 0x70000000;
     __asm("add_a.w w12, w0, w14");
-    __asm("ld.b w12, 0x4f(zero)");
+    __asm("ld.b w12, 0x4f(0)");
     __asm("andi.b w12, w0, 0x58");
     __asm("sdbbp 0x210c");
-    if (likely(a1 != 0)) goto loc_208BF0;
+    if (a1 != 0) goto loc_208BF0;
 loc_208BF0:
     __asm("mmi0 t0, t0, t2");
     ret = (s64)t0 >> 32;
-    a0->gpr[21] = t0;  /* gpr[21] (store) */
+    ((PSX_State*)a0)->gpr[21] = t0;  /* gpr[21] (store) */
     __asm("mmi3 v1, t0, t0");
-    a0->gpr[22] = ret;  /* gpr[22] (store) */
-    a0->gpr[23] = v1;  /* gpr[23] (store) */
-    __asm("mmi0 v0, t6, t0");
+    ((PSX_State*)a0)->gpr[22] = ret;  /* gpr[22] (store) */
+    ((PSX_State*)a0)->gpr[23] = v1;  /* gpr[23] (store) */
+    __asm("mmi0 ret, t6, t0");
     __asm("mmi0 v1, t6, t0");
-    __asm("mmi2 t3, v0, t8");
-    __asm("mmi0 v0, v1, t7");
+    __asm("mmi2 t3, ret, t8");
+    __asm("mmi0 ret, v1, t7");
     __asm("mmi3 at, at, t3");
-    __asm("mmi2 t3, v0, t8");
+    __asm("mmi2 t3, ret, t8");
     __asm("mmi1 t1, v1, t7");
     __asm("mmi3 at, at, t3");
     ret = (s64)t1 >> 32;
-    a0->gpr[5] = t1;  /* gpr[5] (store) */
+    ((PSX_State*)a0)->gpr[5] = t1;  /* gpr[5] (store) */
     __asm("mmi3 v1, t1, t1");
-    a0->gpr[6] = ret;  /* gpr[6] (store) */
-    a0->gpr[7] = v1;  /* gpr[7] (store) */
+    ((PSX_State*)a0)->gpr[6] = ret;  /* gpr[6] (store) */
+    ((PSX_State*)a0)->gpr[7] = v1;  /* gpr[7] (store) */
     __asm("sdbbp 0x2104");
-    v1 = *(u128*)*(0x70000000 + 816);  /* lq */
+    v1 = *(u128*)(0x70000000 + 816);  /* lq */
     __asm("andi.b w13, w0, 0x42");
-    __asm("mmi0 t3, zero, t0");
-    __asm("mmi0 t4, zero, t0");
+    __asm("mmi0 t3, 0, t0");
+    __asm("mmi0 t4, 0, t0");
     __asm("mmi2 t5, t3, v1");
-    __asm("mmi0 t3, t4, v0");
+    __asm("mmi0 t3, t4, ret");
     __asm("mmi3 at, at, t5");
     __asm("mmi2 t5, t3, v1");
-    __asm("mmi1 t1, t4, v0");
+    __asm("mmi1 t1, t4, ret");
     __asm("mmi3 at, at, t5");
-    t3 = *(s8*)*(a0 + 0x1b);  /* lb */
+    t3 = *(s8*)(a0 + 0x1b);  /* lb */
     ret = (s64)t1 >> 32;
-    *(u8*)&a0->gpr[18] = t1;  /* gpr[18] (store) */
+    *(u8*)&((PSX_State*)a0)->gpr[18] = t1;  /* gpr[18] (store) */
     __asm("mmi3 v1, t1, t1");
-    *(u8*)*(a0 + 0x59) = ret;
-    *(u8*)*(a0 + 0x5a) = v1;
-    *(u8*)*(a0 + 0x5b) = t3;
+    *(u8*)(a0 + 0x59) = ret;
+    *(u8*)(a0 + 0x5a) = v1;
+    *(u8*)(a0 + 0x5b) = t3;
     ret = (u64)__at >> 32;
     __asm("mmi1 v1, at, at");
     __at = __at | ret;
@@ -3374,610 +3080,126 @@ loc_208BF0:
     ret = 0x7F87E000;
     v1 = 0x80000000;
     ret = ret & __at;
-    __asm("movz v1, zero, v0");
+    if (ret == 0) v1 = 0;
     __at = __at | v1;
-    a0->cop0[27] = __at;  /* cop0[27] (store) */
+    ((PSX_State*)a0)->cop0[27] = __at;  /* cop0[27] (store) */
     return ret;
-    t1 = *(u16*)&a0->gpr[13];  /* gpr[13] */
-    t2 = *(u16*)&a0->gpr[14];  /* gpr[14] */
-    t3 = *(u16*)&a0->gpr[15];  /* gpr[15] */
-    t0 = t0 + t1;
-    t1 = t2 + t3;
-    t0 = t0 + t1;
-    t0 = (s32)((s64)t0 * (s64)t9); HI_LO = (s64)t0 * (s64)t9;
-    ret = 0 | 0xffff;
-    v1 = 0x80060000;
-    __at = 0;
-    a0->gpr[20] = t0;  /* gpr[20] (store) */
-    t0 = (signed)t0 >> 0xc;
-    a1 = ((signed)t0 < (signed)0) ? 1 : 0;
-    __asm("movn t0, zero, a1");
-    __asm("movn a1, v1, a1");
-    __at = __at | a1;
-    a1 = ((signed)ret < (signed)t0) ? 1 : 0;
-    __asm("movn t0, v0, a1");
-    __asm("movn a1, v1, a1");
-    __at = __at | a1;
-    *(u16*)&a0->gpr[3] = t0;  /* gpr[3] (store) */
-    ret = 0x7F87E000;
-    v1 = 0x80000000;
-    ret = ret & __at;
-    __asm("movz v1, zero, v0");
-    __at = __at | v1;
-    a0->cop0[27] = __at;  /* cop0[27] (store) */
-    return ret;
-    __at = 0;
-    ret = a0->gpr[17];  /* gpr[17] */
-    v1 = a0->gpr[18];  /* gpr[18] */
-    a0->gpr[16] = ret;  /* gpr[16] (store) */
-    a0->gpr[17] = v1;  /* gpr[17] (store) */
-    t6 = a0->gpr[5];  /* gpr[5] */
-    t7 = a0->gpr[6];  /* gpr[6] */
-    t8 = a0->gpr[7];  /* gpr[7] */
-    t3 = *(s16*)&a0->cop0[12];  /* cop0[12] */
-    t4 = *(s16*)*(a0 + 0xc2);
-    t3 = (s32)((s64)t3 * (s64)t6); HI_LO = (s64)t3 * (s64)t6;
-    __asm("mult1 t4, t4, t7");
-    t0 = a0->cop0[9];  /* cop0[9] */
-    t5 = *(s16*)&a0->cop0[13];  /* cop0[13] */
-    t0 = t0 << 12;
-    t5 = (s32)((s64)t5 * (s64)t8); HI_LO = (s64)t5 * (s64)t8;
-    t0 = t0 + t3;
-    t0 = t0 + t4;
-    t0 = t0 + t5;
-    t3 = *(s16*)*(a0 + 0xc6);
-    t4 = *(s16*)&a0->cop0[14];  /* cop0[14] */
-    t3 = (s32)((s64)t3 * (s64)t6); HI_LO = (s64)t3 * (s64)t6;
-    __asm("mult1 t4, t4, t7");
-    t1 = a0->cop0[10];  /* cop0[10] */
-    t5 = *(s16*)*(a0 + 0xca);
-    t1 = t1 << 12;
-    t5 = (s32)((s64)t5 * (s64)t8); HI_LO = (s64)t5 * (s64)t8;
-    t1 = t1 + t3;
-    t1 = t1 + t4;
-    t1 = t1 + t5;
-    t3 = *(s16*)&a0->cop0[15];  /* cop0[15] */
-    t4 = *(s16*)*(a0 + 0xce);
-    t3 = (s32)((s64)t3 * (s64)t6); HI_LO = (s64)t3 * (s64)t6;
-    __asm("mult1 t4, t4, t7");
-    t2 = a0->cop0[11];  /* cop0[11] */
-    t5 = *(s16*)&a0->cop0[16];  /* cop0[16] */
-    t2 = t2 << 12;
-    t5 = (s32)((s64)t5 * (s64)t8); HI_LO = (s64)t5 * (s64)t8;
-    t2 = t2 + t3;
-    t2 = t2 + t4;
-    t2 = t2 + t5;
-    t0 = t0 << 20;
-    t1 = t1 << 20;
-    t2 = t2 << 20;
-    t0 = (s64)t0 >> 32;
-    t1 = (s64)t1 >> 32;
-    t2 = (s64)t2 >> 32;
-    ret = 0x7fff;
-    a1 = ((signed)t0 < (signed)0) ? 1 : 0;
-    a2 = ((signed)ret < (signed)t0) ? 1 : 0;
-    __asm("movn t0, zero, a1");
-    __asm("movn t0, v0, a2");
-    a1 = a1 | a2;
-    a1 = a1 << 0x18;
-    __at = __at | a1;
-    a1 = ((signed)t1 < (signed)0) ? 1 : 0;
-    a2 = ((signed)ret < (signed)t1) ? 1 : 0;
-    __asm("movn t1, zero, a1");
-    __asm("movn t1, v0, a2");
-    a1 = a1 | a2;
-    a1 = a1 << 0x17;
-    __at = __at | a1;
-    a1 = ((signed)t2 < (signed)0) ? 1 : 0;
-    a2 = ((signed)ret < (signed)t2) ? 1 : 0;
-    __asm("movn t2, zero, a1");
-    __asm("movn t2, v0, a2");
-    a1 = a1 | a2;
-    a1 = a1 << 0x16;
-    __at = __at | a1;
-    t3 = *(u8*)&a0->gpr[2];  /* gpr[2] */
-    t4 = *(u8*)*(a0 + 0x19);
-    t3 = t3 << 4;
-    t5 = *(u8*)*(a0 + 0x1a);
-    t0 = (s32)((s64)t0 * (s64)t3); HI_LO = (s64)t0 * (s64)t3;
-    t4 = t4 << 4;
-    t5 = t5 << 4;
-    t1 = (s32)((s64)t1 * (s64)t4); HI_LO = (s64)t1 * (s64)t4;
-    __asm("mult1 t2, t2, t5");
-    if (0 != t9) {
-        t3 = a0->cop0[17];  /* cop0[17] */
-        t4 = a0->cop0[18];  /* cop0[18] */
-        t5 = a0->cop0[19];  /* cop0[19] */
-        t3 = t3 << 12;
-        t4 = t4 << 12;
-        t5 = t5 << 12;
-        t3 = t3 - t0;
-        t4 = t4 - t1;
-        t5 = t5 - t2;
-        t3 = (signed)t3 >> 12;
-        t4 = (signed)t4 >> 12;
-        t5 = (signed)t5 >> 12;
-        ret = -0x8000;
-        v1 = 0x7fff;
-        t6 = ((signed)t3 < (signed)ret) ? 1 : 0;
-        t7 = ((signed)v1 < (signed)t3) ? 1 : 0;
-        __asm("movn t3, v0, t6");
-        __asm("movn t3, v1, t7");
-        t6 = t6 | t7;
-        t6 = t6 << 0x18;
-        __at = __at | t6;
-        t6 = ((signed)t4 < (signed)ret) ? 1 : 0;
-        t7 = ((signed)v1 < (signed)t4) ? 1 : 0;
-        __asm("movn t4, v0, t6");
-        __asm("movn t4, v1, t7");
-        t6 = t6 | t7;
-        t6 = t6 << 0x17;
-        __at = __at | t6;
-        t6 = ((signed)t5 < (signed)ret) ? 1 : 0;
-        t7 = ((signed)v1 < (signed)t5) ? 1 : 0;
-        __asm("movn t5, v0, t6");
-        __asm("movn t5, v1, t7");
-        t6 = t6 | t7;
-        t6 = t6 << 0x16;
-        __at = __at | t6;
-        t6 = a0->gpr[4];  /* gpr[4] */
-        t3 = (s32)((s64)t3 * (s64)t6); HI_LO = (s64)t3 * (s64)t6;
-        t4 = (s32)((s64)t4 * (s64)t6); HI_LO = (s64)t4 * (s64)t6;
-        __asm("mult1 t5, t5, t6");
-        t0 = t0 + t3;
-        t1 = t1 + t4;
-        t2 = t2 + t5;
-    }
     t0 = (signed)t0 >> 12;
     t1 = (signed)t1 >> 12;
     t2 = (signed)t2 >> 12;
-    a0->gpr[21] = t0;  /* gpr[21] (store) */
-    a0->gpr[22] = t1;  /* gpr[22] (store) */
-    a0->gpr[23] = t2;  /* gpr[23] (store) */
+    ((PSX_State*)a0)->gpr[21] = t0;  /* gpr[21] (store) */
+    ((PSX_State*)a0)->gpr[22] = t1;  /* gpr[22] (store) */
+    ((PSX_State*)a0)->gpr[23] = t2;  /* gpr[23] (store) */
     ret = 0x7fff;
     t6 = ((signed)t0 < (signed)0) ? 1 : 0;
     t7 = ((signed)ret < (signed)t0) ? 1 : 0;
-    __asm("movn t0, zero, t6");
-    __asm("movn t0, v0, t7");
+    if (t6 != 0) t0 = 0;
+    if (t7 != 0) t0 = ret;
     t6 = t6 | t7;
     t6 = t6 << 0x18;
     __at = __at | t6;
     t6 = ((signed)t1 < (signed)0) ? 1 : 0;
     t7 = ((signed)ret < (signed)t1) ? 1 : 0;
-    __asm("movn t1, zero, t6");
-    __asm("movn t1, v0, t7");
+    if (t6 != 0) t1 = 0;
+    if (t7 != 0) t1 = ret;
     t6 = t6 | t7;
     t6 = t6 << 0x17;
     __at = __at | t6;
     t6 = ((signed)t2 < (signed)0) ? 1 : 0;
     t7 = ((signed)ret < (signed)t2) ? 1 : 0;
-    __asm("movn t2, zero, t6");
-    __asm("movn t2, v0, t7");
+    if (t6 != 0) t2 = 0;
+    if (t7 != 0) t2 = ret;
     t6 = t6 | t7;
     t6 = t6 << 0x16;
     __at = __at | t6;
-    a0->gpr[5] = t0;  /* gpr[5] (store) */
-    a0->gpr[6] = t1;  /* gpr[6] (store) */
-    a0->gpr[7] = t2;  /* gpr[7] (store) */
+    ((PSX_State*)a0)->gpr[5] = t0;  /* gpr[5] (store) */
+    ((PSX_State*)a0)->gpr[6] = t1;  /* gpr[6] (store) */
+    ((PSX_State*)a0)->gpr[7] = t2;  /* gpr[7] (store) */
     t0 = (signed)t0 >> 4;
     t1 = (signed)t1 >> 4;
     t2 = (signed)t2 >> 4;
     ret = 0xff;
     a1 = ((signed)t0 < (signed)0) ? 1 : 0;
     a2 = ((signed)ret < (signed)t0) ? 1 : 0;
-    __asm("movn t0, zero, a1");
-    __asm("movn t0, v0, a2");
+    if (a1 != 0) t0 = 0;
+    if (a2 != 0) t0 = ret;
     a1 = a1 | a2;
     a1 = a1 << 0x15;
     __at = __at | a1;
     a1 = ((signed)t1 < (signed)0) ? 1 : 0;
     a2 = ((signed)ret < (signed)t1) ? 1 : 0;
-    __asm("movn t1, zero, a1");
-    __asm("movn t1, v0, a2");
+    if (a1 != 0) t1 = 0;
+    if (a2 != 0) t1 = ret;
     a1 = a1 | a2;
     a1 = a1 << 0x14;
     __at = __at | a1;
     a1 = ((signed)t2 < (signed)0) ? 1 : 0;
     a2 = ((signed)ret < (signed)t2) ? 1 : 0;
-    __asm("movn t2, zero, a1");
-    __asm("movn t2, v0, a2");
+    if (a1 != 0) t2 = 0;
+    if (a2 != 0) t2 = ret;
     a1 = a1 | a2;
     a1 = a1 << 0x13;
     __at = __at | a1;
-    ret = *(s8*)*(a0 + 0x1b);  /* lb */
-    *(u8*)&a0->gpr[18] = t0;  /* gpr[18] (store) */
-    *(u8*)*(a0 + 0x59) = t1;
-    *(u8*)*(a0 + 0x5a) = t2;
-    *(u8*)*(a0 + 0x5b) = ret;
+    ret = *(s8*)(a0 + 0x1b);  /* lb */
+    *(u8*)&((PSX_State*)a0)->gpr[18] = t0;  /* gpr[18] (store) */
+    *(u8*)(a0 + 0x59) = t1;
+    *(u8*)(a0 + 0x5a) = t2;
+    *(u8*)(a0 + 0x5b) = ret;
     ret = 0x7F87E000;
     v1 = 0x80000000;
     ret = ret & __at;
-    __asm("movz v1, zero, v0");
+    if (ret == 0) v1 = 0;
     __at = __at | v1;
-    a0->cop0[27] = __at;  /* cop0[27] (store) */
+    ((PSX_State*)a0)->cop0[27] = __at;  /* cop0[27] (store) */
     return ret;
-    a2 = a0;
-    __at = 0;
-    do {
-        t0 = *(s16*)(a2);
-        t1 = *(s16*)*(a2 + 2);
-        t2 = *(s16*)*(a2 + 4);
-        t3 = *(s16*)&a0->cop0[4];  /* cop0[4] */
-        t4 = *(s16*)*(a0 + 0xa2);
-        t3 = (s32)((s64)t3 * (s64)t0); HI_LO = (s64)t3 * (s64)t0;
-        __asm("mult1 t4, t4, t1");
-        t5 = *(s16*)&a0->cop0[5];  /* cop0[5] */
-        t5 = (s32)((s64)t5 * (s64)t2); HI_LO = (s64)t5 * (s64)t2;
-        t6 = t3 + t4;
-        t6 = t6 + t5;
-        t3 = *(s16*)*(a0 + 0xa6);
-        t4 = *(s16*)&a0->cop0[6];  /* cop0[6] */
-        t3 = (s32)((s64)t3 * (s64)t0); HI_LO = (s64)t3 * (s64)t0;
-        __asm("mult1 t4, t4, t1");
-        t5 = *(s16*)*(a0 + 0xaa);
-        t5 = (s32)((s64)t5 * (s64)t2); HI_LO = (s64)t5 * (s64)t2;
-        t7 = t3 + t4;
-        t7 = t7 + t5;
-        t3 = *(s16*)&a0->cop0[7];  /* cop0[7] */
-        t4 = *(s16*)*(a0 + 0xae);
-        t3 = (s32)((s64)t3 * (s64)t0); HI_LO = (s64)t3 * (s64)t0;
-        __asm("mult1 t4, t4, t1");
-        t5 = *(s16*)&a0->cop0[8];  /* cop0[8] */
-        t5 = (s32)((s64)t5 * (s64)t2); HI_LO = (s64)t5 * (s64)t2;
-        t8 = t3 + t4;
-        t8 = t8 + t5;
-        t6 = (signed)t6 >> 12;
-        t7 = (signed)t7 >> 12;
-        t8 = (signed)t8 >> 12;
-        ret = 0x7fff;
-        v1 = ((signed)t6 < (signed)0) ? 1 : 0;
-        a3 = ((signed)ret < (signed)t6) ? 1 : 0;
-        __asm("movn t6, zero, v1");
-        __asm("movn t6, v0, a3");
-        v1 = v1 | a3;
-        v1 = v1 << 0x18;
-        __at = __at | v1;
-        v1 = ((signed)t7 < (signed)0) ? 1 : 0;
-        a3 = ((signed)ret < (signed)t7) ? 1 : 0;
-        __asm("movn t7, zero, v1");
-        __asm("movn t7, v0, a3");
-        v1 = v1 | a3;
-        v1 = v1 << 0x17;
-        __at = __at | v1;
-        v1 = ((signed)t8 < (signed)0) ? 1 : 0;
-        a3 = ((signed)ret < (signed)t8) ? 1 : 0;
-        __asm("movn t8, zero, v1");
-        __asm("movn t8, v0, a3");
-        v1 = v1 | a3;
-        v1 = v1 << 0x16;
-        __at = __at | v1;
-        t3 = *(s16*)&a0->cop0[12];  /* cop0[12] */
-        t4 = *(s16*)*(a0 + 0xc2);
-        t3 = (s32)((s64)t3 * (s64)t6); HI_LO = (s64)t3 * (s64)t6;
-        __asm("mult1 t4, t4, t7");
-        t0 = a0->cop0[9];  /* cop0[9] */
-        t5 = *(s16*)&a0->cop0[13];  /* cop0[13] */
-        t0 = t0 << 12;
-        t5 = (s32)((s64)t5 * (s64)t8); HI_LO = (s64)t5 * (s64)t8;
-        t0 = t0 + t3;
-        t0 = t0 + t4;
-        t0 = t0 + t5;
-        t3 = *(s16*)*(a0 + 0xc6);
-        t4 = *(s16*)&a0->cop0[14];  /* cop0[14] */
-        t3 = (s32)((s64)t3 * (s64)t6); HI_LO = (s64)t3 * (s64)t6;
-        __asm("mult1 t4, t4, t7");
-        t1 = a0->cop0[10];  /* cop0[10] */
-        t5 = *(s16*)*(a0 + 0xca);
-        t1 = t1 << 12;
-        t5 = (s32)((s64)t5 * (s64)t8); HI_LO = (s64)t5 * (s64)t8;
-        t1 = t1 + t3;
-        t1 = t1 + t4;
-        t1 = t1 + t5;
-        t3 = *(s16*)&a0->cop0[15];  /* cop0[15] */
-        t4 = *(s16*)*(a0 + 0xce);
-        t3 = (s32)((s64)t3 * (s64)t6); HI_LO = (s64)t3 * (s64)t6;
-        __asm("mult1 t4, t4, t7");
-        t2 = a0->cop0[11];  /* cop0[11] */
-        t5 = *(s16*)&a0->cop0[16];  /* cop0[16] */
-        t2 = t2 << 12;
-        t5 = (s32)((s64)t5 * (s64)t8); HI_LO = (s64)t5 * (s64)t8;
-        t2 = t2 + t3;
-        t2 = t2 + t4;
-        t2 = t2 + t5;
-        t0 = t0 << 20;
-        t1 = t1 << 20;
-        t2 = t2 << 20;
-        t0 = (s64)t0 >> 32;
-        t1 = (s64)t1 >> 32;
-        t2 = (s64)t2 >> 32;
-        ret = 0x7fff;
-        v1 = ((signed)t0 < (signed)0) ? 1 : 0;
-        a3 = ((signed)ret < (signed)t0) ? 1 : 0;
-        __asm("movn t0, zero, v1");
-        __asm("movn t0, v0, a3");
-        v1 = v1 | a3;
-        v1 = v1 << 0x18;
-        __at = __at | v1;
-        v1 = ((signed)t1 < (signed)0) ? 1 : 0;
-        a3 = ((signed)ret < (signed)t1) ? 1 : 0;
-        __asm("movn t1, zero, v1");
-        __asm("movn t1, v0, a3");
-        v1 = v1 | a3;
-        v1 = v1 << 0x17;
-        __at = __at | v1;
-        v1 = ((signed)t2 < (signed)0) ? 1 : 0;
-        a3 = ((signed)ret < (signed)t2) ? 1 : 0;
-        __asm("movn t2, zero, v1");
-        __asm("movn t2, v0, a3");
-        v1 = v1 | a3;
-        v1 = v1 << 0x16;
-        __at = __at | v1;
-        t3 = *(u8*)&a0->gpr[2];  /* gpr[2] */
-        t4 = *(u8*)*(a0 + 0x19);
-        t3 = t3 << 4;
-        t5 = *(u8*)*(a0 + 0x1a);
-        t0 = (s32)((s64)t0 * (s64)t3); HI_LO = (s64)t0 * (s64)t3;
-        t4 = t4 << 4;
-        t5 = t5 << 4;
-        t1 = (s32)((s64)t1 * (s64)t4); HI_LO = (s64)t1 * (s64)t4;
-        __asm("mult1 t2, t2, t5");
-        t3 = a0->cop0[17];  /* cop0[17] */
-        t4 = a0->cop0[18];  /* cop0[18] */
-        t5 = a0->cop0[19];  /* cop0[19] */
-        t3 = t3 << 12;
-        t4 = t4 << 12;
-        t5 = t5 << 12;
-        t3 = t3 - t0;
-        t4 = t4 - t1;
-        t5 = t5 - t2;
-        t3 = (signed)t3 >> 12;
-        t4 = (signed)t4 >> 12;
-        t5 = (signed)t5 >> 12;
-        ret = -0x8000;
-        v1 = 0x7fff;
-        t6 = ((signed)t3 < (signed)ret) ? 1 : 0;
-        t7 = ((signed)v1 < (signed)t3) ? 1 : 0;
-        __asm("movn t3, v0, t6");
-        __asm("movn t3, v1, t7");
-        t6 = t6 | t7;
-        t6 = t6 << 0x18;
-        __at = __at | t6;
-        t6 = ((signed)t4 < (signed)ret) ? 1 : 0;
-        t7 = ((signed)v1 < (signed)t4) ? 1 : 0;
-        __asm("movn t4, v0, t6");
-        __asm("movn t4, v1, t7");
-        t6 = t6 | t7;
-        t6 = t6 << 0x17;
-        __at = __at | t6;
-        t6 = ((signed)t5 < (signed)ret) ? 1 : 0;
-        t7 = ((signed)v1 < (signed)t5) ? 1 : 0;
-        __asm("movn t5, v0, t6");
-        __asm("movn t5, v1, t7");
-        t6 = t6 | t7;
-        t6 = t6 << 0x16;
-        __at = __at | t6;
-        t6 = a0->gpr[4];  /* gpr[4] */
-        t3 = (s32)((s64)t3 * (s64)t6); HI_LO = (s64)t3 * (s64)t6;
-        t4 = (s32)((s64)t4 * (s64)t6); HI_LO = (s64)t4 * (s64)t6;
-        __asm("mult1 t5, t5, t6");
-        t0 = t0 + t3;
-        t1 = t1 + t4;
-        t2 = t2 + t5;
-        t3 = (signed)t0 >> 16;
-        t4 = (signed)t1 >> 16;
-        t5 = (signed)t2 >> 16;
-        ret = 0xff;
-        v1 = ((signed)t3 < (signed)0) ? 1 : 0;
-        a3 = ((signed)ret < (signed)t3) ? 1 : 0;
-        __asm("movn t3, zero, v1");
-        __asm("movn t3, v0, a3");
-        v1 = v1 | a3;
-        v1 = v1 << 0x15;
-        __at = __at | v1;
-        v1 = ((signed)t4 < (signed)0) ? 1 : 0;
-        a3 = ((signed)ret < (signed)t4) ? 1 : 0;
-        __asm("movn t4, zero, v1");
-        __asm("movn t4, v0, a3");
-        v1 = v1 | a3;
-        v1 = v1 << 0x14;
-        __at = __at | v1;
-        v1 = ((signed)t5 < (signed)0) ? 1 : 0;
-        a3 = ((signed)ret < (signed)t5) ? 1 : 0;
-        __asm("movn t5, zero, v1");
-        __asm("movn t5, v0, a3");
-        v1 = v1 | a3;
-        v1 = v1 << 0x13;
-        __at = __at | v1;
-        ret = *(s8*)*(a0 + 0x1b);  /* lb */
-        *(u8*)*(a1 + 0x50) = t3;
-        *(u8*)*(a1 + 0x51) = t4;
-        *(u8*)*(a1 + 0x52) = t5;
-        *(u8*)*(a1 + 0x53) = ret;
-        t9 = t9 + -1;
-        a1 = a1 + 4;
-        a2 = a2 + 8;
-    } while (t9 != 0);
-    t0 = (signed)t0 >> 12;
-    t1 = (signed)t1 >> 12;
-    t2 = (signed)t2 >> 12;
-    a0->gpr[21] = t0;  /* gpr[21] (store) */
-    a0->gpr[22] = t1;  /* gpr[22] (store) */
-    a0->gpr[23] = t2;  /* gpr[23] (store) */
-    ret = 0x7fff;
-    t6 = ((signed)t0 < (signed)0) ? 1 : 0;
-    t7 = ((signed)ret < (signed)t0) ? 1 : 0;
-    __asm("movn t0, zero, t6");
-    __asm("movn t0, v0, t7");
-    t6 = t6 | t7;
-    t6 = t6 << 0x18;
-    __at = __at | t6;
-    t6 = ((signed)t1 < (signed)0) ? 1 : 0;
-    t7 = ((signed)ret < (signed)t1) ? 1 : 0;
-    __asm("movn t1, zero, t6");
-    __asm("movn t1, v0, t7");
-    t6 = t6 | t7;
-    t6 = t6 << 0x17;
-    __at = __at | t6;
-    t6 = ((signed)t2 < (signed)0) ? 1 : 0;
-    t7 = ((signed)ret < (signed)t2) ? 1 : 0;
-    __asm("movn t2, zero, t6");
-    __asm("movn t2, v0, t7");
-    t6 = t6 | t7;
-    t6 = t6 << 0x16;
-    __at = __at | t6;
-    a0->gpr[5] = t0;  /* gpr[5] (store) */
-    a0->gpr[6] = t1;  /* gpr[6] (store) */
-    a0->gpr[7] = t2;  /* gpr[7] (store) */
-    ret = 0x7F87E000;
-    v1 = 0x80000000;
-    ret = ret & __at;
-    __asm("movz v1, zero, v0");
-    __at = __at | v1;
-    a0->cop0[27] = __at;  /* cop0[27] (store) */
-    return ret;
-    __asm("mmi3 at, zero, zero");
-    a2 = a0;
-    t0 = *(s16*)&a0->cop0[4];  /* cop0[4] */
-    t1 = *(s16*)*(a0 + 0xa2);
-    t2 = *(s16*)&a0->cop0[5];  /* cop0[5] */
-    t3 = *(s16*)*(a0 + 0xa6);
-    t4 = *(s16*)&a0->cop0[6];  /* cop0[6] */
-    t5 = *(s16*)*(a0 + 0xaa);
-    __asm("mmi0 t0, t3, t0");
-    __asm("mmi0 t1, t4, t1");
-    __asm("mmi0 t2, t5, t2");
-    t3 = *(s16*)&a0->cop0[7];  /* cop0[7] */
-    t4 = *(s16*)*(a0 + 0xae);
-    t5 = *(s16*)&a0->cop0[8];  /* cop0[8] */
-    __asm("mmi2 t0, t3, t0");
-    __asm("mmi2 t1, t4, t1");
-    __asm("mmi2 t2, t5, t2");
-    t3 = *(s16*)&a0->cop0[12];  /* cop0[12] */
-    t4 = *(s16*)*(a0 + 0xc2);
-    t5 = *(s16*)&a0->cop0[13];  /* cop0[13] */
-    t6 = *(s16*)*(a0 + 0xc6);
-    t7 = *(s16*)&a0->cop0[14];  /* cop0[14] */
-    t8 = *(s16*)*(a0 + 0xca);
-    __asm("mmi0 t3, t6, t3");
-    __asm("mmi0 t4, t7, t4");
-    __asm("mmi0 t5, t8, t5");
-    t6 = *(s16*)&a0->cop0[15];  /* cop0[15] */
-    t7 = *(s16*)*(a0 + 0xce);
-    t8 = *(s16*)&a0->cop0[16];  /* cop0[16] */
-    __asm("mmi2 t3, t6, t3");
-    __asm("mmi2 t4, t7, t4");
-    __asm("mmi2 t5, t8, t5");
-    do {
-        t6 = *(s16*)(a2);
-        t7 = *(s16*)*(a2 + 2);
-        t8 = *(s16*)*(a2 + 4);
-        __asm("mmi0 t6, t6, t6");
-        __asm("mmi0 t7, t7, t7");
-        __asm("mmi0 t8, t8, t8");
-        __asm("mmi2 t6, t6, t6");
-        __asm("mmi2 t7, t7, t7");
-        __asm("mmi2 t8, t8, t8");
-        __asm("mmi2 zero, t0, t6");
-        __asm("mmi2 zero, t1, t7");
-        __asm("mmi2 t9, t2, t8");
-        ret = 0x70000000;
-        __asm("andi.b w12, w0, 0x43");
-        __asm("ld.b w12, 0x42(zero)");
-        __asm("sdbbp 0x672c");
-        __asm("mmi0 t6, zero, t9");
-        __asm("mmi0 t7, zero, t9");
-        __asm("mmi2 t8, t6, v1");
-        __asm("mmi0 t6, t7, v0");
-        __asm("mmi3 at, at, t8");
-        __asm("mmi2 t8, t6, v1");
-        __asm("mmi1 t9, t7, v0");
-        __asm("mmi3 at, at, t8");
-        __asm("mmi0 t6, t9, t9");
-        __asm("mmi0 t7, t9, t9");
-        __asm("mmi1 t8, t9, t9");
-        __asm("mmi0 t6, t6, t6");
-        __asm("mmi1 t7, t7, t7");
-        __asm("mmi0 t8, t8, t8");
-        __asm("mmi2 zero, t3, t6");
-        __asm("mmi2 zero, t4, t7");
-        __asm("mmi2 t9, t5, t8");
-        t6 = a0->cop0[9];  /* cop0[9] */
-        ret = a0->cop0[10];  /* cop0[10] */
-        v1 = a0->cop0[11];  /* cop0[11] */
-        __asm("mmi0 t6, v0, t6");
-        __asm("mmi2 t6, v1, t6");
-        __asm("sdbbp 0x672c");
-        __asm("mmi0 t9, t9, t6");
-        __asm("mmi3 v0, a0, a0");
-        __asm("sdbbp 0x6704");
-        if (ret != 0) {
-            ret = 0x70000000;
-            __asm("andi.b w12, w0, 0x47");
-            __asm("ld.b w12, 0x46(zero)");
-            __asm("mmi0 t6, zero, t9");
-            __asm("mmi0 t7, zero, t9");
-            __asm("mmi2 t8, t6, a3");
-            __asm("mmi0 t6, t7, a2");
-            __asm("mmi3 at, at, t8");
-            __asm("mmi2 t8, t6, a3");
-            __asm("mmi1 t9, t7, a2");
-            __asm("mmi3 at, at, t8");
-            t6 = a0->gpr[2];  /* gpr[2] */
-            __asm("mmi0 t6, zero, t6");
-            __asm("mmi0 t6, zero, t6");
-            __asm("psllh t6, zero, t6");
-            __asm("mmi2 t9, t9, t6");
-            __asm("sdbbp 0x6710");
-        }
-        v1 = *(u128*)*(0x70000000 + 816);  /* lq */
+        v1 = *(u128*)(0x70000000 + 816);  /* lq */
         __asm("andi.b w13, w0, 0x42");
-        __asm("mmi0 t6, zero, t8");
-        __asm("mmi0 t7, zero, t8");
+        __asm("mmi0 t6, 0, t8");
+        __asm("mmi0 t7, 0, t8");
         __asm("mmi2 a2, t6, v1");
-        __asm("mmi0 t6, t7, v0");
+        __asm("mmi0 t6, t7, ret");
         __asm("mmi3 at, at, a2");
         __asm("mmi2 a2, t6, v1");
-        __asm("mmi1 t8, t7, v0");
+        __asm("mmi1 t8, t7, ret");
         __asm("mmi3 at, at, a2");
         a2 = a1 << 2;
         a2 = a2 + a0;
-        t6 = *(s8*)*(a0 + 0x1b);  /* lb */
+        t6 = *(s8*)(a0 + 0x1b);  /* lb */
         ret = (s64)t8 >> 32;
-        *(u8*)*(a2 + 0x50) = t8;
+        *(u8*)(a2 + 0x50) = t8;
         __asm("mmi3 v1, t8, t8");
-        *(u8*)*(a2 + 0x51) = ret;
-        *(u8*)*(a2 + 0x52) = v1;
-        *(u8*)*(a2 + 0x53) = t6;
+        *(u8*)(a2 + 0x51) = ret;
+        *(u8*)(a2 + 0x52) = v1;
+        *(u8*)(a2 + 0x53) = t6;
         ret = ((unsigned)a1 < 2) ? 1 : 0;
         a1 = a1 + 1;
         a2 = a1 << 3;
         a2 = a2 + a0;
-    } while (likely(ret != 0));
-    __asm("mmi3 v0, a0, a0");
+    __asm("mmi3 ret, a0, a0");
     __asm("sdbbp 0x672c");
-    if (likely(ret != 0)) goto loc_2096CC;
+    if (ret != 0) goto loc_2096CC;
 loc_2096CC:
     ret = (s64)t9 >> 32;
-    a0->gpr[21] = t9;  /* gpr[21] (store) */
+    ((PSX_State*)a0)->gpr[21] = t9;  /* gpr[21] (store) */
     __asm("mmi3 v1, t9, t9");
-    a0->gpr[22] = ret;  /* gpr[22] (store) */
-    a0->gpr[23] = v1;  /* gpr[23] (store) */
+    ((PSX_State*)a0)->gpr[22] = ret;  /* gpr[22] (store) */
+    ((PSX_State*)a0)->gpr[23] = v1;  /* gpr[23] (store) */
     ret = 0x70000000;
     __asm("andi.b w12, w0, 0x43");
-    __asm("ld.b w12, 0x42(zero)");
-    __asm("mmi0 t6, zero, t9");
-    __asm("mmi0 t7, zero, t9");
+    __asm("ld.b w12, 0x42(0)");
+    __asm("mmi0 t6, 0, t9");
+    __asm("mmi0 t7, 0, t9");
     __asm("mmi2 t8, t6, v1");
-    __asm("mmi0 t6, t7, v0");
+    __asm("mmi0 t6, t7, ret");
     __asm("mmi3 at, at, t8");
     __asm("mmi2 t8, t6, v1");
-    __asm("mmi1 t9, t7, v0");
+    __asm("mmi1 t9, t7, ret");
     __asm("mmi3 at, at, t8");
     ret = (s64)t9 >> 32;
-    a0->gpr[5] = t9;  /* gpr[5] (store) */
+    ((PSX_State*)a0)->gpr[5] = t9;  /* gpr[5] (store) */
     __asm("mmi3 v1, t9, t9");
-    a0->gpr[6] = ret;  /* gpr[6] (store) */
-    a0->gpr[7] = v1;  /* gpr[7] (store) */
+    ((PSX_State*)a0)->gpr[6] = ret;  /* gpr[6] (store) */
+    ((PSX_State*)a0)->gpr[7] = v1;  /* gpr[7] (store) */
     ret = (u64)__at >> 32;
     __asm("mmi1 v1, at, at");
     __at = __at | ret;
@@ -3985,281 +3207,29 @@ loc_2096CC:
     ret = 0x7F87E000;
     v1 = 0x80000000;
     ret = ret & __at;
-    __asm("movz v1, zero, v0");
+    if (ret == 0) v1 = 0;
     __at = __at | v1;
-    a0->cop0[27] = __at;  /* cop0[27] (store) */
+    ((PSX_State*)a0)->cop0[27] = __at;  /* cop0[27] (store) */
     return ret;
-    t0 = a0->gpr[5];  /* gpr[5] */
-    t1 = a0->gpr[6];  /* gpr[6] */
-    t2 = a0->gpr[7];  /* gpr[7] */
-    t0 = (s32)((s64)t0 * (s64)t3); HI_LO = (s64)t0 * (s64)t3;
-    t1 = (s32)((s64)t1 * (s64)t4); HI_LO = (s64)t1 * (s64)t4;
-    __asm("mult1 t2, t2, t5");
-    __at = 0;
-    ret = a0->gpr[17];  /* gpr[17] */
-    v1 = a0->gpr[18];  /* gpr[18] */
-    a0->gpr[16] = ret;  /* gpr[16] (store) */
-    a0->gpr[17] = v1;  /* gpr[17] (store) */
-    t3 = a0->cop0[17];  /* cop0[17] */
-    t4 = a0->cop0[18];  /* cop0[18] */
-    t5 = a0->cop0[19];  /* cop0[19] */
-    t3 = t3 << 12;
-    t4 = t4 << 12;
-    t5 = t5 << 12;
-    t3 = t3 - t0;
-    t4 = t4 - t1;
-    t5 = t5 - t2;
-    t3 = (signed)t3 >> 12;
-    t4 = (signed)t4 >> 12;
-    t5 = (signed)t5 >> 12;
-    ret = -0x8000;
-    v1 = 0x7fff;
-    t6 = ((signed)t3 < (signed)ret) ? 1 : 0;
-    t7 = ((signed)v1 < (signed)t3) ? 1 : 0;
-    __asm("movn t3, v0, t6");
-    __asm("movn t3, v1, t7");
-    t6 = t6 | t7;
-    t6 = t6 << 0x18;
-    __at = __at | t6;
-    t6 = ((signed)t4 < (signed)ret) ? 1 : 0;
-    t7 = ((signed)v1 < (signed)t4) ? 1 : 0;
-    __asm("movn t4, v0, t6");
-    __asm("movn t4, v1, t7");
-    t6 = t6 | t7;
-    t6 = t6 << 0x17;
-    __at = __at | t6;
-    t6 = ((signed)t5 < (signed)ret) ? 1 : 0;
-    t7 = ((signed)v1 < (signed)t5) ? 1 : 0;
-    __asm("movn t5, v0, t6");
-    __asm("movn t5, v1, t7");
-    t6 = t6 | t7;
-    t6 = t6 << 0x16;
-    __at = __at | t6;
-    t6 = a0->gpr[4];  /* gpr[4] */
-    t3 = (s32)((s64)t3 * (s64)t6); HI_LO = (s64)t3 * (s64)t6;
-    t4 = (s32)((s64)t4 * (s64)t6); HI_LO = (s64)t4 * (s64)t6;
-    __asm("mult1 t5, t5, t6");
-    t0 = t0 + t3;
-    t1 = t1 + t4;
-    t2 = t2 + t5;
-    t0 = (signed)t0 >> 12;
-    t1 = (signed)t1 >> 12;
-    t2 = (signed)t2 >> 12;
-    a0->gpr[21] = t0;  /* gpr[21] (store) */
-    a0->gpr[22] = t1;  /* gpr[22] (store) */
-    a0->gpr[23] = t2;  /* gpr[23] (store) */
-    ret = 0x7fff;
-    t6 = ((signed)t0 < (signed)0) ? 1 : 0;
-    t7 = ((signed)ret < (signed)t0) ? 1 : 0;
-    __asm("movn t0, zero, t6");
-    __asm("movn t0, v0, t7");
-    t6 = t6 | t7;
-    t6 = t6 << 0x18;
-    __at = __at | t6;
-    t6 = ((signed)t1 < (signed)0) ? 1 : 0;
-    t7 = ((signed)ret < (signed)t1) ? 1 : 0;
-    __asm("movn t1, zero, t6");
-    __asm("movn t1, v0, t7");
-    t6 = t6 | t7;
-    t6 = t6 << 0x17;
-    __at = __at | t6;
-    t6 = ((signed)t2 < (signed)0) ? 1 : 0;
-    t7 = ((signed)ret < (signed)t2) ? 1 : 0;
-    __asm("movn t2, zero, t6");
-    __asm("movn t2, v0, t7");
-    t6 = t6 | t7;
-    t6 = t6 << 0x16;
-    __at = __at | t6;
-    a0->gpr[5] = t0;  /* gpr[5] (store) */
-    a0->gpr[6] = t1;  /* gpr[6] (store) */
-    a0->gpr[7] = t2;  /* gpr[7] (store) */
-    t0 = (signed)t0 >> 4;
-    t1 = (signed)t1 >> 4;
-    t2 = (signed)t2 >> 4;
-    ret = 0xff;
-    a1 = ((signed)t0 < (signed)0) ? 1 : 0;
-    a2 = ((signed)ret < (signed)t0) ? 1 : 0;
-    __asm("movn t0, zero, a1");
-    __asm("movn t0, v0, a2");
-    a1 = a1 | a2;
-    a1 = a1 << 0x15;
-    __at = __at | a1;
-    a1 = ((signed)t1 < (signed)0) ? 1 : 0;
-    a2 = ((signed)ret < (signed)t1) ? 1 : 0;
-    __asm("movn t1, zero, a1");
-    __asm("movn t1, v0, a2");
-    a1 = a1 | a2;
-    a1 = a1 << 0x14;
-    __at = __at | a1;
-    a1 = ((signed)t2 < (signed)0) ? 1 : 0;
-    a2 = ((signed)ret < (signed)t2) ? 1 : 0;
-    __asm("movn t2, zero, a1");
-    __asm("movn t2, v0, a2");
-    a1 = a1 | a2;
-    a1 = a1 << 0x13;
-    __at = __at | a1;
-    ret = *(s8*)*(a0 + 0x1b);  /* lb */
-    *(u8*)&a0->gpr[18] = t0;  /* gpr[18] (store) */
-    *(u8*)*(a0 + 0x59) = t1;
-    *(u8*)*(a0 + 0x5a) = t2;
-    *(u8*)*(a0 + 0x5b) = ret;
-    ret = 0x7F87E000;
-    v1 = 0x80000000;
-    ret = ret & __at;
-    __asm("movz v1, zero, v0");
-    __at = __at | v1;
-    a0->cop0[27] = __at;  /* cop0[27] (store) */
-    return ret;
-    __asm("mmi3 at, zero, zero");
-    ret = 0x70000000;
-    __asm("add_a.w w12, w0, w14");
-    __asm("ld.b w12, 0x4f(zero)");
-    __asm("andi.b w12, w0, 0x58");
-    t9 = a0->gpr[4];  /* gpr[4] */
-    __asm("mmi0 t9, t9, t9");
-    __asm("mmi0 t9, t9, t9");
-    do {
-        t0 = *(u32*)(a2);
-        __asm("mmi0 t0, zero, t0");
-        __asm("mmi0 t0, zero, t0");
-        __asm("psllw t2, zero, t0");
-        t1 = a0->cop0[17];  /* cop0[17] */
-        ret = a0->cop0[18];  /* cop0[18] */
-        v1 = a0->cop0[19];  /* cop0[19] */
-        __asm("mmi0 t1, v0, t1");
-        __asm("mmi2 t1, v1, t1");
-        __asm("mmi0 t1, t1, t2");
-        __asm("mmi0 v0, t6, t1");
-        __asm("mmi0 v1, t6, t1");
-        __asm("mmi2 t3, v0, t8");
-        __asm("mmi0 v0, v1, t7");
-        __asm("mmi3 at, at, t3");
-        __asm("mmi2 t3, v0, t8");
-        __asm("mmi1 t1, v1, t7");
-        __asm("mmi3 at, at, t3");
-        __asm("mmi2 t1, t1, t9");
-        __asm("psllw t0, zero, t0");
-        __asm("mmi0 t0, t0, t1");
-        __asm("sdbbp 0x2130");
-        __asm("sdbbp 0x210c");
-        v1 = *(u128*)*(0x70000000 + 816);  /* lq */
-        __asm("andi.b w13, w0, 0x42");
-        __asm("mmi0 t3, zero, t1");
-        __asm("mmi0 t4, zero, t1");
-        __asm("mmi2 t5, t3, v1");
-        __asm("mmi0 t3, t4, v0");
-        __asm("mmi3 at, at, t5");
-        __asm("mmi2 t5, t3, v1");
-        __asm("mmi1 t1, t4, v0");
-        __asm("mmi3 at, at, t5");
-        a3 = a1 << 2;
-        a3 = a3 + a0;
-        t3 = *(s8*)*(a0 + 0x1b);  /* lb */
-        ret = (s64)t1 >> 32;
-        *(u8*)*(a3 + 0x50) = t1;
-        __asm("mmi3 v1, t1, t1");
-        *(u8*)*(a3 + 0x51) = ret;
-        *(u8*)*(a3 + 0x52) = v1;
-        *(u8*)*(a3 + 0x53) = t3;
-        ret = ((unsigned)a1 < 2) ? 1 : 0;
-        a1 = a1 + 1;
-        a2 = a2 + 4;
-    } while (likely(ret != 0));
-    ret = (s64)t0 >> 32;
-    a0->gpr[21] = t0;  /* gpr[21] (store) */
-    __asm("mmi3 v1, t0, t0");
-    a0->gpr[22] = ret;  /* gpr[22] (store) */
-    a0->gpr[23] = v1;  /* gpr[23] (store) */
-    __asm("mmi0 v0, t6, t0");
-    __asm("mmi0 v1, t6, t0");
-    __asm("mmi2 t3, v0, t8");
-    __asm("mmi0 v0, v1, t7");
-    __asm("mmi3 at, at, t3");
-    __asm("mmi2 t3, v0, t8");
-    __asm("mmi1 t0, v1, t7");
-    __asm("mmi3 at, at, t3");
-    ret = (s64)t0 >> 32;
-    a0->gpr[5] = t0;  /* gpr[5] (store) */
-    __asm("mmi3 v1, t0, t0");
-    a0->gpr[6] = ret;  /* gpr[6] (store) */
-    a0->gpr[7] = v1;  /* gpr[7] (store) */
-    ret = (u64)__at >> 32;
-    __asm("mmi1 v1, at, at");
-    __at = __at | ret;
-    __at = __at | v1;
-    ret = 0x7F87E000;
-    v1 = 0x80000000;
-    ret = ret & __at;
-    __asm("movz v1, zero, v0");
-    __at = __at | v1;
-    a0->cop0[27] = __at;  /* cop0[27] (store) */
-    return ret;
-    ret = (s64)t1 >> 32;
-    a0->gpr[21] = t1;  /* gpr[21] (store) */
-    __asm("mmi3 v1, t1, t1");
-    a0->gpr[22] = ret;  /* gpr[22] (store) */
-    a0->gpr[23] = v1;  /* gpr[23] (store) */
-    __asm("mmi0 t6, zero, t1");
-    __asm("mmi0 t7, zero, t1");
-    __asm("mmi2 t8, t6, a3");
-    __asm("mmi0 t6, t7, a2");
-    __asm("mmi3 at, at, t8");
-    __asm("mmi2 t8, t6, a3");
-    __asm("mmi1 t1, t7, a2");
-    __asm("mmi3 at, at, t8");
-    ret = (s64)t1 >> 32;
-    a0->gpr[5] = t1;  /* gpr[5] (store) */
-    __asm("mmi3 v1, t1, t1");
-    a0->gpr[6] = ret;  /* gpr[6] (store) */
-    a0->gpr[7] = v1;  /* gpr[7] (store) */
-    ret = (u64)__at >> 32;
-    __asm("mmi1 v1, at, at");
-    __at = __at | ret;
-    __at = __at | v1;
-    ret = 0x7F87E000;
-    v1 = 0x80000000;
-    ret = ret & __at;
-    __asm("movz v1, zero, v0");
-    __at = __at | v1;
-    a0->cop0[27] = __at;  /* cop0[27] (store) */
-    return ret;
-    t0 = *(s16*)(a1);
-    t1 = *(s16*)*(a1 + 2);
-    t2 = *(s16*)*(a1 + 4);
-    t3 = *(s16*)*(a1 + 6);
-    t4 = *(s16*)*(a1 + 8);
-    t5 = *(s16*)*(a1 + 0xa);
-    t6 = *(s16*)*(a1 + 0xc);
-    t7 = *(s16*)*(a1 + 0xe);
-    t8 = *(s16*)*(a1 + 0x10);
-    if (a2 == 0) {
-        ret = *(s16*)&a0->gpr[5];  /* gpr[5] */
-        v1 = *(s16*)&a0->gpr[6];  /* gpr[6] */
-        a1 = *(s16*)&a0->gpr[7];  /* gpr[7] */
-    } else {
-        ret = *(s16*)(a2);
-        v1 = *(s16*)*(a2 + 2);
-        a1 = *(s16*)*(a2 + 4);
-    }
     HI_LO = (s64)t0 * (s64)ret;
-    __asm("mult1 zero, t3, v0");
-    __asm("madd t1, v1");
+    0 = t3 * ret;
+    HI_LO += (s64)t1 * v1;
     __asm("clz v1, t4");
-    __asm("madd t2, a1");
+    HI_LO += (s64)t2 * a1;
     __asm("clz a1, t5");
-    __asm("pmfhl t0, zero, zero");
+    __asm("pmfhl t0, 0, 0");
     __asm("mmi3 t1, t0, t0");
     HI_LO = (s64)t6 * (s64)ret;
-    __asm("madd t7, v1");
-    __asm("madd t8, a1");
+    HI_LO += (s64)t7 * v1;
+    HI_LO += (s64)t8 * a1;
     t3 = 0;
     t4 = 0;
-    __asm("pmfhl t2, zero, zero");
+    __asm("pmfhl t2, 0, 0");
     t5 = 0;
     if (a3 != 0) {
         t3 = *(u32*)(a3);
-        t4 = *(u32*)*(a3 + 4);
-        t5 = *(u32*)*(a3 + 8);
+        t4 = *(u32*)(a3 + 4);
+        t5 = *(u32*)(a3 + 8);
     }
     t3 = t3 << 12;
     t4 = t4 << 12;
@@ -4272,53 +3242,53 @@ loc_2096CC:
         t1 = (signed)t1 >> 12;
         t2 = (signed)t2 >> 12;
     }
-    a0->gpr[21] = t0;  /* gpr[21] (store) */
-    a0->gpr[22] = t1;  /* gpr[22] (store) */
-    a0->gpr[23] = t2;  /* gpr[23] (store) */
+    ((PSX_State*)a0)->gpr[21] = t0;  /* gpr[21] (store) */
+    ((PSX_State*)a0)->gpr[22] = t1;  /* gpr[22] (store) */
+    ((PSX_State*)a0)->gpr[23] = t2;  /* gpr[23] (store) */
     ret = __at;
     v1 = 0x7fff;
     __at = 0;
     a1 = ((signed)t0 < (signed)ret) ? 1 : 0;
     a2 = ((signed)v1 < (signed)t0) ? 1 : 0;
-    __asm("movn t0, v0, a1");
-    __asm("movn t0, v1, a2");
+    if (a1 != 0) t0 = ret;
+    if (a2 != 0) t0 = v1;
     a1 = a1 | a2;
     a1 = a1 << 0x18;
     __at = __at | a1;
     a1 = ((signed)t1 < (signed)ret) ? 1 : 0;
     a2 = ((signed)v1 < (signed)t1) ? 1 : 0;
-    __asm("movn t1, v0, a1");
-    __asm("movn t1, v1, a2");
+    if (a1 != 0) t1 = ret;
+    if (a2 != 0) t1 = v1;
     a1 = a1 | a2;
     a1 = a1 << 0x17;
     __at = __at | a1;
     a1 = ((signed)t2 < (signed)ret) ? 1 : 0;
     a2 = ((signed)v1 < (signed)t2) ? 1 : 0;
-    __asm("movn t2, v0, a1");
-    __asm("movn t2, v1, a2");
+    if (a1 != 0) t2 = ret;
+    if (a2 != 0) t2 = v1;
     a1 = a1 | a2;
     a1 = a1 << 0x16;
     __at = __at | a1;
-    a0->gpr[5] = t0;  /* gpr[5] (store) */
-    a0->gpr[6] = t1;  /* gpr[6] (store) */
-    a0->gpr[7] = t2;  /* gpr[7] (store) */
+    ((PSX_State*)a0)->gpr[5] = t0;  /* gpr[5] (store) */
+    ((PSX_State*)a0)->gpr[6] = t1;  /* gpr[6] (store) */
+    ((PSX_State*)a0)->gpr[7] = t2;  /* gpr[7] (store) */
     ret = 0x7F87E000;
     v1 = 0x80000000;
     ret = ret & __at;
-    __asm("movz v1, zero, v0");
+    if (ret == 0) v1 = 0;
     __at = __at | v1;
-    a0->cop0[27] = __at;  /* cop0[27] (store) */
+    ((PSX_State*)a0)->cop0[27] = __at;  /* cop0[27] (store) */
     return ret;
 }
 
 /* Function at 0x00209E00 - 0x00209EF0 */
-int Compiler_MemoryCopy()
+u32 Compiler_MemoryCopy(u32 a0, u32 a1, u32 a2)
 {
-    int ret, v1, a0, a1, a2, t0, t1;
+    u32 ret, v1, t0, t1;
     ret = a0 & 0xf;
     if (a2 == 0) goto loc_209E3C;
     ret = a1 & 0xf;
-    if (likely(ret == 0)) goto loc_209E40;
+    if (ret == 0) goto loc_209E40;
     ret = *(u8*)(a1);
     do {
         a1 = a1 + 1;
@@ -4328,7 +3298,7 @@ int Compiler_MemoryCopy()
         ret = a0 & 0xf;
         if (a2 == 0) goto loc_209E3C;
         ret = *(u8*)(a1);
-    } while (likely(ret != 0));
+    } while (ret != 0);
 loc_209E3C:
     ret = a1 & 0xf;
 loc_209E40:
@@ -4379,9 +3349,9 @@ loc_209EB4:
 }
 
 /* Function at 0x00209EF0 - 0x00209F80 */
-int Compiler_MemoryClear()
+u32 Compiler_MemoryClear(u32 a0, u32 a1)
 {
-    int ret, a0, a1, t0;
+    u32 ret, t0;
     goto loc_209F00;
 loc_209EF8:
     *(u8*)(a0) = 0;
@@ -4390,12 +3360,11 @@ loc_209F00:
     ret = a0 & 0xf;
     if (a1 != 0) {
         a1 = a1 + -1;
-        if (likely(ret != 0)) goto loc_209EF8;
+        if (ret != 0) goto loc_209EF8;
     }
-    t0 = ((signed)a1 < 0x10) ? 1 : 0;
-    if (t0 == 0) {
+    if ((signed)a1 >= (signed)0x10) {
         do {
-            __asm("ext zero, a0, 0, 1");
+            __asm("ext 0, a0, 0, 1");
             a0 = a0 + 0x10;
             a1 = a1 + -0x10;
             t0 = ((signed)a1 < 0x10) ? 1 : 0;
@@ -4414,11 +3383,10 @@ loc_209F00:
 }
 
 /* Function at 0x00209F80 - 0x00209F98 */
-int Compiler_SetCacheFlushFlag()
+u32 Compiler_SetCacheFlushFlag(u32 a0)
 {
-    int ret, v1, a0, a1;
+    u32 ret, v1, a1;
     ret = g_compiler_irq0;
-    v1 = 1;
     v1 = v1 << a0;
     a0 = 0;
     a1 = g_compiler_irq1;
@@ -4426,37 +3394,32 @@ int Compiler_SetCacheFlushFlag()
 }
 
 /* Function at 0x00209F98 - 0x00209FC8 */
-int Compiler_RequestCacheFlush()
+u32 Compiler_RequestCacheFlush(u32 a0, u32 a1)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
+    u32 ret, a2, a3;
     g_compiler_irq0 = ret;
-    ret = ret & a1;
-    if (ret != 0) {
-        return PSX_SetIRQBit(a0, a1, a2, a3);
+    if ((ret & a1) != 0) {
+        return PSX_SetIRQBit(a0);
     }
     a0 = 0;
-    return PSX_ClearIRQBit(a0, a1, a2, a3);
+    return PSX_ClearIRQBit(a0);
 }
 
 /* Function at 0x00209FC8 - 0x0020A000 */
-int Compiler_GetCacheStatus()
+u32 Compiler_GetCacheStatus(void)
 {
-    int ret;
+    u32 ret;
     return ret;
-            }
-            ret = g_compiler_irq0;
-            return ret;
-        }
-    ret = g_compiler_irq1;
-    return ret;
+            return g_compiler_irq0;
+    return g_compiler_irq1;
 }
 
 /* Function at 0x0020A000 - 0x0020A080 */
-int Compiler_ClearCacheFlushFlag()
+u32 Compiler_ClearCacheFlushFlag(u32 a0, u32 a1)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1, a2, a3;
     a0 = a0 & 0xf;
     if (a0 != 0) {
         ret = 4;
@@ -4468,8 +3431,7 @@ int Compiler_ClearCacheFlushFlag()
             ret = -1;
             v1 = g_compiler_irq0;
             if (a1 == ret) goto loc_20A070;
-            v1 = v1 & a1;
-            g_compiler_irq0 = v1;
+            g_compiler_irq0 = v1 & a1;
         } else {
             ret = a1 & 0xffff;
             g_compiler_irq1 = ret;
@@ -4479,19 +3441,19 @@ loc_20A04C:
     ret = v1 & ret;
     if (ret != 0) {
         a0 = 0;
-        ret = PSX_SetIRQBit(a0, a1, a2, a3);
+        ret = PSX_SetIRQBit(a0);
     } else {
         a0 = 0;
-        ret = PSX_ClearIRQBit(a0, a1, a2, a3);
+        ret = PSX_ClearIRQBit(a0);
         loc_20A070:
     }
     return ret;
 }
 
 /* Function at 0x0020A080 - 0x0020A090 */
-int Compiler_ResetCacheState()
+u32 Compiler_ResetCacheState(void)
 {
-    int ret;
+    u32 ret;
     g_compiler_irq1 = 0;
     g_compiler_irq0 = 0;
     return ret;

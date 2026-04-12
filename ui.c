@@ -3,218 +3,218 @@
 /* 178 functions */
 
 #include "pops_types.h"
+#include "functions.h"
 
 /* Forward declarations */
-int UI_ValidateFormat();
-int UI_FontDataLookup();
-int UI_AllocateTexture();
-int UI_FreeTexture();
-int UI_DrawStripedRect();
-int UI_CalcBlockAlign();
-int UI_MultiplyRound64();
-int UI_FindHighBit();
-int PFont_FindGlyph();
-int PFont_BuildGSPacket();
-int PFont_CalcPacketSpace();
-int PFont_FlushPacket();
-int PFont_DrawString();
-int PFont_RenderText();
-int PFont_CalcSlotOffset();
-int PFont_Init();
-int PFont_Clear();
-int PFont_GetSetCallback();
-int PFont_SetParams();
-int PFont_LoadUnitScale();
-int PFont_ResetState();
-int PFont_GetWord();
-int PFont_SetFont();
-int PFont_Flush();
-int PFont_FlushWithArgs();
-int PFont_FlushMatrix();
-int PFont_FlushMatrixArgs();
-int PFont_GetPosition();
-int PFont_SetPosition();
-int PFont_GetScale();
-int PFont_SetScale();
-int PFont_SetDisplayMode();
-int PFont_SetTextCursor();
-int PFont_ProcessTextCursor();
-int PFont_RenderGlyphs();
-int PFont_IterateCallbacks();
-int PFont_GetBitsPerPixel();
-int PFont_ResetTraversal();
-int PFont_SetUVAndDecode();
-int PFont_SaveAndRender();
-int PFont_CopyAndRender();
-int UI_LoadHDDModules();
-int UI_GetMaxFileSize();
-int UI_InitDiscThreads();
-int UI_DiscTransfer();
-int UI_DiscVerifyLoop();
-int UI_OpenDiscImage();
-int UI_CloseDiscResources();
-int UI_SetDiscBuffer();
-int UI_CRC_Compute();
-int UI_CRC_Combined();
-int UI_SHA1_Transform();
-int UI_SHA1_Compute();
-int UI_Kern_ExecOSD();
-int UI_Kern_AddDmacHandler();
-int UI_Kern_RemoveDmacHandler();
-int UI_Kern_RemoveIntcHandler();
-int UI_Kern_EnableIntc();
-int UI_Kern_DisableIntc();
-int UI_Kern_EnableDmac();
-int UI_Kern_DisableDmac();
-int UI_Kern_SetAlarm();
-int UI_Kern_ReleaseAlarm();
-int UI_Kern_iEnableIntc();
-int UI_Kern_SetVTLBRefillHandler();
-int UI_Kern_SetVCommonHandler();
-int UI_Kern_iSetAlarm();
-int UI_Kern_iReleaseAlarm();
-int UI_Kern_iCreateThread();
-int UI_Kern_iDeleteThread();
-int UI_Kern_CreateThread();
-int UI_Kern_DeleteThread();
-int UI_Kern_StartThread();
-int UI_Kern_ExitDeleteThread();
-int UI_Kern_ChangeThreadPriority();
-int UI_Kern_RotateThreadReadyQueue();
-int UI_Kern_GetThreadId();
-int UI_Kern_ReferThreadStatus();
-int UI_Kern_SleepThread();
-int UI_Kern_WakeupThread();
-int UI_Kern_iWakeupThread();
-int UI_Kern_SuspendThread();
-int UI_Kern_iSuspendThread();
-int UI_Kern_EndOfHeap();
-int UI_Kern_CreateSema();
-int UI_Kern_DeleteSema();
-int UI_Kern_SignalSema();
-int UI_Kern_iSignalSema();
-int UI_Kern_WaitSema();
-int UI_Kern_PollSema();
-int UI_Kern_iPollSema();
-int UI_Kern_EnableIntcHandler();
-int UI_Kern_DisableIntcHandler();
-int UI_Kern_GsPutIMR();
-int UI_Kern_SifSetDma();
-int UI_Kern_SifSetDChain();
-int UI_Kern_SifSetReg();
-int UI_Kern_SifGetReg();
-int UI_Kern_ExecOSD2();
-int UI_Kern_SetSyscall();
-int UI_Kern_SifRpc();
-int UI_Kern_SetCPUTimerHandler();
-int UI_Kern_SetVTLBRefillHandler2();
-int UI_Kern_SetVCommonHandler2();
-int UI_Kern_SetVInterruptHandler();
-int UI_Kern_SifCheckInit();
-int UI_Kern_SifInitCmd();
-int UI_DCacheHitInvalidate();
-int UI_DCacheInvalidateSync();
-int UI_ICacheWritebackInvalidate();
-int UI_ICacheWritebackSync();
-int UI_SetAlarmSync();
-int UI_DisableDmacSync();
-int UI_iEnableIntcSync();
-int UI_ReleaseAlarmSync();
-int UI_iSetAlarmSync();
-int UI_iReleaseAlarmSync();
-int UI_SyncSyscall_Neg28();
-int UI_SyncSyscall_Neg29();
-int UI_SIO2_WriteChar();
-int UI_TTY_PutChar();
-int UI_TTY_PutCharCRLF();
-int UI_FixedPointConvert();
-int UI_FormatNumber();
-int UI_RenderFrame();
-int UI_RenderHelper();
-int UI_DMASetup();
-int UI_DMATransferSync();
-int UI_PadInit();
-int UI_DMASlotAlloc();
-int UI_DMASlotClear();
-int UI_DMASlotAddress();
-int UI_DMASlotGetByIndex();
-int UI_DMASlotComplete();
-int UI_DMATransferSubmit();
-int UI_DMATransferRequest();
-int UI_DMAFindNode();
-int UI_DMATransferLookup();
-int UI_DMATransferAsync();
-int UI_DMATransferProcess();
-int UI_DMATransferFinalize();
-int UI_SifQueueInsert();
-int UI_SifQueueInsertCmd();
-int UI_SifQueueRemoveCmd();
-int UI_SifQueueRemove();
-int UI_SifQueueProcess();
-int UI_SifRpcInit();
-int UI_SifRpcSetup();
-int UI_SifRpcBind();
-int UI_SifRpcCall();
-int UI_SifRpcCheck();
-int UI_SifRpcDispatch();
-int UI_SifRpcCleanup();
-int UI_SifRpcWait();
-int UI_SifRpcSignal();
-int UI_SifRpcCallback();
-int UI_SifCmdInit();
-int UI_SifCmdProcess();
-int UI_SifCmdSend();
-int UI_SifCmdHandler();
-int UI_SifModuleLoad();
-int UI_SifModuleInit();
-int UI_SifModuleBind();
-int UI_SifModuleStart();
-int UI_SifBootInit();
-int UI_SifBootSequence();
-int UI_SifBootConfig();
-int UI_SifBootModules();
-int UI_SifBootHelper();
-int UI_SifBootStart();
-int UI_SifBootFinish();
-int UI_IOPBootSequence();
-int UI_IOPBootInit();
-int UI_IOPBootHelper();
-int UI_IOPBootConfig();
-int UI_IOPBootModules();
-int UI_IOPBootStart();
-int UI_IOPBootFinish();
+u32 UI_ValidateFormat(u32 a0);
+u32 UI_FontDataLookup(u32 a0, u32 a1);
+u32 UI_AllocateTexture(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 UI_FreeTexture(u32 a0, u32 a1, u32 a2);
+u32 UI_DrawStripedRect(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 UI_CalcBlockAlign(u32 a0, u32 a1);
+u32 UI_MultiplyRound64(u32 a0, u32 a1, u32 a2);
+u32 UI_FindHighBit(u32 a0);
+u32 PFont_FindGlyph(u32 a0, u32 a1, u32 a2);
+u32 PFont_BuildGSPacket(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 PFont_CalcPacketSpace(u32 a0, u32 a1);
+u32 PFont_FlushPacket(u32 a0, u32 a1);
+u32 PFont_DrawString(u32 a0);
+u32 PFont_RenderText(u32 a0, u32 a1);
+u32 PFont_CalcSlotOffset(u32 a0);
+u32 PFont_Init(u32 a0, u32 a1);
+u32 PFont_Clear(void);
+u32 PFont_GetSetCallback(u32 a0, u32 a1);
+u32 PFont_SetParams(u32 a0, u32 a1, u32 a2, u32 a3);
+void PFont_LoadUnitScale(void);
+u32 PFont_ResetState(u32 a0);
+void PFont_GetWord(u32 a0, u32 a1);
+u32 PFont_SetFont(u32 a0, u32 a1);
+void PFont_Flush(void);
+void PFont_FlushWithArgs(u32 a0, u32 a1);
+u32 PFont_FlushMatrix(u32 a0);
+void PFont_FlushMatrixArgs(u32 a0, u32 a1);
+u32 PFont_GetPosition(u32 a0);
+u32 PFont_SetPosition(u32 a0, u32 a1);
+u32 PFont_GetScale(u32 a0);
+u32 PFont_SetScale(u32 a0, u32 a1);
+u32 PFont_SetDisplayMode(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 PFont_SetTextCursor(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 PFont_ProcessTextCursor(u32 a0, u32 a1, u32 a2);
+u32 PFont_RenderGlyphs(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 PFont_IterateCallbacks(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 PFont_GetBitsPerPixel(u32 a0);
+u32 PFont_ResetTraversal(u32 a0);
+u32 PFont_SetUVAndDecode(u32 a0);
+u32 PFont_SaveAndRender(u32 a0);
+u32 PFont_CopyAndRender(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 UI_LoadHDDModules(u32 a0, u32 a1);
+void UI_GetMaxFileSize(void);
+u32 UI_InitDiscThreads(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 UI_DiscTransfer(u32 a0);
+u32 UI_DiscVerifyLoop(void);
+u32 UI_OpenDiscImage(void);
+u32 UI_CloseDiscResources(void);
+u32 UI_SetDiscBuffer(u32 a0, u32 a1);
+u32 UI_CRC_Compute(void);
+u32 UI_CRC_Combined(u32 a0, u32 a1, u32 a2);
+u32 UI_SHA1_Transform(u32 a0);
+u32 UI_SHA1_Compute(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 UI_Kern_ExecOSD(void);
+u32 UI_Kern_AddDmacHandler(void);
+u32 UI_Kern_RemoveDmacHandler(void);
+u32 UI_Kern_RemoveIntcHandler(void);
+u32 UI_Kern_EnableIntc(void);
+u32 UI_Kern_DisableIntc(void);
+u32 UI_Kern_EnableDmac(void);
+u32 UI_Kern_DisableDmac(void);
+u32 UI_Kern_SetAlarm(void);
+u32 UI_Kern_ReleaseAlarm(void);
+u32 UI_Kern_iEnableIntc(void);
+u32 UI_Kern_SetVTLBRefillHandler(void);
+u32 UI_Kern_SetVCommonHandler(void);
+u32 UI_Kern_iSetAlarm(void);
+u32 UI_Kern_iReleaseAlarm(void);
+u32 UI_Kern_iCreateThread(void);
+u32 UI_Kern_iDeleteThread(void);
+u32 UI_Kern_CreateThread(void);
+u32 UI_Kern_DeleteThread(void);
+u32 UI_Kern_StartThread(void);
+u32 UI_Kern_ExitDeleteThread(void);
+u32 UI_Kern_ChangeThreadPriority(void);
+u32 UI_Kern_RotateThreadReadyQueue(void);
+u32 UI_Kern_GetThreadId(void);
+u32 UI_Kern_ReferThreadStatus(void);
+u32 UI_Kern_SleepThread(void);
+u32 UI_Kern_WakeupThread(void);
+u32 UI_Kern_iWakeupThread(void);
+u32 UI_Kern_SuspendThread(void);
+u32 UI_Kern_iSuspendThread(void);
+u32 UI_Kern_EndOfHeap(void);
+u32 UI_Kern_CreateSema(void);
+u32 UI_Kern_DeleteSema(void);
+u32 UI_Kern_SignalSema(void);
+u32 UI_Kern_iSignalSema(void);
+u32 UI_Kern_WaitSema(void);
+u32 UI_Kern_PollSema(void);
+u32 UI_Kern_iPollSema(void);
+u32 UI_Kern_EnableIntcHandler(void);
+u32 UI_Kern_DisableIntcHandler(void);
+u32 UI_Kern_GsPutIMR(void);
+u32 UI_Kern_SifSetDma(void);
+u32 UI_Kern_SifSetDChain(void);
+u32 UI_Kern_SifSetReg(void);
+u32 UI_Kern_SifGetReg(void);
+u32 UI_Kern_ExecOSD2(void);
+u32 UI_Kern_SetSyscall(void);
+u32 UI_Kern_SifRpc(void);
+u32 UI_Kern_SetCPUTimerHandler(void);
+u32 UI_Kern_SetVTLBRefillHandler2(void);
+u32 UI_Kern_SetVCommonHandler2(void);
+u32 UI_Kern_SetVInterruptHandler(void);
+u32 UI_Kern_SifCheckInit(void);
+u32 UI_Kern_SifInitCmd(void);
+u32 UI_DCacheHitInvalidate(u32 a0, u32 a1);
+u32 UI_DCacheInvalidateSync(u32 a0, u32 a1);
+u32 UI_ICacheWritebackInvalidate(u32 a0, u32 a1);
+u32 UI_ICacheWritebackSync(u32 a0, u32 a1);
+u32 UI_SetAlarmSync(u32 a0);
+u32 UI_DisableDmacSync(u32 a0);
+u32 UI_iEnableIntcSync(u32 a0);
+u32 UI_ReleaseAlarmSync(u32 a0);
+u32 UI_iSetAlarmSync(void);
+u32 UI_iReleaseAlarmSync(void);
+u32 UI_SyncSyscall_Neg28(void);
+u32 UI_SyncSyscall_Neg29(void);
+u32 UI_SIO2_WriteChar(u32 a0);
+u32 UI_TTY_PutChar(u32 a0);
+u32 UI_TTY_PutCharCRLF(u32 a0);
+u32 UI_FixedPointConvert(u32 a0);
+u32 UI_FormatNumber(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 UI_RenderFrame(u32 a0, u32 a1, u32 a2);
+u32 UI_RenderHelper(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 UI_DMASetup(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 UI_DMATransferSync(void);
+u32 UI_PadInit(void);
+u32 UI_DMASlotAlloc(u32 a0);
+u32 UI_DMASlotClear(u32 a0);
+u32 UI_DMASlotAddress(u32 a0);
+u32 UI_DMASlotGetByIndex(u32 a0, u32 a1);
+u32 UI_DMASlotComplete(u32 a0, u32 a1, u32 a2, u32 a3);
+void UI_DMATransferSubmit(u32 a0, u32 a1);
+u32 UI_DMATransferRequest(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 UI_DMAFindNode(u32 a0, u32 a1);
+void UI_DMATransferLookup(u32 a0, u32 a1);
+u32 UI_DMATransferAsync(u32 a0, u32 a1, u32 a2);
+u32 UI_DMATransferProcess(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 UI_DMATransferFinalize(u32 a0);
+u32 UI_SifQueueInsert(u32 a0, u32 a1);
+u32 UI_SifQueueInsertCmd(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 UI_SifQueueRemoveCmd(u32 a0, u32 a1);
+u32 UI_SifQueueRemove(u32 a0);
+u32 UI_SifQueueProcess(u32 a0);
+u32 UI_SifRpcInit(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 UI_SifRpcSetup(u32 a0);
+u32 UI_SifRpcBind(void);
+u32 UI_SifRpcCall(void);
+u32 UI_SifRpcCheck(u32 a0);
+void UI_SifRpcDispatch(void);
+u32 UI_SifRpcCleanup(void);
+u32 UI_SifRpcWait(void);
+u32 UI_SifRpcSignal(void);
+u32 UI_SifRpcCallback(u32 a0, u32 a1);
+u32 UI_SifCmdInit(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 UI_SifCmdProcess(void);
+u32 UI_SifCmdSend(void);
+u32 UI_SifCmdHandler(void);
+u32 UI_SifModuleLoad(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 UI_SifModuleInit(void);
+u32 UI_SifModuleBind(u32 a0, u32 a1, u32 a2);
+u32 UI_SifModuleStart(u32 a0, u32 a1, u32 a2);
+u32 UI_SifBootInit(u32 a0, u32 a1, u32 a2);
+u32 UI_SifBootSequence(u32 a0, u32 a1, u32 a2);
+u32 UI_SifBootConfig(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 UI_SifBootModules(u32 a0, u32 a1);
+u32 UI_SifBootHelper(void);
+u32 UI_SifBootStart(u32 a0, u32 a1);
+u32 UI_SifBootFinish(void);
+u32 UI_IOPBootSequence(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 UI_IOPBootInit(u32 a0);
+u32 UI_IOPBootHelper(void);
+u32 UI_IOPBootConfig(u32 a0);
+u32 UI_IOPBootModules(void);
+u32 UI_IOPBootStart(u32 a0, u32 a1);
+u32 UI_IOPBootFinish(u32 a0, u32 a1);
 
 /* ======================================== */
 
 /* Function at 0x0022A000 - 0x0022A0D0 */
-int UI_ValidateFormat()
+u32 UI_ValidateFormat(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, t0;
+    u32 ret, v1, a1, a2, a3, t0;
     a3 = a0;
     t0 = 0x54;
     a1 = *(u8*)(a3);
     ret = 0x49;
     if (a1 == t0) goto loc_22A040;
-    a2 = *(u8*)*(a3 + 1);
+    a2 = *(u8*)(a3 + 1);
     if (a2 == 0x4d) goto loc_22A040;
-    a0 = *(u8*)*(a3 + 2);
+    a0 = *(u8*)(a3 + 2);
     if (a0 == 0x32) goto loc_22A040;
-    v1 = *(u8*)*(a3 + 3);
-    if (v1 == 0x43) {
+    if ((*(u8*)(a3 + 3)) == 0x43) {
         loc_22A040:
         a0 = 1;
     } else {
         if (a1 == 0x4c) goto loc_22A080;
         a0 = 2;
-        if (likely(a2 == ret)) goto loc_22A084;
+        if (a2 == ret) goto loc_22A084;
         a0 = 0x00500000;
         if (a0 == t0) goto loc_22A080;
-        t0 = *(u8*)*(a3 + 3);
+        t0 = *(u8*)(a3 + 3);
         a1 = *(u8*)(a3);
         a0 = 0x004FF240;
-        a2 = *(u8*)*(a3 + 1);
-        a3 = *(u8*)*(a3 + 2);
+        a2 = *(u8*)(a3 + 1);
+        a3 = *(u8*)(a3 + 2);
         ret = AssertionFailed(a0, a1, a2, a3);
         ret = 0;
         goto loc_22A0C4;
@@ -222,15 +222,12 @@ int UI_ValidateFormat()
         a0 = 2;
     }
 loc_22A084:
-    v1 = *(u8*)*(a3 + 4);
+    v1 = *(u8*)(a3 + 4);
     ret = 3;
     if (v1 != 4) {
         a0 = 0x00500000;
         if (v1 == ret) {
-            ret = *(u8*)*(a3 + 5);
-            ret = ((unsigned)ret < 2) ? 1 : 0;
-            ret = a0;
-            if (ret != 0) goto loc_22A0C4;
+            if (a0 != 0) goto loc_22A0C4;
             a0 = 0x00500000;
         }
         a0 = 0x004FF278;
@@ -244,13 +241,13 @@ loc_22A0C4:
 }
 
 /* Function at 0x0022A0D0 - 0x0022A3F8 */
-int UI_FontDataLookup()
+u32 UI_FontDataLookup(u32 a0, u32 a1)
 {
     /* Stack frame: 16 bytes */
-    int ret, v0, v1, a0, a1, a2, a3;
+    u32 ret, v1, a2, a3, t0;
     a2 = a1;
-    ret = *(u16*)*(a0 + 6);
-    v1 = *(u8*)*(a0 + 5);
+    ret = *(u16*)(a0 + 6);
+    v1 = *(u8*)(a0 + 5);
     if ((signed)a2 >= (signed)ret) {
         a0 = 0x004FF2A0;
         ret = AssertionFailed(a0, a1, a2, a3);
@@ -258,7 +255,7 @@ int UI_FontDataLookup()
     } else {
         ret = a0 + 0x80;
         a0 = a0 + 0x10;
-        __asm("movn a0, v0, v1");
+        if (v1 != 0) a0 = ret;
         if ((signed)a2 > 0) {
             a1 = a2;
             do {
@@ -270,58 +267,27 @@ int UI_FontDataLookup()
         ret = a0;
     }
     return ret;
-    }
     *(u32*)(a3) = ret;
-    if (likely(a3 != 0)) goto loc_22A178;
+    if (a3 != 0) goto loc_22A178;
 loc_22A178:
-    v1 = *(u8*)*(a0 + 0x13);
+    v1 = *(u8*)(a0 + 0x13);
     a1 = (s32)((s64)t0 * (s64)ret); HI_LO = (s64)t0 * (s64)ret;
-    v1 = v1 + -1;
     v1 = a1 + 0xf;
-    if (likely((unsigned)v1 >= 5)) goto loc_22A1D8;
+    if ((unsigned)v1 >= 5) goto loc_22A1D8;
     ret = v1 << 2;
-    v1 = 0x00500000;
-    v1 = v1 + ret;
-    v1 = *(u32*)*(v1 + -0xc60);
+    v1 = *(u32*)(v1 + -0xc60);
     goto *v1; /* computed jump */
     a1 = a1 << 1;
     goto loc_22A1D4;
 loc_22A1D4:
     v1 = a1 + 0xf;
 loc_22A1D8:
-    ret = -0x10;
-    ret = v1 & ret;
-    return ret;
-    }
-    ret = a2;
-    return ret;
-    return 0;
-    a0 = a0 + a2;
-    if (a1 != 0) {
-        v1 = *(u32*)(a0);
-        ret = 0x00745865;
-        ret = *(u32*)*(a0 + 4);
-        if (v1 != ret) {
-            ret = a3 - a2;
-        }
+    return v1 & ret;
+    return a2;
         *(u32*)(a1) = ret;
-    }
-    ret = a0;
-    return ret;
-    a2 = 0;
-    goto loc_22A2D8;
-    a0 = a0 + a2;
-    if (a1 != 0) {
-        v1 = *(u32*)(a0);
-        ret = 0x00745865;
-        ret = *(u32*)*(a0 + 4);
-        if (v1 != ret) {
-            ret = a3 - a2;
-        }
+    return a0;
         *(u32*)(a1) = ret;
-    }
     a2 = a0;
-loc_22A2D8:
     ret = 0;
     if (a2 == 0) goto loc_22A308;
     a0 = *(u32*)(a2);
@@ -329,30 +295,26 @@ loc_22A2D8:
     ret = a2;
     if (a0 != v1) goto loc_22A308;
     ret = a2 + 0x10;
-    if (likely(a1 == 0)) goto loc_22A308;
-    ret = *(u32*)*(a2 + 8);
+    if (a1 == 0) goto loc_22A308;
+    ret = *(u32*)(a2 + 8);
     *(u32*)(a1) = ret;
     ret = a2 + 0x10;
 loc_22A308:
     return ret;
-    return ret;
-    return ret;
-    }
-    ret = v1;
-    return ret;
+    return v1;
 }
 
 /* Function at 0x0022A3F8 - 0x0022A540 */
-int UI_AllocateTexture()
+u32 UI_AllocateTexture(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, t0, t1, t2;
+    u32 ret, v1, s0, s1, t0, t1, t2;
     s0 = a0;
     s1 = a2;
-    t2 = *(u8*)*(s0 + 0x11);
+    t2 = *(u8*)(s0 + 0x11);
     a0 = 0;
     if ((signed)a1 >= (signed)t2) goto loc_22A468;
-    ret = *(u16*)*(s0 + 0xc);
+    ret = *(u16*)(s0 + 0xc);  /* PSX: lo */
     v1 = 1;
     t1 = s0 + ret;
     a0 = t1;
@@ -375,15 +337,12 @@ loc_22A468:
     a0 = s0;
     ret = HDD_AllocateTextureMem(a0, a1, a2, a3);
     a2 = ret;
-    ret = *(u8*)*(s0 + 0x13);
     ret = ret + -1;
     v1 = ((unsigned)ret < 5) ? 1 : 0;
     ret = 0;
-    if (likely(v1 == 0)) goto loc_22A528;
+    if (v1 == 0) goto loc_22A528;
     ret = ret << 2;
-    v1 = 0x00500000;
-    v1 = v1 + ret;
-    v1 = *(u32*)*(v1 + -0xc40);
+    v1 = *(u32*)(v1 + -0xc40);
     goto *v1; /* computed jump */
     ret = (unsigned)a2 >> 8;
     a1 = (unsigned)a2 >> 2;
@@ -404,47 +363,42 @@ loc_22A528:
 }
 
 /* Function at 0x0022A540 - 0x0022A590 */
-int UI_FreeTexture()
+u32 UI_FreeTexture(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 32 bytes */
-    int ret, a0, a1, a2, a3, s0, s1, s2;
+    u32 ret, a3, s0, s1, s2;
     s0 = a2;
     s1 = a0;
-    ret = HDD_FreeTextureMemory(a0, a1, a2, a3);
+    ret = HDD_FreeTextureMemory(a0, a1);
     a0 = s1;
     a1 = s0;
     s2 = ret;
-    ret = HDD_CompressTextureData(a0, a1, a2, a3);
-    ret = s2;
-    return ret;
+    ret = HDD_CompressTextureData(a0, a1);
+    return s2;
 }
 
 /* Function at 0x0022A590 - 0x0022A700 */
-int UI_DrawStripedRect()
+u32 UI_DrawStripedRect(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 192 bytes */
-    int local_60;
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3;
+    u32 local_60;
+    u32 ret, v1, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3;
     s4 = t0;
     local_60 = t1;
     if ((unsigned)a0 >= 0x3b) goto loc_22A6CC;
     ret = a0 << 2;
-    v1 = 0x00500000;
-    v1 = v1 + ret;
-    v1 = *(u32*)*(v1 + -0xc20);
+    v1 = *(u32*)(v1 + -0xc20);
     goto *v1; /* computed jump */
     s2 = a3 << 2;
     goto loc_22A61C;
 loc_22A61C:
     ret = 7 << 16;
     BREAK(); /* breakpoint */
-    if (likely(s2 == 0)) goto loc_22A628;
+    if (s2 == 0) goto loc_22A628;
 loc_22A628:
     ret = 0x0007FFC0;
     s3 = 0;
-    __asm("div zero, v0, s2");
-    ret = LO;
-    s1 = ret;
+    s1 = (signed)ret / (signed)s2;
     if ((signed)s4 <= 0) goto loc_22A6CC;
     __fp = a1 << 0x10;
     s7 = a2 << 0x10;
@@ -454,10 +408,9 @@ loc_22A628:
     do {
         ret = s3 + s1;
         v1 = s4 - s3;
-        ret = ((signed)s4 < (signed)ret) ? 1 : 0;
-        __asm("movn s1, v1, v0");
+        if ((signed)s4 < (signed)ret) s1 = v1;
         LO = a0;
-        __asm("madd s0, s2, s3");
+        HI_LO += (s64)s2 * s3; s0 = LO;
         t1 = s3 << 0x10;
         t3 = s1 << 0x10;
         a0 = __sp;
@@ -471,13 +424,13 @@ loc_22A628:
         s3 = s3 + s1;
         ret = EEKernel_TLB_Refill_Handler(a0, a1, a2, a3);
         a0 = 0;
-        ret = UI_Kern_GsPutIMR(a0, a1, a2, a3);
+        ret = UI_Kern_GsPutIMR();
         a1 = s0;
         a0 = __sp;
-        ret = EEKernel_SIF_DMA_ConfigWrite(a0, a1, a2, a3);
+        ret = EEKernel_SIF_DMA_ConfigWrite(a0, a1);
         a0 = 0;
         a1 = 0;
-        ret = EEKernel_DMA_ChannelStatus_Debug(a0, a1, a2, a3);
+        ret = EEKernel_DMA_ChannelStatus_Debug(a0);
         v1 = ((signed)s3 < (signed)s4) ? 1 : 0;
         a0 = local_60;
     } while (v1 != 0);
@@ -486,41 +439,35 @@ loc_22A6CC:
 }
 
 /* Function at 0x0022A700 - 0x0022A768 */
-int UI_CalcBlockAlign()
+u32 UI_CalcBlockAlign(u32 a0, u32 a1)
 {
-    int ret, v0, v1, a0, a1;
+    u32 ret, v1;
     if ((unsigned)a0 < 0x3b) {
         ret = a0 << 2;
-        v1 = 0x00500000;
-        v1 = v1 + ret;
-        v1 = *(u32*)*(v1 + -0xb30);
+        v1 = *(u32*)(v1 + -0xb30);
         goto *v1; /* computed jump */
         ret = a1 + 0x3f;
         a0 = a1 + 0x7e;
-        v1 = ((signed)ret < 0) ? 1 : 0;
-        __asm("movn v0, a0, v1");
-        ret = (signed)ret >> 6;
-        return ret;
+        if ((((signed)ret < 0) ? 1 : 0) != 0) ret = a0;
+        return (signed)ret >> 6;
     }
     return 0;
 }
 
 /* Function at 0x0022A768 - 0x0022A780 */
-int UI_MultiplyRound64()
+u32 UI_MultiplyRound64(u32 a0, u32 a1, u32 a2)
 {
-    int ret, v0, v1, a0, a1, a2;
+    u32 ret, v1;
     ac2 = (s32)((s64)a1 * (s64)a2); HI_LO = (s64)a1 * (s64)a2;
     a0 = ret + 0x3f;
-    v1 = ((signed)ret < 0) ? 1 : 0;
-    __asm("movn v0, a0, v1");
-    ret = (signed)ret >> 6;
-    return ret;
+    if ((((signed)ret < 0) ? 1 : 0) != 0) ret = a0;
+    return (signed)ret >> 6;
 }
 
 /* Function at 0x0022A780 - 0x0022A7C8 */
-int UI_FindHighBit()
+u32 UI_FindHighBit(u32 a0)
 {
-    int ret, v1, a0;
+    u32 ret, v1;
     v1 = 0x1f;
     if ((signed)a0 < 0) goto loc_22A7B4;
     v1 = v1 + -1;
@@ -529,20 +476,16 @@ int UI_FindHighBit()
         if ((signed)v1 <= 0) goto loc_22A7B4;
         ret = ret & 1;
         v1 = v1 + -1;
-    } while (likely(ret == 0));
+    } while (ret == 0);
 loc_22A7B4:
-    ret = 1;
-    ret = ret << v1;
-    ret = ((signed)ret < (signed)a0) ? 1 : 0;
-    ret = v1 + ret;
-    return ret;
+    return v1 + ret;
 }
 
 /* Function at 0x0022A7C8 - 0x0022A9A8 */
-int PFont_FindGlyph()
+u32 PFont_FindGlyph(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 32 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, t0, t1, t2, t3;
+    u32 ret, v1, a3, s0, s1, s2, t0, t1, t2, t3;
     t3 = a0;
     s1 = a2;
     t0 = a1;
@@ -551,14 +494,12 @@ int PFont_FindGlyph()
 loc_22A7F0:
     a1 = s0 + v1;
     ret = *(u32*)(a1);
-    a0 = *(u32*)*(s0 + 0x30);
+    a0 = *(u32*)(s0 + 0x30);  /* PSX: gpr[8]/$t0 */
     if ((signed)t0 < (signed)ret) goto loc_22A950;
-    ret = a0 << 4;
     ret = a1 + ret;
-    v1 = *(u32*)*(ret + -0xc);
     v1 = ((signed)v1 < (signed)t0) ? 1 : 0;
-    a0 = *(u32*)*(t3 + 0x380);
-    if (likely(v1 != 0)) goto loc_22A954;
+    a0 = *(u32*)(t3 + 0x380);
+    if (v1 != 0) goto loc_22A954;
     a2 = a0;
     t1 = 0;
     a3 = -1;
@@ -567,12 +508,8 @@ loc_22A830:
     v1 = (unsigned)ret >> 0x1f;
     ret = ret + v1;
     a0 = (signed)ret >> 1;
-    v1 = a0 << 4;
     v1 = a1 + v1;
-    ret = *(u32*)(v1);
-    ret = ((signed)t0 < (signed)ret) ? 1 : 0;
-    ret = *(u32*)*(v1 + 4);
-    if (ret != 0) {
+    if ((*(u32*)(v1 + 4)) != 0) {
         a2 = a0;
         goto loc_22A878;
     }
@@ -581,95 +518,82 @@ loc_22A830:
     t1 = v1;
     goto loc_22A884;
 loc_22A878:
-    ret = a3 + 1;
-    ret = a3 + a2;
-    if (ret != a2) goto loc_22A830;
+    if ((a3 + a2) != a2) goto loc_22A830;
 loc_22A884:
-    a0 = *(u32*)*(t3 + 0x380);
-    if (likely(t1 == 0)) goto loc_22A954;
+    a0 = *(u32*)(t3 + 0x380);
+    if (t1 == 0) goto loc_22A954;
     a0 = *(u32*)(t1);
-    a1 = 0 | 0xffff;
-    ret = *(u32*)*(t1 + 8);
+    a1 = 0xffff;
+    ret = *(u32*)(t1 + 8);
     a0 = t0 - a0;
-    v1 = *(u32*)*(s0 + 0x3c);
+    v1 = *(u32*)(s0 + 0x3c);  /* PSX: gpr[11]/$t3 */
     ret = ret + a0;
     v1 = s0 + v1;
-    ret = ret << 1;
     ret = ret + v1;
-    v1 = *(u16*)(v0);
-    a0 = *(u32*)*(t3 + 0x380);
-    if (likely(v1 == a1)) goto loc_22A954;
-    ret = *(u32*)*(t1 + 0xc);
+    v1 = *(u16*)(ret);
+    a0 = *(u32*)(t3 + 0x380);
+    if (v1 == a1) goto loc_22A954;
+    ret = *(u32*)(t1 + 0xc);  /* PSX: lo */
     a0 = s0;
     s2 = ret + v1;
-    ret = PFont_GetBitsPerPixel(a0, a1, a2, a3);
-    a0 = *(s16*)*(s0 + 0x1e);
+    ret = PFont_GetBitsPerPixel(a0);
+    a0 = *(s16*)(s0 + 0x1e);
     a3 = -0x10;
-    v1 = *(s16*)*(s0 + 0x1c);
-    a2 = *(u32*)*(s0 + 0x2c);
+    v1 = *(s16*)(s0 + 0x1c);  /* PSX: gpr[3]/$v1 */
+    a2 = *(u32*)(s0 + 0x2c);  /* PSX: gpr[7]/$a3 */
     ac3 = (s32)((s64)v1 * (s64)a0); HI_LO = (s64)v1 * (s64)a0;
-    a1 = *(u32*)*(s0 + 0x10);
+    a1 = *(u32*)(s0 + 0x10);  /* PSX: gpr[0]/$zero */
     a2 = s0 + a2;
     *(u32*)(s1) = s0;
     a1 = (unsigned)a1 >> 3;
     a1 = a1 & 1;
     ac3 = (s32)((s64)v1 * (s64)ret); HI_LO = (s64)v1 * (s64)ret;
     a0 = v1 + 7;
-    ret = ((signed)v1 < 0) ? 1 : 0;
-    __asm("movn v1, a0, v0");
-    v1 = (signed)v1 >> 3;
-    v1 = v1 + 0xf;
+    if ((signed)v1 < (signed)0) v1 = a0;
     v1 = v1 & a3;
     ac3 = (s32)((s64)v1 * (s64)s2); HI_LO = (s64)v1 * (s64)s2;
     a2 = a2 + v1;
-    *(u32*)*(s1 + 4) = a2;
+    *(u32*)(s1 + 4) = a2;
     if (a1 != 0) {
-        ret = *(u32*)*(s0 + 0x44);
+        ret = *(u32*)(s0 + 0x44);  /* PSX: gpr[13]/$t5 */
         v1 = s2 << 4;
-        ret = s0 + ret;
         ret = ret + v1;
         goto loc_22A940;
     }
-    ret = *(u32*)*(s0 + 0x44);
     ret = s0 + ret;
 loc_22A940:
-    *(u32*)*(s1 + 8) = ret;
-    *(u32*)*(s1 + 0xc) = 0;
+    *(u32*)(s1 + 8) = ret;
+    *(u32*)(s1 + 0xc) = 0;
     ret = 0;
     goto loc_22A98C;
 loc_22A950:
-    a0 = *(u32*)*(t3 + 0x380);
+    a0 = *(u32*)(t3 + 0x380);
 loc_22A954:
     v1 = t2;
     t2 = v1 + 1;
     s0 = 0;
     if (a0 == 0) goto loc_22A980;
-    ret = *(u32*)*(a0 + 0x58);
-    ret = ((signed)v1 < (signed)ret) ? 1 : 0;
     ret = v1 << 2;
     if (ret == 0) goto loc_22A980;
     ret = ret + a0;
-    v1 = *(u32*)*(ret + 0x5c);
+    v1 = *(u32*)(ret + 0x5c);  /* PSX: gpr[19]/$s3 */
     s0 = a0 + v1;
 loc_22A980:
-    v1 = *(u32*)*(s0 + 0x34);
-    if (likely(s0 != 0)) goto loc_22A7F0;
+    v1 = *(u32*)(s0 + 0x34);  /* PSX: gpr[9]/$t1 */
+    if (s0 != 0) goto loc_22A7F0;
     ret = -1;
 loc_22A98C:
     return ret;
 }
 
 /* Function at 0x0022A9A8 - 0x0022ACF0 */
-int PFont_BuildGSPacket()
+u32 PFont_BuildGSPacket(u32 a0, u32 a1, u32 a2, u32 a3)
 {
-    int ret, v0, v1, a0, a1, a2, a3, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
+    u32 ret, v1, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
     t5 = a0;
     v1 = -1;
     t4 = *(u32*)(t5);
     t9 = t0;
-    ret = (unsigned)t4 >> 2;
-    __asm("negu v0, v0");
-    ret = ret & 3;
     ret = ret + -1;
     t8 = t1;
     if (ret != v1) {
@@ -679,28 +603,25 @@ int PFont_BuildGSPacket()
             t4 = t4 + 4;
         } while (ret != v1);
     }
-    a0 = *(u32*)*(t5 + 8);
+    a0 = *(u32*)(t5 + 8);
     ret = t4 - a0;
     if (a0 != 0) {
         v1 = *(u32*)(a0);
-        ret = (signed)ret >> 4;
         ret = ret + -1;
-        v1 = v1 + ret;
-        *(u32*)(a0) = v1;
+        *(u32*)(a0) = v1 + ret;
     }
     t1 = t4 + 8;
-    ret = -0x10;
     ret = t1 & ret;
     a0 = 0x10000000;
     t0 = ret + 0xc;
     ret = ret + 0x1c;
     v1 = ((unsigned)t0 < (unsigned)t1) ? 1 : 0;
     *(u32*)(t4) = a0;
-    __asm("movn t0, v0, v1");
-    *(u32*)*(t5 + 8) = t4;
-    *(u32*)*(t4 + 4) = 0;
+    if (v1 != 0) t0 = ret;
+    *(u32*)(t5 + 8) = t4;
+    *(u32*)(t4 + 4) = 0;
     *(u32*)(t5) = t1;
-    *(u32*)*(t5 + 0xc) = 0;
+    *(u32*)(t5 + 0xc) = 0;
     if ((unsigned)t1 < (unsigned)t0) {
         v1 = t1;
         *(u32*)(v1) = 0;
@@ -708,17 +629,16 @@ int PFont_BuildGSPacket()
             v1 = v1 + 4;
             ret = ((unsigned)v1 < (unsigned)t0) ? 1 : 0;
             *(u32*)(v1) = 0;
-        } while (likely(ret != 0));
+        } while (ret != 0);
         *(u32*)(t5) = v1;
     }
     v1 = (unsigned)a1 >> 6;
-    a1 = *(u32*)(sp);
+    a1 = *(u32*)(__sp);
     ret = (unsigned)a3 >> 6;
     a3 = (u64)t2 << 32;
     ret = (u64)ret << 48;
-    v1 = (u64)v1 << 32;
     v1 = v1 | ret;
-    ret = *(u32*)*(__sp + 8);
+    ret = *(u32*)(__sp + 8);
     a0 = *(u32*)(t5);
     a1 = (u64)a1 << 32;
     ret = (u64)ret << 32;
@@ -726,19 +646,18 @@ int PFont_BuildGSPacket()
     t0 = (u64)a2 << 56;
     a2 = (u64)t3 << 48;
     a1 = a1 | ret;
-    ret = 0 | 0x8000;
     ret = (u64)ret << 45;
     t6 = a0 + 4;
     t7 = a0 + 0x54;
-    *(u64*)*(t6 + 0) = ret;
+    *(u64*)(t6 + 0) = ret;
     ret = t7 - t6;
     v1 = v1 | t0;
     t0 = 0x50;
-    *(u64*)*(a0 + 52) = a1;
-    a1 = 0 | 0x8000;
+    *(u64*)(a0 + 52) = a1;
+    a1 = 0x8000;
     a1 = (u64)a1 << 45;
     ret = (signed)ret >> 3;
-    *(u64*)*(a0 + 20) = v1;
+    *(u64*)(a0 + 20) = v1;
     v1 = (u64)a1 >> 58;
     a3 = a3 | a2;
     t4 = ret + -2;
@@ -748,45 +667,42 @@ int PFont_BuildGSPacket()
     t1 = 0x51;
     t2 = 0x52;
     t3 = 0x53;
-    *(u64*)*(a0 + 12) = a2;
-    *(u64*)*(a0 + 36) = a3;
+    *(u64*)(a0 + 12) = a2;
+    *(u64*)(a0 + 36) = a3;
     a3 = (unsigned)t4 >> 1;
     *(u32*)(a0) = ret;
     ret = v1 ^ 1;
     a2 = 2;
-    *(u64*)*(a0 + 28) = t0;
-    *(u64*)*(a0 + 44) = t1;
-    __asm("movn t4, a3, v0");
-    *(u64*)*(a0 + 60) = t2;
-    *(u64*)*(a0 + 76) = t3;
-    *(u64*)*(a0 + 68) = 0;
-    *(u32*)*(t5 + 0xc) = a0;
-    *(u32*)*(t5 + 0x14) = t6;
+    *(u64*)(a0 + 28) = t0;
+    *(u64*)(a0 + 44) = t1;
+    if (ret != 0) t4 = a3;
+    *(u64*)(a0 + 60) = t2;
+    *(u64*)(a0 + 76) = t3;
+    *(u64*)(a0 + 68) = 0;
+    *(u32*)(t5 + 0xc) = a0;
+    *(u32*)(t5 + 0x14) = t6;
     *(u32*)(t5) = t7;
     if (v1 == a2) goto loc_22AB6C;
     ret = (u64)a1 >> 60;
     a0 = 0x10;
-    __asm("movz v0, a0, v0");
+    if (ret == 0) ret = a0;
     v1 = t4 + ret;
     BREAK(); /* breakpoint */
-    if (likely(ret == 0)) goto loc_22AB5C;
+    if (ret == 0) goto loc_22AB5C;
 loc_22AB5C:
-    v1 = v1 + -1;
-    __asm("divu zero, v1, v0");
-    v1 = LO;
-    t4 = v1;
+    t4 = (unsigned)v1 / (unsigned)ret;
 loc_22AB6C:
     t0 = t7;
     ret = (u64)t4 << 32;
     v1 = (unsigned)t0 >> 2;
     ret = (u64)ret >> 32;
-    __asm("negu v1, v1");
+    v1 = -v1;
     ret = a1 + ret;
     v1 = v1 & 3;
     a0 = -1;
     v1 = v1 + -1;
-    *(u64*)*(t6 + 0) = ret;
-    *(u32*)*(t5 + 0x14) = 0;
+    *(u64*)(t6 + 0) = ret;
+    *(u32*)(t5 + 0x14) = 0;
     if (v1 != a0) {
         ret = -1;
         do {
@@ -802,15 +718,15 @@ loc_22AB6C:
     a0 = a0 | 0x8000;
     ret = (unsigned)t1 >> 2;
     v1 = (u64)v1 >> 32;
-    __asm("negu v0, v0");
+    ret = -ret;
     a0 = a0 + v1;
     a2 = ret & 3;
     ret = -1;
     a2 = a2 + -1;
-    *(u64*)*(t0 + 0) = a0;
-    *(u64*)*(t0 + 8) = 0;
+    *(u64*)(t0 + 0) = a0;
+    *(u64*)(t0 + 8) = 0;
     *(u32*)(t5) = a1;
-    *(u32*)*(t5 + 0x14) = 0;
+    *(u32*)(t5 + 0x14) = 0;
     if (a2 != ret) {
         do {
             a2 = a2 + -1;
@@ -818,14 +734,14 @@ loc_22AB6C:
             t1 = t1 + 4;
         } while (a2 != ret);
     }
-    a1 = *(u32*)*(t5 + 0xc);
+    a1 = *(u32*)(t5 + 0xc);  /* PSX: lo */
     t2 = t1;
     v1 = (unsigned)t2 >> 2;
     a2 = 0x51000000;
     ret = t1 - a1;
     a0 = *(u32*)(a1);
     ret = ret + -4;
-    __asm("negu v1, v1");
+    v1 = -v1;
     ret = (signed)ret >> 2;
     a3 = v1 & 3;
     ret = (unsigned)ret >> 2;
@@ -835,7 +751,7 @@ loc_22AB6C:
     *(u32*)(a1) = a0;
     a1 = t8 | a2;
     *(u32*)(t5) = t1;
-    *(u32*)*(t5 + 0xc) = 0;
+    *(u32*)(t5 + 0xc) = 0;
     if (a3 != v1) {
         ret = -1;
         do {
@@ -844,37 +760,34 @@ loc_22AB6C:
             t2 = t2 + 4;
         } while (a3 != ret);
     }
-    a0 = *(u32*)*(t5 + 8);
+    a0 = *(u32*)(t5 + 8);
     if (a0 != 0) {
         ret = t2 - a0;
         v1 = *(u32*)(a0);
-        ret = (signed)ret >> 4;
         ret = ret + -1;
-        v1 = v1 + ret;
-        *(u32*)(a0) = v1;
+        *(u32*)(a0) = v1 + ret;
     }
     ret = 0x8FFFFFFF;
     a0 = t8 | a0;
     ret = t9 & ret;
-    v1 = t2 + 0x10;
-    *(u32*)(t5) = v1;
+    *(u32*)(t5) = t2 + 0x10;
     *(u32*)(t2) = a0;
-    *(u32*)*(t2 + 4) = ret;
-    *(u32*)*(t2 + 0xc) = a1;
-    *(u32*)*(t5 + 8) = 0;
-    *(u32*)*(t2 + 8) = 0;
+    *(u32*)(t2 + 4) = ret;
+    *(u32*)(t2 + 0xc) = a1;
+    *(u32*)(t5 + 8) = 0;
+    *(u32*)(t2 + 8) = 0;
     return ret;
 }
 
 /* Function at 0x0022ACF0 - 0x0022B0B0 */
 /* String ref: "libpfont.c" */
 /* String ref: "space == _scePFontCalcPacketSpace(pThis)" */
-int PFont_CalcPacketSpace()
+u32 PFont_CalcPacketSpace(u32 a0, u32 a1)
 {
     /* Stack frame: 176 bytes */
-    int local_60;
-    int local_64;
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, t0, t1, t2, t3, t4, t5, t6, t7;
+    u32 local_60;
+    u32 local_64;
+    u32 ret, v1, a2, a3, s0, s1, s2, s3, s4, s5, t0, t1, t2, t3, t4, t5, t6, t7;
     t2 = a1;
     s1 = a0;
     a3 = 0x00500000;
@@ -883,56 +796,49 @@ int PFont_CalcPacketSpace()
     a2 = __sp + 0x30;
     v1 = 0x00500000;
     t6 = a3 + -0x240;
-    __asm("ldl t0, 7(t6)"); /* 0x0022AD30 unaligned ld left */
-    __asm("ldr t0, 0(t6)"); /* 0x0022AD34 unaligned ld right */
-    t1 = *(s16*)*(t6 + 8);
-    __asm("sdl t0, 7(t5)"); /* 0x0022AD3C unaligned sd left */
-    __asm("sdr t0, 0(t5)"); /* 0x0022AD40 unaligned sd right */
-    *(u16*)*(t5 + 8) = t1;
-    a1 = *(u32*)*(t2 + 0x10);
+    t0 = *(u64*)(t6);
+    t1 = *(s16*)(t6 + 8);
+    *(u64*)(t5) = t0;
+    *(u16*)(t5 + 8) = t1;
+    a1 = *(u32*)(t2 + 0x10);  /* PSX: gpr[0]/$zero */
     t0 = v1 + -0x230;
-    __asm("ldl t7, 7(t0)"); /* 0x0022AD50 unaligned ld left */
-    __asm("ldr t7, 0(t0)"); /* 0x0022AD54 unaligned ld right */
-    s0 = *(s16*)*(t0 + 8);
-    __asm("sdl t7, 7(v0)"); /* 0x0022AD5C unaligned sd left */
-    __asm("sdr t7, 0(v0)"); /* 0x0022AD60 unaligned sd right */
-    *(u16*)*(ret + 8) = s0;
+    t7 = *(u64*)(t0);
+    s0 = *(s16*)(t0 + 8);
+    *(u64*)(ret) = t7;
+    *(u16*)(ret + 8) = s0;
     t4 = a1 & 7;
     a1 = 0x00500000;
     s0 = a1 + -0x220;
-    __asm("ldl t3, 7(s0)"); /* 0x0022AD74 unaligned ld left */
-    __asm("ldr t3, 0(s0)"); /* 0x0022AD78 unaligned ld right */
-    t6 = *(s16*)*(s0 + 8);
-    __asm("sdl t3, 7(a2)"); /* 0x0022AD80 unaligned sd left */
-    __asm("sdr t3, 0(a2)"); /* 0x0022AD84 unaligned sd right */
-    *(u16*)*(a2 + 8) = t6;
+    t3 = *(u64*)(s0);
+    t6 = *(s16*)(s0 + 8);
+    *(u64*)(a2) = t3;
+    *(u16*)(a2 + 8) = t6;
     t1 = t4 << 1;
     ret = ret + t1;
     a2 = a2 + t1;
-    a1 = *(u16*)(v0);
+    a1 = *(u16*)(ret);
     a3 = t5 + t1;
     a0 = *(u16*)(a2);
-    v1 = *(s16*)*(t2 + 0x1c);
-    ret = *(s16*)*(t2 + 0x1e);
+    v1 = *(s16*)(t2 + 0x1c);  /* PSX: gpr[3]/$v1 */
+    ret = *(s16*)(t2 + 0x1e);
     v1 = v1 + a1;
     a1 = ~(0 | a1);
     ret = ret + a0;
     a0 = ~(0 | a0);
     t0 = *(u16*)(a3);
     v1 = v1 + 2;
-    a2 = *(u16*)*(s1 + 0x35c);
+    a2 = *(u16*)(s1 + 0x35c);
     ret = ret + 2;
     a3 = v1 & a1;
     t3 = ret & a0;
     if (t0 == a2) {
-        ret = *(u16*)*(s1 + 0x35e);
-        v1 = *(u32*)*(s1 + 0x350);
+        ret = *(u16*)(s1 + 0x35e);
+        v1 = *(u32*)(s1 + 0x350);
         if (a3 == ret) {
-            ret = *(u16*)*(s1 + 0x360);
             ret = ((signed)t4 < 2) ? 1 : 0;
-            if (likely(t3 == ret)) goto loc_22AF74;
+            if (t3 == ret) goto loc_22AF74;
             }
-            v1 = *(u32*)*(s1 + 0x350);
+            v1 = *(u32*)(s1 + 0x350);
         }
     a1 = 0x00500000;
     t6 = __sp + 0x40;
@@ -941,109 +847,98 @@ int PFont_CalcPacketSpace()
     v1 = v1 + 0xffe;
     a0 = ((signed)ret < 0) ? 1 : 0;
     t0 = __sp + 0x50;
-    __asm("movn v0, v1, a0");
+    if (a0 != 0) ret = v1;
     s0 = a1 + -0x210;
-    __asm("ldl v1, 7(s0)"); /* 0x0022AE18 unaligned ld left */
-    __asm("ldr v1, 0(s0)"); /* 0x0022AE1C unaligned ld right */
-    a0 = *(s16*)*(s0 + 8);
-    __asm("sdl v1, 7(t6)"); /* 0x0022AE24 unaligned sd left */
-    __asm("sdr v1, 0(t6)"); /* 0x0022AE28 unaligned sd right */
-    *(u16*)*(t6 + 8) = a0;
+    v1 = *(u64*)(s0);
+    a0 = *(s16*)(s0 + 8);
+    *(u64*)(t6) = v1;
+    *(u16*)(t6 + 8) = a0;
     ret = (signed)ret >> 0xb;
     t7 = a2 + -0x200;
-    __asm("ldl v1, 7(t7)"); /* 0x0022AE38 unaligned ld left */
-    __asm("ldr v1, 0(t7)"); /* 0x0022AE3C unaligned ld right */
-    a0 = *(s16*)*(t7 + 8);
-    __asm("sdl v1, 7(t0)"); /* 0x0022AE44 unaligned sd left */
-    __asm("sdr v1, 0(t0)"); /* 0x0022AE48 unaligned sd right */
-    *(u16*)*(t0 + 8) = a0;
+    v1 = *(u64*)(t7);
+    a0 = *(s16*)(t7 + 8);
+    *(u64*)(t0) = v1;
+    *(u16*)(t0 + 8) = a0;
     FPU_REG(f0) = ret; /* mtc1 */
-    __asm("cvt.s.w f0, f0");
-    __asm("sqrt.s f0, f0");
-    __asm("cvt.w.s f1, f0");
+    FPU_F(f0) = (float)(s32)FPU_REG(f0);
+    FPU_F(f0) = __builtin_sqrtf(FPU_F(f0));
+    FPU_REG(f1) = (u32)(s32)FPU_F(f0);
     v1 = FPU_REG(f1); /* mfc1 */
-    __asm("div zero, v0, v1");
     goto loc_22AE74;
 loc_22AE70:
-    __asm("div zero, v0, v1");
 loc_22AE74:
     BREAK(); /* breakpoint */
-    if (likely(v1 == 0)) goto loc_22AE7C;
+    if (v1 == 0) goto loc_22AE7C;
 loc_22AE7C:
-    a0 = HI;
+    a0 = (signed)ret % (signed)v1;
     v1 = v1 + -1;
-    if (likely(a0 != 0)) goto loc_22AE70;
-    __asm("div zero, v0, v1");
+    if (a0 != 0) goto loc_22AE70;
     ret = t6 + t1;
     local_60 = v1;
     BREAK(); /* breakpoint */
-    if (likely(v1 == 0)) goto loc_22AEA4;
+    if (v1 == 0) goto loc_22AEA4;
 loc_22AEA4:
-    *(u16*)*(s1 + 0x35e) = a3;
+    *(u16*)(s1 + 0x35e) = a3;
     v1 = t0 + t1;
     a0 = a3 & 0xffff;
     t0 = t5 + t1;
-    a2 = *(u16*)(v0);
+    a2 = *(u16*)(ret);
     ret = *(u16*)(v1);
     v1 = local_60;
-    *(u16*)*(s1 + 0x360) = t3;
+    *(u16*)(s1 + 0x360) = t3;
     a1 = LO;
     ac3 = (s32)((s64)v1 * (s64)a2); HI_LO = (s64)v1 * (s64)a2;
     local_64 = a1;
-    __asm("mult1 a1, a1, v0");
+    a1 = a1 * ret;
     ret = t3 & 0xffff;
-    __asm("div zero, v1, a0");
     local_60 = v1;
     local_64 = a1;
     a0 = *(u16*)(t0);
     v1 = v1 + -1;
-    *(u16*)*(s1 + 0x35c) = a0;
-    a2 = LO;
-    __asm("div zero, a1, v0");
-    a3 = LO;
+    *(u16*)(s1 + 0x35c) = a0;
+    a2 = (signed)v1 / (signed)a0;
+    a3 = (signed)a1 / (signed)ret;
     a2 = (s32)((s64)a2 * (s64)a3); HI_LO = (s64)a2 * (s64)a3;
-    *(u16*)*(s1 + 0x362) = a2;
-    __asm("msub ac3, v1, zero");
+    *(u16*)(s1 + 0x362) = a2;
+    HI_LO -= (s64)v1 * 0;
     ret = 0x1f;
     a1 = a1 + -1;
-    v1 = ret - v1;
-    *(u16*)*(s1 + 0x368) = v1;
-    __asm("plzcw a1, a1, zero");
-    a0 = *(u16*)*(__sp + 0x60);
+    *(u16*)(s1 + 0x368) = ret - v1;
+    __asm("plzcw a1, a1, 0");
+    a0 = *(u16*)(__sp + 0x60);  /* PSX: gpr[20]/$s4 */
     ret = ret - a1;
-    v1 = *(u16*)*(__sp + 0x64);
+    v1 = *(u16*)(__sp + 0x64);  /* PSX: gpr[21]/$s5 */
     a3 = -1;
-    *(u16*)*(s1 + 0x364) = a0;
+    *(u16*)(s1 + 0x364) = a0;
     a1 = 0;
-    *(u16*)*(s1 + 0x36a) = ret;
+    *(u16*)(s1 + 0x36a) = ret;
     a2 = a2 & 0xffff;
-    *(u16*)*(s1 + 0x366) = v1;
-    a0 = *(u32*)*(s1 + 0x37c);
+    *(u16*)(s1 + 0x366) = v1;
+    a0 = *(u32*)(s1 + 0x37c);
     do {
         v1 = ((signed)a1 < (signed)a2) ? 1 : 0;
         ret = a3;
-        __asm("movn v0, a1, v1");
-        *(u32*)*(a0 + 8) = ret;
-        *(u32*)*(a0 + 4) = 0;
-        a0 = *(u32*)*(a0 + 0xc);
+        if (v1 != 0) ret = a1;
+        *(u32*)(a0 + 8) = ret;
+        *(u32*)(a0 + 4) = 0;
+        a0 = *(u32*)(a0 + 0xc);  /* PSX: lo */
         a1 = a1 + 1;
     } while (a0 != 0);
-    *(u32*)*(s1 + 0x36c) = 1;
+    *(u32*)(s1 + 0x36c) = 1;
     ret = ((signed)t4 < 2) ? 1 : 0;
 loc_22AF74:
-    if (likely(1 == 0)) goto loc_22B088;
-    a2 = *(u32*)*(s1 + 0x38c);
+    a2 = *(u32*)(s1 + 0x38c);
     t0 = 1;
     v1 = 0x10;
     s0 = t0;
     ret = *(u32*)(a2);
-    __asm("movn s0, v1, t4");
-    a0 = *(u32*)*(a2 + 4);
+    if (t4 != 0) s0 = v1;
+    a0 = *(u32*)(a2 + 4);
     a1 = s0 << 3;
-    a3 = *(u32*)*(s1 + 0x388);
+    a3 = *(u32*)(s1 + 0x388);
     s3 = 0;
     ret = ret - a0;
-    v1 = *(u32*)*(t2 + 0x54);
+    v1 = *(u32*)(t2 + 0x54);  /* PSX: gpr[17]/$s1 */
     ret = ret + 0xf;
     s5 = 0;
     ret = (unsigned)ret >> 4;
@@ -1054,13 +949,13 @@ loc_22AF74:
     if (v1 != 0) goto loc_22B088;
     s0 = s0 + -1;
     ret = -1;
-    *(u32*)*(s1 + 0x36c) = t0;
+    *(u32*)(s1 + 0x36c) = t0;
     s4 = s4 - a1;
     if (s0 == ret) goto loc_22B050;
-    a1 = *(u32*)*(s1 + 0x358);
+    a1 = *(u32*)(s1 + 0x358);
     goto loc_22AFF0;
 loc_22AFE8:
-    a1 = *(u32*)*(s1 + 0x358);
+    a1 = *(u32*)(s1 + 0x358);
 loc_22AFF0:
     ret = 8;
     a0 = a2;
@@ -1072,8 +967,8 @@ loc_22AFF0:
     t3 = s5;
     a3 = 0x40;
     t1 = 4;
-    *(u32*)(sp) = ret;
-    *(u32*)*(__sp + 8) = v1;
+    *(u32*)(__sp) = ret;
+    *(u32*)(__sp + 8) = v1;
     ret = PFont_BuildGSPacket(a0, a1, a2, a3);
     ret = -1;
     if (s3 == 0) {
@@ -1084,21 +979,17 @@ loc_22AFF0:
     s5 = s5 + 2;
 loc_22B040:
     s0 = s0 + -1;
-    a2 = *(u32*)*(s1 + 0x38c);
+    a2 = *(u32*)(s1 + 0x38c);
     if (s0 != ret) goto loc_22AFE8;
-    a3 = *(u32*)*(s1 + 0x388);
+    a3 = *(u32*)(s1 + 0x388);
 loc_22B050:
-    v1 = *(u32*)*(a2 + 4);
-    ret = *(u32*)(a2);
-    ret = ret - v1;
-    ret = ret + 0xf;
-    ret = (unsigned)ret >> 4;
+    v1 = *(u32*)(a2 + 4);
     ret = a3 - ret;
     if (s4 != ret) {
-        a0 = 0x004FFE10;
-        a2 = 0x004FFE20;
+        a0 = 0x004FFE10;  /* "libpfont.c" */
+        a2 = 0x004FFE20;  /* "space == _scePFontCalcPacketSpace(pThis)" */
         a1 = 0x419;
-        ret = EEKernel_ThreadScheduler(a0, a1, a2, a3);
+        ret = EEKernel_ThreadScheduler(a0, a1);
     }
     ret = 1;
 loc_22B088:
@@ -1108,59 +999,53 @@ loc_22B088:
 /* Function at 0x0022B0B0 - 0x0022B788 */
 /* String ref: "libpfont.c" */
 /* String ref: "space == _scePFontCalcPacketSpace(pThis)" */
-int PFont_FlushPacket()
+u32 PFont_FlushPacket(u32 a0, u32 a1)
 {
     /* Stack frame: 96 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
+    u32 ret, v1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
     s5 = a0;
-    *(u32*)(sp) = a1;
-    s6 = *(u32*)*(a1 + 0x10);
-    ret = *(u32*)*(s5 + 0x370);
-    s3 = *(u16*)*(s5 + 0x35e);
+    *(u32*)(__sp) = a1;
+    s6 = *(u32*)(a1 + 0x10);  /* PSX: gpr[0]/$zero */
+    ret = *(u32*)(s5 + 0x370);
+    s3 = *(u16*)(s5 + 0x35e);
     if (ret != s6) {
         a1 = s6;
-        ret = PFont_CalcPacketSpace(a0, a1, a2, a3);
-        if (ret == 0) goto loc_22B75C;
-        *(u32*)*(s5 + 0x370) = s6;
-        s3 = *(u16*)*(s5 + 0x35e);
+        if ((PFont_CalcPacketSpace(a0, a1)) == 0) goto loc_22B75C;
+        *(u32*)(s5 + 0x370) = s6;
+        s3 = *(u16*)(s5 + 0x35e);
     }
     t1 = 4;
-    s7 = *(u16*)*(s5 + 0x360);
+    s7 = *(u16*)(s5 + 0x360);
     s4 = t1;
-    a0 = *(u32*)*(s6 + 0x10);
+    a0 = *(u32*)(s6 + 0x10);  /* PSX: gpr[0]/$zero */
     ret = 0;
     a2 = (s32)((s64)s3 * (s64)s7); HI_LO = (s64)s3 * (s64)s7;
-    t9 = *(u32*)*(s5 + 0x38c);
+    t9 = *(u32*)(s5 + 0x38c);
     a0 = a0 & 7;
-    a3 = *(u32*)*(s5 + 0x388);
+    a3 = *(u32*)(s5 + 0x388);
     a0 = a0 << 3;
     t0 = *(u32*)(t9);
-    __asm("movn s4, a0, a0");
-    v1 = *(u32*)*(t9 + 4);
+    if (a0 != 0) s4 = a0;
+    v1 = *(u32*)(t9 + 4);
     a2 = (s32)((s64)a2 * (s64)s4); HI_LO = (s64)a2 * (s64)s4;
-    v1 = t0 - v1;
-    v1 = v1 + 0xf;
     v1 = (unsigned)v1 >> 4;
     a0 = a2 + 0x7f;
     a2 = a2 + 0xfe;
     a1 = ((signed)a0 < 0) ? 1 : 0;
     a3 = a3 - v1;
-    __asm("movn a0, a2, a1");
+    if (a1 != 0) a0 = a2;
     __fp = (signed)a0 >> 7;
-    v1 = __fp + 9;
     v1 = ((signed)a3 < (signed)v1) ? 1 : 0;
-    *(u32*)*(__sp + 4) = a3;
+    *(u32*)(__sp + 4) = a3;
     if (v1 != 0) goto loc_22B758;
-    v1 = *(u32*)*(__sp + 4);
+    v1 = *(u32*)(__sp + 4);
     a1 = t0;
     a0 = -1;
     ret = v1 - __fp;
-    v1 = (unsigned)a1 >> 2;
     v1 = t1 - v1;
     ret = ret + -9;
-    v1 = v1 & 3;
     v1 = v1 + -1;
-    *(u32*)*(__sp + 4) = ret;
+    *(u32*)(__sp + 4) = ret;
     if (v1 != a0) {
         ret = -1;
         do {
@@ -1169,28 +1054,25 @@ int PFont_FlushPacket()
             a1 = a1 + 4;
         } while (v1 != ret);
     }
-    a0 = *(u32*)*(t9 + 8);
+    a0 = *(u32*)(t9 + 8);
     ret = a1 - a0;
     if (a0 != 0) {
         v1 = *(u32*)(a0);
-        ret = (signed)ret >> 4;
         ret = ret + -1;
-        v1 = v1 + ret;
-        *(u32*)(a0) = v1;
+        *(u32*)(a0) = v1 + ret;
     }
     a3 = a1 + 8;
-    ret = -0x10;
     ret = a3 & ret;
     a0 = 0x10000000;
     a2 = ret + 0xc;
     ret = ret + 0x1c;
     v1 = ((unsigned)a2 < (unsigned)a3) ? 1 : 0;
     *(u32*)(a1) = a0;
-    __asm("movn a2, v0, v1");
-    *(u32*)*(t9 + 8) = a1;
-    *(u32*)*(a1 + 4) = 0;
+    if (v1 != 0) a2 = ret;
+    *(u32*)(t9 + 8) = a1;
+    *(u32*)(a1 + 4) = 0;
     *(u32*)(t9) = a3;
-    *(u32*)*(t9 + 0xc) = 0;
+    *(u32*)(t9 + 0xc) = 0;
     if ((unsigned)a3 < (unsigned)a2) {
         v1 = a3;
         *(u32*)(v1) = 0;
@@ -1198,30 +1080,28 @@ int PFont_FlushPacket()
             v1 = v1 + 4;
             ret = ((unsigned)v1 < (unsigned)a2) ? 1 : 0;
             *(u32*)(v1) = 0;
-        } while (likely(ret != 0));
+        } while (ret != 0);
         *(u32*)(t9) = v1;
     }
-    a3 = *(u16*)*(s5 + 0x364);
+    a3 = *(u16*)(s5 + 0x364);
     ret = 0x51000000;
     a1 = *(u32*)(t9);
     t0 = (u64)s7 << 32;
-    __asm("div zero, a3, s3");
     a3 = (unsigned)a3 >> 6;
     s1 = a1 + 4;
     *(u32*)(a1) = ret;
-    *(u32*)*(t9 + 0xc) = a1;
+    *(u32*)(t9 + 0xc) = a1;
     s2 = a1 + 0x54;
     *(u32*)(t9) = s1;
     BREAK(); /* breakpoint */
-    if (likely(s3 == 0)) goto loc_22B27C;
+    if (s3 == 0) goto loc_22B27C;
 loc_22B27C:
-    ret = *(u32*)(sp);
+    ret = *(u32*)(__sp);
     a3 = (u64)a3 << 48;
     t0 = s3 | t0;
-    t1 = 0 | 0x8000;
+    t1 = 0x8000;
     t1 = (u64)t1 << 45;
-    a2 = *(u32*)*(ret + 8);
-    ret = s2 - s1;
+    a2 = *(u32*)(ret + 8);
     ret = (signed)ret >> 3;
     t2 = 0xe;
     t8 = ret + -2;
@@ -1232,62 +1112,56 @@ loc_22B27C:
     t7 = (unsigned)t8 >> 1;
     s0 = 2;
     v1 = LO;
-    __asm("div zero, a2, v1");
-    *(u32*)*(t9 + 0x14) = s1;
-    ret = *(u32*)*(s5 + 0x354);
-    v1 = *(u16*)*(s5 + 0x35c);
+    *(u32*)(t9 + 0x14) = s1;
+    ret = *(u32*)(s5 + 0x354);
+    v1 = *(u16*)(s5 + 0x35c);
     ret = (unsigned)ret >> 6;
-    *(u64*)*(s1 + 0) = t1;
+    *(u64*)(s1 + 0) = t1;
     ret = (u64)ret << 32;
     v1 = (u64)v1 << 56;
     ret = ret | a3;
-    *(u64*)*(a1 + 12) = t2;
+    *(u64*)(a1 + 12) = t2;
     ret = ret | v1;
-    *(u64*)*(a1 + 28) = t3;
-    *(u64*)*(a1 + 20) = ret;
-    *(u64*)*(a1 + 44) = t4;
-    *(u64*)*(a1 + 52) = t0;
-    *(u64*)*(a1 + 60) = t5;
-    *(u64*)*(a1 + 76) = t6;
-    *(u64*)*(a1 + 68) = 0;
+    *(u64*)(a1 + 28) = t3;
+    *(u64*)(a1 + 20) = ret;
+    *(u64*)(a1 + 44) = t4;
+    *(u64*)(a1 + 52) = t0;
+    *(u64*)(a1 + 60) = t5;
+    *(u64*)(a1 + 76) = t6;
+    *(u64*)(a1 + 68) = 0;
     *(u32*)(t9) = s2;
     a2 = LO;
     a0 = HI;
     a0 = (s32)((s64)a0 * (s64)s3); HI_LO = (s64)a0 * (s64)s3;
-    __asm("mult1 a2, a2, s7");
+    a2 = a2 * s7;
     a0 = (u64)a0 << 32;
     a2 = (u64)a2 << 48;
     a0 = a0 | a2;
-    *(u64*)*(a1 + 36) = a0;
-    a1 = *(u64*)*(s1 + 0);
-    ret = (u64)a1 >> 58;
+    *(u64*)(a1 + 36) = a0;
+    a1 = *(u64*)(s1 + 0);
     ret = ret & 3;
-    v1 = ret ^ 1;
-    __asm("movn t8, t7, v1");
+    if ((ret ^ 1) != 0) t8 = t7;
     if (ret == s0) goto loc_22B36C;
     ret = (u64)a1 >> 60;
     a0 = 0x10;
-    __asm("movz v0, a0, v0");
+    if (ret == 0) ret = a0;
     v1 = t8 + ret;
     BREAK(); /* breakpoint */
-    if (likely(ret == 0)) goto loc_22B35C;
+    if (ret == 0) goto loc_22B35C;
 loc_22B35C:
-    v1 = v1 + -1;
-    __asm("divu zero, v1, v0");
-    v1 = LO;
-    t8 = v1;
+    t8 = (unsigned)v1 / (unsigned)ret;
 loc_22B36C:
     a3 = s2;
     ret = (u64)t8 << 32;
     v1 = (unsigned)a3 >> 2;
     ret = (u64)ret >> 32;
-    __asm("negu v1, v1");
+    v1 = -v1;
     ret = a1 + ret;
     v1 = v1 & 3;
     a0 = -1;
     v1 = v1 + -1;
-    *(u64*)*(s1 + 0) = ret;
-    *(u32*)*(t9 + 0x14) = 0;
+    *(u64*)(s1 + 0) = ret;
+    *(u32*)(t9 + 0x14) = 0;
     if (v1 != a0) {
         ret = -1;
         do {
@@ -1299,19 +1173,19 @@ loc_22B36C:
     a1 = a3 + 0x10;
     v1 = (u64)__fp << 32;
     t2 = a1;
-    a0 = 0 | 0x8000;
+    a0 = 0x8000;
     a0 = (u64)a0 << 44;
     ret = (unsigned)t2 >> 2;
     v1 = (u64)v1 >> 32;
-    __asm("negu v0, v0");
+    ret = -ret;
     a0 = a0 + v1;
     a2 = ret & 3;
     ret = -1;
     a2 = a2 + -1;
-    *(u64*)*(a3 + 0) = a0;
-    *(u64*)*(a3 + 8) = 0;
+    *(u64*)(a3 + 0) = a0;
+    *(u64*)(a3 + 8) = 0;
     *(u32*)(t9) = a1;
-    *(u32*)*(t9 + 0x14) = 0;
+    *(u32*)(t9 + 0x14) = 0;
     if (a2 != ret) {
         do {
             a2 = a2 + -1;
@@ -1319,38 +1193,38 @@ loc_22B36C:
             t2 = t2 + 4;
         } while (a2 != ret);
     }
-    v1 = *(s16*)*(s6 + 0x1c);
+    v1 = *(s16*)(s6 + 0x1c);  /* PSX: gpr[3]/$v1 */
     a1 = (s32)((s64)s3 * (s64)s4); HI_LO = (s64)s3 * (s64)s4;
     ret = __fp << 4;
     t1 = t2;
     a0 = (s32)((s64)v1 * (s64)s4); HI_LO = (s64)v1 * (s64)s4;
     ret = t2 + ret;
     a2 = 1;
-    t6 = *(s16*)*(s6 + 0x1e);
+    t6 = *(s16*)(s6 + 0x1e);
     a1 = (signed)a1 >> 5;
     t7 = a1 << 2;
     v1 = a0 + s4;
-    a0 = *(u32*)(sp);
+    a0 = *(u32*)(__sp);
     a3 = v1 + 0x1f;
     *(u32*)(t9) = ret;
-    t3 = *(u32*)*(a0 + 0x14);
+    t3 = *(u32*)(a0 + 0x14);  /* PSX: gpr[1]/$at */
     a0 = ((signed)v1 < 0) ? 1 : 0;
     ret = v1;
     t5 = v1 & 0x1f;
-    __asm("movn v0, a3, a0");
+    if (a0 != 0) ret = a3;
     a2 = a2 << t5;
     t0 = (signed)ret >> 5;
     v1 = t1 + t7;
     a1 = a1 - t0;
     a2 = a2 + -1;
     ret = a1 + -1;
-    __asm("movn a1, v0, t5");
+    if (t5 != 0) a1 = ret;
     if (v1 != t1) {
         *(u32*)(t1) = 0;
         do {
             t1 = t1 + 4;
             *(u32*)(t1) = 0;
-        } while (likely(v1 != t1));
+        } while (v1 != t1);
     }
     ret = 0x20;
     t4 = 0;
@@ -1376,11 +1250,7 @@ loc_22B4C0:
         ret = (u64)v1 >> 32;
         a0 = a0 + -1;
         v1 = (u64)t4 << 32;
-        ret = ret | v1;
-        ret = (unsigned)ret >> t2;
-        ret = (u64)ret << 32;
-        ret = (s64)ret >> 32;
-        *(u32*)(t1) = ret;
+        *(u32*)(t1) = (s64)ret >> 32;
         t1 = t1 + 4;
     } while (a0 != 0);
 loc_22B530:
@@ -1392,13 +1262,12 @@ loc_22B530:
         v1 = ((unsigned)a3 < 0x21) ? 1 : 0;
         a0 = (u64)ret >> 32;
         if (v1 == 0) {
-            ret = *(u32*)*(t3 + 0);  /* lwu */
+            ret = *(u32*)(t3 + 0);  /* lwu */
             ret = (u64)ret << 32;
             a0 = a0 | ret;
         }
         ret = (unsigned)a0 >> t2;
         a0 = (unsigned)a0 >> a3;
-        ret = (u64)ret << 32;
         ret = (s64)ret >> 32;
         t2 = a3 - s4;
         ret = ret & a2;
@@ -1435,58 +1304,52 @@ loc_22B530:
         do {
             t1 = t1 + 4;
             *(u32*)(t1) = 0;
-        } while (likely(a1 != t1));
+        } while (a1 != t1);
         ret = *(u32*)(t9);
     }
-    v1 = (u64)v1 << 32;
     v1 = v1 | 0x8000;
     a0 = 0xe;
     a1 = 0x3f;
-    *(u64*)*(ret + 0) = v1;
+    *(u64*)(ret + 0) = v1;
     a2 = 2;
-    *(u32*)*(t9 + 0x14) = ret;
+    *(u32*)(t9 + 0x14) = ret;
     ret = ret + 8;
-    *(u64*)*(ret + 0) = a0;
-    ret = ret + 8;
-    a3 = ret;
-    t1 = *(u32*)*(t9 + 0x14);
-    *(u64*)*(a3 + 8) = a1;
-    *(u64*)*(a3 + 0) = 0;
+    *(u64*)(ret + 0) = a0;
+    a3 = ret + 8;
+    t1 = *(u32*)(t9 + 0x14);  /* PSX: gpr[1]/$at */
+    *(u64*)(a3 + 8) = a1;
+    *(u64*)(a3 + 0) = 0;
     a3 = ret + 0x10;
     v1 = a3 - t1;
     *(u32*)(t9) = a3;
-    t0 = *(u64*)*(t1 + 0);
+    t0 = *(u64*)(t1 + 0);
     v1 = (signed)v1 >> 3;
     a1 = v1 + -2;
     ret = (u64)t0 >> 58;
     a0 = (unsigned)a1 >> 1;
     ret = ret & 3;
-    v1 = ret ^ 1;
-    __asm("movn a1, a0, v1");
+    if ((ret ^ 1) != 0) a1 = a0;
     if (ret == a2) goto loc_22B6A4;
     ret = (u64)t0 >> 60;
     a0 = 0x10;
-    __asm("movz v0, a0, v0");
+    if (ret == 0) ret = a0;
     v1 = a1 + ret;
     BREAK(); /* breakpoint */
-    if (likely(ret == 0)) goto loc_22B694;
+    if (ret == 0) goto loc_22B694;
 loc_22B694:
-    v1 = v1 + -1;
-    __asm("divu zero, v1, v0");
-    v1 = LO;
-    a1 = v1;
+    a1 = (unsigned)v1 / (unsigned)ret;
 loc_22B6A4:
     a2 = a3;
     ret = (u64)a1 << 32;
     v1 = (unsigned)a2 >> 2;
     ret = (u64)ret >> 32;
-    __asm("negu v1, v1");
+    v1 = -v1;
     ret = t0 + ret;
     v1 = v1 & 3;
     a0 = -1;
     v1 = v1 + -1;
-    *(u64*)*(t1 + 0) = ret;
-    *(u32*)*(t9 + 0x14) = 0;
+    *(u64*)(t1 + 0) = ret;
+    *(u32*)(t9 + 0x14) = 0;
     if (v1 != a0) {
         ret = -1;
         do {
@@ -1495,8 +1358,8 @@ loc_22B6A4:
             a2 = a2 + 4;
         } while (v1 != ret);
     }
-    a1 = *(u32*)*(t9 + 0xc);
-    v1 = *(u32*)*(t9 + 4);
+    a1 = *(u32*)(t9 + 0xc);  /* PSX: lo */
+    v1 = *(u32*)(t9 + 4);
     ret = a2 - a1;
     a0 = *(u32*)(a1);
     ret = ret + -4;
@@ -1506,17 +1369,15 @@ loc_22B6A4:
     ret = (unsigned)ret >> 2;
     *(u32*)(t9) = a2;
     a0 = a0 + ret;
-    *(u32*)*(t9 + 0xc) = 0;
+    *(u32*)(t9 + 0xc) = 0;
     *(u32*)(a1) = a0;
     v1 = (unsigned)v1 >> 4;
-    ret = *(u32*)*(s5 + 0x388);
     ret = ret - v1;
-    v1 = *(u32*)*(__sp + 4);
-    if (v1 != ret) {
-        a0 = 0x004FFE10;
-        a2 = 0x004FFE20;
+    if ((*(u32*)(__sp + 4)) != ret) {
+        a0 = 0x004FFE10;  /* "libpfont.c" */
+        a2 = 0x004FFE20;  /* "space == _scePFontCalcPacketSpace(pThis)" */
         a1 = 0x4c7;
-        ret = EEKernel_ThreadScheduler(a0, a1, a2, a3);
+        ret = EEKernel_ThreadScheduler(a0, a1);
     }
     ret = 1;
 loc_22B758:
@@ -1527,15 +1388,15 @@ loc_22B75C:
 /* Function at 0x0022B788 - 0x0022BA70 */
 /* String ref: "libpfont.c" */
 /* String ref: "space == _scePFontCalcPacketSpace(pThis)" */
-int PFont_DrawString()
+u32 PFont_DrawString(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, t0, t1, t2, t3, t4, t5, t6;
+    u32 ret, v1, a1, a2, a3, t0, t1, t2, t3, t4, t5, t6;
     t5 = a0;
-    t4 = *(u32*)*(t5 + 0x38c);
-    v1 = *(u32*)*(t5 + 0x388);
+    t4 = *(u32*)(t5 + 0x38c);
+    v1 = *(u32*)(t5 + 0x388);
     a2 = *(u32*)(t4);
-    a0 = *(u32*)*(t4 + 4);
+    a0 = *(u32*)(t4 + 4);
     a0 = a2 - a0;
     a0 = a0 + 0xf;
     a0 = (unsigned)a0 >> 4;
@@ -1545,9 +1406,6 @@ int PFont_DrawString()
     if (a1 != 0) goto loc_22BA64;
     a1 = a2;
     v1 = -1;
-    ret = (unsigned)a1 >> 2;
-    __asm("negu v0, v0");
-    ret = ret & 3;
     ret = ret + -1;
     t6 = t6 + -4;
     if (ret != v1) {
@@ -1557,28 +1415,25 @@ int PFont_DrawString()
             a1 = a1 + 4;
         } while (ret != v1);
     }
-    a0 = *(u32*)*(t4 + 8);
+    a0 = *(u32*)(t4 + 8);
     ret = a1 - a0;
     if (a0 != 0) {
         v1 = *(u32*)(a0);
-        ret = (signed)ret >> 4;
         ret = ret + -1;
-        v1 = v1 + ret;
-        *(u32*)(a0) = v1;
+        *(u32*)(a0) = v1 + ret;
     }
     a3 = a1 + 8;
-    ret = -0x10;
     ret = a3 & ret;
     a0 = 0x10000000;
     a2 = ret + 0xc;
     ret = ret + 0x1c;
     v1 = ((unsigned)a2 < (unsigned)a3) ? 1 : 0;
     *(u32*)(a1) = a0;
-    __asm("movn a2, v0, v1");
-    *(u32*)*(t4 + 8) = a1;
-    *(u32*)*(a1 + 4) = 0;
+    if (v1 != 0) a2 = ret;
+    *(u32*)(t4 + 8) = a1;
+    *(u32*)(a1 + 4) = 0;
     *(u32*)(t4) = a3;
-    *(u32*)*(t4 + 0xc) = 0;
+    *(u32*)(t4 + 0xc) = 0;
     if ((unsigned)a3 < (unsigned)a2) {
         v1 = a3;
         *(u32*)(v1) = 0;
@@ -1586,29 +1441,29 @@ int PFont_DrawString()
             v1 = v1 + 4;
             ret = ((unsigned)v1 < (unsigned)a2) ? 1 : 0;
             *(u32*)(v1) = 0;
-        } while (likely(ret != 0));
+        } while (ret != 0);
         *(u32*)(t4) = v1;
     }
     a3 = *(u32*)(t4);
     ret = 0x50000000;
-    t0 = *(u16*)*(t5 + 0x364);
-    t2 = 0 | 0x8000;
+    t0 = *(u16*)(t5 + 0x364);
+    t2 = 0x8000;
     t2 = t2 << 19;
     *(u32*)(a3) = ret;
-    t3 = 0 | 0x8000;
+    t3 = 0x8000;
     t3 = (u64)t3 << 46;
-    t1 = *(u16*)*(t5 + 0x368);
+    t1 = *(u16*)(t5 + 0x368);
     t0 = (unsigned)t0 >> 6;
-    v1 = *(u32*)*(t5 + 0x354);
+    v1 = *(u32*)(t5 + 0x354);
     t0 = t0 << 14;
-    a1 = *(u32*)*(t5 + 0x358);
+    a1 = *(u32*)(t5 + 0x358);
     t1 = t1 << 26;
     v1 = (unsigned)v1 >> 6;
-    ret = *(u16*)*(t5 + 0x35c);
-    a2 = *(u16*)*(t5 + 0x36a);
+    ret = *(u16*)(t5 + 0x35c);
+    a2 = *(u16*)(t5 + 0x36a);
     v1 = (u64)v1 << 32;
     a1 = (unsigned)a1 >> 6;
-    a0 = *(u32*)*(t5 + 0x384);
+    a0 = *(u32*)(t5 + 0x384);
     a1 = (u64)a1 << 37;
     v1 = (u64)v1 >> 32;
     ret = ret << 20;
@@ -1624,58 +1479,54 @@ int PFont_DrawString()
     v1 = v1 | t1;
     t1 = a3 + 0x34;
     v1 = v1 | ret;
-    ret = (u64)ret << 32;
     ret = ret | 0x8000;
     t0 = (u64)t0 << 32;
-    *(u64*)*(t2 + 0) = ret;
+    *(u64*)(t2 + 0) = ret;
     t0 = (u64)t0 >> 32;
     ret = t1 - t2;
     a2 = 0x60;
     ret = (signed)ret >> 3;
     a0 = a0 + 0x14;
-    *(u64*)*(a3 + 44) = t0;
+    *(u64*)(a3 + 44) = t0;
     t0 = (u64)t0 << 32;
     t0 = t0 | 0x8000;
     a0 = (u64)a0 << 32;
-    *(u64*)*(a3 + 20) = a2;
+    *(u64*)(a3 + 20) = a2;
     a2 = ret + -2;
     ret = (u64)t0 >> 58;
     a0 = (u64)a0 >> 32;
     ret = ret & 3;
-    *(u64*)*(a3 + 12) = a1;
-    *(u64*)*(a3 + 28) = a0;
+    *(u64*)(a3 + 12) = a1;
+    *(u64*)(a3 + 28) = a0;
     a0 = (unsigned)a2 >> 1;
-    *(u64*)*(a3 + 36) = v1;
+    *(u64*)(a3 + 36) = v1;
     v1 = ret ^ 1;
     a1 = 2;
-    *(u32*)*(t4 + 0xc) = a3;
-    *(u32*)*(t4 + 0x14) = t2;
-    __asm("movn a2, a0, v1");
+    *(u32*)(t4 + 0xc) = a3;
+    *(u32*)(t4 + 0x14) = t2;
+    if (v1 != 0) a2 = a0;
     *(u32*)(t4) = t1;
     if (ret == a1) goto loc_22B9B0;
     ret = (u64)t0 >> 60;
     a0 = 0x10;
-    __asm("movz v0, a0, v0");
+    if (ret == 0) ret = a0;
     v1 = a2 + ret;
     BREAK(); /* breakpoint */
-    if (likely(ret == 0)) goto loc_22B9A0;
+    if (ret == 0) goto loc_22B9A0;
 loc_22B9A0:
-    v1 = v1 + -1;
-    __asm("divu zero, v1, v0");
-    v1 = LO;
-    a2 = v1;
+    a2 = (unsigned)v1 / (unsigned)ret;
 loc_22B9B0:
     a3 = t1;
     ret = (u64)a2 << 32;
     v1 = (unsigned)a3 >> 2;
     ret = (u64)ret >> 32;
-    __asm("negu v1, v1");
+    v1 = -v1;
     ret = t0 + ret;
     v1 = v1 & 3;
     a0 = -1;
     v1 = v1 + -1;
-    *(u64*)*(t2 + 0) = ret;
-    *(u32*)*(t4 + 0x14) = 0;
+    *(u64*)(t2 + 0) = ret;
+    *(u32*)(t4 + 0x14) = 0;
     if (v1 != a0) {
         ret = -1;
         do {
@@ -1684,8 +1535,8 @@ loc_22B9B0:
             a3 = a3 + 4;
         } while (v1 != ret);
     }
-    a1 = *(u32*)*(t4 + 0xc);
-    v1 = *(u32*)*(t4 + 4);
+    a1 = *(u32*)(t4 + 0xc);  /* PSX: lo */
+    v1 = *(u32*)(t4 + 4);
     ret = a3 - a1;
     a0 = *(u32*)(a1);
     ret = ret + -4;
@@ -1697,14 +1548,13 @@ loc_22B9B0:
     a0 = a0 + ret;
     *(u32*)(t4) = a3;
     *(u32*)(a1) = a0;
-    *(u32*)*(t4 + 0xc) = 0;
-    ret = *(u32*)*(t5 + 0x388);
+    *(u32*)(t4 + 0xc) = 0;
     ret = ret - v1;
     if (t6 != ret) {
-        a0 = 0x004FFE10;
-        a2 = 0x004FFE20;
+        a0 = 0x004FFE10;  /* "libpfont.c" */
+        a2 = 0x004FFE20;  /* "space == _scePFontCalcPacketSpace(pThis)" */
         a1 = 0x4e5;
-        ret = EEKernel_ThreadScheduler(a0, a1, a2, a3);
+        ret = EEKernel_ThreadScheduler(a0, a1);
     }
     ret = 1;
 loc_22BA64:
@@ -1714,22 +1564,22 @@ loc_22BA64:
 /* Function at 0x0022BA70 - 0x0022C748 */
 /* String ref: "libpfont.c" */
 /* String ref: "space == _scePFontCalcPacketSpace(pThis)" */
-int PFont_RenderText()
+u32 PFont_RenderText(u32 a0, u32 a1)
 {
     /* Stack frame: 208 bytes */
-    int local_0C;
-    int local_68;
-    int local_6C;
-    int local_78;
-    int local_7C;
-    int local_88;
-    int local_8C;
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, t0, t1, t2, t3, t4;
+    u32 local_0C;
+    u32 local_68;
+    u32 local_6C;
+    u32 local_78;
+    u32 local_7C;
+    u32 local_88;
+    u32 local_8C;
+    u32 ret, v1, a2, a3, s0, psx_1, psx, s3, s4, s5, s6, t0, t1, t2, t3, t4;
     a3 = 0;
-    s2 = a0;
-    s6 = s2;
+    psx = a0;
+    s6 = psx;
     a0 = -1;
-    s0 = *(u32*)*(s6 + 0x37c);
+    s0 = *(u32*)(s6 + 0x37c);
     a2 = *(u32*)(s0);
     t0 = s0;
     goto loc_22BAC0;
@@ -1737,84 +1587,82 @@ loc_22BAB8:
     s0 = v1;
     a2 = *(u32*)(s0);
 loc_22BAC0:
-    ret = *(u32*)*(s2 + 0x37c);
+    ret = *(u32*)(psx + 0x37c);  /* PSX: gpu_packet_list */
     if (a1 != a2) {
-        ret = *(u32*)*(s0 + 8);
-        v1 = *(u32*)*(s0 + 0xc);
+        ret = *(u32*)(s0 + 8);
+        v1 = *(u32*)(s0 + 0xc);  /* PSX: lo */
         ret = ret ^ a0;
-        __asm("movn a3, s0, v0");
+        if (ret != 0) a3 = s0;
         if (v1 != 0) {
             t0 = s0;
-            if (likely(a2 != 0)) goto loc_22BAB8;
+            if (a2 != 0) goto loc_22BAB8;
         }
-        ret = *(u32*)*(s2 + 0x37c);
+        ret = *(u32*)(psx + 0x37c);  /* PSX: gpu_packet_list */
     }
     a0 = -1;
     if (s0 == ret) goto loc_22BB34;
-    ret = *(u32*)*(s0 + 0xc);
-    t1 = *(u32*)*(s0 + 8);
-    *(u32*)*(t0 + 0xc) = ret;
-    v1 = *(u32*)*(s2 + 0x37c);
-    *(u32*)*(s0 + 0xc) = v1;
-    *(u32*)*(s2 + 0x37c) = s0;
+    ret = *(u32*)(s0 + 0xc);  /* PSX: lo */
+    t1 = *(u32*)(s0 + 8);
+    *(u32*)(t0 + 0xc) = ret;
+    *(u32*)(s0 + 0xc) = *(u32*)(psx + 0x37c);
+    *(u32*)(psx + 0x37c) = s0;
     if (t1 != a0) goto loc_22BB34;
     if (a3 == s0) goto loc_22BB34;
     if (a3 == 0) goto loc_22BB34;
-    ret = *(u32*)*(a3 + 8);
-    *(u32*)*(s0 + 4) = 0;
-    *(u32*)*(s0 + 8) = ret;
-    *(u32*)*(a3 + 8) = t1;
-    *(u32*)*(a3 + 4) = 0;
+    ret = *(u32*)(a3 + 8);
+    *(u32*)(s0 + 4) = 0;
+    *(u32*)(s0 + 8) = ret;
+    *(u32*)(a3 + 8) = t1;
+    *(u32*)(a3 + 4) = 0;
     a2 = *(u32*)(s0);
 loc_22BB34:
-    s1 = s0 + 0x10;
+    psx_1 = s0 + 0x10;
     if (a2 == a1) {
-        ret = *(u32*)*(s0 + 0x10);
+        ret = *(u32*)(s0 + 0x10);  /* PSX: gpr[0]/$zero */
         s3 = 0;
-        __asm("movn s3, s0, v0");
+        if (ret != 0) s3 = s0;
         goto loc_22BB7C;
     }
-    *(u32*)*(s0 + 4) = 0;
+    *(u32*)(s0 + 4) = 0;
     *(u32*)(s0) = a1;
-    a0 = s2;
-    a2 = s1;
-    ret = PFont_FindGlyph(a0, a1, a2, a3);
+    a0 = psx;
+    a2 = psx_1;
+    ret = PFont_FindGlyph(a0, a1, a2);
     s3 = 0;
     if (ret != 0) {
-        *(u32*)(s1) = 0;
+        *(u32*)(psx_1) = 0;
         goto loc_22BB7C;
     }
     s3 = s0;
 loc_22BB7C:
     ret = -2;
     if (s3 == 0) goto loc_22C720;
-    ret = s2->cop2_insn_count;  /* cop2_insn_count */
-    s1 = s2 + 0x80;
+    ret = ((PSX_State*)psx)->cop2_insn_count;  /* cop2_insn_count */
+    psx_1 = psx + 0x80;
     if (ret == 0) goto loc_22C0DC;
-    ret = *(u32*)*(s3 + 4);
-    ret = *(u32*)*(s2 + 0x36c);
+    ret = *(u32*)(psx + 0x36c);  /* PSX: gpu_ot_head */
     if (ret == 0) {
-        a0 = s2;
+        a0 = psx;
         a1 = s3;
-        ret = PFont_FlushPacket(a0, a1, a2, a3);
+        ret = PFont_FlushPacket(a0, a1);
         if (-1 == 0) goto loc_22C720;
-        *(u32*)*(s3 + 4) = 1;
-        ret = *(u32*)*(s2 + 0x36c);
+        *(u32*)(s3 + 4) = 1;
+        ret = *(u32*)(psx + 0x36c);  /* PSX: gpu_ot_head */
     }
-    t2 = *(u32*)*(s2 + 0x38c);
+    t2 = *(u32*)(psx + 0x38c);  /* PSX: gpu_dma_size */
     if (ret != 0) {
-        a0 = s2;
-        ret = PFont_DrawString(a0, a1, a2, a3);
-        *(u32*)*(s2 + 0x36c) = 0;
+        a0 = psx;
+        ret = PFont_DrawString(a0);
+        *(u32*)(psx + 0x36c) = 0;
         if (ret == 0) {
             ret = -1;
             goto loc_22C720;
         }
-        t2 = *(u32*)*(s2 + 0x38c);
+        t2 = *(u32*)(psx + 0x38c);  /* PSX: gpu_dma_size */
     }
-    v1 = *(u32*)*(s2 + 0x388);
+    v1 = *(u32*)(psx + 0x388);  /* PSX: gpu_dma_ctrl */
     a2 = *(u32*)(t2);
-    a0 = *(u32*)*(t2 + 4);
+    a0 = *(u32*)(t2 + 4);
     a0 = a2 - a0;
     a0 = a0 + 0xf;
     a0 = (unsigned)a0 >> 4;
@@ -1822,27 +1670,25 @@ loc_22BB7C:
     a1 = ((signed)t4 < 0x28) ? 1 : 0;
     ret = -1;
     if (a1 != 0) goto loc_22C720;
-    a1 = *(u16*)*(s2 + 0x35e);
+    a1 = *(u16*)(psx + 0x35e);  /* PSX: disp_x_start */
     t1 = a2;
-    ret = *(u16*)*(s2 + 0x364);
+    ret = *(u16*)(psx + 0x364);  /* PSX: disp_x_end */
     v1 = (unsigned)t1 >> 2;
     BREAK(); /* breakpoint */
-    if (likely(a1 == 0)) goto loc_22BC24;
+    if (a1 == 0) goto loc_22BC24;
 loc_22BC24:
-    a0 = *(u32*)*(s3 + 8);
-    __asm("div zero, v0, a1");
-    __asm("negu v1, v1");
-    a2 = *(u16*)*(s2 + 0x360);
+    a0 = *(u32*)(s3 + 8);
+    v1 = -v1;
+    a2 = *(u16*)(psx + 0x360);  /* PSX: disp_y_start */
     t0 = v1 & 3;
     a3 = -1;
     t0 = t0 + -1;
     t4 = t4 + -0x28;
     ret = LO;
-    __asm("div zero, a0, v0");
-    a0 = LO;
-    v1 = HI;
+    a0 = (signed)a0 / (signed)ret;
+    v1 = (signed)a0 % (signed)ret;
     ac3 = (s32)((s64)v1 * (s64)a1); HI_LO = (s64)v1 * (s64)a1;
-    __asm("mult1 a0, a0, a2");
+    a0 = a0 * a2;
     s4 = v1 + 1;
     s5 = a0 + 1;
     if (t0 != a3) {
@@ -1853,28 +1699,25 @@ loc_22BC24:
             t1 = t1 + 4;
         } while (t0 != ret);
     }
-    a0 = *(u32*)*(t2 + 8);
+    a0 = *(u32*)(t2 + 8);
     ret = t1 - a0;
     if (a0 != 0) {
         v1 = *(u32*)(a0);
-        ret = (signed)ret >> 4;
         ret = ret + -1;
-        v1 = v1 + ret;
-        *(u32*)(a0) = v1;
+        *(u32*)(a0) = v1 + ret;
     }
     a2 = t1 + 8;
-    ret = -0x10;
     ret = a2 & ret;
     a0 = 0x10000000;
     a1 = ret + 0xc;
     ret = ret + 0x1c;
     v1 = ((unsigned)a1 < (unsigned)a2) ? 1 : 0;
     *(u32*)(t1) = a0;
-    __asm("movn a1, v0, v1");
-    *(u32*)*(t2 + 8) = t1;
-    *(u32*)*(t1 + 4) = 0;
+    if (v1 != 0) a1 = ret;
+    *(u32*)(t2 + 8) = t1;
+    *(u32*)(t1 + 4) = 0;
     *(u32*)(t2) = a2;
-    *(u32*)*(t2 + 0xc) = 0;
+    *(u32*)(t2 + 0xc) = 0;
     if ((unsigned)a2 < (unsigned)a1) {
         v1 = a2;
         *(u32*)(v1) = 0;
@@ -1882,21 +1725,21 @@ loc_22BC24:
             v1 = v1 + 4;
             ret = ((unsigned)v1 < (unsigned)a1) ? 1 : 0;
             *(u32*)(v1) = 0;
-        } while (likely(ret != 0));
+        } while (ret != 0);
         *(u32*)(t2) = v1;
     }
     a3 = *(u32*)(t2);
     ret = 0x50000000;
-    a0 = *(u32*)*(s3 + 0x10);
+    a0 = *(u32*)(s3 + 0x10);  /* PSX: gpr[0]/$zero */
     a1 = s4 + -1;
     *(u32*)(a3) = ret;
     t0 = 0xa;
-    ret = *(s16*)*(a0 + 0x1c);
+    ret = *(s16*)(a0 + 0x1c);  /* PSX: gpr[3]/$v1 */
     a1 = a1 << 4;
-    v1 = *(s16*)*(a0 + 0x1e);
+    v1 = *(s16*)(a0 + 0x1e);
     t1 = a3 + 4;
     ret = s4 + ret;
-    a0 = *(u32*)*(s2 + 0x384);
+    a0 = *(u32*)(psx + 0x384);  /* PSX: gpu_vram_ptr */
     v1 = s5 + v1;
     ret = ret << 14;
     v1 = (u64)v1 << 34;
@@ -1904,57 +1747,53 @@ loc_22BC24:
     a1 = a1 | v1;
     v1 = 0xe;
     a1 = a1 | ret;
-    ret = 0 | 0x8000;
     ret = (u64)ret << 45;
     t3 = a3 + 0x24;
-    *(u64*)*(t1 + 0) = ret;
+    *(u64*)(t1 + 0) = ret;
     a2 = s5 + -1;
     a0 = a0 + 8;
     ret = t3 - t1;
-    t0 = 0 | 0x8000;
+    t0 = 0x8000;
     t0 = (u64)t0 << 45;
     a2 = a2 << 24;
     ret = (signed)ret >> 3;
     a0 = (u64)a0 << 32;
-    *(u64*)*(a3 + 12) = v1;
+    *(u64*)(a3 + 12) = v1;
     v1 = (u64)t0 >> 58;
     a1 = a1 | a2;
     a0 = (u64)a0 >> 32;
     v1 = v1 & 3;
     a2 = ret + -2;
     ret = v1 ^ 1;
-    *(u64*)*(a3 + 20) = a1;
+    *(u64*)(a3 + 20) = a1;
     a1 = 2;
-    *(u64*)*(a3 + 28) = a0;
+    *(u64*)(a3 + 28) = a0;
     a0 = (unsigned)a2 >> 1;
-    *(u32*)*(t2 + 0xc) = a3;
-    __asm("movn a2, a0, v0");
-    *(u32*)*(t2 + 0x14) = t1;
+    *(u32*)(t2 + 0xc) = a3;
+    if (ret != 0) a2 = a0;
+    *(u32*)(t2 + 0x14) = t1;
     *(u32*)(t2) = t3;
     if (v1 == a1) goto loc_22BDF4;
     ret = (u64)t0 >> 60;
     a0 = 0x10;
-    __asm("movz v0, a0, v0");
+    if (ret == 0) ret = a0;
     v1 = a2 + ret;
     BREAK(); /* breakpoint */
-    if (likely(ret == 0)) goto loc_22BDE4;
+    if (ret == 0) goto loc_22BDE4;
 loc_22BDE4:
-    v1 = v1 + -1;
-    __asm("divu zero, v1, v0");
-    v1 = LO;
-    a2 = v1;
+    a2 = (unsigned)v1 / (unsigned)ret;
 loc_22BDF4:
     a3 = t3;
     ret = (u64)a2 << 32;
     v1 = (unsigned)a3 >> 2;
     ret = (u64)ret >> 32;
-    __asm("negu v1, v1");
+    v1 = -v1;
     ret = t0 + ret;
     v1 = v1 & 3;
     a0 = -1;
     v1 = v1 + -1;
-    *(u64*)*(t1 + 0) = ret;
-    *(u32*)*(t2 + 0x14) = 0;
+    *(u64*)(t1 + 0) = ret;
+    *(u32*)(t2 + 0x14) = 0;
     if (v1 != a0) {
         ret = -1;
         do {
@@ -1963,7 +1802,7 @@ loc_22BDF4:
             a3 = a3 + 4;
         } while (v1 != ret);
     }
-    ret = *(u32*)*(s2 + 0x384);
+    ret = *(u32*)(psx + 0x384);  /* PSX: gpu_vram_ptr */
     a0 = 0x5d;
     a1 = 0x30004000;
     a1 = (u64)a1 << 32;
@@ -1978,42 +1817,39 @@ loc_22BDF4:
     ret = ret | a1;
     t0 = v1 + -2;
     t1 = ret;
-    *(u64*)*(a3 + 0) = ret;
+    *(u64*)(a3 + 0) = ret;
     v1 = (u64)t1 >> 58;
     s0 = a3 + 0x10;
     v1 = v1 & 3;
     a1 = (unsigned)t0 >> 1;
     ret = v1 ^ 1;
     a2 = 2;
-    s1 = s0;
-    *(u64*)*(a3 + 8) = a0;
-    *(u32*)*(t2 + 0x14) = a3;
-    __asm("movn t0, a1, v0");
+    psx_1 = s0;
+    *(u64*)(a3 + 8) = a0;
+    *(u32*)(t2 + 0x14) = a3;
+    if (ret != 0) t0 = a1;
     *(u32*)(t2) = t3;
     if (v1 == a2) goto loc_22BEE0;
     ret = (u64)t1 >> 60;
     a0 = 0x10;
-    __asm("movz v0, a0, v0");
+    if (ret == 0) ret = a0;
     v1 = t0 + ret;
     BREAK(); /* breakpoint */
-    if (likely(ret == 0)) goto loc_22BED0;
+    if (ret == 0) goto loc_22BED0;
 loc_22BED0:
-    v1 = v1 + -1;
-    __asm("divu zero, v1, v0");
-    v1 = LO;
-    t0 = v1;
+    t0 = (unsigned)v1 / (unsigned)ret;
 loc_22BEE0:
     a2 = t3;
     ret = (u64)t0 << 32;
     v1 = (unsigned)a2 >> 2;
     ret = (u64)ret >> 32;
-    __asm("negu v1, v1");
+    v1 = -v1;
     ret = t1 + ret;
     v1 = v1 & 3;
     a0 = -1;
     v1 = v1 + -1;
-    *(u64*)*(a3 + 0) = ret;
-    *(u32*)*(t2 + 0x14) = 0;
+    *(u64*)(a3 + 0) = ret;
+    *(u32*)(t2 + 0x14) = 0;
     if (v1 != a0) {
         ret = -1;
         do {
@@ -2022,8 +1858,8 @@ loc_22BEE0:
             a2 = a2 + 4;
         } while (v1 != ret);
     }
-    a1 = *(u32*)*(t2 + 0xc);
-    v1 = *(u32*)*(t2 + 4);
+    a1 = *(u32*)(t2 + 0xc);  /* PSX: lo */
+    v1 = *(u32*)(t2 + 4);
     ret = a2 - a1;
     a0 = *(u32*)(a1);
     ret = ret + -4;
@@ -2035,157 +1871,156 @@ loc_22BEE0:
     a0 = a0 + ret;
     *(u32*)(t2) = a2;
     *(u32*)(a1) = a0;
-    *(u32*)*(t2 + 0xc) = 0;
-    ret = *(u32*)*(s2 + 0x388);
+    *(u32*)(t2 + 0xc) = 0;
     ret = ret - v1;
     if (t4 != ret) {
-        a0 = 0x004FFE10;
-        a2 = 0x004FFE20;
+        a0 = 0x004FFE10;  /* "libpfont.c" */
+        a2 = 0x004FFE20;  /* "space == _scePFontCalcPacketSpace(pThis)" */
         a1 = 0x59b;
-        ret = EEKernel_ThreadScheduler(a0, a1, a2, a3);
+        ret = EEKernel_ThreadScheduler(a0, a1);
     }
     __asm("ave_s.w w12, w0, w2");
     __at = 0x43000000;
     FPU_REG(f0) = __at; /* mtc1 */
-    __asm("cop2 v0, vi4");
+    __asm("cop2 ret, vi4");
     v1 = FPU_REG(f0); /* mfc1 */
     __asm("cop2 v1, vi5");
     __asm("vu0_cop2 0x4be52118");
-    __asm("cop2 v0, vi4");
-    __asm("cop2 v0, vi4");
+    __asm("cop2 ret, vi4");
+    __asm("cop2 ret, vi4");
     __asm("vu0_cop2 0x4be4217c");
-    __asm("cop2 v0, vi4");
+    __asm("cop2 ret, vi4");
     a0 = 0xa;
     v1 = s0 + 0x1f0;
     do {
         a0 = a0 + -1;
-        __asm("ext v0, v1, 0, 1");
+        __asm("ext ret, v1, 0, 1");
         v1 = v1 + -0x30;
     } while ((signed)a0 >= 0);
-    ret = *(u32*)*(s3 + 0x18);
-    t1 = *(s16*)*(ret + 6);
-    a1 = *(s16*)(v0);
-    a2 = *(s16*)*(ret + 2);
+    ret = *(u32*)(s3 + 0x18);  /* PSX: gpr[2]/$v0 */
+    t1 = *(s16*)(ret + 6);
+    a1 = *(s16*)(ret);
+    a2 = *(s16*)(ret + 2);
     t1 = t1 + 1;
-    a3 = *(s16*)*(ret + 8);
+    a3 = *(s16*)(ret + 8);
     a1 = a1 + s4;
-    v1 = *(s16*)*(ret + 0xa);
+    v1 = *(s16*)(ret + 0xa);
     a2 = a2 + s5;
-    a0 = *(s16*)*(ret + 4);
+    a0 = *(s16*)(ret + 4);
     a3 = a3 + 1;
-    t0 = *(s16*)*(ret + 0xc);
+    t0 = *(s16*)(ret + 0xc);  /* PSX: lo */
     v1 = v1 + -1;
     a0 = a0 + -1;
     FPU_REG(f1) = a1; /* mtc1 */
-    __asm("cvt.s.w f1, f1");
+    FPU_F(f1) = (float)(s32)FPU_REG(f1);
     FPU_REG(f0) = a2; /* mtc1 */
-    __asm("cvt.s.w f0, f0");
+    FPU_F(f0) = (float)(s32)FPU_REG(f0);
     FPU_REG(f6) = t0; /* mtc1 */
-    __asm("cvt.s.w f6, f6");
+    FPU_F(f6) = (float)(s32)FPU_REG(f6);
     FPU_REG(f5) = a3; /* mtc1 */
-    __asm("cvt.s.w f5, f5");
+    FPU_F(f5) = (float)(s32)FPU_REG(f5);
     FPU_REG(f3) = v1; /* mtc1 */
-    __asm("cvt.s.w f3, f3");
-    __asm("swc1 f1, 0xf0(s0)");
+    FPU_F(f3) = (float)(s32)FPU_REG(f3);
+    *(float*)(s0 + 0xf0) = FPU_F(f1);
     FPU_REG(f2) = a0; /* mtc1 */
-    __asm("cvt.s.w f2, f2");
-    __asm("swc1 f0, 0x184(s0)");
+    FPU_F(f2) = (float)(s32)FPU_REG(f2);
+    *(float*)(s0 + 0x184) = FPU_F(f0);
     FPU_REG(f4) = t1; /* mtc1 */
-    __asm("cvt.s.w f4, f4");
+    FPU_F(f4) = (float)(s32)FPU_REG(f4);
     __asm("swc1 f1, (s0)");
-    __asm("sub.s f5, f0, f5"); /* FPU */
-    __asm("swc1 f0, 4(s0)");
-    __asm("sub.s f3, f0, f3"); /* FPU */
-    __asm("swc1 f1, 0x30(s0)");
-    __asm("add.s f2, f2, f1"); /* FPU */
-    __asm("swc1 f0, 0x94(s0)");
-    __asm("add.s f4, f4, f1"); /* FPU */
-    __asm("add.s f6, f6, f1"); /* FPU */
-    __asm("swc1 f5, 0x1e4(s0)");
-    __asm("swc1 f3, 0x154(s0)");
-    __asm("swc1 f2, 0xc0(s0)");
-    __asm("swc1 f4, 0x1b0(s0)");
-    __asm("swc1 f6, 0x1e0(s0)");
-    __asm("swc1 f5, 0x34(s0)");
-    __asm("swc1 f2, 0x60(s0)");
-    __asm("swc1 f5, 0x64(s0)");
-    __asm("swc1 f2, 0x90(s0)");
-    __asm("swc1 f3, 0xc4(s0)");
-    __asm("swc1 f3, 0xf4(s0)");
-    __asm("swc1 f6, 0x120(s0)");
-    __asm("swc1 f3, 0x124(s0)");
-    __asm("swc1 f4, 0x150(s0)");
-    __asm("swc1 f4, 0x180(s0)");
-    __asm("swc1 f5, 0x1b4(s0)");
+    FPU_F(f5) = FPU_F(f0) - FPU_F(f5); /* FPU */
+    *(float*)(s0 + 4) = FPU_F(f0);
+    FPU_F(f3) = FPU_F(f0) - FPU_F(f3); /* FPU */
+    *(float*)(s0 + 0x30) = FPU_F(f1);
+    FPU_F(f2) = FPU_F(f2) + FPU_F(f1); /* FPU */
+    *(float*)(s0 + 0x94) = FPU_F(f0);
+    FPU_F(f4) = FPU_F(f4) + FPU_F(f1); /* FPU */
+    FPU_F(f6) = FPU_F(f6) + FPU_F(f1); /* FPU */
+    *(float*)(s0 + 0x1e4) = FPU_F(f5);
+    *(float*)(s0 + 0x154) = FPU_F(f3);
+    *(float*)(s0 + 0xc0) = FPU_F(f2);
+    *(float*)(s0 + 0x1b0) = FPU_F(f4);
+    *(float*)(s0 + 0x1e0) = FPU_F(f6);
+    *(float*)(s0 + 0x34) = FPU_F(f5);
+    *(float*)(s0 + 0x60) = FPU_F(f2);
+    *(float*)(s0 + 0x64) = FPU_F(f5);
+    *(float*)(s0 + 0x90) = FPU_F(f2);
+    *(float*)(s0 + 0xc4) = FPU_F(f3);
+    *(float*)(s0 + 0xf4) = FPU_F(f3);
+    *(float*)(s0 + 0x120) = FPU_F(f6);
+    *(float*)(s0 + 0x124) = FPU_F(f3);
+    *(float*)(s0 + 0x150) = FPU_F(f4);
+    *(float*)(s0 + 0x180) = FPU_F(f4);
+    *(float*)(s0 + 0x1b4) = FPU_F(f5);
 loc_22C0DC:
-    v1 = *(u32*)*(s3 + 0x18);
-    t0 = s2 + 0x40;
+    v1 = *(u32*)(s3 + 0x18);  /* PSX: gpr[2]/$v0 */
+    t0 = psx + 0x40;
     __at = 0xBF000000;
     FPU_REG(f0) = __at; /* mtc1 */
-    a3 = s2 + 0x2d0;
-    a0 = *(s16*)*(v1 + 0xc);
-    a2 = *(s16*)*(v1 + 6);
+    a3 = psx + 0x2d0;
+    a0 = *(s16*)(v1 + 0xc);  /* PSX: lo */
+    a2 = *(s16*)(v1 + 6);
     FPU_REG(f5) = a0; /* mtc1 */
-    __asm("cvt.s.w f5, f5");
-    a0 = *(s16*)*(v1 + 0xa);
-    ret = *(s16*)*(v1 + 8);
+    FPU_F(f5) = (float)(s32)FPU_REG(f5);
+    a0 = *(s16*)(v1 + 0xa);
+    ret = *(s16*)(v1 + 8);
     a2 = a2 + 1;
-    a1 = *(s16*)*(v1 + 4);
+    a1 = *(s16*)(v1 + 4);
     a0 = a0 + -1;
     ret = ret + 1;
     FPU_REG(f2) = a0; /* mtc1 */
-    __asm("cvt.s.w f2, f2");
+    FPU_F(f2) = (float)(s32)FPU_REG(f2);
     a1 = a1 + -1;
-    __asm("mul.s f0, f5, f0"); /* FPU */
+    FPU_F(f0) = FPU_F(f5) * FPU_F(f0); /* FPU */
     FPU_REG(f4) = ret; /* mtc1 */
-    __asm("cvt.s.w f4, f4");
-    s1->gpr[5] = 0;  /* gpr[5] (store) */
+    FPU_F(f4) = (float)(s32)FPU_REG(f4);
+    ((PSX_State*)psx_1)->gpr[5] = 0;  /* gpr[5] (store) */
     FPU_REG(f1) = a1; /* mtc1 */
-    __asm("cvt.s.w f1, f1");
-    s1->cop0[9] = 0;  /* cop0[9] (store) */
+    FPU_F(f1) = (float)(s32)FPU_REG(f1);
+    ((PSX_State*)psx_1)->cop0[9] = 0;  /* COP0: BDAM (store) */
     FPU_REG(f3) = a2; /* mtc1 */
-    __asm("cvt.s.w f3, f3");
-    s1->exec_handlers[5] = 0;  /* exec_handlers[5] (store) */
-    __asm("neg.s f2, f2");
-    __asm("swc1 f0, 0x110(s1)");
-    __asm("neg.s f4, f4");
-    __asm("swc1 f0, 0x20(s1)");
-    __asm("add.s f1, f1, f0"); /* FPU */
-    __asm("swc1 f0, 0x50(s1)");
-    __asm("add.s f3, f3, f0"); /* FPU */
+    FPU_F(f3) = (float)(s32)FPU_REG(f3);
+    ((PSX_State*)psx_1)->exec_handlers[5] = 0;  /* exec_handlers[5] (store) */
+    FPU_F(f2) = -FPU_F(f2);
+    *(float*)(psx_1 + 0x110) = FPU_F(f0);
+    FPU_F(f4) = -FPU_F(f4);
+    *(float*)(psx_1 + 0x20) = FPU_F(f0);
+    FPU_F(f1) = FPU_F(f1) + FPU_F(f0); /* FPU */
+    *(float*)(psx_1 + 0x50) = FPU_F(f0);
+    FPU_F(f3) = FPU_F(f3) + FPU_F(f0); /* FPU */
     __at = 0x3F800000;
     FPU_REG(f6) = __at; /* mtc1 */
-    __asm("add.s f5, f5, f0"); /* FPU */
-    __asm("swc1 f2, 0x174(s1)");
-    __asm("swc1 f4, 0x204(s1)");
-    __asm("swc1 f1, 0xe0(s1)");
-    __asm("swc1 f3, 0x1d0(s1)");
-    __asm("swc1 f5, 0x200(s1)");
-    __asm("swc1 f4, 0x54(s1)");
-    __asm("swc1 f1, 0x80(s1)");
-    __asm("swc1 f4, 0x84(s1)");
-    __asm("swc1 f1, 0xb0(s1)");
-    __asm("swc1 f2, 0xe4(s1)");
-    __asm("swc1 f2, 0x114(s1)");
-    __asm("swc1 f5, 0x140(s1)");
-    __asm("swc1 f2, 0x144(s1)");
-    __asm("swc1 f3, 0x170(s1)");
-    __asm("swc1 f3, 0x1a0(s1)");
-    __asm("swc1 f4, 0x1d4(s1)");
-    ret = *(u32*)*(s3 + 0x10);
-    __asm("lwc1 f0, 0x14(v0)");
-    __asm("swc1 f0, 0x10(sp)");
-    ret = *(u32*)*(s3 + 0x10);
-    __asm("lwc1 f0, 0x18(v0)");
-    __asm("swc1 f0, 0x14(sp)");
-    __asm("swc1 f6, 0x1c(sp)");
-    __asm("swc1 f6, 0x18(sp)");
-    ret = *(u64*)*(__sp + 16);
-    v1 = *(u64*)*(__sp + 24);
-    *(u64*)*(__sp + 0) = ret;
-    *(u64*)*(__sp + 8) = v1;
+    FPU_F(f5) = FPU_F(f5) + FPU_F(f0); /* FPU */
+    *(float*)(psx_1 + 0x174) = FPU_F(f2);
+    *(float*)(psx_1 + 0x204) = FPU_F(f4);
+    *(float*)(psx_1 + 0xe0) = FPU_F(f1);
+    *(float*)(psx_1 + 0x1d0) = FPU_F(f3);
+    *(float*)(psx_1 + 0x200) = FPU_F(f5);
+    *(float*)(psx_1 + 0x54) = FPU_F(f4);
+    *(float*)(psx_1 + 0x80) = FPU_F(f1);
+    *(float*)(psx_1 + 0x84) = FPU_F(f4);
+    *(float*)(psx_1 + 0xb0) = FPU_F(f1);
+    *(float*)(psx_1 + 0xe4) = FPU_F(f2);
+    *(float*)(psx_1 + 0x114) = FPU_F(f2);
+    *(float*)(psx_1 + 0x140) = FPU_F(f5);
+    *(float*)(psx_1 + 0x144) = FPU_F(f2);
+    *(float*)(psx_1 + 0x170) = FPU_F(f3);
+    *(float*)(psx_1 + 0x1a0) = FPU_F(f3);
+    *(float*)(psx_1 + 0x1d4) = FPU_F(f4);
+    ret = *(u32*)(s3 + 0x10);  /* PSX: gpr[0]/$zero */
+    FPU_F(f0) = *(float*)(ret + 0x14);  /* PSX: gpr[1]/$at */
+    *(float*)(__sp + 0x10) = FPU_F(f0);
+    ret = *(u32*)(s3 + 0x10);  /* PSX: gpr[0]/$zero */
+    FPU_F(f0) = *(float*)(ret + 0x18);  /* PSX: gpr[2]/$v0 */
+    *(float*)(__sp + 0x14) = FPU_F(f0);
+    *(float*)(__sp + 0x1c) = FPU_F(f6);
+    *(float*)(__sp + 0x18) = FPU_F(f6);
+    ret = *(u64*)(__sp + 16);
+    v1 = *(u64*)(__sp + 24);
+    *(u64*)(__sp + 0) = ret;
+    *(u64*)(__sp + 8) = v1;
     __asm("xori.b w0, w0, 0xa2");
-    __asm("cop2 v0, vi8");
+    __asm("cop2 ret, vi8");
     __asm("ldc2 4, (a3)");
     __asm("ldc2 5, 0x10(a3)");
     __asm("ldc2 6, 0x20(a3)");
@@ -2198,43 +2033,43 @@ loc_22C0DC:
     __asm("sdc2 5, 0x10(t0)");
     __asm("sdc2 6, 0x20(t0)");
     __asm("sdc2 7, 0x30(t0)");
-    ret = s2->field_2C8;  /* field_2C8 */
-    a1 = *(u32*)*(s3 + 0x18);
+    ret = ((PSX_State*)psx)->field_2C8;  /* field_2C8 */
+    a1 = *(u32*)(s3 + 0x18);  /* PSX: gpr[2]/$v0 */
     if (ret != 0) {
         FPU_REG(f1) = ret; /* mtc1 */
-        __asm("cvt.s.w f1, f1");
+        FPU_F(f1) = (float)(s32)FPU_REG(f1);
         __at = 0x3F000000;
         FPU_REG(f0) = __at; /* mtc1 */
-        __asm("mul.s f3, f1, f0"); /* FPU */
+        FPU_F(f3) = FPU_F(f1) * FPU_F(f0); /* FPU */
     } else {
         __at = 0x3F000000;
         FPU_REG(f0) = __at; /* mtc1 */
-        ret = *(s16*)*(a1 + 0xc);
+        ret = *(s16*)(a1 + 0xc);  /* PSX: lo */
         FPU_REG(f1) = ret; /* mtc1 */
-        __asm("cvt.s.w f1, f1");
-        __asm("mul.s f3, f1, f0"); /* FPU */
+        FPU_F(f1) = (float)(s32)FPU_REG(f1);
+        FPU_F(f3) = FPU_F(f1) * FPU_F(f0); /* FPU */
     }
-    ret = *(s16*)*(a1 + 0xa);
-    __asm("neg.s f2, f3");
-    v1 = *(s16*)*(a1 + 8);
+    ret = *(s16*)(a1 + 0xa);
+    FPU_F(f2) = -FPU_F(f3);
+    v1 = *(s16*)(a1 + 8);
     a3 = __sp + 0x20;
     FPU_REG(f1) = ret; /* mtc1 */
-    __asm("cvt.s.w f1, f1");
+    FPU_F(f1) = (float)(s32)FPU_REG(f1);
     ret = 0x10;
     FPU_REG(f0) = v1; /* mtc1 */
-    __asm("cvt.s.w f0, f0");
+    FPU_F(f0) = (float)(s32)FPU_REG(f0);
     v1 = 4;
-    __asm("swc1 f3, 0x40(sp)");
+    *(float*)(__sp + 0x40) = FPU_F(f3);
     a1 = a3;
-    __asm("swc1 f3, 0x30(sp)");
-    __asm("neg.s f1, f1");
-    __asm("swc1 f2, 0x50(sp)");
-    __asm("neg.s f0, f0");
-    __asm("swc1 f2, 0x20(sp)");
-    __asm("swc1 f1, 0x54(sp)");
-    __asm("swc1 f0, 0x34(sp)");
-    __asm("swc1 f0, 0x24(sp)");
-    __asm("swc1 f1, 0x44(sp)");
+    *(float*)(__sp + 0x30) = FPU_F(f3);
+    FPU_F(f1) = -FPU_F(f1);
+    *(float*)(__sp + 0x50) = FPU_F(f2);
+    FPU_F(f0) = -FPU_F(f0);
+    *(float*)(__sp + 0x20) = FPU_F(f2);
+    *(float*)(__sp + 0x54) = FPU_F(f1);
+    *(float*)(__sp + 0x34) = FPU_F(f0);
+    *(float*)(__sp + 0x24) = FPU_F(f0);
+    *(float*)(__sp + 0x44) = FPU_F(f1);
     __asm("ldc2 4, (t0)");
     __asm("ldc2 5, 0x10(t0)");
     __asm("ldc2 7, 0x30(t0)");
@@ -2247,23 +2082,23 @@ loc_22C0DC:
         __asm("sdc2 8, (a1)");
         a1 = a1 + ret;
     } while (0 != v1);
-    __asm("lwc1 f0, 0x54(sp)");
-    __asm("lwc1 f7, 0x74(s2)");
+    FPU_F(f0) = *(float*)(__sp + 0x54);  /* PSX: gpr[17]/$s1 */
+    FPU_F(f7) = *(float*)(psx + 0x74);  /* PSX: gpr[25]/$t9 */
     ret = 0x7FFFFFFF;
     FPU_REG(f9) = 0; /* mtc1 */
     a2 = 0;
-    __asm("sub.s f2, f0, f7"); /* FPU */
-    __asm("lwc1 f0, 0x50(sp)");
-    __asm("lwc1 f6, 0x70(s2)");
-    __asm("mov.s f8, f9");
+    FPU_F(f2) = FPU_F(f0) - FPU_F(f7); /* FPU */
+    FPU_F(f0) = *(float*)(__sp + 0x50);  /* PSX: gpr[16]/$s0 */
+    FPU_F(f6) = *(float*)(psx + 0x70);  /* PSX: gpr[24]/$t8 */
+    FPU_F(f8) = FPU_F(f9);
     v1 = FPU_REG(f2); /* mfc1 */
     ret = v1 & ret;
-    __asm("sub.s f5, f0, f6"); /* FPU */
+    FPU_F(f5) = FPU_F(f0) - FPU_F(f6); /* FPU */
     if (ret != 0) {
         v1 = (unsigned)v1 >> 0x1f;
         a2 = 1;
         ret = -1;
-        __asm("movn a2, v0, v1");
+        if (v1 != 0) a2 = ret;
     }
     FPU_REG(f10) = 0; /* mtc1 */
     a1 = a3;
@@ -2272,62 +2107,62 @@ loc_22C0DC:
     t3 = -1;
     t2 = 1;
 loc_22C368:
-    __asm("lwc1 f1, 4(a1)");
+    FPU_F(f1) = *(float*)(a1 + 4);
     a0 = 0;
     __asm("lwc1 f0, (a1)");
-    __asm("sub.s f4, f1, f7"); /* FPU */
+    FPU_F(f4) = FPU_F(f1) - FPU_F(f7); /* FPU */
     v1 = FPU_REG(f4); /* mfc1 */
     ret = v1 & t1;
-    __asm("sub.s f3, f0, f6"); /* FPU */
+    FPU_F(f3) = FPU_F(f0) - FPU_F(f6); /* FPU */
     if (ret != 0) {
         ret = (unsigned)v1 >> 0x1f;
         a0 = t2;
-        __asm("movn a0, t3, v0");
+        if (ret != 0) a0 = t3;
     }
-    __asm("mov.s f0, f3");
+    FPU_F(f0) = FPU_F(f3);
     if (a0 != 0) {
         a3 = a3 + -1;
-        if (likely(a2 == a0)) goto loc_22C3F4;
+        if (a2 == a0) goto loc_22C3F4;
         a3 = a3 + -1;
-        if (likely(a2 == 0)) goto loc_22C3F4;
-        __asm("sub.s f1, f10, f2"); /* FPU */
-        __asm("sub.s f0, f3, f5"); /* FPU */
-        __asm("sub.s f2, f4, f2"); /* FPU */
-        __asm("mul.s f0, f0, f1"); /* FPU */
-        __asm("div.s f0, f0, f2"); /* FPU */
-        __asm("add.s f0, f5, f0"); /* FPU */
+        if (a2 == 0) goto loc_22C3F4;
+        FPU_F(f1) = FPU_F(f10) - FPU_F(f2); /* FPU */
+        FPU_F(f0) = FPU_F(f3) - FPU_F(f5); /* FPU */
+        FPU_F(f2) = FPU_F(f4) - FPU_F(f2); /* FPU */
+        FPU_F(f0) = FPU_F(f0) * FPU_F(f1); /* FPU */
+        FPU_F(f0) = FPU_F(f0) / FPU_F(f2); /* FPU */
+        FPU_F(f0) = FPU_F(f5) + FPU_F(f0); /* FPU */
     }
-    __asm("c.olt.s f0, f8"); /* FPU */
+    __fpu_cc = (FPU_F(f0) < FPU_F(f8)); /* FPU */
     __asm("bc1tl 0x22c3e0");
-    __asm("mov.s f8, f0");
-    __asm("c.olt.s f9, f0"); /* FPU */
+    FPU_F(f8) = FPU_F(f0);
+    __fpu_cc = (FPU_F(f9) < FPU_F(f0)); /* FPU */
     __asm("bc1tl 0x22c3f0");
-    __asm("mov.s f9, f0");
+    FPU_F(f9) = FPU_F(f0);
     a3 = a3 + -1;
 loc_22C3F4:
-    __asm("mov.s f5, f3");
-    __asm("mov.s f2, f4");
+    FPU_F(f5) = FPU_F(f3);
+    FPU_F(f2) = FPU_F(f4);
     a2 = a0;
     a1 = a1 + 0x10;
     if ((signed)a3 >= 0) goto loc_22C368;
-    __asm("lwc1 f1, 0x320(s2)");
-    v1 = *(u128*)&s2->gpr[24];  /* gpr[24] */
-    __asm("sub.s f1, f1, f8"); /* FPU */
-    __asm("swc1 f1, 0x320(s2)");
-    __asm("ld.b w12, -0x1be(zero)");
-    __asm("cop2 v0, vi4");
+    FPU_F(f1) = *(float*)(psx + 0x320);  /* PSX: gpu_depth_bias */
+    v1 = *(u128*)&((PSX_State*)psx)->gpr[24];  /* gpr[24] */
+    FPU_F(f1) = FPU_F(f1) - FPU_F(f8); /* FPU */
+    *(float*)(psx + 0x320) = FPU_F(f1);
+    __asm("ld.b w12, -0x1be(0)");
+    __asm("cop2 ret, vi4");
     __asm("cop2 v1, vi5");
     __asm("vu0_cop2 0x4be52128");
-    __asm("cop2 v0, vi4");
-    __asm("lwc1 f0, 0x2cc(s2)");
+    __asm("cop2 ret, vi4");
+    FPU_F(f0) = *(float*)(psx + 0x2cc);  /* PSX: irq_pending */
     t1 = 0xb;
-    __asm("dps.w.ph ac0, s2, v0");
+    __asm("dps.w.ph ac0, psx, ret");
     ret = 0x30;
-    __asm("add.s f0, f9, f0"); /* FPU */
-    a0 = s1 + 0x20;
+    FPU_F(f0) = FPU_F(f9) + FPU_F(f0); /* FPU */
+    a0 = psx_1 + 0x20;
     a1 = t1;
-    __asm("add.s f1, f1, f0"); /* FPU */
-    __asm("swc1 f1, 0x320(s2)");
+    FPU_F(f1) = FPU_F(f1) + FPU_F(f0); /* FPU */
+    *(float*)(psx + 0x320) = FPU_F(f1);
     __asm("ldc2 4, (t0)");
     __asm("ldc2 5, 0x10(t0)");
     __asm("ldc2 7, 0x30(t0)");
@@ -2340,31 +2175,31 @@ loc_22C3F4:
         __asm("sdc2 8, (a0)");
         a0 = a0 + ret;
     } while (0 != a1);
-    v1 = s2->gte_execute;  /* gte_execute */
+    v1 = ((PSX_State*)psx)->gte_execute;  /* gte_execute */
     a2 = __sp + 0x10;
     if (v1 != 0) {
-        __asm("lwc1 f0, 0x338(s2)");
+        FPU_F(f0) = *(float*)(psx + 0x338);  /* PSX: gpu_matrix[2] */
         __asm("swc1 f0, (sp)");
-        __asm("lwc1 f1, 0x330(s2)");
-        *(u32*)*(__sp + 8) = 0;
-        __asm("swc1 f1, 4(sp)");
+        FPU_F(f1) = *(float*)(psx + 0x330);  /* PSX: gpu_matrix[0] */
+        *(u32*)(__sp + 8) = 0;
+        *(float*)(__sp + 4) = FPU_F(f1);
         local_0C = 0;
-        ret = *(u64*)*(__sp + 0);
-        v1 = *(u64*)*(__sp + 8);
-        *(u64*)*(__sp + 16) = ret;
-        *(u64*)*(__sp + 24) = v1;
-        __asm("lwc1 f0, 0x33c(s2)");
-        __asm("swc1 f0, 0x60(sp)");
-        __asm("lwc1 f1, 0x334(s2)");
+        ret = *(u64*)(__sp + 0);
+        v1 = *(u64*)(__sp + 8);
+        *(u64*)(__sp + 16) = ret;
+        *(u64*)(__sp + 24) = v1;
+        FPU_F(f0) = *(float*)(psx + 0x33c);  /* PSX: gpu_matrix[3] */
+        *(float*)(__sp + 0x60) = FPU_F(f0);
+        FPU_F(f1) = *(float*)(psx + 0x334);  /* PSX: gpu_matrix[1] */
         local_68 = 0;
-        __asm("swc1 f1, 0x64(sp)");
+        *(float*)(__sp + 0x64) = FPU_F(f1);
         local_6C = 0;
-        ret = *(u64*)*(__sp + 96);
-        v1 = *(u64*)*(__sp + 104);
-        *(u64*)*(__sp + 0) = ret;
-        *(u64*)*(__sp + 8) = v1;
+        ret = *(u64*)(__sp + 96);
+        v1 = *(u64*)(__sp + 104);
+        *(u64*)(__sp + 0) = ret;
+        *(u64*)(__sp + 8) = v1;
         __asm("ave_s.h w1, w0, w5");
-        __asm("ld.b w3, -0x1dc(zero)");
+        __asm("ld.b w3, -0x1dc(0)");
         __asm("ave_s.h w4, w0, w3");
         __asm("nori.b w8, w0, 0x22");
         __asm("ldc2 4, (a2)");
@@ -2378,44 +2213,44 @@ loc_22C3F4:
         __asm("cop2 v1, vi6");
         __asm("vu0_cop2 0x4be6212f");
         __asm("vu0_cop2 0x4be6296b");
-        __asm("cop2 v0, vi6");
+        __asm("cop2 ret, vi6");
         __asm("vu0_cop2 0x4be6212f");
         __asm("vu0_cop2 0x4be6296b");
         __asm("sdc2 4, (a2)");
         __asm("sdc2 5, (sp)");
-        __asm("lwc1 f1, 0x10(sp)");
+        FPU_F(f1) = *(float*)(__sp + 0x10);  /* PSX: gpr[0]/$zero */
         a3 = __sp + 0x60;
         a2 = __sp + 0x70;
-        __asm("swc1 f1, 0x338(s2)");
+        *(float*)(psx + 0x338) = FPU_F(f1);
         __asm("lwc1 f0, (sp)");
-        __asm("swc1 f0, 0x33c(s2)");
-        __asm("lwc1 f1, 0x14(sp)");
-        __asm("swc1 f1, 0x330(s2)");
-        __asm("lwc1 f0, 4(sp)");
-        __asm("swc1 f0, 0x334(s2)");
-        __asm("lwc1 f0, 0x348(s2)");
-        __asm("swc1 f0, 0x70(sp)");
-        __asm("lwc1 f1, 0x340(s2)");
+        *(float*)(psx + 0x33c) = FPU_F(f0);
+        FPU_F(f1) = *(float*)(__sp + 0x14);  /* PSX: gpr[1]/$at */
+        *(float*)(psx + 0x330) = FPU_F(f1);
+        FPU_F(f0) = *(float*)(__sp + 4);
+        *(float*)(psx + 0x334) = FPU_F(f0);
+        FPU_F(f0) = *(float*)(psx + 0x348);  /* PSX: gpu_viewport[2] */
+        *(float*)(__sp + 0x70) = FPU_F(f0);
+        FPU_F(f1) = *(float*)(psx + 0x340);  /* PSX: gpu_viewport[0] */
         local_78 = 0;
-        __asm("swc1 f1, 0x74(sp)");
+        *(float*)(__sp + 0x74) = FPU_F(f1);
         local_7C = 0;
-        ret = *(u64*)*(__sp + 112);
-        v1 = *(u64*)*(__sp + 120);
-        *(u64*)*(__sp + 96) = ret;
-        *(u64*)*(__sp + 104) = v1;
-        __asm("lwc1 f0, 0x34c(s2)");
-        __asm("swc1 f0, 0x80(sp)");
-        __asm("lwc1 f1, 0x344(s2)");
+        ret = *(u64*)(__sp + 112);
+        v1 = *(u64*)(__sp + 120);
+        *(u64*)(__sp + 96) = ret;
+        *(u64*)(__sp + 104) = v1;
+        FPU_F(f0) = *(float*)(psx + 0x34c);  /* PSX: gpu_viewport[3] */
+        *(float*)(__sp + 0x80) = FPU_F(f0);
+        FPU_F(f1) = *(float*)(psx + 0x344);  /* PSX: gpu_viewport[1] */
         local_88 = 0;
-        __asm("swc1 f1, 0x84(sp)");
+        *(float*)(__sp + 0x84) = FPU_F(f1);
         local_8C = 0;
-        ret = *(u64*)*(__sp + 128);
-        v1 = *(u64*)*(__sp + 136);
-        *(u64*)*(__sp + 112) = ret;
-        *(u64*)*(__sp + 120) = v1;
+        ret = *(u64*)(__sp + 128);
+        v1 = *(u64*)(__sp + 136);
+        *(u64*)(__sp + 112) = ret;
+        *(u64*)(__sp + 120) = v1;
         __asm("nori.b w2, w0, 0x25");
-        a0 = *(u128*)&s1->cop0[8];  /* cop0[8] */
-        v1 = *(u128*)&s1->hw_state[24];  /* hw_state[24] */
+        a0 = *(u128*)&((PSX_State*)psx_1)->cop0[8];  /* COP0: BadVaddr */
+        v1 = *(u128*)&((PSX_State*)psx_1)->hw_state[24];  /* hw_state[24] */
         __asm("ave_s.h w7, w0, w2");
         __asm("ldc2 4, (a3)");
         __asm("ldc2 5, (a2)");
@@ -2428,46 +2263,44 @@ loc_22C3F4:
         __asm("cop2 v1, vi6");
         __asm("vu0_cop2 0x4be6212f");
         __asm("vu0_cop2 0x4be6296b");
-        __asm("cop2 v0, vi6");
+        __asm("cop2 ret, vi6");
         __asm("vu0_cop2 0x4be6212f");
         __asm("vu0_cop2 0x4be6296b");
         __asm("sdc2 4, (a3)");
         __asm("sdc2 5, (a2)");
-        __asm("lwc1 f0, 0x60(sp)");
-        __asm("swc1 f0, 0x348(s2)");
-        __asm("lwc1 f1, 0x70(sp)");
-        __asm("swc1 f1, 0x34c(s2)");
-        __asm("lwc1 f0, 0x64(sp)");
-        __asm("swc1 f0, 0x340(s2)");
-        __asm("lwc1 f1, 0x74(sp)");
-        __asm("swc1 f1, 0x344(s2)");
+        FPU_F(f0) = *(float*)(__sp + 0x60);  /* PSX: gpr[20]/$s4 */
+        *(float*)(psx + 0x348) = FPU_F(f0);
+        FPU_F(f1) = *(float*)(__sp + 0x70);  /* PSX: gpr[24]/$t8 */
+        *(float*)(psx + 0x34c) = FPU_F(f1);
+        FPU_F(f0) = *(float*)(__sp + 0x64);  /* PSX: gpr[21]/$s5 */
+        *(float*)(psx + 0x340) = FPU_F(f0);
+        FPU_F(f1) = *(float*)(__sp + 0x74);  /* PSX: gpr[25]/$t9 */
+        *(float*)(psx + 0x344) = FPU_F(f1);
     }
-    ret = s2->cop2_insn_count;  /* cop2_insn_count */
+    ret = ((PSX_State*)psx)->cop2_insn_count;  /* cop2_insn_count */
     v1 = 1;
     if (ret != 0) {
-        ret = *(u16*)*(s2 + 0x368);
+        ret = *(u16*)(psx + 0x368);  /* PSX: disp_width */
         __at = 0x3F800000;
         FPU_REG(f1) = __at; /* mtc1 */
-        a1 = s1;
+        a1 = psx_1;
         ret = v1 << ret;
         FPU_REG(f0) = ret; /* mtc1 */
-        __asm("cvt.s.w f0, f0");
-        __asm("div.s f0, f1, f0"); /* FPU */
-        __asm("swc1 f0, 0x70(sp)");
-        ret = *(u16*)*(s2 + 0x36a);
-        __asm("swc1 f1, 0x78(sp)");
+        FPU_F(f0) = (float)(s32)FPU_REG(f0);
+        FPU_F(f0) = FPU_F(f1) / FPU_F(f0); /* FPU */
+        *(float*)(__sp + 0x70) = FPU_F(f0);
+        ret = *(u16*)(psx + 0x36a);  /* PSX: disp_height */
+        *(float*)(__sp + 0x78) = FPU_F(f1);
         v1 = v1 << ret;
         local_7C = 0;
         FPU_REG(f0) = v1; /* mtc1 */
-        __asm("cvt.s.w f0, f0");
-        ret = *(u64*)*(__sp + 120);
-        *(u64*)*(__sp + 136) = ret;
-        __asm("div.s f1, f1, f0"); /* FPU */
-        __asm("swc1 f1, 0x74(sp)");
-        v1 = *(u64*)*(__sp + 112);
-        *(u64*)*(__sp + 128) = v1;
+        FPU_F(f0) = (float)(s32)FPU_REG(f0);
+        *(u64*)(__sp + 136) = *(u64*)(__sp + 120);
+        FPU_F(f1) = FPU_F(f1) / FPU_F(f0); /* FPU */
+        *(float*)(__sp + 0x74) = FPU_F(f1);
+        *(u64*)(__sp + 128) = *(u64*)(__sp + 112);
         __asm("xori.b w2, w0, 0xa2");
-        __asm("cop2 v0, vi10");
+        __asm("cop2 ret, vi10");
         __asm("ldc2 4, (s6)");
         __asm("ldc2 5, 0x10(s6)");
         __asm("ldc2 6, 0x20(s6)");
@@ -2494,14 +2327,14 @@ loc_22C3F4:
             __asm("sdc2 8, 0x20(a1)");
             __asm("addi a1, a1, 0x30");
         } while (0 != t1);
-        v1 = s1 + 0x30;
-        ret = s1 + 0x210;
+        v1 = psx_1 + 0x30;
+        ret = psx_1 + 0x210;
         __asm("andi.b w0, w0, 0x66");
         __asm("add_a.d w0, w0, w5");
-        __asm("ld.b w0, 0x64(zero)");
-        __asm("ext a2, v0, 0, 1");
-        __asm("addu.qb zero, v0, a1");
-        *(u128*)*(ret + 32) = a0;  /* sq */
+        __asm("ld.b w0, 0x64(0)");
+        __asm("ext a2, ret, 0, 1");
+        __asm("addu.qb 0, ret, a1");
+        *(u128*)(ret + 32) = a0;  /* sq */
     }
     ret = 0;
 loc_22C720:
@@ -2509,30 +2342,28 @@ loc_22C720:
 }
 
 /* Function at 0x0022C748 - 0x0022C758 */
-int PFont_CalcSlotOffset()
+u32 PFont_CalcSlotOffset(u32 a0)
 {
-    int ret, a0;
-    ret = a0 << 5;
-    ret = ret + 0x3a0;
-    return ret;
+    u32 ret;
+    return ret + 0x3a0;
 }
 
 /* Function at 0x0022C758 - 0x0022C828 */
-int PFont_Init()
+u32 PFont_Init(u32 a0, u32 a1)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1;
+    u32 ret, v1, a2, a3, s0, s1;
     a2 = 0x3a0;
     s1 = a1;
     s0 = a0;
     a1 = 0;
     a0 = s1;
-    ret = Libc_Memset(a0, a1, a2, a3);
+    ret = Libc_Memset(a0, a1, a2);
     v1 = s1 + 0x3a0;
-    ret = 0x0022CD30;
-    *(u32*)*(s1 + 0x374) = s0;
-    *(u32*)*(s1 + 0x378) = v1;
-    *(u32*)*(s1 + 0x398) = ret;
+    ret = (u32)PFont_IterateCallbacks;
+    *(u32*)(s1 + 0x374) = s0;
+    *(u32*)(s1 + 0x378) = v1;
+    *(u32*)(s1 + 0x398) = ret;
     __asm("vu0_cop2 0x4be0012c");
     __asm("vu0_cop2 0x4a202128");
     __asm("vu0_cop2 0x4be5233d");
@@ -2542,21 +2373,21 @@ int PFont_Init()
     __asm("sdc2 5, 0x20(s1)");
     __asm("sdc2 6, 0x10(s1)");
     __asm("sdc2 7, (s1)");
-    a0 = *(u32*)*(s1 + 0x374);
+    a0 = *(u32*)(s1 + 0x374);
     ret = -1;
-    v1 = *(u32*)*(s1 + 0x378);
+    v1 = *(u32*)(s1 + 0x378);
     a1 = 0;
     a0 = a0 + -1;
-    *(u32*)*(s1 + 0x2c8) = 0;
-    *(u32*)*(s1 + 0x37c) = v1;
+    *(u32*)(s1 + 0x2c8) = 0;
+    *(u32*)(s1 + 0x37c) = v1;
     if (a0 != ret) {
         do {
-            *(u32*)*(v1 + 0xc) = 0;
+            *(u32*)(v1 + 0xc) = 0;
             *(u32*)(v1) = 0;
-            *(u32*)*(v1 + 4) = 0;
-            *(u32*)*(v1 + 8) = ret;
+            *(u32*)(v1 + 4) = 0;
+            *(u32*)(v1 + 8) = ret;
             if (a1 != 0) {
-                *(u32*)*(a1 + 0xc) = v1;
+                *(u32*)(a1 + 0xc) = v1;
             }
             a0 = a0 + -1;
             a1 = v1;
@@ -2564,370 +2395,358 @@ int PFont_Init()
         } while (a0 != ret);
     }
     a0 = s1;
-    ret = PFont_LoadUnitScale(a0, a1, a2, a3);
-    ret = s1;
-    return ret;
+    PFont_LoadUnitScale();
+    return s1;
 }
 
 /* Function at 0x0022C828 - 0x0022C848 */
-int PFont_Clear()
+u32 PFont_Clear(void)
 {
     /* Stack frame: 16 bytes */
-    int a0, a1, a2, a3;
+    u32 a0, a1, a2, a3;
     a1 = 0;
     a2 = 0x3a0;
-    return Libc_Memset(a0, a1, a2, a3);
+    return Libc_Memset(a0, a1, a2);
 }
 
 /* Function at 0x0022C848 - 0x0022C858 */
-int PFont_GetSetCallback()
+u32 PFont_GetSetCallback(u32 a0, u32 a1)
 {
-    int ret, a0, a1;
-    ret = *(u32*)*(a0 + 0x384);
-    *(u32*)*(a0 + 0x384) = a1;
+    u32 ret;
+    ret = *(u32*)(a0 + 0x384);
+    *(u32*)(a0 + 0x384) = a1;
     return ret;
 }
 
 /* Function at 0x0022C858 - 0x0022C880 */
-int PFont_SetParams()
+u32 PFont_SetParams(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
+    u32 ret;
     ret = a0;
-    *(u32*)*(ret + 0x354) = a1;
-    *(u32*)*(ret + 0x350) = a2;
-    *(u32*)*(ret + 0x358) = a3;
-    return PFont_ResetTraversal(a0, a1, a2, a3);
+    *(u32*)(ret + 0x354) = a1;
+    *(u32*)(ret + 0x350) = a2;
+    *(u32*)(ret + 0x358) = a3;
+    return PFont_ResetTraversal(a0);
 }
 
 /* Function at 0x0022C880 - 0x0022C888 */
-int PFont_LoadUnitScale()
+void PFont_LoadUnitScale(void)
 {
     __at = 0x3F800000;
     FPU_REG(f0) = __at; /* mtc1 */
 }
 
 /* Function at 0x0022C888 - 0x0022C910 */
-int PFont_ResetState()
+u32 PFont_ResetState(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, v0, a0, a1, a2, a3;
+    u32 ret, a1, a2, a3;
     ret = a0 + 0x2d0;
-    *(u32*)*(a0 + 0x320) = 0;
-    __asm("swc1 f0, 0x31c(a0)");
-    *(u32*)*(a0 + 0x324) = 0;
-    *(u32*)*(a0 + 0x328) = 0;
-    *(u32*)*(a0 + 0x32c) = 0;
-    __asm("swc1 f0, 0x310(a0)");
-    __asm("swc1 f0, 0x314(a0)");
-    __asm("swc1 f0, 0x318(a0)");
+    *(u32*)(a0 + 0x320) = 0;
+    *(float*)(a0 + 0x31c) = FPU_F(f0);
+    *(u32*)(a0 + 0x324) = 0;
+    *(u32*)(a0 + 0x328) = 0;
+    *(u32*)(a0 + 0x32c) = 0;
+    *(float*)(a0 + 0x310) = FPU_F(f0);
+    *(float*)(a0 + 0x314) = FPU_F(f0);
+    *(float*)(a0 + 0x318) = FPU_F(f0);
     __asm("vu0_cop2 0x4be0012c");
     __asm("vu0_cop2 0x4a202128");
     __asm("vu0_cop2 0x4be5233d");
     __asm("vu0_cop2 0x4be62b3d");
     __asm("vu0_cop2 0x4be7333d");
-    __asm("sdc2 4, 0x30(v0)");
-    __asm("sdc2 5, 0x20(v0)");
-    __asm("sdc2 6, 0x10(v0)");
-    __asm("sdc2 7, (v0)");
-    *(u32*)*(a0 + 0x390) = 0;
-    *(u32*)*(a0 + 0x394) = 0;
-    ret = *(u32*)*(a0 + 0x37c);
-    *(u32*)(v0) = 0;
+    __asm("sdc2 4, 0x30(ret)");
+    __asm("sdc2 5, 0x20(ret)");
+    __asm("sdc2 6, 0x10(ret)");
+    __asm("sdc2 7, (ret)");
+    *(u32*)(a0 + 0x390) = 0;
+    *(u32*)(a0 + 0x394) = 0;
+    ret = *(u32*)(a0 + 0x37c);
+    *(u32*)(ret) = 0;
     do {
-        ret = *(u32*)*(ret + 0xc);
-        *(u32*)(v0) = 0;
-    } while (likely(ret != 0));
-    return PFont_ResetTraversal(a0, a1, a2, a3);
+        ret = *(u32*)(ret + 0xc);  /* PSX: lo */
+        *(u32*)(ret) = 0;
+    } while (ret != 0);
+    return PFont_ResetTraversal(a0);
 }
 
 /* Function at 0x0022C910 - 0x0022C914 */
-int PFont_GetWord()
+void PFont_GetWord(u32 a0, u32 a1)
 {
-    int ret, a1;
+    u32 ret;
     ret = *(u32*)(a1);
 }
 
 /* Function at 0x0022C914 - 0x0022CA08 */
-int PFont_SetFont()
+u32 PFont_SetFont(u32 a0, u32 a1)
 {
     /* Stack frame: 16 bytes */
-    int ret, v0, a0, a1, a2, a3;
+    u32 ret, a2, a3;
     if (ret == 0) {
-        ret = *(u32*)*(a1 + 4);
-        ret = a0 + 0x2d0;
             ret = -1;
             goto loc_22C9C0;
         }
     __at = 0x3F800000;
     FPU_REG(f0) = __at; /* mtc1 */
-    *(u32*)*(a0 + 0x380) = a1;
-    __asm("swc1 f0, 0x31c(a0)");
-    *(u32*)*(a0 + 0x320) = 0;
-    *(u32*)*(a0 + 0x324) = 0;
-    *(u32*)*(a0 + 0x328) = 0;
-    *(u32*)*(a0 + 0x32c) = 0;
-    __asm("swc1 f0, 0x310(a0)");
-    __asm("swc1 f0, 0x314(a0)");
-    __asm("swc1 f0, 0x318(a0)");
+    *(u32*)(a0 + 0x380) = a1;
+    *(float*)(a0 + 0x31c) = FPU_F(f0);
+    *(u32*)(a0 + 0x320) = 0;
+    *(u32*)(a0 + 0x324) = 0;
+    *(u32*)(a0 + 0x328) = 0;
+    *(u32*)(a0 + 0x32c) = 0;
+    *(float*)(a0 + 0x310) = FPU_F(f0);
+    *(float*)(a0 + 0x314) = FPU_F(f0);
+    *(float*)(a0 + 0x318) = FPU_F(f0);
     __asm("vu0_cop2 0x4be0012c");
     __asm("vu0_cop2 0x4a202128");
     __asm("vu0_cop2 0x4be5233d");
     __asm("vu0_cop2 0x4be62b3d");
     __asm("vu0_cop2 0x4be7333d");
-    __asm("sdc2 4, 0x30(v0)");
-    __asm("sdc2 5, 0x20(v0)");
-    __asm("sdc2 6, 0x10(v0)");
-    __asm("sdc2 7, (v0)");
-    *(u32*)*(a0 + 0x390) = 0;
-    *(u32*)*(a0 + 0x394) = 0;
-    ret = *(u32*)*(a0 + 0x37c);
-    *(u32*)(v0) = 0;
+    __asm("sdc2 4, 0x30(ret)");
+    __asm("sdc2 5, 0x20(ret)");
+    __asm("sdc2 6, 0x10(ret)");
+    __asm("sdc2 7, (ret)");
+    *(u32*)(a0 + 0x390) = 0;
+    *(u32*)(a0 + 0x394) = 0;
+    ret = *(u32*)(a0 + 0x37c);
+    *(u32*)(ret) = 0;
     do {
-        ret = *(u32*)*(ret + 0xc);
-        *(u32*)(v0) = 0;
-    } while (likely(ret != 0));
-    ret = PFont_ResetTraversal(a0, a1, a2, a3);
+        ret = *(u32*)(ret + 0xc);  /* PSX: lo */
+        *(u32*)(ret) = 0;
+    } while (ret != 0);
+    ret = PFont_ResetTraversal(a0);
     ret = 0;
 loc_22C9C0:
-    return ret;
     return ret;
 }
 
 /* Function at 0x0022CA08 - 0x0022CA20 */
-int PFont_Flush()
+void PFont_Flush(void)
 {
+    u32 a2, a0, a1, a3;
     /* Stack frame: 16 bytes */
-    goto loc_239BF0;
+    System_QuadLoad(a0, a1, a2, a3); return;
 }
 
 /* Function at 0x0022CA20 - 0x0022CA40 */
-int PFont_FlushWithArgs()
+void PFont_FlushWithArgs(u32 a0, u32 a1)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1;
+    u32 ret, a2, a3;
     ret = a0;
     a0 = a1;
     a1 = ret;
-    goto loc_239BF0;
+    System_QuadLoad(a0, a1, a2, a3); return;
 }
 
 /* Function at 0x0022CA40 - 0x0022CA58 */
-int PFont_FlushMatrix()
+u32 PFont_FlushMatrix(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int a0;
+    u32 a1, a2, a3;
+
     a0 = a0 + 0x2d0;
-    goto loc_239BF0;
+    System_QuadLoad(a0, a1, a2, a3); return;
 }
 
 /* Function at 0x0022CA58 - 0x0022CA78 */
-int PFont_FlushMatrixArgs()
+void PFont_FlushMatrixArgs(u32 a0, u32 a1)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1;
+    u32 ret, a2, a3;
     ret = a0 + 0x2d0;
     a0 = a1;
     a1 = ret;
-    goto loc_239BF0;
+    System_QuadLoad(a0, a1, a2, a3); return;
 }
 
 /* Function at 0x0022CA78 - 0x0022CA90 */
-int PFont_GetPosition()
+u32 PFont_GetPosition(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int a0, a1, a2, a3;
+    u32 a1, a2, a3;
     a0 = a0 + 0x320;
-    return System_QuadLoad(a0, a1, a2, a3);
+    return System_QuadLoad(a0, a1);
 }
 
 /* Function at 0x0022CA90 - 0x0022CAB0 */
-int PFont_SetPosition()
+u32 PFont_SetPosition(u32 a0, u32 a1)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
+    u32 ret, a2, a3;
     ret = a0 + 0x320;
     a0 = a1;
     a1 = ret;
-    return System_QuadLoad(a0, a1, a2, a3);
+    return System_QuadLoad(a0, a1);
 }
 
 /* Function at 0x0022CAB0 - 0x0022CAC8 */
-int PFont_GetScale()
+u32 PFont_GetScale(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int a0, a1, a2, a3;
+    u32 a1, a2, a3;
     a0 = a0 + 0x310;
-    return System_QuadLoad(a0, a1, a2, a3);
+    return System_QuadLoad(a0, a1);
 }
 
 /* Function at 0x0022CAC8 - 0x0022CB10 */
-int PFont_SetScale()
+u32 PFont_SetScale(u32 a0, u32 a1)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
+    u32 ret, a2, a3;
     ret = a0 + 0x310;
     a0 = a1;
     a1 = ret;
-    return System_QuadLoad(a0, a1, a2, a3);
+    return System_QuadLoad(a0, a1);
 }
 
 /* Function at 0x0022CB10 - 0x0022CB48 */
-int PFont_SetDisplayMode()
+u32 PFont_SetDisplayMode(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1;
     ret = a0;
     v1 = 1;
-    *(u32*)*(ret + 0x38c) = a1;
+    *(u32*)(ret + 0x38c) = a1;
     a1 = a3;
-    *(u32*)*(ret + 0x388) = a2;
-    *(u32*)*(ret + 0x36c) = v1;
-    *(u32*)*(ret + 0x2c4) = v1;
-    *(u32*)*(ret + 0x2c0) = 0;
-    return PFont_RenderText(a0, a1, a2, a3);
+    *(u32*)(ret + 0x388) = a2;
+    *(u32*)(ret + 0x36c) = v1;
+    *(u32*)(ret + 0x2c4) = v1;
+    *(u32*)(ret + 0x2c0) = 0;
+    return PFont_RenderText(a0, a1);
 }
 
 /* Function at 0x0022CB48 - 0x0022CB78 */
-int PFont_SetTextCursor()
+u32 PFont_SetTextCursor(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1;
     ret = a0;
     v1 = 1;
-    *(u32*)*(ret + 0x394) = a3;
-    *(u32*)*(ret + 0x36c) = v1;
-    *(u32*)*(ret + 0x2c4) = v1;
-    *(u32*)*(ret + 0x2c0) = 0;
-    *(u32*)*(ret + 0x390) = a3;
-    return PFont_ProcessTextCursor(a0, a1, a2, a3);
+    *(u32*)(ret + 0x394) = a3;
+    *(u32*)(ret + 0x36c) = v1;
+    *(u32*)(ret + 0x2c4) = v1;
+    *(u32*)(ret + 0x2c0) = 0;
+    *(u32*)(ret + 0x390) = a3;
+    return PFont_ProcessTextCursor(a0, a1, a2);
 }
 
 /* Function at 0x0022CB78 - 0x0022CBB8 */
-int PFont_ProcessTextCursor()
+u32 PFont_ProcessTextCursor(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1, a3;
     a3 = a0;
-    v1 = *(u32*)*(a3 + 0x390);
+    v1 = *(u32*)(a3 + 0x390);
     ret = 0;
     if (v1 != 0) {
-        *(u32*)*(a3 + 0x38c) = a1;
-        *(u32*)*(a3 + 0x388) = a2;
-        ret = *(u32*)*(a3 + 0x398);
+        *(u32*)(a3 + 0x38c) = a1;
+        *(u32*)(a3 + 0x388) = a2;
+        ret = *(u32*)(a3 + 0x398);
         a1 = 0x004EDE00;
-        ret = (ret)(a0, a1, a2, a3); /* indirect call */
+        ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
     }
     return ret;
 }
 
 /* Function at 0x0022CBB8 - 0x0022CD30 */
-int PFont_RenderGlyphs()
+u32 PFont_RenderGlyphs(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 192 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, t0;
-    s0 = a0;
+    u32 ret, v1, psx, s1, s2, s3, t0;
+    psx = a0;
     v1 = __sp;
     s1 = a1;
     s2 = a2;
     s3 = a3;
-    ret = s0 + 0x2c0;
-    a0 = s0 + 0x340;
+    ret = psx + 0x2c0;
+    a0 = psx + 0x340;
     do {
-        a1 = *(u64*)*(ret + 0);
-        a2 = *(u64*)*(ret + 8);
-        a3 = *(u64*)*(ret + 16);
-        t0 = *(u64*)*(ret + 24);
-        *(u64*)*(v1 + 0) = a1;
-        *(u64*)*(v1 + 8) = a2;
-        *(u64*)*(v1 + 16) = a3;
-        *(u64*)*(v1 + 24) = t0;
+        a1 = *(u64*)(ret + 0);
+        a2 = *(u64*)(ret + 8);
+        a3 = *(u64*)(ret + 16);
+        t0 = *(u64*)(ret + 24);
+        *(u64*)(v1 + 0) = a1;
+        *(u64*)(v1 + 8) = a2;
+        *(u64*)(v1 + 16) = a3;
+        *(u64*)(v1 + 24) = t0;
         ret = ret + 0x20;
         v1 = v1 + 0x20;
     } while (ret != a0);
-    a1 = *(u64*)*(ret + 0);
-    a2 = *(u64*)*(ret + 8);
-    *(u64*)*(v1 + 0) = a1;
-    a0 = s0;
-    *(u64*)*(v1 + 8) = a2;
-    ret = PFont_SetUVAndDecode(a0, a1, a2, a3);
-    *(u32*)*(s0 + 0x390) = s1;
-    s0->gte_execute = 1;  /* gte_execute (store) */
+    a1 = *(u64*)(ret + 0);
+    a2 = *(u64*)(ret + 8);
+    *(u64*)(v1 + 0) = a1;
+    a0 = psx;
+    *(u64*)(v1 + 8) = a2;
+    ret = PFont_SetUVAndDecode(a0);
+    *(u32*)(psx + 0x390) = s1;
+    ((PSX_State*)psx)->gte_execute = 1;  /* gte_execute (store) */
     a1 = 0x004EDE00;
-    *(u32*)*(s0 + 0x394) = s1;
-    s0->cop2_insn_count = 0;  /* cop2_insn_count (store) */
-    ret = *(u32*)*(s0 + 0x398);
-    a0 = s0;
-    ret = (ret)(a0, a1, a2, a3); /* indirect call */
+    *(u32*)(psx + 0x394) = s1;
+    ((PSX_State*)psx)->cop2_insn_count = 0;  /* cop2_insn_count (store) */
+    ret = *(u32*)(psx + 0x398);  /* PSX: gpu_draw_env[2] */
+    a0 = psx;
+    ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
     if (s2 != 0) {
-        __asm("ldl v0, 823(s0)"); /* 0x0022CC68 unaligned ld left */
-        __asm("ldr v0, 816(s0)"); /* 0x0022CC6C unaligned ld right */
-        __asm("ldl v1, 831(s0)"); /* 0x0022CC70 unaligned ld left */
-        __asm("ldr v1, 824(s0)"); /* 0x0022CC74 unaligned ld right */
-        __asm("sdl v0, 7(s2)"); /* 0x0022CC78 unaligned sd left */
-        __asm("sdr v0, 0(s2)"); /* 0x0022CC7C unaligned sd right */
-        __asm("sdl v1, 15(s2)"); /* 0x0022CC80 unaligned sd left */
-        __asm("sdr v1, 8(s2)"); /* 0x0022CC84 unaligned sd right */
+        ret = *(u64*)(psx + 816);
+        v1 = *(u64*)(psx + 824);
+        *(u64*)(s2) = ret;
+        *(u64*)(s2 + 8) = v1;
     }
-    a0 = s0 + 0x2c0;
+    a0 = psx + 0x2c0;
     if (s3 != 0) {
-        __asm("ldl a2, 839(s0)"); /* 0x0022CC90 unaligned ld left */
-        __asm("ldr a2, 832(s0)"); /* 0x0022CC94 unaligned ld right */
-        __asm("ldl a3, 847(s0)"); /* 0x0022CC98 unaligned ld left */
-        __asm("ldr a3, 840(s0)"); /* 0x0022CC9C unaligned ld right */
-        __asm("sdl a2, 7(s3)"); /* 0x0022CCA0 unaligned sd left */
-        __asm("sdr a2, 0(s3)"); /* 0x0022CCA4 unaligned sd right */
-        __asm("sdl a3, 15(s3)"); /* 0x0022CCA8 unaligned sd left */
-        __asm("sdr a3, 8(s3)"); /* 0x0022CCAC unaligned sd right */
+        a2 = *(u64*)(psx + 832);
+        a3 = *(u64*)(psx + 840);
+        *(u64*)(s3) = a2;
+        *(u64*)(s3 + 8) = a3;
     }
     ret = __sp;
     v1 = __sp + 0x80;
     do {
-        a1 = *(u64*)*(ret + 0);
-        a2 = *(u64*)*(ret + 8);
-        a3 = *(u64*)*(ret + 16);
-        t0 = *(u64*)*(ret + 24);
-        *(u64*)*(a0 + 0) = a1;
-        *(u64*)*(a0 + 8) = a2;
-        *(u64*)*(a0 + 16) = a3;
-        *(u64*)*(a0 + 24) = t0;
+        a1 = *(u64*)(ret + 0);
+        a2 = *(u64*)(ret + 8);
+        a3 = *(u64*)(ret + 16);
+        t0 = *(u64*)(ret + 24);
+        *(u64*)(a0 + 0) = a1;
+        *(u64*)(a0 + 8) = a2;
+        *(u64*)(a0 + 16) = a3;
+        *(u64*)(a0 + 24) = t0;
         ret = ret + 0x20;
         a0 = a0 + 0x20;
     } while (ret != v1);
-    v1 = *(u64*)*(ret + 0);
-    a1 = *(u64*)*(ret + 8);
-    *(u64*)*(a0 + 0) = v1;
-    *(u64*)*(a0 + 8) = a1;
+    v1 = *(u64*)(ret + 0);
+    a1 = *(u64*)(ret + 8);
+    *(u64*)(a0 + 0) = v1;
+    *(u64*)(a0 + 8) = a1;
     return ret;
-    }
-    *(u32*)*(a0 + 0x398) = a1;
+    *(u32*)(a0 + 0x398) = a1;
     return ret;
 }
 
 /* Function at 0x0022CD30 - 0x0022CDC0 */
-int PFont_IterateCallbacks()
+u32 PFont_IterateCallbacks(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 48 bytes */
-    int ret, a0, a1, a2, a3, s0, s1, s2, s3;
+    u32 ret, s0, s1, s2, s3;
     s0 = a1;
     s1 = a0;
     s2 = -1;
     s3 = -1;
     goto loc_22CD88;
 loc_22CD60:
-    ret = *(u32*)*(s0 + 8);
-    ret = (ret)(a0, a1, a2, a3); /* indirect call */
+    ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
     s2 = 1;
-    if (likely(ret != s3)) goto loc_22CD88;
-    ret = *(u32*)*(s0 + 4);
+    if (ret != s3) goto loc_22CD88;
+    ret = *(u32*)(s0 + 4);
     a0 = s1;
-    ret = (ret)(a0, a1, a2, a3); /* indirect call */
+    ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
     ret = s2;
     goto loc_22CDA4;
 loc_22CD88:
     ret = *(u32*)(s0);
     a0 = s1;
-    ret = (ret)(a0, a1, a2, a3); /* indirect call */
+    ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
     a0 = s1;
     a1 = ret;
     if ((signed)ret > 0) goto loc_22CD60;
@@ -2937,52 +2756,46 @@ loc_22CDA4:
 }
 
 /* Function at 0x0022CDC0 - 0x0022CDD8 */
-int PFont_GetBitsPerPixel()
+u32 PFont_GetBitsPerPixel(u32 a0)
 {
-    int ret, v0, v1, a0;
-    ret = *(u32*)*(a0 + 0x10);
+    u32 ret, v1;
+    ret = *(u32*)(a0 + 0x10);  /* PSX: gpr[0]/$zero */
     v1 = 4;
-    ret = ret & 7;
     ret = ret << 3;
-    __asm("movz v0, v1, v0");
+    if (ret == 0) ret = v1;
     return ret;
 }
 
 /* Function at 0x0022CDD8 - 0x0022CE10 */
-int PFont_ResetTraversal()
+u32 PFont_ResetTraversal(u32 a0)
 {
-    int ret, a0;
-    *(u32*)*(a0 + 0x370) = 0;
-    ret = *(u32*)*(a0 + 0x37c);
-    *(u32*)*(ret + 4) = 0;
+    u32 ret;
+    *(u32*)(a0 + 0x370) = 0;
+    ret = *(u32*)(a0 + 0x37c);
+    *(u32*)(ret + 4) = 0;
     do {
-        ret = *(u32*)*(ret + 0xc);
-        *(u32*)*(ret + 4) = 0;
-    } while (likely(ret != 0));
+        ret = *(u32*)(ret + 0xc);  /* PSX: lo */
+        *(u32*)(ret + 4) = 0;
+    } while (ret != 0);
     return ret;
 }
 
 /* Function at 0x0022CE10 - 0x0022CF68 */
-int PFont_SetUVAndDecode()
+u32 PFont_SetUVAndDecode(u32 a0)
 {
-    int ret, v0, v1, a0;
+    u32 ret, v1, a1, a2, a3, t0, t1;
     ret = a0 + 0x320;
-    __asm("lwc1 f1, 4(v0)");
-    __asm("lwc1 f0, (v0)");
-    __asm("swc1 f1, 0x334(a0)");
-    __asm("swc1 f0, 0x33c(a0)");
-    __asm("swc1 f0, 0x338(a0)");
-    __asm("swc1 f1, 0x330(a0)");
-    __asm("ldl v0, 823(a0)"); /* 0x0022CE2C unaligned ld left */
-    __asm("ldr v0, 816(a0)"); /* 0x0022CE30 unaligned ld right */
-    __asm("ldl v1, 831(a0)"); /* 0x0022CE34 unaligned ld left */
-    __asm("ldr v1, 824(a0)"); /* 0x0022CE38 unaligned ld right */
-    __asm("sdl v0, 839(a0)"); /* 0x0022CE3C unaligned sd left */
-    __asm("sdr v0, 832(a0)"); /* 0x0022CE40 unaligned sd right */
-    __asm("sdl v1, 847(a0)"); /* 0x0022CE44 unaligned sd left */
-    __asm("sdr v1, 840(a0)"); /* 0x0022CE48 unaligned sd right */
+    FPU_F(f1) = *(float*)(ret + 4);
+    __asm("lwc1 f0, (ret)");
+    *(float*)(a0 + 0x334) = FPU_F(f1);
+    *(float*)(a0 + 0x33c) = FPU_F(f0);
+    *(float*)(a0 + 0x338) = FPU_F(f0);
+    *(float*)(a0 + 0x330) = FPU_F(f1);
+    ret = *(u64*)(a0 + 816);
+    v1 = *(u64*)(a0 + 824);
+    *(u64*)(a0 + 832) = ret;
+    *(u64*)(a0 + 840) = v1;
     return ret;
-    }
     if ((unsigned)a1 < 0xf8) {
         a2 = a1 & 0xf;
         t0 = 2;
@@ -3006,135 +2819,116 @@ loc_22CED0:
         t0 = t0 + -1;
         a2 = ret | v1;
     } while (t0 != 0);
-    *(u32*)*(a0 + 0x394) = a3;
-    ret = a2;
-    return ret;
-                }
-                *(u32*)*(a0 + 0x394) = v1;
-            }
-        ret = 0;
-    }
-    return ret;
+    *(u32*)(a0 + 0x394) = a3;
+    return a2;
+                *(u32*)(a0 + 0x394) = v1;
+    return 0;
 }
 
 /* Function at 0x0022CF68 - 0x0022CFA0 */
-int PFont_SaveAndRender()
+u32 PFont_SaveAndRender(u32 a0)
 {
     /* Stack frame: 32 bytes */
-    int ret, a0, a1, a2, a3, s0, s1;
+    u32 ret, a1, a2, a3, s0, s1;
     s0 = a0;
-    s1 = *(u32*)*(s0 + 0x2c4);
-    *(u32*)*(s0 + 0x2c4) = 0;
-    ret = PFont_RenderText(a0, a1, a2, a3);
-    *(u32*)*(s0 + 0x2c4) = s1;
+    s1 = *(u32*)(s0 + 0x2c4);  /* PSX: cop2_insn_count */
+    *(u32*)(s0 + 0x2c4) = 0;
+    ret = PFont_RenderText(a0, a1);
+    *(u32*)(s0 + 0x2c4) = s1;
     return ret;
 }
 
 /* Function at 0x0022CFA0 - 0x0022D130 */
-int PFont_CopyAndRender()
+u32 PFont_CopyAndRender(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 192 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, t0, t1;
-    s0 = a0;
-    v1 = s0 + 0x2c0;
+    u32 ret, v1, psx, s1, s2, s3, s4, t0, t1;
+    psx = a0;
+    v1 = psx + 0x2c0;
     a0 = __sp;
-    ret = s0 + 0x340;
+    ret = psx + 0x340;
     s3 = a2;
     s4 = a3;
     do {
-        a2 = *(u64*)*(v1 + 0);
-        a3 = *(u64*)*(v1 + 8);
-        t0 = *(u64*)*(v1 + 16);
-        t1 = *(u64*)*(v1 + 24);
-        *(u64*)*(a0 + 0) = a2;
-        *(u64*)*(a0 + 8) = a3;
-        *(u64*)*(a0 + 16) = t0;
-        *(u64*)*(a0 + 24) = t1;
+        a2 = *(u64*)(v1 + 0);
+        a3 = *(u64*)(v1 + 8);
+        t0 = *(u64*)(v1 + 16);
+        t1 = *(u64*)(v1 + 24);
+        *(u64*)(a0 + 0) = a2;
+        *(u64*)(a0 + 8) = a3;
+        *(u64*)(a0 + 16) = t0;
+        *(u64*)(a0 + 24) = t1;
         v1 = v1 + 0x20;
         a0 = a0 + 0x20;
     } while (v1 != ret);
-    a2 = *(u64*)*(v1 + 0);
-    a3 = *(u64*)*(v1 + 8);
-    *(u64*)*(a0 + 0) = a2;
-    ret = s0 + 0x320;
-    s2 = s0 + 0x340;
-    s1 = s0 + 0x330;
-    *(u64*)*(a0 + 8) = a3;
-    a0 = s0;
-    __asm("lwc1 f1, 4(v0)");
-    __asm("lwc1 f0, (v0)");
+    a2 = *(u64*)(v1 + 0);
+    a3 = *(u64*)(v1 + 8);
+    *(u64*)(a0 + 0) = a2;
+    ret = psx + 0x320;
+    s2 = psx + 0x340;
+    s1 = psx + 0x330;
+    *(u64*)(a0 + 8) = a3;
+    a0 = psx;
+    FPU_F(f1) = *(float*)(ret + 4);
+    __asm("lwc1 f0, (ret)");
     ret = 1;
-    __asm("swc1 f1, 0x334(s0)");
-    __asm("swc1 f0, 0x33c(s0)");
-    __asm("swc1 f0, 0x338(s0)");
-    __asm("swc1 f1, 0x330(s0)");
-    s0->gte_execute = ret;  /* gte_execute (store) */
-    __asm("ldl v0, 7(s1)"); /* 0x0022D048 unaligned ld left */
-    __asm("ldr v0, 0(s1)"); /* 0x0022D04C unaligned ld right */
-    __asm("ldl v1, 15(s1)"); /* 0x0022D050 unaligned ld left */
-    __asm("ldr v1, 8(s1)"); /* 0x0022D054 unaligned ld right */
-    __asm("sdl v0, 7(s2)"); /* 0x0022D058 unaligned sd left */
-    __asm("sdr v0, 0(s2)"); /* 0x0022D05C unaligned sd right */
-    __asm("sdl v1, 15(s2)"); /* 0x0022D060 unaligned sd left */
-    __asm("sdr v1, 8(s2)"); /* 0x0022D064 unaligned sd right */
-    s0->cop2_insn_count = 0;  /* cop2_insn_count (store) */
-    ret = PFont_RenderText(a0, a1, a2, a3);
-    a1 = ret;
+    *(float*)(psx + 0x334) = FPU_F(f1);
+    *(float*)(psx + 0x33c) = FPU_F(f0);
+    *(float*)(psx + 0x338) = FPU_F(f0);
+    *(float*)(psx + 0x330) = FPU_F(f1);
+    ((PSX_State*)psx)->gte_execute = ret;  /* gte_execute (store) */
+    ret = *(u64*)(s1);
+    v1 = *(u64*)(s1 + 8);
+    *(u64*)(s2) = ret;
+    *(u64*)(s2 + 8) = v1;
+    ((PSX_State*)psx)->cop2_insn_count = 0;  /* cop2_insn_count (store) */
+    a1 = PFont_RenderText(a0, a1);
     if (s3 != 0) {
-        __asm("ldl t0, 7(s1)"); /* 0x0022D078 unaligned ld left */
-        __asm("ldr t0, 0(s1)"); /* 0x0022D07C unaligned ld right */
-        __asm("ldl t1, 15(s1)"); /* 0x0022D080 unaligned ld left */
-        __asm("ldr t1, 8(s1)"); /* 0x0022D084 unaligned ld right */
-        __asm("sdl t0, 7(s3)"); /* 0x0022D088 unaligned sd left */
-        __asm("sdr t0, 0(s3)"); /* 0x0022D08C unaligned sd right */
-        __asm("sdl t1, 15(s3)"); /* 0x0022D090 unaligned sd left */
-        __asm("sdr t1, 8(s3)"); /* 0x0022D094 unaligned sd right */
+        t0 = *(u64*)(s1);
+        t1 = *(u64*)(s1 + 8);
+        *(u64*)(s3) = t0;
+        *(u64*)(s3 + 8) = t1;
     }
-    ret = s0 + 0x2c0;
+    ret = psx + 0x2c0;
     if (s4 != 0) {
-        __asm("ldl a0, 7(s2)"); /* 0x0022D0A0 unaligned ld left */
-        __asm("ldr a0, 0(s2)"); /* 0x0022D0A4 unaligned ld right */
-        __asm("ldl a2, 15(s2)"); /* 0x0022D0A8 unaligned ld left */
-        __asm("ldr a2, 8(s2)"); /* 0x0022D0AC unaligned ld right */
-        __asm("sdl a0, 7(s4)"); /* 0x0022D0B0 unaligned sd left */
-        __asm("sdr a0, 0(s4)"); /* 0x0022D0B4 unaligned sd right */
-        __asm("sdl a2, 15(s4)"); /* 0x0022D0B8 unaligned sd left */
-        __asm("sdr a2, 8(s4)"); /* 0x0022D0BC unaligned sd right */
+        a0 = *(u64*)(s2);
+        a2 = *(u64*)(s2 + 8);
+        *(u64*)(s4) = a0;
+        *(u64*)(s4 + 8) = a2;
     }
     v1 = __sp;
     a0 = __sp + 0x80;
     do {
-        t1 = *(u64*)*(v1 + 0);
-        a2 = *(u64*)*(v1 + 8);
-        a3 = *(u64*)*(v1 + 16);
-        t0 = *(u64*)*(v1 + 24);
-        *(u64*)*(ret + 0) = t1;
-        *(u64*)*(ret + 8) = a2;
-        *(u64*)*(ret + 16) = a3;
-        *(u64*)*(ret + 24) = t0;
+        t1 = *(u64*)(v1 + 0);
+        a2 = *(u64*)(v1 + 8);
+        a3 = *(u64*)(v1 + 16);
+        t0 = *(u64*)(v1 + 24);
+        *(u64*)(ret + 0) = t1;
+        *(u64*)(ret + 8) = a2;
+        *(u64*)(ret + 16) = a3;
+        *(u64*)(ret + 24) = t0;
         v1 = v1 + 0x20;
         ret = ret + 0x20;
     } while (v1 != a0);
-    t1 = *(u64*)*(v1 + 0);
-    a0 = *(u64*)*(v1 + 8);
-    *(u64*)*(ret + 0) = t1;
-    *(u64*)*(ret + 8) = a0;
-    ret = a1;
-    return ret;
+    t1 = *(u64*)(v1 + 0);
+    a0 = *(u64*)(v1 + 8);
+    *(u64*)(ret + 0) = t1;
+    *(u64*)(ret + 8) = a0;
+    return a1;
 }
 
 /* Function at 0x0022D130 - 0x0022D2E0 */
 /* String ref: "rom0:ROMVER" */
 /* String ref: "hdd0:" */
-int UI_LoadHDDModules()
+u32 UI_LoadHDDModules(u32 a0, u32 a1)
 {
     /* Stack frame: 624 bytes */
-    int local_140;
-    int local_144;
-    int local_210;
-    int local_214;
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1;
-    __fp = 0x00860000;
+    u32 local_140;
+    u32 local_144;
+    u32 local_210;
+    u32 local_214;
+    u32 ret, v1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1;
+    __fp = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     s4 = a0;
     ret = 0x004FFE60;
     v1 = __fp + -0x5630;
@@ -3154,22 +2948,22 @@ int UI_LoadHDDModules()
         } while (ret != 0);
     }
     a1 = 1;
-    a0 = 0x004FFE70;
+    a0 = 0x004FFE70;  /* "rom0:ROMVER" */
     ret = UI_SifModuleLoad(a0, a1, a2, a3);
     a2 = 0x10;
     s0 = ret;
     a1 = __sp;
     a0 = s0;
-    ret = UI_SifModuleStart(a0, a1, a2, a3);
+    ret = UI_SifModuleStart(a0, a1, a2);
     a0 = s0;
-    ret = UI_SifModuleInit(a0, a1, a2, a3);
+    ret = UI_SifModuleInit();
     v1 = 0x44;
-    ret = *(u8*)*(__sp + 5);
+    ret = *(u8*)(__sp + 5);
     s6 = 0x00500000;
     if (ret == v1) {
         a0 = s4;
         a1 = s1;
-        ret = System_SifLoadFileRequest(a0, a1, a2, a3);
+        System_SifLoadFileRequest(a0, a1);
     }
     s5 = __sp + 0x210;
     ret = 1;
@@ -3205,13 +2999,13 @@ int UI_LoadHDDModules()
             v1 = ((unsigned)s0 < (unsigned)s1) ? 1 : 0;
             if ((signed)ret < 0) goto loc_22D2AC;
             ret = s3 + s0;
-        } while (likely(v1 != 0));
+        } while (v1 != 0);
     }
     a1 = 0x004EDE20;
     a2 = 0x004F51A4;
     a2 = a2 - a1;
     a0 = 0x000C0000;
-    ret = Libc_Memcpy(a0, a1, a2, a3);
+    ret = Libc_Memcpy(a0, a1, a2);
     a0 = 0x000C0000;
     a2 = s4 + 1;
     a3 = __fp + -0x5630;
@@ -3222,24 +3016,23 @@ loc_22D2AC:
 }
 
 /* Function at 0x0022D2E0 - 0x0022D2E4 */
-int UI_GetMaxFileSize()
+void UI_GetMaxFileSize(void)
 {
-    int v1;
+    u32 v1;
     v1 = 0x000F0000;
 }
 
 /* Function at 0x0022D2E4 - 0x0022D480 */
-int UI_InitDiscThreads()
+u32 UI_InitDiscThreads(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 144 bytes */
-    int local_14;
-    int local_24;
-    int local_28;
-    int local_2C;
-    int local_30;
-    int local_34;
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, t0;
-    v1 = v1 | 0xffff;
+    u32 local_14;
+    u32 local_24;
+    u32 local_28;
+    u32 local_2C;
+    u32 local_30;
+    u32 local_34;
+    u32 ret, v1, s0, s1, s2, s3, s4, s5, t0;
     v1 = ((unsigned)v1 < (unsigned)a3) ? 1 : 0;
     s4 = a0;
     s5 = a1;
@@ -3247,41 +3040,41 @@ int UI_InitDiscThreads()
     ret = -0xc;
     if (v1 != 0) {
         v1 = -1;
-        a3 = 0x00860000;
-        s0 = 0x00860000;
-        s1 = 0x00860000;
-        a0 = 0x00860000;
-        a1 = 0x00860000;
-        a2 = 0x00860000;
+        a3 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+        s0 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+        s1 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+        a0 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+        a1 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+        a2 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
         ret = 0x0085EB00;
-        *(u32*)*(a3 + -0x3534) = v1;
-        *(u32*)*(s1 + -0x3540) = v1;
+        *(u32*)(a3 + -0x3534) = v1;
+        *(u32*)(s1 + -0x3540) = v1;
         ret = ret + 0xc;
-        *(u32*)*(s0 + -0x5570) = v1;
-        *(u32*)*(a0 + -0x5580) = 0;
+        *(u32*)(s0 + -0x5570) = v1;
+        *(u32*)(a0 + -0x5580) = 0;
         a0 = 3;
-        *(u32*)*(a1 + -0x557c) = 0;
+        *(u32*)(a1 + -0x557c) = 0;
         a1 = 0xFFFC0000;
-        *(u32*)*(a2 + -0x3538) = v1;
+        *(u32*)(a2 + -0x3538) = v1;
         a2 = 0x000C0000;
         a2 = a2 + t0;
         do {
             a0 = a0 + -1;
-            *(u32*)(v0) = a2;
+            *(u32*)(ret) = a2;
             ret = ret + -4;
             a2 = a2 + a1;
         } while ((signed)a0 >= 0);
         a0 = __sp;
-        *(u32*)*(__sp + 4) = 1;
+        *(u32*)(__sp + 4) = 1;
         s3 = 0x2000;
-        *(u32*)*(__sp + 8) = 0;
+        *(u32*)(__sp + 8) = 0;
         local_14 = 0;
-        ret = UI_Kern_CreateSema(a0, a1, a2, a3);
+        ret = UI_Kern_CreateSema();
         a0 = __sp;
-        *(u32*)*(s0 + -0x5570) = ret;
-        ret = UI_Kern_CreateSema(a0, a1, a2, a3);
+        *(u32*)(s0 + -0x5570) = ret;
+        ret = UI_Kern_CreateSema();
         s2 = __sp + 0x20;
-        a1 = 0x0022D678;
+        a1 = (u32)UI_DiscVerifyLoop;
         s0 = 0x0050A670;
         v1 = 0x0085AAC0;
         a0 = s2;
@@ -3290,9 +3083,9 @@ int UI_InitDiscThreads()
         local_30 = s0;
         local_34 = s4;
         local_2C = s3;
-        *(u32*)*(s1 + -0x3540) = ret;
-        ret = UI_Kern_CreateThread(a0, a1, a2, a3);
-        v1 = 0x0022D958;
+        *(u32*)(s1 + -0x3540) = ret;
+        ret = UI_Kern_CreateThread();
+        v1 = (u32)UI_OpenDiscImage;
         a1 = 0x0085CB00;
         s1 = 0x0085AA94;
         local_28 = a1;
@@ -3303,132 +3096,124 @@ int UI_InitDiscThreads()
         local_2C = s3;
         local_34 = s5;
         *(u32*)(s1) = ret;
-        ret = UI_Kern_CreateThread(a0, a1, a2, a3);
+        ret = UI_Kern_CreateThread();
         a1 = 0;
         *(u32*)(s0) = ret;
         a0 = *(u32*)(s1);
-        ret = UI_Kern_StartThread(a0, a1, a2, a3);
+        ret = UI_Kern_StartThread();
         a0 = *(u32*)(s0);
         a1 = 0;
-        ret = UI_Kern_StartThread(a0, a1, a2, a3);
+        ret = UI_Kern_StartThread();
         ret = 0;
     }
     return ret;
 }
 
 /* Function at 0x0022D480 - 0x0022D678 */
-int UI_DiscTransfer()
+u32 UI_DiscTransfer(u32 a0)
 {
     /* Stack frame: 48 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4;
-    ret = 0x00860000;
+    u32 ret, v1, a1, a2, a3, s0, s1, s2, s3, s4;
+    ret = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     s0 = -1;
     s1 = a0;
     s2 = s1 + 0x40;
-    s4 = 0x00860000;
+    s4 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     a2 = s4 + -0x5580;
-    v1 = *(u32*)*(s1 + 0xc);
-    *(u32*)*(ret + -0x5574) = v1;
+    *(u32*)(ret + -0x5574) = *(u32*)(s1 + 0xc);
     ret = *(u32*)(a2);
-    a1 = *(u32*)*(s1 + 0x20);
+    a1 = *(u32*)(s1 + 0x20);  /* PSX: gpr[4]/$a0 */
     if (ret == 0) {
-        ret = 0x00860000;
-        v1 = 0x00860000;
-        a0 = *(u32*)*(ret + -0x5570);
+        ret = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+        v1 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+        a0 = *(u32*)(ret + -0x5570);
         s0 = 0;
-        *(u32*)*(v1 + -0x557c) = a1;
+        *(u32*)(v1 + -0x557c) = a1;
         *(u32*)(a2) = s2;
-        ret = UI_Kern_SignalSema(a0, a1, a2, a3);
+        ret = UI_Kern_SignalSema();
     }
     ret = s0;
     if ((signed)s0 < 0) goto loc_22D658;
-    s3 = 0x00860000;
-    s0 = *(u32*)*(s3 + -0x5570);
+    s3 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+    s0 = *(u32*)(s3 + -0x5570);
     a0 = -0x16;
     if ((unsigned)s0 < 0x100) {
         a0 = s0;
-        ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+        ret = UI_Kern_WaitSema();
         v1 = -0x51;
         ret = ret ^ s0;
         a0 = 0;
-        __asm("movn a0, v1, v0");
+        if (ret != 0) a0 = v1;
     }
     s0 = a0;
     if ((signed)a0 >= 0) {
-        s0 = *(u32*)*(0x00860000 + -0x5578);
+        s0 = *(u32*)(0x00860000 + -0x5578);  /* SYS_DATA_BASE: System/boot data region */
     }
     ret = s0;
     if ((signed)s0 < 0) goto loc_22D658;
     ret = -8;
     if (s0 != 0) goto loc_22D658;
-    ret = *(u32*)*(s1 + 0x20);
-    v1 = *(u32*)*(s1 + 0x24);
+    ret = *(u32*)(s1 + 0x20);  /* PSX: gpr[4]/$a0 */
+    v1 = *(u32*)(s1 + 0x24);  /* PSX: gpr[5]/$a1 */
     ret = ret << 5;
     s2 = s2 + ret;
     if (v1 == 0) goto loc_22D5D4;
     a1 = s4 + -0x5580;
     ret = *(u32*)(a1);
-    if (0x00860000 != 0) {
-        s0 = -1;
-        goto loc_22D578;
-    }
-    a0 = *(u32*)*(s3 + -0x5570);
-    *(u32*)*(ret + -0x557c) = v1;
-    *(u32*)(a1) = s2;
-    ret = UI_Kern_SignalSema(a0, a1, a2, a3);
+    s0 = -1;
+    goto loc_22D578;
 loc_22D578:
     ret = s0;
     if ((signed)s0 < 0) goto loc_22D658;
-    s0 = *(u32*)*(s3 + -0x5570);
+    s0 = *(u32*)(s3 + -0x5570);
     a0 = -0x16;
     if ((unsigned)s0 < 0x100) {
         a0 = s0;
-        ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+        ret = UI_Kern_WaitSema();
         v1 = -0x51;
         ret = ret ^ s0;
         a0 = 0;
-        __asm("movn a0, v1, v0");
+        if (ret != 0) a0 = v1;
     }
     s0 = a0;
     if ((signed)a0 >= 0) {
-        s0 = *(u32*)*(0x00860000 + -0x5578);
+        s0 = *(u32*)(0x00860000 + -0x5578);  /* SYS_DATA_BASE: System/boot data region */
     }
     ret = s0;
     if ((signed)s0 < 0) goto loc_22D658;
     ret = -8;
     if (s0 != 0) goto loc_22D658;
-    ret = *(u32*)*(s1 + 0x24);
     ret = ret << 5;
     s2 = s2 + ret;
 loc_22D5D4:
-    v1 = *(u32*)*(s1 + 0x28);
+    v1 = *(u32*)(s1 + 0x28);  /* PSX: gpr[6]/$a2 */
     a1 = s4 + -0x5580;
     if (v1 != 0) {
         ret = *(u32*)(a1);
         s0 = -1;
         if (ret == 0) {
-            a0 = *(u32*)*(s3 + -0x5570);
-            ret = 0x00860000;
+            a0 = *(u32*)(s3 + -0x5570);
+            ret = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
             *(u32*)(a1) = s2;
             s0 = 0;
-            *(u32*)*(ret + -0x557c) = v1;
-            ret = UI_Kern_SignalSema(a0, a1, a2, a3);
+            *(u32*)(ret + -0x557c) = v1;
+            ret = UI_Kern_SignalSema();
         }
         ret = s0;
         if ((signed)s0 < 0) goto loc_22D658;
-        s0 = *(u32*)*(s3 + -0x5570);
+        s0 = *(u32*)(s3 + -0x5570);
         a0 = -0x16;
         if ((unsigned)s0 < 0x100) {
             a0 = s0;
-            ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+            ret = UI_Kern_WaitSema();
             v1 = -0x51;
             ret = ret ^ s0;
             a0 = 0;
-            __asm("movn a0, v1, v0");
+            if (ret != 0) a0 = v1;
         }
         s0 = a0;
         if ((signed)a0 >= 0) {
-            s0 = *(u32*)*(0x00860000 + -0x5578);
+            s0 = *(u32*)(0x00860000 + -0x5578);  /* SYS_DATA_BASE: System/boot data region */
         }
         ret = s0;
         if ((signed)s0 < 0) goto loc_22D658;
@@ -3441,485 +3226,404 @@ loc_22D658:
 }
 
 /* Function at 0x0022D678 - 0x0022D958 */
-int UI_DiscVerifyLoop()
+u32 UI_DiscVerifyLoop(void)
 {
     /* Stack frame: 160 bytes */
-    int local_14;
-    int local_40;
-    int local_44;
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7;
+    u32 local_14;
+    u32 local_40;
+    u32 local_44;
+    u32 ret, v1, a0, a1, a2, a3, s0, s1, s2, i, s4, s5, s6, s7;
     goto loc_22D8D8;
 loc_22D6A8:
     v1 = 4;
-    s4 = 0x00860000;
-    ret = 0x00860000;
-    s5 = 0x00860000;
-    *(u32*)*(__sp + 4) = v1;
-    *(u32*)*(__sp + 8) = v1;
-    s7 = 0x00860000;
+    s4 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+    ret = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+    s5 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+    *(u32*)(__sp + 4) = v1;
+    *(u32*)(__sp + 8) = v1;
+    s7 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     local_14 = 0;
-    s6 = 0x00860000;
-    *(u32*)*(s4 + -0x5578) = 0;
-    s3 = 0;
-    *(u32*)*(s5 + -0x352c) = 0;
-    *(u32*)*(ret + -0x3530) = 0;
-    ret = UI_Kern_CreateSema(a0, a1, a2, a3);
+    s6 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+    *(u32*)(s4 + -0x5578) = 0;
+    i = 0;
+    *(u32*)(s5 + -0x352c) = 0;
+    *(u32*)(ret + -0x3530) = 0;
+    ret = UI_Kern_CreateSema();
     a0 = __sp;
-    *(u32*)*(__sp + 8) = 0;
-    *(u32*)*(s7 + -0x3538) = ret;
-    ret = UI_Kern_CreateSema(a0, a1, a2, a3);
-    v1 = 0x00860000;
-    *(u32*)*(s6 + -0x3534) = ret;
-    a0 = *(u32*)*(v1 + -0x3540);
-    ret = UI_Kern_SignalSema(a0, a1, a2, a3);
-    __fp = 0x00860000;
+    *(u32*)(__sp + 8) = 0;
+    *(u32*)(s7 + -0x3538) = ret;
+    ret = UI_Kern_CreateSema();
+    v1 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+    *(u32*)(s6 + -0x3534) = ret;
+    a0 = *(u32*)(v1 + -0x3540);
+    ret = UI_Kern_SignalSema();
+    __fp = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     goto loc_22D844;
 loc_22D708:
     ret = *(u32*)(s2);
     s0 = s7 + -0x3538;
     if ((signed)ret < 0) goto loc_22D8A0;
-    v1 = *(u8*)*(s1 + 1);
+    v1 = *(u8*)(s1 + 1);
     ret = 1;
     if (v1 != 0) {
-        ret = *(u32*)*(s4 + -0x5578);
+        ret = *(u32*)(s4 + -0x5578);
         if (v1 != ret) {
             goto loc_22D804;
             }
-            ret = *(u32*)*(s5 + -0x352c);
+            ret = *(u32*)(s5 + -0x352c);
             s0 = __sp + 0x20;
-            a1 = *(u32*)*(s1 + 8);
+            a1 = *(u32*)(s1 + 8);
             a2 = s0;
             ret = ret << 2;
             a3 = 0x70000000;
-            a0 = 0x00860000;
+            a0 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
             a0 = a0 + ret;
-            a0 = *(u32*)*(a0 + -0x1500);
+            a0 = *(u32*)(a0 + -0x1500);
             a1 = a1 << 9;
             ret = UI_SHA1_Compute(a0, a1, a2, a3);
             a0 = s0;
             a1 = s1 + 0xc;
             a2 = 0x14;
-            ret = Libc_Memcmp(a0, a1, a2, a3);
-            if (1 == 0) goto loc_22D800;
-            *(u32*)(s2) = ret;
+            *(u32*)(s2) = Libc_Memcmp(a0, a1, a2);
             goto loc_22D800;
         }
     v1 = -1;
-    ret = *(u32*)*(s5 + -0x352c);
+    ret = *(u32*)(s5 + -0x352c);
     local_44 = v1;
     a3 = -1;
     local_40 = v1;
     ret = ret << 2;
-    a0 = 0x00860000;
+    a0 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     a0 = a0 + ret;
-    a0 = *(u32*)*(a0 + -0x1500);
+    a0 = *(u32*)(a0 + -0x1500);
     a2 = __sp + 0x40;
-    a1 = *(u32*)*(s1 + 8);
-    *(u16*)*(__sp + 0x4a) = a3;
+    a1 = *(u32*)(s1 + 8);
+    *(u16*)(__sp + 0x4a) = a3;
     a1 = a1 << 9;
-    *(u16*)*(__sp + 0x48) = a3;
-    ret = UI_CRC_Combined(a0, a1, a2, a3);
-    v1 = *(u16*)*(s1 + 0xc);
-    ret = *(u16*)*(__sp + 0x48);
-    a0 = *(u16*)*(__sp + 0x4a);
+    *(u16*)(__sp + 0x48) = a3;
+    ret = UI_CRC_Combined(a0, a1, a2);
+    v1 = *(u16*)(s1 + 0xc);  /* PSX: lo */
+    ret = *(u16*)(__sp + 0x48);  /* PSX: gpr[14]/$t6 */
+    a0 = *(u16*)(__sp + 0x4a);
     a1 = local_40;
     a2 = local_44;
     if (v1 == ret) {
-        ret = *(u16*)*(s1 + 0xe);
+        ret = *(u16*)(s1 + 0xe);
         if (1 != a0) goto loc_22D7FC;
-        ret = *(u32*)*(s1 + 0x10);
+        ret = *(u32*)(s1 + 0x10);  /* PSX: gpr[0]/$zero */
         if (1 != a1) goto loc_22D7FC;
-        ret = *(u32*)*(s1 + 0x14);
-        ret = *(u32*)*(s4 + -0x5578);
+        ret = *(u32*)(s4 + -0x5578);
         if (ret == a2) goto loc_22D804;
     }
     ret = 1;
 loc_22D7FC:
-    *(u32*)*(s4 + -0x5578) = ret;
+    *(u32*)(s4 + -0x5578) = ret;
 loc_22D800:
-    ret = *(u32*)*(s4 + -0x5578);
+    ret = *(u32*)(s4 + -0x5578);
 loc_22D804:
     s0 = s7 + -0x3538;
     if (ret != 0) goto loc_22D8A0;
     a3 = s5 + -0x352c;
-    a0 = *(u32*)*(s7 + -0x3538);
+    a0 = *(u32*)(s7 + -0x3538);
     a1 = *(u32*)(a3);
-    s3 = s3 + 1;
+    i = i + 1;
     v1 = a1 + 1;
     a1 = a1 + 4;
     a2 = ((signed)v1 < 0) ? 1 : 0;
     ret = v1;
-    __asm("movn v0, a1, a2");
-    ret = (signed)ret >> 2;
+    if (a2 != 0) ret = a1;
     ret = ret << 2;
-    v1 = v1 - ret;
-    *(u32*)(a3) = v1;
-    ret = UI_Kern_SignalSema(a0, a1, a2, a3);
+    *(u32*)(a3) = v1 - ret;
+    ret = UI_Kern_SignalSema();
 loc_22D844:
-    ret = *(u32*)*(0x00860000 + -0x557c);
+    ret = *(u32*)(0x00860000 + -0x557c);  /* SYS_DATA_BASE: System/boot data region */
     s0 = s7 + -0x3538;
-    if ((signed)s3 >= (signed)ret) goto loc_22D8A0;
-    s0 = *(u32*)*(s6 + -0x3534);
-    a0 = s3 << 5;
-    v1 = *(u32*)*(__fp + -0x5580);
+    if ((signed)i >= (signed)ret) goto loc_22D8A0;
+    s0 = *(u32*)(s6 + -0x3534);
+    a0 = i << 5;
+    v1 = *(u32*)(__fp + -0x5580);
     a2 = -0x16;
     s1 = v1 + a0;
     if ((unsigned)s0 < 0x100) {
         a0 = s0;
-        ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+        ret = UI_Kern_WaitSema();
         v1 = -0x51;
         ret = ret ^ s0;
         a2 = 0;
-        __asm("movn a2, v1, v0");
+        if (ret != 0) a2 = v1;
     }
     s2 = s4 + -0x5578;
     if ((signed)a2 >= 0) goto loc_22D708;
-    *(u32*)*(s4 + -0x5578) = -5;
+    *(u32*)(s4 + -0x5578) = -5;
     s0 = s7 + -0x3538;
 loc_22D8A0:
     s2 = s6 + -0x3534;
     a0 = *(u32*)(s0);
     s1 = -1;
-    ret = 0x00860000;
-    *(u32*)*(__fp + -0x5580) = 0;
-    *(u32*)*(ret + -0x557c) = 0;
-    ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+    ret = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+    *(u32*)(__fp + -0x5580) = 0;
+    *(u32*)(ret + -0x557c) = 0;
+    ret = UI_Kern_DeleteSema();
     a0 = *(u32*)(s2);
     *(u32*)(s0) = s1;
-    ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+    ret = UI_Kern_DeleteSema();
     *(u32*)(s2) = s1;
-    a0 = *(u32*)*(0x00860000 + -0x5570);
-    ret = UI_Kern_SignalSema(a0, a1, a2, a3);
+    a0 = *(u32*)(0x00860000 + -0x5570);  /* SYS_DATA_BASE: System/boot data region */
+    ret = UI_Kern_SignalSema();
 loc_22D8D8:
-    s0 = *(u32*)*(0x00860000 + -0x5570);
+    s0 = *(u32*)(0x00860000 + -0x5570);  /* SYS_DATA_BASE: System/boot data region */
     a2 = -0x16;
     if ((unsigned)s0 < 0x100) {
         a0 = s0;
-        ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+        ret = UI_Kern_WaitSema();
         v1 = -0x51;
         ret = ret ^ s0;
         a2 = 0;
-        __asm("movn a2, v1, v0");
+        if (ret != 0) a2 = v1;
     }
     a0 = __sp;
-    if (likely((signed)a2 >= 0)) goto loc_22D6A8;
+    if ((signed)a2 >= 0) goto loc_22D6A8;
     v1 = -1;
-    ret = 0x0085AA94;
-    *(u32*)(v0) = v1;
-    ret = UI_Kern_ExitDeleteThread(a0, a1, a2, a3);
-    return ret;
+    *(u32*)(0x0085AA94) = v1;
+    return UI_Kern_ExitDeleteThread();
 }
 
 /* Function at 0x0022D958 - 0x0022DC30 */
 /* String ref: "pfs0:/disc/disc%d" */
-int UI_OpenDiscImage()
+u32 UI_OpenDiscImage(void)
 {
     /* Stack frame: 208 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7;
+    u32 ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, i, s7;
     goto loc_22DBB4;
 loc_22D988:
     s7 = -1;
-    ret = *(u32*)*(__fp + -0x557c);
+    ret = *(u32*)(__fp + -0x557c);
     s4 = -1;
-    s6 = 0;
+    i = 0;
     s1 = 0;
     if ((signed)ret <= 0) goto loc_22DB6C;
-    v1 = 0x00860000;
-loc_22D9A8:
-    a0 = -1;
-    ret = *(u32*)*(v1 + -0x5580);
-    v1 = s6 << 5;
-    s0 = ret + v1;
-    if (s7 != a0) {
-        ret = *(u8*)*(s0 + 2);
-        a1 = *(u32*)*(s0 + 4);
-            if ((signed)s4 >= 0) {
+    v1 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+        while (1) {
+            a0 = -1;
+            ret = *(u32*)(v1 + -0x5580);
+            v1 = i << 5;
+            s0 = ret + v1;
+            if (s7 != a0) {
+            ret = *(u8*)(s0 + 2);
+            a1 = *(u32*)(s0 + 4);
+                if ((signed)s4 >= 0) {
+                a0 = s4;
+                ret = UI_SifModuleInit();
+                ret = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+                }
+                v1 = *(u32*)(ret + -0x5574);
+                ret = 1;
+                if (v1 == 0x00500000) {
+                v1 = 0x00500000;
+                a2 = *(u8*)(s0 + 2);
+                a0 = __sp;
+                a1 = v1 + -0x178;
+                Libc_GetReentStruct();
+                a0 = __sp;
+                } else {
+                a2 = *(u8*)(s0 + 2);
+                a0 = __sp;
+                a1 = ret + -0x160;
+                Libc_GetReentStruct();
+                a0 = __sp;
+                }
+                a1 = 1;
+                s4 = UI_SifModuleLoad(a0, a1, a2, a3);
+                s1 = s4;
+                if ((signed)s4 < 0) goto loc_22DB6C;
+                s7 = *(u8*)(s0 + 2);
+                a1 = *(u32*)(s0 + 4);
+            }
             a0 = s4;
-            ret = UI_SifModuleInit(a0, a1, a2, a3);
-            ret = 0x00860000;
+            a2 = 0;
+            a1 = a1 << 9;
+            ret = UI_SifModuleBind(a0, a1, a2);
+            s1 = ret;
+            ret = 4 << 16;
+            if ((signed)s1 < 0) goto loc_22DB6C;
+            v1 = *(u32*)(s0 + 8);
+            s2 = v1 << 9;
+            s1 = -0xc;
+            if ((unsigned)ret < (unsigned)s2) goto loc_22DB6C;
+            s0 = *(u32*)(0x00860000 + -0x3538);  /* SYS_DATA_BASE: System/boot data region */
+            s1 = -0x16;
+            if ((unsigned)s0 < 0x100) {
+            a0 = s0;
+            s1 = -0x51;
+            ret = UI_Kern_WaitSema();
+            ret = ret ^ s0;
+            if (ret == 0) s1 = 0;
             }
-            v1 = *(u32*)*(ret + -0x5574);
-            ret = 1;
-            if (v1 == 0x00500000) {
-            v1 = 0x00500000;
-            a2 = *(u8*)*(s0 + 2);
-            a0 = __sp;
-            a1 = v1 + -0x178;
-            ret = Libc_GetReentStruct(a0, a1, a2, a3);
-            a0 = __sp;
-            } else {
-            a2 = *(u8*)*(s0 + 2);
-            a0 = __sp;
-            a1 = ret + -0x160;
-            ret = Libc_GetReentStruct(a0, a1, a2, a3);
-            a0 = __sp;
-            }
-            a1 = 1;
-            ret = UI_SifModuleLoad(a0, a1, a2, a3);
-            s4 = ret;
-            s1 = s4;
-            if ((signed)s4 < 0) goto loc_22DB6C;
-            s7 = *(u8*)*(s0 + 2);
-            a1 = *(u32*)*(s0 + 4);
+            s1 = -5;
+            if ((signed)s1 < 0) goto loc_22DB6C;
+            s5 = 0x00860000 + -0x5578;  /* SYS_DATA_BASE: System/boot data region */
+            v1 = *(u32*)(s5);
+            ret = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+            if (v1 != 0) {
+            do {
+                s1 = -5;
+                } else {
+                v1 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+                s0 = ret + -0x3530;
+                s3 = v1 + -0x1500;
+                ret = *(u32*)(s0);
+                a0 = s4;
+                a2 = s2;
+                ret = ret + s3;
+                a1 = *(u32*)(ret);
+                s1 = UI_SifModuleStart(a0, a1, a2);
+                if ((signed)s1 < 0) goto loc_22DB6C;
+                a2 = s2 - s1;
+                if (s1 != s2) {
+                    a1 = 0;
+                    if ((unsigned)a2 >= 0x200) goto loc_22DB6C;
+                    ret = ret + s3;
+                    a0 = *(u32*)(ret);
+                    a0 = a0 + s1;
+                    ret = Libc_Memset(a0, a1, a2);
+                }
+                v1 = *(u32*)(s0);
+                a2 = *(u32*)(s5);
+                a0 = v1 + 1;
+                v1 = v1 + 4;
+                a1 = ((signed)a0 < 0) ? 1 : 0;
+                ret = a0;
+                if (a1 != 0) ret = v1;
+                ret = ret << 2;
+                a0 = a0 - ret;
+                *(u32*)(s0) = a0;
+            } while (a2 != 0);
+            ret = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+            i = i + 1;
+            a0 = *(u32*)(ret + -0x3534);
+            s1 = 0;
+            ret = UI_Kern_SignalSema();
+            v1 = ((signed)i < (signed)v1) ? 1 : 0;
         }
-    a0 = s4;
-    a2 = 0;
-    a1 = a1 << 9;
-    ret = UI_SifModuleBind(a0, a1, a2, a3);
-    s1 = ret;
-    ret = 4 << 16;
-    if ((signed)s1 < 0) goto loc_22DB6C;
-    v1 = *(u32*)*(s0 + 8);
-    s2 = v1 << 9;
-    s1 = -0xc;
-    if (likely((unsigned)ret < (unsigned)s2)) goto loc_22DB6C;
-    s0 = *(u32*)*(0x00860000 + -0x3538);
-    s1 = -0x16;
-    if ((unsigned)s0 < 0x100) {
-        a0 = s0;
-        s1 = -0x51;
-        ret = UI_Kern_WaitSema(a0, a1, a2, a3);
-        ret = ret ^ s0;
-        __asm("movz s1, zero, v0");
     }
-    s1 = -5;
-    if ((signed)s1 < 0) goto loc_22DB6C;
-    s5 = 0x00860000 + -0x5578;
-    v1 = *(u32*)(s5);
-    ret = 0x00860000;
-    if (v1 == 0) goto loc_22DAB8;
-loc_22DAAC:
-    s1 = -5;
-    goto loc_22DB6C;
-loc_22DAB8:
-    v1 = 0x00860000;
-    s0 = ret + -0x3530;
-    s3 = v1 + -0x1500;
-    ret = *(u32*)(s0);
-    a0 = s4;
-    a2 = s2;
-    ret = ret << 2;
-    ret = ret + s3;
-    a1 = *(u32*)(v0);
-    ret = UI_SifModuleStart(a0, a1, a2, a3);
-    s1 = ret;
-    if ((signed)s1 < 0) goto loc_22DB6C;
-    a2 = s2 - s1;
-    if (s1 != s2) {
-        a1 = 0;
-        if ((unsigned)a2 >= 0x200) goto loc_22DB6C;
-        ret = *(u32*)(s0);
-        ret = ret << 2;
-        ret = ret + s3;
-        a0 = *(u32*)(v0);
-        a0 = a0 + s1;
-        ret = Libc_Memset(a0, a1, a2, a3);
-    }
-    v1 = *(u32*)(s0);
-    a2 = *(u32*)(s5);
-    a0 = v1 + 1;
-    v1 = v1 + 4;
-    a1 = ((signed)a0 < 0) ? 1 : 0;
-    ret = a0;
-    __asm("movn v0, v1, a1");
-    ret = (signed)ret >> 2;
-    ret = ret << 2;
-    a0 = a0 - ret;
-    *(u32*)(s0) = a0;
-    if (a2 != 0) goto loc_22DAAC;
-    ret = 0x00860000;
-    s6 = s6 + 1;
-    a0 = *(u32*)*(ret + -0x3534);
-    s1 = 0;
-    ret = UI_Kern_SignalSema(a0, a1, a2, a3);
-    v1 = *(u32*)*(__fp + -0x557c);
-    v1 = ((signed)s6 < (signed)v1) ? 1 : 0;
-    if (0x00860000 != 0) goto loc_22D9A8;
 loc_22DB6C:
     if ((signed)s4 >= 0) {
         a0 = s4;
-        ret = UI_SifModuleInit(a0, a1, a2, a3);
+        ret = UI_SifModuleInit();
     }
     if (s1 == 0) goto loc_22DBB8;
-    s0 = 0x00860000 + -0x5578;
+    s0 = 0x00860000 + -0x5578;  /* SYS_DATA_BASE: System/boot data region */
     v1 = *(u32*)(s0);
-    if (likely(0x00860000 != 0)) goto loc_22DBB8;
-    ret = TLB_SetupEntries(a0, a1, a2, a3);
-    v1 = *(u32*)(s0);
-    *(u32*)(s0) = s1;
-    if (likely(v1 == 0)) goto loc_22DBAC;
-loc_22DBAC:
-    ret = System_EnableInterrupts(a0, a1, a2, a3);
+    goto loc_22DBB8;
+    ret = System_EnableInterrupts();
 loc_22DBB4:
-    v1 = 0x00860000;
+    v1 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
 loc_22DBB8:
-    s0 = *(u32*)*(v1 + -0x3540);
+    s0 = *(u32*)(v1 + -0x3540);
     s1 = -0x16;
     if ((unsigned)s0 < 0x100) {
         a0 = s0;
         s1 = 0;
-        ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+        ret = UI_Kern_WaitSema();
         v1 = -0x51;
         ret = ret ^ s0;
-        __asm("movn s1, v1, v0");
+        if (ret != 0) s1 = v1;
     }
-    __fp = 0x00860000;
-    if (likely((signed)s1 >= 0)) goto loc_22D988;
+    __fp = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+    if ((signed)s1 >= 0) goto loc_22D988;
     v1 = -1;
-    ret = 0x0085CAC4;
-    *(u32*)(v0) = v1;
-    ret = UI_Kern_ExitDeleteThread(a0, a1, a2, a3);
-    return ret;
+    *(u32*)(0x0085CAC4) = v1;
+    return UI_Kern_ExitDeleteThread();
 }
 
 /* Function at 0x0022DC30 - 0x0022DCE0 */
-int UI_CloseDiscResources()
+u32 UI_CloseDiscResources(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0;
-    s0 = 0x00860000 + -0x5570;
+    u32 ret, v1, a0, a1, a2, a3, s0;
+    s0 = 0x00860000 + -0x5570;  /* SYS_DATA_BASE: System/boot data region */
     a0 = *(u32*)(s0);
     if ((signed)a0 >= 0) {
-        ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+        ret = UI_Kern_DeleteSema();
         *(u32*)(s0) = -1;
-        ret = 0x00860000;
+        ret = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     }
     s0 = ret + -0x3540;
     a0 = *(u32*)(s0);
     if ((signed)a0 >= 0) {
-        ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+        ret = UI_Kern_DeleteSema();
         *(u32*)(s0) = -1;
-        ret = 0x00860000;
+        ret = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     }
     v1 = ret + -0x556c;
     do {
         ret = *(u32*)(v1);
-        a0 = 0x00860000;
+        a0 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     } while ((signed)ret >= 0);
     ret = a0 + -0x353c;
     do {
-        v1 = *(u32*)(v0);
+        v1 = *(u32*)(ret);
     } while ((signed)v1 >= 0);
     return 0;
 }
 
 /* Function at 0x0022DCE0 - 0x0022DD28 */
-int UI_SetDiscBuffer()
+u32 UI_SetDiscBuffer(u32 a0, u32 a1)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
-    a2 = 0x00860000 + -0x5580;
+    u32 ret, v1, a2, a3;
+    a2 = 0x00860000 + -0x5580;  /* SYS_DATA_BASE: System/boot data region */
     v1 = *(u32*)(a2);
     ret = -1;
     if (v1 == 0) {
         *(u32*)(a2) = a0;
-        ret = 0x00860000;
-        v1 = 0x00860000;
-        a0 = *(u32*)*(ret + -0x5570);
-        *(u32*)*(v1 + -0x557c) = a1;
-        ret = UI_Kern_SignalSema(a0, a1, a2, a3);
+        ret = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+        v1 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+        a0 = *(u32*)(ret + -0x5570);
+        *(u32*)(v1 + -0x557c) = a1;
+        ret = UI_Kern_SignalSema();
         ret = 0;
     }
     return ret;
 }
 
 /* Function at 0x0022DD28 - 0x0022E020 */
-int UI_CRC_Compute()
+u32 UI_CRC_Compute(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0;
-    ret = 0x00860000;
+    u32 ret, v1, a0, a1, a2, a3, s0;
+    ret = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     v1 = -0x16;
-    s0 = *(u32*)*(ret + -0x5570);
+    s0 = *(u32*)(ret + -0x5570);
     a0 = s0;
     if ((unsigned)s0 < 0x100) {
-        ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+        ret = UI_Kern_WaitSema();
         v1 = -0x51;
         ret = ret ^ s0;
-        __asm("movz v1, zero, v0");
+        if (ret == 0) v1 = 0;
     }
     ret = v1;
     if ((signed)v1 >= 0) {
-        ret = *(u32*)*(0x00860000 + -0x5578);
+        ret = *(u32*)(0x00860000 + -0x5578);  /* SYS_DATA_BASE: System/boot data region */
     }
     return ret;
-    }
-    ret = ~(0 | a2);
-    return ret;
-    }
-    ret = ~(0 | a2);
-    return ret;
-    }
-    return ret;
-loc_22DED0:
-    t2 = *(u8*)(a0);
-    a0 = a0 + 1;
-    t3 = (unsigned)a2 >> 8;
-    t2 = t2 ^ t3;
-    a1 = a1 + -1;
-    t2 = t2 << 1;
-    t2 = t2 + t0;
-    t2 = *(u16*)(t2);
-    a2 = a2 << 8;
-    a2 = a2 ^ t2;
-    a2 = a2 & 0xffff;
-    if (a1 != 0) goto loc_22DED0;
-    ret = a2 ^ 0xffff;
-    return ret;
-loc_22DF30:
-    t2 = *(u8*)(a0);
-    a0 = a0 + 1;
-    t2 = t2 ^ a2;
-    a1 = a1 + -1;
-    t2 = t2 & 0xff;
-    t2 = t2 << 1;
-    t2 = t2 + t0;
-    t2 = *(u16*)(t2);
-    a2 = (unsigned)a2 >> 8;
-    a2 = a2 ^ t2;
-    if (a1 != 0) goto loc_22DF30;
-    ret = ~(0 | a2);
-    ret = ret & 0xffff;
-    return ret;
-loc_22DFB0:
-    t2 = *(u8*)(a0);
-    a0 = a0 + 1;
-    a1 = a1 + -1;
-    t3 = (unsigned)t8 >> 8;
-    t4 = t2 ^ t9;
-    t2 = t2 ^ t3;
-    t4 = t4 & 0xff;
-    t2 = t2 << 1;
-    t4 = t4 << 1;
-    t2 = t2 + t0;
-    t4 = t4 + t1;
-    t2 = *(u16*)(t2);
-    t8 = t8 << 8;
-    t4 = *(u16*)(t4);
-    t9 = (unsigned)t9 >> 8;
-    t8 = t8 ^ t2;
-    t9 = t9 ^ t4;
-    t8 = t8 & 0xffff;
-    if (a1 != 0) goto loc_22DFB0;
-    ret = t8 ^ 0xffff;
-    v1 = t9 ^ 0xffff;
-    *(u16*)(a2) = ret;
-    *(u16*)(a3) = v1;
+    return ~(0 | a2);
+    return ~(0 | a2);
     return ret;
 }
 
 /* Function at 0x0022E020 - 0x0022E110 */
-int UI_CRC_Combined()
+u32 UI_CRC_Combined(u32 a0, u32 a1, u32 a2)
 {
-    int ret, v0, v1, a0, a1, a2, a3, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
+    u32 ret, v1, a3, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
     t6 = *(u32*)(a2);
     if (a1 != 0) {
         t0 = 0x004FFEB0;
-        t7 = *(u32*)*(a2 + 4);
+        t7 = *(u32*)(a2 + 4);
         t1 = 0x005002B0;
-        t8 = *(u16*)*(a2 + 8);
+        t8 = *(u16*)(a2 + 8);
         t2 = 0x005006B0;
-        t9 = *(u16*)*(a2 + 0xa);
+        t9 = *(u16*)(a2 + 0xa);
         t3 = 0x005008B0;
         do {
             ret = *(u8*)(a0);
@@ -3941,7 +3645,7 @@ int UI_CRC_Combined()
             v1 = v1 + t1;
             t4 = t4 + t2;
             t5 = t5 + t3;
-            ret = *(u32*)(v0);
+            ret = *(u32*)(ret);
             t6 = t6 << 8;
             v1 = *(u32*)(v1);
             t7 = (unsigned)t7 >> 8;
@@ -3960,17 +3664,17 @@ int UI_CRC_Combined()
         t8 = t8 ^ 0xffff;
         t9 = t9 ^ 0xffff;
         *(u32*)(a2) = t6;
-        *(u32*)*(a2 + 4) = t7;
-        *(u16*)*(a2 + 8) = t8;
-        *(u16*)*(a2 + 0xa) = t9;
+        *(u32*)(a2 + 4) = t7;
+        *(u16*)(a2 + 8) = t8;
+        *(u16*)(a2 + 0xa) = t9;
     }
     return ret;
 }
 
 /* Function at 0x0022E110 - 0x0022E270 */
-int UI_SHA1_Transform()
+u32 UI_SHA1_Transform(u32 a0)
 {
-    int ret, a0, s0, s1, s2, s3, s4, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
+    u32 ret, s0, s1, s2, s3, s4, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
     t0 = s0;
     t1 = s1;
     t2 = s2;
@@ -4061,594 +3765,581 @@ loc_22E230:
 }
 
 /* Function at 0x0022E270 - 0x0022E470 */
-int UI_SHA1_Compute()
+u32 UI_SHA1_Compute(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 256 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, t0, t1, t2, t3, t4, t5, t6, t7;
+    u32 ret, v1, s0, s1, s2, s3, s4, s5, t0, t1, t2, t3, t4, t5, t6, t7;
     s5 = a0;
     __fp = a1 << 3;
     a0 = a3;
     t0 = 0x00500EC0;
     s0 = *(u32*)(t0);
-    s1 = *(u32*)*(t0 + 4);
-    s2 = *(u32*)*(t0 + 8);
-    s3 = *(u32*)*(t0 + 0xc);
-    s4 = *(u32*)*(t0 + 0x10);
+    s1 = *(u32*)(t0 + 4);
+    s2 = *(u32*)(t0 + 8);
+    s3 = *(u32*)(t0 + 0xc);  /* PSX: lo */
+    s4 = *(u32*)(t0 + 0x10);  /* PSX: gpr[0]/$zero */
     do {
         __asm("nori.b w0, w0, 0xa8");
         __asm("ave_u.h w0, w0, w10");
-        __asm("ld.b w0, -0x154(zero)");
-        t6 = *(u128*)*(s5 + 48);  /* lq */
-        __asm("mmi1 t1, zero, t0");
-        __asm("mmi1 t3, zero, t2");
-        __asm("mmi1 t5, zero, t4");
-        __asm("mmi1 t7, zero, t6");
-        __asm("mmi0 t0, zero, t0");
-        __asm("mmi0 t2, zero, t2");
-        __asm("mmi0 t4, zero, t4");
-        __asm("mmi0 t6, zero, t6");
+        __asm("ld.b w0, -0x154(0)");
+        t6 = *(u128*)(s5 + 48);  /* lq */
+        __asm("mmi1 t1, 0, t0");
+        __asm("mmi1 t3, 0, t2");
+        __asm("mmi1 t5, 0, t4");
+        __asm("mmi1 t7, 0, t6");
+        __asm("mmi0 t0, 0, t0");
+        __asm("mmi0 t2, 0, t2");
+        __asm("mmi0 t4, 0, t4");
+        __asm("mmi0 t6, 0, t6");
         __asm("pref 0, 0x40(s5)");
-        __asm("mmi2 t0, zero, t0");
-        __asm("mmi2 t1, zero, t1");
-        __asm("mmi2 t2, zero, t2");
-        __asm("mmi2 t3, zero, t3");
-        __asm("mmi2 t4, zero, t4");
-        __asm("mmi2 t5, zero, t5");
-        __asm("mmi2 t6, zero, t6");
-        __asm("mmi2 t7, zero, t7");
+        __asm("mmi2 t0, 0, t0");
+        __asm("mmi2 t1, 0, t1");
+        __asm("mmi2 t2, 0, t2");
+        __asm("mmi2 t3, 0, t3");
+        __asm("mmi2 t4, 0, t4");
+        __asm("mmi2 t5, 0, t5");
+        __asm("mmi2 t6, 0, t6");
+        __asm("mmi2 t7, 0, t7");
         __asm("mmi0 t0, t1, t0");
         __asm("mmi0 t2, t3, t2");
         __asm("mmi0 t4, t5, t4");
         __asm("mmi0 t6, t7, t6");
         __asm("ext t0, a0, 0, 1");
         s5 = s5 + 0x40;
-        __asm("addu.qb zero, a0, t2");
+        __asm("addu.qb 0, a0, t2");
         a1 = a1 + -0x40;
-        *(u128*)*(a0 + 32) = t4;  /* sq */
+        *(u128*)(a0 + 32) = t4;  /* sq */
         __asm("dpa.w.ph ac0, a0, t6");
-        ret = UI_SHA1_Transform(a0, a1, a2, a3);
+        ret = UI_SHA1_Transform(a0);
     } while (a1 != 0);
     t0 = 0x80000000;
-    __asm("ext zero, a0, 0, 1");
-    __asm("addu.qb zero, a0, zero");
-    *(u128*)*(a0 + 32) = 0;  /* sq */
-    __asm("dpa.w.ph ac0, a0, zero");
-    *(u32*)*(a0 + 0x3c) = __fp;
+    __asm("ext 0, a0, 0, 1");
+    __asm("addu.qb 0, a0, 0");
+    *(u128*)(a0 + 32) = 0;  /* sq */
+    __asm("dpa.w.ph ac0, a0, 0");
+    *(u32*)(a0 + 0x3c) = __fp;
     *(u32*)(a0) = t0;
-    ret = UI_SHA1_Transform(a0, a1, a2, a3);
-    __asm("mmi0 s0, zero, s0");
-    __asm("mmi0 s1, zero, s1");
-    __asm("mmi0 s2, zero, s2");
-    __asm("mmi0 s3, zero, s3");
-    __asm("mmi0 s4, zero, s4");
-    __asm("mmi2 s0, zero, s0");
-    __asm("mmi2 s1, zero, s1");
-    __asm("mmi2 s2, zero, s2");
-    __asm("mmi2 s3, zero, s3");
-    __asm("mmi2 s4, zero, s4");
-    __asm("mmi0 s0, zero, s0");
-    __asm("mmi0 s1, zero, s1");
-    __asm("mmi0 s2, zero, s2");
-    __asm("mmi0 s3, zero, s3");
-    __asm("mmi0 s4, zero, s4");
+    ret = UI_SHA1_Transform(a0);
+    __asm("mmi0 s0, 0, s0");
+    __asm("mmi0 s1, 0, s1");
+    __asm("mmi0 s2, 0, s2");
+    __asm("mmi0 s3, 0, s3");
+    __asm("mmi0 s4, 0, s4");
+    __asm("mmi2 s0, 0, s0");
+    __asm("mmi2 s1, 0, s1");
+    __asm("mmi2 s2, 0, s2");
+    __asm("mmi2 s3, 0, s3");
+    __asm("mmi2 s4, 0, s4");
+    __asm("mmi0 s0, 0, s0");
+    __asm("mmi0 s1, 0, s1");
+    __asm("mmi0 s2, 0, s2");
+    __asm("mmi0 s3, 0, s3");
+    __asm("mmi0 s4, 0, s4");
     *(u32*)(a2) = s0;
-    *(u32*)*(a2 + 4) = s1;
-    *(u32*)*(a2 + 8) = s2;
-    *(u32*)*(a2 + 0xc) = s3;
-    *(u32*)*(a2 + 0x10) = s4;
-    return ret;
-    v1 = 2;
-    SYSCALL(); /* EE kernel call */
-    return ret;
-    v1 = 4;
-    SYSCALL(); /* EE kernel call */
-    return ret;
-    v1 = 6;
-    SYSCALL(); /* EE kernel call */
+    *(u32*)(a2 + 4) = s1;
+    *(u32*)(a2 + 8) = s2;
+    *(u32*)(a2 + 0xc) = s3;
+    *(u32*)(a2 + 0x10) = s4;
     return ret;
 }
 
 /* Function at 0x0022E470 - 0x0022E4D0 */
-int UI_Kern_ExecOSD()
+u32 UI_Kern_ExecOSD(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 7;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E4D0 - 0x0022E4E0 */
-int UI_Kern_AddDmacHandler()
+u32 UI_Kern_AddDmacHandler(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0xd;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E4E0 - 0x0022E500 */
-int UI_Kern_RemoveDmacHandler()
+u32 UI_Kern_RemoveDmacHandler(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0xe;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E500 - 0x0022E520 */
-int UI_Kern_RemoveIntcHandler()
+u32 UI_Kern_RemoveIntcHandler(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x10;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E520 - 0x0022E530 */
-int UI_Kern_EnableIntc()
+u32 UI_Kern_EnableIntc(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x11;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E530 - 0x0022E550 */
-int UI_Kern_DisableIntc()
+u32 UI_Kern_DisableIntc(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x12;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E550 - 0x0022E560 */
-int UI_Kern_EnableDmac()
+u32 UI_Kern_EnableDmac(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x13;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E560 - 0x0022E570 */
-int UI_Kern_DisableDmac()
+u32 UI_Kern_DisableDmac(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x14;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E570 - 0x0022E580 */
-int UI_Kern_SetAlarm()
+u32 UI_Kern_SetAlarm(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x15;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E580 - 0x0022E590 */
-int UI_Kern_ReleaseAlarm()
+u32 UI_Kern_ReleaseAlarm(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x16;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E590 - 0x0022E5A0 */
-int UI_Kern_iEnableIntc()
+u32 UI_Kern_iEnableIntc(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x17;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E5A0 - 0x0022E5B0 */
-int UI_Kern_SetVTLBRefillHandler()
+u32 UI_Kern_SetVTLBRefillHandler(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0xfc;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E5B0 - 0x0022E5C0 */
-int UI_Kern_SetVCommonHandler()
+u32 UI_Kern_SetVCommonHandler(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0xfd;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E5C0 - 0x0022E5D0 */
-int UI_Kern_iSetAlarm()
+u32 UI_Kern_iSetAlarm(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = -0x1a;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E5D0 - 0x0022E5E0 */
-int UI_Kern_iReleaseAlarm()
+u32 UI_Kern_iReleaseAlarm(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = -0x1b;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E5E0 - 0x0022E5F0 */
-int UI_Kern_iCreateThread()
+u32 UI_Kern_iCreateThread(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = -0x1c;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E5F0 - 0x0022E620 */
-int UI_Kern_iDeleteThread()
+u32 UI_Kern_iDeleteThread(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = -0x1d;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E620 - 0x0022E630 */
-int UI_Kern_CreateThread()
+u32 UI_Kern_CreateThread(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x20;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E630 - 0x0022E640 */
-int UI_Kern_DeleteThread()
+u32 UI_Kern_DeleteThread(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x21;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E640 - 0x0022E660 */
-int UI_Kern_StartThread()
+u32 UI_Kern_StartThread(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x22;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E660 - 0x0022E6B0 */
-int UI_Kern_ExitDeleteThread()
+u32 UI_Kern_ExitDeleteThread(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x24;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E6B0 - 0x0022E6D0 */
-int UI_Kern_ChangeThreadPriority()
+u32 UI_Kern_ChangeThreadPriority(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x29;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E6D0 - 0x0022E710 */
-int UI_Kern_RotateThreadReadyQueue()
+u32 UI_Kern_RotateThreadReadyQueue(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x2b;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E710 - 0x0022E720 */
-int UI_Kern_GetThreadId()
+u32 UI_Kern_GetThreadId(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x2f;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E720 - 0x0022E740 */
-int UI_Kern_ReferThreadStatus()
+u32 UI_Kern_ReferThreadStatus(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x30;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E740 - 0x0022E750 */
-int UI_Kern_SleepThread()
+u32 UI_Kern_SleepThread(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x32;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E750 - 0x0022E760 */
-int UI_Kern_WakeupThread()
+u32 UI_Kern_WakeupThread(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x33;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E760 - 0x0022E790 */
-int UI_Kern_iWakeupThread()
+u32 UI_Kern_iWakeupThread(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = -0x34;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E790 - 0x0022E7A0 */
-int UI_Kern_SuspendThread()
+u32 UI_Kern_SuspendThread(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x37;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E7A0 - 0x0022E800 */
-int UI_Kern_iSuspendThread()
+u32 UI_Kern_iSuspendThread(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = -0x38;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E800 - 0x0022E820 */
-int UI_Kern_EndOfHeap()
+u32 UI_Kern_EndOfHeap(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x3e;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E820 - 0x0022E830 */
-int UI_Kern_CreateSema()
+u32 UI_Kern_CreateSema(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x40;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E830 - 0x0022E840 */
-int UI_Kern_DeleteSema()
+u32 UI_Kern_DeleteSema(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x41;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E840 - 0x0022E850 */
-int UI_Kern_SignalSema()
+u32 UI_Kern_SignalSema(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x42;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E850 - 0x0022E860 */
-int UI_Kern_iSignalSema()
+u32 UI_Kern_iSignalSema(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = -0x43;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E860 - 0x0022E870 */
-int UI_Kern_WaitSema()
+u32 UI_Kern_WaitSema(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x44;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E870 - 0x0022E880 */
-int UI_Kern_PollSema()
+u32 UI_Kern_PollSema(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x45;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E880 - 0x0022E8C0 */
-int UI_Kern_iPollSema()
+u32 UI_Kern_iPollSema(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = -0x46;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E8C0 - 0x0022E8D0 */
-int UI_Kern_EnableIntcHandler()
+u32 UI_Kern_EnableIntcHandler(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x4a;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022E8D0 - 0x0022EAA0 */
-int UI_Kern_DisableIntcHandler()
+u32 UI_Kern_DisableIntcHandler(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x4b;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022EAA0 - 0x0022EB40 */
-int UI_Kern_GsPutIMR()
+u32 UI_Kern_GsPutIMR(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x64;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022EB40 - 0x0022EB60 */
-int UI_Kern_SifSetDma()
+u32 UI_Kern_SifSetDma(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x70;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022EB60 - 0x0022EB90 */
-int UI_Kern_SifSetDChain()
+u32 UI_Kern_SifSetDChain(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x71;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022EB90 - 0x0022EBC0 */
-int UI_Kern_SifSetReg()
+u32 UI_Kern_SifSetReg(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x73;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022EBC0 - 0x0022EBE0 */
-int UI_Kern_SifGetReg()
+u32 UI_Kern_SifGetReg(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x76;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022EBE0 - 0x0022EBF0 */
-int UI_Kern_ExecOSD2()
+u32 UI_Kern_ExecOSD2(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x77;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022EBF0 - 0x0022EC00 */
-int UI_Kern_SetSyscall()
+u32 UI_Kern_SetSyscall(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = -0x77;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022EC00 - 0x0022EC10 */
-int UI_Kern_SifRpc()
+u32 UI_Kern_SifRpc(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x78;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022EC10 - 0x0022EC20 */
-int UI_Kern_SetCPUTimerHandler()
+u32 UI_Kern_SetCPUTimerHandler(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = -0x78;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022EC20 - 0x0022EC30 */
-int UI_Kern_SetVTLBRefillHandler2()
+u32 UI_Kern_SetVTLBRefillHandler2(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x79;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022EC30 - 0x0022EC50 */
-int UI_Kern_SetVCommonHandler2()
+u32 UI_Kern_SetVCommonHandler2(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x7a;
-    SYSCALL(); /* EE kernel call */
-    return ret;
-    v1 = 0x7b;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022EC50 - 0x0022EC80 */
-int UI_Kern_SetVInterruptHandler()
+u32 UI_Kern_SetVInterruptHandler(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x7c;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022EC80 - 0x0022EC90 */
-int UI_Kern_SifCheckInit()
+u32 UI_Kern_SifCheckInit(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x7f;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022EC90 - 0x0022ECA0 */
-int UI_Kern_SifInitCmd()
+u32 UI_Kern_SifInitCmd(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x82;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0022ECA0 - 0x0022ED48 */
-int UI_DCacheHitInvalidate()
+u32 UI_DCacheHitInvalidate(u32 a0, u32 a1)
 {
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1, a2, a3;
     a2 = 0;
     a3 = 0xFFFFF000;
 loc_22ECB0:
     SYNC(); /* memory barrier */
     CACHE(0x10, (a2)); /* cache op */
     SYNC(); /* memory barrier */
-    ret = COP0_REG(gp); /* mfc0 */
-    ret = ret & a3;
+    ret = COP0_REG(28); /* mfc0 */
     ret = ret + a2;
     v1 = ((unsigned)a1 < (unsigned)ret) ? 1 : 0;
     if ((unsigned)ret < (unsigned)a0) goto loc_22ECEC;
@@ -4660,8 +4351,7 @@ loc_22ECEC:
     SYNC(); /* memory barrier */
     CACHE(0x10, 1(a2)); /* cache op */
     SYNC(); /* memory barrier */
-    ret = COP0_REG(gp); /* mfc0 */
-    ret = ret & a3;
+    ret = COP0_REG(28); /* mfc0 */
     ret = ret + a2;
     v1 = ((unsigned)a1 < (unsigned)ret) ? 1 : 0;
     if ((unsigned)ret < (unsigned)a0) goto loc_22ED28;
@@ -4677,40 +4367,39 @@ loc_22ED28:
 }
 
 /* Function at 0x0022ED48 - 0x0022EDE0 */
-int UI_DCacheInvalidateSync()
+u32 UI_DCacheInvalidateSync(u32 a0, u32 a1)
 {
     /* Stack frame: 64 bytes */
-    int ret, a0, a1, a2, a3, s0, s1, s2, t4;
+    u32 ret, a2, a3, s0, s1, s2, t4;
     s2 = a0;
     s1 = a1;
-    s0 = COP0_REG(t4); /* mfc0 */
+    s0 = COP0_REG(12); /* mfc0 */
     ret = 1 << 16;
     s0 = s0 & ret;
     if (s0 != 0) {
-        ret = TLB_SetupEntries(a0, a1, a2, a3);
+        ret = TLB_SetupEntries();
     }
     a0 = 0xFFFFFFC0;
     a1 = s1 & a0;
     a0 = s2 & a0;
-    ret = UI_DCacheHitInvalidate(a0, a1, a2, a3);
+    ret = UI_DCacheHitInvalidate(a0, a1);
     if (s0 != 0) {
-        return System_EnableInterrupts(a0, a1, a2, a3);
+        return System_EnableInterrupts();
     }
     return ret;
 }
 
 /* Function at 0x0022EDE0 - 0x0022EE88 */
-int UI_ICacheWritebackInvalidate()
+u32 UI_ICacheWritebackInvalidate(u32 a0, u32 a1)
 {
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1, a2, a3;
     a2 = 0;
     a3 = 0xFFFFF000;
 loc_22EDF0:
     SYNC(); /* memory barrier */
     CACHE(0x10, (a2)); /* cache op */
     SYNC(); /* memory barrier */
-    ret = COP0_REG(gp); /* mfc0 */
-    ret = ret & a3;
+    ret = COP0_REG(28); /* mfc0 */
     ret = ret + a2;
     v1 = ((unsigned)a1 < (unsigned)ret) ? 1 : 0;
     if ((unsigned)ret < (unsigned)a0) goto loc_22EE2C;
@@ -4722,8 +4411,7 @@ loc_22EE2C:
     SYNC(); /* memory barrier */
     CACHE(0x10, 1(a2)); /* cache op */
     SYNC(); /* memory barrier */
-    ret = COP0_REG(gp); /* mfc0 */
-    ret = ret & a3;
+    ret = COP0_REG(28); /* mfc0 */
     ret = ret + a2;
     v1 = ((unsigned)a1 < (unsigned)ret) ? 1 : 0;
     if ((unsigned)ret < (unsigned)a0) goto loc_22EE68;
@@ -4739,234 +4427,230 @@ loc_22EE68:
 }
 
 /* Function at 0x0022EE88 - 0x0022EF30 */
-int UI_ICacheWritebackSync()
+u32 UI_ICacheWritebackSync(u32 a0, u32 a1)
 {
     /* Stack frame: 64 bytes */
-    int ret, a0, a1, a2, a3, s0, s1, s2, t4;
+    u32 ret, a2, a3, s0, s1, s2, t4;
     s2 = a0;
     s1 = a1;
-    s0 = COP0_REG(t4); /* mfc0 */
+    s0 = COP0_REG(12); /* mfc0 */
     ret = 1 << 16;
     s0 = s0 & ret;
     if (s0 != 0) {
-        ret = TLB_SetupEntries(a0, a1, a2, a3);
+        ret = TLB_SetupEntries();
     }
     a0 = 0xFFFFFFC0;
     a1 = s1 & a0;
     a0 = s2 & a0;
-    ret = UI_ICacheWritebackInvalidate(a0, a1, a2, a3);
+    ret = UI_ICacheWritebackInvalidate(a0, a1);
     if (s0 != 0) {
-        return System_EnableInterrupts(a0, a1, a2, a3);
+        return System_EnableInterrupts();
     }
     return ret;
 }
 
 /* Function at 0x0022EF30 - 0x0022EF98 */
-int UI_SetAlarmSync()
+u32 UI_SetAlarmSync(u32 a0)
 {
     /* Stack frame: 48 bytes */
-    int ret, a0, a1, a2, a3, s0, s1, t4;
+    u32 ret, a1, a2, a3, s0, s1, t4;
     s1 = a0;
-    s0 = COP0_REG(t4); /* mfc0 */
+    s0 = COP0_REG(12); /* mfc0 */
     ret = 1 << 16;
     s0 = s0 & ret;
     if (s0 != 0) {
-        ret = TLB_SetupEntries(a0, a1, a2, a3);
+        ret = TLB_SetupEntries();
     }
     a0 = s1;
-    ret = UI_Kern_SetAlarm(a0, a1, a2, a3);
+    ret = UI_Kern_SetAlarm();
     s1 = ret;
     SYNC(); /* memory barrier */
     ret = s1;
     if (s0 != 0) {
-        ret = System_EnableInterrupts(a0, a1, a2, a3);
+        ret = System_EnableInterrupts();
         ret = s1;
     }
     return ret;
 }
 
 /* Function at 0x0022EF98 - 0x0022F000 */
-int UI_DisableDmacSync()
+u32 UI_DisableDmacSync(u32 a0)
 {
     /* Stack frame: 48 bytes */
-    int ret, a0, a1, a2, a3, s0, s1, t4;
+    u32 ret, a1, a2, a3, s0, s1, t4;
     s1 = a0;
-    s0 = COP0_REG(t4); /* mfc0 */
+    s0 = COP0_REG(12); /* mfc0 */
     ret = 1 << 16;
     s0 = s0 & ret;
     if (s0 != 0) {
-        ret = TLB_SetupEntries(a0, a1, a2, a3);
+        ret = TLB_SetupEntries();
     }
     a0 = s1;
-    ret = UI_Kern_DisableDmac(a0, a1, a2, a3);
+    ret = UI_Kern_DisableDmac();
     s1 = ret;
     SYNC(); /* memory barrier */
     ret = s1;
     if (s0 != 0) {
-        ret = System_EnableInterrupts(a0, a1, a2, a3);
+        ret = System_EnableInterrupts();
         ret = s1;
     }
     return ret;
 }
 
 /* Function at 0x0022F000 - 0x0022F068 */
-int UI_iEnableIntcSync()
+u32 UI_iEnableIntcSync(u32 a0)
 {
     /* Stack frame: 48 bytes */
-    int ret, a0, a1, a2, a3, s0, s1, t4;
+    u32 ret, a1, a2, a3, s0, s1, t4;
     s1 = a0;
-    s0 = COP0_REG(t4); /* mfc0 */
+    s0 = COP0_REG(12); /* mfc0 */
     ret = 1 << 16;
     s0 = s0 & ret;
     if (s0 != 0) {
-        ret = TLB_SetupEntries(a0, a1, a2, a3);
+        ret = TLB_SetupEntries();
     }
     a0 = s1;
-    ret = UI_Kern_iEnableIntc(a0, a1, a2, a3);
+    ret = UI_Kern_iEnableIntc();
     s1 = ret;
     SYNC(); /* memory barrier */
     ret = s1;
     if (s0 != 0) {
-        ret = System_EnableInterrupts(a0, a1, a2, a3);
+        ret = System_EnableInterrupts();
         ret = s1;
     }
     return ret;
 }
 
 /* Function at 0x0022F068 - 0x0022F0D0 */
-int UI_ReleaseAlarmSync()
+u32 UI_ReleaseAlarmSync(u32 a0)
 {
     /* Stack frame: 48 bytes */
-    int ret, a0, a1, a2, a3, s0, s1, t4;
+    u32 ret, a1, a2, a3, s0, s1, t4;
     s1 = a0;
-    s0 = COP0_REG(t4); /* mfc0 */
+    s0 = COP0_REG(12); /* mfc0 */
     ret = 1 << 16;
     s0 = s0 & ret;
     if (s0 != 0) {
-        ret = TLB_SetupEntries(a0, a1, a2, a3);
+        ret = TLB_SetupEntries();
     }
     a0 = s1;
-    ret = UI_Kern_ReleaseAlarm(a0, a1, a2, a3);
+    ret = UI_Kern_ReleaseAlarm();
     s1 = ret;
     SYNC(); /* memory barrier */
     ret = s1;
     if (s0 != 0) {
-        ret = System_EnableInterrupts(a0, a1, a2, a3);
+        ret = System_EnableInterrupts();
         ret = s1;
     }
     return ret;
 }
 
 /* Function at 0x0022F0D0 - 0x0022F0F0 */
-int UI_iSetAlarmSync()
+u32 UI_iSetAlarmSync(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
-    ret = UI_Kern_iSetAlarm(a0, a1, a2, a3);
+    u32 ret, a0, a1, a2, a3;
+    ret = UI_Kern_iSetAlarm();
     SYNC(); /* memory barrier */
     return ret;
 }
 
 /* Function at 0x0022F0F0 - 0x0022F110 */
-int UI_iReleaseAlarmSync()
+u32 UI_iReleaseAlarmSync(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
-    ret = UI_Kern_iReleaseAlarm(a0, a1, a2, a3);
+    u32 ret, a0, a1, a2, a3;
+    ret = UI_Kern_iReleaseAlarm();
     SYNC(); /* memory barrier */
     return ret;
 }
 
 /* Function at 0x0022F110 - 0x0022F130 */
-int UI_SyncSyscall_Neg28()
+u32 UI_SyncSyscall_Neg28(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
-    ret = UI_Kern_iCreateThread(a0, a1, a2, a3);
+    u32 ret, a0, a1, a2, a3;
+    ret = UI_Kern_iCreateThread();
     SYNC(); /* memory barrier */
     return ret;
 }
 
 /* Function at 0x0022F130 - 0x0022F150 */
-int UI_SyncSyscall_Neg29()
+u32 UI_SyncSyscall_Neg29(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
-    ret = UI_Kern_iDeleteThread(a0, a1, a2, a3);
+    u32 ret, a0, a1, a2, a3;
+    ret = UI_Kern_iDeleteThread();
     SYNC(); /* memory barrier */
     return ret;
 }
 
 /* Function at 0x0022F150 - 0x0022F188 */
-int UI_SIO2_WriteChar()
+u32 UI_SIO2_WriteChar(u32 a0)
 {
-    int ret, v1, a0;
+    u32 ret, v1;
     v1 = 0x1000F130;
     do {
-        ret = *(u32*)(v1);
         ret = ret & 0x8000;
     } while (ret != 0);
     ret = a0;
-    v1 = 0x1000F180;
-    *(u8*)(v1) = a0;
+    *(u8*)(0x1000F180) = a0;
     return ret;
 }
 
 /* Function at 0x0022F188 - 0x0022F238 */
-int UI_TTY_PutChar()
+u32 UI_TTY_PutChar(u32 a0)
 {
     /* Stack frame: 64 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2;
-    s1 = 0x004F0000;
-    a1 = *(u32*)*(s1 + 0x51b4);
+    u32 ret, v1, a1, a2, a3, s0, s1, s2;
+    s1 = 0x004F0000;  /* SYS_CONFIG_BASE: System configuration / SIF state */
+    a1 = *(u32*)(s1 + 0x51b4);
     s0 = a0;
     if ((signed)a1 >= 0x7e) {
-        s2 = 0x00860000;
-        *(u32*)*(s1 + 0x51b4) = 0;
+        s2 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+        *(u32*)(s1 + 0x51b4) = 0;
         ret = s2 + -0x14f0;
         a0 = ret;
-        *(u8*)*(ret + 0x7f) = 0;
-        ret = System_IOPCmdDispatch(a0, a1, a2, a3);
-        a1 = *(u32*)*(s1 + 0x51b4);
+        *(u8*)(ret + 0x7f) = 0;
+        ret = System_IOPCmdDispatch(a0);
+        a1 = *(u32*)(s1 + 0x51b4);
     } else {
-        s2 = 0x00860000;
+        s2 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     }
-    ret = 0xa;
     ret = s2 + -0x14f0;
     if (s0 == ret) {
         a0 = s2 + -0x14f0;
-        *(u32*)*(s1 + 0x51b4) = 0;
+        *(u32*)(s1 + 0x51b4) = 0;
         ret = a1 + a0;
-        *(u8*)(v0) = s0;
+        *(u8*)(ret) = s0;
         v1 = ret;
-        *(u8*)*(v1 + 1) = 0;
-        return System_IOPCmdDispatch(a0, a1, a2, a3);
+        *(u8*)(v1 + 1) = 0;
+        return System_IOPCmdDispatch(a0);
     }
-    v1 = a1 + 1;
-    *(u32*)*(s1 + 0x51b4) = v1;
+    *(u32*)(s1 + 0x51b4) = a1 + 1;
     ret = a1 + ret;
-    *(u8*)(v0) = s0;
+    *(u8*)(ret) = s0;
     return ret;
 }
 
 /* Function at 0x0022F238 - 0x0022F270 */
-int UI_TTY_PutCharCRLF()
+u32 UI_TTY_PutCharCRLF(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
+    u32 ret, a1, a2, a3;
     if (a0 == 0xa) {
         a0 = 0xd;
-        ret = UI_SIO2_WriteChar(a0, a1, a2, a3);
+        ret = UI_SIO2_WriteChar(a0);
         a0 = 0xa;
-        return UI_SIO2_WriteChar(a0, a1, a2, a3);
+        return UI_SIO2_WriteChar(a0);
     }
-    return UI_SIO2_WriteChar(a0, a1, a2, a3);
+    return UI_SIO2_WriteChar(a0);
 }
 
 /* Function at 0x0022F270 - 0x0022F300 */
-int UI_FixedPointConvert()
+u32 UI_FixedPointConvert(u32 a0)
 {
-    int ret, v1, a0, a1, a2;
+    u32 ret, v1, a1, a2;
     a1 = a0;
     ret = a1 << 1;
     a2 = (u64)ret >> 53;
@@ -4975,19 +4659,15 @@ int UI_FixedPointConvert()
     if ((signed)a2 < 0xd) {
         return 0;
     }
-    ret = a1 << 12;
-    if (ret == 0) {
+    if ((a1 << 12) == 0) {
         return 0x270f;
     }
-    v1 = 0 | 0x8000;
     v1 = (u64)v1 << 37;
     a1 = (unsigned)ret >> 12;
     a1 = a1 | v1;
     if ((signed)a2 < 0) {
         a2 = 0 - a2;
         ret = 3;
-        v1 = a2 + -2;
-        v1 = (u64)v1 << 32;
         v1 = (s64)v1 >> 32;
         a1 = (unsigned)a1 >> v1;
         a0 = a1 & 3;
@@ -4996,94 +4676,89 @@ int UI_FixedPointConvert()
             ret = (unsigned)a1 >> 2;
             a1 = ret + 1;
             } else {
-            ret = (u64)a2 << 32;
             ret = (s64)ret >> 32;
             a1 = a1 << ret;
             }
         }
-    ret = (u64)a1 << 32;
-    ret = (s64)ret >> 32;
-    return ret;
+    return (s64)ret >> 32;
 }
 
 /* Function at 0x0022F300 - 0x0022F468 */
 /* String ref: "e+%d" */
-int UI_FormatNumber()
+u32 UI_FormatNumber(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 64 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2;
+    u32 ret, v1, s0, i, s2;
     s2 = 0;
     s0 = a0;
-    s1 = 0;
+    i = 0;
     a1 = s2;
-    ret = EEKernel_VU0_LoadMatrix(a0, a1, a2, a3);
+    ret = EEKernel_VU0_LoadMatrix(a0, a1);
     a1 = s0;
     if ((signed)ret < 0) {
         a0 = s2;
-        ret = EEKernel_VU0_Pipeline_XOR(a0, a1, a2, a3);
-        v1 = 0x004F0000;
+        ret = EEKernel_VU0_Pipeline_XOR(a0, a1);
+        v1 = 0x004F0000;  /* SYS_CONFIG_BASE: System configuration / SIF state */
         s0 = ret;
-        ret = *(u32*)*(v1 + 0x51b8);
+        ret = *(u32*)(v1 + 0x51b8);
         a0 = 0x2d;
-        ret = (ret)(a0, a1, a2, a3); /* indirect call */
+        ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
     }
     __at = 0x00500000;
-    a1 = *(u64*)*(__at + 3832);
+    a1 = *(u64*)(__at + 3832);
     a0 = s0;
-    ret = EEKernel_VU0_LoadMatrix(a0, a1, a2, a3);
+    ret = EEKernel_VU0_LoadMatrix(a0, a1);
     s2 = 0x00500000;
-    if ((signed)ret >= 0) goto loc_22F3A4;
-    goto loc_22F384;
-loc_22F370:
-    a1 = 0 | 0x8048;
-    a1 = (u64)a1 << 47;
-    s1 = s1 + -1;
-    ret = EEKernel_VU0_Pipeline_Complex(a0, a1, a2, a3);
-    s0 = ret;
-loc_22F384:
-    __at = 0x00500000;
-    a1 = *(u64*)*(__at + 3840);
-    a0 = s0;
-    ret = EEKernel_VU0_LoadMatrix(a0, a1, a2, a3);
-    a0 = s0;
-    if ((signed)ret < 0) goto loc_22F370;
-    goto loc_22F3F4;
-loc_22F3A4:
-    a1 = 0 | 0xffc0;
-    a1 = (u64)a1 << 46;
-    a0 = s0;
-    ret = EEKernel_VU0_LoadMatrix(a0, a1, a2, a3);
-    s2 = 0x00500000;
-    if ((signed)ret < 0) goto loc_22F3F4;
-    goto loc_22F3DC;
-loc_22F3C8:
-    a1 = 0 | 0x8048;
-    a1 = (u64)a1 << 47;
-    s1 = s1 + 1;
-    ret = EEKernel_ExceptionHandler(a0, a1, a2, a3);
-    s0 = ret;
-loc_22F3DC:
-    a1 = 0 | 0xffc0;
-    a1 = (u64)a1 << 46;
-    a0 = s0;
-    ret = EEKernel_VU0_LoadMatrix(a0, a1, a2, a3);
-    a0 = s0;
-    if ((signed)ret >= 0) goto loc_22F3C8;
+    if ((signed)ret < 0) {
+        goto loc_22F384;
+        loc_22F370:
+        a1 = 0x8048;
+        a1 = (u64)a1 << 47;
+        i = i + -1;
+        s0 = EEKernel_VU0_Pipeline_Complex(a0, a1);
+        loc_22F384:
+        __at = 0x00500000;
+        a1 = *(u64*)(__at + 3840);
+        a0 = s0;
+        ret = EEKernel_VU0_LoadMatrix(a0, a1);
+        a0 = s0;
+        if ((signed)ret < 0) goto loc_22F370;
+    } else {
+        a1 = 0xffc0;
+        a1 = (u64)a1 << 46;
+        a0 = s0;
+        ret = EEKernel_VU0_LoadMatrix(a0, a1);
+        s2 = 0x00500000;
+        if ((signed)ret < 0) goto loc_22F3F4;
+        goto loc_22F3DC;
+        loc_22F3C8:
+        a1 = 0x8048;
+        a1 = (u64)a1 << 47;
+        i = i + 1;
+        s0 = EEKernel_ExceptionHandler(a0, a1);
+        loc_22F3DC:
+        a1 = 0xffc0;
+        a1 = (u64)a1 << 46;
+        a0 = s0;
+        ret = EEKernel_VU0_LoadMatrix(a0, a1);
+        a0 = s0;
+        if ((signed)ret >= 0) goto loc_22F3C8;
+    }
 loc_22F3F4:
     __at = 0x00500000;
-    a1 = *(u64*)*(__at + 3848);
+    a1 = *(u64*)(__at + 3848);
     a0 = s0;
-    ret = EEKernel_VU0_Pipeline_Complex(a0, a1, a2, a3);
+    ret = EEKernel_VU0_Pipeline_Complex(a0, a1);
     a0 = ret;
-    ret = EEKernel_TLB_Setup(a0, a1, a2, a3);
+    ret = EEKernel_TLB_Setup(a0);
     a0 = ret;
-    ret = UI_FixedPointConvert(a0, a1, a2, a3);
+    ret = UI_FixedPointConvert(a0);
     a0 = s2 + 0xee0;
     a1 = ret;
     ret = UI_RenderHelper(a0, a1, a2, a3);
-    a1 = s1;
-    if ((signed)s1 >= 0) {
-        a0 = 0x00500EE8;
+    a1 = i;
+    if ((signed)i >= 0) {
+        a0 = 0x00500EE8;  /* "e+%d" */
         return UI_RenderHelper(a0, a1, a2, a3);
     }
     a0 = 0x00500EF0;
@@ -5091,17 +4766,17 @@ loc_22F3F4:
 }
 
 /* Function at 0x0022F468 - 0x0022FA58 */
-int UI_RenderFrame()
+u32 UI_RenderFrame(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 160 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6;
+    u32 ret, v1, a3, s0, s1, i, s3, s4, s5, s6;
     s3 = a1;
     s0 = a0;
-    ret = TLB_SetupEntries(a0, a1, a2, a3);
+    ret = TLB_SetupEntries();
     s6 = ret;
     ret = *(s8*)(s0);  /* lb */
     v1 = *(u8*)(s0);
-    if (ret == 0) goto loc_22FA1C;
+    if (ret == 0) UI_RenderFrame(a0, a1, a2); return;
 loc_22F4A8:
     ret = v1 << 0x18;
     s4 = 0;
@@ -5109,68 +4784,65 @@ loc_22F4A8:
     ret = 0x25;
     a3 = 0;
     if (a0 == ret) {
-        loc_22F4C0:
-        s2 = s0 + 1;
-        loc_22F4C4:
-        s0 = s2;
-            while (1) {
-                ret = *(u8*)(s0);
-                ret = ret + -0x30;
-                ret = ret << 0x18;
-                a0 = (signed)ret >> 0x18;
-                v1 = ((unsigned)a0 < 0x49) ? 1 : 0;
-                if (v1 != 0) {
-                v1 = a0 << 2;
-                v1 = v1 + 0x00500F10;
-                a0 = *(u32*)(v1);
-                goto *a0; /* computed jump */
-                v1 = *(s8*)*(s2 + 1);  /* lb */
-                a1 = v1 + -0x30;
-                ret = a1 & 0xff;
-                a2 = *(s8*)*(s2 + 2);  /* lb */
-                if ((unsigned)ret >= 0xa) goto loc_22F584;
-                ret = a2 + -0x30;
-                v1 = 0xa;
-                if ((unsigned)ret < 0xa) {
-                    a0 = 0x1f;
-                    ac3 = (s32)((s64)a1 * (s64)v1); HI_LO = (s64)a1 * (s64)v1;
-                    s0 = s2 + 2;
-                    v1 = v1 + -0x30;
-                    a1 = v1 + a2;
-                    ret = ((signed)a1 < 0x20) ? 1 : 0;
-                    __asm("movz a1, a0, v0");
-                } else {
-                    s0 = s2 + 1;
-                }
-                ret = __sp + 0x1f;
-                s4 = ret - a1;
-                if ((signed)a1 <= 0) goto loc_22F4C0;
-                s2 = s0 + 1;
-                do {
-                    ret = 0x1f;
-                    a0 = 0x30;
-                    ret = ret - a1;
-                    v1 = __sp + ret;
-                    a1 = a1 + -1;
-                    *(u8*)(v1) = a0;
-                } while ((signed)a1 > 0);
-                s0 = s2;
-            }
-            a3 = 0x6c;
-            loc_22F584:
-            s2 = s2 + 1;
-            goto loc_22F4C4;
+                        do {
+                            i = s0 + 1;
+                            while (1) {
+                            s0 = i;
+                            while (1) {
+                            ret = ret << 0x18;
+                            a0 = (signed)ret >> 0x18;
+                            v1 = ((unsigned)a0 < 0x49) ? 1 : 0;
+                            if (v1 != 0) {
+                            v1 = v1 + 0x00500F10;
+                            a0 = *(u32*)(v1);
+                            goto *a0; /* computed jump */
+                            v1 = *(s8*)(i + 1);  /* lb */
+                            a1 = v1 + -0x30;
+                            ret = a1 & 0xff;
+                            a2 = *(s8*)(i + 2);  /* lb */
+                            if ((unsigned)ret < 0xa) {
+                            ret = a2 + -0x30;
+                            v1 = 0xa;
+                            if ((unsigned)ret < 0xa) {
+                                a0 = 0x1f;
+                                ac3 = (s32)((s64)a1 * (s64)v1); HI_LO = (s64)a1 * (s64)v1;
+                                s0 = i + 2;
+                                v1 = v1 + -0x30;
+                                a1 = v1 + a2;
+                                if ((signed)a1 >= (signed)0x20) a1 = a0;
+                            } else {
+                                s0 = i + 1;
+                            }
+                            ret = __sp + 0x1f;
+                            s4 = ret - a1;
+                            }
+                            }
+                            }
+                            }
+                        } while ((signed)a1 <= 0);
+                        i = s0 + 1;
+                        do {
+                            ret = 0x1f;
+                            a0 = 0x30;
+                            ret = ret - a1;
+                            v1 = __sp + ret;
+                            a1 = a1 + -1;
+                            *(u8*)(v1) = a0;
+                        } while ((signed)a1 > 0);
+                        s0 = i;
+                        }
+                        a3 = 0x6c;
                     }
-                }
+                i = i + 1;
             s0 = __sp + 0x1f;
-            *(u8*)*(__sp + 0x1f) = 0;
+            *(u8*)(__sp + 0x1f) = 0;
             if (s1 == 0) {
                 ret = 0x30;
                 s0 = __sp + 0x1e;
-                *(u8*)*(__sp + 0x1e) = ret;
-                s2 = s2 + 1;
+                *(u8*)(__sp + 0x1e) = ret;
+                i = i + 1;
             } else {
-                s2 = s2 + 1;
+                i = i + 1;
                 do {
                     ret = s1 & 7;
                     s0 = s0 + -1;
@@ -5182,37 +4854,34 @@ loc_22F4A8:
             }
             ret = ((unsigned)s4 < (unsigned)s0) ? 1 : 0;
             if (s4 != 0) {
-                __asm("movn s0, s4, v0");
+                if (ret != 0) s0 = s4;
             }
             ret = *(s8*)(s0);  /* lb */
             a0 = *(u8*)(s0);
-            if (ret == 0) goto loc_22FA0C;
-            s5 = 0x004F0000;
+            if (ret == 0) UI_RenderFrame(a0, a1, a2); return;
+            s5 = 0x004F0000;  /* SYS_CONFIG_BASE: System configuration / SIF state */
             do {
                 a0 = a0 << 0x18;
-                ret = *(u32*)*(s5 + 0x51b8);
+                ret = *(u32*)(s5 + 0x51b8);
                 a0 = (signed)a0 >> 0x18;
                 s0 = s0 + 1;
-                ret = (ret)(a0, a1, a2, a3); /* indirect call */
+                ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
                 ret = *(s8*)(s0);  /* lb */
                 a0 = *(u8*)(s0);
             } while (ret != 0);
-            s0 = s2;
-            goto loc_22FA10;
-                    }
-                }
+            s0 = i;
+            UI_RenderFrame(a0, a1, a2); return;
             s0 = __sp + 0x1f;
-            *(u8*)*(__sp + 0x1f) = 0;
+            *(u8*)(__sp + 0x1f) = 0;
             if (s1 == 0) {
                 ret = 0x30;
                 s0 = __sp + 0x1e;
-                *(u8*)*(__sp + 0x1e) = ret;
-                s2 = s2 + 1;
+                *(u8*)(__sp + 0x1e) = ret;
+                i = i + 1;
             } else {
-                s2 = s2 + 1;
+                i = i + 1;
                 do {
                     v1 = s1 & 0xf;
-                    ret = ((unsigned)v1 < 0xa) ? 1 : 0;
                     ret = v1 + 48;
                     if (ret == 0) {
                         ret = v1 + 87;
@@ -5225,202 +4894,191 @@ loc_22F4A8:
             }
             ret = ((unsigned)s4 < (unsigned)s0) ? 1 : 0;
             if (s4 != 0) {
-                __asm("movn s0, s4, v0");
+                if (ret != 0) s0 = s4;
             }
             ret = *(s8*)(s0);  /* lb */
             a0 = *(u8*)(s0);
             if (ret == 0) goto loc_22FA0C;
-            s5 = 0x004F0000;
+            s5 = 0x004F0000;  /* SYS_CONFIG_BASE: System configuration / SIF state */
             do {
                 a0 = a0 << 0x18;
-                ret = *(u32*)*(s5 + 0x51b8);
+                ret = *(u32*)(s5 + 0x51b8);
                 a0 = (signed)a0 >> 0x18;
                 s0 = s0 + 1;
-                ret = (ret)(a0, a1, a2, a3); /* indirect call */
+                ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
                 ret = *(s8*)(s0);  /* lb */
                 a0 = *(u8*)(s0);
             } while (ret != 0);
-            s0 = s2;
+            s0 = i;
             goto loc_22FA10;
-                    }
-                }
             s0 = __sp + 0x1f;
-            *(u8*)*(__sp + 0x1f) = 0;
+            *(u8*)(__sp + 0x1f) = 0;
             if (s1 == 0) {
                 ret = 0x30;
                 s0 = __sp + 0x1e;
-                *(u8*)*(__sp + 0x1e) = ret;
+                *(u8*)(__sp + 0x1e) = ret;
             } else {
-                s5 = 0x004F0000;
+                s5 = 0x004F0000;  /* SYS_CONFIG_BASE: System configuration / SIF state */
                 if ((signed)s1 < 0) {
                     s1 = 0 - s1;
-                    ret = *(u32*)*(s5 + 0x51b8);
+                    ret = *(u32*)(s5 + 0x51b8);
                     a0 = 0x2d;
-                    ret = (ret)(a0, a1, a2, a3); /* indirect call */
+                    ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
                 }
-                s2 = s2 + 1;
+                i = i + 1;
                 if (s1 == 0) goto loc_22F7BC;
                 a0 = s1;
                 do {
                     a1 = 0xa;
-                    ret = EEKernel_AC2_Multiply(a0, a1, a2, a3);
+                    EEKernel_AC2_Multiply(a0);
                     s0 = s0 + -1;
                     ret = ret + 48;
                     a0 = s1;
                     ret = ret & 0xff;
                     a1 = 0xa;
                     *(u8*)(s0) = ret;
-                    ret = EEKernel_Integer_Divide64(a0, a1, a2, a3);
-                    s1 = ret;
+                    s1 = EEKernel_Integer_Divide64(a0, a1, a2, a3);
                     a0 = s1;
                 } while (s1 != 0);
                 goto loc_22F7BC;
             }
-            s2 = s2 + 1;
+            i = i + 1;
             loc_22F7BC:
             ret = ((unsigned)s4 < (unsigned)s0) ? 1 : 0;
             if (s4 != 0) {
-                __asm("movn s0, s4, v0");
+                if (ret != 0) s0 = s4;
             }
             ret = *(s8*)(s0);  /* lb */
             a0 = *(u8*)(s0);
             if (ret == 0) goto loc_22FA0C;
-            s5 = 0x004F0000;
+            s5 = 0x004F0000;  /* SYS_CONFIG_BASE: System configuration / SIF state */
             do {
                 a0 = a0 << 0x18;
-                ret = *(u32*)*(s5 + 0x51b8);
+                ret = *(u32*)(s5 + 0x51b8);
                 a0 = (signed)a0 >> 0x18;
                 s0 = s0 + 1;
-                ret = (ret)(a0, a1, a2, a3); /* indirect call */
+                ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
                 ret = *(s8*)(s0);  /* lb */
                 a0 = *(u8*)(s0);
             } while (ret != 0);
-            s0 = s2;
+            s0 = i;
             goto loc_22FA10;
-                    }
-                }
             s0 = __sp + 0x1f;
-            *(u8*)*(__sp + 0x1f) = 0;
+            *(u8*)(__sp + 0x1f) = 0;
             if (s1 == 0) {
                 ret = 0x30;
                 s0 = __sp + 0x1e;
-                *(u8*)*(__sp + 0x1e) = ret;
-                s2 = s2 + 1;
+                *(u8*)(__sp + 0x1e) = ret;
+                i = i + 1;
             } else {
-                s2 = s2 + 1;
+                i = i + 1;
                 a0 = s1;
                 do {
                     a1 = 0xa;
-                    ret = EEKernel_Integer_Divide64_Variant3(a0, a1, a2, a3);
+                    ret = EEKernel_Integer_Divide64_Variant3(a0, a1);
                     s0 = s0 + -1;
                     ret = ret + 48;
                     a0 = s1;
                     ret = ret & 0xff;
                     a1 = 0xa;
                     *(u8*)(s0) = ret;
-                    ret = EEKernel_Integer_Divide64_Variant2(a0, a1, a2, a3);
-                    s1 = ret;
+                    s1 = EEKernel_Integer_Divide64_Variant2(a0, a1);
                     a0 = s1;
                 } while (s1 != 0);
             }
             ret = ((unsigned)s4 < (unsigned)s0) ? 1 : 0;
             if (s4 != 0) {
-                __asm("movn s0, s4, v0");
+                if (ret != 0) s0 = s4;
             }
             ret = *(s8*)(s0);  /* lb */
             a0 = *(u8*)(s0);
             if (ret == 0) goto loc_22FA0C;
-            s5 = 0x004F0000;
+            s5 = 0x004F0000;  /* SYS_CONFIG_BASE: System configuration / SIF state */
             do {
                 a0 = a0 << 0x18;
-                ret = *(u32*)*(s5 + 0x51b8);
+                ret = *(u32*)(s5 + 0x51b8);
                 a0 = (signed)a0 >> 0x18;
                 s0 = s0 + 1;
-                ret = (ret)(a0, a1, a2, a3); /* indirect call */
+                ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
                 ret = *(s8*)(s0);  /* lb */
                 a0 = *(u8*)(s0);
             } while (ret != 0);
-            s0 = s2;
+            s0 = i;
             goto loc_22FA10;
             loc_22F904:
-            s2 = s2 + 1;
+            i = i + 1;
             ret = EEKernel_QuadCopy_WithXform(a0, a1, a2, a3);
             a0 = ret;
             ret = UI_FormatNumber(a0, a1, a2, a3);
-            s0 = s2;
+            s0 = i;
             goto loc_22FA10;
                 loc_22FA0C:
-                s0 = s2;
-                }
-                }
-            }
+                s0 = i;
 loc_22FA10:
     ret = *(s8*)(s0);  /* lb */
     v1 = *(u8*)(s0);
     if (ret != 0) goto loc_22F4A8;
 loc_22FA1C:
     if (s6 != 0) {
-        ret = System_EnableInterrupts(a0, a1, a2, a3);
+        ret = System_EnableInterrupts();
     }
     return ret;
-}
 
 /* Function at 0x0022FA58 - 0x0022FA90 */
-int UI_RenderHelper()
+u32 UI_RenderHelper(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 144 bytes */
-    int ret, a0, a1, a2, a3, t0, t1, t2, t3;
-    *(u64*)*(__sp + 88) = a1;
+    u32 ret, t0, t1, t2, t3;
+    *(u64*)(__sp + 88) = a1;
     a1 = __sp + 0x58;
-    *(u64*)*(__sp + 96) = a2;
-    *(u64*)*(__sp + 104) = a3;
-    *(u64*)*(__sp + 112) = t0;
-    *(u64*)*(__sp + 120) = t1;
-    *(u64*)*(__sp + 128) = t2;
-    *(u64*)*(__sp + 136) = t3;
-    ret = UI_RenderFrame(a0, a1, a2, a3);
-    return ret;
+    *(u64*)(__sp + 96) = a2;
+    *(u64*)(__sp + 104) = a3;
+    *(u64*)(__sp + 112) = t0;
+    *(u64*)(__sp + 120) = t1;
+    *(u64*)(__sp + 128) = t2;
+    *(u64*)(__sp + 136) = t3;
+    return UI_RenderFrame(a0, a1, a2);
 }
 
 /* Function at 0x0022FA90 - 0x0022FAF0 */
-int UI_DMASetup()
+u32 UI_DMASetup(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 176 bytes */
-    int ret, a0, a1, a2, a3, s0, s1, t0, t1, t2, t3;
-    ret = 0x0022F188;
-    s0 = 0x004F0000;
-    s1 = *(u32*)*(s0 + 0x51b8);
-    *(u64*)*(__sp + 120) = a1;
-    *(u32*)*(s0 + 0x51b8) = ret;
+    u32 ret, s0, s1, t0, t1, t2, t3;
+    ret = (u32)UI_TTY_PutChar;
+    s0 = 0x004F0000;  /* SYS_CONFIG_BASE: System configuration / SIF state */
+    s1 = *(u32*)(s0 + 0x51b8);
+    *(u64*)(__sp + 120) = a1;
+    *(u32*)(s0 + 0x51b8) = ret;
     a1 = __sp + 0x78;
-    *(u64*)*(__sp + 128) = a2;
-    *(u64*)*(__sp + 136) = a3;
-    *(u64*)*(__sp + 144) = t0;
-    *(u64*)*(__sp + 152) = t1;
-    *(u64*)*(__sp + 160) = t2;
-    *(u64*)*(__sp + 168) = t3;
-    ret = UI_RenderFrame(a0, a1, a2, a3);
-    *(u32*)*(s0 + 0x51b8) = s1;
+    *(u64*)(__sp + 128) = a2;
+    *(u64*)(__sp + 136) = a3;
+    *(u64*)(__sp + 144) = t0;
+    *(u64*)(__sp + 152) = t1;
+    *(u64*)(__sp + 160) = t2;
+    *(u64*)(__sp + 168) = t3;
+    UI_RenderFrame(a0, a1, a2);
+    *(u32*)(s0 + 0x51b8) = s1;
     return ret;
 }
 
 /* Function at 0x0022FAF0 - 0x0022FC90 */
-int UI_DMATransferSync()
+u32 UI_DMATransferSync(void)
 {
     /* Stack frame: 64 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, t0, t1;
-    ret = TLB_SetupEntries(a0, a1, a2, a3);
-    ret = *(u32*)*(0x004F0000 + 0x51bc);
+    u32 ret, v1, a0, a1, a2, a3, s0, s1, s2, t0, t1;
+    ret = TLB_SetupEntries();
+    ret = *(u32*)(0x004F0000 + 0x51bc);  /* SYS_CONFIG_BASE: System configuration / SIF state */
     s1 = 1;
     if (ret != 0) {
-        return System_EnableInterrupts(a0, a1, a2, a3);
+        return System_EnableInterrupts();
     }
-    *(u32*)*(v1 + 0x51bc) = s1;
-    ret = System_EnableInterrupts(a0, a1, a2, a3);
-    ret = System_BootInit(a0, a1, a2, a3);
-    ret = TLB_SetupEntries(a0, a1, a2, a3);
-    v1 = 0x00860000;
-    t0 = 0x00860000;
+    *(u32*)(v1 + 0x51bc) = s1;
+    ret = System_EnableInterrupts();
+    ret = System_BootInit();
+    ret = TLB_SetupEntries();
+    v1 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+    t0 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     s2 = v1 + -0x1440;
     s0 = t0 + 0x3c0;
     v1 = 0x20;
@@ -5429,86 +5087,82 @@ int UI_DMATransferSync()
     a3 = 0x0085FBC0;
     a2 = a2 | ret;
     a3 = a3 | ret;
-    *(u32*)*(s0 + 0x20) = v1;
+    *(u32*)(s0 + 0x20) = v1;
     ret = s2 | ret;
-    *(u32*)*(t0 + 0x3c0) = s1;
-    *(u32*)*(s0 + 0x14) = a2;
-    *(u32*)*(s0 + 4) = ret;
-    a1 = 0x0022FDF0;
-    *(u32*)*(s0 + 0x1c) = a3;
+    *(u32*)(t0 + 0x3c0) = s1;
+    *(u32*)(s0 + 0x14) = a2;
+    *(u32*)(s0 + 4) = ret;
+    a1 = (u32)UI_DMASlotComplete;
+    *(u32*)(s0 + 0x1c) = a3;
     a0 = 0x80000008;
     a2 = s0;
-    *(u32*)*(s0 + 8) = v1;
-    *(u32*)*(s0 + 0xc) = 0;
-    *(u32*)*(s0 + 0x10) = 0;
-    *(u32*)*(s0 + 0x18) = v1;
-    *(u32*)*(s0 + 0x24) = 0;
-    ret = System_PadReadData(a0, a1, a2, a3);
-    a1 = 0x002300B0;
+    *(u32*)(s0 + 8) = v1;
+    *(u32*)(s0 + 0xc) = 0;
+    *(u32*)(s0 + 0x10) = 0;
+    *(u32*)(s0 + 0x18) = v1;
+    *(u32*)(s0 + 0x24) = 0;
+    ret = System_PadReadData(a0, a1, a2);
+    a1 = (u32)UI_DMATransferLookup;
     a0 = 0x80000009;
     a2 = s0;
-    ret = System_PadReadData(a0, a1, a2, a3);
+    ret = System_PadReadData(a0, a1, a2);
     a1 = 0x002302A0;
     a0 = 0x8000000A;
     a2 = s0;
-    ret = System_PadReadData(a0, a1, a2, a3);
-    a1 = 0x0022FEA8;
+    ret = System_PadReadData(a0, a1, a2);
+    a1 = (u32)UI_DMATransferSubmit;
     a2 = s0;
     a0 = 0x8000000C;
-    ret = System_PadReadData(a0, a1, a2, a3);
-    ret = System_EnableInterrupts(a0, a1, a2, a3);
+    ret = System_PadReadData(a0, a1, a2);
+    ret = System_EnableInterrupts();
     a0 = 0x80000002;
-    ret = UI_Kern_SetVCommonHandler2(a0, a1, a2, a3);
-    if (ret == 0) {
+    if ((UI_Kern_SetVCommonHandler2()) == 0) {
         a1 = s2 + 0x40;
-        *(u32*)*(a1 + 0xc) = s1;
+        *(u32*)(a1 + 0xc) = s1;
         a0 = 0x80000002;
         a2 = 0x10;
         a3 = 0;
         t0 = 0;
         t1 = 0;
-        ret = System_PadGetType(a0, a1, a2, a3);
+        System_PadGetType(a0, a1, a2, a3);
         do {
             a0 = 0;
-            ret = System_PadGetState(a0, a1, a2, a3);
-        } while (ret == 0);
+        } while ((System_PadGetState(a0)) == 0);
         a1 = 1;
         a0 = 0x80000002;
-        return UI_Kern_SetVTLBRefillHandler2(a0, a1, a2, a3);
+        return UI_Kern_SetVTLBRefillHandler2();
     }
     return ret;
 }
 
 /* Function at 0x0022FC90 - 0x0022FCB8 */
-int UI_PadInit()
+u32 UI_PadInit(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
-    ret = System_PadInitPort(a0, a1, a2, a3);
-    *(u32*)*(0x004F0000 + 0x51bc) = 0;
+    u32 ret, a0, a1, a2, a3;
+    ret = System_PadInitPort();
+    *(u32*)(0x004F0000 + 0x51bc) = 0;
     return ret;
 }
 
 /* Function at 0x0022FCB8 - 0x0022FD60 */
-int UI_DMASlotAlloc()
+u32 UI_DMASlotAlloc(u32 a0)
 {
     /* Stack frame: 48 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1;
+    u32 ret, v1, a1, a2, a3, s0, s1;
     s1 = a0;
-    ret = TLB_SetupEntries(a0, a1, a2, a3);
-    a0 = *(u32*)*(s1 + 8);
+    ret = TLB_SetupEntries();
+    a0 = *(u32*)(s1 + 8);
     v1 = 0;
-    s0 = *(u32*)*(s1 + 4);
+    s0 = *(u32*)(s1 + 4);
     if ((signed)a0 > 0) {
         a1 = 1;
             do {
-                ret = *(u32*)*(s0 + 0x10);
                 ret = ret & 1;
                 v1 = v1 + 1;
                 if (ret == 0) {
-                ret = v1 << 0x10;
                 ret = ret | 5;
-                *(u32*)*(s0 + 0x10) = ret;
+                *(u32*)(s0 + 0x10) = ret;
                 ret = *(u32*)(s1);
                 v1 = ret + 1;
                 *(u32*)(s1) = v1;
@@ -5517,268 +5171,255 @@ int UI_DMASlotAlloc()
                     v1 = 1;
                     *(u32*)(s1) = ret;
                 }
-                *(u32*)*(s0 + 0x14) = s0;
-                *(u32*)*(s0 + 0x18) = v1;
-                ret = System_EnableInterrupts(a0, a1, a2, a3);
+                *(u32*)(s0 + 0x14) = s0;
+                *(u32*)(s0 + 0x18) = v1;
+                ret = System_EnableInterrupts();
                 ret = s0;
                 } else {
                 ret = ((signed)v1 < (signed)a0) ? 1 : 0;
                 s0 = s0 + 0x40;
+                }
             } while (ret != 0);
     }
-        ret = System_EnableInterrupts(a0, a1, a2, a3);
+        ret = System_EnableInterrupts();
         ret = 0;
     }
     return ret;
-}
 
 /* Function at 0x0022FD60 - 0x0022FD80 */
-int UI_DMASlotClear()
+u32 UI_DMASlotClear(u32 a0)
 {
-    int ret, v1, a0;
-    v1 = *(u32*)*(a0 + 0x10);
+    u32 ret, v1;
+    v1 = *(u32*)(a0 + 0x10);  /* PSX: gpr[0]/$zero */
     ret = 0xFFFFFFFE;
-    *(u32*)*(a0 + 0x18) = 0;
-    v1 = v1 & ret;
-    *(u32*)*(a0 + 0x10) = v1;
+    *(u32*)(a0 + 0x18) = 0;
+    *(u32*)(a0 + 0x10) = v1 & ret;
     return ret;
 }
 
 /* Function at 0x0022FD80 - 0x0022FDB0 */
-int UI_DMASlotAddress()
+u32 UI_DMASlotAddress(u32 a0)
 {
-    int ret, v1, a0, a1;
-    a1 = *(u32*)*(a0 + 0x24);
-    v1 = *(u32*)*(a0 + 0x18);
-    __asm("div zero, a1, v1");
+    u32 ret, v1, a1;
+    a1 = *(u32*)(a0 + 0x24);  /* PSX: gpr[5]/$a1 */
+    v1 = *(u32*)(a0 + 0x18);  /* PSX: gpr[2]/$v0 */
     BREAK(); /* breakpoint */
-    if (likely(v1 == 0)) goto loc_22FD94;
+    if (v1 == 0) goto loc_22FD94;
 loc_22FD94:
-    a1 = *(u32*)*(a0 + 0x14);
-    ret = HI;
+    a1 = *(u32*)(a0 + 0x14);  /* PSX: gpr[1]/$at */
+    ret = (signed)a1 % (signed)v1;
     v1 = ret + 1;
     ret = ret << 6;
-    *(u32*)*(a0 + 0x24) = v1;
-    ret = a1 + ret;
-    return ret;
+    *(u32*)(a0 + 0x24) = v1;
+    return a1 + ret;
 }
 
 /* Function at 0x0022FDB0 - 0x0022FDF0 */
-int UI_DMASlotGetByIndex()
+u32 UI_DMASlotGetByIndex(u32 a0, u32 a1)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1, a2, a3;
     if ((signed)a1 >= 0) {
-        ret = *(u32*)*(a0 + 0x20);
         ret = ((signed)a1 < (signed)ret) ? 1 : 0;
-        v1 = *(u32*)*(a0 + 0x1c);
-            ret = UI_DMASlotAddress(a0, a1, a2, a3);
+        v1 = *(u32*)(a0 + 0x1c);  /* PSX: gpr[3]/$v1 */
+            ret = UI_DMASlotAddress(a0);
         } else {
-            ret = a1 << 6;
             ret = v1 + ret;
         }
     return ret;
 }
 
 /* Function at 0x0022FDF0 - 0x0022FEA8 */
-int UI_DMASlotComplete()
+u32 UI_DMASlotComplete(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 48 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1;
+    u32 ret, v1, s0, s1;
     ret = 0x8000000A;
     s1 = a0;
-    v1 = *(u32*)*(s1 + 0x20);
+    v1 = *(u32*)(s1 + 0x20);  /* PSX: gpr[4]/$a0 */
     if (v1 != ret) {
-        s0 = *(u32*)*(s1 + 0x1c);
+        s0 = *(u32*)(s1 + 0x1c);  /* PSX: gpr[3]/$v1 */
         if ((unsigned)ret >= (unsigned)v1) {
-            ret = 0x80000009;
-            ret = *(u32*)*(s1 + 0x24);
+            ret = *(u32*)(s1 + 0x24);  /* PSX: gpr[5]/$a1 */
             if (v1 != ret) {
-                s0 = *(u32*)*(s1 + 0x1c);
+                s0 = *(u32*)(s1 + 0x1c);  /* PSX: gpr[3]/$v1 */
                 } else {
-                s0 = *(u32*)*(s1 + 0x1c);
-                ret = *(u32*)*(s0 + 0x1c);
-                a0 = *(u32*)*(s0 + 8);
+                s0 = *(u32*)(s1 + 0x1c);  /* PSX: gpr[3]/$v1 */
+                ret = *(u32*)(s0 + 0x1c);  /* PSX: gpr[3]/$v1 */
+                a0 = *(u32*)(s0 + 8);
                 if (ret != 0) {
-                    a0 = *(u32*)*(s0 + 0x20);
-                    ret = (ret)(a0, a1, a2, a3); /* indirect call */
-                    s0 = *(u32*)*(s1 + 0x1c);
+                    a0 = *(u32*)(s0 + 0x20);  /* PSX: gpr[4]/$a0 */
+                    ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
+                    s0 = *(u32*)(s1 + 0x1c);  /* PSX: gpr[3]/$v1 */
                     } else {
-                    s0 = *(u32*)*(s1 + 0x1c);
-                    *(u32*)*(s0 + 0x24) = ret;
-                    v1 = *(u32*)*(s1 + 0x28);
-                    *(u32*)*(s0 + 0x14) = v1;
-                    ret = *(u32*)*(s1 + 0x2c);
-                    *(u32*)*(s0 + 0x18) = ret;
+                    s0 = *(u32*)(s1 + 0x1c);  /* PSX: gpr[3]/$v1 */
+                    *(u32*)(s0 + 0x24) = ret;
+                    *(u32*)(s0 + 0x14) = *(u32*)(s1 + 0x28);
+                    *(u32*)(s0 + 0x18) = *(u32*)(s1 + 0x2c);
                     }
                     }
                     }
-                    a0 = *(u32*)*(s0 + 8);
+                    a0 = *(u32*)(s0 + 8);
                 }
     if ((signed)a0 >= 0) {
-        ret = UI_Kern_iSignalSema(a0, a1, a2, a3);
+        ret = UI_Kern_iSignalSema();
     }
     a0 = *(u32*)(s0);
-    ret = UI_DMASlotClear(a0, a1, a2, a3);
+    ret = UI_DMASlotClear(a0);
     *(u32*)(s0) = 0;
     return ret;
 }
 
 /* Function at 0x0022FEA8 - 0x0022FF08 */
-int UI_DMATransferSubmit()
+void UI_DMATransferSubmit(u32 a0, u32 a1)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, t0, t1;
+    u32 ret, v1, a2, a3, s0, t0, t1;
     s0 = a0;
     a0 = a1;
-    ret = UI_DMASlotAddress(a0, a1, a2, a3);
-    a1 = *(u32*)*(s0 + 0x14);
-    a0 = *(u32*)*(s0 + 0x1c);
+    ret = UI_DMASlotAddress(a0);
+    a1 = *(u32*)(s0 + 0x14);  /* PSX: gpr[1]/$at */
+    a0 = *(u32*)(s0 + 0x1c);  /* PSX: gpr[3]/$v1 */
     v1 = 0x8000000C;
-    *(u32*)*(ret + 0x14) = a1;
+    *(u32*)(ret + 0x14) = a1;
     a2 = 0x40;
-    *(u32*)*(ret + 0x1c) = a0;
+    *(u32*)(ret + 0x1c) = a0;
     a1 = ret;
-    *(u32*)*(ret + 0x20) = v1;
+    *(u32*)(ret + 0x20) = v1;
     a0 = 0x80000008;
-    t1 = *(u32*)*(s0 + 0x28);
-    a3 = *(u32*)*(s0 + 0x20);
-    t0 = *(u32*)*(s0 + 0x24);
-    goto loc_236EB8;
+    t1 = *(u32*)(s0 + 0x28);  /* PSX: gpr[6]/$a2 */
+    a3 = *(u32*)(s0 + 0x20);  /* PSX: gpr[4]/$a0 */
+    t0 = *(u32*)(s0 + 0x24);  /* PSX: gpr[5]/$a1 */
+    System_PadDmaSetup1(a0, a1, a2, a3); return;
 }
 
 /* Function at 0x0022FF08 - 0x00230060 */
-int UI_DMATransferRequest()
+u32 UI_DMATransferRequest(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 144 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, t0, t1;
+    u32 ret, v1, s0, s1, s2, s3, s4, s5, t0, t1;
     s1 = a0;
     s4 = a2;
     s3 = a1;
     s5 = a3;
     s2 = t0;
     a0 = 0x008603C0;
-    ret = UI_DMASlotAlloc(a0, a1, a2, a3);
+    ret = UI_DMASlotAlloc(a0);
     s0 = ret;
     ret = -1;
-    if (s0 == 0) goto loc_23003C;
-    ret = *(u32*)*(s0 + 0x18);
-    v1 = s2 & 1;
-    *(u32*)(s1) = s0;
-    *(u32*)*(s1 + 4) = ret;
-    *(u32*)*(s0 + 0x20) = s3;
-    *(u32*)*(s0 + 0x24) = s4;
-    *(u32*)*(s0 + 0x28) = s5;
-    *(u32*)*(s0 + 0x14) = s0;
-    *(u32*)*(s0 + 0x1c) = s1;
-    if (v1 == 0) {
-        ret = 1;
-        *(u32*)*(__sp + 8) = 0;
-        *(u32*)*(__sp + 4) = ret;
-        a0 = __sp;
-        ret = UI_Kern_CreateSema(a0, a1, a2, a3);
-        *(u32*)*(s1 + 8) = ret;
-        if ((signed)ret < 0) {
-            a0 = s0;
-            ret = UI_DMASlotClear(a0, a1, a2, a3);
-            ret = -3;
-        } else {
-            a1 = s0;
-            a0 = 0x8000000C;
-            a2 = 0x40;
-            a3 = 0;
-            t0 = 0;
-            t1 = 0;
-            ret = System_PadGetType(a0, a1, a2, a3);
-            if (ret == 0) {
+    if (s0 != 0) {
+        ret = *(u32*)(s0 + 0x18);  /* PSX: gpr[2]/$v0 */
+        v1 = s2 & 1;
+        *(u32*)(s1) = s0;
+        *(u32*)(s1 + 4) = ret;
+        *(u32*)(s0 + 0x20) = s3;
+        *(u32*)(s0 + 0x24) = s4;
+        *(u32*)(s0 + 0x28) = s5;
+        *(u32*)(s0 + 0x14) = s0;
+        *(u32*)(s0 + 0x1c) = s1;
+        if (v1 == 0) {
+            ret = 1;
+            *(u32*)(__sp + 8) = 0;
+            *(u32*)(__sp + 4) = ret;
+            a0 = __sp;
+            ret = UI_Kern_CreateSema();
+            *(u32*)(s1 + 8) = ret;
+            if ((signed)ret < 0) {
                 a0 = s0;
-                ret = UI_DMASlotClear(a0, a1, a2, a3);
-                a0 = *(u32*)*(s1 + 8);
-                ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
-                ret = -2;
+                ret = UI_DMASlotClear(a0);
+                ret = -3;
             } else {
-                a0 = *(u32*)*(s1 + 8);
-                ret = UI_Kern_WaitSema(a0, a1, a2, a3);
-                a0 = *(u32*)*(s1 + 8);
-                ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
-                ret = 0;
-                } else {
-                *(u32*)*(s1 + 8) = -1;
-                a0 = 0x8000000C;
                 a1 = s0;
+                a0 = 0x8000000C;
                 a2 = 0x40;
                 a3 = 0;
                 t0 = 0;
                 t1 = 0;
                 ret = System_PadGetType(a0, a1, a2, a3);
-                if (0 != 0) goto loc_23003C;
-                a0 = s0;
-                ret = UI_DMASlotClear(a0, a1, a2, a3);
-                ret = -2;
+                if (ret == 0) {
+                    a0 = s0;
+                    ret = UI_DMASlotClear(a0);
+                    a0 = *(u32*)(s1 + 8);
+                    ret = UI_Kern_DeleteSema();
+                    ret = -2;
+                } else {
+                    a0 = *(u32*)(s1 + 8);
+                    ret = UI_Kern_WaitSema();
+                    a0 = *(u32*)(s1 + 8);
+                    ret = UI_Kern_DeleteSema();
+                    ret = 0;
+                    } else {
+                    *(u32*)(s1 + 8) = -1;
+                    a0 = 0x8000000C;
+                    a1 = s0;
+                    a2 = 0x40;
+                    a3 = 0;
+                    t0 = 0;
+                    t1 = 0;
+                    System_PadGetType(a0, a1, a2, a3);
+                    a0 = s0;
+                    ret = UI_DMASlotClear(a0);
+                    ret = -2;
+                    }
+                    }
                 }
-                }
-            }
-loc_23003C:
+    }
     return ret;
 }
 
 /* Function at 0x00230060 - 0x002300B0 */
-int UI_DMAFindNode()
+u32 UI_DMAFindNode(u32 a0, u32 a1)
 {
-    int ret, v1, a0, a1;
-    a1 = *(u32*)*(a1 + 0x28);
+    u32 ret, v1;
+    a1 = *(u32*)(a1 + 0x28);  /* PSX: gpr[6]/$a2 */
     if (a1 != 0) {
-        v1 = *(u32*)*(a1 + 8);
+        v1 = *(u32*)(a1 + 8);
         do {
-            a1 = *(u32*)*(a1 + 0x14);
+            a1 = *(u32*)(a1 + 0x14);  /* PSX: gpr[1]/$at */
             if (v1 != 0) {
                 ret = *(u32*)(v1);
                 do {
-                    v1 = *(u32*)*(v1 + 0x38);
+                    v1 = *(u32*)(v1 + 0x38);  /* PSX: gpr[10]/$t2 */
                     if (ret == a0) {
-                        ret = v1;
-                        return ret;
+                        return v1;
                     }
                     ret = *(u32*)(v1);
-                } while (likely(v1 != 0));
-                a1 = *(u32*)*(a1 + 0x14);
+                } while (v1 != 0);
+                a1 = *(u32*)(a1 + 0x14);  /* PSX: gpr[1]/$at */
             }
-            v1 = *(u32*)*(a1 + 8);
-        } while (likely(a1 != 0));
+            v1 = *(u32*)(a1 + 8);
+        } while (a1 != 0);
     }
     return 0;
 }
 
 /* Function at 0x002300B0 - 0x00230160 */
-int UI_DMATransferLookup()
+void UI_DMATransferLookup(u32 a0, u32 a1)
 {
     /* Stack frame: 64 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, t0, t1;
+    u32 ret, v1, a2, a3, s0, s1, s2, t0, t1;
     s1 = a1;
     s0 = a0;
     a0 = s1;
-    ret = UI_DMASlotAddress(a0, a1, a2, a3);
+    ret = UI_DMASlotAddress(a0);
     s2 = ret;
-    a0 = *(u32*)*(s0 + 0x1c);
-    v1 = *(u32*)*(s0 + 0x14);
+    a0 = *(u32*)(s0 + 0x1c);  /* PSX: gpr[3]/$v1 */
+    v1 = *(u32*)(s0 + 0x14);  /* PSX: gpr[1]/$at */
     ret = 0x80000009;
-    *(u32*)*(s2 + 0x1c) = a0;
-    *(u32*)*(s2 + 0x14) = v1;
+    *(u32*)(s2 + 0x1c) = a0;
+    *(u32*)(s2 + 0x14) = v1;
     a1 = s1;
-    *(u32*)*(s2 + 0x20) = ret;
-    a0 = *(u32*)*(s0 + 0x20);
-    ret = UI_DMAFindNode(a0, a1, a2, a3);
-    v1 = ret;
-    *(u32*)*(s2 + 0x24) = v1;
+    *(u32*)(s2 + 0x20) = ret;
+    a0 = *(u32*)(s0 + 0x20);  /* PSX: gpr[4]/$a0 */
+    v1 = UI_DMAFindNode(a0, a1);
+    *(u32*)(s2 + 0x24) = v1;
     if (v1 == 0) {
-        *(u32*)*(s2 + 0x24) = 0;
-        *(u32*)*(s2 + 0x28) = 0;
-        *(u32*)*(s2 + 0x2c) = 0;
+        *(u32*)(s2 + 0x24) = 0;
+        *(u32*)(s2 + 0x28) = 0;
+        *(u32*)(s2 + 0x2c) = 0;
     } else {
-        ret = *(u32*)*(v1 + 8);
-        *(u32*)*(s2 + 0x28) = ret;
-        v1 = *(u32*)*(v1 + 0x14);
-        *(u32*)*(s2 + 0x2c) = v1;
+        *(u32*)(s2 + 0x28) = *(u32*)(v1 + 8);
+        *(u32*)(s2 + 0x2c) = *(u32*)(v1 + 0x14);
     }
     a1 = s2;
     a0 = 0x80000008;
@@ -5786,115 +5427,107 @@ int UI_DMATransferLookup()
     a3 = 0;
     t0 = 0;
     t1 = 0;
-    goto loc_236EB8;
+    System_PadDmaSetup1(a0, a1, a2, a3); return;
 }
 
 /* Function at 0x00230160 - 0x00230330 */
-int UI_DMATransferAsync()
+u32 UI_DMATransferAsync(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 112 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, t0, t1;
+    u32 ret, v1, a3, s0, s1, s2, s3, t0, t1;
     s1 = a0;
     s3 = a1;
     s2 = a2;
-    *(u32*)*(s1 + 0x10) = 0;
+    *(u32*)(s1 + 0x10) = 0;
     a0 = 0x008603C0;
-    *(u32*)*(s1 + 0x24) = 0;
-    ret = UI_DMASlotAlloc(a0, a1, a2, a3);
+    *(u32*)(s1 + 0x24) = 0;
+    ret = UI_DMASlotAlloc(a0);
     s0 = ret;
     ret = -1;
-    if (s0 == 0) goto loc_230284;
-    ret = *(u32*)*(s0 + 0x18);
-    v1 = s2 & 1;
-    *(u32*)(s1) = s0;
-    *(u32*)*(s1 + 4) = ret;
-    *(u32*)*(s0 + 0x20) = s3;
-    *(u32*)*(s0 + 0x14) = s0;
-    *(u32*)*(s0 + 0x1c) = s1;
-    if (v1 == 0) {
-        ret = 1;
-        *(u32*)*(__sp + 8) = 0;
-        *(u32*)*(__sp + 4) = ret;
-        a0 = __sp;
-        ret = UI_Kern_CreateSema(a0, a1, a2, a3);
-        *(u32*)*(s1 + 8) = ret;
-        if ((signed)ret < 0) {
-            a0 = s0;
-            ret = UI_DMASlotClear(a0, a1, a2, a3);
-            ret = -3;
-        } else {
-            a1 = s0;
-            a0 = 0x80000009;
-            a2 = 0x40;
-            a3 = 0;
-            t0 = 0;
-            t1 = 0;
-            ret = System_PadGetType(a0, a1, a2, a3);
-            if (ret == 0) {
+    if (s0 != 0) {
+        ret = *(u32*)(s0 + 0x18);  /* PSX: gpr[2]/$v0 */
+        v1 = s2 & 1;
+        *(u32*)(s1) = s0;
+        *(u32*)(s1 + 4) = ret;
+        *(u32*)(s0 + 0x20) = s3;
+        *(u32*)(s0 + 0x14) = s0;
+        *(u32*)(s0 + 0x1c) = s1;
+        if (v1 == 0) {
+            ret = 1;
+            *(u32*)(__sp + 8) = 0;
+            *(u32*)(__sp + 4) = ret;
+            a0 = __sp;
+            ret = UI_Kern_CreateSema();
+            *(u32*)(s1 + 8) = ret;
+            if ((signed)ret < 0) {
                 a0 = s0;
-                ret = UI_DMASlotClear(a0, a1, a2, a3);
-                a0 = *(u32*)*(s1 + 8);
-                ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
-                ret = -2;
+                ret = UI_DMASlotClear(a0);
+                ret = -3;
             } else {
-                a0 = *(u32*)*(s1 + 8);
-                ret = UI_Kern_WaitSema(a0, a1, a2, a3);
-                a0 = *(u32*)*(s1 + 8);
-                ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
-                ret = 0;
-                } else {
-                *(u32*)*(s1 + 8) = -1;
-                a0 = 0x80000009;
                 a1 = s0;
+                a0 = 0x80000009;
                 a2 = 0x40;
                 a3 = 0;
                 t0 = 0;
                 t1 = 0;
                 ret = System_PadGetType(a0, a1, a2, a3);
-                if (0 != 0) goto loc_230284;
-                a0 = s0;
-                ret = UI_DMASlotClear(a0, a1, a2, a3);
-                ret = -2;
+                if (ret == 0) {
+                    a0 = s0;
+                    ret = UI_DMASlotClear(a0);
+                    a0 = *(u32*)(s1 + 8);
+                    ret = UI_Kern_DeleteSema();
+                    ret = -2;
+                } else {
+                    a0 = *(u32*)(s1 + 8);
+                    ret = UI_Kern_WaitSema();
+                    a0 = *(u32*)(s1 + 8);
+                    ret = UI_Kern_DeleteSema();
+                    ret = 0;
+                    } else {
+                    *(u32*)(s1 + 8) = -1;
+                    a0 = 0x80000009;
+                    a1 = s0;
+                    a2 = 0x40;
+                    a3 = 0;
+                    t0 = 0;
+                    t1 = 0;
+                    System_PadGetType(a0, a1, a2, a3);
+                    a0 = s0;
+                    ret = UI_DMASlotClear(a0);
+                    ret = -2;
+                    }
+                    }
                 }
-                }
-            }
-loc_230284:
-    return ret;
     }
-    *(u32*)*(a2 + 0x10) = a1;
-    ret = *(u32*)*(a0 + 0x14);
-    v1 = *(u32*)*(a0 + 0x1c);
-    *(u32*)*(a1 + 0x20) = ret;
-    *(u32*)*(a1 + 0x1c) = v1;
-    ret = *(u32*)*(a0 + 0x20);
-    *(u32*)*(a1 + 0x24) = ret;
-    v1 = *(u32*)*(a0 + 0x24);
-    *(u32*)*(a1 + 0xc) = v1;
-    ret = *(u32*)*(a0 + 0x28);
-    *(u32*)*(a1 + 0x28) = ret;
-    v1 = *(u32*)*(a0 + 0x2c);
-    *(u32*)*(a1 + 0x2c) = v1;
-    ret = *(u32*)*(a0 + 0x30);
-    *(u32*)*(a1 + 0x30) = ret;
-    v1 = *(u32*)*(a0 + 0x10);
-    *(u32*)*(a1 + 0x34) = v1;
+    return ret;
+    *(u32*)(a2 + 0x10) = a1;
+    ret = *(u32*)(a0 + 0x14);  /* PSX: gpr[1]/$at */
+    v1 = *(u32*)(a0 + 0x1c);  /* PSX: gpr[3]/$v1 */
+    *(u32*)(a1 + 0x20) = ret;
+    *(u32*)(a1 + 0x1c) = v1;
+    *(u32*)(a1 + 0x24) = *(u32*)(a0 + 0x20);
+    *(u32*)(a1 + 0xc) = *(u32*)(a0 + 0x24);
+    *(u32*)(a1 + 0x28) = *(u32*)(a0 + 0x28);
+    *(u32*)(a1 + 0x2c) = *(u32*)(a0 + 0x2c);
+    *(u32*)(a1 + 0x30) = *(u32*)(a0 + 0x30);
+    *(u32*)(a1 + 0x34) = *(u32*)(a0 + 0x10);
     a0 = *(u32*)(a2);
     if ((signed)a0 < 0) goto loc_230324;
-    ret = *(u32*)*(a2 + 4);
+    ret = *(u32*)(a2 + 4);
     if (ret != 0) goto loc_230324;
-    return System_SifWaitSync(a0, a1, a2, a3);
+    return System_SifWaitSync(a0);
 loc_230324:
     return ret;
 }
 
 /* Function at 0x00230330 - 0x00230520 */
-int UI_DMATransferProcess()
+u32 UI_DMATransferProcess(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 192 bytes */
-    int local_C0;
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3;
+    u32 local_C0;
+    u32 ret, v1, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3;
     s1 = a0;
-    a0 = 0x00860000;
+    a0 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     __fp = a2;
     s6 = a1;
     s5 = a3;
@@ -5903,43 +5536,43 @@ int UI_DMATransferProcess()
     s2 = t0;
     s7 = t3;
     a0 = 0x008603C0;
-    ret = UI_DMASlotAlloc(a0, a1, a2, a3);
+    ret = UI_DMASlotAlloc(a0);
     s0 = ret;
     ret = -1;
     if (s0 == 0) goto loc_2304EC;
     ret = local_C0;
     a0 = __fp & 2;
-    v1 = *(u32*)*(s0 + 0x18);
-    *(u32*)*(s1 + 0x20) = ret;
+    v1 = *(u32*)(s0 + 0x18);  /* PSX: gpr[2]/$v0 */
+    *(u32*)(s1 + 0x20) = ret;
     *(u32*)(s1) = s0;
-    *(u32*)*(s1 + 4) = v1;
-    *(u32*)*(s1 + 0x1c) = s7;
-    *(u32*)*(s0 + 0x20) = s6;
-    *(u32*)*(s0 + 0x24) = s2;
-    *(u32*)*(s0 + 0x28) = s4;
-    *(u32*)*(s0 + 0x2c) = s3;
-    *(u32*)*(s0 + 0x14) = s0;
-    ret = *(u32*)*(s1 + 0x24);
-    *(u32*)*(s0 + 0x1c) = s1;
-    *(u32*)*(s0 + 0x34) = ret;
+    *(u32*)(s1 + 4) = v1;
+    *(u32*)(s1 + 0x1c) = s7;
+    *(u32*)(s0 + 0x20) = s6;
+    *(u32*)(s0 + 0x24) = s2;
+    *(u32*)(s0 + 0x28) = s4;
+    *(u32*)(s0 + 0x2c) = s3;
+    *(u32*)(s0 + 0x14) = s0;
+    ret = *(u32*)(s1 + 0x24);  /* PSX: gpr[5]/$a1 */
+    *(u32*)(s0 + 0x1c) = s1;
+    *(u32*)(s0 + 0x34) = ret;
     if (a0 != 0) goto loc_230414;
     ret = ((signed)s2 < (signed)s3) ? 1 : 0;
     if (s5 == s4) {
         a1 = s3;
         a0 = s5;
-        __asm("movz a1, s2, v0");
-        ret = System_DmaFlush(a0, a1, a2, a3);
+        if (ret == 0) a1 = s2;
+        ret = System_DmaFlush(a0, a1);
         ret = __fp & 1;
     } else {
         a0 = s5;
         if ((signed)s2 > 0) {
             a1 = s2;
-            ret = System_DmaFlush(a0, a1, a2, a3);
+            ret = System_DmaFlush(a0, a1);
         }
         a0 = s4;
         if ((signed)s3 <= 0) goto loc_230414;
         a1 = s3;
-        ret = System_DmaFlush(a0, a1, a2, a3);
+        ret = System_DmaFlush(a0, a1);
         loc_230414:
         ret = __fp & 1;
     }
@@ -5947,52 +5580,51 @@ int UI_DMATransferProcess()
     if (ret != 0) {
         ret = 1;
         if (s7 == 0) {
-            *(u32*)*(s0 + 0x30) = 0;
+            *(u32*)(s0 + 0x30) = 0;
         } else {
-            *(u32*)*(s0 + 0x30) = ret;
+            *(u32*)(s0 + 0x30) = ret;
         }
         ret = -1;
-        t0 = *(u32*)*(s1 + 0x14);
+        t0 = *(u32*)(s1 + 0x14);  /* PSX: gpr[1]/$at */
         a3 = s5;
-        *(u32*)*(s1 + 8) = ret;
+        *(u32*)(s1 + 8) = ret;
         t1 = s2;
         a0 = 0x8000000A;
         a1 = s0;
         a2 = 0x40;
-        ret = System_PadGetType(a0, a1, a2, a3);
-        if (0 != 0) goto loc_2304EC;
+        System_PadGetType(a0, a1, a2, a3);
         goto loc_2304C8;
     }
-    *(u32*)*(__sp + 8) = 0;
-    *(u32*)*(__sp + 4) = s3;
+    *(u32*)(__sp + 8) = 0;
+    *(u32*)(__sp + 4) = s3;
     a0 = __sp;
-    ret = UI_Kern_CreateSema(a0, a1, a2, a3);
-    *(u32*)*(s1 + 8) = ret;
+    ret = UI_Kern_CreateSema();
+    *(u32*)(s1 + 8) = ret;
     if ((signed)ret < 0) {
         a0 = s0;
-        ret = UI_DMASlotClear(a0, a1, a2, a3);
+        ret = UI_DMASlotClear(a0);
         ret = -3;
     } else {
-        *(u32*)*(s0 + 0x30) = s3;
+        *(u32*)(s0 + 0x30) = s3;
         a3 = s5;
         t1 = s2;
-        t0 = *(u32*)*(s1 + 0x14);
+        t0 = *(u32*)(s1 + 0x14);  /* PSX: gpr[1]/$at */
         a0 = 0x8000000A;
         a1 = s0;
         a2 = 0x40;
         ret = System_PadGetType(a0, a1, a2, a3);
         if (ret == 0) {
-            a0 = *(u32*)*(s1 + 8);
-            ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+            a0 = *(u32*)(s1 + 8);
+            ret = UI_Kern_DeleteSema();
             loc_2304C8:
             a0 = s0;
-            ret = UI_DMASlotClear(a0, a1, a2, a3);
+            ret = UI_DMASlotClear(a0);
             ret = -2;
         } else {
-            a0 = *(u32*)*(s1 + 8);
-            ret = UI_Kern_WaitSema(a0, a1, a2, a3);
-            a0 = *(u32*)*(s1 + 8);
-            ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+            a0 = *(u32*)(s1 + 8);
+            ret = UI_Kern_WaitSema();
+            a0 = *(u32*)(s1 + 8);
+            ret = UI_Kern_DeleteSema();
             ret = 0;
             }
         }
@@ -6001,17 +5633,15 @@ loc_2304EC:
 }
 
 /* Function at 0x00230520 - 0x00230560 */
-int UI_DMATransferFinalize()
+u32 UI_DMATransferFinalize(u32 a0)
 {
-    int ret, v1, a0, a1;
+    u32 ret, v1, a1;
     a1 = *(u32*)(a0);
     if (a1 == 0) goto loc_23054C;
-    v1 = *(u32*)*(a0 + 4);
-    ret = *(u32*)*(a1 + 0x18);
+    v1 = *(u32*)(a0 + 4);
+    ret = *(u32*)(a1 + 0x18);  /* PSX: gpr[2]/$v0 */
     if (v1 != ret) goto loc_23054C;
-    ret = *(u32*)*(a1 + 0x10);
-    ret = ret & 1;
-    if (ret != 0) goto loc_230554;
+    if ((ret & 1) != 0) goto loc_230554;
 loc_23054C:
     return 0;
 loc_230554:
@@ -6019,44 +5649,44 @@ loc_230554:
 }
 
 /* Function at 0x00230560 - 0x002305F8 */
-int UI_SifQueueInsert()
+u32 UI_SifQueueInsert(u32 a0, u32 a1)
 {
     /* Stack frame: 48 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1;
+    u32 ret, v1, a2, a3, s0, s1;
     s1 = a0;
     s0 = a1;
-    ret = TLB_SetupEntries(a0, a1, a2, a3);
+    ret = TLB_SetupEntries();
     *(u32*)(s1) = s0;
     v1 = 0x008603C0;
-    *(u32*)*(s1 + 4) = 0;
-    ret = *(u32*)*(v1 + 0x28);
-    *(u32*)*(s1 + 8) = 0;
-    *(u32*)*(s1 + 0xc) = 0;
-    *(u32*)*(s1 + 0x10) = 0;
-    *(u32*)*(s1 + 0x14) = 0;
+    *(u32*)(s1 + 4) = 0;
+    ret = *(u32*)(v1 + 0x28);  /* PSX: gpr[6]/$a2 */
+    *(u32*)(s1 + 8) = 0;
+    *(u32*)(s1 + 0xc) = 0;
+    *(u32*)(s1 + 0x10) = 0;
+    *(u32*)(s1 + 0x14) = 0;
     if (ret == 0) {
-        *(u32*)*(v1 + 0x28) = s1;
+        *(u32*)(v1 + 0x28) = s1;
     } else {
         a0 = ret;
-        v1 = *(u32*)*(a0 + 0x14);
-        *(u32*)*(a0 + 0x14) = s1;
+        v1 = *(u32*)(a0 + 0x14);  /* PSX: gpr[1]/$at */
+        *(u32*)(a0 + 0x14) = s1;
         if (v1 != 0) {
             do {
                 a0 = v1;
-                ret = *(u32*)*(a0 + 0x14);
+                ret = *(u32*)(a0 + 0x14);  /* PSX: gpr[1]/$at */
                 v1 = ret;
             } while (ret != 0);
-            *(u32*)*(a0 + 0x14) = s1;
+            *(u32*)(a0 + 0x14) = s1;
             }
         }
-    return System_EnableInterrupts(a0, a1, a2, a3);
+    return System_EnableInterrupts();
 }
 
 /* Function at 0x002305F8 - 0x002306C8 */
-int UI_SifQueueInsertCmd()
+u32 UI_SifQueueInsertCmd(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 128 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, t0, t1, t2;
+    u32 ret, v1, s0, s1, s2, s3, s4, s5, s6, t0, t1, t2;
     s6 = t2;
     s5 = a0;
     s4 = t1;
@@ -6064,324 +5694,312 @@ int UI_SifQueueInsertCmd()
     s2 = a3;
     s1 = a2;
     s0 = a1;
-    ret = TLB_SetupEntries(a0, a1, a2, a3);
-    *(u32*)*(s5 + 0x3c) = 0;
-    *(u32*)*(s5 + 0x38) = 0;
+    ret = TLB_SetupEntries();
+    *(u32*)(s5 + 0x3c) = 0;
+    *(u32*)(s5 + 0x38) = 0;
     *(u32*)(s5) = s0;
-    ret = *(u32*)*(s6 + 8);
-    *(u32*)*(s5 + 4) = s1;
-    *(u32*)*(s5 + 8) = s2;
-    *(u32*)*(s5 + 0x10) = s3;
-    *(u32*)*(s5 + 0x14) = s4;
-    *(u32*)*(s5 + 0x40) = s6;
+    ret = *(u32*)(s6 + 8);
+    *(u32*)(s5 + 4) = s1;
+    *(u32*)(s5 + 8) = s2;
+    *(u32*)(s5 + 0x10) = s3;
+    *(u32*)(s5 + 0x14) = s4;
+    *(u32*)(s5 + 0x40) = s6;
     if (ret == 0) {
-        *(u32*)*(s6 + 8) = s5;
+        *(u32*)(s6 + 8) = s5;
     } else {
         a0 = ret;
-        v1 = *(u32*)*(a0 + 0x38);
-        *(u32*)*(a0 + 0x38) = s5;
+        v1 = *(u32*)(a0 + 0x38);  /* PSX: gpr[10]/$t2 */
+        *(u32*)(a0 + 0x38) = s5;
         if (v1 != 0) {
             do {
                 a0 = v1;
-                ret = *(u32*)*(a0 + 0x38);
+                ret = *(u32*)(a0 + 0x38);  /* PSX: gpr[10]/$t2 */
                 v1 = ret;
             } while (ret != 0);
-            *(u32*)*(a0 + 0x38) = s5;
+            *(u32*)(a0 + 0x38) = s5;
             }
         }
-    return System_EnableInterrupts(a0, a1, a2, a3);
+    return System_EnableInterrupts();
 }
 
 /* Function at 0x002306C8 - 0x00230760 */
-int UI_SifQueueRemoveCmd()
+u32 UI_SifQueueRemoveCmd(u32 a0, u32 a1)
 {
     /* Stack frame: 64 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2;
+    u32 ret, v1, a2, a3, s0, s1, s2;
     s2 = a1;
     s1 = a0;
-    ret = TLB_SetupEntries(a0, a1, a2, a3);
-    s0 = *(u32*)*(s2 + 8);
+    ret = TLB_SetupEntries();
+    s0 = *(u32*)(s2 + 8);
     if (s0 == s1) {
-        ret = *(u32*)*(s0 + 0x38);
-        *(u32*)*(s2 + 8) = ret;
+        *(u32*)(s2 + 8) = *(u32*)(s0 + 0x38);
     } else {
         if (s0 == 0) goto loc_230738;
-        v1 = *(u32*)*(s0 + 0x38);
-        ret = *(u32*)*(s1 + 0x38);
+        v1 = *(u32*)(s0 + 0x38);  /* PSX: gpr[10]/$t2 */
+        ret = *(u32*)(s1 + 0x38);  /* PSX: gpr[10]/$t2 */
         if (v1 != s1) {
             do {
                 s0 = v1;
                 if (s0 == 0) goto loc_230738;
-                ret = *(u32*)*(s0 + 0x38);
+                ret = *(u32*)(s0 + 0x38);  /* PSX: gpr[10]/$t2 */
                 v1 = ret;
             } while (ret != s1);
-            ret = *(u32*)*(s1 + 0x38);
+            ret = *(u32*)(s1 + 0x38);  /* PSX: gpr[10]/$t2 */
         }
-        *(u32*)*(s0 + 0x38) = ret;
+        *(u32*)(s0 + 0x38) = ret;
     }
 loc_230738:
-    ret = System_EnableInterrupts(a0, a1, a2, a3);
-    ret = s0;
-    return ret;
+    ret = System_EnableInterrupts();
+    return s0;
 }
 
 /* Function at 0x00230760 - 0x002307F0 */
-int UI_SifQueueRemove()
+u32 UI_SifQueueRemove(u32 a0)
 {
     /* Stack frame: 48 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1;
+    u32 ret, v1, a1, a2, a3, s0, s1;
     s1 = a0;
-    ret = TLB_SetupEntries(a0, a1, a2, a3);
-    s0 = *(u32*)*(0x008603C0 + 0x28);
+    ret = TLB_SetupEntries();
+    s0 = *(u32*)(0x008603C0 + 0x28);  /* PSX: gpr[6]/$a2 */
     if (s0 == s1) {
-        ret = *(u32*)*(s0 + 0x14);
-        *(u32*)*(v1 + 0x28) = ret;
+        *(u32*)(v1 + 0x28) = *(u32*)(s0 + 0x14);
     } else {
         if (s0 == 0) goto loc_2307D0;
-        v1 = *(u32*)*(s0 + 0x14);
-        ret = *(u32*)*(s1 + 0x14);
+        v1 = *(u32*)(s0 + 0x14);  /* PSX: gpr[1]/$at */
+        ret = *(u32*)(s1 + 0x14);  /* PSX: gpr[1]/$at */
         if (v1 != s1) {
             do {
                 s0 = v1;
                 if (s0 == 0) goto loc_2307D0;
-                ret = *(u32*)*(s0 + 0x14);
+                ret = *(u32*)(s0 + 0x14);  /* PSX: gpr[1]/$at */
                 v1 = ret;
             } while (ret != s1);
-            ret = *(u32*)*(s1 + 0x14);
+            ret = *(u32*)(s1 + 0x14);  /* PSX: gpr[1]/$at */
         }
-        *(u32*)*(s0 + 0x14) = ret;
+        *(u32*)(s0 + 0x14) = ret;
     }
 loc_2307D0:
-    ret = System_EnableInterrupts(a0, a1, a2, a3);
-    ret = s0;
-    return ret;
+    ret = System_EnableInterrupts();
+    return s0;
 }
 
 /* Function at 0x002307F0 - 0x00230848 */
-int UI_SifQueueProcess()
+u32 UI_SifQueueProcess(u32 a0)
 {
     /* Stack frame: 48 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1;
+    u32 ret, v1, a1, a2, a3, s0, s1;
     s0 = a0;
-    ret = TLB_SetupEntries(a0, a1, a2, a3);
-    s1 = *(u32*)*(s0 + 0xc);
-    v1 = *(u32*)*(s1 + 0x3c);
+    ret = TLB_SetupEntries();
+    s1 = *(u32*)(s0 + 0xc);  /* PSX: lo */
+    v1 = *(u32*)(s1 + 0x3c);  /* PSX: gpr[11]/$t3 */
     if (s1 == 0) {
-        *(u32*)*(s0 + 4) = 0;
+        *(u32*)(s0 + 4) = 0;
     } else {
-        *(u32*)*(s0 + 4) = 1;
-        *(u32*)*(s0 + 0xc) = v1;
+        *(u32*)(s0 + 4) = 1;
+        *(u32*)(s0 + 0xc) = v1;
     }
-    ret = System_EnableInterrupts(a0, a1, a2, a3);
-    ret = s1;
-    return ret;
+    ret = System_EnableInterrupts();
+    return s1;
 }
 
 /* Function at 0x00230848 - 0x00230A10 */
-int UI_SifRpcInit()
+u32 UI_SifRpcInit(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 128 bytes */
-    int local_0C;
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, t0, t1;
+    u32 local_0C;
+    u32 ret, v1, s0, s1, s2, i, s4, t0, t1;
     s4 = 0;
     s1 = a0;
-    ret = *(u32*)*(s1 + 4);
-    a0 = *(u32*)*(s1 + 0x24);
-    a1 = *(u32*)*(s1 + 8);
-    a2 = *(u32*)*(s1 + 0xc);
-    ret = (ret)(a0, a1, a2, a3); /* indirect call */
+    ret = *(u32*)(s1 + 4);
+    a0 = *(u32*)(s1 + 0x24);  /* PSX: gpr[5]/$a1 */
+    a1 = *(u32*)(s1 + 8);
+    a2 = *(u32*)(s1 + 0xc);  /* PSX: lo */
+    ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
     s2 = ret;
-    s4 = *(u32*)*(s1 + 0x2c);
-    if (likely(s2 != 0)) goto loc_23088C;
+    s4 = *(u32*)(s1 + 0x2c);  /* PSX: gpr[7]/$a3 */
+    if (s2 != 0) goto loc_23088C;
 loc_23088C:
-    a1 = *(u32*)*(s1 + 0xc);
+    a1 = *(u32*)(s1 + 0xc);  /* PSX: lo */
     if ((signed)a1 > 0) {
-        a0 = *(u32*)*(s1 + 8);
-        ret = System_DmaFlush(a0, a1, a2, a3);
+        a0 = *(u32*)(s1 + 8);
+        ret = System_DmaFlush(a0, a1);
     }
     a0 = s2;
     if ((signed)s4 > 0) {
         a1 = s4;
-        ret = System_DmaFlush(a0, a1, a2, a3);
+        ret = System_DmaFlush(a0, a1);
     }
-    ret = TLB_SetupEntries(a0, a1, a2, a3);
-    a1 = *(u32*)*(s1 + 0x34);
+    ret = TLB_SetupEntries();
+    a1 = *(u32*)(s1 + 0x34);  /* PSX: gpr[9]/$t1 */
     ret = a1 & 4;
     a1 = (unsigned)a1 >> 0x10;
     if (ret != 0) {
         a0 = 0x008603C0;
-        ret = UI_DMASlotGetByIndex(a0, a1, a2, a3);
+        ret = UI_DMASlotGetByIndex(a0, a1);
         s0 = ret;
     } else {
         a0 = 0x008603C0;
-        ret = UI_DMASlotAddress(a0, a1, a2, a3);
+        ret = UI_DMASlotAddress(a0);
         s0 = ret;
     }
-    ret = System_EnableInterrupts(a0, a1, a2, a3);
-    a0 = *(u32*)*(s1 + 0x1c);
-    *(u32*)*(s0 + 0x20) = 0x8000000A;
-    *(u32*)*(s0 + 0x1c) = a0;
-    ret = *(u32*)*(s1 + 0x30);
-    *(u32*)*(s0 + 0x18) = 0;
+    ret = System_EnableInterrupts();
+    a0 = *(u32*)(s1 + 0x1c);  /* PSX: gpr[3]/$v1 */
+    *(u32*)(s0 + 0x20) = 0x8000000A;
+    *(u32*)(s0 + 0x1c) = a0;
+    ret = *(u32*)(s1 + 0x30);  /* PSX: gpr[8]/$t0 */
+    *(u32*)(s0 + 0x18) = 0;
     if (ret != 0) {
         do {
-            t0 = *(u32*)*(s1 + 0x28);
+            t0 = *(u32*)(s1 + 0x28);  /* PSX: gpr[6]/$a2 */
             a0 = 0x80000008;
             a1 = s0;
             a2 = 0x40;
             a3 = s2;
             t1 = s4;
-            ret = System_PadGetType(a0, a1, a2, a3);
-        } while (ret == 0);
+        } while ((System_PadGetType(a0, a1, a2, a3)) == 0);
     } else {
-        s3 = 0;
-        *(u32*)*(s0 + 0x10) = 0;
+        i = 0;
+        *(u32*)(s0 + 0x10) = 0;
         if ((signed)s4 > 0) {
-            ret = *(u32*)*(s1 + 0x28);
-            s3 = 1;
-            *(u32*)(sp) = s2;
-            *(u32*)*(__sp + 4) = ret;
-            *(u32*)*(__sp + 8) = s4;
+            ret = *(u32*)(s1 + 0x28);  /* PSX: gpr[6]/$a2 */
+            i = 1;
+            *(u32*)(__sp) = s2;
+            *(u32*)(__sp + 4) = ret;
+            *(u32*)(__sp + 8) = s4;
             local_0C = 0;
         }
-        a1 = s3 << 4;
-        a0 = *(u32*)*(s1 + 0x20);
+        a1 = i << 4;
+        a0 = *(u32*)(s1 + 0x20);  /* PSX: gpr[4]/$a0 */
         v1 = __sp + a1;
         ret = __sp + 4;
         *(u32*)(v1) = s0;
         ret = ret + a1;
-        *(u32*)(v0) = a0;
-        v1 = __sp + 8;
+        *(u32*)(ret) = a0;
         v1 = v1 + a1;
         a0 = 0x40;
         ret = __sp + 0xc;
         *(u32*)(v1) = a0;
         ret = ret + a1;
-        s3 = s3 + 1;
-        *(u32*)(v0) = 0;
+        i = i + 1;
+        *(u32*)(ret) = 0;
         a0 = __sp;
             do {
-                a1 = s3;
-                ret = UI_Kern_ExecOSD2(a0, a1, a2, a3);
-                if (ret == 0) {
+                a1 = i;
+                if ((UI_Kern_ExecOSD2()) == 0) {
                 a0 = -1;
-                do {
-                } while (0x000FFFFF != a0);
                 a0 = __sp;
-            } while (likely(ret == 0));
+                }
+            } while (ret == 0);
         }
     }
     return ret;
-}
 
 /* Function at 0x00230A10 - 0x00230A50 */
-int UI_SifRpcSetup()
+u32 UI_SifRpcSetup(u32 a0)
 {
     /* Stack frame: 32 bytes */
-    int ret, a0, a1, a2, a3, s0;
+    u32 ret, a1, a2, a3, s0;
     s0 = a0;
     goto loc_230A30;
 loc_230A28:
     ret = UI_SifRpcInit(a0, a1, a2, a3);
 loc_230A30:
     a0 = s0;
-    ret = UI_SifQueueProcess(a0, a1, a2, a3);
+    ret = UI_SifQueueProcess(a0);
     a0 = ret;
     if (ret != 0) goto loc_230A28;
-    ret = UI_Kern_SleepThread(a0, a1, a2, a3);
+    ret = UI_Kern_SleepThread();
     goto loc_230A30;
 }
 
 /* Function at 0x00230A50 - 0x00230AB0 */
-int UI_SifRpcBind()
+u32 UI_SifRpcBind(void)
 {
     /* Stack frame: 64 bytes */
-    int local_14;
-    int ret, v1, a0, a1, a2, a3, s0;
+    u32 local_14;
+    u32 ret, v1, a0, a1, a2, a3, s0;
     v1 = -1;
-    s0 = 0x004F0000;
-    ret = *(u32*)*(s0 + 0x5248);
+    s0 = 0x004F0000;  /* SYS_CONFIG_BASE: System configuration / SIF state */
+    ret = *(u32*)(s0 + 0x5248);
     if (ret == v1) {
         ret = 1;
         local_14 = 0;
-        *(u32*)*(__sp + 4) = ret;
+        *(u32*)(__sp + 4) = ret;
         a0 = __sp;
-        *(u32*)*(__sp + 8) = ret;
-        ret = UI_Kern_CreateSema(a0, a1, a2, a3);
-        *(u32*)*(s0 + 0x5248) = ret;
+        *(u32*)(__sp + 8) = ret;
+        ret = UI_Kern_CreateSema();
+        *(u32*)(s0 + 0x5248) = ret;
         a0 = __sp;
-        ret = UI_Kern_CreateSema(a0, a1, a2, a3);
-        *(u32*)*(0x004F0000 + 0x524c) = ret;
+        ret = UI_Kern_CreateSema();
+        *(u32*)(0x004F0000 + 0x524c) = ret;
     }
     return ret;
 }
 
 /* Function at 0x00230AB0 - 0x00230B38 */
-int UI_SifRpcCall()
+u32 UI_SifRpcCall(void)
 {
     /* Stack frame: 48 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1;
-    s1 = 0x004F0000;
-    ret = UI_SifRpcBind(a0, a1, a2, a3);
-    a0 = *(u32*)*(s1 + 0x5248);
-    ret = UI_Kern_WaitSema(a0, a1, a2, a3);
-    s0 = 0x00860000 + 0x1500;
+    u32 ret, v1, a0, a1, a2, a3, s0, s1;
+    s1 = 0x004F0000;  /* SYS_CONFIG_BASE: System configuration / SIF state */
+    ret = UI_SifRpcBind();
+    a0 = *(u32*)(s1 + 0x5248);
+    ret = UI_Kern_WaitSema();
+    s0 = 0x00860000 + 0x1500;  /* SYS_DATA_BASE: System/boot data region */
     v1 = s0 + 0x200;
     a1 = 0x10000000;
     if ((unsigned)s0 < (unsigned)v1) {
-        ret = *(u32*)*(s0 + 4);
+        ret = *(u32*)(s0 + 4);
             do {
                 s0 = s0 + 0x10;
                 if (ret == 0) {
-                a0 = *(u32*)*(s1 + 0x5248);
-                *(u32*)*(s0 + 4) = a1;
-                ret = UI_Kern_SignalSema(a0, a1, a2, a3);
+                a0 = *(u32*)(s1 + 0x5248);
+                *(u32*)(s0 + 4) = a1;
+                ret = UI_Kern_SignalSema();
                 ret = s0;
                 } else {
-                ret = ((unsigned)s0 < (unsigned)v1) ? 1 : 0;
-                ret = *(u32*)*(s0 + 4);
-            } while (likely(ret != 0));
+                ret = *(u32*)(s0 + 4);
+                }
+            } while (ret != 0);
     }
-        a0 = *(u32*)*(s1 + 0x5248);
-        ret = UI_Kern_SignalSema(a0, a1, a2, a3);
+        a0 = *(u32*)(s1 + 0x5248);
+        ret = UI_Kern_SignalSema();
         ret = 0;
     }
     return ret;
-}
 
 /* Function at 0x00230B38 - 0x00230BAC */
-int UI_SifRpcCheck()
+u32 UI_SifRpcCheck(u32 a0)
 {
     /* Stack frame: 48 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1;
+    u32 ret, v1, a1, a2, a3, s0, s1;
     s0 = a0;
-    s1 = 0x004F0000;
-    ret = UI_SifRpcBind(a0, a1, a2, a3);
-    a0 = *(u32*)*(s1 + 0x5248);
-    ret = UI_Kern_WaitSema(a0, a1, a2, a3);
-    v1 = ((unsigned)s0 < 0x20) ? 1 : 0;
-    if (v1 == 0) {
-        a0 = *(u32*)*(s1 + 0x5248);
-        ret = UI_Kern_SignalSema(a0, a1, a2, a3);
+    s1 = 0x004F0000;  /* SYS_CONFIG_BASE: System configuration / SIF state */
+    ret = UI_SifRpcBind();
+    a0 = *(u32*)(s1 + 0x5248);
+    ret = UI_Kern_WaitSema();
+    if ((((unsigned)s0 < 0x20) ? 1 : 0) == 0) {
+        a0 = *(u32*)(s1 + 0x5248);
+        ret = UI_Kern_SignalSema();
         ret = 0;
     } else {
         s0 = s0 << 4;
         ret = ret + 0x1500;
-        a0 = *(u32*)*(s1 + 0x5248);
+        a0 = *(u32*)(s1 + 0x5248);
         s0 = s0 + ret;
-        ret = UI_Kern_SignalSema(a0, a1, a2, a3);
+        ret = UI_Kern_SignalSema();
         ret = s0;
     }
     return ret;
 }
 
 /* Function at 0x00230BAC - 0x00230F68 */
-int UI_SifRpcDispatch()
+void UI_SifRpcDispatch(void)
 {
     /* Stack frame: 48 bytes */
-    int local_0C;
-    int local_10;
-    int ret, v0, v1, a0, a1, a2, a3, t0, t1, t2;
+    u32 local_0C;
+    u32 local_10;
+    u32 ret, v1, a0, a1, a2, a3, t0, t1, t2;
     a2 = ret + 0x10c0;
     a3 = 0x20000000;
     a1 = a2 | a3;
@@ -6389,7 +6007,7 @@ int UI_SifRpcDispatch()
     ret = LOAD_WORD_RIGHT((a1));
     STORE_WORD_LEFT(*(__sp + 3), ret);
     v1 = a2 + 4;
-    STORE_WORD_RIGHT((sp), ret);
+    STORE_WORD_RIGHT((__sp), ret);
     v1 = v1 | a3;
     a0 = a2 + 8;
     a1 = LOAD_WORD_LEFT(*(v1 + 3));
@@ -6404,194 +6022,165 @@ int UI_SifRpcDispatch()
     STORE_WORD_RIGHT(*(__sp + 8), v1);
     ret = ret | a3;
     t2 = LOAD_WORD_LEFT(*(ret + 3));
-    t2 = LOAD_WORD_RIGHT((v0));
+    t2 = LOAD_WORD_RIGHT((ret));
     STORE_WORD_LEFT(*(__sp + 0xf), t2);
     STORE_WORD_RIGHT(*(__sp + 0xc), t2);
-    v1 = *(u32*)(sp);
-    a0 = *(u32*)*(__sp + 8);
+    v1 = *(u32*)(__sp);
+    a0 = *(u32*)(__sp + 8);
     if ((signed)v1 >= 0) {
         a1 = a2 + 0x10;
         a2 = local_0C;
         a1 = a1 | a3;
-        ret = Libc_Memcpy(a0, a1, a2, a3);
+        ret = Libc_Memcpy(a0, a1, a2);
     }
-    ret = *(u32*)*(__sp + 4);
+    ret = *(u32*)(__sp + 4);
     a0 = ret + -2;
     v1 = ((unsigned)a0 < 0x19) ? 1 : 0;
-    if (v1 == 0) goto loc_230EE8;
-    v1 = a0 << 2;
+    if (v1 == 0) UI_SifRpcDispatch(); return;
     v1 = v1 + 0x00501040;
     a0 = *(u32*)(v1);
     goto *a0; /* computed jump */
     a2 = 0x008610D4 | 0x20000000;
-    ret = *(u32*)(a2);
-    ret = *(u32*)*(a2 + 4);
+    ret = *(u32*)(a2 + 4);
     if ((signed)ret > 0) {
-        t0 = *(u32*)*(a2 + 8);
+        t0 = *(u32*)(a2 + 8);
         a1 = 0;
         if ((signed)ret > 0) {
             a3 = a2 + 0x10;
             ret = a3 + a1;
             do {
                 a0 = t0 + a1;
-                v1 = *(u8*)(v0);
+                v1 = *(u8*)(ret);
                 a1 = a1 + 1;
                 *(u8*)(a0) = v1;
-                ret = *(u32*)(a2);
-                ret = ((signed)a1 < (signed)ret) ? 1 : 0;
                 ret = a3 + a1;
             } while (ret != 0);
         }
-        ret = *(u32*)*(a2 + 4);
+        ret = *(u32*)(a2 + 4);
     }
-    a0 = *(u32*)(sp);
-    if ((signed)ret <= 0) goto loc_230EEC;
-    t0 = *(u32*)*(a2 + 0xc);
+    a0 = *(u32*)(__sp);
+    if ((signed)ret <= 0) UI_SifRpcDispatch(); return;
+    t0 = *(u32*)(a2 + 0xc);  /* PSX: lo */
     a1 = 0;
-    if ((signed)ret <= 0) goto loc_230EEC;
+    if ((signed)ret <= 0) UI_SifRpcDispatch(); return;
     a3 = a2 + 0x50;
     ret = a3 + a1;
     do {
         a0 = t0 + a1;
-        v1 = *(u8*)(v0);
+        v1 = *(u8*)(ret);
         a1 = a1 + 1;
         *(u8*)(a0) = v1;
-        ret = *(u32*)*(a2 + 4);
-        ret = ((signed)a1 < (signed)ret) ? 1 : 0;
-        ret = a3 + a1;
-    } while (ret != 0);
-    a0 = *(u32*)(sp);
-    goto loc_230EEC;
-loc_230D90:
-    t0 = *(u64*)*(v1 + 0);
-    t1 = *(u64*)*(v1 + 8);
-    t2 = *(u64*)*(v1 + 16);
-    a1 = *(u64*)*(v1 + 24);
-    *(u64*)*(a0 + 0) = t0;
-    *(u64*)*(a0 + 8) = t1;
-    *(u64*)*(a0 + 16) = t2;
-    *(u64*)*(a0 + 24) = a1;
-    v1 = v1 + 0x20;
-    a0 = a0 + 0x20;
-    if (v1 != ret) goto loc_230D90;
-    a2 = LOAD_WORD_LEFT(*(v1 + 3));
-    a2 = LOAD_WORD_RIGHT((v1));
-    STORE_WORD_LEFT(*(a0 + 3), a2);
-    STORE_WORD_RIGHT((a0), a2);
-    goto loc_230EE8;
-    }
+    } while ((a3 + a1) != 0);
+    a0 = *(u32*)(__sp);
+    UI_SifRpcDispatch(); return;
     a0 = local_10;
     a1 = a3 | a1;
-    ret = Libc_Memcpy(a0, a1, a2, a3);
+    ret = Libc_Memcpy(a0, a1, a2);
 loc_230EE8:
-    a0 = *(u32*)(sp);
+    a0 = *(u32*)(__sp);
 loc_230EEC:
-    a3 = 0x004F0000;
+    a3 = 0x004F0000;  /* SYS_CONFIG_BASE: System configuration / SIF state */
     if ((signed)a0 < 0) {
-        __asm("negu v0, a0");
-        v1 = *(u32*)*(a3 + 0x51c0);
+        ret = -a0;
+        v1 = *(u32*)(a3 + 0x51c0);
         a2 = ret;
-        *(u32*)(sp) = ret;
+        *(u32*)(__sp) = ret;
         a1 = 0;
         if (v1 == a2) {
-            *(u32*)*(a3 + 0x51c0) = -1;
+            *(u32*)(a3 + 0x51c0) = -1;
             goto loc_230F60;
         }
         a1 = a1 + 1;
             do {
-                ret = ((signed)a1 < 0x20) ? 1 : 0;
                 ret = a3 + 0x51c0;
                 if (ret != 0) {
-                v1 = a1 << 2;
                 v1 = v1 + ret;
+                }
                 a0 = *(u32*)(v1);
                 a1 = a1 + 1;
             } while (a0 != a2);
             *(u32*)(v1) = -1;
             } else {
-            ret = UI_Kern_iSignalSema(a0, a1, a2, a3);
+            ret = UI_Kern_iSignalSema();
         }
     }
 loc_230F60:
-    return ret;
-}
+    return;
 
 /* Function at 0x00230F68 - 0x00230FB8 */
-int UI_SifRpcCleanup()
+u32 UI_SifRpcCleanup(void)
 {
     /* Stack frame: 64 bytes */
-    int local_14;
-    int ret, v1, a0, a1, a2, a3, s0;
+    u32 local_14;
+    u32 ret, v1, a0, a1, a2, a3, s0;
     v1 = -1;
-    s0 = 0x004F0000;
-    ret = *(u32*)*(s0 + 0x5244);
+    s0 = 0x004F0000;  /* SYS_CONFIG_BASE: System configuration / SIF state */
+    ret = *(u32*)(s0 + 0x5244);
     if (ret == v1) {
         ret = 1;
         local_14 = 0;
-        *(u32*)*(__sp + 4) = ret;
+        *(u32*)(__sp + 4) = ret;
         a0 = __sp;
-        *(u32*)*(__sp + 8) = ret;
-        ret = UI_Kern_CreateSema(a0, a1, a2, a3);
-        *(u32*)*(s0 + 0x5244) = ret;
+        *(u32*)(__sp + 8) = ret;
+        ret = UI_Kern_CreateSema();
+        *(u32*)(s0 + 0x5244) = ret;
     }
     return ret;
 }
 
 /* Function at 0x00230FB8 - 0x00230FE8 */
-int UI_SifRpcWait()
+u32 UI_SifRpcWait(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
-    ret = UI_SifRpcCleanup(a0, a1, a2, a3);
-    a0 = *(u32*)*(0x004F0000 + 0x5244);
-    ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+    u32 ret, a0, a1, a2, a3;
+    ret = UI_SifRpcCleanup();
+    a0 = *(u32*)(0x004F0000 + 0x5244);  /* SYS_CONFIG_BASE: System configuration / SIF state */
+    ret = UI_Kern_WaitSema();
     return 0;
 }
 
 /* Function at 0x00230FE8 - 0x00230FF8 */
-int UI_SifRpcSignal()
+u32 UI_SifRpcSignal(void)
 {
-    int a0, a1, a2, a3;
-    a0 = *(u32*)*(0x004F0000 + 0x5244);
-    return UI_Kern_SignalSema(a0, a1, a2, a3);
+    u32 a0, a1, a2, a3;
+    a0 = *(u32*)(0x004F0000 + 0x5244);  /* SYS_CONFIG_BASE: System configuration / SIF state */
+    return UI_Kern_SignalSema();
 }
 
 /* Function at 0x00230FF8 - 0x00231090 */
-int UI_SifRpcCallback()
+u32 UI_SifRpcCallback(u32 a0, u32 a1)
 {
     /* Stack frame: 96 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4;
+    u32 ret, v1, a2, a3, s0, s1, s2, s3, s4;
     s3 = a0;
     s2 = a1;
     a0 = 0x1b;
-    s0 = 0x00860000;
+    s0 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     s4 = s0 + 0x1780;
-    ret = UI_SifRpcWait(a0, a1, a2, a3);
-    v1 = *(u32*)*(0x004F0000 + 0x5240);
-    if (v1 == 0) {
-        ret = UI_SifCmdProcess(a0, a1, a2, a3);
+    ret = UI_SifRpcWait();
+    if ((*(u32*)(0x004F0000 + 0x5240)) == 0) {  /* SYS_CONFIG_BASE: System configuration / SIF state */
+        ret = UI_SifCmdProcess();
     }
-    ret = TLB_SetupEntries(a0, a1, a2, a3);
-    s1 = *(u32*)*(s0 + 0x1780);
-    *(u32*)*(s4 + 4) = s2;
-    *(u32*)*(s0 + 0x1780) = s3;
+    ret = TLB_SetupEntries();
+    s1 = *(u32*)(s0 + 0x1780);
+    *(u32*)(s4 + 4) = s2;
+    *(u32*)(s0 + 0x1780) = s3;
     if (ret != 0) {
-        ret = System_EnableInterrupts(a0, a1, a2, a3);
+        ret = System_EnableInterrupts();
     }
-    ret = UI_SifRpcSignal(a0, a1, a2, a3);
-    ret = s1;
-    return ret;
+    ret = UI_SifRpcSignal();
+    return s1;
 }
 
 /* Function at 0x00231090 - 0x002310C0 */
-int UI_SifCmdInit()
+u32 UI_SifCmdInit(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
+    u32 ret;
     ret = *(u32*)(a1);
     if (ret != 0) {
-        a0 = *(u32*)*(a1 + 4);
-        ret = (ret)(a0, a1, a2, a3); /* indirect call */
+        a0 = *(u32*)(a1 + 4);
+        ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
     }
     SYNC(); /* memory barrier */
     EI();
@@ -6599,71 +6188,64 @@ int UI_SifCmdInit()
 }
 
 /* Function at 0x002310C0 - 0x00231290 */
-int UI_SifCmdProcess()
+u32 UI_SifCmdProcess(void)
 {
     /* Stack frame: 112 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, t0, t1, t2, t3;
+    u32 ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, t0, t1, t2, t3;
     a0 = 0;
-    s0 = 0x00860000;
+    s0 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     s1 = s0 + 0x1780;
-    ret = UI_DMATransferSync(a0, a1, a2, a3);
-    *(u32*)*(s0 + 0x1780) = 0;
-    *(u32*)*(s1 + 4) = 0;
-    ret = TLB_SetupEntries(a0, a1, a2, a3);
-    s0 = ret;
+    ret = UI_DMATransferSync();
+    *(u32*)(s0 + 0x1780) = 0;
+    *(u32*)(s1 + 4) = 0;
+    s0 = TLB_SetupEntries();
     a1 = 0x00230BA8;
     a2 = 0x00861740;
     a0 = 0x80000011;
-    ret = System_PadReadData(a0, a1, a2, a3);
-    a1 = 0x00231090;
+    ret = System_PadReadData(a0, a1, a2);
+    a1 = (u32)UI_SifCmdInit;
     a2 = s1;
     a0 = 0x80000013;
-    ret = System_PadReadData(a0, a1, a2, a3);
-    s3 = 0x00860000;
+    ret = System_PadReadData(a0, a1, a2);
+    s3 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     if (s0 == 0) goto loc_23116C;
     s0 = s3 + 0x1700;
-    ret = System_EnableInterrupts(a0, a1, a2, a3);
+    ret = System_EnableInterrupts();
     goto loc_231170;
-loc_231148:
     v1 = -1;
-    do {
-        ret = ret + -1;
-    } while (ret != v1);
 loc_23116C:
     s0 = s3 + 0x1700;
 loc_231170:
     a0 = s0;
     a1 = 0x80000001;
     a2 = 0;
-    ret = UI_DMATransferAsync(a0, a1, a2, a3);
+    ret = UI_DMATransferAsync(a0, a1, a2);
     if ((signed)-1 >= 0) {
-        ret = *(u32*)*(s0 + 0x24);
-        if (0x00100000 == 0) goto loc_231148;
-        s4 = 0x004F0000;
-        ret = UI_SifRpcBind(a0, a1, a2, a3);
-        a0 = *(u32*)*(s4 + 0x5248);
-        ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+        ret = *(u32*)(s0 + 0x24);  /* PSX: gpr[5]/$a1 */
+        s4 = 0x004F0000;  /* SYS_CONFIG_BASE: System configuration / SIF state */
+        ret = UI_SifRpcBind();
+        a0 = *(u32*)(s4 + 0x5248);
+        ret = UI_Kern_WaitSema();
         a0 = 0x00861500 + 0x200;
-        s2 = 0x00860000;
+        s2 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
         if ((unsigned)v1 < (unsigned)a0) {
             do {
-                *(u32*)*(v1 + 4) = 0;
+                *(u32*)(v1 + 4) = 0;
                 v1 = v1 + 0x10;
-                ret = ((unsigned)v1 < (unsigned)a0) ? 1 : 0;
-            } while (ret != 0);
-            a0 = *(u32*)*(s4 + 0x5248);
+            } while ((((unsigned)v1 < (unsigned)a0) ? 1 : 0) != 0);
+            a0 = *(u32*)(s4 + 0x5248);
         } else {
-            s1 = 0x00860000;
-            s0 = 0x00860000;
-            a0 = *(u32*)*(s4 + 0x5248);
+            s1 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+            s0 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+            a0 = *(u32*)(s4 + 0x5248);
         }
         s0 = 0x00861080;
-        ret = UI_Kern_SignalSema(a0, a1, a2, a3);
+        ret = UI_Kern_SignalSema();
         v1 = s1 + 0x10c0;
         a0 = s3 + 0x1700;
-        *(u32*)*(s2 + 0x400) = v1;
+        *(u32*)(s2 + 0x400) = v1;
         a3 = s2 + 0x400;
-        *(u32*)(sp) = 0;
+        *(u32*)(__sp) = 0;
         a1 = 0xff;
         a2 = 0;
         t0 = 4;
@@ -6674,15 +6256,15 @@ loc_231170:
         if ((signed)0x20000000 < 0) {
             ret = 0xFFFEFFFF;
         } else {
-            a1 = 0x00860000;
+            a1 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
             ret = s0 | ret;
-            a0 = 0x004F0000;
+            a0 = 0x004F0000;  /* SYS_CONFIG_BASE: System configuration / SIF state */
             t1 = a1 + 0x1728;
             a2 = LOAD_WORD_LEFT(*(ret + 3));
-            a2 = LOAD_WORD_RIGHT((v0));
+            a2 = LOAD_WORD_RIGHT((ret));
             STORE_WORD_LEFT(*(t1 + 3), a2);
             STORE_WORD_RIGHT((t1), a2);
-            *(u32*)*(a0 + 0x5240) = 1;
+            *(u32*)(a0 + 0x5240) = 1;
             ret = 0;
         }
     }
@@ -6690,143 +6272,139 @@ loc_231170:
 }
 
 /* Function at 0x00231290 - 0x00231320 */
-int UI_SifCmdSend()
+u32 UI_SifCmdSend(void)
 {
     /* Stack frame: 80 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3;
-    ret = 0x004F0000;
-    v1 = 0x00860000;
+    u32 ret, v1, a0, a1, a2, a3, s0, s1, s2, s3;
+    ret = 0x004F0000;  /* SYS_CONFIG_BASE: System configuration / SIF state */
+    v1 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     s3 = ret + 0x51b0;
     s1 = v1 + 0x1728;
     s2 = 0;
     a0 = s1;
     a1 = s3;
     a2 = 4;
-    ret = Libc_Memcmp(a0, a1, a2, a3);
-    s0 = 0x004F0000;
+    ret = Libc_Memcmp(a0, a1, a2);
+    s0 = 0x004F0000;  /* SYS_CONFIG_BASE: System configuration / SIF state */
     if (ret == 0) goto loc_2312FC;
     a0 = s1;
-    a1 = *(u32*)*(s0 + 0x5250);
+    a1 = *(u32*)(s0 + 0x5250);
     a2 = 4;
-    ret = Libc_Memcmp(a0, a1, a2, a3);
-    a1 = *(u32*)*(s0 + 0x5250);
+    ret = Libc_Memcmp(a0, a1, a2);
+    a1 = *(u32*)(s0 + 0x5250);
     if (ret == 0) goto loc_2312FC;
     a0 = s3;
     a2 = 4;
-    ret = Libc_Memcmp(a0, a1, a2, a3);
+    ret = Libc_Memcmp(a0, a1, a2);
     s2 = ((unsigned)0 < (unsigned)ret) ? 1 : 0;
 loc_2312FC:
-    ret = s2;
-    return ret;
+    return s2;
 }
 
 /* Function at 0x00231320 - 0x00231358 */
-int UI_SifCmdHandler()
+u32 UI_SifCmdHandler(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
-    *(u32*)*(0x004F0000 + 0x5240) = 0;
+    u32 ret, a0, a1, a2, a3;
+    *(u32*)(0x004F0000 + 0x5240) = 0;
     a0 = 0x00861728;
     a1 = 0;
     a2 = 4;
-    ret = Libc_Memset(a0, a1, a2, a3);
+    ret = Libc_Memset(a0, a1, a2);
     return 0;
 }
 
 /* Function at 0x00231358 - 0x002315E0 */
-int UI_SifModuleLoad()
+u32 UI_SifModuleLoad(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 336 bytes */
-    int local_14;
-    int local_18;
-    int local_24;
-    int local_30;
-    int local_120;
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3;
+    u32 local_14;
+    u32 local_18;
+    u32 local_24;
+    u32 local_30;
+    u32 local_120;
+    u32 ret, v1, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3;
     s0 = a0;
     s7 = a1;
     a0 = 0;
-    __fp = 0x00860000;
+    __fp = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     s1 = __fp + 0x440;
-    *(u64*)*(__sp + 288) = a2;
-    *(u64*)*(__sp + 296) = a3;
-    *(u64*)*(__sp + 304) = t0;
-    *(u64*)*(__sp + 312) = t1;
-    *(u64*)*(__sp + 320) = t2;
-    *(u64*)*(__sp + 328) = t3;
-    ret = UI_SifRpcWait(a0, a1, a2, a3);
-    ret = *(u32*)*(0x004F0000 + 0x5240);
+    *(u64*)(__sp + 288) = a2;
+    *(u64*)(__sp + 296) = a3;
+    *(u64*)(__sp + 304) = t0;
+    *(u64*)(__sp + 312) = t1;
+    *(u64*)(__sp + 320) = t2;
+    *(u64*)(__sp + 328) = t3;
+    ret = UI_SifRpcWait();
+    ret = *(u32*)(0x004F0000 + 0x5240);  /* SYS_CONFIG_BASE: System configuration / SIF state */
     if (ret == 0) {
-        ret = UI_SifCmdProcess(a0, a1, a2, a3);
+        ret = UI_SifCmdProcess();
     }
-    ret = UI_SifCmdSend(a0, a1, a2, a3);
+    ret = UI_SifCmdSend();
     if (ret != 0) {
-        ret = UI_SifRpcSignal(a0, a1, a2, a3);
+        ret = UI_SifRpcSignal();
         ret = 0xFFFEFFFC;
     } else {
-        ret = UI_SifRpcCall(a0, a1, a2, a3);
+        ret = UI_SifRpcCall();
         s3 = ret;
         v1 = *(u8*)(s0);
         if (s3 == 0) {
-            ret = UI_SifRpcSignal(a0, a1, a2, a3);
+            ret = UI_SifRpcSignal();
             ret = -0x13;
         } else {
             a1 = 0;
             a3 = local_120;
             ret = v1 << 0x18;
-            *(u8*)*(s1 + 0x14) = v1;
+            *(u8*)(s1 + 0x14) = v1;
             if (ret != 0) {
-                a2 = 0x00860000;
+                a2 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
                 s2 = __sp + 0x30;
-                s6 = 0x00860000;
-                s4 = 0x00860000;
+                s6 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+                s4 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
                 a1 = a1 + 1;
                     do {
-                        ret = ((signed)a1 < 0x400) ? 1 : 0;
-                        ret = s0 + a1;
-                        if (ret != 0) {
+                        if ((s0 + a1) != 0) {
                         a0 = s1 + a1;
-                        v1 = *(u8*)(v0);
-                        *(u8*)*(a0 + 0x14) = v1;
+                        }
+                        v1 = *(u8*)(ret);
+                        *(u8*)(a0 + 0x14) = v1;
                         v1 = v1 << 0x18;
                         a1 = a1 + 1;
-                    } while (likely(v1 != 0));
+                    } while (v1 != 0);
                     ret = 0x400;
                     } else {
-                    a2 = 0x00860000;
+                    a2 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
                     s2 = __sp + 0x30;
-                    s6 = 0x00860000;
-                    s4 = 0x00860000;
+                    s6 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+                    s4 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
                 }
                 ret = 0x400;
             }
-            *(u8*)*(s1 + 0x413) = 0;
-            if (likely(a1 == ret)) goto loc_231488;
+            *(u8*)(s1 + 0x413) = 0;
+            if (a1 == ret) goto loc_231488;
             loc_231488:
-            ret = a2 + 0x1500;
             ret = s3 - ret;
             v1 = 0x6FFFFFFF;
             s5 = (signed)ret >> 4;
-            v1 = s7 & v1;
-            *(u32*)*(s1 + 0xc) = v1;
+            *(u32*)(s1 + 0xc) = s7 & v1;
             ret = 1;
-            *(u32*)*(s1 + 0x10) = a3;
+            *(u32*)(s1 + 0x10) = a3;
             a0 = __sp + 0x10;
             local_14 = ret;
             s4 = 0x00861080;
-            *(u32*)*(s1 + 0x414) = s5;
+            *(u32*)(s1 + 0x414) = s5;
             local_18 = 0;
             local_24 = 0;
-            ret = UI_Kern_CreateSema(a0, a1, a2, a3);
+            ret = UI_Kern_CreateSema();
             s0 = ret;
-            *(u32*)*(s1 + 4) = s2;
+            *(u32*)(s1 + 4) = s2;
             ret = 4;
             *(u32*)(s1) = s0;
-            *(u32*)*(s1 + 8) = ret;
+            *(u32*)(s1 + 8) = ret;
             a0 = s6 + 0x1700;
             a3 = __fp + 0x440;
             a1 = 0;
-            *(u32*)(sp) = 0;
+            *(u32*)(__sp) = 0;
             a2 = 0;
             t0 = 0x418;
             t1 = s4;
@@ -6835,42 +6413,41 @@ int UI_SifModuleLoad()
             ret = UI_DMATransferProcess(a0, a1, a2, a3);
             if ((signed)0x20000000 < 0) {
                 a0 = s0;
-                ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
-                ret = UI_SifRpcSignal(a0, a1, a2, a3);
+                ret = UI_Kern_DeleteSema();
+                ret = UI_SifRpcSignal();
                 ret = -0xb;
             } else {
                 ret = s4 | ret;
-                s1 = *(u32*)(v0);
-                ret = UI_SifRpcSignal(a0, a1, a2, a3);
+                s1 = *(u32*)(ret);
+                ret = UI_SifRpcSignal();
                 if (s1 == 0) {
                     a0 = s0;
-                    ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+                    ret = UI_Kern_DeleteSema();
                     ret = -0xb;
                 } else {
                     a0 = s0;
-                    ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+                    ret = UI_Kern_WaitSema();
                     a0 = s0;
-                    ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+                    ret = UI_Kern_DeleteSema();
                     v1 = local_30;
-                    s0 = 0x004F0000;
+                    s0 = 0x004F0000;  /* SYS_CONFIG_BASE: System configuration / SIF state */
                     if ((signed)v1 < 0) {
-                        a0 = *(u32*)*(s0 + 0x5248);
-                        ret = UI_Kern_WaitSema(a0, a1, a2, a3);
-                        *(u32*)*(s3 + 4) = 0;
-                        a0 = *(u32*)*(s0 + 0x5248);
-                        ret = UI_Kern_SignalSema(a0, a1, a2, a3);
+                        a0 = *(u32*)(s0 + 0x5248);
+                        ret = UI_Kern_WaitSema();
+                        *(u32*)(s3 + 4) = 0;
+                        a0 = *(u32*)(s0 + 0x5248);
+                        ret = UI_Kern_SignalSema();
                         ret = local_30;
                     } else {
                         s1 = s5;
-                        a0 = *(u32*)*(s0 + 0x5248);
-                        ret = UI_Kern_WaitSema(a0, a1, a2, a3);
-                        v1 = *(u32*)*(s3 + 4);
+                        a0 = *(u32*)(s0 + 0x5248);
+                        ret = UI_Kern_WaitSema();
+                        v1 = *(u32*)(s3 + 4);
                         ret = local_30;
-                        a0 = *(u32*)*(s0 + 0x5248);
-                        v1 = v1 | s7;
-                        *(u32*)*(s3 + 4) = v1;
+                        a0 = *(u32*)(s0 + 0x5248);
+                        *(u32*)(s3 + 4) = v1 | s7;
                         *(u32*)(s3) = ret;
-                        ret = UI_Kern_SignalSema(a0, a1, a2, a3);
+                        ret = UI_Kern_SignalSema();
                         ret = s1;
                         }
                         }
@@ -6878,86 +6455,82 @@ int UI_SifModuleLoad()
                         }
                     }
     return ret;
-}
 
 /* Function at 0x002315E0 - 0x00231760 */
-int UI_SifModuleInit()
+u32 UI_SifModuleInit(void)
 {
     /* Stack frame: 160 bytes */
-    int local_14;
-    int local_18;
-    int local_24;
-    int local_30;
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, t0, t1, t2, t3;
-    s4 = 0x00860000;
+    u32 local_14;
+    u32 local_18;
+    u32 local_24;
+    u32 local_30;
+    u32 ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, t0, t1, t2, t3;
+    s4 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     s2 = s4 + 0x440;
-    ret = UI_SifRpcCheck(a0, a1, a2, a3);
+    ret = UI_SifRpcCheck(a0);
     s0 = ret;
     a0 = 1;
-    ret = UI_SifRpcWait(a0, a1, a2, a3);
-    ret = *(u32*)*(0x004F0000 + 0x5240);
+    ret = UI_SifRpcWait();
+    ret = *(u32*)(0x004F0000 + 0x5240);  /* SYS_CONFIG_BASE: System configuration / SIF state */
     if (ret == 0) {
-        ret = UI_SifRpcSignal(a0, a1, a2, a3);
+        ret = UI_SifRpcSignal();
         ret = -1;
     } else {
         if (s0 != 0) {
-            ret = *(u32*)*(s0 + 4);
+            ret = *(u32*)(s0 + 4);
             v1 = *(u32*)(s0);
-                ret = UI_SifRpcSignal(a0, a1, a2, a3);
+                ret = UI_SifRpcSignal();
                 ret = -9;
             } else {
                 ret = 0x00861500;
                 a0 = 1;
-                *(u32*)*(s2 + 0xc) = v1;
+                *(u32*)(s2 + 0xc) = v1;
                 ret = s0 - ret;
                 local_14 = a0;
-                ret = (signed)ret >> 4;
-                *(u32*)*(s2 + 0x10) = ret;
+                *(u32*)(s2 + 0x10) = (signed)ret >> 4;
                 a0 = __sp + 0x10;
                 local_18 = 0;
                 local_24 = 0;
-                ret = UI_Kern_CreateSema(a0, a1, a2, a3);
+                ret = UI_Kern_CreateSema();
                 s1 = ret;
                 v1 = __sp + 0x30;
-                ret = 0x00860000;
-                *(u32*)*(s4 + 0x440) = s1;
+                ret = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+                *(u32*)(s4 + 0x440) = s1;
                 s3 = ret + 0x1080;
                 ret = 4;
-                *(u32*)*(s2 + 4) = v1;
-                *(u32*)*(s2 + 8) = ret;
+                *(u32*)(s2 + 4) = v1;
+                *(u32*)(s2 + 8) = ret;
                 a0 = 0x00861700;
                 a3 = s2;
                 a1 = 1;
-                *(u32*)(sp) = 0;
+                *(u32*)(__sp) = 0;
                 a2 = 0;
                 t0 = 0x14;
                 t1 = s3;
                 t2 = 4;
                 t3 = 0;
                 ret = UI_DMATransferProcess(a0, a1, a2, a3);
-                *(u32*)*(s0 + 4) = 0;
+                *(u32*)(s0 + 4) = 0;
                 if ((signed)ret < 0) {
                     a0 = s1;
-                    ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
-                    ret = UI_SifRpcSignal(a0, a1, a2, a3);
+                    ret = UI_Kern_DeleteSema();
+                    ret = UI_SifRpcSignal();
                     ret = -0xb;
                 } else {
                     ret = s3 | ret;
-                    s0 = *(u32*)(v0);
-                    ret = UI_SifRpcSignal(a0, a1, a2, a3);
+                    s0 = *(u32*)(ret);
+                    ret = UI_SifRpcSignal();
                     if (s0 == 0) {
                         a0 = s1;
-                        ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+                        ret = UI_Kern_DeleteSema();
                         ret = -0xb;
                     } else {
                         a0 = s1;
-                        ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+                        ret = UI_Kern_WaitSema();
                         a0 = s1;
-                        ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+                        ret = UI_Kern_DeleteSema();
                         ret = local_30;
-                        v1 = -1;
-                        v1 = ((signed)v1 < (signed)ret) ? 1 : 0;
-                        __asm("movn v0, zero, v1");
+                        if ((((signed)v1 < (signed)ret) ? 1 : 0) != 0) ret = 0;
                         }
                         }
                         }
@@ -6966,74 +6539,73 @@ int UI_SifModuleInit()
 }
 
 /* Function at 0x00231760 - 0x00231998 */
-int UI_SifModuleBind()
+u32 UI_SifModuleBind(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 192 bytes */
-    int local_14;
-    int local_18;
-    int local_24;
-    int local_30;
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, t0, t1, t2, t3;
+    u32 local_14;
+    u32 local_18;
+    u32 local_24;
+    u32 local_30;
+    u32 ret, v1, a3, s0, s1, s2, s3, s4, s5, s6, t0, t1, t2, t3;
     s4 = a2;
     s2 = a1;
-    s5 = 0x00860000;
+    s5 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     s1 = s5 + 0x440;
-    ret = UI_SifRpcCheck(a0, a1, a2, a3);
+    ret = UI_SifRpcCheck(a0);
     s0 = ret;
     a0 = 4;
-    ret = UI_SifRpcWait(a0, a1, a2, a3);
-    ret = *(u32*)*(0x004F0000 + 0x5240);
+    ret = UI_SifRpcWait();
+    ret = *(u32*)(0x004F0000 + 0x5240);  /* SYS_CONFIG_BASE: System configuration / SIF state */
     if (ret == 0) {
-        ret = UI_SifRpcSignal(a0, a1, a2, a3);
+        ret = UI_SifRpcSignal();
         ret = -1;
     } else {
         if (s0 != 0) {
-            s3 = *(u32*)*(s0 + 4);
-                ret = UI_SifRpcSignal(a0, a1, a2, a3);
+            s3 = *(u32*)(s0 + 4);
+                ret = UI_SifRpcSignal();
                 ret = -9;
             } else {
                 v1 = *(u32*)(s0);
                 ret = ret + 0x1500;
-                *(u32*)*(s1 + 0x10) = s2;
+                *(u32*)(s1 + 0x10) = s2;
                 ret = s0 - ret;
-                *(u32*)*(s1 + 0xc) = v1;
+                *(u32*)(s1 + 0xc) = v1;
                 ret = (signed)ret >> 4;
-                *(u32*)*(s1 + 0x14) = s4;
-                *(u32*)*(s1 + 0x18) = ret;
+                *(u32*)(s1 + 0x14) = s4;
+                *(u32*)(s1 + 0x18) = ret;
                 a1 = 1;
                 a0 = __sp + 0x10;
                 local_14 = a1;
                 local_18 = 0;
                 local_24 = 0;
-                ret = UI_Kern_CreateSema(a0, a1, a2, a3);
+                ret = UI_Kern_CreateSema();
                 s2 = ret;
                 v1 = 4;
                 ret = __sp + 0x30;
-                *(u32*)*(s1 + 8) = v1;
-                *(u32*)*(s1 + 4) = ret;
+                *(u32*)(s1 + 8) = v1;
+                *(u32*)(s1 + 4) = ret;
                 ret = s3 & 0x8000;
-                *(u32*)*(s5 + 0x440) = s2;
+                *(u32*)(s5 + 0x440) = s2;
                 if (ret != 0) {
-                    s4 = 0x004F0000;
-                    a0 = *(u32*)*(s4 + 0x524c);
-                    ret = UI_Kern_WaitSema(a0, a1, a2, a3);
-                    a3 = 0x004F0000;
+                    s4 = 0x004F0000;  /* SYS_CONFIG_BASE: System configuration / SIF state */
+                    a0 = *(u32*)(s4 + 0x524c);
+                    ret = UI_Kern_WaitSema();
+                    a3 = 0x004F0000;  /* SYS_CONFIG_BASE: System configuration / SIF state */
                     a2 = 0;
-                    v1 = *(u32*)*(a3 + 0x51c0);
+                    v1 = *(u32*)(a3 + 0x51c0);
                     ret = -1;
-                    s6 = 0x00860000;
+                    s6 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
                     if (v1 == ret) {
-                        v1 = *(u32*)*(s5 + 0x440);
-                        s0 = 0x00860000;
-                        __asm("negu v0, v1");
-                        *(u32*)*(a3 + 0x51c0) = v1;
-                        *(u32*)*(s5 + 0x440) = ret;
+                        v1 = *(u32*)(s5 + 0x440);
+                        s0 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+                        ret = -v1;
+                        *(u32*)(a3 + 0x51c0) = v1;
+                        *(u32*)(s5 + 0x440) = ret;
                         goto loc_2318BC;
                     }
-                    s0 = 0x00860000;
+                    s0 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
                     a2 = a2 + 1;
                     do {
-                        ret = ((signed)a2 < 0x20) ? 1 : 0;
                         ret = a2 << 2;
                         if (ret == 0) goto loc_2318BC;
                         v1 = a3 + 0x51c0;
@@ -7043,20 +6615,20 @@ int UI_SifModuleBind()
                         a2 = a2 + 1;
                     } while (ret != a0);
                     ret = *(u32*)(s1);
-                    __asm("negu v1, v0");
+                    v1 = -ret;
                     *(u32*)(a1) = ret;
                     *(u32*)(s1) = v1;
                     loc_2318BC:
-                    a0 = *(u32*)*(s4 + 0x524c);
-                    ret = UI_Kern_SignalSema(a0, a1, a2, a3);
+                    a0 = *(u32*)(s4 + 0x524c);
+                    ret = UI_Kern_SignalSema();
                     s0 = 0x00861080;
                 } else {
-                    s6 = 0x00860000;
+                    s6 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
                     s0 = 0x00861080;
                 }
                 a0 = s6 + 0x1700;
                 a3 = s5 + 0x440;
-                *(u32*)(sp) = 0;
+                *(u32*)(__sp) = 0;
                 a1 = 4;
                 a2 = 0;
                 t0 = 0x1c;
@@ -7066,28 +6638,28 @@ int UI_SifModuleBind()
                 ret = UI_DMATransferProcess(a0, a1, a2, a3);
                 if ((signed)0x20000000 < 0) {
                     a0 = s2;
-                    ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
-                    ret = UI_SifRpcSignal(a0, a1, a2, a3);
+                    ret = UI_Kern_DeleteSema();
+                    ret = UI_SifRpcSignal();
                     ret = -0xb;
                 } else {
                     ret = s0 | ret;
-                    s0 = *(u32*)(v0);
-                    ret = UI_SifRpcSignal(a0, a1, a2, a3);
+                    s0 = *(u32*)(ret);
+                    ret = UI_SifRpcSignal();
                     ret = s3 & 0x8000;
                     if (s0 == 0) {
                         a0 = s2;
-                        ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+                        ret = UI_Kern_DeleteSema();
                         ret = -0xb;
                     } else {
                         if (ret != 0) {
                             a0 = s2;
-                            ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+                            ret = UI_Kern_DeleteSema();
                             ret = 0;
                         } else {
                             a0 = s2;
-                            ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+                            ret = UI_Kern_WaitSema();
                             a0 = s2;
-                            ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+                            ret = UI_Kern_DeleteSema();
                             ret = local_30;
                             }
                             }
@@ -7098,109 +6670,102 @@ int UI_SifModuleBind()
 }
 
 /* Function at 0x00231998 - 0x00231C08 */
-int UI_SifModuleStart()
+u32 UI_SifModuleStart(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 224 bytes */
-    int local_14;
-    int local_18;
-    int local_24;
-    int local_30;
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3;
+    u32 local_14;
+    u32 local_18;
+    u32 local_24;
+    u32 local_30;
+    u32 ret, v1, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3;
     s7 = a2;
     s6 = a1;
-    s4 = 0x00860000;
+    s4 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     s1 = s4 + 0x440;
-    ret = UI_SifRpcCheck(a0, a1, a2, a3);
+    ret = UI_SifRpcCheck(a0);
     s0 = ret;
     a0 = 2;
-    ret = UI_SifRpcWait(a0, a1, a2, a3);
-    ret = *(u32*)*(0x004F0000 + 0x5240);
+    ret = UI_SifRpcWait();
+    ret = *(u32*)(0x004F0000 + 0x5240);  /* SYS_CONFIG_BASE: System configuration / SIF state */
     if (ret == 0) {
-        ret = UI_SifRpcSignal(a0, a1, a2, a3);
+        ret = UI_SifRpcSignal();
         ret = -1;
     } else {
         if (s0 != 0) {
-            s3 = *(u32*)*(s0 + 4);
+            s3 = *(u32*)(s0 + 4);
             v1 = *(u32*)(s0);
-                ret = UI_SifRpcSignal(a0, a1, a2, a3);
+                ret = UI_SifRpcSignal();
                 ret = -9;
             } else {
                 ret = 0x00861500;
                 a0 = 1;
-                *(u32*)*(s1 + 0xc) = v1;
+                *(u32*)(s1 + 0xc) = v1;
                 ret = s0 - ret;
                 local_14 = a0;
-                ret = (signed)ret >> 4;
-                *(u32*)*(s1 + 0x1c) = ret;
+                *(u32*)(s1 + 0x1c) = (signed)ret >> 4;
                 a0 = __sp + 0x10;
-                *(u32*)*(s1 + 0x10) = s6;
-                *(u32*)*(s1 + 0x14) = s7;
+                *(u32*)(s1 + 0x10) = s6;
+                *(u32*)(s1 + 0x14) = s7;
                 local_18 = 0;
                 local_24 = 0;
-                ret = UI_Kern_CreateSema(a0, a1, a2, a3);
+                ret = UI_Kern_CreateSema();
                 s2 = ret;
                 v1 = 4;
                 ret = __sp + 0x30;
-                *(u32*)*(s1 + 8) = v1;
-                *(u32*)*(s1 + 4) = ret;
+                *(u32*)(s1 + 8) = v1;
+                *(u32*)(s1 + 4) = ret;
                 ret = s3 & 0x8000;
-                *(u32*)*(s4 + 0x440) = s2;
+                *(u32*)(s4 + 0x440) = s2;
                 if (ret != 0) {
-                    s0 = 0x004F0000;
-                    a0 = *(u32*)*(s0 + 0x524c);
-                    ret = UI_Kern_WaitSema(a0, a1, a2, a3);
-                    a3 = 0x004F0000;
+                    s0 = 0x004F0000;  /* SYS_CONFIG_BASE: System configuration / SIF state */
+                    a0 = *(u32*)(s0 + 0x524c);
+                    ret = UI_Kern_WaitSema();
+                    a3 = 0x004F0000;  /* SYS_CONFIG_BASE: System configuration / SIF state */
                     a2 = 0;
-                    v1 = *(u32*)*(a3 + 0x51c0);
+                    v1 = *(u32*)(a3 + 0x51c0);
                     ret = -1;
-                    __fp = 0x00860000;
+                    __fp = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
                     if (v1 == ret) {
-                        v1 = *(u32*)*(s4 + 0x440);
-                        __asm("negu v0, v1");
-                        *(u32*)*(a3 + 0x51c0) = v1;
-                        *(u32*)*(s4 + 0x440) = ret;
+                        v1 = *(u32*)(s4 + 0x440);
+                        ret = -v1;
+                        *(u32*)(a3 + 0x51c0) = v1;
+                        *(u32*)(s4 + 0x440) = ret;
                     } else {
                         a2 = a2 + 1;
                             do {
-                                ret = ((signed)a2 < 0x20) ? 1 : 0;
                                 ret = a2 << 2;
                                 if (ret != 0) {
                                 v1 = a3 + 0x51c0;
                                 a1 = ret + v1;
                                 a0 = -1;
+                                }
                                 ret = *(u32*)(a1);
                                 a2 = a2 + 1;
                             } while (ret != a0);
                             ret = *(u32*)(s1);
-                            __asm("negu v1, v0");
+                            v1 = -ret;
                             *(u32*)(a1) = ret;
                             *(u32*)(s1) = v1;
                             }
                         }
-                    a0 = *(u32*)*(s0 + 0x524c);
-                    ret = UI_Kern_SignalSema(a0, a1, a2, a3);
+                    a0 = *(u32*)(s0 + 0x524c);
+                    ret = UI_Kern_SignalSema();
                 } else {
-                    __fp = 0x00860000;
+                    __fp = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
                     s5 = 0x20000000;
                 }
                 ret = s3 & s5;
-                if (0x00860000 == 0) {
-                    a0 = s6;
-                    a1 = s7;
-                    ret = System_DmaFlush(a0, a1, a2, a3);
-                    ret = 0x00860000;
-                }
                 a1 = 0xa4;
                 a0 = ret + 0x10c0;
                 s0 = __fp + 0x1080;
-                ret = System_DmaFlush(a0, a1, a2, a3);
+                ret = System_DmaFlush(a0, a1);
                 a0 = s1;
                 a1 = 0x20;
-                ret = System_DmaFlush(a0, a1, a2, a3);
-                ret = 0x00860000;
+                ret = System_DmaFlush(a0, a1);
+                ret = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
                 a3 = s4 + 0x440;
                 a0 = ret + 0x1700;
-                *(u32*)(sp) = 0;
+                *(u32*)(__sp) = 0;
                 a1 = 2;
                 a2 = 0;
                 t0 = 0x20;
@@ -7211,27 +6776,27 @@ int UI_SifModuleStart()
                 ret = s5 | s0;
                 if ((signed)ret < 0) {
                     a0 = s2;
-                    ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
-                    ret = UI_SifRpcSignal(a0, a1, a2, a3);
+                    ret = UI_Kern_DeleteSema();
+                    ret = UI_SifRpcSignal();
                     ret = -0xb;
                 } else {
-                    s0 = *(u32*)(v0);
-                    ret = UI_SifRpcSignal(a0, a1, a2, a3);
+                    s0 = *(u32*)(ret);
+                    ret = UI_SifRpcSignal();
                     ret = s3 & 0x8000;
                     if (s0 == 0) {
                         a0 = s2;
-                        ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+                        ret = UI_Kern_DeleteSema();
                         ret = -0xb;
                     } else {
                         if (ret != 0) {
                             a0 = s2;
-                            ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+                            ret = UI_Kern_DeleteSema();
                             ret = 0;
                         } else {
                             a0 = s2;
-                            ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+                            ret = UI_Kern_WaitSema();
                             a0 = s2;
-                            ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+                            ret = UI_Kern_DeleteSema();
                             ret = local_30;
                             }
                             }
@@ -7239,97 +6804,93 @@ int UI_SifModuleStart()
                             }
                         }
     return ret;
-}
 
 /* Function at 0x00231C08 - 0x00231EC8 */
-int UI_SifBootInit()
+u32 UI_SifBootInit(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 224 bytes */
-    int local_14;
-    int local_18;
-    int local_24;
-    int local_30;
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3;
+    u32 local_14;
+    u32 local_18;
+    u32 local_24;
+    u32 local_30;
+    u32 ret, v1, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3;
     s5 = a2;
     s1 = a1;
-    s7 = 0x00860000;
+    s7 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     s2 = s7 + 0x440;
-    ret = UI_SifRpcCheck(a0, a1, a2, a3);
+    ret = UI_SifRpcCheck(a0);
     s0 = ret;
     a0 = 3;
-    ret = UI_SifRpcWait(a0, a1, a2, a3);
-    ret = *(u32*)*(0x004F0000 + 0x5240);
+    ret = UI_SifRpcWait();
+    ret = *(u32*)(0x004F0000 + 0x5240);  /* SYS_CONFIG_BASE: System configuration / SIF state */
     if (ret == 0) {
-        ret = UI_SifRpcSignal(a0, a1, a2, a3);
+        ret = UI_SifRpcSignal();
         ret = -1;
     } else {
         if (s0 != 0) {
-            s6 = *(u32*)*(s0 + 4);
+            s6 = *(u32*)(s0 + 4);
             v1 = *(u32*)(s0);
-                ret = UI_SifRpcSignal(a0, a1, a2, a3);
+                ret = UI_SifRpcSignal();
                 ret = -9;
             } else {
                 ret = 0x00861500;
                 a0 = 1;
-                *(u32*)*(s2 + 0xc) = v1;
+                *(u32*)(s2 + 0xc) = v1;
                 ret = s0 - ret;
                 local_14 = a0;
-                ret = (signed)ret >> 4;
-                *(u32*)*(s2 + 0x2c) = ret;
+                *(u32*)(s2 + 0x2c) = (signed)ret >> 4;
                 a0 = __sp + 0x10;
-                *(u32*)*(s2 + 0x14) = s5;
-                *(u32*)*(s2 + 0x10) = s1;
+                *(u32*)(s2 + 0x14) = s5;
+                *(u32*)(s2 + 0x10) = s1;
                 local_18 = 0;
                 local_24 = 0;
-                ret = UI_Kern_CreateSema(a0, a1, a2, a3);
+                ret = UI_Kern_CreateSema();
                 s4 = ret;
                 v1 = 4;
                 ret = __sp + 0x30;
-                *(u32*)*(s2 + 8) = v1;
-                *(u32*)*(s2 + 4) = ret;
+                *(u32*)(s2 + 8) = v1;
+                *(u32*)(s2 + 4) = ret;
                 ret = s6 & 0x8000;
-                *(u32*)*(s7 + 0x440) = s4;
-                if (ret == 0) goto loc_231D7C;
-                s3 = 0x004F0000;
-                a0 = *(u32*)*(s3 + 0x524c);
-                ret = UI_Kern_WaitSema(a0, a1, a2, a3);
-                a3 = 0x004F0000;
-                a2 = 0;
-                v1 = *(u32*)*(a3 + 0x51c0);
-                ret = -1;
-                s0 = s1 & 0xf;
-                if (v1 == ret) {
-                    v1 = *(u32*)*(s7 + 0x440);
-                    __fp = 0x00860000;
-                    __asm("negu v0, v1");
-                    *(u32*)*(a3 + 0x51c0) = v1;
-                    *(u32*)*(s7 + 0x440) = ret;
-                    goto loc_231D6C;
-                }
-                __fp = 0x00860000;
-                a2 = a2 + 1;
-                do {
-                    ret = ((signed)a2 < 0x20) ? 1 : 0;
-                    ret = a2 << 2;
-                    if (ret == 0) goto loc_231D6C;
-                    v1 = a3 + 0x51c0;
-                    a1 = ret + v1;
-                    a0 = -1;
-                    ret = *(u32*)(a1);
+                *(u32*)(s7 + 0x440) = s4;
+                if (ret != 0) {
+                    s3 = 0x004F0000;  /* SYS_CONFIG_BASE: System configuration / SIF state */
+                    a0 = *(u32*)(s3 + 0x524c);
+                    ret = UI_Kern_WaitSema();
+                    a3 = 0x004F0000;  /* SYS_CONFIG_BASE: System configuration / SIF state */
+                    a2 = 0;
+                    v1 = *(u32*)(a3 + 0x51c0);
+                    ret = -1;
+                    s0 = s1 & 0xf;
+                    if (v1 == ret) {
+                        v1 = *(u32*)(s7 + 0x440);
+                        __fp = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+                        ret = -v1;
+                        *(u32*)(a3 + 0x51c0) = v1;
+                        *(u32*)(s7 + 0x440) = ret;
+                        goto loc_231D6C;
+                    }
+                    __fp = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
                     a2 = a2 + 1;
-                } while (ret != a0);
-                ret = *(u32*)(s2);
-                __asm("negu v1, v0");
-                *(u32*)(a1) = ret;
-                *(u32*)(s2) = v1;
-                loc_231D6C:
-                a0 = *(u32*)*(s3 + 0x524c);
-                ret = UI_Kern_SignalSema(a0, a1, a2, a3);
-                goto loc_231D84;
-                loc_231D7C:
-                s0 = s1 & 0xf;
-                __fp = 0x00860000;
-                loc_231D84:
+                    do {
+                        ret = a2 << 2;
+                        if (ret == 0) goto loc_231D6C;
+                        v1 = a3 + 0x51c0;
+                        a1 = ret + v1;
+                        a0 = -1;
+                        ret = *(u32*)(a1);
+                        a2 = a2 + 1;
+                    } while (ret != a0);
+                    ret = *(u32*)(s2);
+                    v1 = -ret;
+                    *(u32*)(a1) = ret;
+                    *(u32*)(s2) = v1;
+                    loc_231D6C:
+                    a0 = *(u32*)(s3 + 0x524c);
+                    ret = UI_Kern_SignalSema();
+                } else {
+                    s0 = s1 & 0xf;
+                    __fp = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+                }
                 ret = (unsigned)s1 >> 4;
                 if (s0 == 0) {
                     s0 = 0;
@@ -7341,30 +6902,30 @@ int UI_SifBootInit()
                 v1 = ((signed)s5 < (signed)s0) ? 1 : 0;
                 s3 = 0x20000000;
                 ret = s6 & s3;
-                __asm("movn s0, s5, v1");
+                if (v1 != 0) s0 = s5;
                 if (ret == 0) {
                     a1 = s5;
                     a0 = s1;
-                    ret = System_DmaFlush(a0, a1, a2, a3);
+                    ret = System_DmaFlush(a0, a1);
                 }
                 s1 = s1 | s3;
-                *(u32*)*(s2 + 0x18) = s0;
+                *(u32*)(s2 + 0x18) = s0;
                 a1 = 0;
                 if ((signed)s0 > 0) {
                     a2 = s2 + 0x1c;
                     do {
                         ret = s1 + a1;
                         a0 = a2 + a1;
-                        v1 = *(u8*)(v0);
+                        v1 = *(u8*)(ret);
                         a1 = a1 + 1;
                         ret = ((signed)a1 < (signed)s0) ? 1 : 0;
                         *(u8*)(a0) = v1;
                     } while (ret != 0);
                 }
                 s0 = __fp + 0x1080;
-                a0 = 0x00860000 + 0x1700;
+                a0 = 0x00860000 + 0x1700;  /* SYS_DATA_BASE: System/boot data region */
                 a3 = s7 + 0x440;
-                *(u32*)(sp) = 0;
+                *(u32*)(__sp) = 0;
                 a1 = 3;
                 a2 = 0;
                 t0 = 0x30;
@@ -7374,28 +6935,28 @@ int UI_SifBootInit()
                 ret = UI_DMATransferProcess(a0, a1, a2, a3);
                 if ((signed)0x20000000 < 0) {
                     a0 = s4;
-                    ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
-                    ret = UI_SifRpcSignal(a0, a1, a2, a3);
+                    ret = UI_Kern_DeleteSema();
+                    ret = UI_SifRpcSignal();
                     ret = -0xb;
                 } else {
                     ret = s0 | ret;
-                    s0 = *(u32*)(v0);
-                    ret = UI_SifRpcSignal(a0, a1, a2, a3);
+                    s0 = *(u32*)(ret);
+                    ret = UI_SifRpcSignal();
                     ret = s6 & 0x8000;
                     if (s0 == 0) {
                         a0 = s4;
-                        ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+                        ret = UI_Kern_DeleteSema();
                         ret = -0xb;
                     } else {
                         if (ret != 0) {
                             a0 = s4;
-                            ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+                            ret = UI_Kern_DeleteSema();
                             ret = 0;
                         } else {
                             a0 = s4;
-                            ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+                            ret = UI_Kern_WaitSema();
                             a0 = s4;
-                            ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+                            ret = UI_Kern_DeleteSema();
                             ret = local_30;
                             }
                             }
@@ -7406,132 +6967,117 @@ int UI_SifBootInit()
 }
 
 /* Function at 0x00231EC8 - 0x00232218 */
-int UI_SifBootSequence()
+u32 UI_SifBootSequence(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 192 bytes */
-    int local_14;
-    int local_18;
-    int local_24;
-    int local_30;
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, t0, t1, t2, t3;
+    u32 local_14;
+    u32 local_18;
+    u32 local_24;
+    u32 local_30;
+    u32 ret, v1, a3, s0, s1, s2, s3, s4, s5, s6, t0, t1, t2, t3;
     s2 = a2;
     s1 = a1;
-    s6 = 0x00860000;
+    s6 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     s5 = 1;
-    s4 = 0x00860000;
+    s4 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     s3 = s6 + 0x440;
-    ret = UI_SifRpcCheck(a0, a1, a2, a3);
+    ret = UI_SifRpcCheck(a0);
     s0 = ret;
     a0 = 5;
-    ret = UI_SifRpcWait(a0, a1, a2, a3);
-    ret = 0x004F0000;
-    *(u32*)*(s4 + 0x404) = s2;
-    v1 = *(u32*)*(ret + 0x5240);
-    if (v1 == 0) {
-        ret = UI_SifCmdProcess(a0, a1, a2, a3);
+    ret = UI_SifRpcWait();
+    ret = 0x004F0000;  /* SYS_CONFIG_BASE: System configuration / SIF state */
+    *(u32*)(s4 + 0x404) = s2;
+    if ((*(u32*)(ret + 0x5240)) == 0) {
+        ret = UI_SifCmdProcess();
     }
     if (s0 != 0) {
-        ret = *(u32*)*(s0 + 4);
-        *(u32*)*(s3 + 0x414) = 0;
-            ret = UI_SifRpcSignal(a0, a1, a2, a3);
+        ret = *(u32*)(s0 + 4);
+        *(u32*)(s3 + 0x414) = 0;
+            ret = UI_SifRpcSignal();
             ret = -9;
         } else {
             ret = 2;
-            *(u32*)*(s3 + 0x418) = 0;
+            *(u32*)(s3 + 0x418) = 0;
             if (s1 != ret) {
                 ret = ((signed)s1 < 3) ? 1 : 0;
-                if (3 != 0) {
-                    s0 = 0x004F0000;
-                    if (s1 != s5) {
+                s0 = 0x004F0000;  /* SYS_CONFIG_BASE: System configuration / SIF state */
+                if (s1 != s5) {
+                    ret = *(u32*)(s0);
+                    } else {
+                    if (s1 != 0x00860000) {  /* SYS_DATA_BASE: System/boot data region */
                         ret = *(u32*)(s0);
                         } else {
-                        if (s1 != 0x00860000) {
-                            ret = *(u32*)(s0);
-                            } else {
-                            a0 = *(u32*)*(s0 + 0x524c);
-                            ret = UI_Kern_WaitSema(a0, a1, a2, a3);
-                            a1 = 0x004F0000;
-                            a0 = 0;
-                            v1 = *(u32*)*(a1 + 0x51c0);
-                            ret = -1;
-                            if (v1 == 0x20) {
-                                v1 = a1 + 0x51c0;
-                                a1 = -1;
-                                a0 = a0 + 1;
-                                    do {
-                                        v1 = v1 + 4;
-                                        if ((signed)a0 < 0x20) {
-                                        ret = *(u32*)(v1);
-                                        a0 = a0 + 1;
-                                    } while (likely(ret == a1));
-                                }
-                                ret = 0x20;
+                        a0 = *(u32*)(s0 + 0x524c);
+                        ret = UI_Kern_WaitSema();
+                        a1 = 0x004F0000;  /* SYS_CONFIG_BASE: System configuration / SIF state */
+                        a0 = 0;
+                        v1 = *(u32*)(a1 + 0x51c0);
+                        ret = -1;
+                        if (v1 == 0x20) {
+                            v1 = a1 + 0x51c0;
+                            a1 = -1;
+                            a0 = a0 + 1;
+                                do {
+                                    v1 = v1 + 4;
+                                    if ((signed)a0 < 0x20) {
+                                    ret = *(u32*)(v1);
+                                    a0 = a0 + 1;
+                                    }
+                                } while (ret == a1);
                             }
-                            v1 = *(u32*)*(s4 + 0x404);
-                            if (a0 == ret) {
-                                ret = *(u32*)*(s4 + 0x404);
-                                *(u32*)(v0) = 0;
-                            } else {
-                                *(u32*)(v1) = 1;
-                            }
-                            a0 = *(u32*)*(s0 + 0x524c);
-                            ret = UI_Kern_SignalSema(a0, a1, a2, a3);
-                            goto loc_232030;
-            }
-                        a0 = 0x20000000;
-                        ret = 0x008610D0;
-                        ret = ret | a0;
-                        v1 = *(u32*)(v0);
-                        *(u32*)(s2) = v1;
-                    } else {
-                        a0 = 0x20000000;
-                        ret = ret + 0x10d0;
-                        ret = ret | a0;
-                        v1 = *(u64*)*(ret + 0);
-                        *(u64*)*(s2 + 0) = v1;
-                    }
-                    loc_232030:
-                    ret = UI_SifRpcSignal(a0, a1, a2, a3);
-                    ret = 0;
-                    goto loc_2321EC;
-                    }
+                            ret = 0x20;
+                        }
+                        v1 = *(u32*)(s4 + 0x404);
+                        if (a0 == ret) {
+                            ret = *(u32*)(s4 + 0x404);
+                            *(u32*)(ret) = 0;
+                        } else {
+                            *(u32*)(v1) = 1;
+                        }
+                        a0 = *(u32*)(s0 + 0x524c);
+                        ret = UI_Kern_SignalSema();
+                        goto loc_232030;
+        }
+                    a0 = 0x20000000;
+                    ret = ret | a0;
+                    *(u32*)(s2) = *(u32*)(ret);
+                } else {
+                    a0 = 0x20000000;
+                    ret = ret | a0;
+                    *(u64*)(s2 + 0) = *(u64*)(ret + 0);
                 }
-            *(u32*)*(s3 + 0x10) = s1;
-            *(u32*)*(s3 + 0xc) = ret;
+                loc_232030:
+                ret = UI_SifRpcSignal();
+                ret = 0;
+                goto loc_2321EC;
+                }
+            *(u32*)(s3 + 0x10) = s1;
+            *(u32*)(s3 + 0xc) = ret;
             if (s2 == 0) {
-                *(u32*)*(s3 + 0x41c) = 0;
+                *(u32*)(s3 + 0x41c) = 0;
                 s2 = __sp + 0x30;
-                s5 = 0x00860000;
-                s1 = 0x00860000;
+                s5 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+                s1 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
             } else {
                 a2 = s2;
                 a0 = s3 + 0x14;
                 v1 = 0x400;
-                ret = a2 | a0;
                 ret = ret & 7;
-                *(u32*)*(s3 + 0x41c) = v1;
+                *(u32*)(s3 + 0x41c) = v1;
                 if (ret != 0) {
                     ret = a2 + 0x400;
                     s2 = __sp + 0x30;
-                    s5 = 0x00860000;
-                    s1 = 0x00860000;
+                    s5 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+                    s1 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
                     do {
-                        __asm("ldl v1, 7(a2)"); /* 0x0023208C unaligned ld left */
-                        __asm("ldr v1, 0(a2)"); /* 0x00232090 unaligned ld right */
-                        __asm("ldl a1, 15(a2)"); /* 0x00232094 unaligned ld left */
-                        __asm("ldr a1, 8(a2)"); /* 0x00232098 unaligned ld right */
-                        __asm("ldl a3, 23(a2)"); /* 0x0023209C unaligned ld left */
-                        __asm("ldr a3, 16(a2)"); /* 0x002320A0 unaligned ld right */
-                        __asm("ldl t0, 31(a2)"); /* 0x002320A4 unaligned ld left */
-                        __asm("ldr t0, 24(a2)"); /* 0x002320A8 unaligned ld right */
-                        __asm("sdl v1, 7(a0)"); /* 0x002320AC unaligned sd left */
-                        __asm("sdr v1, 0(a0)"); /* 0x002320B0 unaligned sd right */
-                        __asm("sdl a1, 15(a0)"); /* 0x002320B4 unaligned sd left */
-                        __asm("sdr a1, 8(a0)"); /* 0x002320B8 unaligned sd right */
-                        __asm("sdl a3, 23(a0)"); /* 0x002320BC unaligned sd left */
-                        __asm("sdr a3, 16(a0)"); /* 0x002320C0 unaligned sd right */
-                        __asm("sdl t0, 31(a0)"); /* 0x002320C4 unaligned sd left */
-                        __asm("sdr t0, 24(a0)"); /* 0x002320C8 unaligned sd right */
+                        v1 = *(u64*)(a2);
+                        a1 = *(u64*)(a2 + 8);
+                        a3 = *(u64*)(a2 + 16);
+                        t0 = *(u64*)(a2 + 24);
+                        *(u64*)(a0) = v1;
+                        *(u64*)(a0 + 8) = a1;
+                        *(u64*)(a0 + 16) = a3;
+                        *(u64*)(a0 + 24) = t0;
                         a2 = a2 + 0x20;
                         a0 = a0 + 0x20;
                     } while (a2 != ret);
@@ -7539,17 +7085,17 @@ int UI_SifBootSequence()
                 } else {
                     ret = a2 + 0x400;
                     s2 = __sp + 0x30;
-                    s5 = 0x00860000;
-                    s1 = 0x00860000;
+                    s5 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+                    s1 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
                     do {
-                        v1 = *(u64*)*(a2 + 0);
-                        a1 = *(u64*)*(a2 + 8);
-                        a3 = *(u64*)*(a2 + 16);
-                        t0 = *(u64*)*(a2 + 24);
-                        *(u64*)*(a0 + 0) = v1;
-                        *(u64*)*(a0 + 8) = a1;
-                        *(u64*)*(a0 + 16) = a3;
-                        *(u64*)*(a0 + 24) = t0;
+                        v1 = *(u64*)(a2 + 0);
+                        a1 = *(u64*)(a2 + 8);
+                        a3 = *(u64*)(a2 + 16);
+                        t0 = *(u64*)(a2 + 24);
+                        *(u64*)(a0 + 0) = v1;
+                        *(u64*)(a0 + 8) = a1;
+                        *(u64*)(a0 + 16) = a3;
+                        *(u64*)(a0 + 24) = t0;
                         a2 = a2 + 0x20;
                         a0 = a0 + 0x20;
                     } while (a2 != ret);
@@ -7561,19 +7107,19 @@ int UI_SifBootSequence()
             a0 = __sp + 0x10;
             local_24 = 0;
             s4 = s1 + 0x1080;
-            ret = UI_Kern_CreateSema(a0, a1, a2, a3);
+            ret = UI_Kern_CreateSema();
             s0 = s6 + 0x440;
             s1 = ret;
             a0 = s0;
             ret = 4;
-            *(u32*)*(s3 + 4) = s2;
-            *(u32*)*(s3 + 8) = ret;
+            *(u32*)(s3 + 4) = s2;
+            *(u32*)(s3 + 8) = ret;
             a1 = 0x420;
             *(u32*)(s3) = s1;
-            ret = System_DmaFlush(a0, a1, a2, a3);
+            ret = System_DmaFlush(a0, a1);
             a0 = s5 + 0x1700;
             a3 = s0;
-            *(u32*)(sp) = 0;
+            *(u32*)(__sp) = 0;
             a1 = 5;
             a2 = 0;
             t0 = 0x420;
@@ -7583,98 +7129,94 @@ int UI_SifBootSequence()
             ret = UI_DMATransferProcess(a0, a1, a2, a3);
             if ((signed)0x20000000 < 0) {
                 a0 = s1;
-                ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
-                ret = UI_SifRpcSignal(a0, a1, a2, a3);
+                ret = UI_Kern_DeleteSema();
+                ret = UI_SifRpcSignal();
                 ret = -0xb;
             } else {
                 ret = s4 | ret;
-                s0 = *(u32*)(v0);
-                ret = UI_SifRpcSignal(a0, a1, a2, a3);
+                s0 = *(u32*)(ret);
+                ret = UI_SifRpcSignal();
                 if (s0 == 0) {
                     a0 = s1;
-                    ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+                    ret = UI_Kern_DeleteSema();
                     ret = -0xb;
                 } else {
                     a0 = s1;
-                    ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+                    ret = UI_Kern_WaitSema();
                     a0 = s1;
-                    ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+                    ret = UI_Kern_DeleteSema();
                     ret = local_30;
                     }
                     }
                 }
 loc_2321EC:
     return ret;
-}
 
 /* Function at 0x00232218 - 0x002323F8 */
-int UI_SifBootConfig()
+u32 UI_SifBootConfig(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 208 bytes */
-    int local_14;
-    int local_18;
-    int local_24;
-    int local_30;
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3;
+    u32 local_14;
+    u32 local_18;
+    u32 local_24;
+    u32 local_30;
+    u32 ret, v1, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3;
     s7 = t0;
     s5 = a1;
     s4 = t1;
     s3 = a3;
     s0 = a2;
-    s6 = 0x00860000;
+    s6 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     s1 = s6 + 0x440;
-    ret = UI_SifRpcCheck(a0, a1, a2, a3);
+    ret = UI_SifRpcCheck(a0);
     s2 = ret;
     a0 = 0x1a;
-    ret = UI_SifRpcWait(a0, a1, a2, a3);
-    v1 = *(u32*)*(0x004F0000 + 0x5240);
-    if (v1 == 0) {
-        ret = UI_SifCmdProcess(a0, a1, a2, a3);
+    ret = UI_SifRpcWait();
+    if ((*(u32*)(0x004F0000 + 0x5240)) == 0) {  /* SYS_CONFIG_BASE: System configuration / SIF state */
+        ret = UI_SifCmdProcess();
     }
     if (s2 != 0) {
-        ret = *(u32*)*(s2 + 4);
-        ret = ((unsigned)s3 < 0x401) ? 1 : 0;
-            ret = UI_SifRpcSignal(a0, a1, a2, a3);
+            ret = UI_SifRpcSignal();
             ret = -9;
         } else {
             if ((unsigned)s4 < 0x401) {
-                    ret = UI_SifRpcSignal(a0, a1, a2, a3);
+                    ret = UI_SifRpcSignal();
                     ret = -0x16;
                 } else {
                     a1 = s0;
                     if (s0 == 0) {
-                        *(u32*)*(s1 + 0x41c) = 0;
+                        *(u32*)(s1 + 0x41c) = 0;
                     } else {
                         a0 = s1 + 0x14;
                         a2 = s3;
-                        ret = Libc_Memcpy(a0, a1, a2, a3);
+                        ret = Libc_Memcpy(a0, a1, a2);
                     }
                     ret = *(u32*)(s2);
                     v1 = 1;
-                    *(u32*)*(s1 + 0x10) = s5;
+                    *(u32*)(s1 + 0x10) = s5;
                     a0 = __sp + 0x10;
-                    *(u32*)*(s1 + 0xc) = ret;
+                    *(u32*)(s1 + 0xc) = ret;
                     s0 = s6 + 0x440;
-                    *(u32*)*(s1 + 0x41c) = s3;
+                    *(u32*)(s1 + 0x41c) = s3;
                     local_14 = v1;
                     local_18 = 0;
                     local_24 = 0;
-                    ret = UI_Kern_CreateSema(a0, a1, a2, a3);
+                    ret = UI_Kern_CreateSema();
                     s2 = ret;
                     v1 = 4;
                     ret = __sp + 0x30;
-                    *(u32*)*(s1 + 0x418) = s4;
-                    *(u32*)*(s1 + 4) = ret;
+                    *(u32*)(s1 + 0x418) = s4;
+                    *(u32*)(s1 + 4) = ret;
                     a0 = s0;
-                    *(u32*)*(s1 + 8) = v1;
+                    *(u32*)(s1 + 8) = v1;
                     a1 = 0x420;
-                    *(u32*)*(s1 + 0x414) = s7;
+                    *(u32*)(s1 + 0x414) = s7;
                     *(u32*)(s1) = s2;
-                    ret = System_DmaFlush(a0, a1, a2, a3);
-                    s1 = 0x00860000 + 0x1080;
+                    ret = System_DmaFlush(a0, a1);
+                    s1 = 0x00860000 + 0x1080;  /* SYS_DATA_BASE: System/boot data region */
                     a0 = 0x00861700;
                     a3 = s0;
-                    *(u32*)(sp) = 0;
+                    *(u32*)(__sp) = 0;
                     a1 = 0x1a;
                     a2 = 0;
                     t0 = 0x420;
@@ -7684,22 +7226,22 @@ int UI_SifBootConfig()
                     ret = UI_DMATransferProcess(a0, a1, a2, a3);
                     if ((signed)0x20000000 < 0) {
                         a0 = s2;
-                        ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
-                        ret = UI_SifRpcSignal(a0, a1, a2, a3);
+                        ret = UI_Kern_DeleteSema();
+                        ret = UI_SifRpcSignal();
                         ret = -0xb;
                     } else {
                         ret = s1 | ret;
-                        s0 = *(u32*)(v0);
-                        ret = UI_SifRpcSignal(a0, a1, a2, a3);
+                        s0 = *(u32*)(ret);
+                        ret = UI_SifRpcSignal();
                         if (s0 == 0) {
                             a0 = s2;
-                            ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+                            ret = UI_Kern_DeleteSema();
                             ret = -0xb;
                         } else {
                             a0 = s2;
-                            ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+                            ret = UI_Kern_WaitSema();
                             a0 = s2;
-                            ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+                            ret = UI_Kern_DeleteSema();
                             ret = local_30;
                             }
                             }
@@ -7709,179 +7251,175 @@ int UI_SifBootConfig()
 }
 
 /* Function at 0x002323F8 - 0x002325A0 */
-int UI_SifBootModules()
+u32 UI_SifBootModules(u32 a0, u32 a1)
 {
     /* Stack frame: 208 bytes */
-    int local_14;
-    int local_18;
-    int local_24;
-    int local_30;
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3;
+    u32 local_14;
+    u32 local_18;
+    u32 local_24;
+    u32 local_30;
+    u32 ret, v1, a2, a3, i, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3;
     s6 = a1;
     s1 = a0;
     a0 = s6;
-    s7 = 0x00860000;
+    s7 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     s2 = s7 + 0x440;
-    ret = UI_SifRpcWait(a0, a1, a2, a3);
-    v1 = *(u32*)*(0x004F0000 + 0x5240);
+    ret = UI_SifRpcWait();
+    v1 = *(u32*)(0x004F0000 + 0x5240);  /* SYS_CONFIG_BASE: System configuration / SIF state */
     ret = *(u8*)(s1);
     if (v1 == 0) {
-        ret = UI_SifCmdProcess(a0, a1, a2, a3);
+        ret = UI_SifCmdProcess();
         ret = *(u8*)(s1);
     }
-    s0 = 0;
+    i = 0;
     v1 = ret << 0x18;
-    *(u8*)*(s2 + 0xc) = ret;
+    *(u8*)(s2 + 0xc) = ret;
     if (v1 != 0) {
         s3 = __sp + 0x30;
-        s5 = 0x00860000;
-        s4 = 0x00860000;
-        s0 = s0 + 1;
+        s5 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+        s4 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+        i = i + 1;
             do {
-                ret = ((signed)s0 < 0x400) ? 1 : 0;
-                ret = s1 + s0;
-                if (ret != 0) {
-                a0 = s2 + s0;
-                v1 = *(u8*)(v0);
-                *(u8*)*(a0 + 0xc) = v1;
+                if ((s1 + i) != 0) {
+                a0 = s2 + i;
+                }
+                v1 = *(u8*)(ret);
+                *(u8*)(a0 + 0xc) = v1;
                 v1 = v1 << 0x18;
-                s0 = s0 + 1;
-            } while (likely(v1 != 0));
+                i = i + 1;
+            } while (v1 != 0);
             ret = 0x400;
             } else {
             s3 = __sp + 0x30;
-            s5 = 0x00860000;
-            s4 = 0x00860000;
+            s5 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+            s4 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
         }
         ret = 0x400;
     }
-    if (s0 == 1) {
-        *(u8*)*(s2 + 0x40b) = 0;
-        s0 = 0x3ff;
+    if (i == 1) {
+        *(u8*)(s2 + 0x40b) = 0;
+        i = 0x3ff;
     }
     local_18 = 0;
     local_14 = ret;
     a0 = __sp + 0x10;
     local_24 = 0;
     s4 = 0x00861080;
-    ret = UI_Kern_CreateSema(a0, a1, a2, a3);
+    ret = UI_Kern_CreateSema();
     s1 = ret;
-    *(u32*)*(s2 + 4) = s3;
+    *(u32*)(s2 + 4) = s3;
     ret = 4;
     *(u32*)(s2) = s1;
-    *(u32*)*(s2 + 8) = ret;
+    *(u32*)(s2 + 8) = ret;
     a0 = s5 + 0x1700;
     a1 = s6;
     a3 = s7 + 0x440;
-    t0 = s0 + 0xd;
+    t0 = i + 0xd;
     a2 = 0;
-    *(u32*)(sp) = 0;
+    *(u32*)(__sp) = 0;
     t1 = s4;
     t2 = 4;
     t3 = 0;
     ret = UI_DMATransferProcess(a0, a1, a2, a3);
     if ((signed)0x20000000 < 0) {
         a0 = s1;
-        ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
-        ret = UI_SifRpcSignal(a0, a1, a2, a3);
+        ret = UI_Kern_DeleteSema();
+        ret = UI_SifRpcSignal();
         ret = -0xb;
     } else {
         ret = s4 | ret;
-        s0 = *(u32*)(v0);
-        ret = UI_SifRpcSignal(a0, a1, a2, a3);
-        if (s0 == 0) {
+        i = *(u32*)(ret);
+        ret = UI_SifRpcSignal();
+        if (i == 0) {
             a0 = s1;
-            ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+            ret = UI_Kern_DeleteSema();
             ret = -0xb;
         } else {
             a0 = s1;
-            ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+            ret = UI_Kern_WaitSema();
             a0 = s1;
-            ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+            ret = UI_Kern_DeleteSema();
             ret = local_30;
             }
         }
     return ret;
-}
 
 /* Function at 0x002325A0 - 0x002325C0 */
-int UI_SifBootHelper()
+u32 UI_SifBootHelper(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
+    u32 ret, a0, a1, a2, a3;
     a1 = 6;
-    ret = UI_SifBootModules(a0, a1, a2, a3);
-    return ret;
+    return UI_SifBootModules(a0, a1);
 }
 
 /* Function at 0x002325C0 - 0x00232770 */
-int UI_SifBootStart()
+u32 UI_SifBootStart(u32 a0, u32 a1)
 {
     /* Stack frame: 208 bytes */
-    int local_14;
-    int local_18;
-    int local_24;
-    int local_30;
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3;
+    u32 local_14;
+    u32 local_18;
+    u32 local_24;
+    u32 local_30;
+    u32 ret, v1, a2, a3, i, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3;
     s1 = a0;
     s6 = a1;
     a0 = 7;
-    s7 = 0x00860000;
+    s7 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     s2 = s7 + 0x440;
-    ret = UI_SifRpcWait(a0, a1, a2, a3);
-    v1 = *(u32*)*(0x004F0000 + 0x5240);
+    ret = UI_SifRpcWait();
+    v1 = *(u32*)(0x004F0000 + 0x5240);  /* SYS_CONFIG_BASE: System configuration / SIF state */
     ret = *(u8*)(s1);
     if (v1 == 0) {
-        ret = UI_SifCmdProcess(a0, a1, a2, a3);
+        ret = UI_SifCmdProcess();
         ret = *(u8*)(s1);
     }
-    s0 = 0;
+    i = 0;
     v1 = ret << 0x18;
-    *(u8*)*(s2 + 0x10) = ret;
+    *(u8*)(s2 + 0x10) = ret;
     if (v1 != 0) {
         s3 = __sp + 0x30;
-        s5 = 0x00860000;
-        s4 = 0x00860000;
-        s0 = s0 + 1;
+        s5 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+        s4 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+        i = i + 1;
             do {
-                ret = ((signed)s0 < 0x400) ? 1 : 0;
-                ret = s1 + s0;
-                if (ret != 0) {
-                a0 = s2 + s0;
-                v1 = *(u8*)(v0);
-                *(u8*)*(a0 + 0x10) = v1;
+                if ((s1 + i) != 0) {
+                a0 = s2 + i;
+                }
+                v1 = *(u8*)(ret);
+                *(u8*)(a0 + 0x10) = v1;
                 v1 = v1 << 0x18;
-                s0 = s0 + 1;
-            } while (likely(v1 != 0));
+                i = i + 1;
+            } while (v1 != 0);
             ret = 0x400;
             } else {
             s3 = __sp + 0x30;
-            s5 = 0x00860000;
-            s4 = 0x00860000;
+            s5 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+            s4 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
         }
         ret = 0x400;
     }
-    *(u32*)*(s2 + 0xc) = s6;
-    if (s0 == ret) {
-        *(u8*)*(s2 + 0x40f) = 0;
-        s0 = 0x3ff;
-        *(u32*)*(s2 + 0xc) = s6;
+    *(u32*)(s2 + 0xc) = s6;
+    if (i == ret) {
+        *(u8*)(s2 + 0x40f) = 0;
+        i = 0x3ff;
+        *(u32*)(s2 + 0xc) = s6;
     }
     local_14 = 1;
     a0 = __sp + 0x10;
     local_18 = 0;
     s4 = 0x00861080;
     local_24 = 0;
-    ret = UI_Kern_CreateSema(a0, a1, a2, a3);
+    ret = UI_Kern_CreateSema();
     s1 = ret;
-    *(u32*)*(s2 + 4) = s3;
+    *(u32*)(s2 + 4) = s3;
     ret = 4;
     *(u32*)(s2) = s1;
-    *(u32*)*(s2 + 8) = ret;
+    *(u32*)(s2 + 8) = ret;
     a0 = s5 + 0x1700;
     a3 = s7 + 0x440;
-    t0 = s0 + 0x11;
-    *(u32*)(sp) = 0;
+    t0 = i + 0x11;
+    *(u32*)(__sp) = 0;
     a1 = 7;
     a2 = 0;
     t1 = s4;
@@ -7890,134 +7428,129 @@ int UI_SifBootStart()
     ret = UI_DMATransferProcess(a0, a1, a2, a3);
     if ((signed)0x20000000 < 0) {
         a0 = s1;
-        ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
-        ret = UI_SifRpcSignal(a0, a1, a2, a3);
+        ret = UI_Kern_DeleteSema();
+        ret = UI_SifRpcSignal();
         ret = -0xb;
     } else {
         ret = s4 | ret;
-        s0 = *(u32*)(v0);
-        ret = UI_SifRpcSignal(a0, a1, a2, a3);
-        if (s0 == 0) {
+        i = *(u32*)(ret);
+        ret = UI_SifRpcSignal();
+        if (i == 0) {
             a0 = s1;
-            ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+            ret = UI_Kern_DeleteSema();
             ret = -0xb;
         } else {
             a0 = s1;
-            ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+            ret = UI_Kern_WaitSema();
             a0 = s1;
-            ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+            ret = UI_Kern_DeleteSema();
             ret = local_30;
             }
         }
     return ret;
-}
 
 /* Function at 0x00232770 - 0x00232790 */
-int UI_SifBootFinish()
+u32 UI_SifBootFinish(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
+    u32 ret, a0, a1, a2, a3;
     a1 = 8;
-    ret = UI_SifBootModules(a0, a1, a2, a3);
-    return ret;
+    return UI_SifBootModules(a0, a1);
 }
 
 /* Function at 0x00232790 - 0x00232A00 */
-int UI_IOPBootSequence()
+u32 UI_IOPBootSequence(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 208 bytes */
-    int local_14;
-    int local_18;
-    int local_24;
-    int local_30;
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3;
+    u32 local_14;
+    u32 local_18;
+    u32 local_24;
+    u32 local_30;
+    u32 ret, v1, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3;
     s0 = a0;
     s6 = a2;
     s2 = a1;
     s1 = a3;
     a0 = 0xe;
-    s7 = 0x00860000;
+    s7 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     s3 = s7 + 0x440;
-    ret = UI_SifRpcWait(a0, a1, a2, a3);
-    v1 = *(u32*)*(0x004F0000 + 0x5240);
+    ret = UI_SifRpcWait();
+    v1 = *(u32*)(0x004F0000 + 0x5240);  /* SYS_CONFIG_BASE: System configuration / SIF state */
     ret = *(u8*)(s0);
     if (v1 == 0) {
-        ret = UI_SifCmdProcess(a0, a1, a2, a3);
+        ret = UI_SifCmdProcess();
         ret = *(u8*)(s0);
     }
     a1 = 0;
     v1 = ret << 0x18;
-    *(u8*)*(s3 + 0xc) = ret;
+    *(u8*)(s3 + 0xc) = ret;
     if (v1 != 0) {
         a3 = ((signed)s1 < 0x401) ? 1 : 0;
         a1 = a1 + 1;
             do {
-                ret = ((signed)a1 < 0x400) ? 1 : 0;
-                ret = s0 + a1;
-                if (ret != 0) {
+                if ((s0 + a1) != 0) {
                 a0 = s3 + a1;
-                v1 = *(u8*)(v0);
-                *(u8*)*(a0 + 0xc) = v1;
+                }
+                v1 = *(u8*)(ret);
+                *(u8*)(a0 + 0xc) = v1;
                 v1 = v1 << 0x18;
                 a1 = a1 + 1;
-            } while (likely(v1 != 0));
+            } while (v1 != 0);
             ret = 0x400;
             } else {
             a3 = ((signed)s1 < 0x401) ? 1 : 0;
         }
         ret = 0x400;
     }
-    *(u8*)*(s3 + 0x40b) = 0;
-    if (likely(a1 == ret)) goto loc_23284C;
+    *(u8*)(s3 + 0x40b) = 0;
+    if (a1 == ret) goto loc_23284C;
 loc_23284C:
     ret = *(u8*)(s2);
     if (s2 == 0) {
-        *(u8*)*(s3 + 0x40c) = 0;
+        *(u8*)(s3 + 0x40c) = 0;
     } else {
         a1 = 0;
         v1 = ret << 0x18;
-        *(u8*)*(s3 + 0x40c) = ret;
+        *(u8*)(s3 + 0x40c) = ret;
         if (v1 == 0) goto loc_23289C;
         a2 = s3 + 0x40c;
         a1 = a1 + 1;
         do {
-            ret = ((signed)a1 < 0x400) ? 1 : 0;
-            ret = s2 + a1;
-            if (ret == 0) goto loc_23289C;
+            if ((s2 + a1) == 0) goto loc_23289C;
             a0 = a2 + a1;
-            v1 = *(u8*)(v0);
+            v1 = *(u8*)(ret);
             *(u8*)(a0) = v1;
             v1 = v1 << 0x18;
             a1 = a1 + 1;
-        } while (likely(v1 != 0));
+        } while (v1 != 0);
         loc_23289C:
         ret = 0x400;
-        *(u8*)*(s3 + 0x80b) = 0;
+        *(u8*)(s3 + 0x80b) = 0;
         }
     if (a3 == 0) {
-        ret = UI_SifRpcSignal(a0, a1, a2, a3);
+        ret = UI_SifRpcSignal();
         ret = -7;
     } else {
         a1 = 0;
         if ((signed)s1 > 0) {
             a2 = s3 + 0x80c;
             s2 = __sp + 0x30;
-            s5 = 0x00860000;
-            s4 = 0x00860000;
+            s5 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+            s4 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
             do {
                 ret = s6 + a1;
                 a0 = a2 + a1;
-                v1 = *(u8*)(v0);
+                v1 = *(u8*)(ret);
                 a1 = a1 + 1;
                 ret = ((signed)a1 < (signed)s1) ? 1 : 0;
                 *(u8*)(a0) = v1;
             } while (ret != 0);
-            *(u32*)*(s3 + 0xc0c) = s1;
+            *(u32*)(s3 + 0xc0c) = s1;
         } else {
             s2 = __sp + 0x30;
-            s5 = 0x00860000;
-            s4 = 0x00860000;
-            *(u32*)*(s3 + 0xc0c) = s1;
+            s5 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+            s4 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+            *(u32*)(s3 + 0xc0c) = s1;
         }
         local_14 = 1;
         a0 = __sp + 0x10;
@@ -8025,18 +7558,18 @@ loc_23284C:
         s0 = s7 + 0x440;
         local_24 = 0;
         s4 = 0x00861080;
-        ret = UI_Kern_CreateSema(a0, a1, a2, a3);
+        ret = UI_Kern_CreateSema();
         s1 = ret;
         a0 = s0;
         ret = 4;
-        *(u32*)*(s3 + 4) = s2;
-        *(u32*)*(s3 + 8) = ret;
+        *(u32*)(s3 + 4) = s2;
+        *(u32*)(s3 + 8) = ret;
         a1 = 0xc10;
         *(u32*)(s3) = s1;
-        ret = System_DmaFlush(a0, a1, a2, a3);
+        ret = System_DmaFlush(a0, a1);
         a0 = s5 + 0x1700;
         a3 = s0;
-        *(u32*)(sp) = 0;
+        *(u32*)(__sp) = 0;
         a1 = 0xe;
         a2 = 0;
         t0 = 0xc10;
@@ -8046,66 +7579,65 @@ loc_23284C:
         ret = UI_DMATransferProcess(a0, a1, a2, a3);
         if ((signed)0x20000000 < 0) {
             a0 = s1;
-            ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
-            ret = UI_SifRpcSignal(a0, a1, a2, a3);
+            ret = UI_Kern_DeleteSema();
+            ret = UI_SifRpcSignal();
             ret = -0xb;
         } else {
             ret = s4 | ret;
-            s0 = *(u32*)(v0);
-            ret = UI_SifRpcSignal(a0, a1, a2, a3);
+            s0 = *(u32*)(ret);
+            ret = UI_SifRpcSignal();
             if (s0 == 0) {
                 a0 = s1;
-                ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+                ret = UI_Kern_DeleteSema();
                 ret = -0xb;
             } else {
                 a0 = s1;
-                ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+                ret = UI_Kern_WaitSema();
                 a0 = s1;
-                ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+                ret = UI_Kern_DeleteSema();
                 ret = local_30;
                 }
                 }
             }
     return ret;
-}
 
 /* Function at 0x00232A00 - 0x00232B20 */
-int UI_IOPBootInit()
+u32 UI_IOPBootInit(u32 a0)
 {
     /* Stack frame: 144 bytes */
-    int local_14;
-    int local_18;
-    int local_24;
-    int local_30;
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, t0, t1, t2, t3;
+    u32 local_14;
+    u32 local_18;
+    u32 local_24;
+    u32 local_30;
+    u32 ret, v1, a1, a2, a3, s0, s1, s2, s3, t0, t1, t2, t3;
     s1 = a0;
     a0 = 0xf;
-    s3 = 0x00860000;
+    s3 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     s0 = s3 + 0x440;
-    ret = UI_SifRpcWait(a0, a1, a2, a3);
-    ret = *(u32*)*(0x004F0000 + 0x5240);
-    *(u32*)*(s0 + 0xc) = s1;
+    ret = UI_SifRpcWait();
+    ret = *(u32*)(0x004F0000 + 0x5240);  /* SYS_CONFIG_BASE: System configuration / SIF state */
+    *(u32*)(s0 + 0xc) = s1;
     if (ret == 0) {
-        ret = UI_SifCmdProcess(a0, a1, a2, a3);
-        *(u32*)*(s0 + 0xc) = s1;
+        ret = UI_SifCmdProcess();
+        *(u32*)(s0 + 0xc) = s1;
     }
     local_14 = 1;
     a0 = __sp + 0x10;
     local_18 = 0;
     local_24 = 0;
-    ret = UI_Kern_CreateSema(a0, a1, a2, a3);
+    ret = UI_Kern_CreateSema();
     s1 = ret;
     v1 = __sp + 0x30;
-    ret = 0x00860000;
-    *(u32*)*(s3 + 0x440) = s1;
+    ret = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+    *(u32*)(s3 + 0x440) = s1;
     s2 = ret + 0x1080;
     ret = 4;
-    *(u32*)*(s0 + 4) = v1;
-    *(u32*)*(s0 + 8) = ret;
+    *(u32*)(s0 + 4) = v1;
+    *(u32*)(s0 + 8) = ret;
     a0 = 0x00861700;
     a3 = s0;
     a1 = 0xf;
-    *(u32*)(sp) = 0;
+    *(u32*)(__sp) = 0;
     a2 = 0;
     t0 = 0x10;
     t1 = s2;
@@ -8114,22 +7646,22 @@ int UI_IOPBootInit()
     ret = UI_DMATransferProcess(a0, a1, a2, a3);
     if ((signed)0x20000000 < 0) {
         a0 = s1;
-        ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
-        ret = UI_SifRpcSignal(a0, a1, a2, a3);
+        ret = UI_Kern_DeleteSema();
+        ret = UI_SifRpcSignal();
         ret = -1;
     } else {
         ret = s2 | ret;
-        s0 = *(u32*)(v0);
-        ret = UI_SifRpcSignal(a0, a1, a2, a3);
+        s0 = *(u32*)(ret);
+        ret = UI_SifRpcSignal();
         if (s0 == 0) {
             a0 = s1;
-            ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+            ret = UI_Kern_DeleteSema();
             ret = -1;
         } else {
             a0 = s1;
-            ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+            ret = UI_Kern_WaitSema();
             a0 = s1;
-            ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+            ret = UI_Kern_DeleteSema();
             ret = local_30;
             }
         }
@@ -8137,131 +7669,127 @@ int UI_IOPBootInit()
 }
 
 /* Function at 0x00232B20 - 0x00232B40 */
-int UI_IOPBootHelper()
+u32 UI_IOPBootHelper(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
+    u32 ret, a0, a1, a2, a3;
     a1 = 0x10;
-    ret = UI_SifBootModules(a0, a1, a2, a3);
-    return ret;
+    return UI_SifBootModules(a0, a1);
 }
 
 /* Function at 0x00232B40 - 0x00232C08 */
-int UI_IOPBootConfig()
+u32 UI_IOPBootConfig(u32 a0)
 {
     /* Stack frame: 64 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2;
+    u32 ret, v1, a1, a2, a3, s0, s1, s2;
     s0 = a0;
     a0 = 9;
-    ret = UI_SifRpcWait(a0, a1, a2, a3);
-    ret = *(u32*)*(0x004F0000 + 0x5240);
+    ret = UI_SifRpcWait();
+    ret = *(u32*)(0x004F0000 + 0x5240);  /* SYS_CONFIG_BASE: System configuration / SIF state */
     if (ret == 0) {
-        ret = UI_SifCmdProcess(a0, a1, a2, a3);
+        ret = UI_SifCmdProcess();
     }
-    ret = UI_SifRpcSignal(a0, a1, a2, a3);
-    ret = UI_SifRpcCall(a0, a1, a2, a3);
+    ret = UI_SifRpcSignal();
+    ret = UI_SifRpcCall();
     s2 = ret;
     a0 = s0;
     if (s2 == 0) {
         ret = -0x13;
     } else {
         a1 = 9;
-        ret = UI_SifBootModules(a0, a1, a2, a3);
-        s1 = ret;
-        s0 = 0x004F0000;
+        s1 = UI_SifBootModules(a0, a1);
+        s0 = 0x004F0000;  /* SYS_CONFIG_BASE: System configuration / SIF state */
         if ((signed)s1 < 0) {
-            a0 = *(u32*)*(s0 + 0x5248);
-            ret = UI_Kern_WaitSema(a0, a1, a2, a3);
-            *(u32*)*(s2 + 4) = 0;
-            a0 = *(u32*)*(s0 + 0x5248);
+            a0 = *(u32*)(s0 + 0x5248);
+            ret = UI_Kern_WaitSema();
+            *(u32*)(s2 + 4) = 0;
+            a0 = *(u32*)(s0 + 0x5248);
         } else {
-            a0 = *(u32*)*(s0 + 0x5248);
-            ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+            a0 = *(u32*)(s0 + 0x5248);
+            ret = UI_Kern_WaitSema();
             *(u32*)(s2) = s1;
             v1 = 0x00861500;
-            a0 = *(u32*)*(s0 + 0x5248);
+            a0 = *(u32*)(s0 + 0x5248);
             v1 = s2 - v1;
             s1 = (signed)v1 >> 4;
         }
-        ret = UI_Kern_SignalSema(a0, a1, a2, a3);
+        ret = UI_Kern_SignalSema();
         ret = s1;
     }
     return ret;
 }
 
 /* Function at 0x00232C08 - 0x00232D70 */
-int UI_IOPBootModules()
+u32 UI_IOPBootModules(void)
 {
     /* Stack frame: 160 bytes */
-    int local_14;
-    int local_18;
-    int local_24;
-    int local_30;
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, t0, t1, t2, t3;
-    s4 = 0x00860000;
+    u32 local_14;
+    u32 local_18;
+    u32 local_24;
+    u32 local_30;
+    u32 ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, t0, t1, t2, t3;
+    s4 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     s2 = s4 + 0x440;
-    ret = UI_SifRpcCheck(a0, a1, a2, a3);
+    ret = UI_SifRpcCheck(a0);
     s0 = ret;
     a0 = 0xa;
-    ret = UI_SifRpcWait(a0, a1, a2, a3);
-    ret = *(u32*)*(0x004F0000 + 0x5240);
+    ret = UI_SifRpcWait();
+    ret = *(u32*)(0x004F0000 + 0x5240);  /* SYS_CONFIG_BASE: System configuration / SIF state */
     if (ret == 0) {
-        ret = UI_SifRpcSignal(a0, a1, a2, a3);
+        ret = UI_SifRpcSignal();
         ret = -1;
     } else {
         if (s0 != 0) {
-            ret = *(u32*)*(s0 + 4);
+            ret = *(u32*)(s0 + 4);
             v1 = *(u32*)(s0);
-                ret = UI_SifRpcSignal(a0, a1, a2, a3);
+                ret = UI_SifRpcSignal();
                 ret = -9;
             } else {
                 local_14 = 1;
                 a0 = __sp + 0x10;
-                *(u32*)*(s2 + 0xc) = v1;
+                *(u32*)(s2 + 0xc) = v1;
                 local_18 = 0;
                 local_24 = 0;
-                ret = UI_Kern_CreateSema(a0, a1, a2, a3);
+                ret = UI_Kern_CreateSema();
                 s1 = ret;
                 v1 = __sp + 0x30;
-                ret = 0x00860000;
-                *(u32*)*(s4 + 0x440) = s1;
+                ret = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+                *(u32*)(s4 + 0x440) = s1;
                 s3 = ret + 0x1080;
                 ret = 4;
-                *(u32*)*(s2 + 4) = v1;
-                *(u32*)*(s2 + 8) = ret;
+                *(u32*)(s2 + 4) = v1;
+                *(u32*)(s2 + 8) = ret;
                 a0 = 0x00861700;
                 a3 = s2;
                 a1 = 0xa;
-                *(u32*)(sp) = 0;
+                *(u32*)(__sp) = 0;
                 a2 = 0;
                 t0 = 0x14;
                 t1 = s3;
                 t2 = 4;
                 t3 = 0;
                 ret = UI_DMATransferProcess(a0, a1, a2, a3);
-                *(u32*)*(s0 + 4) = 0;
+                *(u32*)(s0 + 4) = 0;
                 if ((signed)ret < 0) {
                     a0 = s1;
-                    ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
-                    ret = UI_SifRpcSignal(a0, a1, a2, a3);
+                    ret = UI_Kern_DeleteSema();
+                    ret = UI_SifRpcSignal();
                     ret = -0xb;
                 } else {
                     ret = s3 | ret;
-                    s0 = *(u32*)(v0);
-                    ret = UI_SifRpcSignal(a0, a1, a2, a3);
+                    s0 = *(u32*)(ret);
+                    ret = UI_SifRpcSignal();
                     if (s0 == 0) {
                         a0 = s1;
-                        ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+                        ret = UI_Kern_DeleteSema();
                         ret = -0xb;
                     } else {
                         a0 = s1;
-                        ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+                        ret = UI_Kern_WaitSema();
                         a0 = s1;
-                        ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+                        ret = UI_Kern_DeleteSema();
                         ret = local_30;
-                        v1 = -1;
-                        v1 = ((signed)v1 < (signed)ret) ? 1 : 0;
-                        __asm("movn v0, zero, v1");
+                        if ((((signed)v1 < (signed)ret) ? 1 : 0) != 0) ret = 0;
                         }
                         }
                         }
@@ -8270,52 +7798,49 @@ int UI_IOPBootModules()
 }
 
 /* Function at 0x00232D70 - 0x00232EC8 */
-int UI_IOPBootStart()
+u32 UI_IOPBootStart(u32 a0, u32 a1)
 {
     /* Stack frame: 144 bytes */
-    int local_14;
-    int local_18;
-    int local_24;
-    int local_30;
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, t0, t1, t2, t3;
+    u32 local_14;
+    u32 local_18;
+    u32 local_24;
+    u32 local_30;
+    u32 ret, v1, a2, a3, s0, s1, s2, s3, t0, t1, t2, t3;
     s1 = a1;
-    s3 = 0x00860000;
+    s3 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     s2 = s3 + 0x440;
-    ret = UI_SifRpcCheck(a0, a1, a2, a3);
+    ret = UI_SifRpcCheck(a0);
     s0 = ret;
     a0 = 0xb;
-    ret = UI_SifRpcWait(a0, a1, a2, a3);
-    v1 = *(u32*)*(0x004F0000 + 0x5240);
-    if (v1 == 0) {
-        ret = UI_SifRpcSignal(a0, a1, a2, a3);
+    ret = UI_SifRpcWait();
+    if ((*(u32*)(0x004F0000 + 0x5240)) == 0) {  /* SYS_CONFIG_BASE: System configuration / SIF state */
+        ret = UI_SifRpcSignal();
         ret = -1;
     } else {
         if (s0 != 0) {
-            ret = *(u32*)*(s0 + 4);
-            ret = *(u32*)(s0);
-                ret = UI_SifRpcSignal(a0, a1, a2, a3);
+                ret = UI_SifRpcSignal();
                 ret = -9;
             } else {
                 v1 = 1;
-                *(u32*)*(s2 + 0x10) = s1;
+                *(u32*)(s2 + 0x10) = s1;
                 a0 = __sp + 0x10;
-                *(u32*)*(s2 + 0xc) = ret;
+                *(u32*)(s2 + 0xc) = ret;
                 local_14 = v1;
                 local_18 = 0;
                 local_24 = 0;
-                ret = UI_Kern_CreateSema(a0, a1, a2, a3);
+                ret = UI_Kern_CreateSema();
                 s1 = ret;
                 v1 = __sp + 0x30;
-                ret = 0x00860000;
-                *(u32*)*(s3 + 0x440) = s1;
+                ret = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+                *(u32*)(s3 + 0x440) = s1;
                 s0 = ret + 0x1080;
                 ret = 4;
-                *(u32*)*(s2 + 4) = v1;
-                *(u32*)*(s2 + 8) = ret;
+                *(u32*)(s2 + 4) = v1;
+                *(u32*)(s2 + 8) = ret;
                 a0 = 0x00861700;
                 a3 = s2;
                 a1 = 0xb;
-                *(u32*)(sp) = 0;
+                *(u32*)(__sp) = 0;
                 a2 = 0;
                 t0 = 0x20;
                 t1 = s0;
@@ -8324,22 +7849,22 @@ int UI_IOPBootStart()
                 ret = UI_DMATransferProcess(a0, a1, a2, a3);
                 if ((signed)0x20000000 < 0) {
                     a0 = s1;
-                    ret = UI_Kern_WaitSema(a0, a1, a2, a3);
-                    ret = UI_SifRpcSignal(a0, a1, a2, a3);
+                    ret = UI_Kern_WaitSema();
+                    ret = UI_SifRpcSignal();
                     ret = -0xb;
                 } else {
                     ret = s0 | ret;
-                    s0 = *(u32*)(v0);
-                    ret = UI_SifRpcSignal(a0, a1, a2, a3);
+                    s0 = *(u32*)(ret);
+                    ret = UI_SifRpcSignal();
                     if (s0 == 0) {
                         a0 = s1;
-                        ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+                        ret = UI_Kern_DeleteSema();
                         ret = -0xb;
                     } else {
                         a0 = s1;
-                        ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+                        ret = UI_Kern_WaitSema();
                         a0 = s1;
-                        ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+                        ret = UI_Kern_DeleteSema();
                         ret = local_30;
                         }
                         }
@@ -8349,71 +7874,70 @@ int UI_IOPBootStart()
 }
 
 /* Function at 0x00232EC8 - 0x00233068 */
-int UI_IOPBootFinish()
+u32 UI_IOPBootFinish(u32 a0, u32 a1)
 {
     /* Stack frame: 208 bytes */
-    int local_14;
-    int local_18;
-    int local_24;
-    int local_30;
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3;
+    u32 local_14;
+    u32 local_18;
+    u32 local_24;
+    u32 local_30;
+    u32 ret, v1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3;
     s1 = a0;
     s6 = a1;
     a0 = 0xc;
-    s7 = 0x00860000;
+    s7 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     s2 = s7 + 0x440;
-    ret = UI_SifRpcWait(a0, a1, a2, a3);
-    v1 = *(u32*)*(0x004F0000 + 0x5240);
+    ret = UI_SifRpcWait();
+    v1 = *(u32*)(0x004F0000 + 0x5240);  /* SYS_CONFIG_BASE: System configuration / SIF state */
     ret = *(u8*)(s1);
     if (v1 == 0) {
-        ret = UI_SifCmdProcess(a0, a1, a2, a3);
+        ret = UI_SifCmdProcess();
         ret = *(u8*)(s1);
     }
     s0 = 0;
     v1 = ret;
-    *(u8*)*(s2 + 0x10) = ret;
+    *(u8*)(s2 + 0x10) = ret;
     if (v1 != 0) {
         s3 = __sp + 0x30;
-        s5 = 0x00860000;
-        s4 = 0x00860000;
+        s5 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+        s4 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
             do {
                 s0 = s0 + 1;
-                ret = ((signed)s0 < 0x400) ? 1 : 0;
-                ret = s1 + s0;
-                if (ret != 0) {
+                if ((s1 + s0) != 0) {
                 a0 = s2 + s0;
-                v1 = *(u8*)(v0);
-                *(u8*)*(a0 + 0x10) = v1;
+                }
+                v1 = *(u8*)(ret);
+                *(u8*)(a0 + 0x10) = v1;
             } while (v1 != 0);
             ret = 0x400;
             } else {
             s3 = __sp + 0x30;
-            s5 = 0x00860000;
-            s4 = 0x00860000;
+            s5 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+            s4 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
         }
         ret = 0x400;
     }
-    *(u32*)*(s2 + 0xc) = s6;
+    *(u32*)(s2 + 0xc) = s6;
     if (s0 == ret) {
-        *(u8*)*(s2 + 0x40f) = 0;
+        *(u8*)(s2 + 0x40f) = 0;
         s0 = 0x3ff;
-        *(u32*)*(s2 + 0xc) = s6;
+        *(u32*)(s2 + 0xc) = s6;
     }
     local_14 = 1;
     a0 = __sp + 0x10;
     local_18 = 0;
     s4 = 0x00861080;
     local_24 = 0;
-    ret = UI_Kern_CreateSema(a0, a1, a2, a3);
+    ret = UI_Kern_CreateSema();
     s1 = ret;
-    *(u32*)*(s2 + 4) = s3;
+    *(u32*)(s2 + 4) = s3;
     ret = 4;
     *(u32*)(s2) = s1;
-    *(u32*)*(s2 + 8) = ret;
+    *(u32*)(s2 + 8) = ret;
     a0 = s5 + 0x1700;
     a3 = s7 + 0x440;
     t0 = s0 + 0x11;
-    *(u32*)(sp) = 0;
+    *(u32*)(__sp) = 0;
     a1 = 0xc;
     a2 = 0;
     t1 = s4;
@@ -8422,24 +7946,23 @@ int UI_IOPBootFinish()
     ret = UI_DMATransferProcess(a0, a1, a2, a3);
     if ((signed)0x20000000 < 0) {
         a0 = s1;
-        ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
-        ret = UI_SifRpcSignal(a0, a1, a2, a3);
+        ret = UI_Kern_DeleteSema();
+        ret = UI_SifRpcSignal();
         ret = -0xb;
     } else {
         ret = s4 | ret;
-        s0 = *(u32*)(v0);
-        ret = UI_SifRpcSignal(a0, a1, a2, a3);
+        s0 = *(u32*)(ret);
+        ret = UI_SifRpcSignal();
         if (s0 == 0) {
             a0 = s1;
-            ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+            ret = UI_Kern_DeleteSema();
             ret = -0xb;
         } else {
             a0 = s1;
-            ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+            ret = UI_Kern_WaitSema();
             a0 = s1;
-            ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+            ret = UI_Kern_DeleteSema();
             ret = local_30;
             }
         }
     return ret;
-}

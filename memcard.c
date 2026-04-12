@@ -3,20 +3,21 @@
 /* 2 functions */
 
 #include "pops_types.h"
+#include "functions.h"
 
 /* Forward declarations */
-int MemCard_BackupCards();
-int MemCard_InitStorage();
+void MemCard_BackupCards(u32 a0, u32 a1, u32 a2);
+u32 MemCard_InitStorage(void);
 
 /* ======================================== */
 
 /* Function at 0x0020C838 - 0x0020CA68 */
 /* String ref: "pfs1:/ps1emu/card%d.bak" */
 /* String ref: "pfs1:" */
-int MemCard_BackupCards()
+void MemCard_BackupCards(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 208 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7;
+    u32 ret, v1, a3, s0, s1, i, s3, s4, s5, s6, s7;
     s5 = 0x00500000 + 0x7920;
     s4 = __sp + 0x40;
     s6 = -3;
@@ -24,22 +25,22 @@ int MemCard_BackupCards()
     __fp = s5 + 0x10;
     a0 = g_memcard_ctrl0;
 loc_20C880:
-    s2 = 0;
+    i = 0;
     s3 = 0;
-    ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+    ret = UI_Kern_WaitSema();
     s1 = s3 + s5;
 loc_20C890:
     ret = *(u32*)(s1);
     v1 = ret & 1;
     ret = ret & 2;
-    s2 = s2 + 1;
-    if (likely(ret == 0)) goto loc_20C950;
+    i = i + 1;
+    if (ret == 0) goto loc_20C950;
     ret = 0x00500000;
     if (v1 != 0) {
         a0 = __sp;
-        a2 = s2;
+        a2 = i;
         a1 = ret + -0x67c8;
-        ret = Libc_GetReentStruct(a0, a1, a2, a3);
+        Libc_GetReentStruct();
         a1 = 0x603;
         a0 = __sp;
         a2 = 0x1b6;
@@ -51,118 +52,109 @@ loc_20C890:
         if ((signed)s0 < 0) {
             a0 = 0x00500000 + -0x67b0;
             ret = AssertionFailed(a0, a1, a2, a3);
-            s2 = s2 + 1;
+            i = i + 1;
             goto loc_20C950;
         }
-        ret = UI_SifBootInit(a0, a1, a2, a3);
-        s2 = s2 + 1;
-        if (likely(ret != s7)) goto loc_20C950;
+        ret = UI_SifBootInit(a0, a1, a2);
+        i = i + 1;
+        if (ret != s7) goto loc_20C950;
         a0 = s0;
-        ret = UI_SifModuleInit(a0, a1, a2, a3);
+        ret = UI_SifModuleInit();
         a0 = s4;
         ret = 0x00500000;
-        a2 = s2;
+        a2 = i;
         a1 = ret + -0x6778;
-        ret = Libc_GetReentStruct(a0, a1, a2, a3);
+        Libc_GetReentStruct();
         a1 = s4;
         a0 = __sp;
-        ret = System_SifLoadModule2(a0, a1, a2, a3);
+        ret = System_SifLoadModule2(a0, a1);
         a0 = 0x00500000 + 0x2798;
         a1 = 0;
-        ret = System_SifLoadModule3(a0, a1, a2, a3);
-        v1 = *(u32*)(s1);
-        v1 = v1 & s6;
-        *(u32*)(s1) = v1;
+        ret = System_SifLoadModule3(a0, a1);
+        *(u32*)(s1) = v1 & s6;
     }
-    s2 = s2 + 1;
+    i = i + 1;
 loc_20C950:
     __at = 0x00020010;
     s3 = __at + s3;
     s1 = s3 + s5;
-    if ((signed)s2 < 2) goto loc_20C890;
+    if ((signed)i < 2) goto loc_20C890;
     a0 = g_memcard_ctrl0;
     goto loc_20C880;
-                }
-                ret = *(u32*)*(a1 + 8);
+
+                ret = *(u32*)(a1 + 8);
                 if (a3 != ret) {
-                    v1 = *(u32*)*(a1 + 4);
+                    v1 = *(u32*)(a1 + 4);
                     if ((unsigned)a3 >= 9) {
                         ret = 0x8a;
-                        v1 = *(u32*)*(a1 + 8);
-                        if (likely(a3 == ret)) goto loc_20CA5C;
+                        v1 = *(u32*)(a1 + 8);
+                        if (a3 == ret) goto loc_20CA5C;
                         ret = 0x8b;
                         v1 = 0x147;
                         if (a3 == ret) goto loc_20CA5C;
-                        ret = *(u32*)*(a1 + 4);
+                        ret = *(u32*)(a1 + 4);
                         goto loc_20CA38;
                         }
                         v1 = 0;
-                        *(u32*)*(a1 + 4) = ret;
+                        *(u32*)(a1 + 4) = ret;
                         goto loc_20CA5C;
                         }
                         v1 = 0;
                         ret = ret | a2;
-                        *(u32*)*(a1 + 4) = ret;
+                        *(u32*)(a1 + 4) = ret;
                     } else {
-                        ret = *(u32*)*(a1 + 8);
+                        ret = *(u32*)(a1 + 8);
                         v1 = (unsigned)v1 >> 8;
                         goto loc_20CA2C;
-                }
-                    v1 = *(u8*)*(a1 + 4);
+                    v1 = *(u8*)(a1 + 4);
                     loc_20CA2C:
-                    ret = ret ^ v1;
-                    *(u32*)*(a1 + 8) = ret;
+                    *(u32*)(a1 + 8) = ret ^ v1;
                     goto loc_20CA5C;
                     loc_20CA38:
-                    a0 = *(u32*)*(a1 + 8);
-                    ret = ret << 7;
-                    ret = ret + a3;
-                    ret = ret + 6;
+                    a0 = *(u32*)(a1 + 8);
                     ret = a1 + ret;
-                    v1 = *(u8*)(v0);
+                    v1 = *(u8*)(ret);
                     a0 = a0 ^ v1;
-                    *(u32*)*(a1 + 8) = a0;
-                    v1 = *(u8*)(v0);
-                }
+                    *(u32*)(a1 + 8) = a0;
+                    v1 = *(u8*)(ret);
 loc_20CA5C:
-    ret = v1;
-    return ret;
+    return;
 }
 
 /* Function at 0x0020CF00 - 0x0020D190 */
 /* String ref: "pfs1:/ps1emu/card%d" */
 /* String ref: "pfs1:/ps1emu" */
-int MemCard_InitStorage()
+u32 MemCard_InitStorage(void)
 {
     /* Stack frame: 288 bytes */
-    int local_44;
-    int local_48;
-    int local_54;
-    int local_64;
-    int local_68;
-    int local_6C;
-    int local_70;
-    int local_74;
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0;
+    u32 local_44;
+    u32 local_48;
+    u32 local_54;
+    u32 local_64;
+    u32 local_68;
+    u32 local_6C;
+    u32 local_70;
+    u32 local_74;
+    u32 ret, v1, a0, a1, a2, a3, s0, s1, s2, i, s4, s5, s6, s7, t0;
     ret = 0x00500000;
     a2 = 4 << 16;
     a1 = 0;
     a2 = 0x00040020;
     s0 = a0;
     a0 = ret + 0x7920;
-    ret = Libc_Memset(a0, a1, a2, a3);
+    ret = Libc_Memset(a0, a1, a2);
     ret = 1;
     if (s0 == 0) goto loc_20D15C;
     ret = 0x00500000;
     a1 = __sp;
     s0 = ret + -0x6760;
     a0 = s0;
-    ret = UI_IOPBootFinish(a0, a1, a2, a3);
+    ret = UI_IOPBootFinish(a0, a1);
     s6 = __sp + 0x90;
-    if (likely((signed)ret >= 0)) goto loc_20CFD0;
+    if ((signed)ret >= 0) goto loc_20CFD0;
     a0 = s0;
     a1 = 0x1ff;
-    ret = UI_SifBootStart(a0, a1, a2, a3);
+    ret = UI_SifBootStart(a0, a1);
     s6 = __sp + 0x90;
     if ((signed)ret >= 0) goto loc_20CFD0;
     a0 = 0x004F98B0;
@@ -184,16 +176,16 @@ loc_20CFC0:
     ret = 1;
     goto loc_20D15C;
 loc_20CFD0:
-    s3 = 0;
+    i = 0;
     __fp = 0x00500000;
     s5 = s6;
     s4 = 0;
     s7 = -2;
     do {
-        a2 = s3;
+        a2 = i;
         a1 = __fp + -0x6778;
         a0 = s5;
-        ret = Libc_GetReentStruct(a0, a1, a2, a3);
+        Libc_GetReentStruct();
         a0 = s5;
         a1 = 3;
         ret = UI_SifModuleLoad(a0, a1, a2, a3);
@@ -203,17 +195,17 @@ loc_20CFD0:
         a2 = 0x1b6;
         if (s0 == s7) {
             ret = UI_SifModuleLoad(a0, a1, a2, a3);
-            a1 = s3;
+            a1 = i;
             s0 = ret;
             a0 = s0;
             if ((signed)s0 < 0) goto loc_20CF90;
-            ret = Serial_CalcMemcardAddr(a0, a1, a2, a3);
+            Serial_CalcMemcardAddr(a0, a1);
             a0 = s0;
             if (ret == 0) {
                 a0 = 0x00500000 + -0x66f0;
                 ret = AssertionFailed(a0, a1, a2, a3);
                 a0 = s0;
-                ret = UI_SifModuleInit(a0, a1, a2, a3);
+                ret = UI_SifModuleInit();
                 ret = 1;
                 goto loc_20D15C;
                 }
@@ -222,37 +214,34 @@ loc_20CFD0:
             }
         a1 = 0;
         a2 = 0;
-        ret = UI_SifModuleBind(a0, a1, a2, a3);
+        ret = UI_SifModuleBind(a0, a1, a2);
         s2 = 0x00500000 + 0x7930;
         a2 = 2 << 16;
         s1 = s4 + s2;
         a0 = s0;
         a1 = s1;
         if ((signed)ret < 0) goto loc_20CFAC;
-        ret = UI_SifModuleStart(a0, a1, a2, a3);
+        ret = UI_SifModuleStart(a0, a1, a2);
         v1 = 2 << 16;
         a0 = s1;
         if (ret != v1) goto loc_20CFAC;
-        ret = Serial_VerifyMemcard(a0, a1, a2, a3);
+        ret = Serial_VerifyMemcard(a0);
         a0 = s0;
         if (ret == 0) goto loc_20CFB8;
-        s3 = s3 + 1;
-        ret = UI_SifModuleInit(a0, a1, a2, a3);
-        a0 = ((signed)s3 < 2) ? 1 : 0;
-        v1 = s2 + -0x10;
+        i = i + 1;
+        ret = UI_SifModuleInit();
+        a0 = ((signed)i < 2) ? 1 : 0;
         v1 = s4 + v1;
         __at = 0x00020010;
         s4 = __at + s4;
-        ret = *(u32*)(v1);
-        ret = ret | 1;
-        *(u32*)(v1) = ret;
+        *(u32*)(v1) = ret | 1;
     } while (a0 != 0);
     a0 = __sp + 0x40;
     local_44 = 1;
     local_48 = 0;
     local_54 = 0;
-    ret = UI_Kern_CreateSema(a0, a1, a2, a3);
-    v1 = 0x0020C838;
+    ret = UI_Kern_CreateSema();
+    v1 = (u32)MemCard_BackupCards;
     a1 = 0x00507120;
     a0 = __sp + 0x60;
     a2 = 0x800;
@@ -264,11 +253,11 @@ loc_20CFD0:
     local_74 = a3;
     local_70 = t0;
     g_memcard_ctrl0 = ret;
-    ret = UI_Kern_CreateThread(a0, a1, a2, a3);
+    ret = UI_Kern_CreateThread();
     a0 = ret;
     a1 = 0;
     g_memcard_flag = ret;
-    ret = UI_Kern_StartThread(a0, a1, a2, a3);
+    ret = UI_Kern_StartThread();
     v1 = -1;
     ret = 1;
     g_memcard_ctrl1 = v1;

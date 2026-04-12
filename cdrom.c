@@ -3,83 +3,85 @@
 /* 41 functions */
 
 #include "pops_types.h"
+#include "functions.h"
 
 /* Forward declarations */
-int CDROM_Init();
-int CDROM_RegisterIO();
-int CDROM_BcdToSector();
-int CDROM_FindTrack();
-int CDROM_SyncFlush();
-int CDROM_SeekSector();
-int CDROM_ReadSectors();
-int CDROM_ReadThread();
-int CDROM_IsSectorCached();
-int CDROM_RequestSector();
-int CDROM_GetSectorPtr();
-int CDROM_GetTOC();
-int CDROM_FlushCache();
-int CDROM_ParseTOC();
-int CDROM_InitDisc();
-int CDROM_InstallHandler();
-int CDROM_UpdateCycles();
-int CDROM_TransferAudio();
-int CDROM_CompleteRead();
-int CDROM_ResetState();
-int CDROM_SetVolume();
-int CDROM_GetStatReg();
-int CDROM_CheckShellOpen();
-int CDROM_FeedAudio();
-int CDROM_ProcessAudio();
-int CDROM_RenderVoices();
-int CDROM_EnvAttack();
-int CDROM_ProcessVoice();
-int CDROM_CalcSweepRate();
-int CDROM_AdvanceVoice();
-int CDROM_Interpolate();
-int CDROM_VoiceKeyOn();
-int CDROM_SetupVoices();
-int CDROM_ProcessReverb();
-int CDROM_DecodeADPCM();
-int CDROM_DecodeSector();
-int CDROM_ReverbRead();
-int CDROM_WriteSpuRam();
-int CDROM_WriteRegister();
-int CDROM_GetBase();
-int CDROM_Reset();
+u32 CDROM_Init(void);
+u32 CDROM_RegisterIO(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 CDROM_BcdToSector(u32 a0);
+u32 CDROM_FindTrack(u32 a0, u32 a1);
+u32 CDROM_SyncFlush(void);
+u32 CDROM_SeekSector(u32 a0);
+u32 CDROM_ReadSectors(u32 a0);
+void CDROM_ReadThread(void);
+u32 CDROM_IsSectorCached(u32 a0);
+u32 CDROM_RequestSector(u32 a0);
+u32 CDROM_GetSectorPtr(u32 a0);
+u32 CDROM_GetTOC(void);
+u32 CDROM_FlushCache(void);
+u32 CDROM_ParseTOC(u32 a0, u32 a1);
+u32 CDROM_InitDisc(u32 a0);
+void CDROM_InstallHandler(void);
+u32 CDROM_UpdateCycles(u32 a0);
+u32 CDROM_TransferAudio(u32 a0);
+u32 CDROM_CompleteRead(void);
+u32 CDROM_ResetState(void);
+u32 CDROM_SetVolume(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 CDROM_GetStatReg(u32 a0, u32 a1);
+u32 CDROM_CheckShellOpen(void);
+u32 CDROM_FeedAudio(void);
+u32 CDROM_ProcessAudio(void);
+u32 CDROM_RenderVoices(u32 a0, u32 a1);
+u32 CDROM_EnvAttack(u32 a0);
+u32 CDROM_ProcessVoice(u32 a0, u32 a1, u32 a2);
+u32 CDROM_CalcSweepRate(u32 a0, u32 a1);
+u32 CDROM_AdvanceVoice(u32 a0);
+u32 CDROM_Interpolate(u32 a0, u32 a1);
+u32 CDROM_VoiceKeyOn(u32 a0, u32 a1);
+u32 CDROM_SetupVoices(u32 a0);
+u32 CDROM_ProcessReverb(u32 a0);
+u32 CDROM_DecodeADPCM(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 CDROM_DecodeSector(u32 a0);
+u32 CDROM_ReverbRead(void);
+u32 CDROM_WriteSpuRam(u32 a0, u32 a1, u32 a2);
+void CDROM_WriteRegister(u32 a0, u32 a1, u32 a2);
+void CDROM_GetBase(void);
+u32 CDROM_Reset(u32 a0);
 
 /* ======================================== */
 
 /* Function at 0x0020FD18 - 0x0020FD24 */
-int CDROM_Init()
+u32 CDROM_Init(void)
 {
-    int a0, a2, a3;
+    u32 a0, a2, a3;
     a2 = 0x00210000;
     a3 = 0x00210000;
-    a0 = 0x1F800000;
+    a0 = PSX_IO_BASE;  /* 0x1F800000 */
+    return CDROM_RegisterIO(a0, 0, a2, a3);
 }
 
 /* Function at 0x0020FD24 - 0x0020FD60 */
-int CDROM_RegisterIO()
+u32 CDROM_RegisterIO(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
+    u32 ret;
     a2 = a2 + -0x780;
     a3 = a3 + -0x640;
-    a0 = a0 | 0x1800;
-    a1 = 0x10;
+    a0 = a0 | 0x1800;  /* PSX_CDROM_BASE: CD-ROM Controller (0x1F801800) */
+    a1 = 0x10;  /* I/O range size */
     ret = R3000_SetupIOHandlers(a0, a1, a2, a3);
-    a0 = 3;
+    a0 = IRQ_CB_CDROM;  /* CD-ROM interrupt handler */
     a1 = 0x0020F758;
-    ret = Interrupt_SetCallback(a0, a1, a2, a3);
+    ret = Interrupt_SetCallback(a0, a1);
     return 1;
 }
 
 /* Function at 0x0020FD60 - 0x0020FDE0 */
-int CDROM_BcdToSector()
+u32 CDROM_BcdToSector(u32 a0)
 {
-    int ret, v1, a0, a1, a2, a3, t0;
+    u32 ret, v1, a1, a2, a3, t0;
     v1 = *(u8*)(a0);
-    t0 = *(u8*)*(a0 + 1);
+    t0 = *(u8*)(a0 + 1);
     a2 = (unsigned)v1 >> 4;
     v1 = v1 & 0xf;
     ret = a2 << 2;
@@ -91,7 +93,7 @@ int CDROM_BcdToSector()
     ret = ret + v1;
     a1 = a1 << 1;
     v1 = ret << 4;
-    a3 = *(u8*)*(a0 + 2);
+    a3 = *(u8*)(a0 + 2);
     v1 = v1 - ret;
     t0 = t0 & 0xf;
     v1 = v1 << 2;
@@ -104,24 +106,20 @@ int CDROM_BcdToSector()
     ret = ret << 1;
     a0 = a0 + a1;
     a3 = a3 & 0xf;
-    v1 = a0 << 4;
     v1 = v1 - a0;
-    ret = ret + v1;
-    ret = ret + a3;
-    ret = ret + -0x96;
-    return ret;
+    return ret + -0x96;
 }
 
 /* Function at 0x0020FDE0 - 0x0020FF0C */
-int CDROM_FindTrack()
+u32 CDROM_FindTrack(u32 a0, u32 a1)
 {
     /* Stack frame: 64 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, t0;
+    u32 ret, v1, a2, a3, s0, s1, i, s3, s4, s5, s6, t0;
     s0 = a0;
     a0 = s0 + 0x25;
     s5 = a1;
-    a2 = *(u8*)*(s0 + 0x11);
-    a1 = *(u8*)*(s0 + 7);
+    a2 = *(u8*)(s0 + 0x11);
+    a1 = *(u8*)(s0 + 7);
     t0 = (unsigned)a2 >> 4;
     a2 = a2 & 0xf;
     a3 = (unsigned)a1 >> 4;
@@ -135,91 +133,79 @@ int CDROM_FindTrack()
     v1 = v1 + a2;
     ret = ret + a1;
     s1 = v1 - ret;
-    ret = CDROM_BcdToSector(a0, a1, a2, a3);
+    ret = CDROM_BcdToSector(a0);
     v1 = ((unsigned)s5 < (unsigned)ret) ? 1 : 0;
     ret = 0;
     s3 = s1 + 1;
     if (v1 != 0) goto loc_20FEDC;
     s4 = s0 + 0x1b;
     a0 = s4;
-    ret = CDROM_BcdToSector(a0, a1, a2, a3);
+    ret = CDROM_BcdToSector(a0);
     v1 = ((unsigned)s5 < (unsigned)ret) ? 1 : 0;
     ret = s3;
     if (v1 == 0) goto loc_20FEDC;
-    s2 = 0;
+    i = 0;
     if (s3 != 0) {
         s6 = s1;
         do {
             a0 = s0 + 0x25;
-            ret = CDROM_BcdToSector(a0, a1, a2, a3);
+            ret = CDROM_BcdToSector(a0);
             a0 = s0 + 0x2f;
             s1 = ret;
             s0 = s0 + 0xa;
-            if (s2 == s6) {
+            if (i == s6) {
                 a0 = s4;
             }
-            ret = CDROM_BcdToSector(a0, a1, a2, a3);
+            ret = CDROM_BcdToSector(a0);
             v1 = ret + -1;
-            s2 = s2 + 1;
+            i = i + 1;
             if ((unsigned)s5 >= (unsigned)s1) {
-                ret = ((unsigned)v1 < (unsigned)s5) ? 1 : 0;
-                ret = s2 + 1;
+                ret = i + 1;
                 if (ret == 0) goto loc_20FEDC;
-                s2 = s2 + 1;
+                i = i + 1;
             }
-            ret = ((unsigned)s2 < (unsigned)s3) ? 1 : 0;
+            ret = ((unsigned)i < (unsigned)s3) ? 1 : 0;
         } while (ret != 0);
     }
-    ret = s2 + 1;
+    ret = i + 1;
 loc_20FEDC:
     return ret;
 }
 
 /* Function at 0x0020FF0C - 0x0020FF30 */
-int CDROM_SyncFlush()
+u32 CDROM_SyncFlush(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
-    ret = UI_Kern_iSignalSema(a0, a1, a2, a3);
+    u32 ret, a0, a1, a2, a3;
+    ret = UI_Kern_iSignalSema();
     SYNC(); /* memory barrier */
     EI();
     return ret;
 }
 
 /* Function at 0x0020FF30 - 0x00210090 */
-int CDROM_SeekSector()
+u32 CDROM_SeekSector(u32 a0)
 {
     /* Stack frame: 64 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, t0, t1, t2, t3, t4;
-    ret = 0x005A0000;
+    u32 ret, v1, a1, a2, a3, s0, s1, s2, s3, t0, t1, t2, t3, t4;
+    ret = 0x005A0000;  /* SUBSYS_DATA_BASE: Subsystem data (CDROM/MDEC/serial) */
     s0 = a0;
     a0 = ret + -0x980;
     v1 = *(u32*)(a0);
-    ret = ((unsigned)s0 < (unsigned)v1) ? 1 : 0;
-    if (0 != 0) goto loc_20FF98;
-    ret = *(u32*)*(a0 + 4);
-    ret = v1 + ret;
     ret = ((unsigned)s0 < (unsigned)ret) ? 1 : 0;
-    if (likely(0 == 0)) goto loc_20FF98;
-    ret = s0 - v1;
-    v1 = 0x930;
-    ac2 = (s32)((s64)ret * (s64)v1); HI_LO = (s64)ret * (s64)v1;
-    a0 = *(u32*)*(a0 + 0x10);
-    ret = ret + a0;
-    __at = 0x0059F694;
-    ret = __at + ret;
+    goto loc_20FF98;
 loc_20FF98:
-    if (likely(ret != 0)) goto loc_210074;
-    s3 = 0x005B0000 + -0x6e40;
+    if (ret != 0) goto loc_210074;
+    s3 = 0x005B0000 + -0x6e40;  /* CDROM_DATA_BASE: CD-ROM data area */
     a0 = s3;
-    ret = UI_DMATransferFinalize(a0, a1, a2, a3);
-    if (likely(ret != 0)) goto loc_210074;
+    ret = UI_DMATransferFinalize(a0);
+    if (ret != 0) goto loc_210074;
     a0 = g_cdrom_ctrl1;
-    ret = UI_Kern_WaitSema(a0, a1, a2, a3);
-    v1 = 0x005B0000;
+    ret = UI_Kern_WaitSema();
+    v1 = 0x005B0000;  /* CDROM_DATA_BASE: CD-ROM data area */
     ret = g_cdrom_dma_flag;
     s2 = v1 + -0x7240;
-    v1 = 0x005A0000;
+    v1 = 0x005A0000;  /* SUBSYS_DATA_BASE: Subsystem data (CDROM/MDEC/serial) */
     a1 = s0;
     ret = ret - s0;
     s1 = v1 + -0x29c0;
@@ -227,22 +213,20 @@ loc_20FF98:
     a0 = s2;
     v1 = ((unsigned)ret < 0x11) ? 1 : 0;
     *(u32*)(s1) = s0;
-    *(u32*)*(s1 + 4) = ret;
+    *(u32*)(s1 + 4) = ret;
     if (v1 == 0) {
-        *(u32*)*(s1 + 4) = 0x10;
+        *(u32*)(s1 + 4) = 0x10;
     }
-    ret = CDROM_FindTrack(a0, a1, a2, a3);
+    ret = CDROM_FindTrack(a0, a1);
     t4 = 0x930;
     ret = ret + -1;
     t4 = (s32)((s64)s0 * (s64)t4); HI_LO = (s64)s0 * (s64)t4;
-    v1 = ret << 2;
-    v1 = v1 + ret;
     v1 = v1 << 1;
     a0 = s3;
     v1 = v1 + s2;
     __at = 0x00100000;
     t4 = __at + t4;
-    ret = *(u8*)*(v1 + 0x1e);
+    ret = *(u8*)(v1 + 0x1e);
     t3 = 0x0020FF08;
     a3 = s1;
     a1 = 0x00435057;
@@ -253,36 +237,34 @@ loc_20FF98:
     ret = ret & 1;
     t1 = 0;
     t2 = 0;
-    *(u32*)*(s1 + 8) = ret;
-    *(u32*)*(s1 + 0xc) = t4;
-    *(u32*)(sp) = 0;
+    *(u32*)(s1 + 8) = ret;
+    *(u32*)(s1 + 0xc) = t4;
+    *(u32*)(__sp) = 0;
     ret = UI_DMATransferProcess(a0, a1, a2, a3);
 loc_210074:
     return ret;
 }
 
 /* Function at 0x00210090 - 0x00210220 */
-int CDROM_ReadSectors()
+u32 CDROM_ReadSectors(u32 a0)
 {
     /* Stack frame: 64 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, t0, t1, t2, t3;
-    ret = 0x005A0000;
+    u32 ret, v1, a1, a2, a3, s0, s1, s2, s3, t0, t1, t2, t3;
+    ret = 0x005A0000;  /* SUBSYS_DATA_BASE: Subsystem data (CDROM/MDEC/serial) */
     s2 = a0;
     s3 = ret + -0x980;
     a0 = s3;
     v1 = *(u32*)(a0);
     a1 = s2;
     if ((unsigned)s2 >= (unsigned)v1) {
-        ret = *(u32*)*(a0 + 4);
         ret = v1 + ret;
         v1 = 0;
         if ((unsigned)s2 < (unsigned)ret) {
             ret = s2 - v1;
             v1 = 0x930;
             ac2 = (s32)((s64)ret * (s64)v1); HI_LO = (s64)ret * (s64)v1;
-            a0 = *(u32*)*(a0 + 0x10);
+            a0 = *(u32*)(a0 + 0x10);  /* GTE data: vxy2 */
             ret = ret + a0;
-            v1 = 0x0059F694;
             v1 = v1 + ret;
             ret = v1;
             goto loc_210110;
@@ -300,40 +282,37 @@ loc_210110:
         s0 = s0 + 1;
         *(u32*)(s3) = s2;
         ret = ((unsigned)s0 < 0x11) ? 1 : 0;
-        __asm("movz s0, v1, v0");
-        *(u32*)*(s3 + 4) = s0;
-        ret = CDROM_FindTrack(a0, a1, a2, a3);
+        if (ret == 0) s0 = v1;
+        *(u32*)(s3 + 4) = s0;
+        ret = CDROM_FindTrack(a0, a1);
         ret = ret + -1;
         a1 = 0x930;
         v1 = ret << 2;
         a1 = (s32)((s64)s2 * (s64)a1); HI_LO = (s64)s2 * (s64)a1;
         v1 = v1 + ret;
         a0 = g_cdrom_ctrl1;
-        v1 = v1 << 1;
         v1 = v1 + s1;
-        ret = *(u8*)*(v1 + 0x1e);
+        ret = *(u8*)(v1 + 0x1e);
         __at = 0x00100000;
         a1 = __at + a1;
-        *(u32*)*(s3 + 0xc) = a1;
-        ret = (unsigned)ret >> 6;
-        ret = ret ^ 1;
+        *(u32*)(s3 + 0xc) = a1;
         ret = ret & 1;
-        *(u32*)*(s3 + 8) = ret;
-        ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+        *(u32*)(s3 + 8) = ret;
+        ret = UI_Kern_WaitSema();
         a1 = 0x00435056;
         a2 = 0;
         a0 = 0x005A91C0;
         a3 = s3;
         t0 = 0x14;
         t1 = s3;
-        t2 = 0 | 0x9740;
+        t2 = 0x9740;
         t3 = 0;
-        *(u32*)(sp) = 0;
+        *(u32*)(__sp) = 0;
         ret = UI_DMATransferProcess(a0, a1, a2, a3);
         a0 = g_cdrom_ctrl1;
-        ret = UI_Kern_SignalSema(a0, a1, a2, a3);
+        ret = UI_Kern_SignalSema();
         v1 = s3 + 0x14;
-        ret = *(u32*)*(s3 + 4);
+        ret = *(u32*)(s3 + 4);
         a2 = s0;
         a0 = 0x004FA028;
         a1 = ret;
@@ -341,9 +320,8 @@ loc_210110:
             ret = AssertionFailed(a0, a1, a2, a3);
             ret = 0;
             *(u32*)(s3) = 0;
-            *(u32*)*(s3 + 4) = 0;
+            *(u32*)(s3 + 4) = 0;
         } else {
-            ret = *(u32*)*(s3 + 0x10);
             ret = ret + v1;
         }
     }
@@ -351,78 +329,63 @@ loc_210110:
 }
 
 /* Function at 0x00210220 - 0x00210260 */
-int CDROM_ReadThread()
+void CDROM_ReadThread(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3, s0;
+    u32 ret, a0, a1, a2, a3, s0;
     s0 = -1;
     while (1) {
         a0 = g_cdrom_ctrl0;
-        ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+        ret = UI_Kern_WaitSema();
         a0 = g_cdrom_state2;
-        ret = CDROM_ReadSectors(a0, a1, a2, a3);
-        ret = TLB_SetupEntries(a0, a1, a2, a3);
+        ret = CDROM_ReadSectors(a0);
+        ret = TLB_SetupEntries();
         g_cdrom_state2 = s0;
-        ret = System_EnableInterrupts(a0, a1, a2, a3);
+        ret = System_EnableInterrupts();
     }
 }
 
 /* Function at 0x00210260 - 0x00210290 */
-int CDROM_IsSectorCached()
+u32 CDROM_IsSectorCached(u32 a0)
 {
-    int ret, a0;
+    u32 ret;
     ret = g_cdrom_state1;
     if (a0 != ret) {
         ret = g_cdrom_state0;
             return 1;
         }
-    ret = g_cdrom_state2;
-    ret = ~(0 | ret);
-    ret = ((unsigned)ret < 1) ? 1 : 0;
-    return ret;
+    return ((unsigned)ret < 1) ? 1 : 0;
 }
 
 /* Function at 0x00210290 - 0x00210368 */
-int CDROM_RequestSector()
+u32 CDROM_RequestSector(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, s0;
-    a1 = 0x005A0000;
+    u32 ret, v1, a1, a2, a3, s0;
+    a1 = 0x005A0000;  /* SUBSYS_DATA_BASE: Subsystem data (CDROM/MDEC/serial) */
     s0 = a0;
     a0 = a1 + -0x980;
     v1 = *(u32*)(a0);
-    ret = ((unsigned)s0 < (unsigned)v1) ? 1 : 0;
-    if (0 != 0) goto loc_2102EC;
-    ret = *(u32*)*(a0 + 4);
-    ret = v1 + ret;
     ret = ((unsigned)s0 < (unsigned)ret) ? 1 : 0;
-    if (likely(0 == 0)) goto loc_2102EC;
-    ret = s0 - v1;
-    v1 = 0x930;
-    ac2 = (s32)((s64)ret * (s64)v1); HI_LO = (s64)ret * (s64)v1;
-    a0 = *(u32*)*(a0 + 0x10);
-    ret = ret + a0;
-    __at = 0x0059F694;
-    ret = __at + ret;
+    goto loc_2102EC;
 loc_2102EC:
-    a0 = *(u32*)*(a1 + -0x980);
+    a0 = *(u32*)(a1 + -0x980);
     if (ret != 0) {
-        ret = s0 + -4;
         ret = g_cdrom_state0;
         if (a0 == ret) {
             a0 = a0 + 0x10;
-            ret = CDROM_SeekSector(a0, a1, a2, a3);
+            ret = CDROM_SeekSector(a0);
             ret = g_cdrom_state0;
             } else {
             v1 = -1;
             do {
                 ret = g_cdrom_state2;
             } while (ret != v1);
-            ret = TLB_SetupEntries(a0, a1, a2, a3);
+            ret = TLB_SetupEntries();
             g_cdrom_state2 = s0;
-            ret = System_EnableInterrupts(a0, a1, a2, a3);
+            ret = System_EnableInterrupts();
             a0 = g_cdrom_ctrl0;
-            ret = UI_Kern_SignalSema(a0, a1, a2, a3);
+            ret = UI_Kern_SignalSema();
             ret = 0;
             }
         }
@@ -430,67 +393,65 @@ loc_2102EC:
 }
 
 /* Function at 0x00210368 - 0x002103C8 */
-int CDROM_GetSectorPtr()
+u32 CDROM_GetSectorPtr(u32 a0)
 {
-    int ret, v1, a0, a1;
-    ret = 0x005A0000;
+    u32 ret, v1, a1;
+    ret = 0x005A0000;  /* SUBSYS_DATA_BASE: Subsystem data (CDROM/MDEC/serial) */
     v1 = a0;
     a1 = ret + -0x980;
     a0 = *(u32*)(a1);
     if ((unsigned)v1 < (unsigned)a0) goto loc_2103C0;
-    ret = *(u32*)*(a1 + 4);
     ret = a0 + ret;
     if ((unsigned)v1 >= (unsigned)ret) goto loc_2103C0;
     ret = v1 - a0;
     v1 = 0x930;
     ac2 = (s32)((s64)ret * (s64)v1); HI_LO = (s64)ret * (s64)v1;
-    a0 = *(u32*)*(a1 + 0x10);
+    a0 = *(u32*)(a1 + 0x10);  /* GTE data: vxy2 */
     ret = ret + a0;
     __at = 0x0059F694;
-    ret = __at + ret;
-    return ret;
+    return __at + ret;
 loc_2103C0:
     return 0;
 }
 
 /* Function at 0x002103C8 - 0x002103DC */
-int CDROM_GetTOC()
+u32 CDROM_GetTOC(void)
 {
     return 0x005A8DC0;
 }
 
 /* Function at 0x002103DC - 0x00210400 */
-int CDROM_FlushCache()
+u32 CDROM_FlushCache(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
-    ret = UI_Kern_DeleteSema(a0, a1, a2, a3);
+    u32 ret, a0, a1, a2, a3;
+    ret = UI_Kern_DeleteSema();
     a0 = g_cdrom_ctrl1;
-    return UI_Kern_DeleteSema(a0, a1, a2, a3);
+    return UI_Kern_DeleteSema();
 }
 
 /* Function at 0x00210400 - 0x00210540 */
-int CDROM_ParseTOC()
+u32 CDROM_ParseTOC(u32 a0, u32 a1)
 {
     /* Stack frame: 96 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3, t4, t5, t6, t7;
+    u32 ret, v1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3, t4, t5, t6, t7;
     ret = a1 + 3;
     if ((signed)ret > 0) {
         s5 = a0;
         s6 = ret;
         s7 = 0x00500000;
-        s4 = *(u8*)*(s5 + 3);
+        s4 = *(u8*)(s5 + 3);
         do {
             s6 = s6 + -1;
-            s3 = *(u8*)*(s5 + 4);
+            s3 = *(u8*)(s5 + 4);
             a0 = s7 + -0x6010;
-            s2 = *(u8*)*(s5 + 5);
+            s2 = *(u8*)(s5 + 5);
             s0 = (unsigned)s4 >> 4;
-            s1 = *(u8*)*(s5 + 7);
+            s1 = *(u8*)(s5 + 7);
             t7 = (unsigned)s3 >> 4;
-            t6 = *(u8*)*(s5 + 8);
+            t6 = *(u8*)(s5 + 8);
             t4 = (unsigned)s2 >> 4;
-            t5 = *(u8*)*(s5 + 9);
+            t5 = *(u8*)(s5 + 9);
             a2 = (unsigned)s1 >> 4;
             a3 = (unsigned)t6 >> 4;
             t6 = t6 & 0xf;
@@ -503,11 +464,11 @@ int CDROM_ParseTOC()
             t1 = t7 << 2;
             t2 = t4 << 2;
             t3 = t3 + a2;
-            a2 = *(u8*)*(s5 + 2);
+            a2 = *(u8*)(s5 + 2);
             ret = ret + a3;
             a3 = *(u8*)(s5);
             v1 = v1 + a1;
-            a1 = *(u8*)*(s5 + 1);
+            a1 = *(u8*)(s5 + 1);
             t0 = t0 + s0;
             t1 = t1 + t7;
             t2 = t2 + t4;
@@ -528,46 +489,46 @@ int CDROM_ParseTOC()
             t2 = t2 + s2;
             t3 = t3 + s1;
             s5 = s5 + 0xa;
-            *(u32*)(sp) = ret;
-            *(u32*)*(__sp + 8) = v1;
+            *(u32*)(__sp) = ret;
+            *(u32*)(__sp + 8) = v1;
             ret = AssertionFailed(a0, a1, a2, a3);
-            s4 = *(u8*)*(s5 + 3);
-        } while (likely(s6 != 0));
+            s4 = *(u8*)(s5 + 3);
+        } while (s6 != 0);
     }
     return ret;
 }
 
 /* Function at 0x00210540 - 0x00210870 */
-int CDROM_InitDisc()
+u32 CDROM_InitDisc(u32 a0)
 {
     /* Stack frame: 160 bytes */
-    int local_14;
-    int local_18;
-    int local_24;
-    int local_34;
-    int local_38;
-    int local_3C;
-    int local_40;
-    int local_44;
-    int local_60;
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, t0, t1, t2, t3, t4, t9;
+    u32 local_14;
+    u32 local_18;
+    u32 local_24;
+    u32 local_34;
+    u32 local_38;
+    u32 local_3C;
+    u32 local_40;
+    u32 local_44;
+    u32 local_60;
+    u32 ret, v1, a1, a2, a3, s0, s1, s2, s3, t0, t1, t2, t3, t4, t9;
     s0 = 1;
     ret = 0x0059F680;
     s2 = a0;
     a0 = __sp + 0x10;
-    *(u32*)*(ret + 4) = 0;
+    *(u32*)(ret + 4) = 0;
     local_18 = 0;
     local_14 = s0;
     local_24 = 0;
-    *(u32*)(v0) = 0;
-    ret = UI_Kern_CreateSema(a0, a1, a2, a3);
+    *(u32*)(ret) = 0;
+    ret = UI_Kern_CreateSema();
     a0 = __sp + 0x10;
     local_14 = s0;
     local_18 = s0;
     local_24 = 0;
     g_cdrom_ctrl0 = ret;
-    ret = UI_Kern_CreateSema(a0, a1, a2, a3);
-    v1 = 0x00210220;
+    ret = UI_Kern_CreateSema();
+    v1 = (u32)CDROM_ReadThread;
     a0 = __sp + 0x30;
     a2 = 0x2000;
     a3 = 4;
@@ -579,28 +540,28 @@ int CDROM_InitDisc()
     local_44 = a3;
     local_40 = t0;
     g_cdrom_ctrl1 = ret;
-    ret = UI_Kern_CreateThread(a0, a1, a2, a3);
+    ret = UI_Kern_CreateThread();
     a0 = ret;
     a1 = 0;
     g_cdrom_ctrl2 = ret;
-    ret = UI_Kern_StartThread(a0, a1, a2, a3);
-    s3 = 0x005B0000;
+    ret = UI_Kern_StartThread();
+    s3 = 0x005B0000;  /* CDROM_DATA_BASE: CD-ROM data area */
     goto loc_21061C;
 loc_2105F8:
-    a0 = 0 | 0xffff;
+    a0 = 0xffff;
     v1 = v1 + 1;
     do {
         ret = ((unsigned)a0 < (unsigned)v1) ? 1 : 0;
         v1 = v1 + 1;
-    } while (likely(ret == 0));
+    } while (ret == 0);
 loc_21061C:
     s1 = s3 + -0x6e40;
     a0 = s1;
     a1 = 0x00435052;
     a2 = 0;
-    ret = UI_DMATransferAsync(a0, a1, a2, a3);
+    ret = UI_DMATransferAsync(a0, a1, a2);
     if ((signed)ret >= 0) {
-        ret = *(u32*)*(s1 + 0x24);
+        ret = *(u32*)(s1 + 0x24);  /* GTE data: ir1 */
         v1 = 0;
         if (ret == 0) goto loc_2105F8;
         s0 = __sp + 0x60;
@@ -616,7 +577,7 @@ loc_21061C:
             ret = 1;
             g_cdrom_ctrl3 = 0;
             local_60 = ret;
-            *(u32*)(sp) = 0;
+            *(u32*)(__sp) = 0;
             ret = UI_DMATransferProcess(a0, a1, a2, a3);
             ret = -1;
             a0 = s1;
@@ -628,7 +589,7 @@ loc_21061C:
             t2 = 0x10;
             t3 = 0;
             local_60 = ret;
-            *(u32*)(sp) = 0;
+            *(u32*)(__sp) = 0;
             ret = UI_DMATransferProcess(a0, a1, a2, a3);
             a2 = local_60;
             goto loc_210738;
@@ -644,7 +605,7 @@ loc_21061C:
         ret = 1;
         local_60 = 0;
         g_cdrom_ctrl3 = ret;
-        *(u32*)(sp) = 0;
+        *(u32*)(__sp) = 0;
         ret = UI_DMATransferProcess(a0, a1, a2, a3);
         ret = -1;
         a0 = s1;
@@ -656,11 +617,11 @@ loc_21061C:
         t2 = 0x10;
         t3 = 0;
         local_60 = ret;
-        *(u32*)(sp) = 0;
+        *(u32*)(__sp) = 0;
         ret = UI_DMATransferProcess(a0, a1, a2, a3);
         a2 = local_60;
         loc_210738:
-        s0 = 0x005B0000;
+        s0 = 0x005B0000;  /* CDROM_DATA_BASE: CD-ROM data area */
         if ((signed)a2 < 0) {
             a1 = s2;
             a0 = 0x004FA070;
@@ -680,12 +641,12 @@ loc_21061C:
             t2 = 0x400;
             t3 = 0;
             a0 = s3 + -0x6e40;
-            *(u32*)(sp) = 0;
+            *(u32*)(__sp) = 0;
             ret = UI_DMATransferProcess(a0, a1, a2, a3);
             a0 = s0 + 0x1b;
-            ret = CDROM_BcdToSector(a0, a1, a2, a3);
-            a0 = *(u8*)*(s0 + 0x11);
-            a2 = *(u8*)*(s0 + 7);
+            ret = CDROM_BcdToSector(a0);
+            a0 = *(u8*)(s0 + 0x11);
+            a2 = *(u8*)(s0 + 7);
             ret = ret + -1;
             t0 = (unsigned)a0 >> 4;
             a0 = a0 & 0xf;
@@ -703,7 +664,7 @@ loc_21061C:
             g_cdrom_dma_flag = ret;
             a1 = a1 - v1;
             a1 = a1 + 1;
-            ret = CDROM_ParseTOC(a0, a1, a2, a3);
+            ret = CDROM_ParseTOC(a0, a1);
             ret = 1;
             }
         }
@@ -713,81 +674,75 @@ loc_210810:
     do {
         DI();
         SYNC(); /* memory barrier */
-        ret = COP0_REG(t4); /* mfc0 */
+        ret = COP0_REG(12); /* mfc0 */
         ret = ret & v1;
     } while (ret != 0);
-    ret = COP0_REG(t4); /* mfc0 */
+    ret = COP0_REG(12); /* mfc0 */
     SYNC(); /* memory barrier */
-    ret = ret | 6;
     ret = ret ^ 2;
-    COP0_REG(t4) = ret; /* mtc0 */
+    COP0_REG(12) = ret; /* mtc0 */
     SYNC(); /* memory barrier */
-    COP0_REG(t9) = a0; /* mtc0 */
-    COP0_REG(t9) = a1; /* mtc0 */
-    COP0_REG(t9) = a2; /* mtc0 */
-    COP0_REG(fp) = __ra; /* mtc0 */
+    COP0_REG(25) = a0; /* mtc0 */
+    COP0_REG(25) = a1; /* mtc0 */
+    COP0_REG(25) = a2; /* mtc0 */
+    COP0_REG(30) = __ra; /* mtc0 */
     SYNC(); /* memory barrier */
     __asm("eret ");
     return ret;
 }
 
 /* Function at 0x00210870 - 0x00210898 */
-int CDROM_InstallHandler()
+void CDROM_InstallHandler(void)
 {
     /* Stack frame: 16 bytes */
-    int a0, a1, a2;
+    u32 a0, a1, a2;
     a1 = 0;
     a0 = 0x80034030;
     a2 = 0;
-    goto loc_210810;
+    CDROM_InitDisc(a0); return;
 }
 
 /* Function at 0x00210898 - 0x002108F0 */
-int CDROM_UpdateCycles()
+u32 CDROM_UpdateCycles(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, t9;
-    a0 = COP0_REG(t9); /* mfc0 */
-    ret = *(u32*)*(0x70000350 + 0x260);
+    u32 ret, v1, a1, a2, a3, t9;
+    a0 = COP0_REG(25); /* mfc0 */
     ret = ret + a0;
-    *(u32*)*(v1 + 0x260) = ret;
-    a0 = COP0_REG(t9); /* mfc0 */
-    ret = *(u32*)*(v1 + 0x264);
+    *(u32*)(v1 + 0x260) = ret;
+    a0 = COP0_REG(25); /* mfc0 */
     ret = ret + a0;
-    *(u32*)*(v1 + 0x264) = ret;
-    ret = System_GetCOP0Status(a0, a1, a2, a3);
-    return System_EnableInterrupts(a0, a1, a2, a3);
+    *(u32*)(v1 + 0x264) = ret;
+    ret = System_GetCOP0Status();
+    return System_EnableInterrupts();
 }
 
 /* Function at 0x002108F0 - 0x002109E0 */
-int CDROM_TransferAudio()
+u32 CDROM_TransferAudio(u32 a0)
 {
-    int ret, v0, v1, a0, a1, a2, a3, t0, t1, t2, t3, t4, t5;
+    u32 ret, v1, a1, a2, a3, t0, t1, t2, t3, t4, t5;
     t5 = 0x70000000;
-    a1 = 0 | 0x9300;
+    a1 = 0x9300;
     t1 = t5 + 0x10a0;
     a2 = a0;
-    ret = *(u32*)*(t1 + 0x28);
     ret = ret + 0x24c;
     if ((signed)a1 < (signed)ret) goto loc_2109D8;
-    a3 = *(u32*)*(t1 + 0x2c);
+    a3 = *(u32*)(t1 + 0x2c);  /* GTE data: ir3 */
     t0 = 0x24c;
-    t2 = 0 | 0x9300;
+    t2 = 0x9300;
     t4 = -1;
     ret = a3 + 0x24c;
     v1 = a3 << 2;
-    __asm("div zero, v0, a1");
     a1 = 0x0082B980;
     a1 = a1 + v1;
-    t3 = 0x00830000;
-    a0 = HI;
-    *(u32*)*(t1 + 0x2c) = a0;
+    t3 = 0x00830000;  /* CDROM_SECTOR_BUF: CD-ROM sector buffer */
+    a0 = (signed)ret % (signed)a1;
+    *(u32*)(t1 + 0x2c) = a0;
     do {
         ret = a3 + t0;
         a0 = t0;
         v1 = t2 - a3;
-        ret = ((signed)t2 < (signed)ret) ? 1 : 0;
-        __asm("movn a0, v1, v0");
+        if ((signed)t2 < (signed)ret) a0 = v1;
         t0 = t0 - a0;
         a0 = a0 + -1;
         v1 = -1;
@@ -808,168 +763,152 @@ int CDROM_TransferAudio()
         a3 = 0;
     } while (t0 != 0);
     a1 = t5 + 0x10a0;
-    ret = *(u32*)*(a1 + 0x28);
-    v1 = *(u32*)*(a1 + 0x38);
-    a0 = *(u32*)*(a1 + 0x34);
+    ret = *(u32*)(a1 + 0x28);  /* GTE data: ir2 */
+    v1 = *(u32*)(a1 + 0x38);  /* GTE data: sxy2 */
+    a0 = *(u32*)(a1 + 0x34);  /* GTE data: sxy1 */
     ret = ret + 0x24c;
     v1 = v1 + 1;
-    *(u32*)*(a1 + 0x28) = ret;
-    *(u32*)*(a1 + 0x38) = v1;
+    *(u32*)(a1 + 0x28) = ret;
+    *(u32*)(a1 + 0x38) = v1;
     if (a0 != 0) goto loc_2109D8;
     ret = ((signed)v1 < 2) ? 1 : 0;
-    if (1 != 0) goto loc_2109D8;
-    *(u32*)*(a1 + 0x34) = ret;
+    goto loc_2109D8;
 loc_2109D8:
     return ret;
 }
 
 /* Function at 0x002109E0 - 0x00210A18 */
-int CDROM_CompleteRead()
+u32 CDROM_CompleteRead(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
-    ret = CDROM_DecodeSector(a0, a1, a2, a3);
+    u32 ret, v1, a0, a1, a2, a3;
+    ret = CDROM_DecodeSector(a0);
     ret = 0x700010A0;
     a0 = 1;
-    v1 = *(u32*)*(ret + 0x38);
-    *(u32*)*(ret + 0x34) = a0;
-    v1 = v1 + 1;
-    *(u32*)*(ret + 0x38) = v1;
+    v1 = *(u32*)(ret + 0x38);  /* GTE data: sxy2 */
+    *(u32*)(ret + 0x34) = a0;
+    *(u32*)(ret + 0x38) = v1 + 1;
     return ret;
 }
 
 /* Function at 0x00210A18 - 0x00210A60 */
-int CDROM_ResetState()
+u32 CDROM_ResetState(void)
 {
     /* Stack frame: 32 bytes */
-    int ret, a0, a1, a2, a3, s0, s1;
+    u32 ret, a0, a1, a2, a3, s0, s1;
     a1 = 0;
     s0 = 0x700010A0;
     __asm("ext s1, sp, 0, 1");
     a0 = s0;
     a2 = 0x50;
     __asm("nori.b w0, w0, 0x11");
-    ret = Libc_Memset(a0, a1, a2, a3);
+    ret = Libc_Memset(a0, a1, a2);
     __asm("ext s1, s0, 0, 1");
     __asm("xori.b w0, w0, 0xb1");
     return ret;
 }
 
 /* Function at 0x00210A60 - 0x00210AC8 */
-int CDROM_SetVolume()
+u32 CDROM_SetVolume(u32 a0, u32 a1, u32 a2, u32 a3)
 {
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1;
     a0 = a0 & 0xff;
     ret = 0x700010A0;
     a1 = a1 & 0xff;
     a2 = a2 & 0xff;
     a3 = a3 & 0xff;
-    *(u16*)*(ret + 0x46) = a3;
-    *(u16*)*(ret + 0x40) = a0;
-    *(u16*)*(ret + 0x42) = a1;
-    *(u16*)*(ret + 0x44) = a2;
+    *(u16*)(ret + 0x46) = a3;
+    *(u16*)(ret + 0x40) = a0;
+    *(u16*)(ret + 0x42) = a1;
+    *(u16*)(ret + 0x44) = a2;
     return ret;
-    v1 = (signed)v1 >> 8;
-    *(u8*)(a0) = v1;
-    a0 = *(s16*)*(ret + 0x3e);
-    __asm("negu a0, a0");
-    if (likely((signed)a0 < 0)) goto loc_210AB8;
-loc_210AB8:
     a0 = (signed)a0 >> 8;
     *(u8*)(a1) = a0;
     return ret;
 }
 
 /* Function at 0x00210AC8 - 0x00210B38 */
-int CDROM_GetStatReg()
+u32 CDROM_GetStatReg(u32 a0, u32 a1)
 {
-    int ret, v0, v1, a0, a1, a2, a3;
+    u32 ret, v1, a2, a3, gte_ctrl;
     ret = 0x70000000;
-    a0 = 0 | 0xc000;
+    a0 = 0xc000;
     a0 = a0 << 22;
     a3 = ret + 0x350;
-    a2 = 0 | 0x8000;
+    a2 = 0x8000;
     a2 = a2 << 23;
-    a1 = *(u64*)&a3->gte_ctrl[16];  /* gte_ctrl[16] */
-    v1 = *(u16*)&a3->gte_ctrl[17];  /* gte_ctrl[17] */
+    a1 = *(u64*)&((PSX_State*)a3)->gte_ctrl[16];  /* gte_ctrl[16] */
+    v1 = *(u16*)&((PSX_State*)a3)->gte_ctrl[17];  /* gte_ctrl[17] */
     a0 = a1 & a0;
     a1 = a1 & a2;
     v1 = v1 & 0x3f;
     a0 = a0 ^ 0;
     ret = v1 | 0x80;
-    __asm("movz v0, v1, a0");
+    if (a0 == 0) ret = v1;
     v1 = ret;
     if (a1 != 0) {
-        ret = *(u16*)&a3->gte_ctrl[14];  /* gte_ctrl[14] */
+        ret = *(u16*)&((PSX_State*)a3)->gte_ctrl[14];  /* gte_ctrl[14] */
         v1 = v1 & 0xffbf;
-        ret = ret & 1;
         ret = ret << 6;
         v1 = v1 | ret;
     }
-    ret = a3->gte_ctrl[15];  /* gte_ctrl[15] */
+    ret = ((PSX_State*)a3)->gte_ctrl[15];  /* gte_ctrl[15] */
     v1 = v1 & 0xf7ff;
-    ret = ret << 3;
     ret = ret & 0x800;
-    v1 = v1 | ret;
-    *(u16*)*(a3 + 0x1ae) = v1;
+    *(u16*)(a3 + 0x1ae) = v1 | ret;
     return ret;
 }
 
 /* Function at 0x00210B38 - 0x00210B88 */
-int CDROM_CheckShellOpen()
+u32 CDROM_CheckShellOpen(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1, a0, a1, a2, a3, gte_ctrl;
     a1 = 0x70000000 + 0x350;
-    a0 = 0 | 0x8000;
+    a0 = 0x8000;
     a0 = a0 << 23;
-    v1 = *(u64*)&a1->gte_ctrl[16];  /* gte_ctrl[16] */
-    v1 = v1 & a0;
-    if (v1 == 0) goto loc_210B80;
-    ret = a1->gte_ctrl[14];  /* gte_ctrl[14] */
-    if (1 != 0) goto loc_210B80;
-    a0 = 9;
-    a1->gte_ctrl[14] = ret;  /* gte_ctrl[14] (store) */
-    return Compiler_SetCacheFlushFlag(a0, a1, a2, a3);
+    v1 = *(u64*)&((PSX_State*)a1)->gte_ctrl[16];  /* gte_ctrl[16] */
+    if ((v1 & a0) == 0) goto loc_210B80;
+    ret = ((PSX_State*)a1)->gte_ctrl[14];  /* gte_ctrl[14] */
+    goto loc_210B80;
 loc_210B80:
     return ret;
 }
 
 /* Function at 0x00210B88 - 0x00210C40 */
-int CDROM_FeedAudio()
+u32 CDROM_FeedAudio(void)
 {
     /* Stack frame: 32 bytes */
-    int ret, v0, a0, a1, a2, a3, s0, s1;
+    u32 ret, a0, a1, a2, a3, s0, s1;
     s1 = 0x20;
-    ret = SPU_GetBufferFree(a0, a1, a2, a3);
-    s0 = ret;
+    s0 = SPU_GetBufferFree();
     if (s0 != 0) {
         if ((unsigned)s0 < 0x20) {
             s1 = s1 - s0;
-            ret = SPU_GetWritePtr(a0, a1, a2, a3);
+            ret = SPU_GetWritePtr();
             a1 = s0;
             a0 = ret;
-            ret = CDROM_RenderVoices(a0, a1, a2, a3);
+            ret = CDROM_RenderVoices(a0, a1);
             a0 = s0;
-            ret = SPU_AdvanceReadPtr(a0, a1, a2, a3);
-            ret = SPU_GetBufferFree(a0, a1, a2, a3);
+            ret = SPU_AdvanceReadPtr(a0);
+            ret = SPU_GetBufferFree();
             s0 = ret;
             ret = ((unsigned)s1 < (unsigned)s0) ? 1 : 0;
-            __asm("movn s0, s1, v0");
+            if (ret != 0) s0 = s1;
             if (s0 != 0) {
-                ret = SPU_GetWritePtr(a0, a1, a2, a3);
+                ret = SPU_GetWritePtr();
                 a1 = s0;
                 a0 = ret;
-                ret = CDROM_RenderVoices(a0, a1, a2, a3);
+                ret = CDROM_RenderVoices(a0, a1);
                 a0 = s0;
-                ret = SPU_AdvanceReadPtr(a0, a1, a2, a3);
+                ret = SPU_AdvanceReadPtr(a0);
                 } else {
-                ret = SPU_GetWritePtr(a0, a1, a2, a3);
+                ret = SPU_GetWritePtr();
                 a1 = 0x20;
                 a0 = ret;
-                ret = CDROM_RenderVoices(a0, a1, a2, a3);
+                ret = CDROM_RenderVoices(a0, a1);
                 a0 = 0x20;
-                ret = SPU_AdvanceReadPtr(a0, a1, a2, a3);
+                ret = SPU_AdvanceReadPtr(a0);
                 }
                 }
             }
@@ -977,48 +916,47 @@ int CDROM_FeedAudio()
 }
 
 /* Function at 0x00210C40 - 0x00210C78 */
-int CDROM_ProcessAudio()
+u32 CDROM_ProcessAudio(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
-    ret = CDROM_FeedAudio(a0, a1, a2, a3);
+    u32 ret, a0, a1, a2, a3;
+    ret = CDROM_FeedAudio();
     a0 = 0x6000;
-    a1 = 0x00210C40;
+    a1 = (u32)CDROM_ProcessAudio;
     a2 = 0;
-    ret = PSX_GetEventTimeout(a0, a1, a2, a3);
+    ret = PSX_GetEventTimeout();
     g_cdrom_state3 = ret;
     return ret;
 }
 
 /* Function at 0x00210C78 - 0x002114B0 */
-int CDROM_RenderVoices()
+u32 CDROM_RenderVoices(u32 a0, u32 a1)
 {
     /* Stack frame: 224 bytes */
-    int local_0C;
-    int local_10;
-    int local_14;
-    int local_18;
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
-    s0 = 0x70000000 + 0x350;
-    *(u32*)(sp) = a0;
-    a0 = s0;
+    u32 local_0C;
+    u32 local_10;
+    u32 local_14;
+    u32 local_18;
+    u32 ret, v1, a2, a3, psx, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, gte_data;
+    psx = 0x70000000 + 0x350;
+    *(u32*)(__sp) = a0;
+    a0 = psx;
     __asm("ext s1, sp, 2, 1");
-    *(u32*)*(__sp + 4) = a1;
-    ret = CDROM_SetupVoices(a0, a1, a2, a3);
-    v1 = *(u32*)*(__sp + 4);
-    if (v1 == 0) goto loc_211484;
-    a0 = *(u32*)*(__sp + 4);
+    *(u32*)(__sp + 4) = a1;
+    ret = CDROM_SetupVoices(a0);
+    if ((*(u32*)(__sp + 4)) == 0) goto loc_211484;
+    a0 = *(u32*)(__sp + 4);
     __fp = 0x20;
 loc_210CD0:
     ret = ((signed)a0 < 0x21) ? 1 : 0;
-    __asm("movn fp, a0, v0");
+    if (ret != 0) __fp = a0;
     ret = 0x70000000;
     a0 = a0 - __fp;
     v1 = ret + 0xea0;
-    *(u32*)*(__sp + 4) = a0;
+    *(u32*)(__sp + 4) = a0;
     if ((signed)__fp > 0) {
         ret = __fp;
-        __asm("mmi3 a0, zero, zero");
+        __asm("mmi3 a0, 0, 0");
         do {
             ret = ret + -1;
             __asm("ext a0, v1, 0, 1");
@@ -1026,51 +964,47 @@ loc_210CD0:
         } while (ret != 0);
     }
     v1 = 0x70000000 + 0x350;
-    ret = *(u32*)*(v1 + 0x194);
-    if (0x70000000 != 0) {
-        t3 = v1 + 0xa4c;
-        a3 = *(u32*)*(v1 + 0x2d8);
-        a2 = *(u16*)*(v1 + 0x2d0);
-        if ((signed)__fp > 0) {
-            t4 = 0x70000000;
-            t0 = __fp;
-            a3 = a3 + -1;
-            do {
-                *(u16*)(t3) = a2;
-                t3 = t3 + 2;
-                if (a3 == 0) {
-                    t1 = t4 + 0x350;
-                    v1 = *(u8*)*(t1 + 0x2d2);
-                    a0 = *(u8*)*(t1 + 0x2d3);
-                    a1 = v1 << 7;
-                    ret = (unsigned)v1 >> 1;
-                    a0 = a0 & v1;
-                    a3 = *(u32*)*(t1 + 0x2d4);
-                    t2 = ret | a1;
-                    if (a0 != 0) {
-                        v1 = (unsigned)a2 >> 0xc;
-                        ret = (unsigned)a2 >> 0xf;
-                        a0 = (unsigned)a2 >> 0xb;
-                        ret = ret ^ 1;
-                        a0 = a0 ^ v1;
-                        v1 = a2 << 1;
-                        a1 = (unsigned)a2 >> 0xa;
-                        ret = ret ^ a0;
-                        ret = ret ^ a1;
-                        ret = ret & 1;
-                        v1 = v1 | ret;
-                        a2 = v1 & 0xffff;
-                    }
-                    *(u8*)*(t1 + 0x2d2) = t2;
+    ret = *(u32*)(v1 + 0x194);  /* PSX: exec_handlers[1] */
+    t3 = v1 + 0xa4c;
+    a3 = *(u32*)(v1 + 0x2d8);  /* PSX: scratch_base */
+    a2 = *(u16*)(v1 + 0x2d0);  /* PSX: ram_base */
+    if ((signed)__fp > 0) {
+        t4 = 0x70000000;
+        t0 = __fp;
+        a3 = a3 + -1;
+        do {
+            *(u16*)(t3) = a2;
+            t3 = t3 + 2;
+            if (a3 == 0) {
+                t1 = t4 + 0x350;
+                v1 = *(u8*)(t1 + 0x2d2);
+                a0 = *(u8*)(t1 + 0x2d3);
+                a1 = v1 << 7;
+                ret = (unsigned)v1 >> 1;
+                a0 = a0 & v1;
+                a3 = *(u32*)(t1 + 0x2d4);  /* PSX: bios_base */
+                t2 = ret | a1;
+                if (a0 != 0) {
+                    v1 = (unsigned)a2 >> 0xc;
+                    ret = (unsigned)a2 >> 0xf;
+                    a0 = (unsigned)a2 >> 0xb;
+                    ret = ret ^ 1;
+                    a0 = a0 ^ v1;
+                    v1 = a2 << 1;
+                    a1 = (unsigned)a2 >> 0xa;
+                    ret = ret & 1;
+                    v1 = v1 | ret;
+                    a2 = v1 & 0xffff;
                 }
-                t0 = t0 + -1;
-                a3 = a3 + -1;
-            } while (likely(t0 != 0));
-        }
-        *(u32*)*(0x70000350 + 0x2d8) = a3;
-        *(u16*)*(v1 + 0x2d0) = a2;
-        ret = 0x70000000;
+                *(u8*)(t1 + 0x2d2) = t2;
+            }
+            t0 = t0 + -1;
+            a3 = a3 + -1;
+        } while (t0 != 0);
     }
+    *(u32*)(0x70000350 + 0x2d8) = a3;
+    *(u16*)(v1 + 0x2d0) = a2;
+    ret = 0x70000000;
     s3 = 0x7000062C;
     a0 = ret;
     v1 = 0x200;
@@ -1078,7 +1012,7 @@ loc_210CD0:
     local_0C = v1;
     ret = a0 + -0x2d8;
     t4 = a0 + -0x2dc;
-    *(u32*)*(__sp + 8) = ret;
+    *(u32*)(__sp + 8) = ret;
     ret = s3 + -0xda;
     a0 = a0 + -0xdc;
     local_10 = 0;
@@ -1086,80 +1020,78 @@ loc_210CD0:
     t5 = 0;
     local_18 = ret;
 loc_210E08:
-    ret = *(u32*)*(s3 + 0x3c);
     ret = ret & 0x8000;
     a0 = s3 + 0x34;
     if (ret != 0) {
         a1 = __fp;
         __asm("dpa.w.ph ac0, sp, t4");
         __asm("ext t5, sp, 1, 1");
-        ret = CDROM_Interpolate(a0, a1, a2, a3);
-        t4 = *(u128*)*(__sp + 48);  /* lq */
+        CDROM_Interpolate(a0, a1);
+        t4 = *(u128*)(__sp + 48);  /* lq */
         v1 = local_14;
-        s0 = t4;
+        psx = t4;
         __asm("xori.b w1, w0, 0xad");
         *(u16*)(v1) = ret;
     } else {
         a0 = 0x7000062C;
-        s0 = a0 + -0x2dc;
+        psx = a0 + -0x2dc;
     }
-    ret = *(u32*)*(s3 + 0x44);
+    ret = *(u32*)(s3 + 0x44);  /* GTE data: sz1 */
     a0 = s3 + 0x3e;
     if ((signed)ret < 0) {
         a1 = __fp;
         __asm("dpa.w.ph ac0, sp, t4");
         __asm("ext t5, sp, 1, 1");
-        ret = CDROM_Interpolate(a0, a1, a2, a3);
+        CDROM_Interpolate(a0, a1);
         v1 = local_18;
         __asm("xori.b w1, w0, 0xad");
         *(u16*)(v1) = ret;
-        t4 = *(u128*)*(__sp + 48);  /* lq */
+        t4 = *(u128*)(__sp + 48);  /* lq */
     }
-    ret = *(u32*)*(s3 + 4);
+    ret = *(u32*)(s3 + 4);
     a0 = s3 + 0x1c;
     if (ret == 0) {
         a0 = local_10;
-        ret = a0 + s0;
-        *(u16*)*(ret + 0xc) = 0;
+        ret = a0 + psx;
+        *(u16*)(ret + 0xc) = 0;
         goto loc_211124;
     }
     a1 = t5;
     a2 = __fp;
     __asm("dpa.w.ph ac0, sp, t4");
     __asm("ext t5, sp, 1, 1");
-    ret = CDROM_ProcessVoice(a0, a1, a2, a3);
-    v1 = *(u32*)*(__sp + 8);
-    a0 = 0 | 0x8000;
+    ret = CDROM_ProcessVoice(a0, a1, a2);
+    v1 = *(u32*)(__sp + 8);
+    a0 = 0x8000;
     a0 = a0 << 31;
     t1 = local_10;
-    t4 = *(u128*)*(__sp + 48);  /* lq */
-    *(u16*)*(v1 + 8) = ret;
+    t4 = *(u128*)(__sp + 48);  /* lq */
+    *(u16*)(v1 + 8) = ret;
     v1 = 1;
     __asm("xori.b w1, w0, 0xad");
-    ret = *(u64*)*(t4 + 624);
     ret = ret & a0;
     a2 = v1 << t5;
     if (ret != 0) {
         a0 = local_0C;
         v1 = local_18;
-        a1 = a0 + s0;
-        a0 = s0->exec_handlers[2];  /* exec_handlers[2] */
+        a1 = a0 + psx;
+        a0 = ((PSX_State*)psx)->exec_handlers[2];  /* exec_handlers[2] */
         ret = *(u16*)(v1);
         v1 = *(u16*)(a1);
         a0 = a0 & a2;
         ret = (u64)ret << 32;
         v1 = v1 | ret;
         ret = 0;
-        __asm("movn v0, v1, a0");
-        __asm("mmi2 s1, v0, v1");
-        ret = *(u32*)*(t4 + 0x194);
+        if (a0 != 0) ret = v1;
+        __asm("mmi2 s1, ret, v1");
+        ret = *(u32*)(t4 + 0x194);  /* PSX: exec_handlers[1] */
         goto loc_210F20;
     }
-    __asm("mmi3 s1, zero, zero");
-    ret = *(u32*)*(t4 + 0x194);
+    __asm("mmi3 s1, 0, 0");
+    ret = *(u32*)(t4 + 0x194);  /* PSX: exec_handlers[1] */
 loc_210F20:
     ret = ret & a2;
-    v1 = *(u32*)*(t4 + 0x190);
+    v1 = *(u32*)(t4 + 0x190);  /* PSX: exec_handlers[0] */
     if (ret != 0) {
         t0 = 0;
         if ((signed)__fp <= 0) goto loc_211124;
@@ -1168,17 +1100,17 @@ loc_210F20:
         a3 = a0 + 0xacc;
         a1 = a0 + 0xa8c;
         do {
-            a0 = *(s16*)*(a1 + -0x40);
+            a0 = *(s16*)(a1 + -0x40);
             ret = *(s16*)(a1);
             ac2 = (s32)((s64)a0 * (s64)ret); HI_LO = (s64)a0 * (s64)ret;
             a0 = (signed)ret >> 0xf;
             *(u32*)(a3) = a0;
             __asm("andi.b w0, w0, 0xc3");
-            __asm("mmi3 v0, zero, a0");
-            __asm("mmi2 v0, v0, v0");
-            __asm("mmi2 v0, v0, s1");
+            __asm("mmi3 ret, 0, a0");
+            __asm("mmi2 ret, ret, ret");
+            __asm("mmi2 ret, ret, s1");
             __asm("sdbbp 0x84f");
-            __asm("mmi0 v1, v1, v0");
+            __asm("mmi0 v1, v1, ret");
             t0 = t0 + 1;
             __asm("ext v1, a2, 0, 1");
             ret = ((signed)t0 < (signed)__fp) ? 1 : 0;
@@ -1186,47 +1118,45 @@ loc_210F20:
             a2 = a2 + 0x10;
             a1 = a1 + 2;
         } while (ret != 0);
-        a0 = *(u32*)*(__sp + 8);
+        a0 = *(u32*)(__sp + 8);
     } else {
         s5 = __fp;
-        s0 = *(u16*)(s3);
+        psx = *(u16*)(s3);
         t3 = t4 + 0xa8c;
         v1 = v1 & a2;
-        a0 = *(u32*)*(__sp + 8);
-        ret = (unsigned)s0 >> 4;
+        a0 = *(u32*)(__sp + 8);
+        ret = (unsigned)psx >> 4;
         t7 = ((unsigned)0 < (unsigned)v1) ? 1 : 0;
         ret = ret << 3;
         v1 = 0x005AB180;
-        t2 = *(u32*)*(s3 + 0x10);
+        t2 = *(u32*)(s3 + 0x10);  /* GTE data: vxy2 */
         s7 = ret + v1;
         s2 = *(u16*)(a0);
         s6 = t4 + 0xacc;
-        a3 = *(u32*)*(s3 + 0x18);
+        a3 = *(u32*)(s3 + 0x18);  /* GTE data: rgbc */
         s4 = t4 + 0xb50;
-        __asm("ldl t0, 7(a3)"); /* 0x00210FD8 unaligned ld left */
-        __asm("ldr t0, 0(a3)"); /* 0x00210FDC unaligned ld right */
+        t0 = *(u64*)(a3);
         ret = 0x70000350;
         t9 = 0x3fff;
         t6 = t1 + ret;
                     do {
-                        s0 = s0 + s2;
+                        psx = psx + s2;
                         if (t7 != 0) {
                         ret = *(u32*)(s6);
-                        v1 = *(u16*)*(t6 + 4);
-                        __at = 0 | 0x8000;
+                        v1 = *(u16*)(t6 + 4);
+                        __at = 0x8000;
                         ret = __at + ret;
                         ac3 = (s32)((s64)v1 * (s64)ret); HI_LO = (s64)v1 * (s64)ret;
                         s2 = (signed)v1 >> 0xf;
-                        ret = ((unsigned)s2 < 0x4000) ? 1 : 0;
-                        __asm("movz s2, t9, v0");
-                        s0 = s0 + s2;
+                        if ((signed)s2 >= (signed)0x4000) s2 = t9;
+                        psx = psx + s2;
                         }
-                        t1 = (unsigned)s0 >> 0xc;
-                        s0 = s0 & 0xfff;
-                        ret = (unsigned)s0 >> 4;
+                        t1 = (unsigned)psx >> 0xc;
+                        psx = psx & 0xfff;
+                        ret = (unsigned)psx >> 4;
                         v1 = 0x005AB180;
                         ret = ret << 3;
-                        a0 = *(u64*)*(s7 + 0);
+                        a0 = *(u64*)(s7 + 0);
                         s7 = ret + v1;
                         __asm("mmi2 a0, a0, t0");
                         a2 = (u64)a0 >> 32;
@@ -1242,10 +1172,10 @@ loc_210F20:
                         a0 = (u64)a1 >> 32;
                         s6 = s6 + 4;
                         a0 = a0 | a1;
-                        __asm("mmi2 v0, a0, a0");
-                        __asm("mmi2 v0, s1, v0");
+                        __asm("mmi2 ret, a0, a0");
+                        __asm("mmi2 ret, s1, ret");
                         __asm("sdbbp 0x84f");
-                        __asm("mmi0 v1, v1, v0");
+                        __asm("mmi0 v1, v1, ret");
                         __asm("ext v1, s4, 0, 1");
                         s4 = s4 + 0x10;
                         ret = t1 << 1;
@@ -1253,50 +1183,48 @@ loc_210F20:
                         t2 = t2 - t1;
                         a3 = a3 + ret;
                         if ((signed)t2 > 0) {
-                        __asm("ldl t0, 7(a3)"); /* 0x002110A0 unaligned ld left */
-                        __asm("ldr t0, 0(a3)"); /* 0x002110A4 unaligned ld right */
+                        t0 = *(u64*)(a3);
                         s5 = s5 + -1;
                         } else {
-                        ret = *(u32*)*(s3 + 0x14);
-                        *(u32*)*(s3 + 4) = 0;
+                        ret = *(u32*)(s3 + 0x14);  /* GTE data: vz2 */
+                        *(u32*)(s3 + 4) = 0;
                         if (ret != 0) {
-                        *(u32*)*(s3 + 0x10) = t2;
+                        *(u32*)(s3 + 0x10) = t2;
                         a0 = s3 + 0xc;
                         a1 = t5;
-                        *(u128*)*(__sp + 32) = t3;  /* sq */
+                        *(u128*)(__sp + 32) = t3;  /* sq */
                         __asm("dpa.w.ph ac0, sp, t4");
                         __asm("ext t5, sp, 1, 1");
-                        __asm("subu.qb zero, sp, t6");
-                        *(u128*)*(__sp + 96) = t7;  /* sq */
+                        __asm("subu.qb 0, sp, t6");
+                        *(u128*)(__sp + 96) = t7;  /* sq */
                         __asm("dps.w.ph ac0, sp, t9");
-                        ret = CDROM_VoiceKeyOn(a0, a1, a2, a3);
-                        t2 = *(u32*)*(s3 + 0x10);
-                        a3 = *(u32*)*(s3 + 0x18);
-                        __asm("ldl t0, 7(a3)"); /* 0x002110EC unaligned ld left */
-                        __asm("ldr t0, 0(a3)"); /* 0x002110F0 unaligned ld right */
-                        __asm("ld.b w0, -0x55(zero)");
-                        t4 = *(u128*)*(__sp + 48);  /* lq */
+                        ret = CDROM_VoiceKeyOn(a0, a1);
+                        t2 = *(u32*)(s3 + 0x10);  /* GTE data: vxy2 */
+                        a3 = *(u32*)(s3 + 0x18);  /* GTE data: rgbc */
+                        t0 = *(u64*)(a3);
+                        __asm("ld.b w0, -0x55(0)");
+                        t4 = *(u128*)(__sp + 48);  /* lq */
                         __asm("xori.b w1, w0, 0xad");
                         __asm("aver_u.h w1, w0, w14");
-                        __asm("ld.b w1, -0x51(zero)");
-                        t9 = *(u128*)*(__sp + 112);  /* lq */
+                        __asm("ld.b w1, -0x51(0)");
+                        t9 = *(u128*)(__sp + 112);  /* lq */
                         }
                         s5 = s5 + -1;
                         }
+                    }
                     } while ((signed)s5 > 0);
-                }
-        *(u32*)*(s3 + 0x10) = t2;
-        *(u32*)*(s3 + 0x18) = a3;
-        *(u16*)(s3) = s0;
+        *(u32*)(s3 + 0x10) = t2;
+        *(u32*)(s3 + 0x18) = a3;
+        *(u16*)(s3) = psx;
         loc_211124:
-        a0 = *(u32*)*(__sp + 8);
+        a0 = *(u32*)(__sp + 8);
     }
     t5 = t5 + 1;
     v1 = local_18;
     ret = ((signed)t5 < 0x18) ? 1 : 0;
     a0 = a0 + 0x10;
     s3 = s3 + 0x48;
-    *(u32*)*(__sp + 8) = a0;
+    *(u32*)(__sp + 8) = a0;
     v1 = v1 + 4;
     a0 = local_0C;
     local_18 = v1;
@@ -1304,26 +1232,23 @@ loc_210F20:
     v1 = local_10;
     local_0C = a0;
     a0 = local_14;
-    v1 = v1 + 0x10;
-    local_10 = v1;
+    local_10 = v1 + 0x10;
     a0 = a0 + 4;
     local_14 = a0;
     if (ret != 0) goto loc_210E08;
     v1 = 0x70000000 + 0x10a0;
-    ret = *(u32*)*(v1 + 0x34);
-    if (0x70000000 == 0) goto loc_211338;
-    t4 = *(u32*)*(v1 + 0x28);
-    a2 = *(u32*)*(v1 + 0x30);
+    ret = *(u32*)(v1 + 0x34);  /* GTE data: sxy1 */
+    t4 = *(u32*)(v1 + 0x28);  /* GTE data: ir2 */
+    a2 = *(u32*)(v1 + 0x30);  /* GTE data: sxy0 */
     if ((signed)t4 >= (signed)__fp) {
         t4 = __fp;
         goto loc_2111A8;
     }
-    *(u32*)*(v1 + 0x34) = 0;
-    *(u32*)*(v1 + 0x38) = 0;
+    *(u32*)(v1 + 0x34) = 0;
+    *(u32*)(v1 + 0x38) = 0;
 loc_2111A8:
-    ret = 0 | 0x9300;
+    ret = 0x9300;
     a1 = a2 + t4;
-    __asm("div zero, a1, v0");
     ret = 0x70000000;
     v1 = a2 << 2;
     s1 = ret + 0xea0;
@@ -1332,27 +1257,26 @@ loc_2111A8:
     v1 = 0x70000350;
     ret = 0x700010A0;
     t9 = t4;
-    t1 = *(u32*)*(v1 + 0x26c);
+    t1 = *(u32*)(v1 + 0x26c);
     t7 = 0;
-    s0 = 0;
-    s7 = *(s16*)*(ret + 0x40);
-    s6 = *(s16*)*(ret + 0x42);
-    s5 = *(s16*)*(ret + 0x44);
-    s4 = *(s16*)*(ret + 0x46);
+    psx = 0;
+    s7 = *(s16*)(ret + 0x40);  /* GTE data: sz0 */
+    s6 = *(s16*)(ret + 0x42);
+    s5 = *(s16*)(ret + 0x44);  /* GTE data: sz1 */
+    s4 = *(s16*)(ret + 0x46);
     __asm("andi.b w0, w0, 0x4d");
     a0 = HI;
-    *(u32*)*(ret + 0x30) = a0;
+    *(u32*)(ret + 0x30) = a0;
     if (t9 == 0) goto loc_211318;
-    ret = 0 | 0x9300;
+    ret = 0x9300;
     goto loc_211220;
 loc_211218:
     a1 = t4;
-    ret = 0 | 0x9300;
+    ret = 0x9300;
 loc_211220:
     t2 = t4;
     v1 = ret - a2;
-    ret = ((signed)ret < (signed)a1) ? 1 : 0;
-    __asm("movn t2, v1, v0");
+    if ((signed)ret < (signed)a1) t2 = v1;
     a0 = -1;
     t4 = t4 - t2;
     t2 = t2 + -1;
@@ -1368,14 +1292,14 @@ loc_211220:
             ret = *(s16*)(t3);
             t3 = t3 + 2;
             a1 = (s32)((s64)a0 * (s64)s7); HI_LO = (s64)a0 * (s64)s7;
-            __asm("mult1 a0, a0, s6");
+            a0 = a0 * s6;
             ac3 = (s32)((s64)ret * (s64)s4); HI_LO = (s64)ret * (s64)s4;
-            __asm("mult1 v0, v0, s5");
+            ret = ret * s5;
             a2 = t6;
             a3 = t6;
             t7 = s2;
             t0 = t1 << 1;
-            s0 = s2;
+            psx = s2;
             t1 = t1 + 1;
             a1 = a1 + v1;
             a0 = a0 + ret;
@@ -1383,68 +1307,65 @@ loc_211220:
             a0 = (signed)a0 >> 7;
             ret = ((signed)t6 < (signed)a1) ? 1 : 0;
             v1 = ((signed)t6 < (signed)a0) ? 1 : 0;
-            __asm("movz a2, a1, v0");
-            __asm("movz a3, a0, v1");
+            if (ret == 0) a2 = a1;
+            if (v1 == 0) a3 = a0;
             ret = ((signed)a2 < -0x8000) ? 1 : 0;
             v1 = ((signed)a3 < -0x8000) ? 1 : 0;
-            __asm("movz t7, a2, v0");
-            __asm("movz s0, a3, v1");
+            if (ret == 0) t7 = a2;
+            if (v1 == 0) psx = a3;
             a0 = t0 + s3;
             ret = (u64)t7 << 32;
-            v1 = (u64)s0 << 32;
+            v1 = (u64)psx << 32;
             t0 = a0;
             ret = (u64)ret >> 32;
             *(u16*)(t0) = t7;
             ret = ret | v1;
             __asm("nori.b w0, w0, 0x23");
-            *(u16*)*(a0 + 0x400) = s0;
+            *(u16*)(a0 + 0x400) = psx;
             t1 = t1 & 0x1ff;
-            __asm("mmi2 v0, v0, v0");
-            __asm("mmi2 v0, v0, t5");
+            __asm("mmi2 ret, ret, ret");
+            __asm("mmi2 ret, ret, t5");
             __asm("sdbbp 0x84f");
-            __asm("mmi0 v1, v1, v0");
+            __asm("mmi0 v1, v1, ret");
             t2 = t2 + -1;
             __asm("ext v1, s1, 0, 1");
             s1 = s1 + 0x10;
         } while (t2 != t8);
     }
-    v1 = 0x00830000;
+    v1 = 0x00830000;  /* CDROM_SECTOR_BUF: CD-ROM sector buffer */
     a2 = 0;
     t3 = v1 + -0x4680;
     if (t4 != 0) goto loc_211218;
 loc_211318:
     a0 = 0x700010A0;
-    ret = *(u32*)*(a0 + 0x28);
-    *(u16*)*(a0 + 0x3c) = t7;
+    ret = *(u32*)(a0 + 0x28);  /* GTE data: ir2 */
+    *(u16*)(a0 + 0x3c) = t7;
     ret = ret - t9;
-    *(u16*)*(a0 + 0x3e) = s0;
-    *(u32*)*(a0 + 0x28) = ret;
+    *(u16*)(a0 + 0x3e) = psx;
+    *(u32*)(a0 + 0x28) = ret;
     ret = 0x70000000;
-loc_211338:
     a0 = __fp;
-    s0 = ret + 0x350;
-    ret = CDROM_ProcessReverb(a0, a1, a2, a3);
-    ret = *(u64*)&s0->gte_execute;  /* gte_execute */
-    v1 = 0 | 0x8000;
+    psx = ret + 0x350;
+    ret = CDROM_ProcessReverb(a0);
+    ret = *(u64*)&((PSX_State*)psx)->gte_execute;  /* gte_execute */
     v1 = (u64)v1 << 32;
     ret = ret & v1;
-    a0 = s0 + 0x2bc;
+    a0 = psx + 0x2bc;
     if (ret != 0) {
         a1 = __fp;
-        ret = CDROM_Interpolate(a0, a1, a2, a3);
-        *(u16*)&s0->gte_data.vxy1 = ret;  /* gte_data.vxy1 (store) */
+        ret = CDROM_Interpolate(a0, a1);
+        *(u16*)&((PSX_State*)psx)->gte_data.vxy1 = ret;  /* gte_data.vxy1 (store) */
     }
-    ret = *(u64*)&s0->field_2C8;  /* field_2C8 */
-    a0 = s0 + 0x2c6;
+    ret = *(u64*)&((PSX_State*)psx)->field_2C8;  /* field_2C8 */
+    a0 = psx + 0x2c6;
     if ((signed)ret < 0) {
         a1 = __fp;
-        ret = CDROM_Interpolate(a0, a1, a2, a3);
-        *(u16*)*(s0 + 0x1ba) = ret;
+        *(u16*)(psx + 0x1ba) = CDROM_Interpolate(a0, a1);
     }
-    s3 = *(s16*)*(s0 + 0x1ba);
-    s2 = *(s16*)&s0->hw_state[29];  /* hw_state[29] */
-    s1 = *(s16*)*(s0 + 0x186);
-    t7 = *(s16*)&s0->gte_data.vxy1;  /* gte_data.vxy1 */
+    s3 = *(s16*)(psx + 0x1ba);  /* PSX: gte_data.rgb2.b */
+    s2 = *(s16*)&((PSX_State*)psx)->hw_state[29];  /* hw_state[29] */
+    s1 = *(s16*)(psx + 0x186);  /* PSX: gte_data.sxy1.y */
+    t7 = *(s16*)&((PSX_State*)psx)->gte_data.vxy1;  /* gte_data.vxy1 */
     if ((signed)__fp > 0) {
         t4 = 0x7fff;
         v1 = 0x70000350;
@@ -1452,14 +1373,14 @@ loc_211338:
         t3 = v1 + 0xb50;
         t5 = __fp;
         do {
-            ret = *(u32*)*(t3 + 8);
+            ret = *(u32*)(t3 + 8);
             a1 = t4;
-            v1 = *(u32*)*(t3 + 0xc);
+            v1 = *(u32*)(t3 + 0xc);  /* GTE data: vz1 */
             a0 = t4;
             ac2 = (s32)((s64)ret * (s64)s2); HI_LO = (s64)ret * (s64)s2;
             t0 = *(u32*)(t3);
             ac3 = (s32)((s64)v1 * (s64)s1); HI_LO = (s64)v1 * (s64)s1;
-            t1 = *(u32*)*(t3 + 4);
+            t1 = *(u32*)(t3 + 4);
             a2 = t4;
             a3 = t4;
             t5 = t5 + -1;
@@ -1468,60 +1389,49 @@ loc_211338:
             t2 = t2 + t0;
             t0 = (signed)v1 >> 0xf;
             t0 = t0 + t1;
-            ret = ((signed)t4 < (signed)t2) ? 1 : 0;
-            __asm("movz a1, t2, v0");
-            v1 = ((signed)t4 < (signed)t0) ? 1 : 0;
-            __asm("movz a0, t0, v1");
-            ret = ((signed)a1 < -0x8000) ? 1 : 0;
-            __asm("movn a1, t6, v0");
-            v1 = ((signed)a0 < -0x8000) ? 1 : 0;
-            __asm("movn a0, t6, v1");
+            if ((signed)t4 >= (signed)t2) a1 = t2;
+            if ((((signed)t4 < (signed)t0) ? 1 : 0) == 0) a0 = t0;
+            if ((signed)a1 < (signed)-0x8000) a1 = t6;
+            if ((((signed)a0 < -0x8000) ? 1 : 0) != 0) a0 = t6;
             a1 = (s32)((s64)a1 * (s64)t7); HI_LO = (s64)a1 * (s64)t7;
             a0 = (s32)((s64)a0 * (s64)s3); HI_LO = (s64)a0 * (s64)s3;
             t2 = (signed)a1 >> 0xf;
             t0 = (signed)a0 >> 0xf;
-            a0 = *(u32*)(sp);
+            a0 = *(u32*)(__sp);
             ret = ((signed)t4 < (signed)t2) ? 1 : 0;
             v1 = ((signed)t4 < (signed)t0) ? 1 : 0;
-            __asm("movz a2, t2, v0");
-            __asm("movz a3, t0, v1");
+            if (ret == 0) a2 = t2;
+            if (v1 == 0) a3 = t0;
             ret = ((signed)a2 < -0x8000) ? 1 : 0;
             v1 = ((signed)a3 < -0x8000) ? 1 : 0;
-            __asm("movn a2, t6, v0");
-            __asm("movn a3, t6, v1");
+            if (ret != 0) a2 = t6;
+            if (v1 != 0) a3 = t6;
             *(u16*)(a0) = a2;
             a0 = a0 + 2;
             *(u16*)(a0) = a3;
             a0 = a0 + 2;
-            *(u32*)(sp) = a0;
+            *(u32*)(__sp) = a0;
         } while (t5 != 0);
     }
-    ret = *(u32*)*(0x70000350 + 0x26c);
-    ret = ret + __fp;
-    ret = ret & 0x1ff;
-    *(u32*)*(v1 + 0x26c) = ret;
-    a0 = *(u32*)*(__sp + 4);
+    *(u32*)(v1 + 0x26c) = ret & 0x1ff;
+    a0 = *(u32*)(__sp + 4);
     __fp = 0x20;
     if (a0 != 0) goto loc_210CD0;
 loc_211484:
     __asm("xori.b w2, w0, 0xb1");
-    return CDROM_GetStatReg(a0, a1, a2, a3);
+    return CDROM_GetStatReg(a0, a1);
 }
 
 /* Function at 0x002114B0 - 0x00211928 */
-int CDROM_EnvAttack()
+u32 CDROM_EnvAttack(u32 a0)
 {
-    int ret, v0, v1, a0, a1, a2, a3, t0;
+    u32 ret, v1, a1, a2, a3, t0, t1;
     a2 = a0;
     v1 = *(u32*)(a2);
-    ret = ((unsigned)v1 < 0xd) ? 1 : 0;
-    ret = v1 << 2;
-    if (ret == 0) goto loc_21191C;
-    v1 = 0x00500000;
-    v1 = v1 + ret;
-    v1 = *(u32*)*(v1 + -0x5b10);
+    if ((v1 << 2) == 0) return CDROM_EnvAttack(a0);
+    v1 = *(u32*)(v1 + -0x5b10);
     goto *v1; /* computed jump */
-    a1 = *(u32*)*(a2 + 0x14);
+    a1 = *(u32*)(a2 + 0x14);  /* GTE data: vz2 */
     a3 = 1;
     ret = (unsigned)a1 >> 0xa;
     v1 = (unsigned)a1 >> 8;
@@ -1529,7 +1439,6 @@ int CDROM_EnvAttack()
     v1 = v1 & 3;
     t0 = v1 ^ 7;
     if ((signed)a0 < 0xc) {
-        ret = 0xb;
         ret = ret - a0;
         t0 = t0 << ret;
         goto loc_211518;
@@ -1537,20 +1446,18 @@ int CDROM_EnvAttack()
     ret = a0 + -0xb;
     a3 = a3 << ret;
 loc_211518:
-    v1 = 0 | 0x8000;
-    ret = ((unsigned)v1 < (unsigned)a3) ? 1 : 0;
+    v1 = 0x8000;
     ret = (unsigned)a1 >> 0xf;
     if (ret != 0) {
-        ret = a1 & 0x7f00;
         ret = ret ^ 0x7f00;
-        __asm("movn a3, v1, v0");
+        if (ret != 0) a3 = v1;
         v1 = ((unsigned)v1 < (unsigned)a3) ? 1 : 0;
         ret = 8;
-        if (v1 != 0) goto loc_2118CC;
+        if (v1 != 0) return CDROM_EnvAttack(a0);
         ret = (unsigned)a1 >> 0xf;
     }
     ret = ret & 1;
-    *(u32*)*(a2 + 4) = 0;
+    *(u32*)(a2 + 4) = 0;
     if (ret == 0) {
         ret = 1;
         v1 = 0x7fff;
@@ -1560,57 +1467,48 @@ loc_211518:
     v1 = 0x6000;
 loc_211568:
     *(u32*)(a2) = ret;
-    *(u16*)*(a2 + 8) = v1;
+    *(u16*)(a2 + 8) = v1;
     ret = 1;
-    *(u16*)*(a2 + 0xc) = t0;
-    *(u16*)*(a2 + 0xe) = ret;
-    *(u16*)*(a2 + 0x10) = a3;
+    *(u16*)(a2 + 0xc) = t0;
+    *(u16*)(a2 + 0xe) = ret;
+    *(u16*)(a2 + 0x10) = a3;
     return ret;
-    }
     ret = a0 + -0xb;
     a3 = a3 << ret;
-    v1 = 0 | 0x8000;
-    ret = ((unsigned)v1 < (unsigned)a3) ? 1 : 0;
-    ret = *(u8*)*(a2 + 0x14);
+    v1 = 0x8000;
+    ret = *(u8*)(a2 + 0x14);  /* GTE data: vz2 */
     if (ret != 0) {
-        ret = (unsigned)t0 >> 4;
-        ret = ret & 0xf;
         ret = ret ^ 0xf;
-        __asm("movn a3, v1, v0");
+        if (ret != 0) a3 = v1;
         v1 = ((unsigned)v1 < (unsigned)a3) ? 1 : 0;
         ret = 8;
         if (v1 != 0) goto loc_2118CC;
-        ret = *(u8*)*(a2 + 0x14);
+        ret = *(u8*)(a2 + 0x14);  /* GTE data: vz2 */
     }
     a1 = a1 ^ 0x8000;
     v1 = 1;
     a0 = 3;
     ret = ret & 0xf;
-    *(u32*)*(a2 + 4) = v1;
+    *(u32*)(a2 + 4) = v1;
     ret = ret << 0xb;
     *(u32*)(a2) = a0;
     ret = ret + 0x7ff;
-    *(u16*)*(a2 + 0xe) = a3;
-    *(u16*)*(a2 + 8) = ret;
-    *(u16*)*(a2 + 0xc) = a1;
-    *(u16*)*(a2 + 0x10) = a3;
+    *(u16*)(a2 + 0xe) = a3;
+    *(u16*)(a2 + 8) = ret;
+    *(u16*)(a2 + 0xc) = a1;
+    *(u16*)(a2 + 0x10) = a3;
     return ret;
-    }
     ret = a0 + -9;
     a1 = a1 << ret;
-    v1 = 0 | 0x8000;
     v1 = 1;
-    if (likely((unsigned)v1 >= (unsigned)a1)) goto loc_2117F8;
-    ret = a3 & 0x7f00;
+    if ((unsigned)v1 >= (unsigned)a1) goto loc_2117F8;
     ret = ret ^ 0x7f00;
-    __asm("movn a1, v1, v0");
+    if (ret != 0) a1 = v1;
     v1 = ((unsigned)v1 < (unsigned)a1) ? 1 : 0;
     ret = 8;
     if (v1 != 0) goto loc_2118CC;
     v1 = 1;
     goto loc_2117F8;
-    }
-    ret = (unsigned)t0 >> 0x16;
     ret = ret & 3;
     a3 = ret | 0xfff8;
     ret = (unsigned)t0 >> 0x18;
@@ -1618,139 +1516,121 @@ loc_211568:
     v1 = ((signed)a0 < 0xc) ? 1 : 0;
     ret = a0 + -0xb;
     if (v1 != 0) {
-        ret = 0xb;
         ret = ret - a0;
         a3 = a3 << ret;
     } else {
         t1 = t1 << ret;
     }
-    a1 = 0 | 0x8000;
+    a1 = 0x8000;
     a0 = ((unsigned)a1 < (unsigned)t1) ? 1 : 0;
     a1 = (unsigned)t0 >> 0x1e;
     if (a0 != 0) {
-        ret = t0 & 0x1FC00000;
         ret = ret ^ v1;
-        __asm("movn t1, a1, v0");
+        if (ret != 0) t1 = a1;
         a0 = ((unsigned)a1 < (unsigned)t1) ? 1 : 0;
         a1 = (unsigned)t0 >> 0x1e;
     }
     v1 = a3 ^ 0x8000;
     ret = a1 ^ 3;
-    __asm("movz a3, v1, v0");
+    if (ret == 0) a3 = v1;
     if (a0 == 0) {
         v1 = a1 + 4;
         ret = ((unsigned)ret < 1) ? 1 : 0;
         *(u32*)(a2) = v1;
         v1 = a1 << 2;
-        *(u32*)*(a2 + 4) = ret;
-        *(u16*)*(a2 + 0xe) = t1;
-        ret = 0x00500000;
-        ret = ret + v1;
-        ret = *(u16*)*(ret + -0x5b28);
-        *(u16*)*(a2 + 0xc) = a3;
-        *(u16*)*(a2 + 8) = ret;
-        *(u16*)*(a2 + 0x10) = t1;
+        *(u32*)(a2 + 4) = ret;
+        *(u16*)(a2 + 0xe) = t1;
+        ret = *(u16*)(ret + -0x5b28);
+        *(u16*)(a2 + 0xc) = a3;
+        *(u16*)(a2 + 8) = ret;
+        *(u16*)(a2 + 0x10) = t1;
         return ret;
     }
     ret = 8;
     goto loc_2118CC;
-    }
     ret = a0 + -9;
     a1 = a1 << ret;
-    a0 = 0 | 0x8000;
+    a0 = 0x8000;
     v1 = 4;
     if ((unsigned)a0 >= (unsigned)a1) goto loc_2117F8;
-    v1 = a3 & 0x1FC00000;
     v1 = v1 ^ ret;
-    __asm("movn a1, a0, v1");
+    if (v1 != 0) a1 = a0;
     ret = ((unsigned)a0 < (unsigned)a1) ? 1 : 0;
-    if (8 != 0) goto loc_2118CC;
-    v1 = 4;
+    goto loc_2118CC;
 loc_2117F8:
-    *(u16*)*(a2 + 8) = 0x7fff;
+    *(u16*)(a2 + 8) = 0x7fff;
     *(u32*)(a2) = v1;
-    *(u16*)*(a2 + 0xe) = a1;
-    *(u16*)*(a2 + 0xc) = t0;
-    *(u32*)*(a2 + 4) = 0;
-    *(u16*)*(a2 + 0x10) = a1;
+    *(u16*)(a2 + 0xe) = a1;
+    *(u16*)(a2 + 0xc) = t0;
+    *(u32*)(a2 + 4) = 0;
+    *(u16*)(a2 + 0x10) = a1;
     return ret;
-    }
     ret = a0 + -0xb;
     a3 = a3 << ret;
-    v1 = 0 | 0x8000;
-    a0 = ((unsigned)v1 < (unsigned)a3) ? 1 : 0;
+    a0 = ((unsigned)0x8000 < (unsigned)a3) ? 1 : 0;
     ret = (unsigned)a1 >> 0x15;
     if (a0 != 0) {
-        ret = (unsigned)a1 >> 0x10;
-        ret = ret & 0x1f;
         ret = ret ^ 0x1f;
-        __asm("movn a3, v1, v0");
+        if (ret != 0) a3 = v1;
         a0 = ((unsigned)v1 < (unsigned)a3) ? 1 : 0;
         ret = (unsigned)a1 >> 0x15;
     }
     v1 = t0 ^ 0x8000;
     ret = ret & 1;
-    __asm("movn t0, v1, v0");
+    if (ret != 0) t0 = v1;
     if (a0 == 0) {
-        if (1 == 0) {
-            ret = 0xa;
-            *(u32*)*(a2 + 4) = 0;
-            *(u32*)(a2) = ret;
-        } else {
-            v1 = 0xb;
-            *(u32*)*(a2 + 4) = ret;
-            *(u32*)(a2) = v1;
-        }
+        v1 = 0xb;
+        *(u32*)(a2 + 4) = ret;
+        *(u32*)(a2) = v1;
         ret = 1;
-        *(u16*)*(a2 + 0x10) = a3;
-        *(u16*)*(a2 + 0xe) = ret;
-        *(u16*)*(a2 + 0xc) = t0;
-        *(u16*)*(a2 + 8) = 0;
+        *(u16*)(a2 + 0x10) = a3;
+        *(u16*)(a2 + 0xe) = ret;
+        *(u16*)(a2 + 0xc) = t0;
+        *(u16*)(a2 + 8) = 0;
         return ret;
     }
     ret = 0xc;
 loc_2118CC:
-    *(u16*)*(a2 + 0xc) = 0;
+    *(u16*)(a2 + 0xc) = 0;
     *(u32*)(a2) = ret;
-    *(u32*)*(a2 + 4) = 0;
+    *(u32*)(a2 + 4) = 0;
     return ret;
 loc_21191C:
     return ret;
 }
 
 /* Function at 0x00211928 - 0x00211AB8 */
-int CDROM_ProcessVoice()
+u32 CDROM_ProcessVoice(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 64 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, t0;
+    u32 ret, v1, a3, s0, s1, s2, s3, s4, s5, s6, t0;
     s3 = 0x70000000 + 0xddc;
     s4 = a1;
     ret = s3 + -0xa84;
     s1 = a0;
     v1 = s4 << 4;
     s0 = v1 + ret;
-    a3 = *(u32*)*(s1 + 0x14);
+    a3 = *(u32*)(s1 + 0x14);  /* GTE data: vz2 */
     ret = *(u32*)(s0);
     s2 = a2;
     if (a3 != ret) {
         *(u32*)(s1) = 0;
-        ret = CDROM_EnvAttack(a0, a1, a2, a3);
-        ret = *(u32*)(s0);
-        *(u32*)*(s1 + 0x14) = ret;
+        ret = CDROM_EnvAttack(a0);
+        *(u32*)(s1 + 0x14) = *(u32*)(s0);
     }
-    t0 = *(u32*)*(s1 + 4);
-    a2 = *(s16*)*(s1 + 8);
-    a1 = *(s16*)*(s1 + 0xc);
-    a3 = *(u16*)*(s1 + 0x10);
-    s0 = *(s16*)*(s1 + 0xa);
-    a0 = *(u16*)*(s1 + 0xe);
+    t0 = *(u32*)(s1 + 4);
+    a2 = *(s16*)(s1 + 8);
+    a1 = *(s16*)(s1 + 0xc);  /* GTE data: vz1 */
+    a3 = *(u16*)(s1 + 0x10);  /* GTE data: vxy2 */
+    s0 = *(s16*)(s1 + 0xa);
+    a0 = *(u16*)(s1 + 0xe);
     if (s2 == 0) goto loc_211A7C;
     s6 = -1;
     s5 = 0x7fff;
     ret = ((signed)s2 < (signed)a0) ? 1 : 0;
 loc_2119B0:
     v1 = s2;
-    __asm("movz v1, a0, v0");
+    if (ret == 0) v1 = a0;
     s2 = s2 - v1;
     a0 = a0 - v1;
     v1 = v1 + -1;
@@ -1774,26 +1654,25 @@ loc_2119B0:
                 ret = ((signed)s0 < (signed)a2) ? 1 : 0;
                 if ((signed)s5 < (signed)s0) goto loc_211A48;
             }
-        __asm("movn s0, s5, v0");
+        if (ret != 0) s0 = s5;
         v1 = 1;
         if ((signed)s0 >= 0) goto loc_211A48;
         s0 = 0;
     } else {
         ac2 = (s32)((s64)s0 * (s64)a1); HI_LO = (s64)s0 * (s64)a1;
         s0 = (signed)ret >> 0xf;
-        v1 = ((signed)a2 < (signed)s0) ? 1 : 0;
         v1 = ((unsigned)v1 < 1) ? 1 : 0;
     }
 loc_211A48:
     a0 = s1;
     if (v1 != 0) {
         a1 = s4;
-        ret = CDROM_EnvAttack(a0, a1, a2, a3);
-        t0 = *(u32*)*(s1 + 4);
-        a2 = *(s16*)*(s1 + 8);
-        a1 = *(s16*)*(s1 + 0xc);
-        a3 = *(u16*)*(s1 + 0x10);
-        a0 = *(u16*)*(s1 + 0xe);
+        ret = CDROM_EnvAttack(a0);
+        t0 = *(u32*)(s1 + 4);
+        a2 = *(s16*)(s1 + 8);
+        a1 = *(s16*)(s1 + 0xc);  /* GTE data: vz1 */
+        a3 = *(u16*)(s1 + 0x10);  /* GTE data: vxy2 */
+        a0 = *(u16*)(s1 + 0xe);
     } else {
         a0 = a3;
     }
@@ -1801,24 +1680,23 @@ loc_211A74:
     ret = ((signed)s2 < (signed)a0) ? 1 : 0;
     if (s2 != 0) goto loc_2119B0;
 loc_211A7C:
-    *(u16*)*(s1 + 0xa) = s0;
+    *(u16*)(s1 + 0xa) = s0;
     ret = s0 << 0x10;
-    *(u16*)*(s1 + 0xe) = a0;
-    ret = (signed)ret >> 0x10;
-    return ret;
+    *(u16*)(s1 + 0xe) = a0;
+    return (signed)ret >> 0x10;
 }
 
 /* Function at 0x00211AB8 - 0x00211B40 */
-int CDROM_CalcSweepRate()
+u32 CDROM_CalcSweepRate(u32 a0, u32 a1)
 {
-    int ret, v1, a0, a1, a2, a3, t0;
+    u32 ret, v1, a2, a3, t0;
     t0 = 1;
     if (a1 == 0) {
-        a2 = *(u16*)*(a0 + 8);
+        a2 = *(u16*)(a0 + 8);
         ret = a2 & 3;
         a3 = ret ^ 7;
     } else {
-        a2 = *(u16*)*(a0 + 8);
+        a2 = *(u16*)(a0 + 8);
         ret = a2 & 3;
         a3 = ret | 0xfff8;
     }
@@ -1827,37 +1705,35 @@ int CDROM_CalcSweepRate()
     v1 = ((unsigned)a1 < 0xc) ? 1 : 0;
     ret = a1 + -0xb;
     if (v1 != 0) {
-        ret = 0xb;
         ret = ret - a1;
         a3 = a3 << ret;
     } else {
         t0 = t0 << ret;
     }
-    ret = 0 | 0x8000;
-    *(u16*)*(a0 + 6) = t0;
-    if (likely((unsigned)ret >= (unsigned)t0)) goto loc_211B38;
+    ret = 0x8000;
+    *(u16*)(a0 + 6) = t0;
+    if ((unsigned)ret >= (unsigned)t0) goto loc_211B38;
     v1 = a2 & 0x7f;
-    ret = 0x7f;
     ret = a2 & 0x7fff;
     if (v1 != ret) {
-        t0 = 0 | 0x8000;
+        t0 = 0x8000;
         goto loc_211B34;
     }
-    *(u16*)*(a0 + 8) = ret;
+    *(u16*)(a0 + 8) = ret;
 loc_211B34:
-    *(u16*)*(a0 + 6) = t0;
+    *(u16*)(a0 + 6) = t0;
 loc_211B38:
-    *(u16*)*(a0 + 2) = a3;
+    *(u16*)(a0 + 2) = a3;
     return ret;
 }
 
 /* Function at 0x00211B40 - 0x00211CB8 */
-int CDROM_AdvanceVoice()
+u32 CDROM_AdvanceVoice(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, s0;
+    u32 ret, v1, a1, a2, a3, s0;
     s0 = a0;
-    a3 = *(u16*)*(s0 + 8);
+    a3 = *(u16*)(s0 + 8);
     ret = a3 & 0x8000;
     a1 = a3 & 0xffff;
     if (ret == 0) {
@@ -1872,72 +1748,61 @@ int CDROM_AdvanceVoice()
     a2 = ret & 3;
     ret = ((signed)a2 < 2) ? 1 : 0;
     if (a2 != v1) {
-        if (2 != 0) {
-            a1 = (unsigned)a1 >> 0xc;
-            if (a2 != 0) {
-                *(u16*)*(s0 + 4) = 0;
-                goto loc_211CA0;
-                }
-                if (a2 != 3) {
-                    if (a2 != ret) {
-                        *(u16*)*(s0 + 4) = 0;
-                        } else {
-                        a1 = a1 & 1;
-                        ret = CDROM_CalcSweepRate(a0, a1, a2, a3);
-                        *(u16*)*(s0 + 4) = 0;
-                        } else {
-                        a1 = (unsigned)a1 >> 0xc;
-                        a1 = a1 & 1;
-                        a1 = a1 ^ 1;
-                        ret = CDROM_CalcSweepRate(a0, a1, a2, a3);
-                        *(u16*)*(s0 + 4) = 0;
-                        } else {
-                        ret = a3 & 0x1000;
-                        ret = *(s16*)(s0);
-                        if (ret != 0) goto loc_211C40;
+        a1 = (unsigned)a1 >> 0xc;
+        if (a2 != 0) {
+            *(u16*)(s0 + 4) = 0;
+            goto loc_211CA0;
+            }
+            if (a2 != 3) {
+                if (a2 != ret) {
+                    *(u16*)(s0 + 4) = 0;
+                    } else {
+                    a1 = a1 & 1;
+                    ret = CDROM_CalcSweepRate(a0, a1);
+                    *(u16*)(s0 + 4) = 0;
+                    } else {
+                    a1 = (unsigned)a1 >> 0xc;
+                    a1 = a1 & 1;
+                    a1 = a1 ^ 1;
+                    ret = CDROM_CalcSweepRate(a0, a1);
+                    *(u16*)(s0 + 4) = 0;
+                    } else {
+                    ret = *(s16*)(s0);
+                    if (ret == 0) {
                         a0 = s0;
                         if ((signed)ret < 0x6000) goto loc_211C2C;
-                        ret = (unsigned)a1 >> 2;
                         ret = ret & 0x1f;
                         v1 = ((unsigned)ret < 0x1e) ? 1 : 0;
                         ret = ret + 2;
                         if (v1 == 0) goto loc_211C2C;
                         v1 = a3 & 0xff83;
-                        ret = ret & 0x1f;
                         ret = ret << 2;
-                        v1 = v1 | ret;
-                        *(u16*)*(s0 + 8) = v1;
+                        *(u16*)(s0 + 8) = v1 | ret;
                         a0 = s0;
                         loc_211C2C:
                         a1 = 0;
-                        ret = CDROM_CalcSweepRate(a0, a1, a2, a3);
-                        *(u16*)*(s0 + 4) = 0;
-                        goto loc_211CA0;
-                        loc_211C40:
+                        ret = CDROM_CalcSweepRate(a0, a1);
+                        *(u16*)(s0 + 4) = 0;
+                    } else {
                         a0 = s0;
                         if ((signed)ret >= -0x5fff) goto loc_211C78;
-                        ret = (unsigned)a1 >> 2;
                         ret = ret & 0x1f;
                         v1 = ((unsigned)ret < 0x1e) ? 1 : 0;
                         ret = ret + 2;
                         if (v1 == 0) goto loc_211C78;
                         v1 = a3 & 0xff83;
-                        ret = ret & 0x1f;
                         ret = ret << 2;
-                        v1 = v1 | ret;
-                        *(u16*)*(s0 + 8) = v1;
+                        *(u16*)(s0 + 8) = v1 | ret;
                         a0 = s0;
                         loc_211C78:
                         a1 = 1;
-                        ret = CDROM_CalcSweepRate(a0, a1, a2, a3);
-                        *(u16*)*(s0 + 4) = 0;
-                    } else {
+                        ret = CDROM_CalcSweepRate(a0, a1);
+                        *(u16*)(s0 + 4) = 0;
+                        } else {
                         a1 = 1;
-                        ret = CDROM_CalcSweepRate(a0, a1, a2, a3);
-                        ret = *(u16*)*(s0 + 2);
-                        ret = ret ^ 0x8000;
-                        *(u16*)*(s0 + 2) = ret;
-                        *(u16*)*(s0 + 4) = 0;
+                        ret = CDROM_CalcSweepRate(a0, a1);
+                        *(u16*)(s0 + 2) = ret ^ 0x8000;
+                        *(u16*)(s0 + 4) = 0;
                         }
                         }
                         }
@@ -1949,217 +1814,178 @@ loc_211CA4:
 }
 
 /* Function at 0x00211CB8 - 0x00211F90 */
-int CDROM_Interpolate()
+u32 CDROM_Interpolate(u32 a0, u32 a1)
 {
     /* Stack frame: 32 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2;
+    u32 ret, v1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
     s1 = a0;
-    ret = *(u16*)*(s1 + 4);
-    a2 = *(u16*)*(s1 + 6);
+    ret = *(u16*)(s1 + 4);
+    a2 = *(u16*)(s1 + 6);
     s0 = ret + a1;
-    __asm("div zero, s0, a2");
-    v1 = LO;
-    a0 = HI;
+    v1 = (signed)s0 / (signed)a2;
+    a0 = (signed)s0 % (signed)a2;
     s0 = v1;
-    *(u16*)*(s1 + 4) = a0;
+    *(u16*)(s1 + 4) = a0;
     if (s0 != 0) {
-        a2 = *(u16*)*(s1 + 8);
+        a2 = *(u16*)(s1 + 8);
         v1 = 1;
         ret = (unsigned)a2 >> 0xd;
         a0 = ret & 3;
         a1 = a2;
         if (a0 != v1) {
-            ret = ((signed)a0 < 2) ? 1 : 0;
-            if (2 != 0) {
-                ret = *(s16*)*(s1 + 2);
-                if (a0 != 0) {
-                    ret = *(s16*)(s1);
-                    } else {
-                    if (a0 != 3) {
-                        v1 = *(s16*)(s1);
-                        if (a0 != ret) {
-                            ret = *(s16*)(s1);
-                            } else {
-                            v1 = 0x7fff;
-                            a0 = *(s16*)(s1);
-                            ac2 = (s32)((s64)ret * (s64)s0); HI_LO = (s64)ret * (s64)s0;
-                            a0 = a0 + ret;
-                            v1 = ((signed)v1 < (signed)a0) ? 1 : 0;
-                            ret = ((signed)a0 < -0x8000) ? 1 : 0;
-                            if (v1 != 0) {
-                                ret = a2 & 0x7fff;
-                                a0 = 0x7fff;
-                            } else {
-                                ret = a0 << 0x10;
-                                if (ret != 0) {
-                                    ret = a2 & 0x7fff;
-                                    a0 = -0x8000;
-                                    }
-                                    *(u16*)*(s1 + 8) = ret;
-                                    ret = a0 << 0x10;
-                                }
-                            *(u16*)(s1) = a0;
-                            ret = (signed)ret >> 0x10;
-                            goto loc_211F74;
-        }
-                        ret = *(s16*)*(s1 + 2);
-                        a1 = *(s16*)(s1);
-                        ac2 = (s32)((s64)ret * (s64)s0); HI_LO = (s64)ret * (s64)s0;
-                        v1 = a1 + ret;
-                        ret = a2 & 0x7fff;
-                        if (likely(v1 == 0)) goto loc_211DCC;
-                        if ((signed)v1 < 0) {
-                            ret = a2 & 0x7fff;
-                            if (likely((signed)a1 >= 0)) goto loc_211DCC;
-                            ret = v1 << 0x10;
+            ret = *(s16*)(s1 + 2);
+            if (a0 != 0) {
+                ret = *(s16*)(s1);
+                } else {
+                if (a0 != 3) {
+                    v1 = *(s16*)(s1);
+                    if (a0 != ret) {
+                        ret = *(s16*)(s1);
                         } else {
-                            ret = v1 << 0x10;
-                            if (likely((signed)a1 >= 0)) goto loc_211F64;
+                        v1 = 0x7fff;
+                        a0 = *(s16*)(s1);
+                        ac2 = (s32)((s64)ret * (s64)s0); HI_LO = (s64)ret * (s64)s0;
+                        a0 = a0 + ret;
+                        v1 = ((signed)v1 < (signed)a0) ? 1 : 0;
+                        ret = ((signed)a0 < -0x8000) ? 1 : 0;
+                        if (v1 != 0) {
                             ret = a2 & 0x7fff;
-                            loc_211DCC:
-                            v1 = 0;
-                            *(u16*)*(s1 + 8) = ret;
-                            } else {
-                            s0 = s0 + -1;
-                            ret = -1;
-                            s2 = *(s16*)(s1);
-                            if (s0 == ret) goto loc_211F18;
-                            ret = *(s16*)*(s1 + 2);
-                            goto loc_211E10;
-                            loc_211DF0:
-                            s2 = 0x7fff;
-                            goto loc_211DFC;
-                            loc_211DF8:
-                            s2 = -0x8000;
-                            loc_211DFC:
-                            ret = ret & 0x7fff;
-                            *(u16*)*(s1 + 8) = ret;
-                            goto loc_211F18;
-                            loc_211E08:
-                            ret = *(s16*)*(s1 + 2);
-                            loc_211E10:
-                            v1 = a1 & 0x1000;
-                            a0 = s2;
-                            s2 = s2 + ret;
-                            if (v1 == 0) {
-                                ret = ((signed)a0 < 0x6000) ? 1 : 0;
-                                if (0x7fff == 0) goto loc_211EF0;
-                                ret = ((signed)s2 < 0x6000) ? 1 : 0;
-                                if (0x7fff != 0) goto loc_211EF0;
-                                ret = (unsigned)a1 >> 2;
-                                ret = ret & 0x1f;
-                                v1 = ((unsigned)ret < 0x1e) ? 1 : 0;
-                                a0 = s1;
-                                if (v1 != 0) {
-                                    ret = ret + 2;
-                                    v1 = a1 & 0xff83;
-                                    ret = ret & 0x1f;
-                                    ret = ret << 2;
-                                    v1 = v1 | ret;
-                                    *(u16*)*(s1 + 8) = v1;
+                            a0 = 0x7fff;
+                        } else {
+                            ret = a0 << 0x10;
+                            if (ret != 0) {
+                                ret = a2 & 0x7fff;
+                                a0 = -0x8000;
                                 }
-                                a1 = 0;
-                                ret = CDROM_CalcSweepRate(a0, a1, a2, a3);
-                                a2 = *(u16*)*(s1 + 6);
-                                __asm("div zero, s0, a2");
-                                v1 = LO;
-                                ret = HI;
-                                *(u16*)*(s1 + 4) = ret;
-                                s0 = v1;
-                            } else {
-                                ret = ((signed)a0 < -0x5fff) ? 1 : 0;
-                                if (0x7fff != 0) goto loc_211EF0;
-                                ret = ((signed)s2 < -0x5fff) ? 1 : 0;
-                                if (0x7fff == 0) goto loc_211EF0;
-                                ret = (unsigned)a1 >> 2;
-                                ret = ret & 0x1f;
-                                v1 = ((unsigned)ret < 0x1e) ? 1 : 0;
-                                a0 = s1;
-                                if (v1 != 0) {
-                                    ret = ret + 2;
-                                    v1 = a1 & 0xff83;
-                                    ret = ret & 0x1f;
-                                    ret = ret << 2;
-                                    v1 = v1 | ret;
-                                    *(u16*)*(s1 + 8) = v1;
-                                }
-                                a1 = 1;
-                                ret = CDROM_CalcSweepRate(a0, a1, a2, a3);
-                                ret = *(u16*)*(s1 + 6);
-                                __asm("div zero, s0, v0");
-                                v1 = HI;
-                                ret = LO;
-                                *(u16*)*(s1 + 4) = v1;
-                                s0 = ret;
+                                *(u16*)(s1 + 8) = ret;
+                                ret = a0 << 0x10;
                             }
-                            ret = 0x7fff;
-                            loc_211EF0:
-                            ret = ((signed)ret < (signed)s2) ? 1 : 0;
-                            ret = *(u16*)*(s1 + 8);
-                            if (likely(ret != 0)) goto loc_211DF0;
-                            ret = ((signed)s2 < -0x8000) ? 1 : 0;
-                            ret = *(u16*)*(s1 + 8);
-                            if (likely(ret != 0)) goto loc_211DF8;
-                            s0 = s0 + -1;
-                            ret = -1;
-                            a1 = *(u16*)*(s1 + 8);
-                            if (likely(s0 != ret)) goto loc_211E08;
-                            loc_211F18:
-                            ret = s2 << 0x10;
-                            *(u16*)(s1) = s2;
-                            ret = (signed)ret >> 0x10;
-                            } else {
-                            a0 = a2 & 0x7fff;
-                            a1 = -1;
-                            s0 = s0 + -1;
-                            do {
-                                ret = v1 << 0x10;
-                                if (s0 == a1) goto loc_211F64;
-                                ret = *(s16*)*(s1 + 2);
-                                ac2 = (s32)((s64)v1 * (s64)ret); HI_LO = (s64)v1 * (s64)ret;
-                                v1 = (signed)ret >> 0xf;
-                                s0 = s0 + -1;
-                            } while (v1 != 0);
-                            *(u16*)*(s1 + 8) = a0;
+                        *(u16*)(s1) = a0;
+                        ret = (signed)ret >> 0x10;
+                        goto loc_211F74;
+    }
+                    ret = *(s16*)(s1 + 2);
+                    a1 = *(s16*)(s1);
+                    ac2 = (s32)((s64)ret * (s64)s0); HI_LO = (s64)ret * (s64)s0;
+                    v1 = a1 + ret;
+                    ret = a2 & 0x7fff;
+                    if (v1 == 0) goto loc_211DCC;
+                    if ((signed)v1 < 0) {
+                        ret = a2 & 0x7fff;
+                        if ((signed)a1 >= 0) goto loc_211DCC;
+                        ret = v1 << 0x10;
+                    } else {
+                        ret = v1 << 0x10;
+                        if ((signed)a1 >= 0) goto loc_211F64;
+                        ret = a2 & 0x7fff;
+                        loc_211DCC:
+                        v1 = 0;
+                        *(u16*)(s1 + 8) = ret;
+                        } else {
+                        s0 = s0 + -1;
+                        ret = -1;
+                        s2 = *(s16*)(s1);
+                        if (s0 == ret) goto loc_211F18;
+                        ret = *(s16*)(s1 + 2);
+                        goto loc_211E10;
+                        loc_211DF0:
+                        s2 = 0x7fff;
+                        goto loc_211DFC;
+                        loc_211DF8:
+                        s2 = -0x8000;
+                        loc_211DFC:
+                        ret = ret & 0x7fff;
+                        *(u16*)(s1 + 8) = ret;
+                        goto loc_211F18;
+                        loc_211E08:
+                        ret = *(s16*)(s1 + 2);
+                        loc_211E10:
+                        v1 = a1 & 0x1000;
+                        a0 = s2;
+                        s2 = s2 + ret;
+                        if (v1 == 0) {
+                            ret = ((signed)s2 < 0x6000) ? 1 : 0;
+                            goto loc_211EF0;
                             }
-                            ret = v1 << 0x10;
+                            a1 = 0;
+                            ret = CDROM_CalcSweepRate(a0, a1);
+                            a2 = *(u16*)(s1 + 6);
+                            v1 = (signed)s0 / (signed)a2;
+                            ret = (signed)s0 % (signed)a2;
+                            *(u16*)(s1 + 4) = ret;
+                            s0 = v1;
+                        } else {
+                            ret = ((signed)a0 < -0x5fff) ? 1 : 0;
+                            goto loc_211EF0;
+                            }
+                            a1 = 1;
+                            ret = CDROM_CalcSweepRate(a0, a1);
+                            ret = *(u16*)(s1 + 6);
+                            v1 = (signed)s0 % (signed)ret;
+                            ret = (signed)s0 / (signed)ret;
+                            *(u16*)(s1 + 4) = v1;
+                            s0 = ret;
                         }
-                        loc_211F64:
-                        *(u16*)(s1) = v1;
+                        ret = 0x7fff;
+                        loc_211EF0:
+                        ret = *(u16*)(s1 + 8);
+                        if (ret != 0) goto loc_211DF0;
+                        ret = *(u16*)(s1 + 8);
+                        if (ret != 0) goto loc_211DF8;
+                        s0 = s0 + -1;
+                        ret = -1;
+                        a1 = *(u16*)(s1 + 8);
+                        if (s0 != ret) goto loc_211E08;
+                        loc_211F18:
+                        ret = s2 << 0x10;
+                        *(u16*)(s1) = s2;
                         ret = (signed)ret >> 0x10;
                         } else {
-                        ret = *(s16*)(s1);
+                        a0 = a2 & 0x7fff;
+                        a1 = -1;
+                        s0 = s0 + -1;
+                        do {
+                            ret = v1 << 0x10;
+                            if (s0 == a1) goto loc_211F64;
+                            ret = *(s16*)(s1 + 2);
+                            ac2 = (s32)((s64)v1 * (s64)ret); HI_LO = (s64)v1 * (s64)ret;
+                            v1 = (signed)ret >> 0xf;
+                            s0 = s0 + -1;
+                        } while (v1 != 0);
+                        *(u16*)(s1 + 8) = a0;
                         }
-                        }
-                        }
+                        ret = v1 << 0x10;
+                    }
+                    loc_211F64:
+                    *(u16*)(s1) = v1;
+                    ret = (signed)ret >> 0x10;
+                    } else {
+                    ret = *(s16*)(s1);
+    }
                     }
 loc_211F74:
     return ret;
-}
-
-/* Function at 0x00211F90 - 0x00212298 */
-int CDROM_VoiceKeyOn()
+u32 CDROM_VoiceKeyOn(u32 a0, u32 a1)
 {
     /* Stack frame: 80 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
+    u32 ret, v1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
     s0 = a1;
     s5 = a0;
     s6 = 0x70000000;
     ret = s6 + 0x350;
     s1 = *(u32*)(s5);
-    a0 = *(u16*)*(ret + 0x1a4);
+    a0 = *(u16*)(ret + 0x1a4);  /* PSX: exec_handlers[5] */
     v1 = s1 << 3;
     ret = s1 & 0xffff;
-    s2 = 0x007AB980;
+    s2 = 0x007AB980;  /* SPU_SAMPLE_BUF: SPU sample buffer */
     s2 = s2 + v1;
     s4 = s1 + 2;
     s3 = *(u16*)(s2);
     v1 = s4 & 0xffff;
     if ((unsigned)a0 >= (unsigned)ret) {
-        ret = ((unsigned)a0 < (unsigned)v1) ? 1 : 0;
         ret = (unsigned)s3 >> 8;
         if (ret != 0) {
-            ret = CDROM_CheckShellOpen(a0, a1, a2, a3);
+            ret = CDROM_CheckShellOpen();
             }
             ret = (unsigned)s3 >> 8;
         }
@@ -2170,50 +1996,43 @@ int CDROM_VoiceKeyOn()
     if (v1 != a0) goto loc_212054;
     ret = s0 << 3;
     a0 = s6 + 0x350;
-    ret = ret + s0;
-    ret = ret << 3;
     ret = ret + a0;
-    v1 = *(u32*)*(ret + 0x2e4);
+    v1 = *(u32*)(ret + 0x2e4);  /* PSX: mem_ctrl[1] */
     ret = a2 & 1;
     if (v1 != 0) goto loc_212054;
-    ret = s0 << 4;
     ret = ret + a0;
-    *(u16*)*(ret + 0xe) = s1;
+    *(u16*)(ret + 0xe) = s1;
     ret = a2 & 1;
 loc_212054:
     a1 = s6 + 0x350;
     if (ret != 0) {
         ret = 1;
-        v1 = *(u32*)*(a1 + 0x19c);
+        v1 = *(u32*)(a1 + 0x19c);  /* PSX: exec_handlers[3] */
         ret = ret << s0;
         a0 = a2 & 2;
-        v1 = v1 | ret;
-        *(u32*)*(a1 + 0x19c) = v1;
+        *(u32*)(a1 + 0x19c) = v1 | ret;
         if (a0 != 0) {
-            ret = s0 << 4;
             ret = ret + a1;
-            v1 = *(u16*)*(ret + 0xe);
-            *(u32*)(s5) = v1;
+            *(u32*)(s5) = *(u16*)(ret + 0xe);
             goto loc_21209C;
         }
-        *(u32*)*(s5 + 8) = 0;
+        *(u32*)(s5 + 8) = 0;
     } else {
         *(u32*)(s5) = s4;
     }
 loc_21209C:
-    v1 = *(u32*)*(s5 + 4);
+    v1 = *(u32*)(s5 + 4);
     ret = s1 << 4;
-    s7 = 0x005B0000;
+    s7 = 0x005B0000;  /* CDROM_DATA_BASE: CD-ROM data area */
     a1 = (unsigned)s3 >> 4;
     ret = ret - v1;
     v1 = v1 + 0x1c;
     a2 = s7 + -0x4680;
-    ret = ret << 1;
     ret = ret + a2;
     a1 = a1 & 0xf;
     a0 = 7;
-    *(u32*)*(s5 + 0xc) = ret;
-    *(u32*)*(s5 + 4) = v1;
+    *(u32*)(s5 + 0xc) = ret;
+    *(u32*)(s5 + 4) = v1;
     if (a1 != a0) {
         ret = s3 | 0x70;
         a0 = s1 << 5;
@@ -2227,11 +2046,11 @@ loc_21209C:
         t4 = t4 + 2;
         s1 = 0x00500000;
         s1 = s1 + v1;
-        s1 = *(u32*)*(s1 + -0x5ac0);
+        s1 = *(u32*)(s1 + -0x5ac0);
         s6 = 7;
         s0 = 0x00500000;
         s0 = s0 + v1;
-        s0 = *(u32*)*(s0 + -0x5ad8);
+        s0 = *(u32*)(s0 + -0x5ad8);
         t9 = t9 + 0xa;
         t3 = *(s16*)(t4);
         t4 = t4 + 2;
@@ -2243,7 +2062,7 @@ loc_21209C:
             s2 = s2 + 2;
             ac3 = (s32)((s64)t3 * (s64)s0); HI_LO = (s64)t3 * (s64)s0;
             t3 = (s32)((s64)t3 * (s64)s1); HI_LO = (s64)t3 * (s64)s1;
-            __asm("mult1 a1, t5, s1");
+            a1 = t5 * s1;
             t5 = s3;
             ret = a2 << 0x1c;
             a3 = t8;
@@ -2259,14 +2078,14 @@ loc_21209C:
             a0 = (signed)a0 >> t9;
             v1 = ((signed)t8 < (signed)ret) ? 1 : 0;
             t0 = t8;
-            __asm("movz a3, v0, v1");
+            if (v1 == 0) a3 = ret;
             t6 = s3;
             ret = ((signed)a3 < -0x8000) ? 1 : 0;
             a1 = a1 & s4;
-            __asm("movz t7, a3, v0");
+            if (ret == 0) t7 = a3;
             a3 = t8;
             ac2 = (s32)((s64)t7 * (s64)s0); HI_LO = (s64)t7 * (s64)s0;
-            __asm("mult1 t2, t7, s1");
+            t2 = t7 * s1;
             a1 = (signed)a1 >> t9;
             t1 = t8;
             a2 = a2 << 0x10;
@@ -2279,31 +2098,25 @@ loc_21209C:
             t3 = s3;
             a0 = (signed)a0 >> 6;
             s6 = s6 + -1;
-            ret = ((signed)t8 < (signed)a0) ? 1 : 0;
-            __asm("movz t0, a0, v0");
-            v1 = ((signed)t0 < -0x8000) ? 1 : 0;
-            __asm("movz t6, t0, v1");
+            if ((signed)t8 >= (signed)a0) t0 = a0;
+            if ((((signed)t0 < -0x8000) ? 1 : 0) == 0) t6 = t0;
             ac2 = (s32)((s64)t6 * (s64)s0); HI_LO = (s64)t6 * (s64)s0;
-            __asm("mult1 a0, t6, s1");
+            a0 = t6 * s1;
             *(u16*)(t4) = t6;
             t4 = t4 + 2;
             a1 = a1 + ret;
             a1 = a1 - t2;
             a1 = (signed)a1 >> 6;
-            ret = ((signed)t8 < (signed)a1) ? 1 : 0;
-            __asm("movz t1, a1, v0");
-            v1 = ((signed)t1 < -0x8000) ? 1 : 0;
-            __asm("movz t5, t1, v1");
+            if ((signed)t8 >= (signed)a1) t1 = a1;
+            if ((((signed)t1 < -0x8000) ? 1 : 0) == 0) t5 = t1;
             ac2 = (s32)((s64)t5 * (s64)s0); HI_LO = (s64)t5 * (s64)s0;
             *(u16*)(t4) = t5;
             t4 = t4 + 2;
             a2 = a2 + ret;
             a2 = a2 - a0;
             a2 = (signed)a2 >> 6;
-            ret = ((signed)t8 < (signed)a2) ? 1 : 0;
-            __asm("movz a3, a2, v0");
-            v1 = ((signed)a3 < -0x8000) ? 1 : 0;
-            __asm("movz t3, a3, v1");
+            if ((signed)t8 >= (signed)a2) a3 = a2;
+            if ((((signed)a3 < -0x8000) ? 1 : 0) == 0) t3 = a3;
             *(u16*)(t4) = t3;
             t4 = t4 + 2;
         } while (s6 != 0);
@@ -2315,21 +2128,21 @@ loc_21209C:
         t4 = t4 + 2;
         *(u16*)(t4) = t6;
         t4 = t4 + 2;
-        *(u16*)*(t4 + 2) = t3;
+        *(u16*)(t4 + 2) = t3;
         *(u16*)(t4) = t5;
     }
     return ret;
 }
 
 /* Function at 0x00212298 - 0x002123A0 */
-int CDROM_SetupVoices()
+u32 CDROM_SetupVoices(u32 a0)
 {
-    int ret, v1, a0, a1, a2, a3, t0, t1, t2, t3, t4, t5;
+    u32 ret, v1, a1, a2, a3, t0, t1, t2, t3, t4, t5;
     t4 = a0;
-    ret = *(u16*)*(t4 + 0x1a2);
-    v1 = *(u32*)*(t4 + 0x9d4);
+    ret = *(u16*)(t4 + 0x1a2);
+    v1 = *(u32*)(t4 + 0x9d4);
     ret = ret << 3;
-    t5 = 0x007AB980;
+    t5 = 0x007AB980;  /* SPU_SAMPLE_BUF: SPU sample buffer */
     t5 = t5 + ret;
     a0 = t4 + 0x1d4;
     if (v1 == 0) {
@@ -2339,28 +2152,27 @@ int CDROM_SetupVoices()
             ret = *(u16*)(a0);
             a0 = a0 + 2;
             a1 = a1 + -1;
-            ret = ret << 3;
             ret = t5 + ret;
             *(u32*)(v1) = ret;
             v1 = v1 + 4;
         } while ((signed)a1 >= 0);
-        ret = *(u16*)*(t4 + 0x1c0);
+        ret = *(u16*)(t4 + 0x1c0);
         t3 = 1;
-        a3 = *(u16*)*(t4 + 0x1f4);
-        t1 = *(u16*)*(t4 + 0x1f6);
-        t2 = *(u16*)*(t4 + 0x1c2);
+        a3 = *(u16*)(t4 + 0x1f4);
+        t1 = *(u16*)(t4 + 0x1f6);
+        t2 = *(u16*)(t4 + 0x1c2);
         a3 = a3 - ret;
         t1 = t1 - ret;
-        ret = *(u16*)*(t4 + 0x1d6);
-        t0 = *(u16*)*(t4 + 0x1f8);
+        ret = *(u16*)(t4 + 0x1d6);
+        t0 = *(u16*)(t4 + 0x1f8);
         a3 = a3 << 3;
-        a2 = *(u16*)*(t4 + 0x1fa);
+        a2 = *(u16*)(t4 + 0x1fa);
         ret = ret << 3;
-        a1 = *(u16*)*(t4 + 0x1d4);
+        a1 = *(u16*)(t4 + 0x1d4);
         t0 = t0 - t2;
-        a0 = *(u16*)*(t4 + 0x1e4);
+        a0 = *(u16*)(t4 + 0x1e4);
         a2 = a2 - t2;
-        v1 = *(u16*)*(t4 + 0x1e6);
+        v1 = *(u16*)(t4 + 0x1e6);
         a1 = a1 << 3;
         a0 = a0 << 3;
         t0 = t0 << 3;
@@ -2379,124 +2191,124 @@ int CDROM_SetupVoices()
         a1 = t5 + a1;
         a0 = t5 + a0;
         v1 = t5 + v1;
-        *(u32*)*(t4 + 0x9d4) = t3;
-        *(u32*)*(t4 + 0xa2c) = a3;
-        *(u32*)*(t4 + 0xa34) = t0;
-        *(u32*)*(t4 + 0xa30) = t1;
-        *(u32*)*(t4 + 0xa38) = a2;
-        *(u32*)*(t4 + 0xa3c) = a1;
-        *(u32*)*(t4 + 0xa40) = a0;
-        *(u32*)*(t4 + 0xa44) = v1;
-        *(u32*)*(t4 + 0xa48) = ret;
+        *(u32*)(t4 + 0x9d4) = t3;
+        *(u32*)(t4 + 0xa2c) = a3;
+        *(u32*)(t4 + 0xa34) = t0;
+        *(u32*)(t4 + 0xa30) = t1;
+        *(u32*)(t4 + 0xa38) = a2;
+        *(u32*)(t4 + 0xa3c) = a1;
+        *(u32*)(t4 + 0xa40) = a0;
+        *(u32*)(t4 + 0xa44) = v1;
+        *(u32*)(t4 + 0xa48) = ret;
     }
     return ret;
 }
 
 /* Function at 0x002123A0 - 0x00213038 */
-int CDROM_ProcessReverb()
+u32 CDROM_ProcessReverb(u32 a0)
 {
     /* Stack frame: 304 bytes */
-    int local_0C;
-    int local_10;
-    int local_14;
-    int local_18;
-    int local_1C;
-    int local_20;
-    int local_24;
-    int local_28;
-    int local_2C;
-    int local_34;
-    int local_38;
-    int local_3C;
-    int local_40;
-    int local_44;
-    int local_48;
-    int local_4C;
-    int local_50;
-    int local_54;
-    int local_58;
-    int local_5C;
-    int local_60;
-    int local_64;
-    int local_68;
-    int local_6C;
-    int local_70;
-    int local_74;
-    int local_78;
-    int local_7C;
-    int local_80;
-    int local_84;
-    int local_88;
-    int local_8C;
-    int local_90;
-    int local_94;
-    int local_98;
-    int local_9C;
-    int local_A0;
-    int local_A4;
-    int local_A8;
-    int local_AC;
-    int local_B0;
-    int local_B4;
-    int local_B8;
-    int local_BC;
-    int local_C0;
-    int local_C4;
-    int local_C8;
-    int local_CC;
-    int local_D0;
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
+    u32 local_0C;
+    u32 local_10;
+    u32 local_14;
+    u32 local_18;
+    u32 local_1C;
+    u32 local_20;
+    u32 local_24;
+    u32 local_28;
+    u32 local_2C;
+    u32 local_34;
+    u32 local_38;
+    u32 ret, v1, a3, a2, a1, s1, s7, s2, s5, s6, s0, s3, s4, t9, t0, t1, t5, t2, t4, t8, t3, t6, t7;
+    u32 local_3C;
+    u32 local_40;
+    u32 local_44;
+    u32 local_48;
+    u32 local_4C;
+    u32 local_50;
+    u32 local_54;
+    u32 local_58;
+    u32 local_5C;
+    u32 local_60;
+    u32 local_64;
+    u32 local_68;
+    u32 local_6C;
+    u32 local_70;
+    u32 local_74;
+    u32 local_78;
+    u32 local_7C;
+    u32 local_80;
+    u32 local_84;
+    u32 local_88;
+    u32 local_8C;
+    u32 local_90;
+    u32 local_94;
+    u32 local_98;
+    u32 local_9C;
+    u32 local_A0;
+    u32 local_A4;
+    u32 local_A8;
+    u32 local_AC;
+    u32 local_B0;
+    u32 local_B4;
+    u32 local_B8;
+    u32 local_BC;
+    u32 local_C0;
+    u32 local_C4;
+    u32 local_C8;
+    u32 local_CC;
+    u32 local_D0;
+    u32 ret, v1, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
     a2 = 0x70000000 + 0x350;
-    a1 = 0x007AB980;
-    v1 = *(u16*)*(a2 + 0x1a2);
-    ret = *(u16*)*(a2 + 0x1a4);
+    a1 = 0x007AB980;  /* SPU_SAMPLE_BUF: SPU sample buffer */
+    v1 = *(u16*)(a2 + 0x1a2);
+    ret = *(u16*)(a2 + 0x1a4);  /* PSX: exec_handlers[5] */
     v1 = v1 << 3;
     ret = ret << 3;
     s6 = v1 + a1;
     __fp = ret + a1;
     if ((signed)a0 <= 0) goto loc_212FD0;
     t9 = a2;
-    *(u32*)(sp) = a0;
+    *(u32*)(__sp) = a0;
     ret = t9 + 0xb50;
     local_D0 = ret;
 loc_212408:
-    ret = *(u32*)*(t9 + 0x9d8);
     ret = ret ^ 1;
-    *(u32*)*(t9 + 0x9d8) = ret;
+    *(u32*)(t9 + 0x9d8) = ret;
     if (ret != 0) {
         a0 = local_D0;
         t2 = 0x7fff;
         a1 = 0x7fff;
         a2 = -0x8000;
-        v1 = *(u32*)*(a0 + 8);
+        v1 = *(u32*)(a0 + 8);
         a3 = 0x59b3;
-        s2 = *(u32*)*(t9 + 0x9bc);
+        s2 = *(u32*)(t9 + 0x9bc);
         t4 = 0x12c7;
         ret = ((signed)t2 < (signed)v1) ? 1 : 0;
-        s7 = *(u32*)*(t9 + 0x9b8);
-        __asm("movz a1, v1, v0");
-        t8 = *(u32*)*(t9 + 0x9c8);
+        s7 = *(u32*)(t9 + 0x9b8);
+        if (ret == 0) a1 = v1;
+        t8 = *(u32*)(t9 + 0x9c8);
         ret = ((signed)a1 < -0x8000) ? 1 : 0;
-        s3 = *(u32*)*(t9 + 0x9cc);
-        __asm("movn a1, a2, v0");
-        s5 = *(u32*)*(t9 + 0x9c4);
-        *(u32*)*(t9 + 0x9a4) = a1;
+        s3 = *(u32*)(t9 + 0x9cc);
+        if (ret != 0) a1 = a2;
+        s5 = *(u32*)(t9 + 0x9c4);
+        *(u32*)(t9 + 0x9a4) = a1;
         t6 = 0x1307;
-        s4 = *(u32*)*(t9 + 0x9d0);
+        s4 = *(u32*)(t9 + 0x9d0);
         a0 = (s32)((s64)s2 * (s64)a3); HI_LO = (s64)s2 * (s64)a3;
         ac2 = (s32)((s64)s7 * (s64)t6); HI_LO = (s64)s7 * (s64)t6;
-        __asm("mult1 v1, t8, a3");
-        __asm("mult1 t0, s3, t4");
+        v1 = t8 * a3;
+        t0 = s3 * t4;
         a3 = local_D0;
         t7 = (s32)((s64)s4 * (s64)t4); HI_LO = (s64)s4 * (s64)t4;
         t3 = (s32)((s64)s5 * (s64)t6); HI_LO = (s64)s5 * (s64)t6;
-        a2 = *(u32*)*(a3 + 0xc);
-        a1 = *(u32*)*(t9 + 0x9b4);
-        t1 = *(u32*)*(t9 + 0x9c0);
+        a2 = *(u32*)(a3 + 0xc);  /* GTE data: vz1 */
+        a1 = *(u32*)(t9 + 0x9b4);
+        t1 = *(u32*)(t9 + 0x9c0);
         t0 = t0 + ret;
         ret = ((signed)t2 < (signed)a2) ? 1 : 0;
         t3 = t7 + t3;
-        __asm("movz t2, a2, v0");
+        if (ret == 0) t2 = a2;
         a0 = a0 - a1;
         v1 = v1 - t1;
         a0 = a0 + t0;
@@ -2504,59 +2316,58 @@ loc_212408:
         ret = ((signed)t2 < -0x8000) ? 1 : 0;
         t0 = -0x8000;
         a0 = (signed)a0 >> 0xf;
-        __asm("movn t2, t0, v0");
+        if (ret != 0) t2 = t0;
         v1 = (signed)v1 >> 0xf;
-        *(u32*)*(__sp + 8) = t3;
-        *(u32*)*(t9 + 0x9b0) = t2;
-        *(u32*)*(a3 + 8) = a0;
-        *(u32*)*(a3 + 0xc) = v1;
-        *(u32*)*(t9 + 0x9b4) = s7;
-        *(u32*)*(t9 + 0x9b8) = s2;
-        *(u32*)*(t9 + 0x9bc) = s3;
-        *(u32*)*(t9 + 0x9c0) = s5;
-        *(u32*)*(t9 + 0x9c4) = t8;
-        *(u32*)*(t9 + 0x9c8) = s4;
+        *(u32*)(__sp + 8) = t3;
+        *(u32*)(t9 + 0x9b0) = t2;
+        *(u32*)(a3 + 8) = a0;
+        *(u32*)(a3 + 0xc) = v1;
+        *(u32*)(t9 + 0x9b4) = s7;
+        *(u32*)(t9 + 0x9b8) = s2;
+        *(u32*)(t9 + 0x9bc) = s3;
+        *(u32*)(t9 + 0x9c0) = s5;
+        *(u32*)(t9 + 0x9c4) = t8;
+        *(u32*)(t9 + 0x9c8) = s4;
         goto loc_212FB4;
     }
     t4 = local_D0;
     t6 = 0x7fff;
-    t7 = *(u32*)*(t9 + 0x9a4);
+    t7 = *(u32*)(t9 + 0x9a4);
     a2 = -0x8000;
-    v1 = *(u32*)*(t4 + 8);
+    v1 = *(u32*)(t4 + 8);
     a3 = 0x12c7;
-    a1 = *(u32*)*(t9 + 0x9a0);
-    t1 = 0 | 0x8000;
+    a1 = *(u32*)(t9 + 0x9a0);
+    t1 = 0x8000;
     ret = ((signed)t6 < (signed)v1) ? 1 : 0;
-    __asm("movz t6, v1, v0");
+    if (ret == 0) t6 = v1;
     ret = 0x59b3;
     a0 = (s32)((s64)t7 * (s64)ret); HI_LO = (s64)t7 * (s64)ret;
-    ret = ((signed)t6 < -0x8000) ? 1 : 0;
-    __asm("movz a2, t6, v0");
+    if ((signed)t6 >= (signed)-0x8000) a2 = t6;
     v1 = 0x1307;
     local_0C = a2;
     a1 = (s32)((s64)a1 * (s64)v1); HI_LO = (s64)a1 * (s64)v1;
     ac2 = (s32)((s64)a2 * (s64)a3); HI_LO = (s64)a2 * (s64)a3;
-    t0 = *(u32*)*(t9 + 0x9f4);
-    v1 = *(u32*)*(t9 + 0x99c);
+    t0 = *(u32*)(t9 + 0x9f4);
+    v1 = *(u32*)(t9 + 0x99c);
     local_28 = t0;
     a0 = a0 - v1;
     ret = ret + a1;
-    t4 = *(s16*)*(t9 + 0x1ce);
+    t4 = *(s16*)(t9 + 0x1ce);
     a0 = a0 + ret;
     t8 = (signed)a0 >> 0xf;
     a1 = local_D0;
     local_18 = t4;
     v1 = *(s16*)(t0);
     t0 = 0x7fff;
-    t6 = *(s16*)*(t9 + 0x1fc);
+    t6 = *(s16*)(t9 + 0x1fc);
     local_10 = t0;
     ac3 = (s32)((s64)v1 * (s64)t4); HI_LO = (s64)v1 * (s64)t4;
     a0 = (s32)((s64)t8 * (s64)t6); HI_LO = (s64)t8 * (s64)t6;
     t6 = 0x7fff;
-    t7 = *(u32*)*(t9 + 0xa3c);
+    t7 = *(u32*)(t9 + 0xa3c);
     local_24 = t7;
     v1 = (signed)v1 >> 0xf;
-    ret = *(s16*)*(t9 + 0x1c4);
+    ret = *(s16*)(t9 + 0x1c4);
     local_34 = a0;
     local_1C = ret;
     t1 = t1 - ret;
@@ -2566,53 +2377,50 @@ loc_212408:
     t8 = (signed)a3 >> 0xf;
     v1 = t8 + v1;
     a3 = -0x8000;
-    a0 = *(u32*)*(a1 + 0xc);
+    a0 = *(u32*)(a1 + 0xc);  /* GTE data: vz1 */
     a1 = 0x59b3;
-    t2 = *(u32*)*(t9 + 0x9dc);
+    t2 = *(u32*)(t9 + 0x9dc);
     ac3 = (s32)((s64)v1 * (s64)ret); HI_LO = (s64)v1 * (s64)ret;
     local_38 = t0;
-    ret = ((signed)t0 < (signed)a0) ? 1 : 0;
-    __asm("movz t6, a0, v0");
+    if ((signed)t0 >= (signed)a0) t6 = a0;
     a2 = (s32)((s64)a2 * (s64)t1); HI_LO = (s64)a2 * (s64)t1;
-    t4 = *(u32*)*(t9 + 0xa18);
-    ret = ((signed)t6 < -0x8000) ? 1 : 0;
-    __asm("movz a3, t6, v0");
+    t4 = *(u32*)(t9 + 0xa18);
+    if ((signed)t6 >= (signed)-0x8000) a3 = t6;
     t6 = 0x1307;
     local_2C = t4;
     v1 = (signed)v1 >> 0xf;
     a2 = (signed)a2 >> 0xf;
-    t3 = *(u32*)*(t9 + 0xa40);
+    t3 = *(u32*)(t9 + 0xa40);
     v1 = v1 + a2;
-    t7 = *(u32*)*(t9 + 0x9b0);
+    t7 = *(u32*)(t9 + 0x9b0);
     ret = ((signed)t0 < (signed)v1) ? 1 : 0;
     local_10 = a3;
-    __asm("movz t0, v1, v0");
+    if (ret == 0) t0 = v1;
     a0 = (s32)((s64)t7 * (s64)a1); HI_LO = (s64)t7 * (s64)a1;
     t7 = 0x12c7;
-    t4 = *(u32*)*(t9 + 0x9ac);
-    __asm("mult1 a1, a3, t7");
+    t4 = *(u32*)(t9 + 0x9ac);
+    a1 = a3 * t7;
     v1 = -0x8000;
     t4 = (s32)((s64)t4 * (s64)t6); HI_LO = (s64)t4 * (s64)t6;
     local_14 = t4;
     a1 = a1 + t4;
-    a2 = *(u32*)*(t9 + 0x9a8);
-    ret = *(u32*)*(t9 + 0xa14);
-    t1 = *(u32*)*(t9 + 0x9fc);
+    a2 = *(u32*)(t9 + 0x9a8);
+    ret = *(u32*)(t9 + 0xa14);
+    t1 = *(u32*)(t9 + 0x9fc);
     a0 = a0 - a2;
     local_48 = ret;
-    ret = ((signed)t0 < -0x8000) ? 1 : 0;
-    __asm("movn t0, v1, v0");
+    if ((signed)t0 < (signed)-0x8000) t0 = v1;
     v1 = __fp ^ t2;
     a0 = a0 + a1;
     *(u16*)(t2) = t0;
     s7 = (signed)a0 >> 0xf;
-    a0 = *(u32*)*(t9 + 0xa44);
+    a0 = *(u32*)(t9 + 0xa44);
     a1 = local_2C;
-    __asm("movz fp, zero, v1");
+    if (v1 == 0) __fp = 0;
     local_44 = a0;
     v1 = __fp ^ t1;
     a2 = local_18;
-    __asm("movz fp, zero, v1");
+    if (v1 == 0) __fp = 0;
     ret = *(s16*)(a1);
     t2 = t2 + 2;
     a1 = *(s16*)(t3);
@@ -2627,20 +2435,19 @@ loc_212408:
     ret = t8 + ret;
     a0 = __fp ^ t0;
     ac2 = (s32)((s64)ret * (s64)t4); HI_LO = (s64)ret * (s64)t4;
-    t4 = 0x00830000;
-    __asm("movz fp, zero, a0");
+    t4 = 0x00830000;  /* CDROM_SECTOR_BUF: CD-ROM sector buffer */
+    if (a0 == 0) __fp = 0;
     a1 = (signed)a1 >> 0xf;
     a0 = __fp ^ t3;
     t3 = t3 + 2;
-    __asm("movz fp, zero, a0");
+    if (a0 == 0) __fp = 0;
     t7 = local_2C;
     ret = (signed)ret >> 0xf;
     v1 = __fp ^ t6;
     ret = ret + a1;
     a1 = local_38;
-    __asm("movz fp, zero, v1");
-    v1 = ((signed)a2 < (signed)ret) ? 1 : 0;
-    __asm("movz a1, v0, v1");
+    if (v1 == 0) __fp = 0;
+    if ((((signed)a2 < (signed)ret) ? 1 : 0) == 0) a1 = ret;
     t0 = t0 + 2;
     a0 = __fp ^ t7;
     t7 = t7 + 2;
@@ -2653,20 +2460,20 @@ loc_212408:
     t7 = ((unsigned)t4 < (unsigned)t3) ? 1 : 0;
     ret = ((signed)a1 < -0x8000) ? 1 : 0;
     a3 = 0x0082B97E;
-    __asm("movz t6, a1, v0");
+    if (ret == 0) t6 = a1;
     ret = t4;
     a3 = ((unsigned)a3 < (unsigned)t2) ? 1 : 0;
-    t8 = *(u32*)*(t9 + 0x9f8);
-    s4 = *(u32*)*(t9 + 0xa00);
+    t8 = *(u32*)(t9 + 0x9f8);
+    s4 = *(u32*)(t9 + 0xa00);
     s3 = ((unsigned)t4 < (unsigned)t0) ? 1 : 0;
     local_3C = a3;
-    __asm("movz fp, zero, a0");
+    if (a0 == 0) __fp = 0;
     local_40 = t7;
     *(u16*)(t1) = t6;
     t1 = t1 + 2;
     a1 = ((unsigned)t4 < (unsigned)t1) ? 1 : 0;
     t6 = local_2C;
-    __asm("movn t1, s6, a1");
+    if (a1 != 0) t1 = s6;
     v1 = local_28;
     a3 = local_48;
     t0 = ((unsigned)ret < (unsigned)t6) ? 1 : 0;
@@ -2674,68 +2481,68 @@ loc_212408:
     t4 = ((unsigned)ret < (unsigned)v1) ? 1 : 0;
     t7 = local_18;
     v1 = *(s16*)(a3);
-    __asm("movn t2, s6, t6");
+    if (t6 != 0) t2 = s6;
     a3 = local_44;
     a1 = local_24;
     ac3 = (s32)((s64)v1 * (s64)t7); HI_LO = (s64)v1 * (s64)t7;
     t6 = local_28;
     a0 = *(s16*)(a3);
-    __asm("movn a1, s6, s3");
+    if (s3 != 0) a1 = s6;
     t7 = local_20;
-    __asm("movn t6, s6, t4");
-    ret = *(s16*)*(t9 + 0x1fe);
+    if (t4 != 0) t6 = s6;
+    ret = *(s16*)(t9 + 0x1fe);
     v1 = (signed)v1 >> 0xf;
     a3 = local_40;
     a0 = (s32)((s64)a0 * (s64)t7); HI_LO = (s64)a0 * (s64)t7;
     local_24 = a1;
     ac2 = (s32)((s64)s7 * (s64)ret); HI_LO = (s64)s7 * (s64)ret;
     local_28 = t6;
-    __asm("movn t3, s6, a3");
+    if (a3 != 0) t3 = s6;
     t7 = local_2C;
     a0 = (signed)a0 >> 0xf;
-    __asm("movn t7, s6, t0");
+    if (t0 != 0) t7 = s6;
     s7 = (signed)ret >> 0xf;
     local_2C = t7;
     v1 = s7 + v1;
     ret = local_1C;
-    a1 = *(u32*)*(t9 + 0x9a4);
-    t0 = *(u32*)*(t9 + 0x9b0);
+    a1 = *(u32*)(t9 + 0x9a4);
+    t0 = *(u32*)(t9 + 0x9b0);
     ac3 = (s32)((s64)v1 * (s64)ret); HI_LO = (s64)v1 * (s64)ret;
-    *(u32*)*(t9 + 0x99c) = a1;
+    *(u32*)(t9 + 0x99c) = a1;
     a1 = 0x7fff;
     ret = __fp ^ s4;
     a3 = local_0C;
-    __asm("movz fp, zero, v0");
-    *(u32*)*(t9 + 0x9a8) = t0;
+    if (ret == 0) __fp = 0;
+    *(u32*)(t9 + 0x9a8) = t0;
     v1 = (signed)v1 >> 0xf;
-    *(u32*)*(t9 + 0x9a0) = a3;
+    *(u32*)(t9 + 0x9a0) = a3;
     v1 = v1 + a0;
     ret = ((signed)a2 < (signed)v1) ? 1 : 0;
     t4 = local_10;
-    *(u32*)*(t9 + 0x9ac) = t4;
+    *(u32*)(t9 + 0x9ac) = t4;
     local_4C = a2;
-    __asm("movz a2, v1, v0");
-    *(u32*)*(t9 + 0x9dc) = t2;
+    if (ret == 0) a2 = v1;
+    *(u32*)(t9 + 0x9dc) = t2;
     ret = ((signed)a2 < -0x8000) ? 1 : 0;
-    *(u32*)*(t9 + 0x9fc) = t1;
+    *(u32*)(t9 + 0x9fc) = t1;
     v1 = -0x8000;
-    t2 = *(u32*)*(t9 + 0x9e0);
-    __asm("movn a2, v1, v0");
+    t2 = *(u32*)(t9 + 0x9e0);
+    if (ret != 0) a2 = v1;
     t6 = local_24;
-    *(u32*)*(t9 + 0xa40) = t3;
+    *(u32*)(t9 + 0xa40) = t3;
     ret = __fp ^ t2;
-    *(u32*)*(t9 + 0xa3c) = t6;
-    __asm("movz fp, zero, v0");
+    *(u32*)(t9 + 0xa3c) = t6;
+    if (ret == 0) __fp = 0;
     t7 = local_28;
-    *(u32*)*(t9 + 0x9f4) = t7;
+    *(u32*)(t9 + 0x9f4) = t7;
     a0 = local_2C;
-    *(u32*)*(t9 + 0xa18) = a0;
+    *(u32*)(t9 + 0xa18) = a0;
     local_98 = a1;
-    t3 = *(u32*)*(t9 + 0xa48);
+    t3 = *(u32*)(t9 + 0xa48);
     local_A4 = a1;
     *(u16*)(s4) = a2;
     s4 = s4 + 2;
-    t7 = *(u32*)*(t9 + 0x9ec);
+    t7 = *(u32*)(t9 + 0x9ec);
     v1 = *(s16*)(t8);
     a2 = local_18;
     a3 = local_44;
@@ -2743,45 +2550,44 @@ loc_212408:
     t4 = local_48;
     ret = __fp ^ a3;
     a3 = -0x8000;
-    __asm("movz fp, zero, v0");
+    if (ret == 0) __fp = 0;
     a0 = *(s16*)(t3);
     ret = __fp ^ t3;
     t3 = t3 + 2;
-    __asm("movz fp, zero, v0");
+    if (ret == 0) __fp = 0;
     t0 = local_20;
     ret = __fp ^ t4;
     t6 = local_1C;
     v1 = (signed)v1 >> 0xf;
-    __asm("movz fp, zero, v0");
+    if (ret == 0) __fp = 0;
     v1 = s7 + v1;
     ret = __fp ^ t8;
     a0 = (s32)((s64)a0 * (s64)t0); HI_LO = (s64)a0 * (s64)t0;
-    t0 = *(u32*)*(t9 + 0x9e4);
+    t0 = *(u32*)(t9 + 0x9e4);
     ac3 = (s32)((s64)v1 * (s64)t6); HI_LO = (s64)v1 * (s64)t6;
-    __asm("movz fp, zero, v0");
+    if (ret == 0) __fp = 0;
     ret = __fp ^ t0;
     local_5C = t7;
-    __asm("movz fp, zero, v0");
-    a2 = *(u32*)*(t9 + 0xa04);
+    if (ret == 0) __fp = 0;
+    a2 = *(u32*)(t9 + 0xa04);
     ret = __fp ^ t7;
     a0 = (signed)a0 >> 0xf;
     v1 = (signed)v1 >> 0xf;
-    __asm("movz fp, zero, v0");
+    if (ret == 0) __fp = 0;
     v1 = v1 + a0;
     ret = local_4C;
     a0 = ((signed)a1 < (signed)v1) ? 1 : 0;
-    a1 = *(u32*)*(t9 + 0xa0c);
-    __asm("movz v0, v1, a0");
+    a1 = *(u32*)(t9 + 0xa0c);
+    if (a0 == 0) ret = v1;
     t8 = t8 + 2;
     local_4C = ret;
     ret = __fp ^ a2;
-    __asm("movz fp, zero, v0");
+    if (ret == 0) __fp = 0;
     a0 = local_4C;
     ret = __fp ^ a1;
-    t1 = *(u32*)*(t9 + 0xa08);
-    __asm("movz fp, zero, v0");
-    v1 = ((signed)a0 < -0x8000) ? 1 : 0;
-    __asm("movz a3, a0, v1");
+    t1 = *(u32*)(t9 + 0xa08);
+    if (ret == 0) __fp = 0;
+    if ((((signed)a0 < -0x8000) ? 1 : 0) == 0) a3 = a0;
     *(u16*)(t2) = a3;
     t2 = t2 + 2;
     t4 = local_44;
@@ -2799,7 +2605,7 @@ loc_212408:
     t7 = *(s16*)(a1);
     a1 = a1 + 2;
     local_68 = t7;
-    ret = *(s16*)(v0);
+    ret = *(s16*)(ret);
     v1 = *(s16*)(a2);
     a2 = a2 + 2;
     local_70 = ret;
@@ -2808,29 +2614,29 @@ loc_212408:
     a3 = *(s16*)(t1);
     t1 = t1 + 2;
     local_48 = t4;
-    __asm("movn s4, s6, s5");
+    if (s5 != 0) s4 = s6;
     local_88 = a3;
     a3 = ((unsigned)ret < (unsigned)t2) ? 1 : 0;
     local_C8 = t6;
     t6 = ret;
     t5 = ((unsigned)t6 < (unsigned)t8) ? 1 : 0;
-    t7 = *(u32*)*(t9 + 0xa10);
-    __asm("movn t8, s6, t5");
+    t7 = *(u32*)(t9 + 0xa10);
+    if (t5 != 0) t8 = s6;
     local_7C = t7;
     t7 = local_44;
-    a0 = *(u32*)*(t9 + 0x9e8);
+    a0 = *(u32*)(t9 + 0x9e8);
     local_50 = a3;
     ret = ((unsigned)t6 < (unsigned)t7) ? 1 : 0;
     local_80 = a0;
     a0 = ((unsigned)t6 < (unsigned)t3) ? 1 : 0;
     a3 = local_48;
-    __asm("movn t3, s6, a0");
-    t4 = *(u32*)*(t9 + 0x9f0);
+    if (a0 != 0) t3 = s6;
+    t4 = *(u32*)(t9 + 0x9f0);
     a3 = ((unsigned)t6 < (unsigned)a3) ? 1 : 0;
     local_84 = t4;
     t4 = ((unsigned)t6 < (unsigned)t0) ? 1 : 0;
     local_54 = a3;
-    __asm("movn t0, s6, t4");
+    if (t4 != 0) t0 = s6;
     t7 = local_5C;
     a0 = local_5C;
     a3 = ((unsigned)t6 < (unsigned)t7) ? 1 : 0;
@@ -2842,71 +2648,70 @@ loc_212408:
     t7 = ((unsigned)t7 < (unsigned)a1) ? 1 : 0;
     local_8C = t6;
     local_78 = t7;
-    __asm("movn a0, s6, a3");
+    if (a3 != 0) a0 = s6;
     t7 = local_50;
     t6 = local_44;
-    __asm("movn t2, s6, t7");
+    if (t7 != 0) t2 = s6;
     t7 = local_48;
-    __asm("movn t6, s6, v0");
+    if (ret != 0) t6 = s6;
     ret = local_54;
     local_44 = t6;
-    __asm("movn t7, s6, v0");
+    if (ret != 0) t7 = s6;
     local_5C = a0;
     local_48 = t7;
     a3 = local_74;
     t4 = local_78;
     t6 = local_8C;
-    __asm("movn a2, s6, a3");
-    *(u32*)*(t9 + 0x9e0) = t2;
-    __asm("movn a1, s6, t4");
-    *(u32*)*(t9 + 0xa00) = s4;
+    if (a3 != 0) a2 = s6;
+    *(u32*)(t9 + 0x9e0) = t2;
+    if (t4 != 0) a1 = s6;
+    *(u32*)(t9 + 0xa00) = s4;
     t4 = 0x7fff;
-    __asm("movn t1, s6, t6");
+    if (t6 != 0) t1 = s6;
     ret = local_44;
     t7 = local_C8;
-    *(u32*)*(t9 + 0xa44) = ret;
-    __asm("movz fp, zero, t7");
+    *(u32*)(t9 + 0xa44) = ret;
+    if (t7 == 0) __fp = 0;
     a0 = local_7C;
-    *(u32*)*(t9 + 0xa48) = t3;
+    *(u32*)(t9 + 0xa48) = t3;
     ret = __fp ^ a0;
     a3 = local_48;
-    __asm("movz fp, zero, v0");
-    *(u32*)*(t9 + 0xa14) = a3;
+    if (ret == 0) __fp = 0;
+    *(u32*)(t9 + 0xa14) = a3;
     local_B0 = t4;
-    *(u32*)*(t9 + 0x9f8) = t8;
+    *(u32*)(t9 + 0x9f8) = t8;
     t6 = local_80;
-    *(u32*)*(t9 + 0x9e4) = t0;
+    *(u32*)(t9 + 0x9e4) = t0;
     ret = __fp ^ t6;
     t7 = local_5C;
-    __asm("movz fp, zero, v0");
-    *(u32*)*(t9 + 0x9ec) = t7;
+    if (ret == 0) __fp = 0;
+    *(u32*)(t9 + 0x9ec) = t7;
     a0 = local_84;
-    *(u32*)*(t9 + 0xa04) = a2;
-    *(u32*)*(t9 + 0xa0c) = a1;
+    *(u32*)(t9 + 0xa04) = a2;
+    *(u32*)(t9 + 0xa0c) = a1;
     ret = __fp ^ a0;
     local_C0 = t4;
-    __asm("movz fp, zero, v0");
-    t0 = *(s16*)*(t9 + 0x1c6);
+    if (ret == 0) __fp = 0;
+    t0 = *(s16*)(t9 + 0x1c6);
     local_BC = t4;
     a2 = local_60;
-    t6 = *(s16*)*(t9 + 0x1c8);
+    t6 = *(s16*)(t9 + 0x1c8);
     local_C4 = t4;
     t3 = (s32)((s64)a2 * (s64)t0); HI_LO = (s64)a2 * (s64)t0;
     t4 = local_80;
-    a1 = *(s16*)*(t9 + 0x1ca);
+    a1 = *(s16*)(t9 + 0x1ca);
     ret = local_7C;
     local_58 = a1;
     t3 = (signed)t3 >> 0xf;
     a1 = local_68;
     a0 = *(s16*)(t4);
     t4 = t4 + 2;
-    t7 = *(s16*)*(t9 + 0x1cc);
+    t7 = *(s16*)(t9 + 0x1cc);
     local_80 = t4;
-    __asm("mult1 a0, a0, t0");
+    a0 = a0 * t0;
     t4 = local_84;
-    a2 = *(s16*)(v0);
-    ret = ret + 2;
-    local_7C = ret;
+    a2 = *(s16*)(ret);
+    local_7C = ret + 2;
     ac2 = (s32)((s64)a1 * (s64)t7); HI_LO = (s64)a1 * (s64)t7;
     a3 = local_70;
     a2 = (s32)((s64)a2 * (s64)t7); HI_LO = (s64)a2 * (s64)t7;
@@ -2916,13 +2721,13 @@ loc_212408:
     t2 = (s32)((s64)a3 * (s64)t6); HI_LO = (s64)a3 * (s64)t6;
     a3 = local_58;
     ret = (signed)ret >> 0xf;
-    *(u32*)*(t9 + 0xa08) = t1;
-    __asm("mult1 a1, a1, t6");
+    *(u32*)(t9 + 0xa08) = t1;
+    a1 = a1 * t6;
     local_64 = t3;
-    __asm("mult1 v1, v1, a3");
+    v1 = v1 * a3;
     t3 = (signed)t2 >> 0xf;
     t6 = 0x7fff;
-    a3 = *(u32*)*(t9 + 0xa2c);
+    a3 = *(u32*)(t9 + 0xa2c);
     a2 = (signed)a2 >> 0xf;
     t4 = local_64;
     a0 = (signed)a0 >> 0xf;
@@ -2930,42 +2735,42 @@ loc_212408:
     v1 = (signed)v1 >> 0xf;
     ret = t4 + ret;
     v1 = v1 + t3;
-    t1 = *(s16*)*(t9 + 0x1d0);
+    t1 = *(s16*)(t9 + 0x1d0);
     a0 = a0 + a2;
     t2 = *(s16*)(a3);
     a1 = (signed)a1 >> 0xf;
     local_6C = ret;
     ac2 = (s32)((s64)t2 * (s64)t1); HI_LO = (s64)t2 * (s64)t1;
-    t0 = *(u32*)*(t9 + 0xa1c);
+    t0 = *(u32*)(t9 + 0xa1c);
     a3 = local_6C;
     local_90 = t0;
     t8 = a3 + v1;
     ret = (signed)ret >> 0xf;
-    t4 = *(u32*)*(t9 + 0xa34);
+    t4 = *(u32*)(t9 + 0xa34);
     t8 = t8 - ret;
-    t3 = *(s16*)*(t9 + 0x1d2);
+    t3 = *(s16*)(t9 + 0x1d2);
     ret = ((signed)t6 < (signed)t8) ? 1 : 0;
     local_A0 = t4;
-    t0 = *(u32*)*(t9 + 0xa24);
+    t0 = *(u32*)(t9 + 0xa24);
     t7 = local_88;
     v1 = local_58;
     local_9C = t0;
     a3 = (s32)((s64)t7 * (s64)v1); HI_LO = (s64)t7 * (s64)v1;
     ac3 = (s32)((s64)t8 * (s64)t1); HI_LO = (s64)t8 * (s64)t1;
     t7 = local_98;
-    t4 = *(u32*)*(t9 + 0xa30);
-    __asm("movz t7, t8, v0");
+    t4 = *(u32*)(t9 + 0xa30);
+    if (ret == 0) t7 = t8;
     local_AC = t4;
     ret = ((signed)t7 < -0x8000) ? 1 : 0;
     t4 = local_90;
     t0 = (signed)a3 >> 0xf;
     a3 = -0x8000;
     v1 = (signed)v1 >> 0xf;
-    __asm("movz a3, t7, v0");
+    if (ret == 0) a3 = t7;
     ret = t0 + a1;
     *(u16*)(t4) = a3;
     a3 = 0x3def;
-    t7 = *(u32*)*(t9 + 0xa20);
+    t7 = *(u32*)(t9 + 0xa20);
     t8 = t2 + v1;
     t6 = local_A0;
     s7 = a0 + ret;
@@ -2975,31 +2780,31 @@ loc_212408:
     local_A8 = t7;
     ac3 = (s32)((s64)a2 * (s64)t3); HI_LO = (s64)a2 * (s64)t3;
     a1 = local_9C;
-    ret = *(u32*)*(t9 + 0xa38);
+    ret = *(u32*)(t9 + 0xa38);
     t7 = local_9C;
     local_B8 = ret;
     ret = __fp ^ t4;
-    __asm("movz fp, zero, v0");
+    if (ret == 0) __fp = 0;
     t4 = t4 + 2;
     local_90 = t4;
     ret = __fp ^ a0;
     v1 = (signed)v1 >> 0xf;
-    __asm("movz fp, zero, v0");
+    if (ret == 0) __fp = 0;
     t8 = t8 - v1;
     t4 = local_A4;
     a0 = a0 + 2;
-    t2 = *(u32*)*(t9 + 0x9bc);
+    t2 = *(u32*)(t9 + 0x9bc);
     ret = ((signed)t0 < (signed)t8) ? 1 : 0;
     local_94 = a0;
     a0 = __fp ^ a1;
     a1 = (s32)((s64)t8 * (s64)t3); HI_LO = (s64)t8 * (s64)t3;
-    __asm("movz t4, t8, v0");
-    __asm("movz fp, zero, a0");
+    if (ret == 0) t4 = t8;
+    if (a0 == 0) __fp = 0;
     v1 = __fp ^ t6;
     t6 = -0x8000;
     ret = ((signed)t4 < -0x8000) ? 1 : 0;
-    __asm("movz fp, zero, v1");
-    __asm("movz t6, t4, v0");
+    if (v1 == 0) __fp = 0;
+    if (ret == 0) t6 = t4;
     a1 = (signed)a1 >> 0xf;
     *(u16*)(t7) = t6;
     t7 = t7 + 2;
@@ -3009,49 +2814,48 @@ loc_212408:
     t8 = a2 + a1;
     a0 = local_C0;
     v1 = 0x7fff;
-    s5 = *(s16*)(v0);
-    ret = ((signed)v1 < (signed)t8) ? 1 : 0;
-    __asm("movz a0, t8, v0");
-    t0 = *(u32*)*(t9 + 0x9b4);
+    s5 = *(s16*)(ret);
+    if ((signed)v1 >= (signed)t8) a0 = t8;
+    t0 = *(u32*)(t9 + 0x9b4);
     local_C0 = a0;
     a0 = (s32)((s64)s5 * (s64)t1); HI_LO = (s64)s5 * (s64)t1;
-    __asm("mult1 t2, t2, a3");
+    t2 = t2 * a3;
     a3 = local_A8;
     t4 = local_C0;
     t6 = -0x8000;
-    a1 = *(u32*)*(t9 + 0x9b8);
+    a1 = *(u32*)(t9 + 0x9b8);
     ret = __fp ^ a3;
     v1 = ((signed)t4 < -0x8000) ? 1 : 0;
     a0 = (signed)a0 >> 0xf;
-    __asm("movz t6, t4, v1");
+    if (v1 == 0) t6 = t4;
     t4 = local_B0;
     s7 = s7 - a0;
     a0 = local_AC;
-    __asm("movz fp, zero, v0");
+    if (ret == 0) __fp = 0;
     ret = 0x19c;
     a3 = 0x7fff;
     t8 = (s32)((s64)a1 * (s64)t7); HI_LO = (s64)a1 * (s64)t7;
-    __asm("mult1 a1, t6, v0");
+    a1 = t6 * ret;
     ret = ((signed)a3 < (signed)s7) ? 1 : 0;
-    __asm("movz t4, s7, v0");
+    if (ret == 0) t4 = s7;
     local_C0 = t6;
     ret = ((signed)t4 < -0x8000) ? 1 : 0;
     t7 = local_A8;
     t6 = -0x8000;
     a2 = 0x1a8;
-    __asm("movz t6, t4, v0");
-    __asm("mult1 t0, t0, a2");
+    if (ret == 0) t6 = t4;
+    t0 = t0 * a2;
     v1 = __fp ^ a0;
-    a2 = *(u32*)*(t9 + 0xa28);
+    a2 = *(u32*)(t9 + 0xa28);
     *(u16*)(t7) = t6;
     t7 = t7 + 2;
     local_A8 = t7;
-    __asm("movz fp, zero, v1");
+    if (v1 == 0) __fp = 0;
     ret = local_B8;
     v1 = __fp ^ a2;
-    __asm("movz fp, zero, v1");
+    if (v1 == 0) __fp = 0;
     t1 = (s32)((s64)s7 * (s64)t1); HI_LO = (s64)s7 * (s64)t1;
-    v1 = *(s16*)(v0);
+    v1 = *(s16*)(ret);
     t2 = t2 + t0;
     a0 = local_A0;
     a1 = a1 + t8;
@@ -3089,12 +2893,11 @@ loc_212408:
     t6 = local_BC;
     ret = ((signed)t4 < (signed)s7) ? 1 : 0;
     t4 = -0x8000;
-    __asm("movz t6, s7, v0");
+    if (ret == 0) t6 = s7;
     ret = 0x0082B97E;
     a1 = 0x0082B97E;
     t1 = ((unsigned)ret < (unsigned)a0) ? 1 : 0;
-    ret = ((signed)t6 < -0x8000) ? 1 : 0;
-    __asm("movz t4, t6, v0");
+    if ((signed)t6 >= (signed)-0x8000) t4 = t6;
     t6 = local_A8;
     t3 = (s32)((s64)s7 * (s64)t3); HI_LO = (s64)s7 * (s64)t3;
     t0 = ((unsigned)a1 < (unsigned)a3) ? 1 : 0;
@@ -3109,117 +2912,113 @@ loc_212408:
     ret = local_AC;
     s7 = v1 + t3;
     t4 = local_B8;
-    __asm("movn a2, s6, a0");
+    if (a0 != 0) a2 = s6;
     v1 = ((unsigned)a1 < (unsigned)ret) ? 1 : 0;
     ret = ((signed)t6 < (signed)s7) ? 1 : 0;
     a1 = ((unsigned)a3 < (unsigned)t4) ? 1 : 0;
     a3 = local_C4;
     t4 = local_7C;
     t2 = (signed)t2 >> 0xf;
-    __asm("movz a3, s7, v0");
+    if (ret == 0) a3 = s7;
     ret = local_84;
     t6 = local_80;
-    __asm("movn t4, s6, s0");
+    if (s0 != 0) t4 = s6;
     local_C4 = a3;
-    __asm("movn v0, s6, t7");
+    if (t7 != 0) ret = s6;
     a3 = local_90;
-    __asm("movn t6, s6, t8");
+    if (t8 != 0) t6 = s6;
     local_7C = t4;
-    __asm("movn a3, s6, s1");
+    if (s1 != 0) a3 = s6;
     local_80 = t6;
     local_84 = ret;
     local_90 = a3;
     t4 = local_94;
     t6 = local_9C;
     t7 = local_A0;
-    __asm("movn t4, s6, s2");
+    if (s2 != 0) t4 = s6;
     local_94 = t4;
-    __asm("movn t6, s6, t1");
+    if (t1 != 0) t6 = s6;
     ret = local_A8;
-    __asm("movn t7, s6, t0");
+    if (t0 != 0) t7 = s6;
     a3 = local_B4;
     t0 = local_AC;
     t4 = local_B8;
-    __asm("movn v0, s6, a3");
+    if (a3 != 0) ret = s6;
     local_9C = t6;
-    __asm("movn t0, s6, v1");
+    if (v1 != 0) t0 = s6;
     t6 = local_7C;
-    __asm("movn t4, s6, a1");
+    if (a1 != 0) t4 = s6;
     local_A0 = t7;
     a1 = -0x8000;
     local_A8 = ret;
     local_AC = t0;
     local_B8 = t4;
     t4 = 0x19c;
-    *(u32*)*(t9 + 0xa10) = t6;
+    *(u32*)(t9 + 0xa10) = t6;
     t7 = local_80;
-    *(u32*)*(t9 + 0x9e8) = t7;
+    *(u32*)(t9 + 0x9e8) = t7;
     a0 = local_84;
     v1 = local_C4;
-    *(u32*)*(t9 + 0x9f0) = a0;
+    *(u32*)(t9 + 0x9f0) = a0;
     ret = ((signed)v1 < -0x8000) ? 1 : 0;
     a3 = local_90;
-    __asm("movz a1, v1, v0");
+    if (ret == 0) a1 = v1;
     local_C4 = a1;
-    *(u32*)*(t9 + 0xa1c) = a3;
+    *(u32*)(t9 + 0xa1c) = a3;
     t6 = local_94;
     t0 = local_C4;
-    *(u32*)*(t9 + 0xa2c) = t6;
+    *(u32*)(t9 + 0xa2c) = t6;
     a1 = (s32)((s64)t0 * (s64)t4); HI_LO = (s64)t0 * (s64)t4;
     ret = local_9C;
     t7 = local_CC;
-    *(u32*)*(t9 + 0xa24) = ret;
-    __asm("movz fp, zero, t7");
+    *(u32*)(t9 + 0xa24) = ret;
+    if (t7 == 0) __fp = 0;
     t7 = 0x3def;
-    v1 = local_A0;
-    *(u32*)*(t9 + 0xa34) = v1;
+    *(u32*)(t9 + 0xa34) = local_A0;
     a0 = local_A8;
-    *(u32*)*(t9 + 0xa20) = a0;
+    *(u32*)(t9 + 0xa20) = a0;
     a3 = local_AC;
-    *(u32*)*(t9 + 0xa30) = a3;
+    *(u32*)(t9 + 0xa30) = a3;
     a3 = 0x3e4c;
-    *(u32*)*(t9 + 0xa28) = a2;
+    *(u32*)(t9 + 0xa28) = a2;
     a2 = 0x1a8;
     t0 = local_B8;
-    *(u32*)*(t9 + 0xa38) = t0;
+    *(u32*)(t9 + 0xa38) = t0;
     t4 = local_D0;
-    *(u32*)*(t4 + 8) = t2;
-    ret = *(u32*)*(t9 + 0x9c8);
-    v1 = *(u32*)*(t9 + 0x9c0);
-    a0 = *(u32*)*(t9 + 0x9c4);
+    *(u32*)(t4 + 8) = t2;
+    ret = *(u32*)(t9 + 0x9c8);
+    v1 = *(u32*)(t9 + 0x9c0);
+    a0 = *(u32*)(t9 + 0x9c4);
     ac2 = (s32)((s64)ret * (s64)t7); HI_LO = (s64)ret * (s64)t7;
-    __asm("mult1 v1, v1, a2");
+    v1 = v1 * a2;
     t6 = local_C0;
     a0 = (s32)((s64)a0 * (s64)a3); HI_LO = (s64)a0 * (s64)a3;
-    *(u32*)*(t9 + 0x9cc) = t6;
+    *(u32*)(t9 + 0x9cc) = t6;
     ret = ret + v1;
     a1 = a1 + a0;
-    ret = ret + a1;
-    ret = (signed)ret >> 0xf;
-    *(u32*)*(t4 + 0xc) = ret;
+    *(u32*)(t4 + 0xc) = (signed)ret >> 0xf;
     t0 = local_C4;
-    *(u32*)*(t9 + 0x9d0) = t0;
+    *(u32*)(t9 + 0x9d0) = t0;
 loc_212FB4:
-    t4 = *(u32*)(sp);
+    t4 = *(u32*)(__sp);
     t6 = local_D0;
     t4 = t4 + -1;
     t6 = t6 + 0x10;
-    *(u32*)(sp) = t4;
+    *(u32*)(__sp) = t4;
     local_D0 = t6;
     if (t4 != 0) goto loc_212408;
 loc_212FD0:
     if (__fp == 0) {
-        return CDROM_CheckShellOpen(a0, a1, a2, a3);
+        return CDROM_CheckShellOpen();
     }
     return ret;
 }
 
 /* Function at 0x00213038 - 0x002131F8 */
-int CDROM_DecodeADPCM()
+u32 CDROM_DecodeADPCM(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 64 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
-    ret = (signed)a0 >> 4;
+    u32 ret, v1, s0, s1, s2, s3, s4, s5, s6, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
     ret = ret << 2;
     a0 = a0 & 0xf;
     s2 = -0x8000;
@@ -3229,11 +3028,11 @@ int CDROM_DecodeADPCM()
     s6 = t0;
     s1 = 0x00500000;
     s1 = s1 + ret;
-    s1 = *(u32*)*(s1 + -0x5a98);
+    s1 = *(u32*)(s1 + -0x5a98);
     t6 = a1;
     s0 = 0x00500000;
     s0 = s0 + ret;
-    s0 = *(u32*)*(s0 + -0x5aa8);
+    s0 = *(u32*)(s0 + -0x5aa8);
     t3 = a3;
     t4 = *(s16*)(s5);
     t9 = a0 + 0xa;
@@ -3243,7 +3042,7 @@ int CDROM_DecodeADPCM()
     do {
         a0 = *(u8*)(t6);
         ac2 = (s32)((s64)t5 * (s64)s0); HI_LO = (s64)t5 * (s64)s0;
-        __asm("mult1 v1, t4, s1");
+        v1 = t4 * s1;
         t4 = s2;
         a0 = a0 << t8;
         a1 = t7;
@@ -3259,54 +3058,30 @@ int CDROM_DecodeADPCM()
         t5 = s2;
         ret = ((signed)t7 < (signed)a0) ? 1 : 0;
         s4 = s4 + -1;
-        __asm("movz a1, a0, v0");
-        v1 = ((signed)a1 < -0x8000) ? 1 : 0;
-        __asm("movn a1, s2, v1");
+        if (ret == 0) a1 = a0;
+        if ((((signed)a1 < -0x8000) ? 1 : 0) != 0) a1 = s2;
         *(u16*)(t3) = a1;
         t3 = t3 + 2;
         a0 = (s32)((s64)a1 * (s64)s0); HI_LO = (s64)a1 * (s64)s0;
-        __asm("mult1 t1, a1, s1");
-        ret = *(u8*)*(t6 + 4);
-        ret = ret << t8;
-        ret = ret & s3;
-        ret = (signed)ret >> t9;
-        ret = ret + a0;
-        ret = ret - t2;
+        t1 = a1 * s1;
         ret = (signed)ret >> 6;
-        v1 = ((signed)t7 < (signed)ret) ? 1 : 0;
-        __asm("movz a2, v0, v1");
-        a0 = ((signed)a2 < -0x8000) ? 1 : 0;
-        __asm("movn a2, s2, a0");
+        if ((((signed)t7 < (signed)ret) ? 1 : 0) == 0) a2 = ret;
+        if ((signed)a2 < (signed)-0x8000) a2 = s2;
         *(u16*)(t3) = a2;
         t3 = t3 + 2;
         ac3 = (s32)((s64)a2 * (s64)s0); HI_LO = (s64)a2 * (s64)s0;
-        __asm("mult1 a1, a2, s1");
-        ret = *(u8*)*(t6 + 8);
-        ret = ret << t8;
-        ret = ret & s3;
-        ret = (signed)ret >> t9;
-        ret = ret + v1;
-        ret = ret - t1;
+        a1 = a2 * s1;
         ret = (signed)ret >> 6;
-        v1 = ((signed)t7 < (signed)ret) ? 1 : 0;
-        __asm("movz a3, v0, v1");
-        a0 = ((signed)a3 < -0x8000) ? 1 : 0;
-        __asm("movz t4, a3, a0");
+        if ((((signed)t7 < (signed)ret) ? 1 : 0) == 0) a3 = ret;
+        if ((signed)a3 >= (signed)-0x8000) t4 = a3;
         *(u16*)(t3) = t4;
         t3 = t3 + 2;
         ac3 = (s32)((s64)t4 * (s64)s0); HI_LO = (s64)t4 * (s64)s0;
-        ret = *(u8*)*(t6 + 0xc);
+        ret = *(u8*)(t6 + 0xc);  /* GTE data: vz1 */
         t6 = t6 + 0x10;
-        ret = ret << t8;
-        ret = ret & s3;
-        ret = (signed)ret >> t9;
-        ret = ret + v1;
-        ret = ret - a1;
         ret = (signed)ret >> 6;
-        v1 = ((signed)t7 < (signed)ret) ? 1 : 0;
-        __asm("movz t0, v0, v1");
-        a0 = ((signed)t0 < -0x8000) ? 1 : 0;
-        __asm("movz t5, t0, a0");
+        if ((((signed)t7 < (signed)ret) ? 1 : 0) == 0) t0 = ret;
+        if ((signed)t0 >= (signed)-0x8000) t5 = t0;
         *(u16*)(t3) = t5;
         t3 = t3 + 2;
     } while (s4 != 0);
@@ -3317,24 +3092,24 @@ int CDROM_DecodeADPCM()
 }
 
 /* Function at 0x002131F8 - 0x00213648 */
-int CDROM_DecodeSector()
+u32 CDROM_DecodeSector(u32 a0)
 {
     /* Stack frame: 80 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3, t4, t5, t6, t7, t8;
+    u32 ret, v1, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3, t4, t5, t6, t7, t8;
     t0 = 0x70000000 + 0x10a0;
     v1 = 0x1260;
-    ret = *(u8*)*(a0 + 0x13);
+    ret = *(u8*)(a0 + 0x13);
     a0 = a0 + 0x18;
-    a2 = *(u32*)*(t0 + 0x28);
+    a2 = *(u32*)(t0 + 0x28);  /* GTE data: ir2 */
     a1 = (unsigned)ret >> 2;
     a3 = ret & 1;
     __fp = a1 & 1;
-    ret = 0 | 0x9300;
+    ret = 0x9300;
     v1 = v1 << __fp;
     ret = ret - a2;
     v1 = (signed)v1 >> a3;
     if ((signed)ret >= (signed)v1) {
-        a2 = 0x005B0000;
+        a2 = 0x005B0000;  /* CDROM_DATA_BASE: CD-ROM data area */
         if (a3 != 0) {
             s4 = t0 + 0x12;
             s5 = a2 + -0x6e00;
@@ -3353,7 +3128,7 @@ int CDROM_DecodeSector()
                     t0 = s4;
                     t1 = s4 + -2;
                     ret = CDROM_DecodeADPCM(a0, a1, a2, a3);
-                    a0 = *(u8*)*(s1 + 1);
+                    a0 = *(u8*)(s1 + 1);
                     a3 = s6;
                     a1 = s0;
                     a2 = 0;
@@ -3361,8 +3136,7 @@ int CDROM_DecodeSector()
                     t1 = s4 + 2;
                     s5 = ret;
                     s3 = s3 + -1;
-                    ret = CDROM_DecodeADPCM(a0, a1, a2, a3);
-                    s6 = ret;
+                    s6 = CDROM_DecodeADPCM(a0, a1, a2, a3);
                     s1 = s1 + 2;
                     s0 = s0 + 1;
                 } while ((signed)s3 >= 0);
@@ -3372,19 +3146,18 @@ int CDROM_DecodeSector()
             } while (ret != 0);
             a1 = s4 + -0x12;
             ret = 0x930;
-            t2 = *(u32*)*(a1 + 0x2c);
+            t2 = *(u32*)(a1 + 0x2c);  /* GTE data: ir3 */
             s5 = ret << __fp;
-            a0 = 0 | 0x9300;
-            a2 = 0x005B0000;
+            a0 = 0x9300;
+            a2 = 0x005B0000;  /* CDROM_DATA_BASE: CD-ROM data area */
             ret = t2 + s5;
             s1 = a2 + -0x6e00;
-            __asm("div zero, v0, a0");
-            a0 = 0x005B0000;
+            a0 = 0x005B0000;  /* CDROM_DATA_BASE: CD-ROM data area */
             v1 = 0xdb7;
             ret = t2 << 2;
             v1 = (signed)v1 >> __fp;
-            t5 = *(u64*)*(a1 + 24);
-            t4 = *(u64*)*(a1 + 32);
+            t5 = *(u64*)(a1 + 24);
+            t4 = *(u64*)(a1 + 32);
             t8 = a0;
             a3 = 0x0082B980;
             a3 = a3 + ret;
@@ -3394,24 +3167,23 @@ int CDROM_DecodeSector()
             t3 = 0;
             t7 = 0;
             t6 = s5;
-            s6 = 0 | 0x9300;
-            s7 = 0x00830000;
+            s6 = 0x9300;
+            s7 = 0x00830000;  /* CDROM_SECTOR_BUF: CD-ROM sector buffer */
             a2 = HI;
-            *(u32*)*(a1 + 0x2c) = a2;
+            *(u32*)(a1 + 0x2c) = a2;
             do {
                 ret = t2 + t6;
                 v1 = s6 - t2;
                 a2 = t6;
-                ret = ((signed)s6 < (signed)ret) ? 1 : 0;
-                __asm("movn a2, v1, v0");
+                if ((signed)s6 < (signed)ret) a2 = v1;
                 s4 = 7;
                 t6 = t6 - a2;
-                s3 = 0 | 0xffff;
+                s3 = 0xffff;
                 t2 = t8 + -0x4e80;
                 do {
-                    ret = *(u64*)*(a0 + 0);
+                    ret = *(u64*)(a0 + 0);
                     v1 = ret;
-                    __asm("mmi2 v0, v0, t5");
+                    __asm("mmi2 ret, ret, t5");
                     __asm("mmi2 v1, v1, t4");
                     a0 = (u64)ret >> 32;
                     a1 = (u64)v1 >> 32;
@@ -3434,7 +3206,6 @@ int CDROM_DecodeSector()
                         t7 = 0;
                         t3 = ret & 0xffff;
                     }
-                    ret = (unsigned)t3 >> 0xc;
                     ret = (unsigned)t3 >> 4;
                     if (ret != 0) {
                         v1 = *(u16*)(s1);
@@ -3455,12 +3226,12 @@ int CDROM_DecodeSector()
                 t2 = 0;
             } while (t6 != 0);
             ret = 0x70000000 + 0x10a0;
-            v1 = *(u32*)*(ret + 0x28);
-            *(u64*)*(ret + 24) = t5;
+            v1 = *(u32*)(ret + 0x28);  /* GTE data: ir2 */
+            *(u64*)(ret + 24) = t5;
             v1 = v1 + s5;
-            *(u64*)*(ret + 32) = t4;
+            *(u64*)(ret + 32) = t4;
         } else {
-            s7 = 0x005B0000;
+            s7 = 0x005B0000;  /* CDROM_DATA_BASE: CD-ROM data area */
             s6 = t0 + 0x10;
             s2 = a0;
             a3 = s7 + -0x6e00;
@@ -3478,7 +3249,7 @@ int CDROM_DecodeSector()
                     t1 = s6;
                     s3 = s3 + -1;
                     ret = CDROM_DecodeADPCM(a0, a1, a2, a3);
-                    a0 = *(u8*)*(s1 + 1);
+                    a0 = *(u8*)(s1 + 1);
                     a3 = ret;
                     a1 = s0;
                     a2 = 0;
@@ -3495,21 +3266,20 @@ int CDROM_DecodeSector()
             } while (ret != 0);
             v1 = s4 + -0x12;
             ret = 0x1260;
-            t3 = *(u32*)*(v1 + 0x2c);
+            t3 = *(u32*)(v1 + 0x2c);  /* GTE data: ir3 */
             s0 = ret << __fp;
-            a1 = 0 | 0x9300;
-            a2 = *(u16*)*(v1 + 0x10);
+            a1 = 0x9300;
+            a2 = *(u16*)(v1 + 0x10);  /* GTE data: vxy2 */
             ret = t3 + s0;
-            a3 = *(u16*)*(v1 + 0x12);
-            __asm("div zero, v0, a1");
-            a1 = 0x005B0000;
+            a3 = *(u16*)(v1 + 0x12);
+            a1 = 0x005B0000;  /* CDROM_DATA_BASE: CD-ROM data area */
             a0 = 0xdb7;
             ret = t3 << 2;
             a0 = (signed)a0 >> __fp;
-            *(u16*)*(v1 + 0x14) = a2;
-            t4 = *(u64*)*(v1 + 24);
+            *(u16*)(v1 + 0x14) = a2;
+            t4 = *(u64*)(v1 + 24);
             s3 = a1;
-            *(u16*)*(v1 + 0x16) = a3;
+            *(u16*)(v1 + 0x16) = a3;
             a3 = 0x0082B980;
             a3 = a3 + ret;
             t6 = s7 + -0x6e00;
@@ -3518,27 +3288,23 @@ int CDROM_DecodeSector()
             t2 = 0;
             t1 = 0;
             t5 = s0;
-            s1 = 0 | 0x9300;
-            s2 = 0x00830000;
+            s1 = 0x9300;
+            s2 = 0x00830000;  /* CDROM_SECTOR_BUF: CD-ROM sector buffer */
             t0 = HI;
-            *(u32*)*(v1 + 0x2c) = t0;
+            *(u32*)(v1 + 0x2c) = t0;
             do {
                 ret = t3 + t5;
                 v1 = s1 - t3;
                 a2 = t5;
-                ret = ((signed)s1 < (signed)ret) ? 1 : 0;
-                __asm("movn a2, v1, v0");
+                if ((signed)s1 < (signed)ret) a2 = v1;
                 t7 = 7;
                 t5 = t5 - a2;
-                t3 = 0 | 0xffff;
+                t3 = 0xffff;
                 t0 = s3 + -0x4e80;
                 do {
-                    ret = *(u64*)*(a1 + 0);
-                    __asm("mmi2 v0, v0, t4");
-                    v1 = (u64)ret >> 32;
-                    v1 = v1 + ret;
-                    v1 = (signed)v1 >> 0xf;
-                    *(u16*)(a3) = v1;
+                    ret = *(u64*)(a1 + 0);
+                    __asm("mmi2 ret, ret, t4");
+                    *(u16*)(a3) = (signed)v1 >> 0xf;
                     a3 = a3 + 2;
                     ret = t2 + a0;
                     t1 = t1 + 1;
@@ -3552,7 +3318,6 @@ int CDROM_DecodeSector()
                         t1 = 0;
                         t2 = ret & 0xffff;
                     }
-                    ret = (unsigned)t2 >> 0xc;
                     ret = (unsigned)t2 >> 4;
                     if (ret != 0) {
                         ret = *(u16*)(t6);
@@ -3569,53 +3334,51 @@ int CDROM_DecodeSector()
                 t3 = 0;
             } while (t5 != 0);
             ret = 0x70000000 + 0x10a0;
-            v1 = *(u32*)*(ret + 0x28);
-            *(u64*)*(ret + 32) = t4;
+            v1 = *(u32*)(ret + 0x28);  /* GTE data: ir2 */
+            *(u64*)(ret + 32) = t4;
             v1 = v1 + s0;
-            *(u64*)*(ret + 24) = t4;
+            *(u64*)(ret + 24) = t4;
         }
-        *(u32*)*(ret + 0x28) = v1;
+        *(u32*)(ret + 0x28) = v1;
     }
     return ret;
 }
 
 /* Function at 0x00213648 - 0x002136CC */
-int CDROM_ReverbRead()
+u32 CDROM_ReverbRead(void)
 {
-    int ret, v0, v1, a0, a1, a2;
+    u32 ret, v1, a0, a1, a2, gte_ctrl, gte_data;
     ret = 0x70000000;
-    a0 = 0 | 0x8000;
+    a0 = 0x8000;
     a0 = a0 << 17;
     a2 = ret + 0x350;
     a1 = a2;
-    v1 = *(u64*)&a1->gte_ctrl[16];  /* gte_ctrl[16] */
+    v1 = *(u64*)&((PSX_State*)a1)->gte_ctrl[16];  /* gte_ctrl[16] */
     v1 = v1 & a0;
     a1 = 0;
     if (v1 != 0) {
-        ret = *(s16*)&a1->gte_data.vxy0;  /* gte_data.vxy0 */
-        v1 = *(s16*)*(a1 + 0x1b2);
-        ret = (u64)ret << 32;
+        ret = *(s16*)&((PSX_State*)a1)->gte_data.vxy0;  /* gte_data.vxy0 */
+        v1 = *(s16*)(a1 + 0x1b2);
         ret = (u64)ret >> 32;
         v1 = (u64)v1 << 32;
         a1 = ret | v1;
     }
-    v1 = *(u64*)*(a2 + 624);
-    a0 = 0 | 0x8000;
+    v1 = *(u64*)(a2 + 624);
+    a0 = 0x8000;
     a0 = a0 << 19;
     ret = 0;
     v1 = v1 & a0;
-    __asm("movn v0, a1, v1");
-    __asm("mmi2 v0, v0, a1");
-    v1 = 0x700010A0;
-    __asm("ext v0, v1, 0, 1");
+    if (v1 != 0) ret = a1;
+    __asm("mmi2 ret, ret, a1");
+    __asm("ext ret, 0x700010A0, 0, 1");
     return ret;
 }
 
 /* Function at 0x002136CC - 0x002138E4 */
-int CDROM_WriteSpuRam()
+u32 CDROM_WriteSpuRam(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, t0;
+    u32 ret, v1, a3, s0, s1, s2, t0;
     a3 = a0 & v1;
     t0 = a2;
     s2 = a1 << 2;
@@ -3623,8 +3386,7 @@ int CDROM_WriteSpuRam()
     if ((unsigned)ret >= (unsigned)a3) {
         ret = g_psx;
         v1 = 0x001FFFFF;
-        a0 = *(u32*)*(ret + 0x2d0);  /* counter_0 */
-        v1 = a3 & v1;
+        a0 = *(u32*)(ret + 0x2d0);  /* counter_0 */
         v1 = a0 + v1;
         goto loc_213780;
     }
@@ -3633,21 +3395,21 @@ int CDROM_WriteSpuRam()
     a0 = 0xE0400000;
     if ((unsigned)ret < 0x400) {
         v1 = g_psx;
-        ret = *(u32*)*(v1 + 0x2d8);  /* counter_2 */
+        ret = *(u32*)(v1 + 0x2d8);  /* counter_2 */
     } else {
         ret = 7 << 16;
         v1 = a3 + a0;
         ret = 0x0007FFFF;
         v1 = g_psx;
         if ((unsigned)ret >= (unsigned)v1) {
-            ret = *(u32*)*(v1 + 0x2d4);  /* counter_1 */
+            ret = *(u32*)(v1 + 0x2d4);  /* counter_1 */
         } else {
             a0 = 0xE0800400;
             ret = a3 + a0;
             v1 = 0;
-            if (likely((unsigned)ret >= 0x400)) goto loc_213780;
+            if ((unsigned)ret >= 0x400) goto loc_213780;
             v1 = g_psx;
-            ret = *(u32*)*(v1 + 0x2dc);  /* counter_3 */
+            ret = *(u32*)(v1 + 0x2dc);  /* counter_3 */
             }
         }
     ret = ret + a3;
@@ -3656,207 +3418,181 @@ loc_213780:
     s1 = 0x70000000;
     a1 = 4 << 16;
     ret = s1 + 0x350;
-    a0 = *(u32*)*(ret + 0x270);
+    a0 = *(u32*)(ret + 0x270);
     s0 = a0 + a2;
-    ret = ((unsigned)a1 < (unsigned)s0) ? 1 : 0;
-    ret = t0 & 1;
-    if (ret != 0) {
+    if ((t0 & 1) != 0) {
         a2 = a1 - a0;
         s0 = a0 + a2;
     }
     a1 = v1;
     if (ret != 0) {
         a0 = a0 << 1;
-        __at = 0x007AB980;
+        __at = 0x007AB980;  /* SPU_SAMPLE_BUF: SPU sample buffer */
         a0 = __at + a0;
         a2 = a2 << 1;
-        ret = Compiler_MemoryCopy(a0, a1, a2, a3);
+        ret = Compiler_MemoryCopy(a0, a1, a2);
         v1 = s1 + 0x350;
     } else {
         a1 = a0 << 1;
         a0 = v1;
-        __at = 0x007AB980;
+        __at = 0x007AB980;  /* SPU_SAMPLE_BUF: SPU sample buffer */
         a1 = __at + a1;
         a2 = a2 << 1;
-        ret = Compiler_MemoryCopy(a0, a1, a2, a3);
+        ret = Compiler_MemoryCopy(a0, a1, a2);
         v1 = s1 + 0x350;
     }
-    ret = *(u32*)*(v1 + 0x270);
-    v1 = *(u16*)*(v1 + 0x1a4);
+    ret = *(u32*)(v1 + 0x270);
+    v1 = *(u16*)(v1 + 0x1a4);  /* PSX: exec_handlers[5] */
     ret = (unsigned)ret >> 2;
     v1 = 3 << 16;
-    if (likely((unsigned)v1 < (unsigned)ret)) goto loc_213824;
+    if ((unsigned)v1 < (unsigned)ret) goto loc_213824;
     ret = (unsigned)s0 >> 2;
     v1 = 3 << 16;
     if ((unsigned)v1 >= (unsigned)ret) goto loc_213824;
-    ret = CDROM_CheckShellOpen(a0, a1, a2, a3);
+    ret = CDROM_CheckShellOpen();
     v1 = 3 << 16;
 loc_213824:
     a0 = s1 + 0x350;
     v1 = 0x0003FFFF;
     ret = s2;
-    v1 = s0 & v1;
-    *(u32*)*(a0 + 0x270) = v1;
+    *(u32*)(a0 + 0x270) = s0 & v1;
     return ret;
-                }
                 if (a1 != ret) {
                     return 0;
                     }
-                    ret = 0x70000000;
-                    ret = ret + a0;
-                    ret = *(u8*)*(ret + 0x350);
-                    return ret;
-                    }
-                    ret = 0x70000000;
-                    ret = ret + a0;
-                    ret = *(u16*)*(ret + 0x350);
-                    return ret;
-                }
-    ret = 0x70000000;
-    ret = ret + a0;
-    ret = *(u32*)*(ret + 0x350);
-    return ret;
+                    return *(u8*)(ret + 0x350);
+                    return *(u16*)(ret + 0x350);
+    return *(u32*)(ret + 0x350);
 }
 
 /* Function at 0x002138E4 - 0x00213E00 */
-int CDROM_WriteRegister()
+void CDROM_WriteRegister(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 80 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3;
+    u32 ret, v1, a3, psx_0, psx, s2, s3, gte_ctrl, i, s5, s6, t1;
     ret = ret | 0xe400;
     v1 = 2;
     a0 = a0 + ret;
     a3 = 0x70000350;
     a3 = a3 + a0;
-    s0 = 0x70000000;
+    psx_0 = 0x70000000;
     if (a2 != v1) {
-        ret = ((unsigned)a2 < 3) ? 1 : 0;
-        if (4 != 0) {
-            ret = 1;
+        ret = ((unsigned)a0 < 0x180) ? 1 : 0;
+        if (a2 != ret) {
+            goto loc_213970;
+            }
             ret = ((unsigned)a0 < 0x180) ? 1 : 0;
             if (a2 != ret) {
                 goto loc_213970;
                 }
-                ret = ((unsigned)a0 < 0x180) ? 1 : 0;
-                if (a2 != ret) {
-                    goto loc_213970;
-                    }
-                    *(u8*)(a3) = a1;
-                    } else {
-                    *(u16*)(a3) = a1;
+                *(u8*)(a3) = a1;
                 } else {
-                    *(u32*)(a3) = a1;
-                    }
+                *(u16*)(a3) = a1;
                 }
 loc_213970:
+    do {
     a0 = (unsigned)a0 >> 1;
     if ((unsigned)a0 < 0x180) {
-        v1 = a0 & 0xf;
         v1 = (unsigned)v1 >> 1;
-        s1 = (unsigned)a0 >> 4;
-        if ((unsigned)v1 >= 8) goto loc_213DD8;
+        psx = (unsigned)a0 >> 4;
+        if ((unsigned)v1 >= 8) CDROM_WriteRegister(a0, a1, a2); return;
         ret = v1 << 2;
-        v1 = 0x00500000;
-        v1 = v1 + ret;
-        v1 = *(u32*)*(v1 + -0x5a80);
+        v1 = *(u32*)(v1 + -0x5a80);
         goto *v1; /* computed jump */
-        ret = s1 << 3;
-        a0 = s0 + 0x350;
-        ret = ret + s1;
+        ret = psx << 3;
+        a0 = psx_0 + 0x350;
+        ret = ret + psx;
         v1 = 1;
-        ret = ret << 3;
         ret = ret + a0;
-        *(u32*)*(ret + 0x2e4) = v1;
-        goto loc_213DD8;
+        *(u32*)(ret + 0x2e4) = v1;
+        CDROM_WriteRegister(a0, a1, a2); return;
             }
             s3 = s3 + 1;
-            s1 = s1 + 0x10;
+            psx = psx + 0x10;
             ret = ((signed)s3 < 0x18) ? 1 : 0;
-            s0 = s0 + 0x48;
+            psx_0 = psx_0 + 0x48;
             s2 = (unsigned)s2 >> 1;
         } while (ret != 0);
         goto loc_213DDC;
         loc_213B48:
         ret = s2 & 1;
-        s1 = s1 + 1;
-        if (likely(ret == 0)) goto loc_213B78;
-        ret = s0->gpr[3];  /* gpr[3] */
-        s1 = s1 + 1;
-        if (likely((signed)ret >= 9)) goto loc_213B78;
-        s0->gpr[3] = s3;  /* gpr[3] (store) */
-        a0 = s0 + 0x1c;
-        a1 = s1;
-        ret = CDROM_EnvAttack(a0, a1, a2, a3);
-        s1 = s1 + 1;
+        psx = psx + 1;
+        if (ret == 0) goto loc_213B78;
+        ret = ((PSX_State*)psx_0)->gpr[3];  /* gpr[3] */
+        psx = psx + 1;
+        if ((signed)ret >= 9) goto loc_213B78;
+        ((PSX_State*)psx_0)->gpr[3] = s3;  /* gpr[3] (store) */
+        a0 = psx_0 + 0x1c;
+        a1 = psx;
+        ret = CDROM_EnvAttack(a0);
+        psx = psx + 1;
         loc_213B78:
-        s0 = s0 + 0x48;
+        psx_0 = psx_0 + 0x48;
         s2 = (unsigned)s2 >> 1;
-        if ((signed)s1 < 0x18) goto loc_213B48;
+        if ((signed)psx < 0x18) goto loc_213B48;
         goto loc_213DDC;
-                }
-                a0 = s0 + 0x350;
-            }
+                a0 = psx_0 + 0x350;
         v1 = s3 & 0x30;
         ret = 0x10;
-        *(u16*)&a0->gte_ctrl[17] = s3;  /* gte_ctrl[17] (store) */
+        *(u16*)&((PSX_State*)a0)->gte_ctrl[17] = s3;  /* gte_ctrl[17] (store) */
         if (v1 == ret) {
-            ret = a0->gte_ctrl[18];  /* gte_ctrl[18] */
-            s4 = 0;
+            ret = ((PSX_State*)a0)->gte_ctrl[18];  /* gte_ctrl[18] */
+            i = 0;
             if ((signed)ret > 0) {
-                s1 = a0;
+                psx = a0;
                 ret = 0x007B0000;
                 s5 = 3 << 16;
                 s6 = ret + -0x4680;
                 s5 = 0x0003FFFF;
-                s2 = s1 + 0x27c;
+                s2 = psx + 0x27c;
                 do {
-                    a2 = s1->gte_ctrl[16];  /* gte_ctrl[16] */
-                    v1 = *(u16*)&s1->exec_handlers[5];  /* exec_handlers[5] */
+                    a2 = ((PSX_State*)psx)->gte_ctrl[16];  /* gte_ctrl[16] */
+                    v1 = *(u16*)&((PSX_State*)psx)->exec_handlers[5];  /* exec_handlers[5] */
                     ret = (unsigned)a2 >> 2;
-                    a0 = s1->gte_ctrl[18];  /* gte_ctrl[18] */
+                    a0 = ((PSX_State*)psx)->gte_ctrl[18];  /* gte_ctrl[18] */
                     if (ret == v1) {
-                        ret = CDROM_CheckShellOpen(a0, a1, a2, a3);
-                        a2 = s1->gte_ctrl[16];  /* gte_ctrl[16] */
-                        a0 = s1->gte_ctrl[18];  /* gte_ctrl[18] */
+                        ret = CDROM_CheckShellOpen();
+                        a2 = ((PSX_State*)psx)->gte_ctrl[16];  /* gte_ctrl[16] */
+                        a0 = ((PSX_State*)psx)->gte_ctrl[18];  /* gte_ctrl[18] */
                     }
                     v1 = a2 + 1;
                     a1 = *(u16*)(s2);
                     s2 = s2 + 2;
                     ret = a2 << 1;
-                    s4 = s4 + 1;
+                    i = i + 1;
                     ret = ret + s6;
                     v1 = v1 & s5;
-                    a0 = ((signed)s4 < (signed)a0) ? 1 : 0;
-                    *(u16*)(v0) = a1;
-                    s1->gte_ctrl[16] = v1;  /* gte_ctrl[16] (store) */
+                    a0 = ((signed)i < (signed)a0) ? 1 : 0;
+                    *(u16*)(ret) = a1;
+                    ((PSX_State*)psx)->gte_ctrl[16] = v1;  /* gte_ctrl[16] (store) */
                 } while (a0 != 0);
             }
-            ret = s0 + 0x350;
-            *(u32*)*(ret + 0x278) = 0;
+            ret = psx_0 + 0x350;
+            *(u32*)(ret + 0x278) = 0;
         }
         ret = s3 & 0x40;
         a1 = (unsigned)s3 >> 8;
         if (ret == 0) {
-            s1 = s0 + 0x350;
-            ret = s1->gte_ctrl[14];  /* gte_ctrl[14] */
-            a2 = s0 + 0x350;
+            psx = psx_0 + 0x350;
+            ret = ((PSX_State*)psx)->gte_ctrl[14];  /* gte_ctrl[14] */
+            a2 = psx_0 + 0x350;
             if (ret != 0) {
                 a0 = 9;
-                ret = Compiler_GetCacheStatus(a0, a1, a2, a3);
-                s1->gte_ctrl[14] = 0;  /* gte_ctrl[14] (store) */
+                ret = Compiler_GetCacheStatus();
+                ((PSX_State*)psx)->gte_ctrl[14] = 0;  /* gte_ctrl[14] (store) */
                 a1 = (unsigned)s3 >> 8;
                 }
-                a2 = s0 + 0x350;
+                a2 = psx_0 + 0x350;
             }
         ret = a1 & 0x3f;
         a0 = -0x80;
         a3 = (unsigned)ret >> 2;
         v1 = 0xf;
-        *(u8*)*(a2 + 0x2d2) = a0;
+        *(u8*)(a2 + 0x2d2) = a0;
         if (a3 == v1) {
             v1 = -1;
-            *(u32*)*(a2 + 0x2d4) = 1;
-            *(u8*)*(a2 + 0x2d3) = v1;
+            *(u32*)(a2 + 0x2d4) = 1;
+            *(u8*)(a2 + 0x2d3) = v1;
             goto loc_213D5C;
         }
         ret = 0x00500000;
@@ -3865,53 +3601,52 @@ loc_213970:
         a0 = LOAD_WORD_LEFT(*(t1 + 3));
         a0 = LOAD_WORD_RIGHT((t1));
         STORE_WORD_LEFT(*(__sp + 3), a0);
-        STORE_WORD_RIGHT((sp), a0);
+        STORE_WORD_RIGHT((__sp), a0);
         a1 = __sp + v1;
         ret = 0xe;
         v1 = 1;
         a0 = *(u8*)(a1);
         ret = ret - a3;
         v1 = v1 << ret;
-        *(u32*)*(a2 + 0x2d4) = v1;
-        *(u8*)*(a2 + 0x2d3) = a0;
+        *(u32*)(a2 + 0x2d4) = v1;
+        *(u8*)(a2 + 0x2d3) = a0;
         loc_213D5C:
-        v1 = s0 + 0x350;
-        *(u32*)*(v1 + 0x2d8) = 1;
-        ret = CDROM_GetStatReg(a0, a1, a2, a3);
-        ret = CDROM_ReverbRead(a0, a1, a2, a3);
+        v1 = psx_0 + 0x350;
+        *(u32*)(v1 + 0x2d8) = 1;
+        ret = CDROM_GetStatReg(a0, a1);
+        ret = CDROM_ReverbRead();
         goto loc_213DDC;
         loc_213DC4:
-        if (likely((unsigned)ret >= 0x1e)) goto loc_213DDC;
-        ret = s0 + 0x350;
-        *(u32*)*(ret + 0x9d4) = 0;
-    }
+        if ((unsigned)ret >= 0x1e) goto loc_213DDC;
+        ret = psx_0 + 0x350;
+        *(u32*)(ret + 0x9d4) = 0;
 loc_213DD8:
 loc_213DDC:
-    return ret;
-}
+    return;
+    }
 
 /* Function at 0x00213E00 - 0x00213E04 */
-int CDROM_GetBase()
+void CDROM_GetBase(void)
 {
-    int a0;
+    u32 a0;
     a0 = 0x70000000;
 }
 
 /* Function at 0x00213E04 - 0x00213E50 */
-int CDROM_Reset()
+u32 CDROM_Reset(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
+    u32 ret, a1, a2, a3;
     a1 = 0;
     a0 = a0 + 0x350;
     a2 = 0xd50;
-    ret = Libc_Memset(a0, a1, a2, a3);
+    ret = Libc_Memset(a0, a1, a2);
     ret = g_cdrom_state3;
-    a1 = 0x00210C40;
+    a1 = (u32)CDROM_ProcessAudio;
     a0 = 0x6000;
     a2 = 0;
     if (ret == 0) {
-        ret = PSX_GetEventTimeout(a0, a1, a2, a3);
+        ret = PSX_GetEventTimeout();
         g_cdrom_state3 = ret;
     }
     return ret;

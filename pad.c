@@ -3,36 +3,34 @@
 /* 1 functions */
 
 #include "pops_types.h"
+#include "functions.h"
 
 /* Forward declarations */
-int Pad_InitLibpad();
+u32 Pad_InitLibpad(u32 a0);
 
 /* ======================================== */
 
 /* Function at 0x002371E8 - 0x00237328 */
 /* String ref: "libpad: Module version mismatch " */
-int Pad_InitLibpad()
+u32 Pad_InitLibpad(u32 a0)
 {
     /* Stack frame: 64 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, t0;
-    v1 = 0x004F0000;
+    u32 ret, v1, a1, a2, a3, s0, s1, s2, t0;
+    v1 = 0x004F0000;  /* SYS_CONFIG_BASE: System configuration / SIF state */
     ret = 1;
     s2 = a0;
-    *(u32*)*(v1 + 0x6858) = ret;
-    s1 = 0x00860000;
+    *(u32*)(v1 + 0x6858) = ret;
+    s1 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     goto loc_23723C;
 loc_237218:
     v1 = -1;
-    do {
-        ret = ret + -1;
-    } while (ret != v1);
 loc_23723C:
     s0 = s1 + 0x38c0;
     a0 = s0;
     a1 = 0x80000100;
     a2 = 0;
-    ret = UI_DMATransferAsync(a0, a1, a2, a3);
-    v1 = *(u32*)*(s0 + 0x24);
+    ret = UI_DMATransferAsync(a0, a1, a2);
+    v1 = *(u32*)(s0 + 0x24);  /* PSX: gpr[5]/$a1 */
     ret = 1 << 16;
     if (v1 == 0) goto loc_237218;
     s1 = s0;
@@ -40,24 +38,21 @@ loc_23723C:
     goto loc_237294;
 loc_237270:
     v1 = -1;
-    do {
-    } while (0x0000FFFF != v1);
 loc_237294:
     a0 = s0;
     a1 = 0x80000101;
     a2 = 0;
-    ret = UI_DMATransferAsync(a0, a1, a2, a3);
-    v1 = *(u32*)*(s1 + 0x4c);
+    ret = UI_DMATransferAsync(a0, a1, a2);
+    v1 = *(u32*)(s1 + 0x4c);  /* PSX: gpr[15]/$t7 */
     ret = 1 << 16;
     if (v1 == 0) goto loc_237270;
-    ret = System_PadCallRpc3(a0, a1, a2, a3);
+    ret = System_PadCallRpc3();
     s1 = ret;
     ret = 4;
     s0 = (signed)s1 >> 8;
-    if (s0 != 0x004F0000) {
-        v1 = *(u32*)*(ret + 0x685c);
-        if (v1 != 0) {
-            a0 = 0x005011B8;
+    if (s0 != 0x004F0000) {  /* SYS_CONFIG_BASE: System configuration / SIF state */
+        if ((*(u32*)(ret + 0x685c)) != 0) {
+            a0 = 0x005011B8;  /* "libpad: Module version mismatch " */
             ret = UI_DMASetup(a0, a1, a2, a3);
             a3 = s0;
             a0 = 0x005011E0;
@@ -69,7 +64,7 @@ loc_237294:
         ret = 0;
     } else {
         a0 = s2;
-        ret = System_PadConfigPort1(a0, a1, a2, a3);
+        ret = System_PadConfigPort1();
     }
     return ret;
 }

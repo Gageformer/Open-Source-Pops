@@ -3,54 +3,55 @@
 /* 6 functions */
 
 #include "pops_types.h"
+#include "functions.h"
 
 /* Forward declarations */
-int _start();
-int main_Exit();
-int main_LoadModule();
-int main_LoadAllModules();
-int main_Initialize();
-int main_GetEmulatorState();
+u32 _start(void);
+u32 main_Exit(void);
+u32 main_LoadModule(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 main_LoadAllModules(u32 a0);
+u32 main_Initialize(u32 a0, u32 a1);
+void main_GetEmulatorState(void);
 
 /* ======================================== */
 
 /* Function at 0x00200008 - 0x002001C8 */
-int _start()
+u32 _start(void)
 {
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
-    __asm("mmi1 at, zero, zero");
-    __asm("mmi1 v0, zero, zero");
-    __asm("mmi1 v1, zero, zero");
-    __asm("mmi1 a0, zero, zero");
-    __asm("mmi1 a1, zero, zero");
-    __asm("mmi1 a2, zero, zero");
-    __asm("mmi1 a3, zero, zero");
-    __asm("mmi1 t0, zero, zero");
-    __asm("mmi1 t1, zero, zero");
-    __asm("mmi1 t2, zero, zero");
-    __asm("mmi1 t3, zero, zero");
-    __asm("mmi1 t4, zero, zero");
-    __asm("mmi1 t5, zero, zero");
-    __asm("mmi1 t6, zero, zero");
-    __asm("mmi1 t7, zero, zero");
-    __asm("mmi1 s0, zero, zero");
-    __asm("mmi1 s1, zero, zero");
-    __asm("mmi1 s2, zero, zero");
-    __asm("mmi1 s3, zero, zero");
-    __asm("mmi1 s4, zero, zero");
-    __asm("mmi1 s5, zero, zero");
-    __asm("mmi1 s6, zero, zero");
-    __asm("mmi1 s7, zero, zero");
-    __asm("mmi1 t8, zero, zero");
-    __asm("mmi1 t9, zero, zero");
-    __asm("mmi1 gp, zero, zero");
-    __asm("mmi1 sp, zero, zero");
-    __asm("mmi1 fp, zero, zero");
-    __asm("mmi1 ra, zero, zero");
+    u32 ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
+    __asm("mmi1 at, 0, 0");
+    __asm("mmi1 ret, 0, 0");
+    __asm("mmi1 v1, 0, 0");
+    __asm("mmi1 a0, 0, 0");
+    __asm("mmi1 a1, 0, 0");
+    __asm("mmi1 a2, 0, 0");
+    __asm("mmi1 a3, 0, 0");
+    __asm("mmi1 t0, 0, 0");
+    __asm("mmi1 t1, 0, 0");
+    __asm("mmi1 t2, 0, 0");
+    __asm("mmi1 t3, 0, 0");
+    __asm("mmi1 t4, 0, 0");
+    __asm("mmi1 t5, 0, 0");
+    __asm("mmi1 t6, 0, 0");
+    __asm("mmi1 t7, 0, 0");
+    __asm("mmi1 s0, 0, 0");
+    __asm("mmi1 s1, 0, 0");
+    __asm("mmi1 s2, 0, 0");
+    __asm("mmi1 s3, 0, 0");
+    __asm("mmi1 s4, 0, 0");
+    __asm("mmi1 s5, 0, 0");
+    __asm("mmi1 s6, 0, 0");
+    __asm("mmi1 s7, 0, 0");
+    __asm("mmi1 t8, 0, 0");
+    __asm("mmi1 t9, 0, 0");
+    __asm("mmi1 gp, 0, 0");
+    __asm("mmi1 sp, 0, 0");
+    __asm("mmi1 __fp, 0, 0");
+    __asm("mmi1 ra, 0, 0");
     HI = 0;
-    __asm("mthi1 zero, zero, zero");
+    HI = 0; /* mthi1 */
     LO = 0;
-    __asm("mtlo1 zero, zero, zero");
+    LO = 0; /* mtlo1 */
     __asm(".word 0x04190000"); /* 0x0020008C EE unknown */
     FPU_REG(f0) = 0; /* mtc1 */
     FPU_REG(f1) = 0; /* mtc1 */
@@ -86,11 +87,11 @@ int _start()
     FPU_REG(f31) = 0; /* mtc1 */
     __asm(".word 0x46010018"); /* 0x00200110 EE unknown */
     SYNC(); /* memory barrier */
-    __asm("ctc1 zero, 31");
+    /* ctc1 0 -> fpu_ctrl[31] */
     ret = 0x00502E80;
     v1 = 0x00865940;
     do {
-        __asm("ext zero, v0, 0, 1");
+        __asm("ext 0, ret, 0, 1");
         __at = ((unsigned)ret < (unsigned)v1) ? 1 : 0;
         ret = ret + 0x10;
     } while (__at != 0);
@@ -109,33 +110,32 @@ int _start()
     a1 = 0xFFFFFFFF;
     v1 = 0x3d;
     SYSCALL(); /* EE kernel call */
-    ret = System_SifInitRpc(a0, a1, a2, a3);
+    ret = System_SifInitRpc();
     a0 = 0;
-    ret = UI_Kern_GsPutIMR(a0, a1, a2, a3);
+    ret = UI_Kern_GsPutIMR();
     EI();
     ret = 0x00502F80;
-    a0 = *(u32*)(v0);
+    a0 = *(u32*)(ret);
     a1 = ret + 4;
-    ret = main_Initialize(a0, a1, a2, a3);
-    a0 = ret;
-    return System_SifSendSimple(a0, a1, a2, a3);
+    a0 = main_Initialize(a0, a1);
+    return System_SifSendSimple(a0);
 }
 
 /* Function at 0x002001C8 - 0x002001D8 */
-int main_Exit()
+u32 main_Exit(void)
 {
-    int a0, a1, a2, a3;
+    u32 a0, a1, a2, a3;
     a0 = 0;
-    return System_SifSendSimple(a0, a1, a2, a3);
+    return System_SifSendSimple(a0);
 }
 
 /* Function at 0x002001D8 - 0x002002A0 */
-int main_LoadModule()
+u32 main_LoadModule(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 80 bytes */
-    int local_0C;
-    int local_10;
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4;
+    u32 local_0C;
+    u32 local_10;
+    u32 ret, v1, s0, s1, s2, s3, s4;
     s2 = a0;
     s0 = a1 - s2;
     s4 = a2;
@@ -143,25 +143,25 @@ int main_LoadModule()
     a1 = s0;
     a2 = 0;
     s3 = a3;
-    ret = System_SifGetResult(a0, a1, a2, a3);
+    System_SifGetResult();
     s1 = ret;
     ret = -1;
     a0 = __sp;
     a1 = 1;
     if (s1 == 0) goto loc_20027C;
-    *(u32*)*(__sp + 8) = s0;
-    *(u32*)(sp) = s2;
-    *(u32*)*(__sp + 4) = s1;
+    *(u32*)(__sp + 8) = s0;
+    *(u32*)(__sp) = s2;
+    *(u32*)(__sp + 4) = s1;
     local_0C = 0;
-    ret = UI_Kern_ExecOSD2(a0, a1, a2, a3);
+    ret = UI_Kern_ExecOSD2();
     a3 = __sp + 0x10;
     a0 = s1;
     a1 = s4;
     a2 = s3;
-    ret = System_SifRpcSend2(a0, a1, a2, a3);
+    ret = System_SifRpcSend2();
     a0 = s1;
     s0 = ret;
-    ret = System_SifGetStatus(a0, a1, a2, a3);
+    System_SifGetStatus();
     ret = s0;
     if ((signed)s0 < 0) goto loc_20027C;
     a0 = local_10;
@@ -175,10 +175,10 @@ loc_20027C:
 }
 
 /* Function at 0x002002A0 - 0x002004F0 */
-int main_LoadAllModules()
+u32 main_LoadAllModules(u32 a0)
 {
     /* Stack frame: 64 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, t0, t1, t2, t3;
+    u32 ret, v1, a1, a2, a3, s0, s1, t0, t1, t2, t3;
     ret = 0x002D0000;
     s1 = __sp + 0x10;
     s0 = a0;
@@ -188,25 +188,19 @@ int main_LoadAllModules()
     ret = 0x00500000;
     a2 = 0;
     t3 = ret + -0x7448;
-    __asm("ldl t0, 7(t3)"); /* 0x002002D8 unaligned ld left */
-    __asm("ldr t0, 0(t3)"); /* 0x002002DC unaligned ld right */
-    t1 = *(s8*)*(t3 + 8);  /* lb */
-    t2 = *(s8*)*(t3 + 9);  /* lb */
-    __asm("sdl t0, 7(sp)"); /* 0x002002E8 unaligned sd left */
-    __asm("sdr t0, 0(sp)"); /* 0x002002EC unaligned sd right */
-    *(u8*)*(__sp + 8) = t1;
-    *(u8*)*(__sp + 9) = t2;
-    t0 = *(s8*)*(t3 + 0xa);  /* lb */
-    *(u8*)*(__sp + 0xa) = t0;
+    t0 = *(u64*)(t3);
+    t1 = *(s8*)(t3 + 8);  /* lb */
+    t2 = *(s8*)(t3 + 9);  /* lb */
+    *(u64*)(__sp) = t0;
+    *(u8*)(__sp + 8) = t1;
+    *(u8*)(__sp + 9) = t2;
+    t0 = *(s8*)(t3 + 0xa);  /* lb */
+    *(u8*)(__sp + 0xa) = t0;
     t2 = v1 + -0x7438;
-    __asm("ldl v0, 7(t2)"); /* 0x00200304 unaligned ld left */
-    __asm("ldr v0, 0(t2)"); /* 0x00200308 unaligned ld right */
-    __asm("ldl t0, 15(t2)"); /* 0x0020030C unaligned ld left */
-    __asm("ldr t0, 8(t2)"); /* 0x00200310 unaligned ld right */
-    __asm("sdl v0, 7(s1)"); /* 0x00200314 unaligned sd left */
-    __asm("sdr v0, 0(s1)"); /* 0x00200318 unaligned sd right */
-    __asm("sdl t0, 15(s1)"); /* 0x0020031C unaligned sd left */
-    __asm("sdr t0, 8(s1)"); /* 0x00200320 unaligned sd right */
+    ret = *(u64*)(t2);
+    t0 = *(u64*)(t2 + 8);
+    *(u64*)(s1) = ret;
+    *(u64*)(s1 + 8) = t0;
     a3 = 0;
     ret = main_LoadModule(a0, a1, a2, a3);
     if ((signed)ret < 0) {
@@ -286,7 +280,7 @@ int main_LoadAllModules()
                             a2 = 0;
                             a3 = 0;
                             ret = main_LoadModule(a0, a1, a2, a3);
-                            if (likely((signed)1 >= 0)) goto loc_2004DC;
+                            if ((signed)1 >= 0) goto loc_2004DC;
                             a1 = ret;
                             a0 = 0x004F8CF8;
                             }
@@ -305,14 +299,14 @@ loc_2004DC:
 /* Function at 0x002004F0 - 0x00200940 */
 /* String ref: "%s/disc/disc0" */
 /* String ref: "pfs0:" */
-int main_Initialize()
+u32 main_Initialize(u32 a0, u32 a1)
 {
     /* Stack frame: 176 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, t0;
+    u32 ret, v1, a2, a3, s0, s1, s2, s3, t0;
     s0 = a0;
     s1 = a1;
     s3 = 0x00500000;
-    ret = EEKernel_GlobalState_Setup(a0, a1, a2, a3);
+    ret = EEKernel_GlobalState_Setup();
     s2 = s3 + 0x30c8;
     ret = 0x70000000;
     *(u8*)(s2) = 0;
@@ -320,29 +314,25 @@ int main_Initialize()
     if (s0 == 0) goto loc_2006F4;
     a0 = *(u32*)(s1);
     a1 = 0x3a;
-    ret = Libc_Strchr(a0, a1, a2, a3);
-    ret = *(s8*)*(s3 + 0x30c8);  /* lb */
-    if (likely(ret == 0)) goto loc_2005EC;
+    ret = Libc_Strchr(a0, a1);
+    ret = *(s8*)(s3 + 0x30c8);  /* lb */
+    if (ret == 0) goto loc_2005EC;
     a0 = *(u32*)(s1);
     a1 = 0x2e;
-    ret = Libc_Strchr(a0, a1, a2, a3);
-    a0 = ret;
+    a0 = Libc_Strchr(a0, a1);
     a2 = s2;
     if (a0 == 0) goto loc_2005E8;
     a0 = a0 + 1;
     v1 = *(s8*)(a0);  /* lb */
     a1 = *(u8*)(a0);
     if (v1 == 0) goto loc_2005E4;
-    ret = 0x00500000;
-    ret = ret + v1;
-    ret = *(u8*)*(ret + 0x1f31);
     ret = ret & 8;
     *(u8*)(a2) = 0;
-    if (likely(ret != 0)) goto loc_2005E8;
+    if (ret != 0) goto loc_2005E8;
     ret = 0x3a;
     if (v1 == 0x2e) goto loc_2005E4;
     *(u8*)(a2) = 0;
-    if (likely(v1 == ret)) goto loc_2005E8;
+    if (v1 == ret) goto loc_2005E8;
     t0 = 0x3a;
     a3 = 0x2e;
     *(u8*)(a2) = a1;
@@ -352,22 +342,18 @@ int main_Initialize()
         v1 = *(s8*)(a0);  /* lb */
         a1 = *(u8*)(a0);
         if (v1 == 0) goto loc_2005E4;
-        ret = 0x00500000;
-        ret = ret + v1;
-        ret = *(u8*)*(ret + 0x1f31);
         ret = ret & 8;
         *(u8*)(a2) = 0;
-        if (likely(ret != 0)) goto loc_2005E8;
+        if (ret != 0) goto loc_2005E8;
         *(u8*)(a2) = 0;
-        if (likely(v1 == t0)) goto loc_2005E8;
+        if (v1 == t0) goto loc_2005E8;
         *(u8*)(a2) = a1;
-    } while (likely(v1 != a3));
+    } while (v1 != a3);
 loc_2005E4:
     *(u8*)(a2) = 0;
 loc_2005E8:
-    ret = *(s8*)*(s3 + 0x30c8);  /* lb */
+    ret = *(s8*)(s3 + 0x30c8);  /* lb */
 loc_2005EC:
-    if (0x00500000 == 0) goto loc_2006F4;
     a0 = *(u32*)(s1);
     a2 = ret + 0x31c8;
     a1 = *(u8*)(a0);
@@ -375,15 +361,12 @@ loc_2005EC:
     v1 = (signed)ret >> 0x18;
     a3 = a1;
     if (v1 == 0) goto loc_20067C;
-    ret = 0x00500000;
-    ret = ret + v1;
-    ret = *(u8*)*(ret + 0x1f31);
     ret = ret & 8;
     *(u8*)(a2) = a1;
-    if (likely(ret != 0)) goto loc_200680;
+    if (ret != 0) goto loc_200680;
     ret = 0x3a;
     *(u8*)(a2) = a1;
-    if (likely(v1 == ret)) goto loc_200680;
+    if (v1 == ret) goto loc_200680;
     t0 = 0x3a;
     *(u8*)(a2) = a3;
     do {
@@ -394,14 +377,11 @@ loc_2005EC:
         v1 = (signed)ret >> 0x18;
         a3 = a1;
         if (v1 == 0) goto loc_20067C;
-        ret = 0x00500000;
-        ret = ret + v1;
-        ret = *(u8*)*(ret + 0x1f31);
         ret = ret & 8;
         *(u8*)(a2) = a1;
-        if (likely(ret != 0)) goto loc_200680;
+        if (ret != 0) goto loc_200680;
         *(u8*)(a2) = a3;
-    } while (likely(v1 != t0));
+    } while (v1 != t0);
 loc_20067C:
     *(u8*)(a2) = a1;
 loc_200680:
@@ -410,105 +390,75 @@ loc_200680:
     v1 = *(s8*)(a0);  /* lb */
     a1 = *(u8*)(a0);
     if (v1 == 0) goto loc_2006F4;
-    ret = 0x00500000;
-    ret = ret + v1;
-    ret = *(u8*)*(ret + 0x1f31);
     ret = ret & 8;
-    if (0x3a != 0) goto loc_2006F4;
-    if (v1 == ret) goto loc_2006F4;
-    a3 = 0x3a;
-    *(u8*)(a2) = a1;
-    do {
-        a2 = a2 + 1;
-        a0 = a0 + 1;
-        v1 = *(s8*)(a0);  /* lb */
-        a1 = *(u8*)(a0);
-        if (v1 == 0) goto loc_2006F4;
-        ret = 0x00500000;
-        ret = ret + v1;
-        ret = *(u8*)*(ret + 0x1f31);
-        ret = ret & 8;
-        if (ret != 0) goto loc_2006F4;
-        *(u8*)(a2) = a1;
-    } while (likely(v1 != a3));
+    goto loc_2006F4;
 loc_2006F4:
     a0 = 0;
-    ret = UI_DMATransferSync(a0, a1, a2, a3);
-    ret = UI_SifCmdHandler(a0, a1, a2, a3);
-    ret = System_SifRpcClear(a0, a1, a2, a3);
-    ret = System_SifBindRpc(a0, a1, a2, a3);
-    ret = UI_Kern_GetThreadId(a0, a1, a2, a3);
+    ret = UI_DMATransferSync();
+    ret = UI_SifCmdHandler();
+    ret = System_SifRpcClear();
+    ret = System_SifBindRpc();
+    ret = UI_Kern_GetThreadId();
     a1 = 0x40;
     a0 = ret;
-    ret = UI_Kern_ChangeThreadPriority(a0, a1, a2, a3);
-    ret = SPU_Nop(a0, a1, a2, a3);
+    ret = UI_Kern_ChangeThreadPriority();
+    ret = SPU_Nop();
     if (ret != 0) {
         a0 = 0x004F8D20;
     } else {
-        ret = *(s8*)*(s3 + 0x30c8);  /* lb */
+        ret = *(s8*)(s3 + 0x30c8);  /* lb */
         if (ret != 0) {
             a0 = 1;
-            ret = main_LoadAllModules(a0, a1, a2, a3);
-            if (ret == 0) goto loc_2008C0;
+            if ((main_LoadAllModules(a0)) == 0) goto loc_2008C0;
             a0 = 0x005031C8;
-            ret = SPU_MountHDD(a0, a1, a2, a3);
-            if (ret != 0) {
+            if ((SPU_MountHDD(a0)) != 0) {
                 a0 = 0x004F8D40;
                 goto loc_2008B8;
             }
             a0 = __sp;
-            a1 = 0x004F8D60;
-            a2 = 0x00502708;
-            ret = Libc_GetReentStruct(a0, a1, a2, a3);
+            a1 = 0x004F8D60;  /* "%s/disc/disc0" */
+            a2 = 0x00502708;  /* "pfs0:" */
+            Libc_GetReentStruct();
             a0 = __sp;
-            ret = CDROM_InitDisc(a0, a1, a2, a3);
-            if (ret == 0) {
+            if ((CDROM_InitDisc(a0)) == 0) {
                 a0 = 0x004F8D70;
                 goto loc_2008B8;
             }
             a0 = 1;
-            ret = MemCard_InitStorage(a0, a1, a2, a3);
+            ret = MemCard_InitStorage();
             a0 = 4;
-            if (likely(ret != 0)) goto loc_200820;
+            if (ret != 0) goto loc_200820;
             a0 = 0x004F8D90;
             goto loc_2008B8;
         }
         a0 = 0;
-        ret = main_LoadAllModules(a0, a1, a2, a3);
-        if (likely(1 == 0)) goto loc_200920;
+        ret = main_LoadAllModules(a0);
         a0 = 0;
-        ret = CDROM_InitDisc(a0, a1, a2, a3);
-        if (ret == 0) {
+        if ((CDROM_InitDisc(a0)) == 0) {
             a0 = 0x004F8D70;
             goto loc_2008B8;
         }
         a0 = 0;
-        ret = MemCard_InitStorage(a0, a1, a2, a3);
+        ret = MemCard_InitStorage();
         a0 = 4;
-        if (likely(ret != 0)) goto loc_200820;
+        if (ret != 0) goto loc_200820;
         a0 = 0x004F8D90;
         goto loc_2008B8;
         loc_200820:
         a1 = 3;
         a2 = 0x00100000;
         a3 = 0x00100000;
-        ret = UI_GetMaxFileSize(a0, a1, a2, a3);
+        UI_GetMaxFileSize();
         a0 = 0x002FE670;
-        ret = UI_DiscTransfer(a0, a1, a2, a3);
-        if ((signed)ret < 0) {
-        }
-        ret = UI_CloseDiscResources(a0, a1, a2, a3);
-        ret = SPU_Start(a0, a1, a2, a3);
-        if (ret == 0) {
+        ret = UI_DiscTransfer(a0);
+        ret = UI_CloseDiscResources();
+        if ((SPU_Start()) == 0) {
             a0 = 0x004F8DB0;
         } else {
-            ret = Serial_InitPads(a0, a1, a2, a3);
-            if (ret == 0) {
+            if ((Serial_InitPads()) == 0) {
                 a0 = 0x004F8DD8;
             } else {
-                ret = main_GetEmulatorState(a0, a1, a2, a3);
-                ret = g_psx;
-                if (ret == 0) {
+                if (g_psx == 0) {
                     a0 = 0x004F8DF8;
                     }
                     }
@@ -520,32 +470,26 @@ loc_2006F4:
                 } else {
                     a1 = 0x0024BC20;
                     a2 = 8 << 16;
-                    a0 = *(u32*)*(ret + 0x2d4);  /* counter_1 */
-                    ret = Compiler_MemoryCopy(a0, a1, a2, a3);
+                    a0 = *(u32*)(ret + 0x2d4);  /* counter_1 */
+                    ret = Compiler_MemoryCopy(a0, a1, a2);
                     a0 = 1;
-                    ret = PSX_SetRunning(a0, a1, a2, a3);
+                    ret = PSX_SetRunning(a0);
                     ret = 1;
-                    if (0x10000000 == 0) {
-                        a0 = 0;
-                        ret = PSX_SetBiosVersion(a0, a1, a2, a3);
-                        ret = 0x10000000;
-                    }
                     a0 = 0x83;
                     ret = 0x10000010;
                     v1 = 0x10000000;
-                    *(u32*)(v0) = a0;
+                    *(u32*)(ret) = a0;
                     *(u32*)(v1) = 0;
                     while (1) {
-                        ret = PSX_GetRunning(a0, a1, a2, a3);
+                        PSX_GetRunning();
                     }
                 }
-loc_200920:
     return ret;
 }
 
 /* Function at 0x00200940 - 0x00200944 */
-int main_GetEmulatorState()
+void main_GetEmulatorState(void)
 {
-    int a0;
+    u32 a0;
     a0 = g_psx;
 }

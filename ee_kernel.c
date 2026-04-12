@@ -3,289 +3,284 @@
 /* 73 functions */
 
 #include "pops_types.h"
+#include "functions.h"
 
 /* Forward declarations */
-int EEKernel_TransformMatrix();
-int EEKernel_AccumulateTransforms();
-int EEKernel_MatrixOps();
-int EEKernel_DMA_Channel0_Wait();
-int EEKernel_DMA_Channel1_Wait();
-int EEKernel_DMA_Channel2_Wait();
-int EEKernel_DMA_Quiet();
-int EEKernel_VIF0_Initialize();
-int EEKernel_VIF0_DMA_Transfer();
-int EEKernel_VIF1_DMA_Transfer();
-int EEKernel_GIF_DMA_Transfer();
-int EEKernel_HandlePadInput();
-int EEKernel_GetGsRegister();
-int EEKernel_ReadROMVersion();
-int EEKernel_ExecuteSyscall();
-int EEKernel_ConfigurePeripherals();
-int EEKernel_DMA_ChannelStatus_Debug();
-int EEKernel_TLB_Refill_Handler();
-int EEKernel_VectorUnit_Command();
-int EEKernel_VU_WriteQuad();
-int EEKernel_SIF_DMA_ConfigWrite();
-int EEKernel_SIF_DMA_ConfigTransfer();
-int EEKernel_Integer_Multiply64();
-int EEKernel_Integer_Divide64();
-int EEKernel_AC2_Multiply();
-int EEKernel_Integer_Divide64_Ext();
-int EEKernel_Integer_Divide64_Variant2();
-int EEKernel_Integer_Divide64_Variant3();
-int EEKernel_TLB_Setup();
-int EEKernel_CallbackList_Process();
-int EEKernel_Thread_Callback_Init();
-int EEKernel_GlobalState_Setup();
-int EEKernel_QuadCopy_WithXform();
-int EEKernel_Matrix_Comparison();
-int EEKernel_VU0_Pipeline_Start();
-int EEKernel_VU0_Pipeline_XOR();
-int EEKernel_VU0_Pipeline_Complex();
-int EEKernel_ExceptionHandler();
-int EEKernel_VU0_LoadMatrix();
-int EEKernel_QuadTransform_Store();
-int EEKernel_QuadWrite_Bounded();
-int EEKernel_VarInt_Decode();
-int EEKernel_VarInt_DecodeSigned();
-int EEKernel_MergeSort_Quads();
-int EEKernel_Streaming_List_Merge();
-int EEKernel_Alloc_List_Init();
-int EEKernel_Alloc_Allocate();
-int EEKernel_Alloc_FromDMA();
-int EEKernel_Alloc_FromDMA_Free();
-int EEKernel_Dealloc_ProcessCallback();
-int EEKernel_Dealloc_And_Exit();
-int EEKernel_ScalarList_Count();
-int EEKernel_UnpackQuads();
-int EEKernel_Unpack_DrawHeader();
-int EEKernel_Unpack_Images();
-int EEKernel_Unpack_Textures();
-int EEKernel_Parse_String();
-int EEKernel_Parse_Byte();
-int EEKernel_Unpack_Commands();
-int EEKernel_Unpack_Continue();
-int EEKernel_ExitWithCode();
-int EEKernel_QuadListCopy();
-int EEKernel_Matrix_Store_Block();
-int EEKernel_Matrix_Load_Block();
-int EEKernel_Matrix_Compare_Refs();
-int EEKernel_GetFloatExponent();
-int EEKernel_FatalErrorExit();
-int EEKernel_ThreadScheduler();
-int EEKernel_StackBuffer_Alloc();
-int EEKernel_StrLen();
-int EEKernel_PrintfWrapper();
-int EEKernel_SyscallWrapper();
-int EEKernel_Malloc_Wrapper();
+u32 EEKernel_TransformMatrix(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 EEKernel_AccumulateTransforms(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 EEKernel_MatrixOps(u32 a0);
+u32 EEKernel_DMA_Channel0_Wait(void);
+u32 EEKernel_DMA_Channel1_Wait(void);
+u32 EEKernel_DMA_Channel2_Wait(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 EEKernel_DMA_Quiet(u32 a0);
+u32 EEKernel_VIF0_Initialize(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 EEKernel_VIF0_DMA_Transfer(u32 a0);
+u32 EEKernel_VIF1_DMA_Transfer(void);
+u32 EEKernel_GIF_DMA_Transfer(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 EEKernel_HandlePadInput(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 EEKernel_GetGsRegister(void);
+u32 EEKernel_ReadROMVersion(void);
+u32 EEKernel_ExecuteSyscall(void);
+u32 EEKernel_ConfigurePeripherals(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 EEKernel_DMA_ChannelStatus_Debug(u32 a0);
+u32 EEKernel_TLB_Refill_Handler(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 EEKernel_VectorUnit_Command(u32 a0, u32 a1, u32 a2);
+u32 EEKernel_VU_WriteQuad(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 EEKernel_SIF_DMA_ConfigWrite(u32 a0, u32 a1);
+u32 EEKernel_SIF_DMA_ConfigTransfer(u32 a0, u32 a1);
+u32 EEKernel_Integer_Multiply64(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 EEKernel_Integer_Divide64(u32 a0, u32 a1, u32 a2, u32 a3);
+void EEKernel_AC2_Multiply(u32 a0);
+u32 EEKernel_Integer_Divide64_Ext(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 EEKernel_Integer_Divide64_Variant2(u32 a0, u32 a1);
+u32 EEKernel_Integer_Divide64_Variant3(u32 a0, u32 a1);
+u32 EEKernel_TLB_Setup(u32 a0);
+u32 EEKernel_CallbackList_Process(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 EEKernel_Thread_Callback_Init(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 EEKernel_GlobalState_Setup(void);
+u32 EEKernel_QuadCopy_WithXform(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 EEKernel_Matrix_Comparison(u32 a0, u32 a1, u32 a2);
+u32 EEKernel_VU0_Pipeline_Start(u32 a0, u32 a1);
+u32 EEKernel_VU0_Pipeline_XOR(u32 a0, u32 a1);
+u32 EEKernel_VU0_Pipeline_Complex(u32 a0, u32 a1);
+u32 EEKernel_ExceptionHandler(u32 a0, u32 a1);
+u32 EEKernel_VU0_LoadMatrix(u32 a0, u32 a1);
+u32 EEKernel_QuadTransform_Store(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 EEKernel_QuadWrite_Bounded(u32 a0);
+u32 EEKernel_VarInt_Decode(u32 a0, u32 a1);
+u32 EEKernel_VarInt_DecodeSigned(u32 a0, u32 a1);
+u32 EEKernel_MergeSort_Quads(u32 a0, u32 a1);
+u32 EEKernel_Streaming_List_Merge(u32 a0, u32 a1);
+u32 EEKernel_Alloc_List_Init(u32 a0, u32 a1);
+u32 EEKernel_Alloc_Allocate(u32 a0);
+u32 EEKernel_Alloc_FromDMA(u32 a0, u32 a1);
+u32 EEKernel_Alloc_FromDMA_Free(u32 a0);
+u32 EEKernel_Dealloc_ProcessCallback(u32 a0);
+u32 EEKernel_Dealloc_And_Exit(void);
+u32 EEKernel_ScalarList_Count(u32 a0);
+u32 EEKernel_UnpackQuads(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 EEKernel_Unpack_DrawHeader(u32 a0, u32 a1);
+u32 EEKernel_Unpack_Images(u32 a0);
+u32 EEKernel_Unpack_Textures(u32 a0);
+u32 EEKernel_Parse_String(u32 a0, u32 a1);
+u32 EEKernel_Parse_Byte(u32 a0, u32 a1);
+u32 EEKernel_Unpack_Commands(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 EEKernel_Unpack_Continue(u32 a0, u32 a1);
+u32 EEKernel_ExitWithCode(u32 a0);
+u32 EEKernel_QuadListCopy(u32 a0, u32 a1);
+u32 EEKernel_Matrix_Store_Block(u32 a0, u32 a1, u32 a2);
+u32 EEKernel_Matrix_Load_Block(u32 a0, u32 a1);
+u32 EEKernel_Matrix_Compare_Refs(u32 a0, u32 a1);
+u32 EEKernel_GetFloatExponent(u32 a0);
+u32 EEKernel_FatalErrorExit(void);
+u32 EEKernel_ThreadScheduler(u32 a0, u32 a1);
+u32 EEKernel_StackBuffer_Alloc(u32 a0);
+u32 EEKernel_StrLen(void);
+u32 EEKernel_PrintfWrapper(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 EEKernel_SyscallWrapper(u32 a0, u32 a1);
+u32 EEKernel_Malloc_Wrapper(u32 a0, u32 a1, u32 a2);
 
 /* ======================================== */
 
 /* Function at 0x0023A018 - 0x0023A0D8 */
-int EEKernel_TransformMatrix()
+u32 EEKernel_TransformMatrix(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 96 bytes */
-    int ret, a0, a1, a2, a3, s0, s1, s2;
-    __asm("swc1 f20, 0x50(sp)");
+    u32 ret, s0, s1, s2;
+    *(float*)(__sp + 0x50) = FPU_F(f20);
     __at = 0xBF800000;
     FPU_REG(f20) = __at; /* mtc1 */
     s0 = a0;
     s2 = a3;
     s1 = a2;
-    __asm("mov.s f12, f20");
+    FPU_F(f12) = FPU_F(f20);
     a0 = __sp;
-    ret = System_GetSystemParam(a0, a1, a2, a3);
+    ret = System_GetSystemParam();
     a0 = s0;
     a1 = __sp;
-    ret = System_SetHwReg1(a0, a1, a2, a3);
+    ret = System_SetHwReg1();
     a1 = s1;
-    __asm("mov.s f12, f20");
+    FPU_F(f12) = FPU_F(f20);
     a0 = __sp;
-    ret = System_GetSystemParam(a0, a1, a2, a3);
+    ret = System_GetSystemParam();
     a0 = s0 + 0x10;
     a1 = __sp;
-    ret = System_SetHwReg1(a0, a1, a2, a3);
+    ret = System_SetHwReg1();
     a1 = s2;
-    __asm("mov.s f12, f20");
+    FPU_F(f12) = FPU_F(f20);
     a0 = __sp;
-    ret = System_GetSystemParam(a0, a1, a2, a3);
+    ret = System_GetSystemParam();
     a0 = s0 + 0x20;
     a1 = __sp;
-    ret = System_SetHwReg1(a0, a1, a2, a3);
+    ret = System_SetHwReg1();
     FPU_REG(f0) = 0; /* mtc1 */
     a0 = s0;
     __at = 0x3F800000;
     FPU_REG(f1) = __at; /* mtc1 */
     a1 = a0;
-    __asm("swc1 f0, 0x30(s0)");
-    __asm("swc1 f1, 0x3c(s0)");
-    __asm("swc1 f0, 0x38(s0)");
-    __asm("swc1 f0, 0x34(s0)");
-    ret = System_QuadCopy(a0, a1, a2, a3);
-    __asm("lwc1 f20, 0x50(sp)");
+    *(float*)(s0 + 0x30) = FPU_F(f0);
+    *(float*)(s0 + 0x3c) = FPU_F(f1);
+    *(float*)(s0 + 0x38) = FPU_F(f0);
+    *(float*)(s0 + 0x34) = FPU_F(f0);
+    ret = System_QuadCopy(a0, a1);
+    FPU_F(f20) = *(float*)(__sp + 0x50);  /* PSX: gpr[16]/$s0 */
     return ret;
 }
 
 /* Function at 0x0023A0D8 - 0x0023A140 */
-int EEKernel_AccumulateTransforms()
+u32 EEKernel_AccumulateTransforms(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 80 bytes */
-    int ret, a0, a1, a2, a3, s0, s1, s2, s3, t0;
+    u32 ret, s0, s1, s2, s3, t0;
     s0 = a0;
     s3 = t0;
     s2 = a3;
     s1 = a2;
-    ret = System_QuadLoad(a0, a1, a2, a3);
+    ret = System_QuadLoad(a0, a1);
     a1 = s1;
     a0 = s0 + 0x10;
-    ret = System_QuadLoad(a0, a1, a2, a3);
+    ret = System_QuadLoad(a0, a1);
     a1 = s2;
     a0 = s0 + 0x20;
-    ret = System_QuadLoad(a0, a1, a2, a3);
+    ret = System_QuadLoad(a0, a1);
     a0 = s0 + 0x30;
     a1 = s3;
-    return System_QuadLoad(a0, a1, a2, a3);
+    return System_QuadLoad(a0, a1);
 }
 
 /* Function at 0x0023A140 - 0x0023A618 */
-int EEKernel_MatrixOps()
+u32 EEKernel_MatrixOps(u32 a0)
 {
     /* Stack frame: 160 bytes */
-    int ret, a0, a1, a2, a3, s0;
-    __asm("neg.s f0, f17");
-    __asm("swc1 f20, 0x60(sp)");
-    __asm("neg.s f20, f18");
-    __asm("lwc1 f1, 0xa0(sp)");
-    __asm("swc1 f21, 0x68(sp)");
-    __asm("add.s f0, f0, f18"); /* FPU */
-    __asm("mul.s f21, f1, f19"); /* FPU */
-    __asm("mul.s f20, f20, f19"); /* FPU */
+    u32 ret, a1, a2, a3, s0;
+    FPU_F(f0) = -FPU_F(f17);
+    *(float*)(__sp + 0x60) = FPU_F(f20);
+    FPU_F(f20) = -FPU_F(f18);
+    FPU_F(f1) = *(float*)(__sp + 0xa0);  /* PSX: cop0[4]/4 */
+    *(float*)(__sp + 0x68) = FPU_F(f21);
+    FPU_F(f0) = FPU_F(f0) + FPU_F(f18); /* FPU */
+    FPU_F(f21) = FPU_F(f1) * FPU_F(f19); /* FPU */
+    FPU_F(f20) = FPU_F(f20) * FPU_F(f19); /* FPU */
     s0 = a0;
-    __asm("mul.s f17, f17, f1"); /* FPU */
-    __asm("swc1 f26, 0x90(sp)");
-    __asm("neg.s f19, f19");
-    __asm("swc1 f25, 0x88(sp)");
-    __asm("mul.s f21, f21, f0"); /* FPU */
-    __asm("swc1 f24, 0x80(sp)");
-    __asm("add.s f20, f20, f17"); /* FPU */
-    __asm("swc1 f23, 0x78(sp)");
-    __asm("add.s f19, f19, f1"); /* FPU */
-    __asm("swc1 f22, 0x70(sp)");
-    __asm("mov.s f22, f12");
-    __asm("mov.s f24, f13");
-    __asm("mov.s f23, f14");
-    __asm("mov.s f26, f15");
-    __asm("div.s f21, f21, f19"); /* FPU */
-    __asm("div.s f20, f20, f19"); /* FPU */
-    __asm("mov.s f25, f16");
-    ret = System_MathHelper(a0, a1, a2, a3);
+    FPU_F(f17) = FPU_F(f17) * FPU_F(f1); /* FPU */
+    *(float*)(__sp + 0x90) = FPU_F(f26);
+    FPU_F(f19) = -FPU_F(f19);
+    *(float*)(__sp + 0x88) = FPU_F(f25);
+    FPU_F(f21) = FPU_F(f21) * FPU_F(f0); /* FPU */
+    *(float*)(__sp + 0x80) = FPU_F(f24);
+    FPU_F(f20) = FPU_F(f20) + FPU_F(f17); /* FPU */
+    *(float*)(__sp + 0x78) = FPU_F(f23);
+    FPU_F(f19) = FPU_F(f19) + FPU_F(f1); /* FPU */
+    *(float*)(__sp + 0x70) = FPU_F(f22);
+    FPU_F(f22) = FPU_F(f12);
+    FPU_F(f24) = FPU_F(f13);
+    FPU_F(f23) = FPU_F(f14);
+    FPU_F(f26) = FPU_F(f15);
+    FPU_F(f21) = FPU_F(f21) / FPU_F(f19); /* FPU */
+    FPU_F(f20) = FPU_F(f20) / FPU_F(f19); /* FPU */
+    FPU_F(f25) = FPU_F(f16);
+    ret = System_MathHelper();
     __at = 0x3F800000;
     FPU_REG(f0) = __at; /* mtc1 */
     a0 = __sp;
-    __asm("swc1 f22, 0x14(s0)");
+    *(float*)(s0 + 0x14) = FPU_F(f22);
     __asm("swc1 f22, (s0)");
-    *(u32*)*(s0 + 0x28) = 0;
-    *(u32*)*(s0 + 0x3c) = 0;
-    __asm("swc1 f0, 0x2c(s0)");
-    __asm("swc1 f0, 0x38(s0)");
-    ret = System_MathHelper(a0, a1, a2, a3);
+    *(u32*)(s0 + 0x28) = 0;
+    *(u32*)(s0 + 0x3c) = 0;
+    *(float*)(s0 + 0x2c) = FPU_F(f0);
+    *(float*)(s0 + 0x38) = FPU_F(f0);
+    ret = System_MathHelper();
     a0 = s0;
     __asm("swc1 f24, (sp)");
-    __asm("swc1 f23, 0x14(sp)");
+    *(float*)(__sp + 0x14) = FPU_F(f23);
     a1 = __sp;
-    __asm("swc1 f21, 0x28(sp)");
+    *(float*)(__sp + 0x28) = FPU_F(f21);
     a2 = a0;
-    __asm("swc1 f26, 0x30(sp)");
-    __asm("swc1 f25, 0x34(sp)");
-    __asm("swc1 f20, 0x38(sp)");
-    ret = System_GetHwReg1(a0, a1, a2, a3);
-    __asm("lwc1 f26, 0x90(sp)");
-    __asm("lwc1 f25, 0x88(sp)");
-    __asm("lwc1 f24, 0x80(sp)");
-    __asm("lwc1 f23, 0x78(sp)");
-    __asm("lwc1 f22, 0x70(sp)");
-    __asm("lwc1 f21, 0x68(sp)");
-    __asm("lwc1 f20, 0x60(sp)");
+    *(float*)(__sp + 0x30) = FPU_F(f26);
+    *(float*)(__sp + 0x34) = FPU_F(f25);
+    *(float*)(__sp + 0x38) = FPU_F(f20);
+    ret = System_GetHwReg1();
+    FPU_F(f26) = *(float*)(__sp + 0x90);  /* PSX: cop0[0]/0 */
+    FPU_F(f25) = *(float*)(__sp + 0x88);  /* PSX: gpr[30]/$fp */
+    FPU_F(f24) = *(float*)(__sp + 0x80);  /* PSX: gpr[28]/$gp */
+    FPU_F(f23) = *(float*)(__sp + 0x78);  /* PSX: gpr[26]/$k0 */
+    FPU_F(f22) = *(float*)(__sp + 0x70);  /* PSX: gpr[24]/$t8 */
+    FPU_F(f21) = *(float*)(__sp + 0x68);  /* PSX: gpr[22]/$s6 */
+    FPU_F(f20) = *(float*)(__sp + 0x60);  /* PSX: gpr[20]/$s4 */
     return ret;
-    }
     __asm("lwc1 f2, (a1)");
-    __asm("lwc1 f4, 4(a1)");
-    __asm("mul.s f5, f16, f2"); /* FPU */
-    __asm("lwc1 f7, 8(a1)");
-    __asm("mul.s f6, f15, f4"); /* FPU */
+    FPU_F(f4) = *(float*)(a1 + 4);
+    FPU_F(f5) = FPU_F(f16) * FPU_F(f2); /* FPU */
+    FPU_F(f7) = *(float*)(a1 + 8);
+    FPU_F(f6) = FPU_F(f15) * FPU_F(f4); /* FPU */
     __at = 0xBF800000;
     FPU_REG(f1) = __at; /* mtc1 */
-    __asm("mul.s f8, f14, f7"); /* FPU */
-    *(u32*)*(a0 + 0xc) = 0;
-    __asm("neg.s f9, f2");
-    *(u32*)*(a0 + 0x1c) = 0;
-    __asm("add.s f0, f5, f6"); /* FPU */
-    *(u32*)*(a0 + 0x2c) = 0;
-    __asm("mul.s f10, f14, f4"); /* FPU */
-    __asm("neg.s f11, f4");
-    __asm("add.s f0, f0, f8"); /* FPU */
-    __asm("mul.s f3, f15, f2"); /* FPU */
-    __asm("mul.s f12, f16, f7"); /* FPU */
-    __asm("div.s f1, f1, f0"); /* FPU */
-    __asm("sub.s f5, f5, f0"); /* FPU */
-    __asm("sub.s f6, f6, f0"); /* FPU */
-    __asm("sub.s f8, f8, f0"); /* FPU */
-    __asm("mul.s f13, f15, f7"); /* FPU */
-    __asm("neg.s f0, f0");
-    __asm("mul.s f2, f14, f2"); /* FPU */
-    __asm("mul.s f4, f16, f4"); /* FPU */
-    __asm("neg.s f7, f7");
-    __asm("mul.s f0, f1, f0"); /* FPU */
-    __asm("mul.s f5, f1, f5"); /* FPU */
-    __asm("mul.s f3, f1, f3"); /* FPU */
-    __asm("mul.s f2, f1, f2"); /* FPU */
-    __asm("swc1 f0, 0x3c(a0)");
-    __asm("mul.s f9, f1, f9"); /* FPU */
+    FPU_F(f8) = FPU_F(f14) * FPU_F(f7); /* FPU */
+    *(u32*)(a0 + 0xc) = 0;
+    FPU_F(f9) = -FPU_F(f2);
+    *(u32*)(a0 + 0x1c) = 0;
+    FPU_F(f0) = FPU_F(f5) + FPU_F(f6); /* FPU */
+    *(u32*)(a0 + 0x2c) = 0;
+    FPU_F(f10) = FPU_F(f14) * FPU_F(f4); /* FPU */
+    FPU_F(f11) = -FPU_F(f4);
+    FPU_F(f0) = FPU_F(f0) + FPU_F(f8); /* FPU */
+    FPU_F(f3) = FPU_F(f15) * FPU_F(f2); /* FPU */
+    FPU_F(f12) = FPU_F(f16) * FPU_F(f7); /* FPU */
+    FPU_F(f1) = FPU_F(f1) / FPU_F(f0); /* FPU */
+    FPU_F(f5) = FPU_F(f5) - FPU_F(f0); /* FPU */
+    FPU_F(f6) = FPU_F(f6) - FPU_F(f0); /* FPU */
+    FPU_F(f8) = FPU_F(f8) - FPU_F(f0); /* FPU */
+    FPU_F(f13) = FPU_F(f15) * FPU_F(f7); /* FPU */
+    FPU_F(f0) = -FPU_F(f0);
+    FPU_F(f2) = FPU_F(f14) * FPU_F(f2); /* FPU */
+    FPU_F(f4) = FPU_F(f16) * FPU_F(f4); /* FPU */
+    FPU_F(f7) = -FPU_F(f7);
+    FPU_F(f0) = FPU_F(f1) * FPU_F(f0); /* FPU */
+    FPU_F(f5) = FPU_F(f1) * FPU_F(f5); /* FPU */
+    FPU_F(f3) = FPU_F(f1) * FPU_F(f3); /* FPU */
+    FPU_F(f2) = FPU_F(f1) * FPU_F(f2); /* FPU */
+    *(float*)(a0 + 0x3c) = FPU_F(f0);
+    FPU_F(f9) = FPU_F(f1) * FPU_F(f9); /* FPU */
     __asm("swc1 f5, (a0)");
-    __asm("mul.s f4, f1, f4"); /* FPU */
-    __asm("swc1 f3, 0x10(a0)");
-    __asm("mul.s f6, f1, f6"); /* FPU */
-    __asm("swc1 f2, 0x20(a0)");
-    __asm("mul.s f10, f1, f10"); /* FPU */
-    __asm("swc1 f9, 0x30(a0)");
-    __asm("mul.s f11, f1, f11"); /* FPU */
-    __asm("swc1 f4, 4(a0)");
-    __asm("mul.s f12, f1, f12"); /* FPU */
-    __asm("swc1 f6, 0x14(a0)");
-    __asm("mul.s f13, f1, f13"); /* FPU */
-    __asm("swc1 f10, 0x24(a0)");
-    __asm("mul.s f8, f1, f8"); /* FPU */
-    __asm("swc1 f11, 0x34(a0)");
-    __asm("mul.s f1, f1, f7"); /* FPU */
-    __asm("swc1 f12, 8(a0)");
-    __asm("swc1 f13, 0x18(a0)");
-    __asm("swc1 f8, 0x28(a0)");
-    __asm("swc1 f1, 0x38(a0)");
+    FPU_F(f4) = FPU_F(f1) * FPU_F(f4); /* FPU */
+    *(float*)(a0 + 0x10) = FPU_F(f3);
+    FPU_F(f6) = FPU_F(f1) * FPU_F(f6); /* FPU */
+    *(float*)(a0 + 0x20) = FPU_F(f2);
+    FPU_F(f10) = FPU_F(f1) * FPU_F(f10); /* FPU */
+    *(float*)(a0 + 0x30) = FPU_F(f9);
+    FPU_F(f11) = FPU_F(f1) * FPU_F(f11); /* FPU */
+    *(float*)(a0 + 4) = FPU_F(f4);
+    FPU_F(f12) = FPU_F(f1) * FPU_F(f12); /* FPU */
+    *(float*)(a0 + 0x14) = FPU_F(f6);
+    FPU_F(f13) = FPU_F(f1) * FPU_F(f13); /* FPU */
+    *(float*)(a0 + 0x24) = FPU_F(f10);
+    FPU_F(f8) = FPU_F(f1) * FPU_F(f8); /* FPU */
+    *(float*)(a0 + 0x34) = FPU_F(f11);
+    FPU_F(f1) = FPU_F(f1) * FPU_F(f7); /* FPU */
+    *(float*)(a0 + 8) = FPU_F(f12);
+    *(float*)(a0 + 0x18) = FPU_F(f13);
+    *(float*)(a0 + 0x28) = FPU_F(f8);
+    *(float*)(a0 + 0x38) = FPU_F(f1);
     return ret;
-        }
         __asm("sdc2 10, (a0)");
         __asm("addi a3, a3, -1");
         __asm("addi a2, a2, 0x10");
         __asm("addi a0, a0, 0x10");
-    } while (0 != a3);
     return ret;
-    }
     __asm("sdc2 10, (a0)");
     return ret;
-    }
     return ret;
 }
 
 /* Function at 0x0023A618 - 0x0023A678 */
-int EEKernel_DMA_Channel0_Wait()
+u32 EEKernel_DMA_Channel0_Wait(void)
 {
-    int ret, v0, v1, a0, a1, t0;
+    u32 ret, v1, a0, a1, t0;
     ret = 0x10003830;
     a0 = 0x10003820;
-    *(u32*)(v0) = 0;
+    *(u32*)(ret) = 0;
     *(u32*)(a0) = 0;
-    v1 = 0x10003810;
-    *(u32*)(v1) = 1;
+    *(u32*)(0x10003810) = 1;
     __asm("cop2 t0, vi28");
     t0 = t0 | 2;
     __asm("cop2 t0, vi28");
@@ -293,27 +288,27 @@ int EEKernel_DMA_Channel0_Wait()
     a0 = 0x004F8350;
     a1 = 0x10004000;
     __asm("andi.b w0, w0, 0x82");
-    __asm("ext v0, a1, 0, 1");
+    __asm("ext ret, a1, 0, 1");
     __asm("adds_a.b w0, w0, w3");
     __asm("ext v1, a1, 0, 1");
     return ret;
 }
 
 /* Function at 0x0023A678 - 0x0023A720 */
-int EEKernel_DMA_Channel1_Wait()
+u32 EEKernel_DMA_Channel1_Wait(void)
 {
     /* Stack frame: 64 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2;
+    u32 ret, v1, a0, a1, a2, a3, s0, s1, s2;
     a0 = 0;
-    s0 = 0x00860000;
+    s0 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     s2 = s0 + 0x3fc0;
     s1 = 0x00500000;
-    ret = UI_DMATransferSync(a0, a1, a2, a3);
+    ret = UI_DMATransferSync();
         do {
             a0 = s0 + 0x3fc0;
             a1 = 0x80000701;
             a2 = 0;
-            ret = UI_DMATransferAsync(a0, a1, a2, a3);
+            ret = UI_DMATransferAsync(a0, a1, a2);
             if ((signed)0x2710 < 0) {
             a0 = s1 + 0x1478;
             ret = UI_DMASetup(a0, a1, a2, a3);
@@ -323,40 +318,39 @@ int EEKernel_DMA_Channel1_Wait()
             do {
                 ret = ret + -1;
             } while (ret != v1);
-            ret = *(u32*)*(s2 + 0x24);
+            ret = *(u32*)(s2 + 0x24);  /* PSX: gpr[5]/$a1 */
+            }
         } while (ret == 0);
         a0 = 0;
-        ret = UI_Kern_GsPutIMR(a0, a1, a2, a3);
+        ret = UI_Kern_GsPutIMR();
         ret = 0;
     }
     return ret;
-}
 
 /* Function at 0x0023A720 - 0x0023A7A8 */
-int EEKernel_DMA_Channel2_Wait()
+u32 EEKernel_DMA_Channel2_Wait(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 48 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, t0;
+    u32 ret, v1, s0, s1, t0;
     t0 = a1;
     s1 = a3;
     if (s1 != 0) {
-        v1 = 0x00860000;
+        v1 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
         a1 = 1;
         ret = v1 + 0x3e40;
-        *(u32*)*(v1 + 0x3e40) = a0;
-        *(u32*)*(ret + 4) = t0;
+        *(u32*)(v1 + 0x3e40) = a0;
+        *(u32*)(ret + 4) = t0;
         a0 = ret;
-        *(u32*)*(ret + 8) = a2;
-        *(u32*)*(ret + 0xc) = 0;
-        ret = UI_Kern_ExecOSD2(a0, a1, a2, a3);
+        *(u32*)(ret + 8) = a2;
+        *(u32*)(ret + 0xc) = 0;
+        ret = UI_Kern_ExecOSD2();
         s0 = ret;
-        ret = 1;
             ret = -1;
         } else {
             if (s1 == 0) {
                 do {
                     a0 = s0;
-                    ret = UI_Kern_SifGetReg(a0, a1, a2, a3);
+                    ret = UI_Kern_SifGetReg();
                 } while ((signed)0 >= 0);
                 }
             }
@@ -364,93 +358,88 @@ int EEKernel_DMA_Channel2_Wait()
 }
 
 /* Function at 0x0023A7A8 - 0x0023A7B8 */
-int EEKernel_DMA_Quiet()
+u32 EEKernel_DMA_Quiet(u32 a0)
 {
-    int ret, v1, a0;
-    ret = *(u32*)*(0x00500000 + -0x7c80);
-    *(u32*)*(v1 + -0x7c80) = a0;
+    u32 ret, v1;
+    ret = *(u32*)(0x00500000 + -0x7c80);
+    *(u32*)(v1 + -0x7c80) = a0;
     return ret;
 }
 
 /* Function at 0x0023A7B8 - 0x0023A9B8 */
-int EEKernel_VIF0_Initialize()
+u32 EEKernel_VIF0_Initialize(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 208 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, t0, t1, t2, t3, t4;
+    u32 ret, v1, s0, s1, t0, t1, t2, t3, t4;
     t4 = 0;
     v1 = __sp + 0xa0;
-    s0 = 0x00860000;
-    *(u64*)*(__sp + 152) = a1;
+    s0 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
+    *(u64*)(__sp + 152) = a1;
     ret = s0 + 0x3f80;
-    *(u64*)*(__sp + 160) = a2;
-    *(u64*)*(__sp + 200) = t3;
+    *(u64*)(__sp + 160) = a2;
+    *(u64*)(__sp + 200) = t3;
     a2 = ret + 4;
-    t3 = 0x00860000;
+    t3 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
     a1 = 5;
-    *(u64*)*(__sp + 168) = a3;
-    *(u64*)*(__sp + 176) = t0;
-    *(u64*)*(__sp + 184) = t1;
-    *(u64*)*(__sp + 192) = t2;
-    *(u32*)*(s0 + 0x3f80) = ret;
-    t0 = *(u32*)*(v1 + -8);
+    *(u64*)(__sp + 168) = a3;
+    *(u64*)(__sp + 176) = t0;
+    *(u64*)(__sp + 184) = t1;
+    *(u64*)(__sp + 192) = t2;
+    *(u32*)(s0 + 0x3f80) = ret;
+    t0 = *(u32*)(v1 + -8);
     do {
         v1 = v1 + 8;
         a1 = a1 + -1;
-        ret = *(u32*)*(v1 + -8);
-        *(u32*)(a2) = ret;
+        *(u32*)(a2) = *(u32*)(v1 + -8);
         a2 = a2 + 4;
     } while ((signed)a1 >= 0);
     t2 = 0;
     if (a0 == 0) {
         ret = 0x00500000;
         t2 = 1;
-        t4 = *(u32*)*(ret + -0x7c80);
+        t4 = *(u32*)(ret + -0x7c80);
     }
-    ret = 0 | 0x8160;
-    ret = 0 | 0x8170;
+    ret = 0x8170;
     if (t0 == ret) {
         v1 = s0 + 0x3f80;
-        ret = *(u32*)*(v1 + 4);
-        a0 = *(u32*)*(v1 + 0xc);
+        ret = *(u32*)(v1 + 4);
+        a0 = *(u32*)(v1 + 0xc);  /* PSX: lo */
         if (ret == 0) {
             a1 = 0x00500000;
-            v1 = *(u32*)*(v1 + 8);
-            *(u32*)*(0x00500000 + -0x7c64) = a0;
-            *(u32*)*(a1 + -0x7c70) = v1;
+            v1 = *(u32*)(v1 + 8);
+            *(u32*)(0x00500000 + -0x7c64) = a0;
+            *(u32*)(a1 + -0x7c70) = v1;
         } else {
             a1 = 0x00500000;
-            v1 = *(u32*)*(v1 + 8);
-            *(u32*)*(0x00500000 + -0x7c60) = a0;
-            *(u32*)*(a1 + -0x7c6c) = v1;
+            v1 = *(u32*)(v1 + 8);
+            *(u32*)(0x00500000 + -0x7c60) = a0;
+            *(u32*)(a1 + -0x7c6c) = v1;
             } else {
-            ret = 0 | 0x8130;
-            if (t0 == ret) {
+            if (t0 == 0x8130) {
                 a0 = s0 + 0x3f80;
                 a2 = 0x00500000;
-                a1 = *(u32*)*(a0 + 8);
+                a1 = *(u32*)(a0 + 8);
                 ret = 0x00500000;
-                v1 = *(u32*)*(a0 + 4);
-                *(u32*)*(ret + -0x7c5c) = a1;
-                *(u32*)*(a2 + -0x7c68) = v1;
+                v1 = *(u32*)(a0 + 4);
+                *(u32*)(ret + -0x7c5c) = a1;
+                *(u32*)(a2 + -0x7c68) = v1;
                 }
                 }
-                ret = 0 | 0x8130;
+                ret = 0x8130;
             }
-    ret = 0 | 0x81a0;
+    ret = 0x81a0;
     if (t0 == ret) goto loc_23A8C4;
-    ret = 0 | 0x81b0;
-    if (t0 == ret) goto loc_23A8C4;
-    ret = 0 | 0x8140;
-    if (t0 == ret) {
+    if (t0 == 0x81b0) goto loc_23A8C4;
+    if (t0 == 0x8140) {
         loc_23A8C4:
         t1 = s0 + 0x3f80;
-        ret = *(u32*)*(s0 + 0x3f80);
-        a1 = *(u32*)*(t1 + 4);
+        ret = *(u32*)(s0 + 0x3f80);
+        a1 = *(u32*)(t1 + 4);
         a0 = t3 + 0x3fc0;
-        a3 = *(u32*)*(t1 + 8);
+        a3 = *(u32*)(t1 + 8);
         a2 = t2;
         a1 = t0 | a1;
-        *(u32*)(sp) = ret;
+        *(u32*)(__sp) = ret;
         t3 = t4;
         t0 = 0x40;
         t2 = 0x40;
@@ -458,59 +447,56 @@ int EEKernel_VIF0_Initialize()
         a3 = s0 + 0x3f80;
         if (t0 == ret) {
             a0 = t3 + 0x3fc0;
-            ret = *(u32*)*(a3 + 8);
+            ret = *(u32*)(a3 + 8);
             a2 = t2;
-            a1 = *(u32*)*(a3 + 4);
+            a1 = *(u32*)(a3 + 4);
             t3 = t4;
             t1 = ret;
-            *(u32*)(sp) = ret;
+            *(u32*)(__sp) = ret;
             a1 = a1 | 0x8140;
             t0 = 0x40;
             t2 = 0x40;
             ret = UI_DMATransferProcess(a0, a1, a2, a3);
             ret = s1;
         } else {
-            ret = 0xFFFF7000;
-            ret = t0 + ret;
-            ret = ((unsigned)ret < 0xf1) ? 1 : 0;
             ret = s0 + 0x3f80;
             if (ret != 0) {
                 a1 = t0;
                 a0 = t3 + 0x3fc0;
-                a3 = *(u32*)*(ret + 4);
-                t0 = *(u32*)*(ret + 8);
+                a3 = *(u32*)(ret + 4);
+                t0 = *(u32*)(ret + 8);
                 a2 = t2;
                 t1 = ret;
                 t3 = t4;
-                *(u32*)(sp) = ret;
+                *(u32*)(__sp) = ret;
             } else {
                 a0 = t3 + 0x3fc0;
                 a3 = ret;
                 a1 = t0;
                 a2 = t2;
                 t3 = t4;
-                *(u32*)(sp) = ret;
+                *(u32*)(__sp) = ret;
                 t0 = 0x40;
                 t1 = a3;
             }
             t2 = 0x10;
             }
             ret = UI_DMATransferProcess(a0, a1, a2, a3);
-            s1 = *(u32*)*(s0 + 0x3f80);
+            s1 = *(u32*)(s0 + 0x3f80);
             ret = s1;
         }
     return ret;
 }
 
 /* Function at 0x0023A9B8 - 0x0023AA90 */
-int EEKernel_VIF0_DMA_Transfer()
+u32 EEKernel_VIF0_DMA_Transfer(u32 a0)
 {
     /* Stack frame: 80 bytes */
-    int local_0C;
-    int local_10;
-    int local_14;
-    int local_20;
-    int ret, v1, a0, a1, a2, a3, s0, t0, t1, t2, t3, t4;
+    u32 local_0C;
+    u32 local_10;
+    u32 local_14;
+    u32 local_20;
+    u32 ret, v1, a1, a2, a3, s0, t0, t1, t2, t3, t4;
     ret = 0x00500000;
     v1 = 0x00500000;
     s0 = a0;
@@ -522,32 +508,32 @@ int EEKernel_VIF0_DMA_Transfer()
     t3 = 0x00500000;
     t4 = 0x00500000;
     a0 = 1;
-    *(u32*)*(ret + -0x7c7c) = 0;
-    a1 = 0 | 0xe620;
-    *(u32*)*(v1 + -0x7c78) = 0;
-    *(u32*)*(a2 + -0x7c74) = 0;
-    *(u32*)*(a3 + -0x7c70) = 0;
-    *(u32*)*(t0 + -0x7c6c) = 0;
-    *(u32*)*(t1 + -0x7c68) = 0;
-    *(u32*)*(t2 + -0x7c64) = 0;
-    *(u32*)*(t3 + -0x7c60) = 0;
-    *(u32*)*(t4 + -0x7c5c) = 0;
+    *(u32*)(ret + -0x7c7c) = 0;
+    a1 = 0xe620;
+    *(u32*)(v1 + -0x7c78) = 0;
+    *(u32*)(a2 + -0x7c74) = 0;
+    *(u32*)(a3 + -0x7c70) = 0;
+    *(u32*)(t0 + -0x7c6c) = 0;
+    *(u32*)(t1 + -0x7c68) = 0;
+    *(u32*)(t2 + -0x7c64) = 0;
+    *(u32*)(t3 + -0x7c60) = 0;
+    *(u32*)(t4 + -0x7c5c) = 0;
     ret = EEKernel_VIF0_Initialize(a0, a1, a2, a3);
-    v1 = 0x0023AA90;
+    v1 = (u32)EEKernel_VIF1_DMA_Transfer;
     ret = 0x00864000;
     a1 = 0x0050A670;
     a2 = 0x1000;
-    *(u32*)*(__sp + 4) = v1;
-    *(u32*)*(__sp + 8) = ret;
+    *(u32*)(__sp + 4) = v1;
+    *(u32*)(__sp + 8) = ret;
     a0 = __sp;
     local_0C = a2;
     local_14 = s0;
     local_10 = a1;
-    ret = UI_Kern_CreateThread(a0, a1, a2, a3);
+    ret = UI_Kern_CreateThread();
     a1 = 0;
     a0 = ret;
     local_20 = ret;
-    ret = UI_Kern_StartThread(a0, a1, a2, a3);
+    ret = UI_Kern_StartThread();
     ret = local_20;
     if ((signed)ret < 0) {
         a0 = 0x005014A0;
@@ -558,58 +544,55 @@ int EEKernel_VIF0_DMA_Transfer()
 }
 
 /* Function at 0x0023AA90 - 0x0023AAF8 */
-int EEKernel_VIF1_DMA_Transfer()
+u32 EEKernel_VIF1_DMA_Transfer(void)
 {
     /* Stack frame: 128 bytes */
-    int ret, a0, a1, a2, a3, t0, t1, t2;
+    u32 ret, a0, a1, a2, a3, t0, t1, t2;
     a0 = 0;
-    ret = UI_DMATransferSync(a0, a1, a2, a3);
-    ret = UI_Kern_GetThreadId(a0, a1, a2, a3);
+    ret = UI_DMATransferSync();
+    ret = UI_Kern_GetThreadId();
     a1 = ret;
     a0 = __sp;
-    ret = UI_SifQueueInsert(a0, a1, a2, a3);
+    ret = UI_SifQueueInsert(a0, a1);
     t0 = 0;
     t1 = 0;
     t2 = __sp;
-    a2 = 0x0023AAF8;
+    a2 = (u32)EEKernel_GIF_DMA_Transfer;
     a3 = 0x00865100;
     a0 = __sp + 0x20;
     a1 = 0x80000704;
     ret = UI_SifQueueInsertCmd(a0, a1, a2, a3);
     a0 = __sp;
-    ret = UI_SifRpcSetup(a0, a1, a2, a3);
-    return ret;
+    return UI_SifRpcSetup(a0);
 }
 
 /* Function at 0x0023AAF8 - 0x0023ABD8 */
-int EEKernel_GIF_DMA_Transfer()
+u32 EEKernel_GIF_DMA_Transfer(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1, s2, s1, s0, s5, s3, s4, s6, t4, t0, t6, t5, t1, t8, t3, t2, t7;
     ret = *(u32*)(a1);
     a0 = ret + -1;
     v1 = ((unsigned)a0 < 0xd) ? 1 : 0;
-    if (v1 == 0) goto loc_23ABC8;
-    v1 = a0 << 2;
-    v1 = v1 + 0x005014D0;
-    a0 = *(u32*)(v1);
-    goto *a0; /* computed jump */
-    ret = *(u32*)*(ret + -0x7c7c);
-    goto loc_23AB4C;
-loc_23AB4C:
-    if (ret == 0) goto loc_23ABCC;
-    ret = (ret)(a0, a1, a2, a3); /* indirect call */
-    goto loc_23ABCC;
-loc_23ABC8:
-loc_23ABCC:
+    if (v1 != 0) {
+        v1 = v1 + 0x005014D0;
+        a0 = *(u32*)(v1);
+        goto *a0; /* computed jump */
+        ret = *(u32*)(ret + -0x7c7c);
+        goto loc_23AB4C;
+        loc_23AB4C:
+        if (ret != 0) {
+            ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
+        }
+    }
     return 0;
 }
 
 /* Function at 0x0023ABD8 - 0x0023AD68 */
-int EEKernel_HandlePadInput()
+u32 EEKernel_HandlePadInput(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 80 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3;
+    u32 ret, v1, s0, s1, s2, s3;
     a0 = a0 << 0x10;
     a1 = a1 << 0x10;
     a2 = a2 << 0x10;
@@ -621,80 +604,76 @@ int EEKernel_HandlePadInput()
     s3 = (signed)a3 >> 0x10;
     if (a0 != ret) {
         ret = ((signed)a0 < 2) ? 1 : 0;
-        if (5 != 0) {
-            if (a0 != 0) {
-                } else {
-                if (a0 != ret) {
-                    } else {
-                    ret = EEKernel_GetGsRegister(a0, a1, a2, a3);
-                    a0 = 0x200;
-                    v1 = 0x12001000;
-                    s0 = ret;
-                    *(u64*)*(v1 + 0) = a0;
-                    *(u16*)(s0) = s1;
-                    a0 = 0 | 0xff00;
-                    ret = *(u64*)*(v1 + 0);
-                    *(u16*)*(s0 + 2) = s2;
-                    ret = (unsigned)ret >> 16;
-                    ret = ret & 0xff;
-                    ret = ret & 0xffff;
-                    *(u16*)*(s0 + 6) = ret;
-                    ret = UI_Kern_SifSetDChain(a0, a1, a2, a3);
-                    v1 = ((unsigned)0 < (unsigned)s3) ? 1 : 0;
-                    ret = *(u32*)*(s0 + 8);
-                    *(u16*)*(s0 + 4) = v1;
-                    if (ret != 0) {
-                        a0 = 2;
-                        ret = UI_SetAlarmSync(a0, a1, a2, a3);
-                        a1 = *(u32*)*(s0 + 0xc);
-                        a0 = 2;
-                        ret = UI_Kern_EnableIntc(a0, a1, a2, a3);
-                        *(u32*)*(s0 + 0xc) = 0;
-                        *(u32*)*(s0 + 8) = 0;
-                    }
-                    a0 = s1 & 1;
-                    a1 = s2 & 0xff;
-                    a2 = s3 & 1;
-                    goto loc_22E420;
-    }
-                *(u64*)*(0x12001000 + 0) = 0x100;
+        if (a0 != 0) {
             } else {
-                ret = EEKernel_GetGsRegister(a0, a1, a2, a3);
-                s0 = ret;
+            if (a0 != ret) {
+                } else {
+                ret = EEKernel_GetGsRegister();
+                a0 = 0x200;
                 v1 = 0x12001000;
-                a2 = ((unsigned)0 < (unsigned)s3) ? 1 : 0;
-                ret = *(u64*)*(v1 + 0);
-                a0 = s1 & 1;
-                *(u16*)*(s0 + 4) = a2;
-                a1 = s2 & 0xff;
-                ret = (unsigned)ret >> 16;
+                s0 = ret;
+                *(u64*)(v1 + 0) = a0;
                 *(u16*)(s0) = s1;
-                ret = ret & 0xff;
-                *(u16*)*(s0 + 2) = s2;
+                a0 = 0xff00;
+                ret = *(u64*)(v1 + 0);
+                *(u16*)(s0 + 2) = s2;
                 ret = ret & 0xffff;
+                *(u16*)(s0 + 6) = ret;
+                ret = UI_Kern_SifSetDChain();
+                v1 = ((unsigned)0 < (unsigned)s3) ? 1 : 0;
+                ret = *(u32*)(s0 + 8);
+                *(u16*)(s0 + 4) = v1;
+                if (ret != 0) {
+                    a0 = 2;
+                    ret = UI_SetAlarmSync(a0);
+                    a1 = *(u32*)(s0 + 0xc);  /* PSX: lo */
+                    a0 = 2;
+                    ret = UI_Kern_EnableIntc();
+                    *(u32*)(s0 + 0xc) = 0;
+                    *(u32*)(s0 + 8) = 0;
+                }
+                a0 = s1 & 1;
+                a1 = s2 & 0xff;
                 a2 = s3 & 1;
-                *(u16*)*(s0 + 6) = ret;
-                goto loc_22E420;
-            }
-            }
+                return UI_SHA1_Compute(a0, a1, a2, a3);
+}
+            *(u64*)(0x12001000 + 0) = 0x100;
+        } else {
+            ret = EEKernel_GetGsRegister();
+            s0 = ret;
+            v1 = 0x12001000;
+            a2 = ((unsigned)0 < (unsigned)s3) ? 1 : 0;
+            ret = *(u64*)(v1 + 0);
+            a0 = s1 & 1;
+            *(u16*)(s0 + 4) = a2;
+            a1 = s2 & 0xff;
+            ret = (unsigned)ret >> 16;
+            *(u16*)(s0) = s1;
+            ret = ret & 0xff;
+            *(u16*)(s0 + 2) = s2;
+            ret = ret & 0xffff;
+            a2 = s3 & 1;
+            *(u16*)(s0 + 6) = ret;
+            return UI_SHA1_Compute(a0, a1, a2, a3);
+        }
         }
     return ret;
 }
 
 /* Function at 0x0023AD68 - 0x0023AD78 */
-int EEKernel_GetGsRegister()
+u32 EEKernel_GetGsRegister(void)
 {
     return 0x004F83C0;
 }
 
 /* Function at 0x0023AD78 - 0x0023AE18 */
 /* String ref: "rom0:ROMVER" */
-int EEKernel_ReadROMVersion()
+u32 EEKernel_ReadROMVersion(void)
 {
     /* Stack frame: 320 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2;
+    u32 ret, v1, a0, a1, a2, a3, s0, s1, s2;
     a1 = 1;
-    a0 = 0x00501508;
+    a0 = 0x00501508;  /* "rom0:ROMVER" */
     ret = UI_SifModuleLoad(a0, a1, a2, a3);
     s2 = ret;
     s1 = 0;
@@ -710,36 +689,36 @@ int EEKernel_ReadROMVersion()
         if ((unsigned)s1 < 0x100) {
             a0 = s2;
             a2 = 1;
-            ret = UI_SifModuleStart(a0, a1, a2, a3);
+            ret = UI_SifModuleStart(a0, a1, a2);
             v1 = *(s8*)(s0);  /* lb */
             s0 = s0 + 1;
             if (v1 != 0) goto loc_23ADB8;
         }
         a0 = s2;
-        ret = UI_SifModuleInit(a0, a1, a2, a3);
+        ret = UI_SifModuleInit();
         a0 = s1 + -9;
         a0 = __sp + a0;
-        ret = EEKernel_StrLen(a0, a1, a2, a3);
+        ret = EEKernel_StrLen();
         ret = ((signed)0x01315670 < (signed)ret) ? 1 : 0;
     }
     return ret;
 }
 
 /* Function at 0x0023AE18 - 0x0023AE28 */
-int EEKernel_ExecuteSyscall()
+u32 EEKernel_ExecuteSyscall(void)
 {
-    int ret, v1;
+    u32 ret, v1;
     v1 = 0x80;
     SYSCALL(); /* EE kernel call */
     return ret;
 }
 
 /* Function at 0x0023AE28 - 0x0023B1A0 */
-int EEKernel_ConfigurePeripherals()
+u32 EEKernel_ConfigurePeripherals(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 144 bytes */
-    int local_0C;
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, t0, t1, t2;
+    u32 local_0C;
+    u32 ret, v1, s0, s1, s2, s3, s4, s5, s6, t0, t1, t2;
     a1 = a1 << 0x10;
     a2 = a2 << 0x10;
     a3 = a3 << 0x10;
@@ -751,39 +730,36 @@ int EEKernel_ConfigurePeripherals()
     s5 = (signed)t0 >> 0x10;
     s4 = (signed)t1 >> 0x10;
     s3 = a0;
-    ret = EEKernel_GetGsRegister(a0, a1, a2, a3);
+    ret = EEKernel_GetGsRegister();
     s1 = ret;
-    a0 = *(u16*)*(s1 + 2);
+    a0 = *(u16*)(s1 + 2);
     ret = a0 + -2;
     local_0C = 0;
     if ((unsigned)ret >= 2) {
-        ret = EEKernel_ReadROMVersion(a0, a1, a2, a3);
+        ret = EEKernel_ReadROMVersion();
         a1 = __sp;
         if (ret != 0) {
-            a0 = *(s16*)*(s1 + 2);
+            a0 = *(s16*)(s1 + 2);
             a2 = __sp | 4;
             a3 = __sp | 8;
             t0 = __sp | 0xc;
-            ret = EEKernel_ExecuteSyscall(a0, a1, a2, a3);
-            a0 = *(u16*)*(s1 + 2);
+            ret = EEKernel_ExecuteSyscall();
+            a0 = *(u16*)(s1 + 2);
         } else {
-            a0 = *(u16*)*(s1 + 2);
+            a0 = *(u16*)(s1 + 2);
             local_0C = 0;
     }
-        *(u32*)*(__sp + 8) = 0;
-        *(u32*)*(__sp + 4) = 0;
-        *(u32*)(sp) = 0;
+        *(u32*)(__sp + 8) = 0;
+        *(u32*)(__sp + 4) = 0;
+        *(u32*)(__sp) = 0;
     }
     v1 = 0x66;
     a2 = *(u16*)(s1);
-    *(u64*)*(s3 + 0) = v1;
-    ret = *(s16*)(s1);
-    if (2 == 0) goto loc_23AEFC;
-    ret = *(s16*)*(s1 + 4);
-    if (3 != 0) goto loc_23AEFC;
-    ret = 1;
+    *(u64*)(s3 + 0) = v1;
+    ret = *(s16*)(s1 + 4);
+    goto loc_23AEFC;
 loc_23AEFC:
-    *(u64*)*(s3 + 8) = ret;
+    *(u64*)(s3 + 8) = ret;
     ret = s0 + 0x3f;
     v1 = s6 & 0xf;
     ret = (signed)ret >> 6;
@@ -794,29 +770,26 @@ loc_23AEFC:
     a1 = (signed)a0 >> 0x10;
     v1 = v1 | ret;
     a0 = 2;
-    *(u64*)*(s3 + 16) = v1;
+    *(u64*)(s3 + 16) = v1;
     if (a1 == a0) {
         ret = a2 << 0x10;
         v1 = 1;
-        ret = (signed)ret >> 0x10;
-        ret = s0 + 0x9ff;
-        if (ret == v1) {
+        if ((s0 + 0x9ff) == v1) {
             v1 = s0 + 0x9ff;
             BREAK(); /* breakpoint */
-            if (likely(s0 == 0)) goto loc_23AF50;
+            if (s0 == 0) goto loc_23AF50;
             loc_23AF50:
-            __asm("div zero, v1, s0");
-            ret = *(u32*)*(__sp + 4);
-            a1 = *(u32*)(sp);
+            ret = *(u32*)(__sp + 4);
+            a1 = *(u32*)(__sp);
             ret = s4 + ret;
-            a2 = *(s16*)*(s1 + 4);
+            a2 = *(s16*)(s1 + 4);
             ret = ret + 0x32;
             a1 = a1 + 636;
             ret = ret & 0xfff;
             a3 = ret << 12;
             v1 = LO;
             a0 = (s32)((s64)v1 * (s64)s0); HI_LO = (s64)v1 * (s64)s0;
-            __asm("mult1 v0, s5, v1");
+            ret = s5 * v1;
             v1 = v1 + -1;
             t2 = v1 << 23;
             a0 = a0 + -1;
@@ -829,40 +802,35 @@ loc_23AEFC:
             ret = ret + -1;
         } else {
             BREAK(); /* breakpoint */
-            if (likely(s0 == 0)) goto loc_23AFB4;
+            if (s0 == 0) goto loc_23AFB4;
             loc_23AFB4:
-            __asm("div zero, v0, s0");
             a3 = s2 + -1;
-            a1 = *(u32*)(sp);
+            a1 = *(u32*)(__sp);
             a3 = (u64)a3 << 44;
-            v1 = *(u32*)*(__sp + 4);
+            v1 = *(u32*)(__sp + 4);
             a1 = a1 + 636;
-            v1 = s4 + v1;
             v1 = v1 + 0x19;
             } else {
             ret = 3;
             if (a1 == 0x50) {
                 ret = a2 << 0x10;
                 v1 = 1;
-                ret = (signed)ret >> 0x10;
-                ret = s0 + 0x9ff;
-                if (ret == v1) {
+                if ((s0 + 0x9ff) == v1) {
                     v1 = s0 + 0x9ff;
                     BREAK(); /* breakpoint */
-                    if (likely(s0 == 0)) goto loc_23B004;
+                    if (s0 == 0) goto loc_23B004;
                     loc_23B004:
-                    __asm("div zero, v1, s0");
-                    ret = *(u32*)*(__sp + 4);
-                    a1 = *(u32*)(sp);
+                    ret = *(u32*)(__sp + 4);
+                    a1 = *(u32*)(__sp);
                     ret = s4 + ret;
-                    a2 = *(s16*)*(s1 + 4);
+                    a2 = *(s16*)(s1 + 4);
                     ret = ret + 0x48;
                     a1 = a1 + 656;
                     ret = ret & 0xfff;
                     a3 = ret << 12;
                     v1 = LO;
                     a0 = (s32)((s64)v1 * (s64)s0); HI_LO = (s64)v1 * (s64)s0;
-                    __asm("mult1 v0, s5, v1");
+                    ret = s5 * v1;
                     v1 = v1 + -1;
                     t2 = v1 << 23;
                     a0 = a0 + -1;
@@ -879,29 +847,24 @@ loc_23AEFC:
                     v1 = t2 | v1;
                     }
                     loc_23B068:
-                    ret = (u64)ret << 44;
                     ret = a1 | ret;
                     v1 = v1 | ret;
-                    ret = v1 | a3;
-                    *(u64*)*(s3 + 24) = ret;
+                    *(u64*)(s3 + 24) = v1 | a3;
                 } else {
                     BREAK(); /* breakpoint */
-                    if (likely(s0 == 0)) goto loc_23B088;
+                    if (s0 == 0) goto loc_23B088;
                     loc_23B088:
-                    __asm("div zero, v0, s0");
                     a3 = s2 + -1;
-                    a1 = *(u32*)(sp);
+                    a1 = *(u32*)(__sp);
                     a3 = (u64)a3 << 44;
-                    v1 = *(u32*)*(__sp + 4);
+                    v1 = *(u32*)(__sp + 4);
                     a1 = a1 + 656;
-                    v1 = s4 + v1;
                     v1 = v1 + 0x24;
                     }
-                    v1 = v1 & 0xfff;
                     v1 = v1 << 12;
                     ret = LO;
                     a2 = (s32)((s64)s5 * (s64)ret); HI_LO = (s64)s5 * (s64)ret;
-                    __asm("mult1 a0, v0, s0");
+                    a0 = ret * s0;
                     ret = ret + -1;
                     a1 = a2 + a1;
                     ret = ret << 23;
@@ -909,18 +872,16 @@ loc_23AEFC:
                     a0 = a0 + -1;
                     a1 = a1 | a3;
                     a0 = (u64)a0 << 32;
-                    ret = ret | a0;
-                    ret = ret | a1;
                     ret = ret | v1;
-                    *(u64*)*(s3 + 24) = ret;
+                    *(u64*)(s3 + 24) = ret;
                     } else {
                     if (a1 == ret) {
                         ret = 0x2d0;
-                        a1 = *(u32*)(sp);
+                        a1 = *(u32*)(__sp);
                         ret = ret - s0;
                         a2 = s5 << 1;
                         v1 = (unsigned)ret >> 0x1f;
-                        a0 = *(u32*)*(__sp + 4);
+                        a0 = *(u32*)(__sp + 4);
                         ret = ret + v1;
                         a3 = a2 + 232;
                         ret = (signed)ret >> 1;
@@ -941,15 +902,14 @@ loc_23AEFC:
                         a0 = a0 & 0xfff;
                         v1 = v1 | a1;
                         a0 = a0 << 12;
-                        v1 = v1 | a0;
-                        *(u64*)*(s3 + 24) = v1;
+                        *(u64*)(s3 + 24) = v1 | a0;
                     } else {
                         a0 = a0 + 0x1518;
                         ret = UI_DMASetup(a0, a1, a2, a3);
                         }
                         }
                     }
-    *(u64*)*(s3 + 32) = 0;
+    *(u64*)(s3 + 32) = 0;
     return ret;
 }
 
@@ -958,177 +918,130 @@ loc_23AEFC:
 /* String ref: "D1_MADR=%08x:" */
 /* String ref: "D2_TADR=%08x:" */
 /* String ref: "D2_MADR=%08x:" */
-int EEKernel_DMA_ChannelStatus_Debug()
+u32 EEKernel_DMA_ChannelStatus_Debug(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, v0, v1, a0, a1, a2, a3;
+    u32 ret, v1, a1, a2, a3;
     a1 = 0;
     if (a0 == 0) {
         ret = 0x10009000;
-        v1 = *(u32*)(v0);
         v1 = v1 & 0x100;
-        if (0x10000000 != 0) {
+        a0 = 0x01000000;
+        v1 = 0x10009000;
+        ret = a1;
+            do {
+                a1 = a1 + 1;
+                if ((unsigned)a0 >= (unsigned)ret) {
+                ret = a1;
+                }
+            } while (ret != 0);
+    }
+        ret = 0x1000A000;
+        v1 = v1 & 0x100;
+        a0 = 0x01000000;
+        v1 = 0x1000A000;
+        ret = a1;
+            do {
+                a1 = a1 + 1;
+                if ((unsigned)a0 >= (unsigned)ret) {
+                ret = a1;
+                }
+            } while (ret != 0);
+    }
+        ret = 0x10003C00;
+        a0 = 0x1F000003;
+        v1 = v1 & a0;
+        a2 = 0x01000000;
+        a0 = 0x10003C00;
+        v1 = 0x1F000003;
+        ret = a1;
+            do {
+                a1 = a1 + 1;
+                if ((unsigned)a2 >= (unsigned)ret) {
+                ret = a1;
+                }
+            } while (ret != 0);
+        __asm("cop2 a2, vi29");
+        ret = a2 & 0x100;
+        v1 = 0x01000000;
+        if (ret != 0) {
+            ret = a1;
+                do {
+                    a1 = a1 + 1;
+                    if ((unsigned)v1 >= (unsigned)ret) {
+                    __asm("cop2 a2, vi29");
+                    }
+                    ret = a1;
+                } while (ret != 0);
+        }
+            ret = 0x10003020;
+            v1 = v1 & 0xc00;
             a0 = 0x01000000;
-            v1 = 0x10009000;
+            v1 = 0x10003020;
             ret = a1;
                 do {
                     a1 = a1 + 1;
                     if ((unsigned)a0 >= (unsigned)ret) {
-                    ret = *(u32*)(v1);
-                    ret = ret & 0x100;
                     ret = a1;
-                } while (ret != 0);
-        }
-            ret = 0x1000A000;
-            v1 = *(u32*)(v0);
-            v1 = v1 & 0x100;
-            if (0x10000000 != 0) {
-                a0 = 0x01000000;
-                v1 = 0x1000A000;
-                ret = a1;
-                    do {
-                        a1 = a1 + 1;
-                        if ((unsigned)a0 >= (unsigned)ret) {
-                        ret = *(u32*)(v1);
-                        ret = ret & 0x100;
-                        ret = a1;
-                    } while (ret != 0);
-            }
-                ret = 0x10003C00;
-                a0 = 0x1F000003;
-                v1 = *(u32*)(v0);
-                v1 = v1 & a0;
-                if (0x1F000000 != 0) {
-                    a2 = 0x01000000;
-                    a0 = 0x10003C00;
-                    v1 = 0x1F000003;
-                    ret = a1;
-                        do {
-                            a1 = a1 + 1;
-                            if ((unsigned)a2 >= (unsigned)ret) {
-                            ret = *(u32*)(a0);
-                            ret = ret & v1;
-                            ret = a1;
-                        } while (ret != 0);
-                }
-                    __asm("cop2 a2, vi29");
-                    ret = a2 & 0x100;
-                    v1 = 0x01000000;
-                    if (ret != 0) {
-                        ret = a1;
-                            do {
-                                a1 = a1 + 1;
-                                if ((unsigned)v1 >= (unsigned)ret) {
-                                __asm("cop2 a2, vi29");
-                                ret = a2 & 0x100;
-                                ret = a1;
-                            } while (ret != 0);
                     }
-                        ret = 0x10003020;
-                        v1 = *(u32*)(v0);
-                        v1 = v1 & 0xc00;
-                        if (0x10000000 != 0) {
-                            a0 = 0x01000000;
-                            v1 = 0x10003020;
-                            ret = a1;
-                                do {
-                                    a1 = a1 + 1;
-                                    if ((unsigned)a0 >= (unsigned)ret) {
-                                    ret = *(u32*)(v1);
-                                    ret = ret & 0xc00;
-                                    ret = a1;
-                                } while (ret != 0);
-                        }
-                            ret = 0;
-                            } else {
-                            a0 = 0x00501550;
-                            } else {
-                            a0 = 0x00501630;
-                            } else {
-                            a0 = 0x00501660;
-                            } else {
-                            a0 = 0x00501690;
-                        } else {
-                            a0 = 0x005016B8;
-                            }
-                            }
-                            }
-                        }
-            ret = UI_DMASetup(a0, a1, a2, a3);
-            ret = 0x10009000;
-            a0 = 0x00501580;
-            a1 = *(u32*)(v0);
-            ret = UI_DMASetup(a0, a1, a2, a3);
-            ret = 0x10009030;
-            a0 = 0x00501590;
-            a1 = *(u32*)(v0);
-            ret = UI_DMASetup(a0, a1, a2, a3);
-            ret = 0x10009010;
-            a0 = 0x005015A0;
-            a1 = *(u32*)(v0);
-            ret = UI_DMASetup(a0, a1, a2, a3);
-            ret = 0x10009020;
-            a0 = 0x005015B0;
-            a1 = *(u32*)(v0);
-            ret = UI_DMASetup(a0, a1, a2, a3);
-            ret = 0x1000A000;
-            a0 = 0x005015C0;
-            a1 = *(u32*)(v0);
-            ret = UI_DMASetup(a0, a1, a2, a3);
-            ret = 0x1000A030;
-            a0 = 0x005015D0;
-            a1 = *(u32*)(v0);
-            ret = UI_DMASetup(a0, a1, a2, a3);
-            ret = 0x1000A010;
-            a0 = 0x005015E0;
-            a1 = *(u32*)(v0);
-            ret = UI_DMASetup(a0, a1, a2, a3);
-            ret = 0x1000A020;
-            a0 = 0x005015F0;
-            a1 = *(u32*)(v0);
-            ret = UI_DMASetup(a0, a1, a2, a3);
-            ret = 0x10003C00;
-            a0 = 0x00501600;
-            a1 = *(u32*)(v0);
-            ret = UI_DMASetup(a0, a1, a2, a3);
-            ret = 0x10003020;
-            a0 = 0x00501618;
-            a1 = *(u32*)(v0);
-            ret = UI_DMASetup(a0, a1, a2, a3);
-            ret = -1;
+                } while (ret != 0);
+            ret = 0;
             } else {
-            v1 = 0x10009000;
-            a1 = 0x1000A000;
-            ret = *(u32*)(v1);
-            a2 = *(u32*)(a1);
-            a0 = 0x10003C00;
-            ret = ret & 0x100;
-            a1 = *(u32*)(a0);
-            ret = ((unsigned)0 < (unsigned)ret) ? 1 : 0;
-            a2 = a2 & 0x100;
-            a0 = ret | 2;
-            __asm("movn v0, a0, a2");
-            a1 = a1 & 0x1F000003;
-            a0 = ret | 4;
-            __asm("movn v0, a0, a1");
-            __asm("cop2 a2, vi29");
-            a2 = a2 & 0x100;
-            v1 = 0x10003020;
-            a1 = ret | 8;
-            a0 = *(u32*)(v1);
-            __asm("movn v0, a1, a2");
-            v1 = ret | 0x10;
-            a0 = a0 & 0xc00;
-            __asm("movn v0, v1, a0");
-            }
-        }
+            a0 = 0x00501550;
+            } else {
+            a0 = 0x00501630;
+            } else {
+            a0 = 0x00501660;
+            } else {
+            a0 = 0x00501690;
+        ret = UI_DMASetup(a0, a1, a2, a3);
+        ret = 0x10009000;
+        a0 = 0x00501580;
+        a1 = *(u32*)(ret);
+        ret = UI_DMASetup(a0, a1, a2, a3);
+        ret = 0x10009030;
+        a0 = 0x00501590;  /* "D1_TADR=%08x:" */
+        a1 = *(u32*)(ret);
+        ret = UI_DMASetup(a0, a1, a2, a3);
+        ret = 0x10009010;
+        a0 = 0x005015A0;  /* "D1_MADR=%08x:" */
+        a1 = *(u32*)(ret);
+        ret = UI_DMASetup(a0, a1, a2, a3);
+        ret = 0x10009020;
+        a0 = 0x005015B0;
+        a1 = *(u32*)(ret);
+        ret = UI_DMASetup(a0, a1, a2, a3);
+        ret = 0x1000A000;
+        a0 = 0x005015C0;
+        a1 = *(u32*)(ret);
+        ret = UI_DMASetup(a0, a1, a2, a3);
+        ret = 0x1000A030;
+        a0 = 0x005015D0;  /* "D2_TADR=%08x:" */
+        a1 = *(u32*)(ret);
+        ret = UI_DMASetup(a0, a1, a2, a3);
+        ret = 0x1000A010;
+        a0 = 0x005015E0;  /* "D2_MADR=%08x:" */
+        a1 = *(u32*)(ret);
+        ret = UI_DMASetup(a0, a1, a2, a3);
+        ret = 0x1000A020;
+        a0 = 0x005015F0;
+        a1 = *(u32*)(ret);
+        ret = UI_DMASetup(a0, a1, a2, a3);
+        ret = 0x10003C00;
+        a0 = 0x00501600;
+        a1 = *(u32*)(ret);
+        ret = UI_DMASetup(a0, a1, a2, a3);
+        ret = 0x10003020;
+        a0 = 0x00501618;
+        a1 = *(u32*)(ret);
+        ret = UI_DMASetup(a0, a1, a2, a3);
+        ret = -1;
     return ret;
-}
 
 /* Function at 0x0023B4B8 - 0x0023B4C8 */
-int EEKernel_TLB_Refill_Handler()
+u32 EEKernel_TLB_Refill_Handler(u32 a0, u32 a1, u32 a2, u32 a3)
 {
-    int a2, a3, t0, t5;
+    u32 t0, t5;
     a3 = a3 << 0x10;
     a2 = a2 << 0x10;
     t0 = t0 << 0x10;
@@ -1136,10 +1049,10 @@ int EEKernel_TLB_Refill_Handler()
 }
 
 /* Function at 0x0023B4C8 - 0x0023B6A0 */
-int EEKernel_VectorUnit_Command()
+u32 EEKernel_VectorUnit_Command(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 16 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, t0, t1, t2, t3, t4, t5, t6, t7, t8;
+    u32 ret, v1, a3, t0, t1, t2, t3, t4, t5, t6, t7, t8;
     a1 = a1 << 0x10;
     t1 = t1 << 0x10;
     t2 = t2 << 0x10;
@@ -1153,7 +1066,6 @@ int EEKernel_VectorUnit_Command()
     t6 = a0;
     a2 = 0;
     if ((unsigned)t5 >= 0x3b) goto loc_23B564;
-    v1 = t5 << 2;
     v1 = v1 + 0x00501710;
     a0 = *(u32*)(v1);
     goto *a0; /* computed jump */
@@ -1167,29 +1079,28 @@ loc_23B564:
         ret = UI_DMASetup(a0, a1, a2, a3);
         ret = 0;
     } else {
-        __asm("mmi3 v0, zero, zero");
+        __asm("mmi3 ret, 0, 0");
         v1 = a2 & 0x7fff;
-        __asm("subu.qb zero, t6, v0");
+        __asm("subu.qb 0, t6, ret");
         a2 = (u64)a3 << 48;
-        __asm("ext v0, t6, 0, 1");
+        __asm("ext ret, t6, 0, 1");
         a3 = 0xF3FFFFFF;
         a3 = a3 << 16;
         a3 = a3 | 0xffff;
         a3 = a3 << 16;
         a3 = a3 | 0xffff;
-        a0 = *(u64*)*(t6 + 80);
+        a0 = *(u64*)(t6 + 80);
         ret = -0x8000;
-        a1 = *(u64*)*(t6 + 0);
+        a1 = *(u64*)(t6 + 0);
         t4 = (u64)t4 << 48;
         a0 = a0 & ret;
-        t3 = *(u64*)*(t6 + 8);
+        t3 = *(u64*)(t6 + 8);
         a1 = a1 & ret;
         a0 = a0 | v1;
         ret = 4;
-        v1 = 0 | 0x8000;
+        v1 = 0x8000;
         a1 = a1 | ret;
         a0 = a0 | v1;
-        ret = -1;
         ret = (unsigned)ret >> 4;
         v1 = -0x10;
         a1 = a1 & ret;
@@ -1200,10 +1111,9 @@ loc_23B564:
         t0 = (u64)t0 << 48;
         a2 = a2 | t4;
         t0 = (signed)t0 >> 16;
-        ret = 0 | 0x8000;
         ret = (u64)ret << 45;
         v1 = 0xe;
-        a3 = 0 | 0x8000;
+        a3 = 0x8000;
         a3 = (u64)a3 << 44;
         t1 = (u64)t7 << 48;
         t2 = (s64)t2 >> 48;
@@ -1220,17 +1130,17 @@ loc_23B564:
         v1 = 0x51;
         a3 = 0x52;
         t0 = 0x53;
-        *(u64*)*(t6 + 80) = a0;
-        *(u64*)*(t6 + 0) = a1;
-        *(u64*)*(t6 + 8) = t3;
-        *(u64*)*(t6 + 16) = a2;
-        *(u64*)*(t6 + 24) = ret;
-        *(u64*)*(t6 + 32) = t1;
-        *(u64*)*(t6 + 40) = v1;
-        *(u64*)*(t6 + 48) = t2;
-        *(u64*)*(t6 + 56) = a3;
-        *(u64*)*(t6 + 72) = t0;
-        *(u64*)*(t6 + 64) = 0;
+        *(u64*)(t6 + 80) = a0;
+        *(u64*)(t6 + 0) = a1;
+        *(u64*)(t6 + 8) = t3;
+        *(u64*)(t6 + 16) = a2;
+        *(u64*)(t6 + 24) = ret;
+        *(u64*)(t6 + 32) = t1;
+        *(u64*)(t6 + 40) = v1;
+        *(u64*)(t6 + 48) = t2;
+        *(u64*)(t6 + 56) = a3;
+        *(u64*)(t6 + 72) = t0;
+        *(u64*)(t6 + 64) = 0;
         SYNC(); /* memory barrier */
         ret = 6;
     }
@@ -1238,31 +1148,30 @@ loc_23B564:
 }
 
 /* Function at 0x0023B6A0 - 0x0023B7E0 */
-int EEKernel_VU_WriteQuad()
+u32 EEKernel_VU_WriteQuad(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 16 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, t0, t1, t2, t3, t4, t5, t6, t7;
-    __asm("mmi3 v0, zero, zero");
+    u32 ret, v1, s0, t0, t1, t2, t3, t4, t5, t6, t7;
+    __asm("mmi3 ret, 0, 0");
     a1 = a1 << 0x10;
-    __asm("addu.qb zero, a0, v0");
+    __asm("addu.qb 0, a0, ret");
     a1 = (signed)a1 >> 0x10;
     ret = -0x8000;
     a3 = a3 << 0x10;
-    t4 = *(u64*)*(a0 + 16);
+    t4 = *(u64*)(a0 + 16);
     t0 = t0 << 0x10;
     t2 = t2 << 0x10;
     t3 = t3 << 0x10;
     t4 = t4 & ret;
-    t5 = *(u64*)*(a0 + 24);
+    t5 = *(u64*)(a0 + 24);
     ret = 5;
     a3 = (signed)a3 >> 0x10;
     t4 = t4 | ret;
     t0 = (signed)t0 >> 0x10;
-    ret = 0 | 0x8000;
+    ret = 0x8000;
     t2 = (signed)t2 >> 0x10;
     t4 = t4 | ret;
     t3 = (signed)t3 >> 0x10;
-    ret = -1;
     ret = (unsigned)ret >> 4;
     a1 = (u64)a1 << 48;
     a2 = a2 << 0x10;
@@ -1278,7 +1187,6 @@ int EEKernel_VU_WriteQuad()
     t1 = t1 << 0x10;
     a3 = (signed)a3 >> 24;
     t3 = (signed)t3 >> 16;
-    ret = 0 | 0x8000;
     ret = (u64)ret << 45;
     t6 = 0xe;
     t0 = (s64)t0 >> 48;
@@ -1297,35 +1205,34 @@ int EEKernel_VU_WriteQuad()
     t7 = 0x61;
     s0 = 1;
     ret = 0x53;
-    *(u32*)*(a0 + 4) = v1;
-    *(u64*)*(a0 + 104) = ret;
-    *(u32*)*(a0 + 8) = a3;
-    *(u32*)*(a0 + 0xc) = a2;
-    *(u64*)*(a0 + 16) = t4;
-    *(u64*)*(a0 + 24) = t5;
-    *(u64*)*(a0 + 32) = a1;
-    *(u64*)*(a0 + 40) = t1;
-    *(u64*)*(a0 + 48) = t0;
-    *(u64*)*(a0 + 56) = t3;
-    *(u64*)*(a0 + 64) = t2;
-    *(u64*)*(a0 + 72) = t6;
-    *(u64*)*(a0 + 88) = t7;
-    *(u64*)*(a0 + 96) = s0;
+    *(u32*)(a0 + 4) = v1;
+    *(u64*)(a0 + 104) = ret;
+    *(u32*)(a0 + 8) = a3;
+    *(u32*)(a0 + 0xc) = a2;
+    *(u64*)(a0 + 16) = t4;
+    *(u64*)(a0 + 24) = t5;
+    *(u64*)(a0 + 32) = a1;
+    *(u64*)(a0 + 40) = t1;
+    *(u64*)(a0 + 48) = t0;
+    *(u64*)(a0 + 56) = t3;
+    *(u64*)(a0 + 64) = t2;
+    *(u64*)(a0 + 72) = t6;
+    *(u64*)(a0 + 88) = t7;
+    *(u64*)(a0 + 96) = s0;
     *(u32*)(a0) = 0;
-    *(u64*)*(a0 + 80) = 0;
+    *(u64*)(a0 + 80) = 0;
     SYNC(); /* memory barrier */
     return 7;
 }
 
 /* Function at 0x0023B7E0 - 0x0023B960 */
-int EEKernel_SIF_DMA_ConfigWrite()
+u32 EEKernel_SIF_DMA_ConfigWrite(u32 a0, u32 a1)
 {
     /* Stack frame: 16 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, t0;
+    u32 ret, v1, a2, a3, t0;
     v1 = 0x1000A000;
     a3 = a0;
     t0 = a1;
-    ret = *(u32*)(v1);
     ret = ret & 0x100;
     a2 = 0;
     if (ret != 0) {
@@ -1335,17 +1242,14 @@ int EEKernel_SIF_DMA_ConfigWrite()
         do {
             a2 = a2 + 1;
             if ((unsigned)a0 < (unsigned)ret) goto loc_23B914;
-            ret = *(u32*)(v1);
-            ret = ret & 0x100;
             ret = a2;
         } while (ret != 0);
     }
     a1 = 6;
     ret = 0x1000A020;
     a0 = 0x70000000;
-    *(u32*)(v0) = a1;
-    v1 = a3 & a0;
-    if (v1 == a0) {
+    *(u32*)(ret) = a1;
+    if ((a3 & a0) == a0) {
         ret = 0x0FFFFFFF;
         a0 = 0x80000000;
         ret = a3 & ret;
@@ -1358,28 +1262,21 @@ int EEKernel_SIF_DMA_ConfigWrite()
     }
     *(u32*)(v1) = ret;
     a0 = 0x101;
-    ret = 0x1000A000;
-    *(u32*)(v0) = a0;
-    v1 = *(u32*)(v0);
+    *(u32*)(0x1000A000) = a0;
     v1 = v1 & 0x100;
-    if (0x10000000 != 0) {
-        a0 = 0x01000000;
-        v1 = 0x1000A000;
+    a0 = 0x01000000;
+    v1 = 0x1000A000;
+    ret = a2;
+    do {
+        a2 = a2 + 1;
+        if ((unsigned)a0 < (unsigned)ret) goto loc_23B914;
         ret = a2;
-        do {
-            a2 = a2 + 1;
-            if ((unsigned)a0 < (unsigned)ret) goto loc_23B914;
-            ret = *(u32*)(v1);
-            ret = ret & 0x100;
-            ret = a2;
-        } while (ret != 0);
-    }
-    ret = *(u64*)*(a3 + 80);
+    } while (ret != 0);
+    ret = *(u64*)(a3 + 80);
     v1 = 0x1000A020;
     a1 = 0x70000000;
     ret = ret & 0x7fff;
     a0 = t0 & a1;
-    ret = (u64)ret << 32;
     ret = (s64)ret >> 32;
     *(u32*)(v1) = ret;
     if (a0 == a1) {
@@ -1408,10 +1305,10 @@ int EEKernel_SIF_DMA_ConfigWrite()
 }
 
 /* Function at 0x0023B960 - 0x0023BFF0 */
-int EEKernel_SIF_DMA_ConfigTransfer()
+u32 EEKernel_SIF_DMA_ConfigTransfer(u32 a0, u32 a1)
 {
     /* Stack frame: 144 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, t0, t1;
+    u32 ret, v1, a2, a3, s0, s1, s2, s3, s4, s5, s6, t0, t1;
     s6 = 0;
     s5 = a1;
     s4 = a0;
@@ -1419,8 +1316,8 @@ int EEKernel_SIF_DMA_ConfigTransfer()
     s2 = 0;
     s1 = 0;
     s0 = 0;
-    t1 = *(u64*)*(s4 + 64);
-    ret = *(u64*)*(s4 + 32);
+    t1 = *(u64*)(s4 + 64);
+    ret = *(u64*)(s4 + 32);
     a0 = t1 & 0xfff;
     v1 = (u64)t1 >> 32;
     ret = (unsigned)ret >> 24;
@@ -1433,73 +1330,63 @@ int EEKernel_SIF_DMA_ConfigTransfer()
     a3 = (u64)v1 << 32;
     a3 = (s64)a3 >> 32;
     a1 = 0;
-    if ((unsigned)a0 >= 0x3b) goto loc_23BB3C;
-    v1 = a0 << 2;
-    v1 = v1 + 0x00501920;
-    a0 = *(u32*)(v1);
-    goto *a0; /* computed jump */
-    a0 = (s32)((s64)t0 * (s64)a3); HI_LO = (s64)t0 * (s64)a3;
-    ret = 0xFFFFFFF8;
-    a2 = a0 << 2;
-    v1 = (signed)a2 >> 4;
-    s3 = a2 & 0xf;
-    s2 = v1 & ret;
-    s1 = v1 & 7;
-    if (s3 == 0) goto loc_23BB14;
-    ret = a3 + 3;
-    a1 = ret & 0x1ffc;
-    ac3 = (s32)((s64)t0 * (s64)a1); HI_LO = (s64)t0 * (s64)a1;
-    ret = (signed)v1 >> 2;
-    goto loc_23BB30;
-        loc_23BB14:
-        a1 = a3;
-        s6 = 0;
+    if ((unsigned)a0 < 0x3b) {
+        v1 = v1 + 0x00501920;
+        a0 = *(u32*)(v1);
+        goto *a0; /* computed jump */
+        a0 = (s32)((s64)t0 * (s64)a3); HI_LO = (s64)t0 * (s64)a3;
+        ret = 0xFFFFFFF8;
+        a2 = a0 << 2;
+        v1 = (signed)a2 >> 4;
+        s3 = a2 & 0xf;
+        s2 = v1 & ret;
+        s1 = v1 & 7;
+        if (s3 != 0) {
+            ret = a3 + 3;
+            a1 = ret & 0x1ffc;
+            ac3 = (s32)((s64)t0 * (s64)a1); HI_LO = (s64)t0 * (s64)a1;
+            ret = (signed)v1 >> 2;
+        } else {
+            a1 = a3;
+            s6 = 0;
+        }
     } else {
         ret = a3 + 7;
         a1 = ret & a1;
         ac3 = (s32)((s64)t0 * (s64)a1); HI_LO = (s64)t0 * (s64)a1;
         ret = (signed)v1 >> 5;
-        loc_23BB30:
-        ret = ret - s2;
-        ret = ret - s1;
-        s6 = ret + -1;
     }
-loc_23BB3C:
+    ret = ret - s1;
+    s6 = ret + -1;
     v1 = t1 & 0xfff;
     if (s3 != 0) {
         a1 = (u64)a1 << 32;
-        v1 = (u64)v1 << 32;
         v1 = (s64)v1 >> 32;
         ret = s4 + 0x40;
         a0 = 0x20000000;
         v1 = v1 | a1;
         ret = ret | a0;
-        *(u64*)*(ret + 0) = v1;
+        *(u64*)(ret + 0) = v1;
     }
     ret = 0x10009000;
-    v1 = *(u32*)(v0);
     v1 = v1 & 0x100;
-    if (0x10000000 != 0) {
-        a0 = 0x01000000;
-        v1 = 0x10009000;
+    a0 = 0x01000000;
+    v1 = 0x10009000;
+    ret = s0;
+    do {
+        s0 = s0 + 1;
+        if ((unsigned)a0 < (unsigned)ret) goto loc_23BD08;
         ret = s0;
-        do {
-            s0 = s0 + 1;
-            if ((unsigned)a0 < (unsigned)ret) goto loc_23BD08;
-            ret = *(u32*)(v1);
-            ret = ret & 0x100;
-            ret = s0;
-        } while (ret != 0);
-    }
-    ret = UI_Kern_SifSetDma(a0, a1, a2, a3);
+    } while (ret != 0);
+    ret = UI_Kern_SifSetDma();
     a0 = 0x200;
     a0 = ret | a0;
-    ret = UI_Kern_SifSetDChain(a0, a1, a2, a3);
+    ret = UI_Kern_SifSetDChain();
     t3 = ret;
     a0 = 2;
     ret = 0x12001000;
     v1 = 0x10009020;
-    *(u64*)*(ret + 0) = a0;
+    *(u64*)(ret + 0) = a0;
     a1 = 0x70000000;
     a0 = 7;
     ret = s4 & a1;
@@ -1517,23 +1404,15 @@ loc_23BB3C:
     }
     *(u32*)(v1) = ret;
     a0 = 0x101;
-    ret = 0x10009000;
-    *(u32*)(v0) = a0;
-    v1 = *(u32*)(v0);
+    *(u32*)(0x10009000) = a0;
     v1 = v1 & 0x100;
-    if (0x10000000 != 0) {
-        a0 = 0x01000000;
-        v1 = 0x10009000;
-        ret = s0;
-        do {
-            s0 = s0 + 1;
-            if ((unsigned)a0 < (unsigned)ret) goto loc_23BD08;
-            ret = *(u32*)(v1);
-            ret = ret & 0x100;
-            ret = s0;
-        } while (ret != 0);
-    }
-    v1 = *(u64*)*(0x12001000 + 0);
+    a0 = 0x01000000;
+    v1 = 0x10009000;
+    ret = s0;
+    do {
+        s0 = s0 + 1;
+        if ((unsigned)a0 < (unsigned)ret) goto loc_23BD08;
+    } while (s0 != 0);
     v1 = v1 & 2;
     if (v1 == 0) {
         a0 = 0x01000000;
@@ -1542,21 +1421,19 @@ loc_23BB3C:
             do {
                 s0 = s0 + 1;
                 if ((unsigned)a0 >= (unsigned)ret) {
-                ret = *(u64*)*(v1 + 0);
-                ret = ret & 2;
                 ret = s0;
+                }
             } while (ret == 0);
             ret = 0x10000000;
     }
         a0 = 0x00800000;
-        ret = 0x10003C00;
-        *(u32*)(v0) = a0;
-        *(u64*)*(0x12001040 + 0) = 1;
+        *(u32*)(0x10003C00) = a0;
+        *(u64*)(0x12001040 + 0) = 1;
         if (s2 == 0) goto loc_23BE0C;
         a0 = 0x70000000;
         ret = 0x10009020;
         v1 = s5 & a0;
-        *(u32*)(v0) = s2;
+        *(u32*)(ret) = s2;
         if (v1 == a0) {
             ret = 0x0FFFFFFF;
             a0 = 0x80000000;
@@ -1585,11 +1462,11 @@ loc_23BB3C:
             loc_23BD60:
             ret = UI_DMASetup(a0, a1, a2, a3);
             a0 = 0x100;
-            *(u64*)*(0x12001000 + 0) = a0;
-            *(u64*)*(0x12001040 + 0) = 0;
+            *(u64*)(0x12001000 + 0) = a0;
+            *(u64*)(0x12001040 + 0) = 0;
             a0 = 1;
             ret = 0x10003000;
-            *(u32*)(v0) = a0;
+            *(u32*)(ret) = a0;
             v1 = 0x10003C10;
             ret = -1;
             *(u32*)(v1) = a0;
@@ -1601,8 +1478,7 @@ loc_23BB3C:
             *(u32*)(v1) = ret;
             a0 = 0x100;
             ret = 0x10009000;
-            *(u32*)(v0) = a0;
-            v1 = *(u32*)(v0);
+            *(u32*)(ret) = a0;
             v1 = v1 & 0x100;
             ret = s0;
             if (v1 == 0) goto loc_23BE0C;
@@ -1611,10 +1487,7 @@ loc_23BB3C:
             do {
                 s0 = s0 + 1;
                 if ((unsigned)a0 < (unsigned)ret) goto loc_23BD4C;
-                ret = *(u32*)(v1);
-                ret = ret & 0x100;
-                ret = s0;
-            } while (ret != 0);
+            } while (s0 != 0);
             loc_23BE0C:
             a1 = 0;
             if (s1 != 0) {
@@ -1624,9 +1497,7 @@ loc_23BB3C:
                 t2 = 0x1F000000;
                 t0 = 0x10005000;
                 do {
-                    ret = *(u32*)(t1);
-                    ret = ret & t2;
-                    if (ret == 0) {
+                    if ((ret & t2) == 0) {
                         a3 = 0x01000000;
                         v1 = 0x10003C00;
                         a0 = 0x1F000000;
@@ -1634,47 +1505,30 @@ loc_23BB3C:
                         do {
                             s0 = s0 + 1;
                             if ((unsigned)a3 < (unsigned)ret) goto loc_23BD58;
-                            ret = *(u32*)(v1);
-                            ret = ret & a0;
-                            ret = s0;
-                        } while (ret == 0);
+                        } while (s0 == 0);
                     }
                     __asm("ori.b w0, w0, 2");
                     a1 = a1 + 1;
                     v1 = ((signed)a1 < (signed)s1) ? 1 : 0;
-                    __asm("ext v0, a2, 0, 1");
+                    __asm("ext ret, a2, 0, 1");
                     a2 = a2 + 0x10;
                 } while (v1 != 0);
             }
             if (s3 == 0) goto loc_23BF78;
             a0 = 0x1F000000;
             ret = 0x10003C00;
-            v1 = *(u32*)(v0);
             v1 = v1 & a0;
-            if (0x10000000 == 0) {
-                a1 = 0x01000000;
-                v1 = 0x10003C00;
-                ret = s0;
-                do {
-                    s0 = s0 + 1;
-                    if ((unsigned)a1 < (unsigned)ret) goto loc_23BD58;
-                    ret = *(u32*)(v1);
-                    ret = ret & a0;
-                    ret = s0;
-                } while (ret == 0);
-                v1 = 0x10000000;
-            }
             a1 = 0;
             v1 = 0x10005000;
             __asm("andi.b w0, w0, 0x62");
-            __asm("ext v0, sp, 0, 1");
+            __asm("ext ret, sp, 0, 1");
             if (s3 != 0) {
                 a2 = s2 + s1;
                 do {
                     v1 = a2 << 4;
                     ret = __sp + a1;
                     v1 = v1 + s5;
-                    a0 = *(u8*)(v0);
+                    a0 = *(u8*)(ret);
                     v1 = v1 + a1;
                     a1 = a1 + 1;
                     ret = ((signed)a1 < (signed)s3) ? 1 : 0;
@@ -1687,9 +1541,7 @@ loc_23BB3C:
             t1 = 0x1F000000;
             a3 = 0x10005000;
             do {
-                ret = *(u32*)(t0);
-                ret = ret & t1;
-                if (ret == 0) {
+                if ((ret & t1) == 0) {
                     a2 = 0x01000000;
                     v1 = 0x10003C00;
                     a0 = 0x1F000000;
@@ -1697,28 +1549,25 @@ loc_23BB3C:
                     do {
                         s0 = s0 + 1;
                         if ((unsigned)a2 < (unsigned)ret) goto loc_23BD58;
-                        ret = *(u32*)(v1);
-                        ret = ret & a0;
-                        ret = s0;
-                    } while (ret == 0);
+                    } while (s0 == 0);
                 }
                 __asm("andi.b w0, w0, 0xe2");
                 a1 = a1 + 1;
                 v1 = ((signed)a1 < (signed)s6) ? 1 : 0;
-                __asm("ext v0, sp, 0, 1");
+                __asm("ext ret, sp, 0, 1");
             } while (v1 != 0);
             loc_23BF78:
             ret = 0x10003C00;
             v1 = 0x12001040;
-            *(u32*)(v0) = 0;
+            *(u32*)(ret) = 0;
             a0 = t3;
-            *(u64*)*(v1 + 0) = 0;
-            ret = UI_Kern_SifSetDChain(a0, a1, a2, a3);
+            *(u64*)(v1 + 0) = 0;
+            ret = UI_Kern_SifSetDChain();
             v1 = 0x004F83D0;
             ret = 0x12001000;
             __asm("andi.b w0, w0, 0x65");
             a0 = 2;
-            *(u64*)*(ret + 0) = a0;
+            *(u64*)(ret + 0) = a0;
             v1 = 0x10005000;
             ret = 0;
             __asm("ext a1, v1, 0, 1");
@@ -1726,16 +1575,13 @@ loc_23BB3C:
         }
 loc_23BFC8:
     return ret;
-}
 
 /* Function at 0x0023BFF0 - 0x0023C068 */
-int EEKernel_Integer_Multiply64()
+u32 EEKernel_Integer_Multiply64(u32 a0, u32 a1, u32 a2, u32 a3)
 {
-    int ret, v0, v1, a0, a1, a2, a3, t0, t1;
-    ret = (u64)a1 << 32;
+    u32 ret, v1, t0, t1;
     ret = (s64)ret >> 32;
     a1 = (s64)a1 >> 32;
-    v1 = (u64)a0 << 32;
     v1 = (s64)v1 >> 32;
     HI_LO = (u64)v1 * (u64)ret;
     a2 = LO;
@@ -1745,7 +1591,7 @@ int EEKernel_Integer_Multiply64()
     ac3 = (s32)((s64)v1 * (s64)a1); HI_LO = (s64)v1 * (s64)a1;
     a1 = -1;
     a1 = (u64)a1 << 32;
-    __asm("mult1 a0, a0, v0");
+    a0 = a0 * ret;
     a2 = (u64)a2 >> 32;
     t1 = t1 & a1;
     a3 = (u64)a3 >> 32;
@@ -1756,62 +1602,51 @@ int EEKernel_Integer_Multiply64()
     v1 = v1 + a0;
     ret = (s64)t1 >> 32;
     a3 = t1 & a3;
-    ret = ret + v1;
-    ret = (u64)ret << 32;
-    ret = a3 | ret;
-    return ret;
+    return a3 | ret;
 }
 
 /* Function at 0x0023C068 - 0x0023C700 */
-int EEKernel_Integer_Divide64()
+u32 EEKernel_Integer_Divide64(u32 a0, u32 a1, u32 a2, u32 a3)
 {
-    int ret, v0, v1, a0, a1, a2, a3, t0, t1, t2, t3, t4, t5, t6, t7, t8;
+    u32 ret, v1, t0, t1, t2, t3, t4, t5, t6, t7, t8;
     t1 = a0;
     t2 = (s64)t1 >> 32;
     a0 = (u64)t2 << 32;
     a0 = (s64)a0 >> 32;
     t8 = 0;
     if ((signed)a0 < 0) {
-        ret = (u64)t1 << 32;
         ret = (s64)ret >> 32;
-        v1 = -1;
         v1 = (u64)v1 << 32;
-        __asm("negu v0, v0");
+        ret = -ret;
         a2 = a2 & v1;
         ret = (u64)ret << 32;
-        __asm("negu v1, a0");
+        v1 = -a0;
         ret = (u64)ret >> 32;
         a0 = (u64)a0 >> 32;
         a2 = a2 | ret;
         t8 = -1;
-        ret = (u64)a2 << 32;
         ret = (s64)ret >> 32;
         a2 = a2 & a0;
         ret = ((unsigned)0 < (unsigned)ret) ? 1 : 0;
-        v1 = v1 - ret;
         v1 = (u64)v1 << 32;
         t1 = a2 | v1;
         t2 = (s64)t1 >> 32;
     }
     a0 = (s64)a1 >> 32;
     if ((signed)a0 < 0) {
-        ret = (u64)a1 << 32;
         ret = (s64)ret >> 32;
-        v1 = -1;
         v1 = (u64)v1 << 32;
-        __asm("negu v0, v0");
+        ret = -ret;
         a3 = a3 & v1;
         ret = (u64)ret << 32;
-        __asm("negu v1, a0");
+        v1 = -a0;
         ret = (u64)ret >> 32;
         a0 = (u64)a0 >> 32;
         a3 = a3 | ret;
         t8 = ~(0 | t8);
-        ret = (u64)a3 << 32;
         ret = (s64)ret >> 32;
         a3 = a3 & a0;
         ret = ((unsigned)0 < (unsigned)ret) ? 1 : 0;
-        v1 = v1 - ret;
         v1 = (u64)v1 << 32;
         a1 = a3 | v1;
     }
@@ -1823,348 +1658,290 @@ int EEKernel_Integer_Divide64()
     t1 = (u64)a1 << 32;
     t1 = (s64)t1 >> 32;
     ret = ((unsigned)t2 < (unsigned)t0) ? 1 : 0;
-    if (t0 != 0) goto loc_23C4D8;
-    ret = ((unsigned)t2 < (unsigned)t1) ? 1 : 0;
-    ret = 0 | 0xffff;
-    if (ret == 0) goto loc_23C298;
-    ret = ((unsigned)ret < (unsigned)t1) ? 1 : 0;
-    if (0x00FF0000 == 0) {
-        ret = ((unsigned)t1 < 0x100) ? 1 : 0;
-        a0 = 8;
-        __asm("movn a0, zero, v0");
-        goto loc_23C194;
-    }
-    v1 = 0x18;
-    ret = ret | 0xffff;
-    a0 = 0x10;
-    ret = ((unsigned)ret < (unsigned)t1) ? 1 : 0;
-    __asm("movn a0, v1, v0");
-loc_23C194:
-    v1 = (unsigned)t1 >> a0;
-    a1 = 0x20;
-    ret = 0x00500000;
-    ret = ret + v1;
-    ret = *(u8*)*(ret + 0x1a10);
-    ret = ret + a0;
-    a2 = a1 - ret;
-    ret = a1 - a2;
-    if (a2 != 0) {
-        v1 = t2 << a2;
-        ret = (unsigned)t3 >> ret;
-        t3 = t3 << a2;
-        t2 = v1 | ret;
-        t1 = t1 << a2;
-    }
-    a2 = (unsigned)t1 >> 0x10;
-    t0 = t1 & 0xffff;
-    __asm("divu zero, t2, a2");
-    a0 = (unsigned)t3 >> 0x10;
-    BREAK(); /* breakpoint */
-    if (likely(a2 == 0)) goto loc_23C1E4;
-loc_23C1E4:
-    ret = LO;
-    v1 = HI;
-    a3 = ret;
-    v1 = v1 << 0x10;
-    a1 = (s32)((s64)a3 * (s64)t0); HI_LO = (s64)a3 * (s64)t0;
-    v1 = v1 | a0;
-    v1 = v1 - a1;
-    if (likely((unsigned)v1 >= (unsigned)a1)) goto loc_23C234;
-    v1 = v1 + t1;
-    a3 = a3 + -1;
-    if ((unsigned)v1 >= (unsigned)t1) {
-        v1 = v1 - a1;
-        if (likely((unsigned)v1 >= (unsigned)a1)) goto loc_23C234;
-        a3 = a3 + -1;
-        v1 = v1 + t1;
-    }
-    v1 = v1 - a1;
-loc_23C234:
-    BREAK(); /* breakpoint */
-    if (likely(a2 == 0)) goto loc_23C23C;
-loc_23C23C:
-    __asm("divu zero, v1, a2");
-    a0 = t3 & 0xffff;
-    ret = LO;
-    v1 = HI;
-    a2 = ret;
-    v1 = v1 << 0x10;
-    a1 = (s32)((s64)a2 * (s64)t0); HI_LO = (s64)a2 * (s64)t0;
-    v1 = v1 | a0;
-    ret = ((unsigned)v1 < (unsigned)a1) ? 1 : 0;
-    ret = a3 << 0x10;
-    if (ret != 0) {
-        v1 = v1 + t1;
-        a2 = a2 + -1;
-        if ((unsigned)v1 >= (unsigned)t1) {
-            ret = ((unsigned)v1 < (unsigned)a1) ? 1 : 0;
-            v1 = a2 + -1;
-            ret = ret ^ 0;
-            __asm("movn a2, v1, v0");
-        }
-        ret = a3 << 0x10;
-    }
-    a2 = ret | a2;
-    goto loc_23C680;
-loc_23C298:
-    ret = ((unsigned)ret < (unsigned)t1) ? 1 : 0;
-    if (t1 != 0) goto loc_23C2C0;
-    ret = 1;
-    BREAK(); /* breakpoint */
-    if (likely(t1 == 0)) goto loc_23C2AC;
-loc_23C2AC:
-    __asm("divu zero, v0, t0");
-    ret = LO;
-    t1 = ret;
-    ret = 0 | 0xffff;
-    ret = ((unsigned)ret < (unsigned)t1) ? 1 : 0;
-loc_23C2C0:
-    if (0x00FF0000 == 0) {
-        ret = ((unsigned)t1 < 0x100) ? 1 : 0;
-        a0 = 8;
-        __asm("movn a0, zero, v0");
-    } else {
-        v1 = 0x18;
-        ret = ret | 0xffff;
-        a0 = 0x10;
-        ret = ((unsigned)ret < (unsigned)t1) ? 1 : 0;
-        __asm("movn a0, v1, v0");
-    }
-    v1 = (unsigned)t1 >> a0;
-    a1 = 0x20;
-    ret = 0x00500000;
-    ret = ret + v1;
-    ret = *(u8*)*(ret + 0x1a10);
-    ret = ret + a0;
-    a2 = a1 - ret;
-    a3 = a1 - a2;
-    if (a2 == 0) {
-        t2 = t2 - t1;
-        t5 = 1;
-        t0 = (unsigned)t1 >> 0x10;
-        t4 = t1 & 0xffff;
-        goto loc_23C410;
-    }
-    v1 = t2 << a2;
-    ret = (unsigned)t3 >> a3;
-    t3 = t3 << a2;
-    a0 = (unsigned)t2 >> a3;
-    t2 = v1 | ret;
-    t1 = t1 << a2;
-    t0 = (unsigned)t1 >> 0x10;
-    __asm("divu zero, a0, t0");
-    a0 = (unsigned)t2 >> 0x10;
-    t4 = t1 & 0xffff;
-    a2 = t0;
-    BREAK(); /* breakpoint */
-    if (likely(a2 == 0)) goto loc_23C35C;
-loc_23C35C:
-    ret = LO;
-    v1 = HI;
-    a3 = ret;
-    v1 = v1 << 0x10;
-    a1 = (s32)((s64)a3 * (s64)t4); HI_LO = (s64)a3 * (s64)t4;
-    v1 = v1 | a0;
-    t5 = t4;
-    if ((unsigned)v1 >= (unsigned)a1) goto loc_23C3A8;
-    v1 = v1 + t1;
-    a3 = a3 + -1;
-    if ((unsigned)v1 < (unsigned)t1) goto loc_23C3A8;
-    v1 = v1 - a1;
-    if (likely((unsigned)v1 >= (unsigned)a1)) goto loc_23C3AC;
-    a3 = a3 + -1;
-    v1 = v1 + t1;
-loc_23C3A8:
-    v1 = v1 - a1;
-loc_23C3AC:
-    BREAK(); /* breakpoint */
-    if (likely(a2 == 0)) goto loc_23C3B4;
-loc_23C3B4:
-    __asm("divu zero, v1, a2");
-    a0 = t2 & 0xffff;
-    ret = LO;
-    v1 = HI;
-    a2 = ret;
-    v1 = v1 << 0x10;
-    a1 = (s32)((s64)a2 * (s64)t5); HI_LO = (s64)a2 * (s64)t5;
-    v1 = v1 | a0;
-    ret = ((unsigned)v1 < (unsigned)a1) ? 1 : 0;
-    ret = a3 << 0x10;
-    if (ret == 0) goto loc_23C408;
-    v1 = v1 + t1;
-    a2 = a2 + -1;
-    if ((unsigned)v1 >= (unsigned)t1) {
-        ret = ((unsigned)v1 < (unsigned)a1) ? 1 : 0;
-        ret = a3 << 0x10;
-        if (ret == 0) goto loc_23C408;
-        a2 = a2 + -1;
-        v1 = v1 + t1;
-    }
-    ret = a3 << 0x10;
-loc_23C408:
-    t2 = v1 - a1;
-    t5 = ret | a2;
-loc_23C410:
-    a2 = t0;
-    t0 = t4;
-    __asm("divu zero, t2, a2");
-    a0 = (unsigned)t3 >> 0x10;
-    BREAK(); /* breakpoint */
-    if (likely(a2 == 0)) goto loc_23C428;
-loc_23C428:
-    ret = LO;
-    v1 = HI;
-    a3 = ret;
-    v1 = v1 << 0x10;
-    a1 = (s32)((s64)a3 * (s64)t0); HI_LO = (s64)a3 * (s64)t0;
-    v1 = v1 | a0;
-    v1 = v1 - a1;
-    if (likely((unsigned)v1 >= (unsigned)a1)) goto loc_23C474;
-    v1 = v1 + t1;
-    a3 = a3 + -1;
-    if ((unsigned)v1 >= (unsigned)t1) {
-        v1 = v1 - a1;
-        if (likely((unsigned)v1 >= (unsigned)a1)) goto loc_23C474;
-        a3 = a3 + -1;
-        v1 = v1 + t1;
-    }
-    v1 = v1 - a1;
-loc_23C474:
-    BREAK(); /* breakpoint */
-    if (likely(a2 == 0)) goto loc_23C47C;
-loc_23C47C:
-    __asm("divu zero, v1, a2");
-    a0 = t3 & 0xffff;
-    ret = LO;
-    v1 = HI;
-    a2 = ret;
-    v1 = v1 << 0x10;
-    a1 = (s32)((s64)a2 * (s64)t0); HI_LO = (s64)a2 * (s64)t0;
-    v1 = v1 | a0;
-    ret = ((unsigned)v1 < (unsigned)a1) ? 1 : 0;
-    ret = a3 << 0x10;
-    if (ret != 0) {
-        v1 = v1 + t1;
-        a2 = a2 + -1;
-        if ((unsigned)v1 >= (unsigned)t1) {
-            ret = ((unsigned)v1 < (unsigned)a1) ? 1 : 0;
-            v1 = a2 + -1;
-            ret = ret ^ 0;
-            __asm("movn a2, v1, v0");
-        }
-        ret = a3 << 0x10;
-    }
-    a2 = ret | a2;
-    goto loc_23C684;
-loc_23C4D8:
-    ret = 0 | 0xffff;
-    if (ret != 0) {
-        a2 = 0;
-    } else {
-        ret = ((unsigned)ret < (unsigned)t0) ? 1 : 0;
-        if (0x00FF0000 == 0) {
-            ret = ((unsigned)t0 < 0x100) ? 1 : 0;
-            a0 = 8;
-            __asm("movn a0, zero, v0");
-            goto loc_23C51C;
-        }
-        v1 = 0x18;
-        ret = ret | 0xffff;
-        a0 = 0x10;
-        ret = ((unsigned)ret < (unsigned)t0) ? 1 : 0;
-        __asm("movn a0, v1, v0");
-        loc_23C51C:
-        v1 = (unsigned)t0 >> a0;
-        a1 = 0x20;
-        ret = 0x00500000;
-        ret = ret + v1;
-        ret = *(u8*)*(ret + 0x1a10);
-        ret = ret + a0;
-        a2 = a1 - ret;
-        a3 = a1 - a2;
-        if (a2 == 0) {
-            a2 = 1;
-            if ((unsigned)t0 < (unsigned)t2) goto loc_23C680;
-            a2 = 0;
-            if ((unsigned)t3 < (unsigned)t1) goto loc_23C680;
-            a2 = 1;
-        } else {
-            a0 = t0 << a2;
-            a1 = (unsigned)t3 >> a3;
-            t3 = t3 << a2;
-            ret = (unsigned)t1 >> a3;
-            t1 = t1 << a2;
-            v1 = t2 << a2;
-            t0 = a0 | ret;
-            a0 = (unsigned)t2 >> a3;
-            t2 = v1 | a1;
-            a1 = (unsigned)t0 >> 0x10;
-            __asm("divu zero, a0, a1");
-            a0 = (unsigned)t2 >> 0x10;
-            t4 = t0 & 0xffff;
+    if (t0 == 0) {
+        ret = 0xffff;
+        if (ret != 0) {
+            ret = ((unsigned)ret < (unsigned)t1) ? 1 : 0;
+            v1 = 0x18;
+            ret = ret | 0xffff;
+            a0 = 0x10;
+            if ((signed)ret < (signed)t1) a0 = v1;
+            loc_23C194:
+            v1 = (unsigned)t1 >> a0;
+            a1 = 0x20;
+            ret = ret + a0;
+            a2 = a1 - ret;
+            ret = a1 - a2;
+            if (a2 != 0) {
+                v1 = t2 << a2;
+                ret = (unsigned)t3 >> ret;
+                t3 = t3 << a2;
+                t2 = v1 | ret;
+                t1 = t1 << a2;
+            }
+            a2 = (unsigned)t1 >> 0x10;
+            t0 = t1 & 0xffff;
+            a0 = (unsigned)t3 >> 0x10;
             BREAK(); /* breakpoint */
-            if (likely(a1 == 0)) goto loc_23C59C;
-            loc_23C59C:
+            if (a2 == 0) goto loc_23C1E4;
+            loc_23C1E4:
+            ret = (unsigned)t2 / (unsigned)a2;
+            v1 = (unsigned)t2 % (unsigned)a2;
+            a3 = ret;
+            v1 = v1 << 0x10;
+            a1 = (s32)((s64)a3 * (s64)t0); HI_LO = (s64)a3 * (s64)t0;
+            v1 = v1 - a1;
+            if ((unsigned)v1 >= (unsigned)a1) goto loc_23C234;
+            v1 = v1 + t1;
+            a3 = a3 + -1;
+            if ((unsigned)v1 >= (unsigned)t1) {
+                v1 = v1 - a1;
+                if ((unsigned)v1 >= (unsigned)a1) goto loc_23C234;
+                a3 = a3 + -1;
+                v1 = v1 + t1;
+            }
+            v1 = v1 - a1;
+            loc_23C234:
+            BREAK(); /* breakpoint */
+            if (a2 == 0) goto loc_23C23C;
+            loc_23C23C:
+            a0 = t3 & 0xffff;
+            ret = (unsigned)v1 / (unsigned)a2;
+            v1 = (unsigned)v1 % (unsigned)a2;
+            a2 = ret;
+            v1 = v1 << 0x10;
+            a1 = (s32)((s64)a2 * (s64)t0); HI_LO = (s64)a2 * (s64)t0;
+            v1 = v1 | a0;
+            if ((a3 << 0x10) != 0) {
+                v1 = v1 + t1;
+                a2 = a2 + -1;
+                if ((unsigned)v1 >= (unsigned)t1) {
+                    ret = ((unsigned)v1 < (unsigned)a1) ? 1 : 0;
+                    v1 = a2 + -1;
+                    ret = ret ^ 0;
+                    if (ret != 0) a2 = v1;
+                }
+                ret = a3 << 0x10;
+            }
+            a2 = ret | a2;
+        } else {
+            ret = ((unsigned)ret < (unsigned)t1) ? 1 : 0;
+            if (t1 != 0) goto loc_23C2C0;
+            ret = 1;
+            BREAK(); /* breakpoint */
+            if (t1 == 0) goto loc_23C2AC;
+            loc_23C2AC:
+            ret = (unsigned)ret / (unsigned)t0;
+            t1 = ret;
+            ret = ((unsigned)ret < (unsigned)t1) ? 1 : 0;
+            loc_23C2C0:
+            v1 = 0x18;
+            ret = ret | 0xffff;
+            a0 = 0x10;
+            ret = ((unsigned)ret < (unsigned)t1) ? 1 : 0;
+            if (ret != 0) a0 = v1;
+            v1 = (unsigned)t1 >> a0;
+            a1 = 0x20;
+            ret = ret + a0;
+            a2 = a1 - ret;
+            a3 = a1 - a2;
+            if (a2 == 0) {
+                t2 = t2 - t1;
+                t5 = 1;
+                t0 = (unsigned)t1 >> 0x10;
+                t4 = t1 & 0xffff;
+                goto loc_23C410;
+            }
+            v1 = t2 << a2;
+            ret = (unsigned)t3 >> a3;
+            t3 = t3 << a2;
+            a0 = (unsigned)t2 >> a3;
+            t2 = v1 | ret;
+            t1 = t1 << a2;
+            t0 = (unsigned)t1 >> 0x10;
+            a0 = (unsigned)t2 >> 0x10;
+            t4 = t1 & 0xffff;
+            a2 = t0;
+            BREAK(); /* breakpoint */
+            if (a2 == 0) goto loc_23C35C;
+            loc_23C35C:
             ret = LO;
             v1 = HI;
             a3 = ret;
             v1 = v1 << 0x10;
-            a2 = (s32)((s64)a3 * (s64)t4); HI_LO = (s64)a3 * (s64)t4;
+            a1 = (s32)((s64)a3 * (s64)t4); HI_LO = (s64)a3 * (s64)t4;
             v1 = v1 | a0;
-            v1 = v1 - a2;
-            if (likely((unsigned)v1 >= (unsigned)a2)) goto loc_23C5EC;
-            v1 = v1 + t0;
+            t5 = t4;
+            if ((unsigned)v1 >= (unsigned)a1) goto loc_23C3A8;
+            v1 = v1 + t1;
             a3 = a3 + -1;
-            if ((unsigned)v1 >= (unsigned)t0) {
-                v1 = v1 - a2;
-                if (likely((unsigned)v1 >= (unsigned)a2)) goto loc_23C5EC;
-                a3 = a3 + -1;
-                v1 = v1 + t0;
-            }
-            v1 = v1 - a2;
-            loc_23C5EC:
+            if ((unsigned)v1 < (unsigned)t1) goto loc_23C3A8;
+            v1 = v1 - a1;
+            if ((unsigned)v1 >= (unsigned)a1) goto loc_23C3AC;
+            a3 = a3 + -1;
+            v1 = v1 + t1;
+            loc_23C3A8:
+            v1 = v1 - a1;
+            loc_23C3AC:
             BREAK(); /* breakpoint */
-            if (likely(a1 == 0)) goto loc_23C5F4;
-            loc_23C5F4:
-            __asm("divu zero, v1, a1");
+            if (a2 == 0) goto loc_23C3B4;
+            loc_23C3B4:
             a0 = t2 & 0xffff;
-            ret = LO;
-            v1 = HI;
-            a1 = ret;
+            ret = (unsigned)v1 / (unsigned)a2;
+            v1 = (unsigned)v1 % (unsigned)a2;
+            a2 = ret;
             v1 = v1 << 0x10;
-            a2 = (s32)((s64)a1 * (s64)t4); HI_LO = (s64)a1 * (s64)t4;
+            a1 = (s32)((s64)a2 * (s64)t5); HI_LO = (s64)a2 * (s64)t5;
             v1 = v1 | a0;
-            ret = ((unsigned)v1 < (unsigned)a2) ? 1 : 0;
+            if ((a3 << 0x10) == 0) goto loc_23C408;
+            v1 = v1 + t1;
+            a2 = a2 + -1;
+            if ((unsigned)v1 >= (unsigned)t1) {
+                if ((a3 << 0x10) == 0) goto loc_23C408;
+                a2 = a2 + -1;
+                v1 = v1 + t1;
+            }
             ret = a3 << 0x10;
-            if (ret == 0) goto loc_23C648;
-            v1 = v1 + t0;
-            a1 = a1 + -1;
-            if ((unsigned)v1 >= (unsigned)t0) {
-                ret = ((unsigned)v1 < (unsigned)a2) ? 1 : 0;
+            loc_23C408:
+            t2 = v1 - a1;
+            t5 = ret | a2;
+            loc_23C410:
+            a2 = t0;
+            t0 = t4;
+            a0 = (unsigned)t3 >> 0x10;
+            BREAK(); /* breakpoint */
+            if (a2 == 0) goto loc_23C428;
+            loc_23C428:
+            ret = (unsigned)t2 / (unsigned)a2;
+            v1 = (unsigned)t2 % (unsigned)a2;
+            a3 = ret;
+            v1 = v1 << 0x10;
+            a1 = (s32)((s64)a3 * (s64)t0); HI_LO = (s64)a3 * (s64)t0;
+            v1 = v1 - a1;
+            if ((unsigned)v1 >= (unsigned)a1) goto loc_23C474;
+            v1 = v1 + t1;
+            a3 = a3 + -1;
+            if ((unsigned)v1 >= (unsigned)t1) {
+                v1 = v1 - a1;
+                if ((unsigned)v1 >= (unsigned)a1) goto loc_23C474;
+                a3 = a3 + -1;
+                v1 = v1 + t1;
+            }
+            v1 = v1 - a1;
+            loc_23C474:
+            BREAK(); /* breakpoint */
+            if (a2 == 0) goto loc_23C47C;
+            loc_23C47C:
+            a0 = t3 & 0xffff;
+            ret = (unsigned)v1 / (unsigned)a2;
+            v1 = (unsigned)v1 % (unsigned)a2;
+            a2 = ret;
+            v1 = v1 << 0x10;
+            a1 = (s32)((s64)a2 * (s64)t0); HI_LO = (s64)a2 * (s64)t0;
+            v1 = v1 | a0;
+            if ((a3 << 0x10) != 0) {
+                v1 = v1 + t1;
+                a2 = a2 + -1;
+                if ((unsigned)v1 >= (unsigned)t1) {
+                    ret = ((unsigned)v1 < (unsigned)a1) ? 1 : 0;
+                    v1 = a2 + -1;
+                    ret = ret ^ 0;
+                    if (ret != 0) a2 = v1;
+                }
                 ret = a3 << 0x10;
-                if (ret == 0) goto loc_23C648;
-                v1 = v1 + t0;
-                a1 = a1 + -1;
             }
-            ret = a3 << 0x10;
-            loc_23C648:
-            v1 = v1 - a2;
-            a2 = ret | a1;
-            HI_LO = (u64)a2 * (u64)t1;
-            a3 = HI;
-            a0 = LO;
-            a2 = a2 + -1;
-            if (likely((unsigned)v1 < (unsigned)a3)) goto loc_23C680;
-            t5 = 0;
-            if (a3 != v1) goto loc_23C684;
-            ret = ((unsigned)t3 < (unsigned)a0) ? 1 : 0;
-            ret = (u64)a2 << 32;
-            if (ret == 0) goto loc_23C688;
-            a2 = a2 + -1;
-            }
+            a2 = ret | a2;
+            } else {
+            if (0xffff != 0) {
+                a2 = 0;
+            } else {
+                ret = ((unsigned)ret < (unsigned)t0) ? 1 : 0;
+                v1 = 0x18;
+                ret = ret | 0xffff;
+                a0 = 0x10;
+                if ((signed)ret < (signed)t0) a0 = v1;
+                loc_23C51C:
+                v1 = (unsigned)t0 >> a0;
+                a1 = 0x20;
+                ret = ret + a0;
+                a2 = a1 - ret;
+                a3 = a1 - a2;
+                if (a2 == 0) {
+                    a2 = 1;
+                    if ((unsigned)t0 < (unsigned)t2) goto loc_23C680;
+                    a2 = 0;
+                    if ((unsigned)t3 < (unsigned)t1) goto loc_23C680;
+                    a2 = 1;
+                } else {
+                    a0 = t0 << a2;
+                    a1 = (unsigned)t3 >> a3;
+                    t3 = t3 << a2;
+                    ret = (unsigned)t1 >> a3;
+                    t1 = t1 << a2;
+                    v1 = t2 << a2;
+                    t0 = a0 | ret;
+                    a0 = (unsigned)t2 >> a3;
+                    t2 = v1 | a1;
+                    a1 = (unsigned)t0 >> 0x10;
+                    a0 = (unsigned)t2 >> 0x10;
+                    t4 = t0 & 0xffff;
+                    BREAK(); /* breakpoint */
+                    if (a1 == 0) goto loc_23C59C;
+                    loc_23C59C:
+                    ret = (unsigned)a0 / (unsigned)a1;
+                    v1 = (unsigned)a0 % (unsigned)a1;
+                    a3 = ret;
+                    v1 = v1 << 0x10;
+                    a2 = (s32)((s64)a3 * (s64)t4); HI_LO = (s64)a3 * (s64)t4;
+                    v1 = v1 - a2;
+                    if ((unsigned)v1 >= (unsigned)a2) goto loc_23C5EC;
+                    v1 = v1 + t0;
+                    a3 = a3 + -1;
+                    if ((unsigned)v1 >= (unsigned)t0) {
+                        v1 = v1 - a2;
+                        if ((unsigned)v1 >= (unsigned)a2) goto loc_23C5EC;
+                        a3 = a3 + -1;
+                        v1 = v1 + t0;
+                    }
+                    v1 = v1 - a2;
+                    loc_23C5EC:
+                    BREAK(); /* breakpoint */
+                    if (a1 == 0) goto loc_23C5F4;
+                    loc_23C5F4:
+                    a0 = t2 & 0xffff;
+                    ret = (unsigned)v1 / (unsigned)a1;
+                    v1 = (unsigned)v1 % (unsigned)a1;
+                    a1 = ret;
+                    v1 = v1 << 0x10;
+                    a2 = (s32)((s64)a1 * (s64)t4); HI_LO = (s64)a1 * (s64)t4;
+                    v1 = v1 | a0;
+                    if ((a3 << 0x10) == 0) goto loc_23C648;
+                    v1 = v1 + t0;
+                    a1 = a1 + -1;
+                    if ((unsigned)v1 >= (unsigned)t0) {
+                        if ((a3 << 0x10) == 0) goto loc_23C648;
+                        v1 = v1 + t0;
+                        a1 = a1 + -1;
+                    }
+                    ret = a3 << 0x10;
+                    loc_23C648:
+                    v1 = v1 - a2;
+                    a2 = ret | a1;
+                    HI_LO = (u64)a2 * (u64)t1;
+                    a3 = HI;
+                    a0 = LO;
+                    a2 = a2 + -1;
+                    if ((unsigned)v1 < (unsigned)a3) goto loc_23C680;
+                    t5 = 0;
+                    if (a3 != v1) goto loc_23C684;
+                    if (((u64)a2 << 32) == 0) goto loc_23C688;
+                    a2 = a2 + -1;
+                    }
+                }
         }
-loc_23C680:
-    t5 = 0;
+        loc_23C680:
+        t5 = 0;
+    }
 loc_23C684:
     ret = (u64)a2 << 32;
 loc_23C688:
@@ -2178,16 +1955,14 @@ loc_23C688:
     t7 = t7 & a1;
     v1 = t7 | ret;
     if (t8 != 0) {
-        ret = (u64)v1 << 32;
         ret = (s64)ret >> 32;
         t6 = t6 & a0;
-        __asm("negu v0, v0");
+        ret = -ret;
         a0 = (s64)v1 >> 32;
         ret = (u64)ret << 32;
-        __asm("negu a0, a0");
+        a0 = -a0;
         ret = (u64)ret >> 32;
         t6 = t6 | ret;
-        v1 = (u64)t6 << 32;
         v1 = (s64)v1 >> 32;
         t6 = t6 & a1;
         v1 = ((unsigned)0 < (unsigned)v1) ? 1 : 0;
@@ -2195,62 +1970,54 @@ loc_23C688:
         a0 = (u64)a0 << 32;
         v1 = t6 | a0;
     }
-    ret = v1;
-    return ret;
+    return v1;
 }
 
 /* Function at 0x0023C700 - 0x0023C704 */
-int EEKernel_AC2_Multiply()
+void EEKernel_AC2_Multiply(u32 a0)
 {
-    int a0, t0;
+    u32 t0;
     t0 = a0;
 }
 
 /* Function at 0x0023C704 - 0x0023CD90 */
-int EEKernel_Integer_Divide64_Ext()
+u32 EEKernel_Integer_Divide64_Ext(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 32 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
+    u32 ret, v1, s0, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
     t2 = (s64)t0 >> 32;
     a0 = (u64)t2 << 32;
     a0 = (s64)a0 >> 32;
     s0 = 0;
     if ((signed)a0 < 0) {
-        ret = (u64)t0 << 32;
         ret = (s64)ret >> 32;
-        v1 = -1;
         v1 = (u64)v1 << 32;
-        __asm("negu v0, v0");
+        ret = -ret;
         a2 = a2 & v1;
         ret = (u64)ret << 32;
-        __asm("negu v1, a0");
+        v1 = -a0;
         ret = (u64)ret >> 32;
         a0 = (u64)a0 >> 32;
         a2 = a2 | ret;
         s0 = -1;
-        ret = (u64)a2 << 32;
         ret = (s64)ret >> 32;
         a2 = a2 & a0;
         ret = ((unsigned)0 < (unsigned)ret) ? 1 : 0;
-        v1 = v1 - ret;
         v1 = (u64)v1 << 32;
         t0 = a2 | v1;
         t2 = (s64)t0 >> 32;
     }
     a0 = (s64)a1 >> 32;
-    __asm("negu a0, a0");
+    a0 = -a0;
     if ((signed)a0 < 0) {
-        ret = (u64)a1 << 32;
         ret = (s64)ret >> 32;
         a1 = (u64)a1 >> 32;
-        __asm("negu v0, v0");
-        v1 = -1;
+        ret = -ret;
         v1 = (u64)v1 << 32;
         ret = (u64)ret << 32;
         a3 = a3 & v1;
         ret = (u64)ret >> 32;
         a3 = a3 | ret;
-        v1 = (u64)a3 << 32;
         v1 = (s64)v1 >> 32;
         a3 = a3 & a1;
         v1 = ((unsigned)0 < (unsigned)v1) ? 1 : 0;
@@ -2266,235 +2033,159 @@ int EEKernel_Integer_Divide64_Ext()
     a3 = (u64)a1 << 32;
     a3 = (s64)a3 >> 32;
     t9 = __sp;
-    if (t1 != 0) goto loc_23CAA8;
-    ret = ((unsigned)t2 < (unsigned)a3) ? 1 : 0;
-    ret = 0 | 0xffff;
-    if (ret != 0) {
-        ret = ((unsigned)ret < (unsigned)a3) ? 1 : 0;
-        if (0x00FF0000 == 0) {
-            ret = ((unsigned)a3 < 0x100) ? 1 : 0;
-            a0 = 8;
-            __asm("movn a0, zero, v0");
-            goto loc_23C82C;
-        }
-        v1 = 0x18;
-        ret = ret | 0xffff;
-        a0 = 0x10;
-        ret = ((unsigned)ret < (unsigned)a3) ? 1 : 0;
-        __asm("movn a0, v1, v0");
-        loc_23C82C:
-        v1 = (unsigned)a3 >> a0;
-        a1 = 0x20;
-        ret = 0x00500000;
-        ret = ret + v1;
-        ret = *(u8*)*(ret + 0x1b10);
-        ret = ret + a0;
-        t4 = a1 - ret;
-        ret = a1 - t4;
-        if (t4 != 0) {
-            v1 = t2 << t4;
-            ret = (unsigned)t5 >> ret;
-            t5 = t5 << t4;
-            t2 = v1 | ret;
-            a3 = a3 << t4;
-        }
-        a2 = (unsigned)a3 >> 0x10;
-        t1 = a3 & 0xffff;
-    } else {
-        ret = ((unsigned)ret < (unsigned)a3) ? 1 : 0;
-        if (a3 != 0) goto loc_23C898;
-        ret = 1;
-        BREAK(); /* breakpoint */
-        if (likely(a3 == 0)) goto loc_23C884;
-        loc_23C884:
-        __asm("divu zero, v0, t1");
-        ret = LO;
-        a3 = ret;
-        ret = 0 | 0xffff;
-        ret = ((unsigned)ret < (unsigned)a3) ? 1 : 0;
-        loc_23C898:
-        if (0x00FF0000 == 0) {
-            ret = ((unsigned)a3 < 0x100) ? 1 : 0;
-            a0 = 8;
-            __asm("movn a0, zero, v0");
+    if (t1 == 0) {
+        ret = 0xffff;
+        if (ret != 0) {
+            ret = ((unsigned)ret < (unsigned)a3) ? 1 : 0;
+            v1 = 0x18;
+            ret = ret | 0xffff;
+            a0 = 0x10;
+            if ((signed)ret < (signed)a3) a0 = v1;
+            loc_23C82C:
+            v1 = (unsigned)a3 >> a0;
+            a1 = 0x20;
+            ret = ret + a0;
+            t4 = a1 - ret;
+            ret = a1 - t4;
+            if (t4 != 0) {
+                v1 = t2 << t4;
+                ret = (unsigned)t5 >> ret;
+                t5 = t5 << t4;
+                t2 = v1 | ret;
+                a3 = a3 << t4;
+            }
+            a2 = (unsigned)a3 >> 0x10;
+            t1 = a3 & 0xffff;
         } else {
+            ret = ((unsigned)ret < (unsigned)a3) ? 1 : 0;
+            if (a3 != 0) goto loc_23C898;
+            ret = 1;
+            BREAK(); /* breakpoint */
+            if (a3 == 0) goto loc_23C884;
+            loc_23C884:
+            ret = (unsigned)ret / (unsigned)t1;
+            a3 = ret;
+            ret = ((unsigned)ret < (unsigned)a3) ? 1 : 0;
+            loc_23C898:
             v1 = 0x18;
             ret = ret | 0xffff;
             a0 = 0x10;
             ret = ((unsigned)ret < (unsigned)a3) ? 1 : 0;
-            __asm("movn a0, v1, v0");
-        }
-        v1 = (unsigned)a3 >> a0;
-        a1 = 0x20;
-        ret = 0x00500000;
-        ret = ret + v1;
-        ret = *(u8*)*(ret + 0x1b10);
-        ret = ret + a0;
-        t4 = a1 - ret;
-        t7 = a1 - t4;
-        if (t4 == 0) {
-            t2 = t2 - a3;
-            a1 = (unsigned)a3 >> 0x10;
-            t6 = a3 & 0xffff;
-        } else {
-            v1 = t2 << t4;
-            ret = (unsigned)t5 >> t7;
-            t5 = t5 << t4;
-            a0 = (unsigned)t2 >> t7;
-            t2 = v1 | ret;
-            a3 = a3 << t4;
-            a1 = (unsigned)a3 >> 0x10;
-            __asm("divu zero, a0, a1");
-            a0 = (unsigned)t2 >> 0x10;
-            t6 = a3 & 0xffff;
-            t1 = a1;
-            BREAK(); /* breakpoint */
-            if (likely(t1 == 0)) goto loc_23C92C;
-            loc_23C92C:
-            ret = LO;
-            v1 = HI;
-            t0 = (s32)((s64)ret * (s64)t6); HI_LO = (s64)ret * (s64)t6;
-            v1 = v1 << 0x10;
-            a2 = v1 | a0;
-            t7 = t6;
-            if ((unsigned)a2 < (unsigned)t0) {
-                a2 = a2 + a3;
-                a2 = a2 - t0;
-                if ((unsigned)a2 >= (unsigned)a3) {
-                    ret = ((unsigned)a2 < (unsigned)t0) ? 1 : 0;
-                    v1 = a2 + a3;
-                    ret = ret ^ 0;
-                    __asm("movn a2, v1, v0");
-                    }
+            if (ret != 0) a0 = v1;
+            v1 = (unsigned)a3 >> a0;
+            a1 = 0x20;
+            ret = ret + a0;
+            t4 = a1 - ret;
+            t7 = a1 - t4;
+            if (t4 == 0) {
+                t2 = t2 - a3;
+                a1 = (unsigned)a3 >> 0x10;
+                t6 = a3 & 0xffff;
+            } else {
+                v1 = t2 << t4;
+                ret = (unsigned)t5 >> t7;
+                t5 = t5 << t4;
+                a0 = (unsigned)t2 >> t7;
+                t2 = v1 | ret;
+                a3 = a3 << t4;
+                a1 = (unsigned)a3 >> 0x10;
+                a0 = (unsigned)t2 >> 0x10;
+                t6 = a3 & 0xffff;
+                t1 = a1;
+                BREAK(); /* breakpoint */
+                if (t1 == 0) goto loc_23C92C;
+                loc_23C92C:
+                ret = LO;
+                v1 = HI;
+                t0 = (s32)((s64)ret * (s64)t6); HI_LO = (s64)ret * (s64)t6;
+                v1 = v1 << 0x10;
+                a2 = v1 | a0;
+                t7 = t6;
+                if ((unsigned)a2 < (unsigned)t0) {
+                    a2 = a2 + a3;
                     a2 = a2 - t0;
-                }
-            a0 = t2 & 0xffff;
-            __asm("divu zero, a2, t1");
-            BREAK(); /* breakpoint */
-            if (likely(t1 == 0)) goto loc_23C984;
-            loc_23C984:
-            ret = LO;
-            v1 = HI;
-            t0 = (s32)((s64)ret * (s64)t7); HI_LO = (s64)ret * (s64)t7;
-            v1 = v1 << 0x10;
-            a0 = v1 | a0;
-            t2 = a0 - t0;
-            if ((unsigned)a0 >= (unsigned)t0) goto loc_23C9C8;
-            a0 = a0 + a3;
-            t2 = a0 - t0;
-            if ((unsigned)a0 < (unsigned)a3) goto loc_23C9C8;
-            ret = ((unsigned)a0 < (unsigned)t0) ? 1 : 0;
-            v1 = a0 + a3;
-            ret = ret ^ 0;
-            __asm("movn a0, v1, v0");
-            t2 = a0 - t0;
+                    if ((unsigned)a2 >= (unsigned)a3) {
+                        ret = ((unsigned)a2 < (unsigned)t0) ? 1 : 0;
+                        v1 = a2 + a3;
+                        ret = ret ^ 0;
+                        if (ret != 0) a2 = v1;
+                        }
+                        a2 = a2 - t0;
+                    }
+                a0 = t2 & 0xffff;
+                BREAK(); /* breakpoint */
+                if (t1 == 0) goto loc_23C984;
+                loc_23C984:
+                ret = (unsigned)a2 / (unsigned)t1;
+                v1 = (unsigned)a2 % (unsigned)t1;
+                t0 = (s32)((s64)ret * (s64)t7); HI_LO = (s64)ret * (s64)t7;
+                v1 = v1 << 0x10;
+                a0 = v1 | a0;
+                t2 = a0 - t0;
+                if ((unsigned)a0 >= (unsigned)t0) goto loc_23C9C8;
+                a0 = a0 + a3;
+                t2 = a0 - t0;
+                if ((unsigned)a0 < (unsigned)a3) goto loc_23C9C8;
+                ret = ((unsigned)a0 < (unsigned)t0) ? 1 : 0;
+                v1 = a0 + a3;
+                ret = ret ^ 0;
+                if (ret != 0) a0 = v1;
+                t2 = a0 - t0;
+            }
+            loc_23C9C8:
+            a2 = a1;
+            t1 = t6;
         }
-        loc_23C9C8:
-        a2 = a1;
-        t1 = t6;
-    }
-    __asm("divu zero, t2, a2");
-    a0 = (unsigned)t5 >> 0x10;
-    BREAK(); /* breakpoint */
-    if (likely(a2 == 0)) goto loc_23C9E0;
-loc_23C9E0:
-    ret = LO;
-    v1 = HI;
-    t0 = (s32)((s64)ret * (s64)t1); HI_LO = (s64)ret * (s64)t1;
-    v1 = v1 << 0x10;
-    a1 = v1 | a0;
-    a1 = a1 - t0;
-    if (likely((unsigned)a1 >= (unsigned)t0)) goto loc_23CA24;
-    a1 = a1 + a3;
-    a1 = a1 - t0;
-    if (likely((unsigned)a1 < (unsigned)a3)) goto loc_23CA24;
-    ret = ((unsigned)a1 < (unsigned)t0) ? 1 : 0;
-    v1 = a1 + a3;
-    ret = ret ^ 0;
-    __asm("movn a1, v1, v0");
-    a1 = a1 - t0;
-loc_23CA24:
-    a0 = t5 & 0xffff;
-    __asm("divu zero, a1, a2");
-    BREAK(); /* breakpoint */
-    if (likely(a2 == 0)) goto loc_23CA34;
-loc_23CA34:
-    ret = LO;
-    v1 = HI;
-    t0 = (s32)((s64)ret * (s64)t1); HI_LO = (s64)ret * (s64)t1;
-    v1 = v1 << 0x10;
-    a0 = v1 | a0;
-    if ((unsigned)a0 >= (unsigned)t0) goto loc_23CA70;
-    a0 = a0 + a3;
-    ret = ((unsigned)a0 < (unsigned)a3) ? 1 : 0;
-    if ((unsigned)a0 < (unsigned)t0) goto loc_23CA70;
-    v1 = a0 + a3;
-    ret = ret ^ 0;
-    __asm("movn a0, v1, v0");
-loc_23CA70:
-    t5 = a0 - t0;
-    if (t9 == 0) goto loc_23CD24;
-    ret = (unsigned)t5 >> t4;
-    v1 = -1;
-    v1 = (u64)v1 << 32;
-    ret = (u64)ret << 32;
-    t3 = t3 & v1;
-    ret = (u64)ret >> 32;
-    v1 = (u64)v1 >> 32;
-    t3 = t3 | ret;
-    t3 = t3 & v1;
-    goto loc_23CD20;
-loc_23CAA8:
-    ret = ((unsigned)t2 < (unsigned)t1) ? 1 : 0;
-    ret = 0 | 0xffff;
-    if (ret != 0) {
-        v1 = -1;
+        a0 = (unsigned)t5 >> 0x10;
+        BREAK(); /* breakpoint */
+        if (a2 == 0) goto loc_23C9E0;
+        loc_23C9E0:
+        ret = (unsigned)t2 / (unsigned)a2;
+        v1 = (unsigned)t2 % (unsigned)a2;
+        t0 = (s32)((s64)ret * (s64)t1); HI_LO = (s64)ret * (s64)t1;
+        v1 = v1 << 0x10;
+        a1 = v1 | a0;
+        a1 = a1 - t0;
+        if ((unsigned)a1 >= (unsigned)t0) goto loc_23CA24;
+        a1 = a1 + a3;
+        a1 = a1 - t0;
+        if ((unsigned)a1 < (unsigned)a3) goto loc_23CA24;
+        ret = ((unsigned)a1 < (unsigned)t0) ? 1 : 0;
+        v1 = a1 + a3;
+        ret = ret ^ 0;
+        if (ret != 0) a1 = v1;
+        a1 = a1 - t0;
+        loc_23CA24:
+        a0 = t5 & 0xffff;
+        BREAK(); /* breakpoint */
+        if (a2 == 0) goto loc_23CA34;
+        loc_23CA34:
+        ret = (unsigned)a1 / (unsigned)a2;
+        v1 = (unsigned)a1 % (unsigned)a2;
+        t0 = (s32)((s64)ret * (s64)t1); HI_LO = (s64)ret * (s64)t1;
+        v1 = v1 << 0x10;
+        a0 = v1 | a0;
+        if ((unsigned)a0 >= (unsigned)t0) goto loc_23CA70;
+        a0 = a0 + a3;
+        ret = ((unsigned)a0 < (unsigned)a3) ? 1 : 0;
+        if ((unsigned)a0 < (unsigned)t0) goto loc_23CA70;
+        v1 = a0 + a3;
+        ret = ret ^ 0;
+        if (ret != 0) a0 = v1;
+        loc_23CA70:
+        t5 = a0 - t0;
+        if (t9 == 0) goto loc_23CD24;
+        ret = (unsigned)t5 >> t4;
         v1 = (u64)v1 << 32;
-        ret = (u64)t5 << 32;
+        ret = (u64)ret << 32;
+        t3 = t3 & v1;
         ret = (u64)ret >> 32;
-        t3 = t3 & v1;
-        t3 = t3 | ret;
-        ret = (u64)t2 << 32;
         v1 = (u64)v1 >> 32;
-        t3 = t3 & v1;
         t3 = t3 | ret;
-        *(u64*)*(__sp + 0) = t3;
+        t3 = t3 & v1;
     } else {
-        ret = ((unsigned)ret < (unsigned)t1) ? 1 : 0;
-        if (0x00FF0000 == 0) {
-            ret = ((unsigned)t1 < 0x100) ? 1 : 0;
-            a0 = 8;
-            __asm("movn a0, zero, v0");
-            goto loc_23CB1C;
-        }
-        v1 = 0x18;
-        ret = ret | 0xffff;
-        a0 = 0x10;
-        ret = ((unsigned)ret < (unsigned)t1) ? 1 : 0;
-        __asm("movn a0, v1, v0");
-        loc_23CB1C:
-        v1 = (unsigned)t1 >> a0;
-        a1 = 0x20;
-        ret = 0x00500000;
-        ret = ret + v1;
-        ret = *(u8*)*(ret + 0x1b10);
-        ret = ret + a0;
-        t4 = a1 - ret;
-        t7 = a1 - t4;
-        if (t4 == 0) {
-            ret = ((unsigned)t1 < (unsigned)t2) ? 1 : 0;
-            ret = t5 - a3;
-            if (ret == 0) {
-                ret = ((unsigned)t5 < (unsigned)a3) ? 1 : 0;
-                ret = t5 - a3;
-                    a0 = t2 - t1;
-                    v1 = ((unsigned)t5 < (unsigned)ret) ? 1 : 0;
-                    t5 = ret;
-                    t2 = a0 - v1;
-                }
-            ret = (u64)t5 << 32;
-            if (t9 == 0) goto loc_23CD24;
-            v1 = -1;
+        ret = 0xffff;
+        if (ret != 0) {
             v1 = (u64)v1 << 32;
             ret = (u64)ret >> 32;
             t3 = t3 & v1;
@@ -2503,118 +2194,144 @@ loc_23CAA8:
             v1 = (u64)v1 >> 32;
             t3 = t3 & v1;
             t3 = t3 | ret;
-            goto loc_23CD20;
-        }
-        a1 = t2 << t4;
-        a0 = t1 << t4;
-        ret = (unsigned)a3 >> t7;
-        v1 = (unsigned)t5 >> t7;
-        t5 = t5 << t4;
-        t1 = a0 | ret;
-        a0 = (unsigned)t2 >> t7;
-        a3 = a3 << t4;
-        t2 = a1 | v1;
-        a2 = (unsigned)t1 >> 0x10;
-        __asm("divu zero, a0, a2");
-        a0 = (unsigned)t2 >> 0x10;
-        a1 = t1 & 0xffff;
-        BREAK(); /* breakpoint */
-        if (likely(a2 == 0)) goto loc_23CBDC;
-        loc_23CBDC:
-        ret = LO;
-        v1 = HI;
-        t6 = ret;
-        v1 = v1 << 0x10;
-        t0 = (s32)((s64)t6 * (s64)a1); HI_LO = (s64)t6 * (s64)a1;
-        v1 = v1 | a0;
-        v1 = v1 - t0;
-        if (likely((unsigned)v1 >= (unsigned)t0)) goto loc_23CC2C;
-        v1 = v1 + t1;
-        t6 = t6 + -1;
-        if ((unsigned)v1 >= (unsigned)t1) {
+            *(u64*)(__sp + 0) = t3;
+        } else {
+            ret = ((unsigned)ret < (unsigned)t1) ? 1 : 0;
+            v1 = 0x18;
+            ret = ret | 0xffff;
+            a0 = 0x10;
+            if ((signed)ret < (signed)t1) a0 = v1;
+            loc_23CB1C:
+            v1 = (unsigned)t1 >> a0;
+            a1 = 0x20;
+            ret = ret + a0;
+            t4 = a1 - ret;
+            t7 = a1 - t4;
+            if (t4 == 0) {
+                ret = t5 - a3;
+                if (ret == 0) {
+                    ret = t5 - a3;
+                        a0 = t2 - t1;
+                        v1 = ((unsigned)t5 < (unsigned)ret) ? 1 : 0;
+                        t5 = ret;
+                        t2 = a0 - v1;
+                    }
+                ret = (u64)t5 << 32;
+                if (t9 == 0) goto loc_23CD24;
+                v1 = (u64)v1 << 32;
+                ret = (u64)ret >> 32;
+                t3 = t3 & v1;
+                t3 = t3 | ret;
+                ret = (u64)t2 << 32;
+                v1 = (u64)v1 >> 32;
+                t3 = t3 & v1;
+                t3 = t3 | ret;
+                goto loc_23CD20;
+            }
+            a1 = t2 << t4;
+            a0 = t1 << t4;
+            ret = (unsigned)a3 >> t7;
+            v1 = (unsigned)t5 >> t7;
+            t5 = t5 << t4;
+            t1 = a0 | ret;
+            a0 = (unsigned)t2 >> t7;
+            a3 = a3 << t4;
+            t2 = a1 | v1;
+            a2 = (unsigned)t1 >> 0x10;
+            a0 = (unsigned)t2 >> 0x10;
+            a1 = t1 & 0xffff;
+            BREAK(); /* breakpoint */
+            if (a2 == 0) goto loc_23CBDC;
+            loc_23CBDC:
+            ret = (unsigned)a0 / (unsigned)a2;
+            v1 = (unsigned)a0 % (unsigned)a2;
+            t6 = ret;
+            v1 = v1 << 0x10;
+            t0 = (s32)((s64)t6 * (s64)a1); HI_LO = (s64)t6 * (s64)a1;
             v1 = v1 - t0;
-            if (likely((unsigned)v1 >= (unsigned)t0)) goto loc_23CC2C;
-            t6 = t6 + -1;
+            if ((unsigned)v1 >= (unsigned)t0) goto loc_23CC2C;
             v1 = v1 + t1;
-        }
-        v1 = v1 - t0;
-        loc_23CC2C:
-        BREAK(); /* breakpoint */
-        if (likely(a2 == 0)) goto loc_23CC34;
-        loc_23CC34:
-        __asm("divu zero, v1, a2");
-        a0 = t2 & 0xffff;
-        ret = LO;
-        v1 = HI;
-        a2 = ret;
-        v1 = v1 << 0x10;
-        t0 = (s32)((s64)a2 * (s64)a1); HI_LO = (s64)a2 * (s64)a1;
-        a1 = v1 | a0;
-        a1 = a1 - t0;
-        if (likely((unsigned)a1 >= (unsigned)t0)) goto loc_23CC88;
-        a1 = a1 + t1;
-        a2 = a2 + -1;
-        if ((unsigned)a1 >= (unsigned)t1) {
+            t6 = t6 + -1;
+            if ((unsigned)v1 >= (unsigned)t1) {
+                v1 = v1 - t0;
+                if ((unsigned)v1 >= (unsigned)t0) goto loc_23CC2C;
+                t6 = t6 + -1;
+                v1 = v1 + t1;
+            }
+            v1 = v1 - t0;
+            loc_23CC2C:
+            BREAK(); /* breakpoint */
+            if (a2 == 0) goto loc_23CC34;
+            loc_23CC34:
+            a0 = t2 & 0xffff;
+            ret = (unsigned)v1 / (unsigned)a2;
+            v1 = (unsigned)v1 % (unsigned)a2;
+            a2 = ret;
+            v1 = v1 << 0x10;
+            t0 = (s32)((s64)a2 * (s64)a1); HI_LO = (s64)a2 * (s64)a1;
+            a1 = v1 | a0;
             a1 = a1 - t0;
-            if (likely((unsigned)a1 >= (unsigned)t0)) goto loc_23CC88;
-            a2 = a2 + -1;
+            if ((unsigned)a1 >= (unsigned)t0) goto loc_23CC88;
             a1 = a1 + t1;
-        }
-        a1 = a1 - t0;
-        loc_23CC88:
-        ret = t6 << 0x10;
-        ret = ret | a2;
-        t2 = a1;
-        HI_LO = (u64)ret * (u64)a3;
-        a2 = HI;
-        t0 = LO;
-        v1 = ((unsigned)t2 < (unsigned)a2) ? 1 : 0;
-        ret = t0 - a3;
-        if (v1 == 0) {
-            ret = ((unsigned)t5 < (unsigned)t0) ? 1 : 0;
-            if (a2 != t2) goto loc_23CCD0;
+            a2 = a2 + -1;
+            if ((unsigned)a1 >= (unsigned)t1) {
+                a1 = a1 - t0;
+                if ((unsigned)a1 >= (unsigned)t0) goto loc_23CC88;
+                a2 = a2 + -1;
+                a1 = a1 + t1;
+            }
+            a1 = a1 - t0;
+            loc_23CC88:
+            ret = ret | a2;
+            t2 = a1;
+            HI_LO = (u64)ret * (u64)a3;
+            a2 = HI;
+            t0 = LO;
+            v1 = ((unsigned)t2 < (unsigned)a2) ? 1 : 0;
             ret = t0 - a3;
-            if (ret == 0) goto loc_23CCD0;
-        }
-        a0 = a2 - t1;
-        v1 = ((unsigned)t0 < (unsigned)ret) ? 1 : 0;
-        t0 = ret;
-        a2 = a0 - v1;
-        loc_23CCD0:
-        a0 = t5 - t0;
-        if (t9 == 0) goto loc_23CD24;
-        a1 = a1 - a2;
-        v1 = ((unsigned)t5 < (unsigned)a0) ? 1 : 0;
-        t2 = a1 - v1;
-        ret = t2 << t7;
-        v1 = -1;
-        v1 = (u64)v1 << 32;
-        a0 = (unsigned)a0 >> t4;
-        t3 = t3 & v1;
-        ret = ret | a0;
-        a0 = (u64)a0 >> 32;
-        ret = (u64)ret << 32;
-        v1 = (unsigned)t2 >> t4;
-        ret = (u64)ret >> 32;
-        v1 = (u64)v1 << 32;
-        t3 = t3 | ret;
-        t3 = t3 & a0;
-        t3 = t3 | v1;
+            if (v1 == 0) {
+                ret = ((unsigned)t5 < (unsigned)t0) ? 1 : 0;
+                if (a2 != t2) goto loc_23CCD0;
+                ret = t0 - a3;
+                if (ret == 0) goto loc_23CCD0;
+            }
+            a0 = a2 - t1;
+            v1 = ((unsigned)t0 < (unsigned)ret) ? 1 : 0;
+            t0 = ret;
+            a2 = a0 - v1;
+            loc_23CCD0:
+            a0 = t5 - t0;
+            if (t9 == 0) goto loc_23CD24;
+            a1 = a1 - a2;
+            v1 = ((unsigned)t5 < (unsigned)a0) ? 1 : 0;
+            t2 = a1 - v1;
+            ret = t2 << t7;
+            v1 = (u64)v1 << 32;
+            a0 = (unsigned)a0 >> t4;
+            t3 = t3 & v1;
+            ret = ret | a0;
+            a0 = (u64)a0 >> 32;
+            ret = (u64)ret << 32;
+            v1 = (unsigned)t2 >> t4;
+            ret = (u64)ret >> 32;
+            v1 = (u64)v1 << 32;
+            t3 = t3 | ret;
+            t3 = t3 & a0;
+            t3 = t3 | v1;
+    }
         loc_23CD20:
-        *(u64*)*(t9 + 0) = t3;
+        *(u64*)(t9 + 0) = t3;
     }
 loc_23CD24:
-    v1 = *(u64*)*(__sp + 0);
+    v1 = *(u64*)(__sp + 0);
     if (s0 != 0) {
         a0 = -1;
         a0 = (u64)a0 << 32;
         t8 = t8 & a0;
-        ret = (u64)v1 << 32;
         ret = (s64)ret >> 32;
         v1 = (s64)v1 >> 32;
-        __asm("negu v0, v0");
-        __asm("negu v1, v1");
-        ret = (u64)ret << 32;
+        ret = -ret;
+        v1 = -v1;
         ret = (u64)ret >> 32;
         t8 = t8 | ret;
         ret = (u64)ret >> 32;
@@ -2622,19 +2339,17 @@ loc_23CD24:
         a0 = (s64)a0 >> 32;
         t8 = t8 & ret;
         a0 = ((unsigned)0 < (unsigned)a0) ? 1 : 0;
-        v1 = v1 - a0;
         v1 = (u64)v1 << 32;
         t8 = t8 | v1;
-        *(u64*)*(__sp + 0) = t8;
+        *(u64*)(__sp + 0) = t8;
     }
-    ret = *(u64*)*(__sp + 0);
-    return ret;
+    return *(u64*)(__sp + 0);
 }
 
 /* Function at 0x0023CD90 - 0x0023D310 */
-int EEKernel_Integer_Divide64_Variant2()
+u32 EEKernel_Integer_Divide64_Variant2(u32 a0, u32 a1)
 {
-    int ret, v0, v1, a0, a1, a2, a3, t0, t1, t2, t3, t4, t5, t6;
+    u32 ret, v1, a2, a3, t0, t1, t2, t3, t4, t5, t6;
     t0 = (s64)a1 >> 32;
     t2 = (s64)a0 >> 32;
     t1 = (u64)a1 << 32;
@@ -2642,364 +2357,306 @@ int EEKernel_Integer_Divide64_Variant2()
     t3 = (u64)a0 << 32;
     t3 = (s64)t3 >> 32;
     ret = ((unsigned)t2 < (unsigned)t0) ? 1 : 0;
-    if (t0 != 0) goto loc_23D130;
-    ret = ((unsigned)t2 < (unsigned)t1) ? 1 : 0;
-    ret = 0 | 0xffff;
-    if (ret == 0) goto loc_23CEF0;
-    ret = ((unsigned)ret < (unsigned)t1) ? 1 : 0;
-    if (0x00FF0000 == 0) {
-        ret = ((unsigned)t1 < 0x100) ? 1 : 0;
-        a0 = 8;
-        __asm("movn a0, zero, v0");
-    } else {
-        v1 = 0x18;
-        ret = ret | 0xffff;
-        a0 = 0x10;
-        ret = ((unsigned)ret < (unsigned)t1) ? 1 : 0;
-        __asm("movn a0, v1, v0");
-    }
-    v1 = (unsigned)t1 >> a0;
-    a1 = 0x20;
-    ret = 0x00500000;
-    ret = ret + v1;
-    ret = *(u8*)*(ret + 0x1c10);
-    ret = ret + a0;
-    a2 = a1 - ret;
-    ret = a1 - a2;
-    if (a2 != 0) {
-        v1 = t2 << a2;
-        ret = (unsigned)t3 >> ret;
-        t3 = t3 << a2;
-        t2 = v1 | ret;
-        t1 = t1 << a2;
-    }
-    a2 = (unsigned)t1 >> 0x10;
-    t0 = t1 & 0xffff;
-    __asm("divu zero, t2, a2");
-    a0 = (unsigned)t3 >> 0x10;
-    BREAK(); /* breakpoint */
-    if (likely(a2 == 0)) goto loc_23CE3C;
-loc_23CE3C:
-    ret = LO;
-    v1 = HI;
-    a3 = ret;
-    v1 = v1 << 0x10;
-    a1 = (s32)((s64)a3 * (s64)t0); HI_LO = (s64)a3 * (s64)t0;
-    v1 = v1 | a0;
-    v1 = v1 - a1;
-    if (likely((unsigned)v1 >= (unsigned)a1)) goto loc_23CE8C;
-    v1 = v1 + t1;
-    a3 = a3 + -1;
-    if ((unsigned)v1 >= (unsigned)t1) {
-        v1 = v1 - a1;
-        if (likely((unsigned)v1 >= (unsigned)a1)) goto loc_23CE8C;
-        a3 = a3 + -1;
-        v1 = v1 + t1;
-    }
-    v1 = v1 - a1;
-loc_23CE8C:
-    BREAK(); /* breakpoint */
-    if (likely(a2 == 0)) goto loc_23CE94;
-loc_23CE94:
-    __asm("divu zero, v1, a2");
-    a0 = t3 & 0xffff;
-    ret = LO;
-    v1 = HI;
-    a2 = ret;
-    v1 = v1 << 0x10;
-    a1 = (s32)((s64)a2 * (s64)t0); HI_LO = (s64)a2 * (s64)t0;
-    v1 = v1 | a0;
-    ret = ((unsigned)v1 < (unsigned)a1) ? 1 : 0;
-    ret = a3 << 0x10;
-    if (ret != 0) {
-        v1 = v1 + t1;
-        a2 = a2 + -1;
-        if ((unsigned)v1 >= (unsigned)t1) {
-            ret = ((unsigned)v1 < (unsigned)a1) ? 1 : 0;
-            v1 = a2 + -1;
-            ret = ret ^ 0;
-            __asm("movn a2, v1, v0");
-        }
-        ret = a3 << 0x10;
-    }
-    a2 = ret | a2;
-    goto loc_23D2D8;
-loc_23CEF0:
-    ret = ((unsigned)ret < (unsigned)t1) ? 1 : 0;
-    if (t1 != 0) goto loc_23CF18;
-    ret = 1;
-    BREAK(); /* breakpoint */
-    if (likely(t1 == 0)) goto loc_23CF04;
-loc_23CF04:
-    __asm("divu zero, v0, t0");
-    ret = LO;
-    t1 = ret;
-    ret = 0 | 0xffff;
-    ret = ((unsigned)ret < (unsigned)t1) ? 1 : 0;
-loc_23CF18:
-    if (0x00FF0000 == 0) {
-        ret = ((unsigned)t1 < 0x100) ? 1 : 0;
-        a0 = 8;
-        __asm("movn a0, zero, v0");
-    } else {
-        v1 = 0x18;
-        ret = ret | 0xffff;
-        a0 = 0x10;
-        ret = ((unsigned)ret < (unsigned)t1) ? 1 : 0;
-        __asm("movn a0, v1, v0");
-    }
-    v1 = (unsigned)t1 >> a0;
-    a1 = 0x20;
-    ret = 0x00500000;
-    ret = ret + v1;
-    ret = *(u8*)*(ret + 0x1c10);
-    ret = ret + a0;
-    a2 = a1 - ret;
-    a3 = a1 - a2;
-    if (a2 == 0) {
-        t2 = t2 - t1;
-        t5 = 1;
-        t0 = (unsigned)t1 >> 0x10;
-        t4 = t1 & 0xffff;
-        goto loc_23D068;
-    }
-    v1 = t2 << a2;
-    ret = (unsigned)t3 >> a3;
-    t3 = t3 << a2;
-    a0 = (unsigned)t2 >> a3;
-    t2 = v1 | ret;
-    t1 = t1 << a2;
-    t0 = (unsigned)t1 >> 0x10;
-    __asm("divu zero, a0, t0");
-    a0 = (unsigned)t2 >> 0x10;
-    t4 = t1 & 0xffff;
-    a2 = t0;
-    BREAK(); /* breakpoint */
-    if (likely(a2 == 0)) goto loc_23CFB4;
-loc_23CFB4:
-    ret = LO;
-    v1 = HI;
-    a3 = ret;
-    v1 = v1 << 0x10;
-    a1 = (s32)((s64)a3 * (s64)t4); HI_LO = (s64)a3 * (s64)t4;
-    v1 = v1 | a0;
-    t5 = t4;
-    if ((unsigned)v1 >= (unsigned)a1) goto loc_23D000;
-    v1 = v1 + t1;
-    a3 = a3 + -1;
-    if ((unsigned)v1 < (unsigned)t1) goto loc_23D000;
-    v1 = v1 - a1;
-    if (likely((unsigned)v1 >= (unsigned)a1)) goto loc_23D004;
-    a3 = a3 + -1;
-    v1 = v1 + t1;
-loc_23D000:
-    v1 = v1 - a1;
-loc_23D004:
-    BREAK(); /* breakpoint */
-    if (likely(a2 == 0)) goto loc_23D00C;
-loc_23D00C:
-    __asm("divu zero, v1, a2");
-    a0 = t2 & 0xffff;
-    ret = LO;
-    v1 = HI;
-    a2 = ret;
-    v1 = v1 << 0x10;
-    a1 = (s32)((s64)a2 * (s64)t5); HI_LO = (s64)a2 * (s64)t5;
-    v1 = v1 | a0;
-    ret = ((unsigned)v1 < (unsigned)a1) ? 1 : 0;
-    ret = a3 << 0x10;
-    if (ret == 0) goto loc_23D060;
-    v1 = v1 + t1;
-    a2 = a2 + -1;
-    if ((unsigned)v1 >= (unsigned)t1) {
-        ret = ((unsigned)v1 < (unsigned)a1) ? 1 : 0;
-        ret = a3 << 0x10;
-        if (ret == 0) goto loc_23D060;
-        a2 = a2 + -1;
-        v1 = v1 + t1;
-    }
-    ret = a3 << 0x10;
-loc_23D060:
-    t2 = v1 - a1;
-    t5 = ret | a2;
-loc_23D068:
-    a2 = t0;
-    t0 = t4;
-    __asm("divu zero, t2, a2");
-    a0 = (unsigned)t3 >> 0x10;
-    BREAK(); /* breakpoint */
-    if (likely(a2 == 0)) goto loc_23D080;
-loc_23D080:
-    ret = LO;
-    v1 = HI;
-    a3 = ret;
-    v1 = v1 << 0x10;
-    a1 = (s32)((s64)a3 * (s64)t0); HI_LO = (s64)a3 * (s64)t0;
-    v1 = v1 | a0;
-    v1 = v1 - a1;
-    if (likely((unsigned)v1 >= (unsigned)a1)) goto loc_23D0CC;
-    v1 = v1 + t1;
-    a3 = a3 + -1;
-    if ((unsigned)v1 >= (unsigned)t1) {
-        v1 = v1 - a1;
-        if (likely((unsigned)v1 >= (unsigned)a1)) goto loc_23D0CC;
-        a3 = a3 + -1;
-        v1 = v1 + t1;
-    }
-    v1 = v1 - a1;
-loc_23D0CC:
-    BREAK(); /* breakpoint */
-    if (likely(a2 == 0)) goto loc_23D0D4;
-loc_23D0D4:
-    __asm("divu zero, v1, a2");
-    a0 = t3 & 0xffff;
-    ret = LO;
-    v1 = HI;
-    a2 = ret;
-    v1 = v1 << 0x10;
-    a1 = (s32)((s64)a2 * (s64)t0); HI_LO = (s64)a2 * (s64)t0;
-    v1 = v1 | a0;
-    ret = ((unsigned)v1 < (unsigned)a1) ? 1 : 0;
-    ret = a3 << 0x10;
-    if (ret != 0) {
-        v1 = v1 + t1;
-        a2 = a2 + -1;
-        if ((unsigned)v1 >= (unsigned)t1) {
-            ret = ((unsigned)v1 < (unsigned)a1) ? 1 : 0;
-            v1 = a2 + -1;
-            ret = ret ^ 0;
-            __asm("movn a2, v1, v0");
-        }
-        ret = a3 << 0x10;
-    }
-    a2 = ret | a2;
-    goto loc_23D2DC;
-loc_23D130:
-    ret = 0 | 0xffff;
-    if (ret != 0) {
-        a2 = 0;
-    } else {
-        ret = ((unsigned)ret < (unsigned)t0) ? 1 : 0;
-        if (0x00FF0000 == 0) {
-            ret = ((unsigned)t0 < 0x100) ? 1 : 0;
-            a0 = 8;
-            __asm("movn a0, zero, v0");
-            goto loc_23D174;
-        }
-        v1 = 0x18;
-        ret = ret | 0xffff;
-        a0 = 0x10;
-        ret = ((unsigned)ret < (unsigned)t0) ? 1 : 0;
-        __asm("movn a0, v1, v0");
-        loc_23D174:
-        v1 = (unsigned)t0 >> a0;
-        a1 = 0x20;
-        ret = 0x00500000;
-        ret = ret + v1;
-        ret = *(u8*)*(ret + 0x1c10);
-        ret = ret + a0;
-        a2 = a1 - ret;
-        a3 = a1 - a2;
-        if (a2 == 0) {
-            a2 = 1;
-            if ((unsigned)t0 < (unsigned)t2) goto loc_23D2D8;
-            a2 = 0;
-            if ((unsigned)t3 < (unsigned)t1) goto loc_23D2D8;
-            a2 = 1;
-        } else {
-            a0 = t0 << a2;
-            a1 = (unsigned)t3 >> a3;
-            t3 = t3 << a2;
-            ret = (unsigned)t1 >> a3;
-            t1 = t1 << a2;
-            v1 = t2 << a2;
-            t0 = a0 | ret;
-            a0 = (unsigned)t2 >> a3;
-            t2 = v1 | a1;
-            a1 = (unsigned)t0 >> 0x10;
-            __asm("divu zero, a0, a1");
-            a0 = (unsigned)t2 >> 0x10;
-            t4 = t0 & 0xffff;
+    if (t0 == 0) {
+        ret = 0xffff;
+        if (ret != 0) {
+            ret = ((unsigned)ret < (unsigned)t1) ? 1 : 0;
+            v1 = 0x18;
+            ret = ret | 0xffff;
+            a0 = 0x10;
+            ret = ((unsigned)ret < (unsigned)t1) ? 1 : 0;
+            if (ret != 0) a0 = v1;
+            v1 = (unsigned)t1 >> a0;
+            a1 = 0x20;
+            ret = ret + a0;
+            a2 = a1 - ret;
+            ret = a1 - a2;
+            if (a2 != 0) {
+                v1 = t2 << a2;
+                ret = (unsigned)t3 >> ret;
+                t3 = t3 << a2;
+                t2 = v1 | ret;
+                t1 = t1 << a2;
+            }
+            a2 = (unsigned)t1 >> 0x10;
+            t0 = t1 & 0xffff;
+            a0 = (unsigned)t3 >> 0x10;
             BREAK(); /* breakpoint */
-            if (likely(a1 == 0)) goto loc_23D1F4;
-            loc_23D1F4:
+            if (a2 == 0) goto loc_23CE3C;
+            loc_23CE3C:
+            ret = (unsigned)t2 / (unsigned)a2;
+            v1 = (unsigned)t2 % (unsigned)a2;
+            a3 = ret;
+            v1 = v1 << 0x10;
+            a1 = (s32)((s64)a3 * (s64)t0); HI_LO = (s64)a3 * (s64)t0;
+            v1 = v1 - a1;
+            if ((unsigned)v1 >= (unsigned)a1) goto loc_23CE8C;
+            v1 = v1 + t1;
+            a3 = a3 + -1;
+            if ((unsigned)v1 >= (unsigned)t1) {
+                v1 = v1 - a1;
+                if ((unsigned)v1 >= (unsigned)a1) goto loc_23CE8C;
+                a3 = a3 + -1;
+                v1 = v1 + t1;
+            }
+            v1 = v1 - a1;
+            loc_23CE8C:
+            BREAK(); /* breakpoint */
+            if (a2 == 0) goto loc_23CE94;
+            loc_23CE94:
+            a0 = t3 & 0xffff;
+            ret = (unsigned)v1 / (unsigned)a2;
+            v1 = (unsigned)v1 % (unsigned)a2;
+            a2 = ret;
+            v1 = v1 << 0x10;
+            a1 = (s32)((s64)a2 * (s64)t0); HI_LO = (s64)a2 * (s64)t0;
+            v1 = v1 | a0;
+            if ((a3 << 0x10) != 0) {
+                v1 = v1 + t1;
+                a2 = a2 + -1;
+                if ((unsigned)v1 >= (unsigned)t1) {
+                    ret = ((unsigned)v1 < (unsigned)a1) ? 1 : 0;
+                    v1 = a2 + -1;
+                    ret = ret ^ 0;
+                    if (ret != 0) a2 = v1;
+                }
+                ret = a3 << 0x10;
+            }
+            a2 = ret | a2;
+        } else {
+            ret = ((unsigned)ret < (unsigned)t1) ? 1 : 0;
+            if (t1 != 0) goto loc_23CF18;
+            ret = 1;
+            BREAK(); /* breakpoint */
+            if (t1 == 0) goto loc_23CF04;
+            loc_23CF04:
+            ret = (unsigned)ret / (unsigned)t0;
+            t1 = ret;
+            ret = ((unsigned)ret < (unsigned)t1) ? 1 : 0;
+            loc_23CF18:
+            v1 = 0x18;
+            ret = ret | 0xffff;
+            a0 = 0x10;
+            ret = ((unsigned)ret < (unsigned)t1) ? 1 : 0;
+            if (ret != 0) a0 = v1;
+            v1 = (unsigned)t1 >> a0;
+            a1 = 0x20;
+            ret = ret + a0;
+            a2 = a1 - ret;
+            a3 = a1 - a2;
+            if (a2 == 0) {
+                t2 = t2 - t1;
+                t5 = 1;
+                t0 = (unsigned)t1 >> 0x10;
+                t4 = t1 & 0xffff;
+                goto loc_23D068;
+            }
+            v1 = t2 << a2;
+            ret = (unsigned)t3 >> a3;
+            t3 = t3 << a2;
+            a0 = (unsigned)t2 >> a3;
+            t2 = v1 | ret;
+            t1 = t1 << a2;
+            t0 = (unsigned)t1 >> 0x10;
+            a0 = (unsigned)t2 >> 0x10;
+            t4 = t1 & 0xffff;
+            a2 = t0;
+            BREAK(); /* breakpoint */
+            if (a2 == 0) goto loc_23CFB4;
+            loc_23CFB4:
             ret = LO;
             v1 = HI;
             a3 = ret;
             v1 = v1 << 0x10;
-            a2 = (s32)((s64)a3 * (s64)t4); HI_LO = (s64)a3 * (s64)t4;
+            a1 = (s32)((s64)a3 * (s64)t4); HI_LO = (s64)a3 * (s64)t4;
             v1 = v1 | a0;
-            v1 = v1 - a2;
-            if (likely((unsigned)v1 >= (unsigned)a2)) goto loc_23D244;
-            v1 = v1 + t0;
+            t5 = t4;
+            if ((unsigned)v1 >= (unsigned)a1) goto loc_23D000;
+            v1 = v1 + t1;
             a3 = a3 + -1;
-            if ((unsigned)v1 >= (unsigned)t0) {
-                v1 = v1 - a2;
-                if (likely((unsigned)v1 >= (unsigned)a2)) goto loc_23D244;
-                a3 = a3 + -1;
-                v1 = v1 + t0;
-            }
-            v1 = v1 - a2;
-            loc_23D244:
+            if ((unsigned)v1 < (unsigned)t1) goto loc_23D000;
+            v1 = v1 - a1;
+            if ((unsigned)v1 >= (unsigned)a1) goto loc_23D004;
+            a3 = a3 + -1;
+            v1 = v1 + t1;
+            loc_23D000:
+            v1 = v1 - a1;
+            loc_23D004:
             BREAK(); /* breakpoint */
-            if (likely(a1 == 0)) goto loc_23D24C;
-            loc_23D24C:
-            __asm("divu zero, v1, a1");
+            if (a2 == 0) goto loc_23D00C;
+            loc_23D00C:
             a0 = t2 & 0xffff;
-            ret = LO;
-            v1 = HI;
-            a1 = ret;
+            ret = (unsigned)v1 / (unsigned)a2;
+            v1 = (unsigned)v1 % (unsigned)a2;
+            a2 = ret;
             v1 = v1 << 0x10;
-            a2 = (s32)((s64)a1 * (s64)t4); HI_LO = (s64)a1 * (s64)t4;
+            a1 = (s32)((s64)a2 * (s64)t5); HI_LO = (s64)a2 * (s64)t5;
             v1 = v1 | a0;
-            ret = ((unsigned)v1 < (unsigned)a2) ? 1 : 0;
+            if ((a3 << 0x10) == 0) goto loc_23D060;
+            v1 = v1 + t1;
+            a2 = a2 + -1;
+            if ((unsigned)v1 >= (unsigned)t1) {
+                if ((a3 << 0x10) == 0) goto loc_23D060;
+                a2 = a2 + -1;
+                v1 = v1 + t1;
+            }
             ret = a3 << 0x10;
-            if (ret == 0) goto loc_23D2A0;
-            v1 = v1 + t0;
-            a1 = a1 + -1;
-            if ((unsigned)v1 >= (unsigned)t0) {
-                ret = ((unsigned)v1 < (unsigned)a2) ? 1 : 0;
+            loc_23D060:
+            t2 = v1 - a1;
+            t5 = ret | a2;
+            loc_23D068:
+            a2 = t0;
+            t0 = t4;
+            a0 = (unsigned)t3 >> 0x10;
+            BREAK(); /* breakpoint */
+            if (a2 == 0) goto loc_23D080;
+            loc_23D080:
+            ret = (unsigned)t2 / (unsigned)a2;
+            v1 = (unsigned)t2 % (unsigned)a2;
+            a3 = ret;
+            v1 = v1 << 0x10;
+            a1 = (s32)((s64)a3 * (s64)t0); HI_LO = (s64)a3 * (s64)t0;
+            v1 = v1 - a1;
+            if ((unsigned)v1 >= (unsigned)a1) goto loc_23D0CC;
+            v1 = v1 + t1;
+            a3 = a3 + -1;
+            if ((unsigned)v1 >= (unsigned)t1) {
+                v1 = v1 - a1;
+                if ((unsigned)v1 >= (unsigned)a1) goto loc_23D0CC;
+                a3 = a3 + -1;
+                v1 = v1 + t1;
+            }
+            v1 = v1 - a1;
+            loc_23D0CC:
+            BREAK(); /* breakpoint */
+            if (a2 == 0) goto loc_23D0D4;
+            loc_23D0D4:
+            a0 = t3 & 0xffff;
+            ret = (unsigned)v1 / (unsigned)a2;
+            v1 = (unsigned)v1 % (unsigned)a2;
+            a2 = ret;
+            v1 = v1 << 0x10;
+            a1 = (s32)((s64)a2 * (s64)t0); HI_LO = (s64)a2 * (s64)t0;
+            v1 = v1 | a0;
+            if ((a3 << 0x10) != 0) {
+                v1 = v1 + t1;
+                a2 = a2 + -1;
+                if ((unsigned)v1 >= (unsigned)t1) {
+                    ret = ((unsigned)v1 < (unsigned)a1) ? 1 : 0;
+                    v1 = a2 + -1;
+                    ret = ret ^ 0;
+                    if (ret != 0) a2 = v1;
+                }
                 ret = a3 << 0x10;
-                if (ret == 0) goto loc_23D2A0;
-                v1 = v1 + t0;
-                a1 = a1 + -1;
             }
-            ret = a3 << 0x10;
-            loc_23D2A0:
-            v1 = v1 - a2;
-            a2 = ret | a1;
-            HI_LO = (u64)a2 * (u64)t1;
-            a3 = HI;
-            a0 = LO;
-            a2 = a2 + -1;
-            if (likely((unsigned)v1 < (unsigned)a3)) goto loc_23D2D8;
-            t5 = 0;
-            if (a3 != v1) goto loc_23D2DC;
-            if ((unsigned)t3 >= (unsigned)a0) goto loc_23D2DC;
-            a2 = a2 + -1;
-            }
+            a2 = ret | a2;
+            } else {
+            if (0xffff != 0) {
+                a2 = 0;
+            } else {
+                ret = ((unsigned)ret < (unsigned)t0) ? 1 : 0;
+                v1 = 0x18;
+                ret = ret | 0xffff;
+                a0 = 0x10;
+                if ((signed)ret < (signed)t0) a0 = v1;
+                loc_23D174:
+                v1 = (unsigned)t0 >> a0;
+                a1 = 0x20;
+                ret = ret + a0;
+                a2 = a1 - ret;
+                a3 = a1 - a2;
+                if (a2 == 0) {
+                    a2 = 1;
+                    if ((unsigned)t0 < (unsigned)t2) goto loc_23D2D8;
+                    a2 = 0;
+                    if ((unsigned)t3 < (unsigned)t1) goto loc_23D2D8;
+                    a2 = 1;
+                } else {
+                    a0 = t0 << a2;
+                    a1 = (unsigned)t3 >> a3;
+                    t3 = t3 << a2;
+                    ret = (unsigned)t1 >> a3;
+                    t1 = t1 << a2;
+                    v1 = t2 << a2;
+                    t0 = a0 | ret;
+                    a0 = (unsigned)t2 >> a3;
+                    t2 = v1 | a1;
+                    a1 = (unsigned)t0 >> 0x10;
+                    a0 = (unsigned)t2 >> 0x10;
+                    t4 = t0 & 0xffff;
+                    BREAK(); /* breakpoint */
+                    if (a1 == 0) goto loc_23D1F4;
+                    loc_23D1F4:
+                    ret = (unsigned)a0 / (unsigned)a1;
+                    v1 = (unsigned)a0 % (unsigned)a1;
+                    a3 = ret;
+                    v1 = v1 << 0x10;
+                    a2 = (s32)((s64)a3 * (s64)t4); HI_LO = (s64)a3 * (s64)t4;
+                    v1 = v1 - a2;
+                    if ((unsigned)v1 >= (unsigned)a2) goto loc_23D244;
+                    v1 = v1 + t0;
+                    a3 = a3 + -1;
+                    if ((unsigned)v1 >= (unsigned)t0) {
+                        v1 = v1 - a2;
+                        if ((unsigned)v1 >= (unsigned)a2) goto loc_23D244;
+                        a3 = a3 + -1;
+                        v1 = v1 + t0;
+                    }
+                    v1 = v1 - a2;
+                    loc_23D244:
+                    BREAK(); /* breakpoint */
+                    if (a1 == 0) goto loc_23D24C;
+                    loc_23D24C:
+                    a0 = t2 & 0xffff;
+                    ret = (unsigned)v1 / (unsigned)a1;
+                    v1 = (unsigned)v1 % (unsigned)a1;
+                    a1 = ret;
+                    v1 = v1 << 0x10;
+                    a2 = (s32)((s64)a1 * (s64)t4); HI_LO = (s64)a1 * (s64)t4;
+                    v1 = v1 | a0;
+                    if ((a3 << 0x10) == 0) goto loc_23D2A0;
+                    v1 = v1 + t0;
+                    a1 = a1 + -1;
+                    if ((unsigned)v1 >= (unsigned)t0) {
+                        if ((a3 << 0x10) == 0) goto loc_23D2A0;
+                        v1 = v1 + t0;
+                        a1 = a1 + -1;
+                    }
+                    ret = a3 << 0x10;
+                    loc_23D2A0:
+                    v1 = v1 - a2;
+                    a2 = ret | a1;
+                    HI_LO = (u64)a2 * (u64)t1;
+                    a3 = HI;
+                    a0 = LO;
+                    a2 = a2 + -1;
+                    if ((unsigned)v1 < (unsigned)a3) goto loc_23D2D8;
+                    t5 = 0;
+                    if (a3 != v1) goto loc_23D2DC;
+                    if ((unsigned)t3 >= (unsigned)a0) goto loc_23D2DC;
+                    a2 = a2 + -1;
+                    }
+                }
         }
-loc_23D2D8:
-    t5 = 0;
+        loc_23D2D8:
+        t5 = 0;
+    }
 loc_23D2DC:
-    v1 = -1;
     v1 = (u64)v1 << 32;
-    ret = (u64)a2 << 32;
     ret = (u64)ret >> 32;
     t6 = t6 & v1;
     t6 = t6 | ret;
     ret = (u64)t5 << 32;
     v1 = (u64)v1 >> 32;
     t6 = t6 & v1;
-    ret = t6 | ret;
-    return ret;
+    return t6 | ret;
 }
 
 /* Function at 0x0023D310 - 0x0023D878 */
-int EEKernel_Integer_Divide64_Variant3()
+u32 EEKernel_Integer_Divide64_Variant3(u32 a0, u32 a1)
 {
     /* Stack frame: 16 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, t0, t1, t2, t3, t4, t5, t6, t7, t8;
+    u32 ret, v1, a2, a3, t0, t1, t2, t3, t4, t5, t6, t7, t8;
     t1 = (s64)a1 >> 32;
     t2 = (s64)a0 >> 32;
     a3 = (u64)a1 << 32;
@@ -3007,235 +2664,159 @@ int EEKernel_Integer_Divide64_Variant3()
     t5 = (u64)a0 << 32;
     t5 = (s64)t5 >> 32;
     t8 = __sp;
-    if (t1 != 0) goto loc_23D5F0;
-    ret = ((unsigned)t2 < (unsigned)a3) ? 1 : 0;
-    ret = 0 | 0xffff;
-    if (ret != 0) {
-        ret = ((unsigned)ret < (unsigned)a3) ? 1 : 0;
-        if (0x00FF0000 == 0) {
-            ret = ((unsigned)a3 < 0x100) ? 1 : 0;
-            a0 = 8;
-            __asm("movn a0, zero, v0");
-            goto loc_23D374;
-        }
-        v1 = 0x18;
-        ret = ret | 0xffff;
-        a0 = 0x10;
-        ret = ((unsigned)ret < (unsigned)a3) ? 1 : 0;
-        __asm("movn a0, v1, v0");
-        loc_23D374:
-        v1 = (unsigned)a3 >> a0;
-        a1 = 0x20;
-        ret = 0x00500000;
-        ret = ret + v1;
-        ret = *(u8*)*(ret + 0x1d10);
-        ret = ret + a0;
-        t4 = a1 - ret;
-        ret = a1 - t4;
-        if (t4 != 0) {
-            v1 = t2 << t4;
-            ret = (unsigned)t5 >> ret;
-            t5 = t5 << t4;
-            t2 = v1 | ret;
-            a3 = a3 << t4;
-        }
-        a2 = (unsigned)a3 >> 0x10;
-        t1 = a3 & 0xffff;
-    } else {
-        ret = ((unsigned)ret < (unsigned)a3) ? 1 : 0;
-        if (a3 != 0) goto loc_23D3E0;
-        ret = 1;
-        BREAK(); /* breakpoint */
-        if (likely(a3 == 0)) goto loc_23D3CC;
-        loc_23D3CC:
-        __asm("divu zero, v0, t1");
-        ret = LO;
-        a3 = ret;
-        ret = 0 | 0xffff;
-        ret = ((unsigned)ret < (unsigned)a3) ? 1 : 0;
-        loc_23D3E0:
-        if (0x00FF0000 == 0) {
-            ret = ((unsigned)a3 < 0x100) ? 1 : 0;
-            a0 = 8;
-            __asm("movn a0, zero, v0");
+    if (t1 == 0) {
+        ret = 0xffff;
+        if (ret != 0) {
+            ret = ((unsigned)ret < (unsigned)a3) ? 1 : 0;
+            v1 = 0x18;
+            ret = ret | 0xffff;
+            a0 = 0x10;
+            if ((signed)ret < (signed)a3) a0 = v1;
+            loc_23D374:
+            v1 = (unsigned)a3 >> a0;
+            a1 = 0x20;
+            ret = ret + a0;
+            t4 = a1 - ret;
+            ret = a1 - t4;
+            if (t4 != 0) {
+                v1 = t2 << t4;
+                ret = (unsigned)t5 >> ret;
+                t5 = t5 << t4;
+                t2 = v1 | ret;
+                a3 = a3 << t4;
+            }
+            a2 = (unsigned)a3 >> 0x10;
+            t1 = a3 & 0xffff;
         } else {
+            ret = ((unsigned)ret < (unsigned)a3) ? 1 : 0;
+            if (a3 != 0) goto loc_23D3E0;
+            ret = 1;
+            BREAK(); /* breakpoint */
+            if (a3 == 0) goto loc_23D3CC;
+            loc_23D3CC:
+            ret = (unsigned)ret / (unsigned)t1;
+            a3 = ret;
+            ret = ((unsigned)ret < (unsigned)a3) ? 1 : 0;
+            loc_23D3E0:
             v1 = 0x18;
             ret = ret | 0xffff;
             a0 = 0x10;
             ret = ((unsigned)ret < (unsigned)a3) ? 1 : 0;
-            __asm("movn a0, v1, v0");
-        }
-        v1 = (unsigned)a3 >> a0;
-        a1 = 0x20;
-        ret = 0x00500000;
-        ret = ret + v1;
-        ret = *(u8*)*(ret + 0x1d10);
-        ret = ret + a0;
-        t4 = a1 - ret;
-        t7 = a1 - t4;
-        if (t4 == 0) {
-            t2 = t2 - a3;
-            a1 = (unsigned)a3 >> 0x10;
-            t6 = a3 & 0xffff;
-        } else {
-            v1 = t2 << t4;
-            ret = (unsigned)t5 >> t7;
-            t5 = t5 << t4;
-            a0 = (unsigned)t2 >> t7;
-            t2 = v1 | ret;
-            a3 = a3 << t4;
-            a1 = (unsigned)a3 >> 0x10;
-            __asm("divu zero, a0, a1");
-            a0 = (unsigned)t2 >> 0x10;
-            t6 = a3 & 0xffff;
-            t1 = a1;
-            BREAK(); /* breakpoint */
-            if (likely(t1 == 0)) goto loc_23D474;
-            loc_23D474:
-            ret = LO;
-            v1 = HI;
-            t0 = (s32)((s64)ret * (s64)t6); HI_LO = (s64)ret * (s64)t6;
-            v1 = v1 << 0x10;
-            a2 = v1 | a0;
-            t7 = t6;
-            if ((unsigned)a2 < (unsigned)t0) {
-                a2 = a2 + a3;
-                a2 = a2 - t0;
-                if ((unsigned)a2 >= (unsigned)a3) {
-                    ret = ((unsigned)a2 < (unsigned)t0) ? 1 : 0;
-                    v1 = a2 + a3;
-                    ret = ret ^ 0;
-                    __asm("movn a2, v1, v0");
-                    }
+            if (ret != 0) a0 = v1;
+            v1 = (unsigned)a3 >> a0;
+            a1 = 0x20;
+            ret = ret + a0;
+            t4 = a1 - ret;
+            t7 = a1 - t4;
+            if (t4 == 0) {
+                t2 = t2 - a3;
+                a1 = (unsigned)a3 >> 0x10;
+                t6 = a3 & 0xffff;
+            } else {
+                v1 = t2 << t4;
+                ret = (unsigned)t5 >> t7;
+                t5 = t5 << t4;
+                a0 = (unsigned)t2 >> t7;
+                t2 = v1 | ret;
+                a3 = a3 << t4;
+                a1 = (unsigned)a3 >> 0x10;
+                a0 = (unsigned)t2 >> 0x10;
+                t6 = a3 & 0xffff;
+                t1 = a1;
+                BREAK(); /* breakpoint */
+                if (t1 == 0) goto loc_23D474;
+                loc_23D474:
+                ret = LO;
+                v1 = HI;
+                t0 = (s32)((s64)ret * (s64)t6); HI_LO = (s64)ret * (s64)t6;
+                v1 = v1 << 0x10;
+                a2 = v1 | a0;
+                t7 = t6;
+                if ((unsigned)a2 < (unsigned)t0) {
+                    a2 = a2 + a3;
                     a2 = a2 - t0;
-                }
-            a0 = t2 & 0xffff;
-            __asm("divu zero, a2, t1");
-            BREAK(); /* breakpoint */
-            if (likely(t1 == 0)) goto loc_23D4CC;
-            loc_23D4CC:
-            ret = LO;
-            v1 = HI;
-            t0 = (s32)((s64)ret * (s64)t7); HI_LO = (s64)ret * (s64)t7;
-            v1 = v1 << 0x10;
-            a0 = v1 | a0;
-            t2 = a0 - t0;
-            if ((unsigned)a0 >= (unsigned)t0) goto loc_23D510;
-            a0 = a0 + a3;
-            t2 = a0 - t0;
-            if ((unsigned)a0 < (unsigned)a3) goto loc_23D510;
-            ret = ((unsigned)a0 < (unsigned)t0) ? 1 : 0;
-            v1 = a0 + a3;
-            ret = ret ^ 0;
-            __asm("movn a0, v1, v0");
-            t2 = a0 - t0;
+                    if ((unsigned)a2 >= (unsigned)a3) {
+                        ret = ((unsigned)a2 < (unsigned)t0) ? 1 : 0;
+                        v1 = a2 + a3;
+                        ret = ret ^ 0;
+                        if (ret != 0) a2 = v1;
+                        }
+                        a2 = a2 - t0;
+                    }
+                a0 = t2 & 0xffff;
+                BREAK(); /* breakpoint */
+                if (t1 == 0) goto loc_23D4CC;
+                loc_23D4CC:
+                ret = (unsigned)a2 / (unsigned)t1;
+                v1 = (unsigned)a2 % (unsigned)t1;
+                t0 = (s32)((s64)ret * (s64)t7); HI_LO = (s64)ret * (s64)t7;
+                v1 = v1 << 0x10;
+                a0 = v1 | a0;
+                t2 = a0 - t0;
+                if ((unsigned)a0 >= (unsigned)t0) goto loc_23D510;
+                a0 = a0 + a3;
+                t2 = a0 - t0;
+                if ((unsigned)a0 < (unsigned)a3) goto loc_23D510;
+                ret = ((unsigned)a0 < (unsigned)t0) ? 1 : 0;
+                v1 = a0 + a3;
+                ret = ret ^ 0;
+                if (ret != 0) a0 = v1;
+                t2 = a0 - t0;
+            }
+            loc_23D510:
+            a2 = a1;
+            t1 = t6;
         }
-        loc_23D510:
-        a2 = a1;
-        t1 = t6;
-    }
-    __asm("divu zero, t2, a2");
-    a0 = (unsigned)t5 >> 0x10;
-    BREAK(); /* breakpoint */
-    if (likely(a2 == 0)) goto loc_23D528;
-loc_23D528:
-    ret = LO;
-    v1 = HI;
-    t0 = (s32)((s64)ret * (s64)t1); HI_LO = (s64)ret * (s64)t1;
-    v1 = v1 << 0x10;
-    a1 = v1 | a0;
-    a1 = a1 - t0;
-    if (likely((unsigned)a1 >= (unsigned)t0)) goto loc_23D56C;
-    a1 = a1 + a3;
-    a1 = a1 - t0;
-    if (likely((unsigned)a1 < (unsigned)a3)) goto loc_23D56C;
-    ret = ((unsigned)a1 < (unsigned)t0) ? 1 : 0;
-    v1 = a1 + a3;
-    ret = ret ^ 0;
-    __asm("movn a1, v1, v0");
-    a1 = a1 - t0;
-loc_23D56C:
-    a0 = t5 & 0xffff;
-    __asm("divu zero, a1, a2");
-    BREAK(); /* breakpoint */
-    if (likely(a2 == 0)) goto loc_23D57C;
-loc_23D57C:
-    ret = LO;
-    v1 = HI;
-    t0 = (s32)((s64)ret * (s64)t1); HI_LO = (s64)ret * (s64)t1;
-    v1 = v1 << 0x10;
-    a0 = v1 | a0;
-    if ((unsigned)a0 >= (unsigned)t0) goto loc_23D5B8;
-    a0 = a0 + a3;
-    ret = ((unsigned)a0 < (unsigned)a3) ? 1 : 0;
-    if ((unsigned)a0 < (unsigned)t0) goto loc_23D5B8;
-    v1 = a0 + a3;
-    ret = ret ^ 0;
-    __asm("movn a0, v1, v0");
-loc_23D5B8:
-    t5 = a0 - t0;
-    if (t8 == 0) goto loc_23D86C;
-    ret = (unsigned)t5 >> t4;
-    v1 = -1;
-    v1 = (u64)v1 << 32;
-    ret = (u64)ret << 32;
-    t3 = t3 & v1;
-    ret = (u64)ret >> 32;
-    v1 = (u64)v1 >> 32;
-    t3 = t3 | ret;
-    t3 = t3 & v1;
-    goto loc_23D868;
-loc_23D5F0:
-    ret = ((unsigned)t2 < (unsigned)t1) ? 1 : 0;
-    ret = 0 | 0xffff;
-    if (ret != 0) {
-        v1 = -1;
+        a0 = (unsigned)t5 >> 0x10;
+        BREAK(); /* breakpoint */
+        if (a2 == 0) goto loc_23D528;
+        loc_23D528:
+        ret = (unsigned)t2 / (unsigned)a2;
+        v1 = (unsigned)t2 % (unsigned)a2;
+        t0 = (s32)((s64)ret * (s64)t1); HI_LO = (s64)ret * (s64)t1;
+        v1 = v1 << 0x10;
+        a1 = v1 | a0;
+        a1 = a1 - t0;
+        if ((unsigned)a1 >= (unsigned)t0) goto loc_23D56C;
+        a1 = a1 + a3;
+        a1 = a1 - t0;
+        if ((unsigned)a1 < (unsigned)a3) goto loc_23D56C;
+        ret = ((unsigned)a1 < (unsigned)t0) ? 1 : 0;
+        v1 = a1 + a3;
+        ret = ret ^ 0;
+        if (ret != 0) a1 = v1;
+        a1 = a1 - t0;
+        loc_23D56C:
+        a0 = t5 & 0xffff;
+        BREAK(); /* breakpoint */
+        if (a2 == 0) goto loc_23D57C;
+        loc_23D57C:
+        ret = (unsigned)a1 / (unsigned)a2;
+        v1 = (unsigned)a1 % (unsigned)a2;
+        t0 = (s32)((s64)ret * (s64)t1); HI_LO = (s64)ret * (s64)t1;
+        v1 = v1 << 0x10;
+        a0 = v1 | a0;
+        if ((unsigned)a0 >= (unsigned)t0) goto loc_23D5B8;
+        a0 = a0 + a3;
+        ret = ((unsigned)a0 < (unsigned)a3) ? 1 : 0;
+        if ((unsigned)a0 < (unsigned)t0) goto loc_23D5B8;
+        v1 = a0 + a3;
+        ret = ret ^ 0;
+        if (ret != 0) a0 = v1;
+        loc_23D5B8:
+        t5 = a0 - t0;
+        if (t8 == 0) goto loc_23D86C;
+        ret = (unsigned)t5 >> t4;
         v1 = (u64)v1 << 32;
-        ret = (u64)t5 << 32;
+        ret = (u64)ret << 32;
+        t3 = t3 & v1;
         ret = (u64)ret >> 32;
-        t3 = t3 & v1;
-        t3 = t3 | ret;
-        ret = (u64)t2 << 32;
         v1 = (u64)v1 >> 32;
-        t3 = t3 & v1;
         t3 = t3 | ret;
-        *(u64*)*(__sp + 0) = t3;
+        t3 = t3 & v1;
     } else {
-        ret = ((unsigned)ret < (unsigned)t1) ? 1 : 0;
-        if (0x00FF0000 == 0) {
-            ret = ((unsigned)t1 < 0x100) ? 1 : 0;
-            a0 = 8;
-            __asm("movn a0, zero, v0");
-            goto loc_23D664;
-        }
-        v1 = 0x18;
-        ret = ret | 0xffff;
-        a0 = 0x10;
-        ret = ((unsigned)ret < (unsigned)t1) ? 1 : 0;
-        __asm("movn a0, v1, v0");
-        loc_23D664:
-        v1 = (unsigned)t1 >> a0;
-        a1 = 0x20;
-        ret = 0x00500000;
-        ret = ret + v1;
-        ret = *(u8*)*(ret + 0x1d10);
-        ret = ret + a0;
-        t4 = a1 - ret;
-        t7 = a1 - t4;
-        if (t4 == 0) {
-            ret = ((unsigned)t1 < (unsigned)t2) ? 1 : 0;
-            ret = t5 - a3;
-            if (ret == 0) {
-                ret = ((unsigned)t5 < (unsigned)a3) ? 1 : 0;
-                ret = t5 - a3;
-                    a0 = t2 - t1;
-                    v1 = ((unsigned)t5 < (unsigned)ret) ? 1 : 0;
-                    t5 = ret;
-                    t2 = a0 - v1;
-                }
-            ret = (u64)t5 << 32;
-            if (t8 == 0) goto loc_23D86C;
-            v1 = -1;
+        ret = 0xffff;
+        if (ret != 0) {
             v1 = (u64)v1 << 32;
             ret = (u64)ret >> 32;
             t3 = t3 & v1;
@@ -3244,161 +2825,186 @@ loc_23D5F0:
             v1 = (u64)v1 >> 32;
             t3 = t3 & v1;
             t3 = t3 | ret;
-            goto loc_23D868;
-        }
-        a1 = t2 << t4;
-        a0 = t1 << t4;
-        ret = (unsigned)a3 >> t7;
-        v1 = (unsigned)t5 >> t7;
-        t5 = t5 << t4;
-        t1 = a0 | ret;
-        a0 = (unsigned)t2 >> t7;
-        a3 = a3 << t4;
-        t2 = a1 | v1;
-        a2 = (unsigned)t1 >> 0x10;
-        __asm("divu zero, a0, a2");
-        a0 = (unsigned)t2 >> 0x10;
-        a1 = t1 & 0xffff;
-        BREAK(); /* breakpoint */
-        if (likely(a2 == 0)) goto loc_23D724;
-        loc_23D724:
-        ret = LO;
-        v1 = HI;
-        t6 = ret;
-        v1 = v1 << 0x10;
-        t0 = (s32)((s64)t6 * (s64)a1); HI_LO = (s64)t6 * (s64)a1;
-        v1 = v1 | a0;
-        v1 = v1 - t0;
-        if (likely((unsigned)v1 >= (unsigned)t0)) goto loc_23D774;
-        v1 = v1 + t1;
-        t6 = t6 + -1;
-        if ((unsigned)v1 >= (unsigned)t1) {
+            *(u64*)(__sp + 0) = t3;
+        } else {
+            ret = ((unsigned)ret < (unsigned)t1) ? 1 : 0;
+            v1 = 0x18;
+            ret = ret | 0xffff;
+            a0 = 0x10;
+            if ((signed)ret < (signed)t1) a0 = v1;
+            loc_23D664:
+            v1 = (unsigned)t1 >> a0;
+            a1 = 0x20;
+            ret = ret + a0;
+            t4 = a1 - ret;
+            t7 = a1 - t4;
+            if (t4 == 0) {
+                ret = t5 - a3;
+                if (ret == 0) {
+                    ret = t5 - a3;
+                        a0 = t2 - t1;
+                        v1 = ((unsigned)t5 < (unsigned)ret) ? 1 : 0;
+                        t5 = ret;
+                        t2 = a0 - v1;
+                    }
+                ret = (u64)t5 << 32;
+                if (t8 == 0) goto loc_23D86C;
+                v1 = (u64)v1 << 32;
+                ret = (u64)ret >> 32;
+                t3 = t3 & v1;
+                t3 = t3 | ret;
+                ret = (u64)t2 << 32;
+                v1 = (u64)v1 >> 32;
+                t3 = t3 & v1;
+                t3 = t3 | ret;
+                goto loc_23D868;
+            }
+            a1 = t2 << t4;
+            a0 = t1 << t4;
+            ret = (unsigned)a3 >> t7;
+            v1 = (unsigned)t5 >> t7;
+            t5 = t5 << t4;
+            t1 = a0 | ret;
+            a0 = (unsigned)t2 >> t7;
+            a3 = a3 << t4;
+            t2 = a1 | v1;
+            a2 = (unsigned)t1 >> 0x10;
+            a0 = (unsigned)t2 >> 0x10;
+            a1 = t1 & 0xffff;
+            BREAK(); /* breakpoint */
+            if (a2 == 0) goto loc_23D724;
+            loc_23D724:
+            ret = (unsigned)a0 / (unsigned)a2;
+            v1 = (unsigned)a0 % (unsigned)a2;
+            t6 = ret;
+            v1 = v1 << 0x10;
+            t0 = (s32)((s64)t6 * (s64)a1); HI_LO = (s64)t6 * (s64)a1;
             v1 = v1 - t0;
-            if (likely((unsigned)v1 >= (unsigned)t0)) goto loc_23D774;
-            t6 = t6 + -1;
+            if ((unsigned)v1 >= (unsigned)t0) goto loc_23D774;
             v1 = v1 + t1;
-        }
-        v1 = v1 - t0;
-        loc_23D774:
-        BREAK(); /* breakpoint */
-        if (likely(a2 == 0)) goto loc_23D77C;
-        loc_23D77C:
-        __asm("divu zero, v1, a2");
-        a0 = t2 & 0xffff;
-        ret = LO;
-        v1 = HI;
-        a2 = ret;
-        v1 = v1 << 0x10;
-        t0 = (s32)((s64)a2 * (s64)a1); HI_LO = (s64)a2 * (s64)a1;
-        a1 = v1 | a0;
-        a1 = a1 - t0;
-        if (likely((unsigned)a1 >= (unsigned)t0)) goto loc_23D7D0;
-        a1 = a1 + t1;
-        a2 = a2 + -1;
-        if ((unsigned)a1 >= (unsigned)t1) {
+            t6 = t6 + -1;
+            if ((unsigned)v1 >= (unsigned)t1) {
+                v1 = v1 - t0;
+                if ((unsigned)v1 >= (unsigned)t0) goto loc_23D774;
+                t6 = t6 + -1;
+                v1 = v1 + t1;
+            }
+            v1 = v1 - t0;
+            loc_23D774:
+            BREAK(); /* breakpoint */
+            if (a2 == 0) goto loc_23D77C;
+            loc_23D77C:
+            a0 = t2 & 0xffff;
+            ret = (unsigned)v1 / (unsigned)a2;
+            v1 = (unsigned)v1 % (unsigned)a2;
+            a2 = ret;
+            v1 = v1 << 0x10;
+            t0 = (s32)((s64)a2 * (s64)a1); HI_LO = (s64)a2 * (s64)a1;
+            a1 = v1 | a0;
             a1 = a1 - t0;
-            if (likely((unsigned)a1 >= (unsigned)t0)) goto loc_23D7D0;
-            a2 = a2 + -1;
+            if ((unsigned)a1 >= (unsigned)t0) goto loc_23D7D0;
             a1 = a1 + t1;
-        }
-        a1 = a1 - t0;
-        loc_23D7D0:
-        ret = t6 << 0x10;
-        ret = ret | a2;
-        t2 = a1;
-        HI_LO = (u64)ret * (u64)a3;
-        a2 = HI;
-        t0 = LO;
-        v1 = ((unsigned)t2 < (unsigned)a2) ? 1 : 0;
-        ret = t0 - a3;
-        if (v1 == 0) {
-            ret = ((unsigned)t5 < (unsigned)t0) ? 1 : 0;
-            if (a2 != t2) goto loc_23D818;
+            a2 = a2 + -1;
+            if ((unsigned)a1 >= (unsigned)t1) {
+                a1 = a1 - t0;
+                if ((unsigned)a1 >= (unsigned)t0) goto loc_23D7D0;
+                a2 = a2 + -1;
+                a1 = a1 + t1;
+            }
+            a1 = a1 - t0;
+            loc_23D7D0:
+            ret = ret | a2;
+            t2 = a1;
+            HI_LO = (u64)ret * (u64)a3;
+            a2 = HI;
+            t0 = LO;
+            v1 = ((unsigned)t2 < (unsigned)a2) ? 1 : 0;
             ret = t0 - a3;
-            if (ret == 0) goto loc_23D818;
-        }
-        a0 = a2 - t1;
-        v1 = ((unsigned)t0 < (unsigned)ret) ? 1 : 0;
-        t0 = ret;
-        a2 = a0 - v1;
-        loc_23D818:
-        a0 = t5 - t0;
-        if (t8 == 0) goto loc_23D86C;
-        a1 = a1 - a2;
-        v1 = ((unsigned)t5 < (unsigned)a0) ? 1 : 0;
-        t2 = a1 - v1;
-        ret = t2 << t7;
-        v1 = -1;
-        v1 = (u64)v1 << 32;
-        a0 = (unsigned)a0 >> t4;
-        t3 = t3 & v1;
-        ret = ret | a0;
-        a0 = (u64)a0 >> 32;
-        ret = (u64)ret << 32;
-        v1 = (unsigned)t2 >> t4;
-        ret = (u64)ret >> 32;
-        v1 = (u64)v1 << 32;
-        t3 = t3 | ret;
-        t3 = t3 & a0;
-        t3 = t3 | v1;
+            if (v1 == 0) {
+                ret = ((unsigned)t5 < (unsigned)t0) ? 1 : 0;
+                if (a2 != t2) goto loc_23D818;
+                ret = t0 - a3;
+                if (ret == 0) goto loc_23D818;
+            }
+            a0 = a2 - t1;
+            v1 = ((unsigned)t0 < (unsigned)ret) ? 1 : 0;
+            t0 = ret;
+            a2 = a0 - v1;
+            loc_23D818:
+            a0 = t5 - t0;
+            if (t8 == 0) goto loc_23D86C;
+            a1 = a1 - a2;
+            v1 = ((unsigned)t5 < (unsigned)a0) ? 1 : 0;
+            t2 = a1 - v1;
+            ret = t2 << t7;
+            v1 = (u64)v1 << 32;
+            a0 = (unsigned)a0 >> t4;
+            t3 = t3 & v1;
+            ret = ret | a0;
+            a0 = (u64)a0 >> 32;
+            ret = (u64)ret << 32;
+            v1 = (unsigned)t2 >> t4;
+            ret = (u64)ret >> 32;
+            v1 = (u64)v1 << 32;
+            t3 = t3 | ret;
+            t3 = t3 & a0;
+            t3 = t3 | v1;
+    }
         loc_23D868:
-        *(u64*)*(t8 + 0) = t3;
+        *(u64*)(t8 + 0) = t3;
     }
 loc_23D86C:
-    ret = *(u64*)*(__sp + 0);
-    return ret;
+    return *(u64*)(__sp + 0);
 }
 
 /* Function at 0x0023D878 - 0x0023D990 */
-int EEKernel_TLB_Setup()
+u32 EEKernel_TLB_Setup(u32 a0)
 {
     /* Stack frame: 32 bytes */
-    int ret, a0, a1, a2, a3, s0, s1, s2;
+    u32 ret, a1, a2, a3, s0, s1, s2;
     a1 = 0;
     s1 = a0;
-    ret = EEKernel_VU0_LoadMatrix(a0, a1, a2, a3);
+    ret = EEKernel_VU0_LoadMatrix(a0, a1);
     a0 = s1;
-    a1 = 0 | 0xf7c0;
+    a1 = 0xf7c0;
     a1 = (u64)a1 << 46;
     if ((signed)0 < 0) goto loc_23D978;
-    ret = EEKernel_VU0_Pipeline_Complex(a0, a1, a2, a3);
+    ret = EEKernel_VU0_Pipeline_Complex(a0, a1);
     a0 = ret;
-    ret = EEKernel_QuadWrite_Bounded(a0, a1, a2, a3);
+    ret = EEKernel_QuadWrite_Bounded(a0);
     s0 = (u64)ret << 32;
     ret = s0 & 1;
     a0 = (unsigned)s0 >> 1;
     a0 = ret | a0;
     if ((signed)s0 >= 0) {
         a0 = s0;
-        ret = EEKernel_ExitWithCode(a0, a1, a2, a3);
+        ret = EEKernel_ExitWithCode(a0);
         goto loc_23D900;
     }
-    ret = EEKernel_ExitWithCode(a0, a1, a2, a3);
+    ret = EEKernel_ExitWithCode(a0);
     a0 = ret;
     a1 = a0;
-    ret = EEKernel_VU0_Pipeline_Start(a0, a1, a2, a3);
+    ret = EEKernel_VU0_Pipeline_Start(a0, a1);
 loc_23D900:
     a0 = s1;
     a1 = ret;
-    ret = EEKernel_VU0_Pipeline_XOR(a0, a1, a2, a3);
+    ret = EEKernel_VU0_Pipeline_XOR(a0, a1);
     s2 = 0;
     s1 = ret;
     a1 = s2;
     a0 = s1;
-    ret = EEKernel_VU0_LoadMatrix(a0, a1, a2, a3);
+    ret = EEKernel_VU0_LoadMatrix(a0, a1);
     a0 = s1;
     a1 = s1;
     if ((signed)ret < 0) {
         a0 = s2;
-        ret = EEKernel_VU0_Pipeline_XOR(a0, a1, a2, a3);
+        ret = EEKernel_VU0_Pipeline_XOR(a0, a1);
         a0 = ret;
-        ret = EEKernel_QuadWrite_Bounded(a0, a1, a2, a3);
-        ret = (u64)ret << 32;
+        ret = EEKernel_QuadWrite_Bounded(a0);
         ret = (u64)ret >> 32;
         s0 = s0 - ret;
     } else {
-        ret = EEKernel_QuadWrite_Bounded(a0, a1, a2, a3);
-        ret = (u64)ret << 32;
+        ret = EEKernel_QuadWrite_Bounded(a0);
         ret = (u64)ret >> 32;
         s0 = s0 + ret;
     }
@@ -3408,10 +3014,10 @@ loc_23D978:
 }
 
 /* Function at 0x0023D990 - 0x0023DA28 */
-int EEKernel_CallbackList_Process()
+u32 EEKernel_CallbackList_Process(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 16 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0;
+    u32 ret, v1, s0;
     a0 = 0x00500000 + -0x7c20;
     v1 = *(u32*)(a0);
     ret = *(u32*)(v1);
@@ -3422,50 +3028,47 @@ int EEKernel_CallbackList_Process()
             ret = a0 + 4;
             *(u32*)(s0) = ret;
             v1 = *(u32*)(a0);
-            ret = (v1)(a0, a1, a2, a3); /* indirect call */
+            ret = CALL_INDIRECT(v1)(a0, a1, a2, a3);
             ret = *(u32*)(s0);
-            v1 = *(u32*)(v0);
+            v1 = *(u32*)(ret);
             a0 = *(u32*)(s0);
-        } while (likely(v1 != 0));
+        } while (v1 != 0);
     }
     a1 = 0x00500000 + -0x7c1c;
-    v1 = *(u32*)(a1);
-    if (v1 == 0) {
+    if ((*(u32*)(a1)) == 0) {
         ret = 1;
         a0 = 0x004F8B68;
         *(u32*)(a1) = ret;
-        return EEKernel_Dealloc_ProcessCallback(a0, a1, a2, a3);
+        return EEKernel_Dealloc_ProcessCallback(a0);
     }
     return ret;
 loc_23DA20:
     a0 = 0x00500000;
-    a1 = 0x00860000;
+    a1 = 0x00860000;  /* SYS_DATA_BASE: System/boot data region */
 }
 
 /* Function at 0x0023DA28 - 0x0023DAE0 */
-int EEKernel_Thread_Callback_Init()
+u32 EEKernel_Thread_Callback_Init(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 32 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1;
+    u32 ret, v1, s0, s1;
     a0 = a0 + -0x7498;
     a1 = a1 + 0x5140;
-    ret = EEKernel_Alloc_List_Init(a0, a1, a2, a3);
+    ret = EEKernel_Alloc_List_Init(a0, a1);
     ret = 0x00500000;
     v1 = -1;
     a1 = ret + -0x74ac;
     a0 = *(u32*)(a1);
     if (a0 != v1) goto loc_23DA90;
-    ret = *(u32*)*(a1 + 4);
+    ret = *(u32*)(a1 + 4);
     a0 = 0;
     if (ret == 0) goto loc_23DA90;
     a2 = a1;
     a1 = 4;
     do {
         a1 = a1 + 4;
-        ret = (u64)a1 << 32;
-        ret = (s64)ret >> 32;
         ret = ret + a2;
-        v1 = *(u32*)(v0);
+        v1 = *(u32*)(ret);
         a0 = a0 + 1;
     } while (v1 != 0);
 loc_23DA90:
@@ -3479,50 +3082,48 @@ loc_23DA90:
         do {
             s1 = s1 + -4;
             s0 = s0 + -1;
-            ret = (ret)(a0, a1, a2, a3); /* indirect call */
+            ret = CALL_INDIRECT(ret)(a0, a1, a2, a3);
             ret = *(u32*)(s1);
-        } while (likely(s0 != 0));
+        } while (s0 != 0);
     }
-    a0 = 0x0023D990;
-    return EEKernel_StackBuffer_Alloc(a0, a1, a2, a3);
+    a0 = (u32)EEKernel_CallbackList_Process;
+    return EEKernel_StackBuffer_Alloc(a0);
 }
 
 /* Function at 0x0023DAE0 - 0x0023DB18 */
-int EEKernel_GlobalState_Setup()
+u32 EEKernel_GlobalState_Setup(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0;
-    a0 = 0x00860000 + 0x5158;
-    v1 = *(u32*)(a0);
-    if (v1 == 0) {
+    u32 ret, v1, a0, a1, a2, a3;
+    a0 = 0x00860000 + 0x5158;  /* SYS_DATA_BASE: System/boot data region */
+    if ((*(u32*)(a0)) == 0) {
         *(u32*)(a0) = 1;
-        goto loc_23DA20;
+        return EEKernel_CallbackList_Process(a0, a1, a2, a3);
     }
     return ret;
 }
 
 /* Function at 0x0023DB18 - 0x0023DB58 */
-int EEKernel_QuadCopy_WithXform()
+u32 EEKernel_QuadCopy_WithXform(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 48 bytes */
-    int ret, a0, a1, a2, a3;
+    u32 ret;
     a0 = __sp + 0x10;
     a1 = __sp;
-    __asm("swc1 f12, 0x10(sp)");
-    ret = EEKernel_QuadListCopy(a0, a1, a2, a3);
-    a3 = *(u32*)*(__sp + 12);  /* lwu */
-    a0 = *(u32*)(sp);
-    a1 = *(u32*)*(__sp + 4);
+    *(float*)(__sp + 0x10) = FPU_F(f12);
+    ret = EEKernel_QuadListCopy(a0, a1);
+    a3 = *(u32*)(__sp + 12);  /* lwu */
+    a0 = *(u32*)(__sp);
+    a1 = *(u32*)(__sp + 4);
     a3 = a3 << 30;
-    a2 = *(u32*)*(__sp + 8);
-    ret = EEKernel_QuadTransform_Store(a0, a1, a2, a3);
-    return ret;
+    a2 = *(u32*)(__sp + 8);
+    return EEKernel_QuadTransform_Store(a0, a1, a2, a3);
 }
 
 /* Function at 0x0023DB58 - 0x0023DDB8 */
-int EEKernel_Matrix_Comparison()
+u32 EEKernel_Matrix_Comparison(u32 a0, u32 a1, u32 a2)
 {
-    int ret, v0, v1, a0, a1, a2, a3, t0, t1, t2, t3, t4;
+    u32 ret, v1, a3, t0, t1, t2, t3, t4;
     t3 = a0;
     a3 = *(u32*)(t3);
     v1 = ((unsigned)a3 < 2) ? 1 : 0;
@@ -3537,8 +3138,8 @@ int EEKernel_Matrix_Comparison()
     if (ret == 0) {
         ret = a0 ^ 4;
         if (ret != 0) goto loc_23DC00;
-        v1 = *(u32*)*(a1 + 4);
-        ret = *(u32*)*(t3 + 4);
+        v1 = *(u32*)(a1 + 4);
+        ret = *(u32*)(t3 + 4);
         if (ret == v1) goto loc_23DC00;
         return 0x00501E10;
     }
@@ -3549,32 +3150,29 @@ int EEKernel_Matrix_Comparison()
     if (ret != 0) goto loc_23DC08;
     ret = a3 ^ 2;
     if (ret != 0) goto loc_23DC00;
-    a0 = *(u64*)*(t3 + 0);
+    a0 = *(u64*)(t3 + 0);
     ret = a2;
-    *(u64*)*(a2 + 0) = a0;
-    v1 = *(u64*)*(t3 + 8);
-    *(u64*)*(a2 + 8) = v1;
-    a0 = *(u64*)*(t3 + 16);
-    *(u64*)*(a2 + 16) = a0;
-    v1 = *(u32*)*(t3 + 4);
-    a0 = *(u32*)*(a1 + 4);
-    v1 = v1 & a0;
-    *(u32*)*(a2 + 4) = v1;
+    *(u64*)(a2 + 0) = a0;
+    v1 = *(u64*)(t3 + 8);
+    *(u64*)(a2 + 8) = v1;
+    a0 = *(u64*)(t3 + 16);
+    *(u64*)(a2 + 16) = a0;
+    v1 = *(u32*)(t3 + 4);
+    a0 = *(u32*)(a1 + 4);
+    *(u32*)(a2 + 4) = v1 & a0;
     return ret;
 loc_23DC00:
-    ret = t3;
-    return ret;
+    return t3;
 loc_23DC08:
     ret = a1;
     if (v1 == 0) goto loc_23DDAC;
-    t0 = *(u32*)*(t3 + 8);
-    a3 = *(u32*)*(a1 + 8);
-    t2 = *(u64*)*(t3 + 16);
+    t0 = *(u32*)(t3 + 8);
+    a3 = *(u32*)(a1 + 8);
+    t2 = *(u64*)(t3 + 16);
     ret = t0 - a3;
-    __asm("negu a0, v0");
-    v1 = ((signed)ret < 0) ? 1 : 0;
-    __asm("movn v0, a0, v1");
-    t1 = *(u64*)*(a1 + 16);
+    a0 = -ret;
+    if ((((signed)ret < 0) ? 1 : 0) != 0) ret = a0;
+    t1 = *(u64*)(a1 + 16);
     if ((signed)ret < 0x40) {
         ret = ((signed)a3 < (signed)t0) ? 1 : 0;
         if ((signed)t0 < (signed)a3) {
@@ -3588,8 +3186,8 @@ loc_23DC08:
             } while (a3 != 0);
             a3 = t0;
         }
-        a0 = *(u32*)*(t3 + 4);
-        if (likely((signed)t0 >= (signed)a3)) goto loc_23DCC8;
+        a0 = *(u32*)(t3 + 4);
+        if ((signed)t0 >= (signed)a3) goto loc_23DCC8;
         t4 = 1;
         do {
             t0 = t0 + 1;
@@ -3598,7 +3196,7 @@ loc_23DC08:
             a0 = ((signed)t0 < (signed)a3) ? 1 : 0;
             t2 = v1 | ret;
         } while (a0 != 0);
-        a0 = *(u32*)*(t3 + 4);
+        a0 = *(u32*)(t3 + 4);
         goto loc_23DCC8;
     }
     t0 = a3;
@@ -3608,63 +3206,57 @@ loc_23DC08:
     }
     t2 = 0;
 loc_23DCC4:
-    a0 = *(u32*)*(t3 + 4);
+    a0 = *(u32*)(t3 + 4);
 loc_23DCC8:
-    ret = *(u32*)*(a1 + 4);
     ret = t2 - t1;
-    if (a0 == ret) goto loc_23DD60;
-    v1 = t1 - t2;
-    __asm("movz v1, v0, a0");
-    v1 = 0 - v1;
-    if ((signed)v1 >= 0) {
-        *(u32*)*(a2 + 8) = t0;
-        *(u64*)*(a2 + 16) = v1;
-        *(u32*)*(a2 + 4) = 0;
-        goto loc_23DD08;
-    }
-    *(u32*)*(a2 + 4) = 1;
-    *(u32*)*(a2 + 8) = t0;
-    *(u64*)*(a2 + 16) = v1;
-loc_23DD08:
-    a3 = *(u64*)*(a2 + 16);
-    ret = -1;
-    ret = ret << 5;
-    ret = (unsigned)ret >> 4;
-    v1 = a3 + -1;
-    if ((unsigned)ret < (unsigned)v1) goto loc_23DD74;
-    do {
-        a1 = a3 << 1;
-        ret = *(u32*)*(a2 + 8);
-        v1 = a1 + -1;
-        a0 = -1;
-        a0 = a0 << 5;
-        a0 = (unsigned)a0 >> 4;
-        ret = ret + -1;
-        a0 = ((unsigned)a0 < (unsigned)v1) ? 1 : 0;
-        *(u32*)*(a2 + 8) = ret;
-        a3 = a1;
-        *(u64*)*(a2 + 16) = a1;
-    } while (a0 == 0);
-    goto loc_23DD74;
-loc_23DD60:
-    ret = t2 + t1;
-    *(u32*)*(a2 + 4) = a0;
-    *(u32*)*(a2 + 8) = t0;
-    a3 = ret;
-    *(u64*)*(a2 + 16) = ret;
-loc_23DD74:
-    ret = -1;
+    if (a0 != ret) {
+        v1 = t1 - t2;
+        if (a0 == 0) v1 = ret;
+        v1 = 0 - v1;
+        if ((signed)v1 >= 0) {
+            *(u32*)(a2 + 8) = t0;
+            *(u64*)(a2 + 16) = v1;
+            *(u32*)(a2 + 4) = 0;
+            goto loc_23DD08;
+        }
+        *(u32*)(a2 + 4) = 1;
+        *(u32*)(a2 + 8) = t0;
+        *(u64*)(a2 + 16) = v1;
+        loc_23DD08:
+        a3 = *(u64*)(a2 + 16);
+        ret = (unsigned)ret >> 4;
+        v1 = a3 + -1;
+        if ((unsigned)ret >= (unsigned)v1) {
+            do {
+                a1 = a3 << 1;
+                ret = *(u32*)(a2 + 8);
+                v1 = a1 + -1;
+                a0 = -1;
+                a0 = a0 << 5;
+                a0 = (unsigned)a0 >> 4;
+                ret = ret + -1;
+                a0 = ((unsigned)a0 < (unsigned)v1) ? 1 : 0;
+                *(u32*)(a2 + 8) = ret;
+                a3 = a1;
+                *(u64*)(a2 + 16) = a1;
+            } while (a0 == 0);
+            } else {
+            ret = t2 + t1;
+            *(u32*)(a2 + 4) = a0;
+            *(u32*)(a2 + 8) = t0;
+            a3 = ret;
+            *(u64*)(a2 + 16) = ret;
+            }
+        }
     ret = (unsigned)ret >> 3;
-    v1 = 3;
-    *(u32*)(a2) = v1;
+    *(u32*)(a2) = 3;
     if ((unsigned)ret < (unsigned)a3) {
-        ret = *(u32*)*(a2 + 8);
+        ret = *(u32*)(a2 + 8);
         a0 = (unsigned)a3 >> 1;
-        v1 = a3 & 1;
         v1 = v1 | a0;
         ret = ret + 1;
-        *(u64*)*(a2 + 16) = v1;
-        *(u32*)*(a2 + 8) = ret;
+        *(u64*)(a2 + 16) = v1;
+        *(u32*)(a2 + 8) = ret;
     }
     ret = a2;
 loc_23DDAC:
@@ -3672,273 +3264,233 @@ loc_23DDAC:
 }
 
 /* Function at 0x0023DDB8 - 0x0023DE10 */
-int EEKernel_VU0_Pipeline_Start()
+u32 EEKernel_VU0_Pipeline_Start(u32 a0, u32 a1)
 {
     /* Stack frame: 128 bytes */
-    int ret, a0, a1, a2, a3, s0;
-    *(u64*)*(__sp + 96) = a0;
+    u32 ret, a2, a3, s0;
+    *(u64*)(__sp + 96) = a0;
     a0 = __sp + 0x60;
-    *(u64*)*(__sp + 104) = a1;
+    *(u64*)(__sp + 104) = a1;
     a1 = __sp;
-    ret = EEKernel_Matrix_Load_Block(a0, a1, a2, a3);
+    ret = EEKernel_Matrix_Load_Block(a0, a1);
     s0 = __sp + 0x20;
     a0 = __sp + 0x68;
     a1 = s0;
-    ret = EEKernel_Matrix_Load_Block(a0, a1, a2, a3);
+    ret = EEKernel_Matrix_Load_Block(a0, a1);
     a1 = s0;
     a0 = __sp;
     a2 = __sp + 0x40;
-    ret = EEKernel_Matrix_Comparison(a0, a1, a2, a3);
-    a0 = ret;
-    ret = EEKernel_Matrix_Store_Block(a0, a1, a2, a3);
-    return ret;
+    a0 = EEKernel_Matrix_Comparison(a0, a1, a2);
+    return EEKernel_Matrix_Store_Block(a0, a1, a2);
 }
 
 /* Function at 0x0023DE10 - 0x0023DE78 */
-int EEKernel_VU0_Pipeline_XOR()
+u32 EEKernel_VU0_Pipeline_XOR(u32 a0, u32 a1)
 {
     /* Stack frame: 128 bytes */
-    int local_24;
-    int ret, a0, a1, a2, a3, s0;
-    *(u64*)*(__sp + 96) = a0;
+    u32 local_24;
+    u32 ret, a2, a3, s0;
+    *(u64*)(__sp + 96) = a0;
     a0 = __sp + 0x60;
-    *(u64*)*(__sp + 104) = a1;
+    *(u64*)(__sp + 104) = a1;
     a1 = __sp;
-    ret = EEKernel_Matrix_Load_Block(a0, a1, a2, a3);
+    ret = EEKernel_Matrix_Load_Block(a0, a1);
     s0 = __sp + 0x20;
     a0 = __sp + 0x68;
     a1 = s0;
-    ret = EEKernel_Matrix_Load_Block(a0, a1, a2, a3);
+    ret = EEKernel_Matrix_Load_Block(a0, a1);
     a1 = s0;
     ret = local_24;
     a0 = __sp;
     a2 = __sp + 0x40;
-    ret = ret ^ 1;
-    local_24 = ret;
-    ret = EEKernel_Matrix_Comparison(a0, a1, a2, a3);
-    a0 = ret;
-    ret = EEKernel_Matrix_Store_Block(a0, a1, a2, a3);
-    return ret;
+    local_24 = ret ^ 1;
+    a0 = EEKernel_Matrix_Comparison(a0, a1, a2);
+    return EEKernel_Matrix_Store_Block(a0, a1, a2);
 }
 
 /* Function at 0x0023DE78 - 0x0023E100 */
-int EEKernel_VU0_Pipeline_Complex()
+u32 EEKernel_VU0_Pipeline_Complex(u32 a0, u32 a1)
 {
     /* Stack frame: 176 bytes */
-    int local_20;
-    int local_24;
-    int local_28;
-    int local_40;
-    int local_44;
-    int local_48;
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, t0;
-    *(u64*)*(__sp + 96) = a0;
+    u32 local_20;
+    u32 local_24;
+    u32 local_28;
+    u32 local_40;
+    u32 local_44;
+    u32 local_48;
+    u32 ret, v1, a2, a3, s0, s1, s2, s3, s4, s5, s6, t0;
+    *(u64*)(__sp + 96) = a0;
     a0 = __sp + 0x60;
-    *(u64*)*(__sp + 104) = a1;
+    *(u64*)(__sp + 104) = a1;
     a1 = __sp;
-    ret = EEKernel_Matrix_Load_Block(a0, a1, a2, a3);
+    ret = EEKernel_Matrix_Load_Block(a0, a1);
     s0 = __sp + 0x20;
     a0 = __sp + 0x68;
     a1 = s0;
-    ret = EEKernel_Matrix_Load_Block(a0, a1, a2, a3);
-    a0 = *(u32*)(sp);
-    ret = ((unsigned)a0 < 2) ? 1 : 0;
-    ret = *(u32*)*(__sp + 4);
+    ret = EEKernel_Matrix_Load_Block(a0, a1);
+    a0 = *(u32*)(__sp);
+    ret = *(u32*)(__sp + 4);
     if (ret != 0) goto loc_23DF2C;
-    v1 = local_20;
     v1 = local_24;
-    if (likely((unsigned)v1 < 2)) goto loc_23DF54;
-    ret = a0 ^ 4;
+    if ((unsigned)v1 < 2) goto loc_23DF54;
     ret = v1 ^ 4;
     if (ret == 0) {
-        ret = v1 ^ 2;
-        ret = *(u32*)*(__sp + 4);
-        if (likely(ret != 0)) goto loc_23DF2C;
+        ret = *(u32*)(__sp + 4);
+        if (ret != 0) goto loc_23DF2C;
     } else {
         ret = a0 ^ 2;
         if (ret == 0) {
             v1 = local_24;
-            if (likely(ret != 0)) goto loc_23DF54;
+            if (ret != 0) goto loc_23DF54;
             ret = 0x00500000;
             }
             a0 = ret + 0x1e10;
             goto loc_23E0CC;
         }
     ret = v1 ^ 2;
-    if (ret != 0) goto loc_23DF48;
-    ret = *(u32*)*(__sp + 4);
-loc_23DF2C:
-    a0 = __sp;
-    v1 = local_24;
-    ret = ret ^ v1;
-    *(u32*)*(__sp + 4) = ret;
-    goto loc_23E0CC;
-loc_23DF48:
-    if ((unsigned)0 < (unsigned)ret) goto loc_23DF70;
-    v1 = local_24;
-loc_23DF54:
-    a0 = s0;
-    ret = *(u32*)*(__sp + 4);
-    ret = ret ^ v1;
-    ret = ((unsigned)0 < (unsigned)ret) ? 1 : 0;
-    local_24 = ret;
-    goto loc_23E0CC;
-loc_23DF70:
-    s5 = (u64)s5 >> 32;
-    s0 = s3 & s5;
-    s3 = (u64)s3 >> 32;
-    s6 = s2 & s5;
-    s2 = (u64)s2 >> 32;
-    a1 = s0;
-    a0 = s6;
-    ret = EEKernel_Integer_Multiply64(a0, a1, a2, a3);
-    a0 = s2;
-    a1 = s0;
-    s4 = ret;
-    ret = EEKernel_Integer_Multiply64(a0, a1, a2, a3);
-    a0 = s6;
-    a1 = s3;
-    s1 = ret;
-    ret = EEKernel_Integer_Multiply64(a0, a1, a2, a3);
-    a0 = s2;
-    s0 = ret;
-    a1 = s3;
-    s0 = s1 + s0;
-    ret = EEKernel_Integer_Multiply64(a0, a1, a2, a3);
-    s1 = ((unsigned)s0 < (unsigned)s1) ? 1 : 0;
-    a2 = (u64)s0 << 32;
-    s0 = (u64)s0 >> 32;
-    a2 = s4 + a2;
-    s0 = s0 & s5;
-    s1 = (u64)s1 << 32;
-    s0 = s0 + ret;
-    ret = *(u32*)*(__sp + 4);
-    s4 = ((unsigned)a2 < (unsigned)s4) ? 1 : 0;
-    a0 = *(u32*)*(__sp + 8);
-    a3 = local_28;
-    s1 = s1 + s4;
-    a1 = local_24;
-    s1 = s1 + s0;
-    a0 = a0 + a3;
-    v1 = -1;
-    v1 = (unsigned)v1 >> 3;
-    ret = ret ^ a1;
-    a0 = a0 + 4;
-    ret = ((unsigned)0 < (unsigned)ret) ? 1 : 0;
-    v1 = ((unsigned)v1 < (unsigned)s1) ? 1 : 0;
-    local_44 = ret;
-    local_48 = a0;
-    if (v1 != 0) {
-        a3 = 0 | 0x8000;
-        a3 = (u64)a3 << 48;
-        a1 = -1;
-        a1 = (unsigned)a1 >> 3;
-        ret = s1 & 1;
-        do {
-            s1 = (unsigned)s1 >> 1;
-            ret = (u64)ret << 32;
-            ret = (s64)ret >> 32;
-            v1 = ((unsigned)a1 < (unsigned)s1) ? 1 : 0;
-            a0 = a0 + 1;
-            if (ret != 0) {
-                a2 = (unsigned)a2 >> 1;
-                a2 = a2 | a3;
+    if (ret == 0) {
+        ret = *(u32*)(__sp + 4);
+        loc_23DF2C:
+        a0 = __sp;
+        v1 = local_24;
+        ret = ret ^ v1;
+        *(u32*)(__sp + 4) = ret;
+    } else {
+        if ((unsigned)0 >= (unsigned)ret) {
+            v1 = local_24;
+            loc_23DF54:
+            a0 = s0;
+            local_24 = ((unsigned)0 < (unsigned)ret) ? 1 : 0;
+        } else {
+            s5 = (u64)s5 >> 32;
+            s0 = s3 & s5;
+            s3 = (u64)s3 >> 32;
+            s6 = s2 & s5;
+            s2 = (u64)s2 >> 32;
+            a1 = s0;
+            a0 = s6;
+            ret = EEKernel_Integer_Multiply64(a0, a1, a2, a3);
+            a0 = s2;
+            a1 = s0;
+            s4 = ret;
+            ret = EEKernel_Integer_Multiply64(a0, a1, a2, a3);
+            a0 = s6;
+            a1 = s3;
+            s1 = ret;
+            ret = EEKernel_Integer_Multiply64(a0, a1, a2, a3);
+            a0 = s2;
+            s0 = ret;
+            a1 = s3;
+            s0 = s1 + s0;
+            ret = EEKernel_Integer_Multiply64(a0, a1, a2, a3);
+            s1 = ((unsigned)s0 < (unsigned)s1) ? 1 : 0;
+            a2 = (u64)s0 << 32;
+            s0 = (u64)s0 >> 32;
+            a2 = s4 + a2;
+            s0 = s0 & s5;
+            s1 = (u64)s1 << 32;
+            s0 = s0 + ret;
+            ret = *(u32*)(__sp + 4);
+            s4 = ((unsigned)a2 < (unsigned)s4) ? 1 : 0;
+            a0 = *(u32*)(__sp + 8);
+            a3 = local_28;
+            s1 = s1 + s4;
+            a1 = local_24;
+            s1 = s1 + s0;
+            a0 = a0 + a3;
+            v1 = (unsigned)v1 >> 3;
+            ret = ret ^ a1;
+            a0 = a0 + 4;
+            ret = ((unsigned)0 < (unsigned)ret) ? 1 : 0;
+            v1 = ((unsigned)v1 < (unsigned)s1) ? 1 : 0;
+            local_44 = ret;
+            local_48 = a0;
+            if (v1 != 0) {
+                a3 = 0x8000;
+                a3 = (u64)a3 << 48;
+                a1 = -1;
+                a1 = (unsigned)a1 >> 3;
+                ret = s1 & 1;
+                do {
+                    s1 = (unsigned)s1 >> 1;
+                    ret = (s64)ret >> 32;
+                    v1 = ((unsigned)a1 < (unsigned)s1) ? 1 : 0;
+                    a0 = a0 + 1;
+                    if (ret != 0) {
+                        a2 = (unsigned)a2 >> 1;
+                        a2 = a2 | a3;
+                    }
+                    ret = s1 & 1;
+                } while (v1 != 0);
+                local_48 = a0;
             }
-            ret = s1 & 1;
-        } while (v1 != 0);
-        local_48 = a0;
-    }
-    ret = -1;
-    ret = (unsigned)ret >> 4;
-    ret = ((unsigned)ret < (unsigned)s1) ? 1 : 0;
-    if (3 == 0) {
-        a0 = local_48;
-        t0 = 0 | 0x8000;
-        t0 = (u64)t0 << 48;
-        a3 = 1;
-        a1 = -1;
-        a1 = (unsigned)a1 >> 4;
-        do {
-            s1 = s1 << 1;
-            v1 = a2 & t0;
-            ret = s1 | a3;
-            a0 = a0 + -1;
-            __asm("movn s1, v0, v1");
-            ret = ((unsigned)a1 < (unsigned)s1) ? 1 : 0;
-            a2 = a2 << 1;
-        } while (ret == 0);
-        local_48 = a0;
-        ret = 3;
-    }
-    local_40 = ret;
-    a0 = __sp + 0x40;
+            local_40 = ((unsigned)ret < (unsigned)s1) ? 1 : 0;
+            a0 = __sp + 0x40;
+            }
+        }
 loc_23E0CC:
-    ret = EEKernel_Matrix_Store_Block(a0, a1, a2, a3);
-    return ret;
+    return EEKernel_Matrix_Store_Block(a0, a1, a2);
 }
 
 /* Function at 0x0023E100 - 0x0023E240 */
-int EEKernel_ExceptionHandler()
+u32 EEKernel_ExceptionHandler(u32 a0, u32 a1)
 {
     /* Stack frame: 96 bytes */
-    int local_20;
-    int local_24;
-    int local_28;
-    int ret, v1, a0, a1, a2, a3, s0, t0;
-    *(u64*)*(__sp + 64) = a0;
+    u32 local_20;
+    u32 local_24;
+    u32 local_28;
+    u32 ret, v1, a2, a3, s0, t0;
+    *(u64*)(__sp + 64) = a0;
     a0 = __sp + 0x40;
-    *(u64*)*(__sp + 72) = a1;
+    *(u64*)(__sp + 72) = a1;
     a1 = __sp;
-    ret = EEKernel_Matrix_Load_Block(a0, a1, a2, a3);
+    ret = EEKernel_Matrix_Load_Block(a0, a1);
     s0 = __sp + 0x20;
     a0 = __sp + 0x48;
     a1 = s0;
-    ret = EEKernel_Matrix_Load_Block(a0, a1, a2, a3);
-    a2 = *(u32*)(sp);
+    ret = EEKernel_Matrix_Load_Block(a0, a1);
+    a2 = *(u32*)(__sp);
     t0 = __sp;
     a0 = __sp;
     if ((unsigned)a2 < 2) goto loc_23E228;
     a1 = local_20;
     a0 = s0;
     if ((unsigned)a1 < 2) goto loc_23E228;
-    ret = *(u32*)*(__sp + 4);
+    ret = *(u32*)(__sp + 4);
     a0 = a2 ^ 4;
     v1 = local_24;
     ret = ret ^ v1;
-    *(u32*)*(__sp + 4) = ret;
+    *(u32*)(__sp + 4) = ret;
     if (a0 != 0) {
-        ret = a2 ^ 2;
         ret = a1 ^ 4;
             a0 = __sp;
-            if (likely(a2 != a1)) goto loc_23E228;
+            if (a2 != a1) goto loc_23E228;
             a0 = 0x00500000 + 0x1e10;
             goto loc_23E228;
         }
-    ret = a1 ^ 2;
-    if (ret == 0) {
-        *(u64*)*(__sp + 16) = 0;
+    if ((a1 ^ 2) == 0) {
+        *(u64*)(__sp + 16) = 0;
         a0 = __sp;
-        *(u32*)*(__sp + 8) = 0;
+        *(u32*)(__sp + 8) = 0;
     } else {
-        v1 = *(u32*)*(__sp + 8);
+        v1 = *(u32*)(__sp + 8);
         if (ret == 0) {
             ret = 4;
             a0 = __sp;
-            *(u32*)(sp) = ret;
+            *(u32*)(__sp) = ret;
         } else {
             ret = local_28;
-            a0 = *(u64*)*(__sp + 16);
-            a2 = *(u64*)*(__sp + 48);
+            a0 = *(u64*)(__sp + 16);
+            a2 = *(u64*)(__sp + 48);
             ret = v1 - ret;
             a1 = ((unsigned)a0 < (unsigned)a2) ? 1 : 0;
-            *(u32*)*(__sp + 8) = ret;
+            *(u32*)(__sp + 8) = ret;
             if (a1 != 0) {
                 ret = ret + -1;
                 a0 = a0 << 1;
-                *(u32*)*(__sp + 8) = ret;
+                *(u32*)(__sp + 8) = ret;
                 a1 = ((unsigned)a0 < (unsigned)a2) ? 1 : 0;
             }
-            v1 = 0 | 0x8000;
             v1 = (u64)v1 << 45;
             a3 = 0;
             do {
@@ -3952,70 +3504,66 @@ int EEKernel_ExceptionHandler()
                 a1 = ((unsigned)ret < (unsigned)a2) ? 1 : 0;
                 a0 = ret;
             } while (v1 != 0);
-            *(u64*)*(t0 + 16) = a3;
+            *(u64*)(t0 + 16) = a3;
             a0 = t0;
             }
         }
 loc_23E228:
-    ret = EEKernel_Matrix_Store_Block(a0, a1, a2, a3);
-    return ret;
+    return EEKernel_Matrix_Store_Block(a0, a1, a2);
 }
 
 /* Function at 0x0023E240 - 0x0023E290 */
-int EEKernel_VU0_LoadMatrix()
+u32 EEKernel_VU0_LoadMatrix(u32 a0, u32 a1)
 {
     /* Stack frame: 96 bytes */
-    int ret, a0, a1, a2, a3, s0;
-    *(u64*)*(__sp + 64) = a0;
+    u32 ret, a2, a3, s0;
+    *(u64*)(__sp + 64) = a0;
     a0 = __sp + 0x40;
-    *(u64*)*(__sp + 72) = a1;
+    *(u64*)(__sp + 72) = a1;
     a1 = __sp;
-    ret = EEKernel_Matrix_Load_Block(a0, a1, a2, a3);
+    ret = EEKernel_Matrix_Load_Block(a0, a1);
     s0 = __sp + 0x20;
     a0 = __sp + 0x48;
     a1 = s0;
-    ret = EEKernel_Matrix_Load_Block(a0, a1, a2, a3);
+    ret = EEKernel_Matrix_Load_Block(a0, a1);
     a1 = s0;
     a0 = __sp;
-    ret = EEKernel_Matrix_Compare_Refs(a0, a1, a2, a3);
-    return ret;
+    return EEKernel_Matrix_Compare_Refs(a0, a1);
 }
 
 /* Function at 0x0023E290 - 0x0023E2C0 */
-int EEKernel_QuadTransform_Store()
+u32 EEKernel_QuadTransform_Store(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 48 bytes */
-    int ret, a0, a1, a2, a3;
-    *(u32*)(sp) = a0;
+    u32 ret;
+    *(u32*)(__sp) = a0;
     a0 = __sp;
-    *(u32*)*(__sp + 4) = a1;
-    *(u32*)*(__sp + 8) = a2;
-    *(u64*)*(__sp + 16) = a3;
-    ret = EEKernel_Matrix_Store_Block(a0, a1, a2, a3);
-    return ret;
+    *(u32*)(__sp + 4) = a1;
+    *(u32*)(__sp + 8) = a2;
+    *(u64*)(__sp + 16) = a3;
+    return EEKernel_Matrix_Store_Block(a0, a1, a2);
 }
 
 /* Function at 0x0023E2C0 - 0x0023E360 */
-int EEKernel_QuadWrite_Bounded()
+u32 EEKernel_QuadWrite_Bounded(u32 a0)
 {
     /* Stack frame: 64 bytes */
-    int ret, v1, a0, a1, a2, a3;
-    *(u64*)*(__sp + 32) = a0;
+    u32 ret, v1, a1, a2, a3;
+    *(u64*)(__sp + 32) = a0;
     a0 = __sp + 0x20;
     a1 = __sp;
-    ret = EEKernel_Matrix_Load_Block(a0, a1, a2, a3);
+    ret = EEKernel_Matrix_Load_Block(a0, a1);
     ret = 0;
-    a0 = *(u32*)(sp);
+    a0 = *(u32*)(__sp);
     v1 = a0 ^ 2;
     a1 = ((unsigned)a0 < 2) ? 1 : 0;
     if (v1 == 0) goto loc_23E354;
     if (a1 != 0) goto loc_23E358;
-    v1 = *(u32*)*(__sp + 4);
     v1 = a0 ^ 4;
     if (v1 != 0) goto loc_23E358;
     ret = -1;
     if (v1 == 0) goto loc_23E358;
-    a0 = *(u32*)*(__sp + 8);
+    a0 = *(u32*)(__sp + 8);
     ret = 0;
     v1 = ((signed)a0 < 0x20) ? 1 : 0;
     if ((signed)a0 < 0) goto loc_23E358;
@@ -4023,16 +3571,15 @@ int EEKernel_QuadWrite_Bounded()
     if (v1 == 0) goto loc_23E358;
     v1 = 0x3c;
     if ((signed)a0 >= 0x3d) {
-        ret = *(u64*)*(__sp + 16);
+        ret = *(u64*)(__sp + 16);
         v1 = a0 + -0x3c;
         ret = ret << v1;
         goto loc_23E34C;
     }
-    ret = *(u64*)*(__sp + 16);
+    ret = *(u64*)(__sp + 16);
     v1 = v1 - a0;
     ret = (unsigned)ret >> v1;
 loc_23E34C:
-    ret = (u64)ret << 32;
     ret = (s64)ret >> 32;
 loc_23E354:
 loc_23E358:
@@ -4040,9 +3587,9 @@ loc_23E358:
 }
 
 /* Function at 0x0023E360 - 0x0023E3A8 */
-int EEKernel_VarInt_Decode()
+u32 EEKernel_VarInt_Decode(u32 a0, u32 a1)
 {
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1, a2, a3;
     v1 = *(u8*)(a0);
     a0 = a0 + 1;
     a3 = 0;
@@ -4060,14 +3607,13 @@ int EEKernel_VarInt_Decode()
         } while (v1 != 0);
     }
     *(u32*)(a1) = a2;
-    ret = a0;
-    return ret;
+    return a0;
 }
 
 /* Function at 0x0023E3A8 - 0x0023E400 */
-int EEKernel_VarInt_DecodeSigned()
+u32 EEKernel_VarInt_DecodeSigned(u32 a0, u32 a1)
 {
-    int ret, v1, a0, a1, a2, a3, t0;
+    u32 ret, v1, a2, a3, t0;
     a3 = 0;
     t0 = 0;
     do {
@@ -4080,33 +3626,31 @@ int EEKernel_VarInt_DecodeSigned()
         t0 = t0 | ret;
     } while (v1 != 0);
     *(u32*)(a1) = t0;
-    if (likely((unsigned)a3 >= 0x20)) goto loc_23E3F8;
+    if ((unsigned)a3 >= 0x20) goto loc_23E3F8;
     ret = a2 & 0x40;
     *(u32*)(a1) = t0;
-    if (likely(ret == 0)) goto loc_23E3F8;
-    ret = -1;
+    if (ret == 0) goto loc_23E3F8;
     ret = ret << a3;
     t0 = t0 | ret;
     *(u32*)(a1) = t0;
 loc_23E3F8:
-    ret = a0;
-    return ret;
+    return a0;
 }
 
 /* Function at 0x0023E400 - 0x0023E4F8 */
-int EEKernel_MergeSort_Quads()
+u32 EEKernel_MergeSort_Quads(u32 a0, u32 a1)
 {
     /* Stack frame: 16 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
+    u32 ret, v1, a2, a3, s0, s1, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
     ret = a1;
     s1 = a0;
-    t9 = *(u32*)*(ret + 4);
+    t9 = *(u32*)(ret + 4);
     t4 = t9;
     if (t9 == 0) goto loc_23E4E8;
-    s0 = *(u32*)*(s1 + 4);
+    s0 = *(u32*)(s1 + 4);
     a1 = t9 << 2;
     t7 = *(u32*)(s1);
-    a0 = *(u32*)(v0);
+    a0 = *(u32*)(ret);
     ret = s0 << 2;
     v1 = ret + t7;
     t5 = ret;
@@ -4119,9 +3663,7 @@ loc_23E448:
     t8 = *(u32*)(a0);
     if (t2 == 0) goto loc_23E4CC;
     v1 = *(u32*)(t3);
-    t6 = *(u32*)*(t8 + 8);
-    ret = *(u32*)*(v1 + 8);
-    ret = ret - t6;
+    t6 = *(u32*)(t8 + 8);
     ret = t2 + t4;
     if ((signed)ret <= 0) goto loc_23E4D0;
     a2 = t5;
@@ -4137,523 +3679,372 @@ loc_23E448:
         t0 = t0 + -4;
         a2 = a2 + -4;
         t2 = t2 + -1;
-        *(u32*)(v0) = v1;
+        *(u32*)(ret) = v1;
         ret = t1 + a2;
         t3 = t3 + -4;
         t5 = t5 + -4;
         if (t2 == 0) goto loc_23E4CC;
-        v1 = *(u32*)*(ret + -4);
-        ret = *(u32*)*(v1 + 8);
+        v1 = *(u32*)(ret + -4);
         ret = ret - t6;
         v1 = *(u32*)(a3);
-    } while (likely((signed)ret > 0));
+    } while ((signed)ret > 0);
 loc_23E4CC:
     ret = t2 + t4;
 loc_23E4D0:
-    ret = ret << 2;
     ret = ret + t7;
-    *(u32*)(v0) = t8;
+    *(u32*)(ret) = t8;
     if (t4 != 0) goto loc_23E448;
     ret = s0 + t9;
-    *(u32*)*(s1 + 4) = ret;
+    *(u32*)(s1 + 4) = ret;
 loc_23E4E8:
     return ret;
 }
 
 /* Function at 0x0023E4F8 - 0x0023EA70 */
-int EEKernel_Streaming_List_Merge()
+u32 EEKernel_Streaming_List_Merge(u32 a0, u32 a1)
 {
     /* Stack frame: 48 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
+    u32 ret, v1, a2, a3, s0, s1, s2, s3, s4, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
     s0 = a0;
     s4 = a1;
     t8 = *(u32*)(s0);
     t4 = t8;
     if (t8 != 0) {
-        t6 = *(u32*)*(s0 + 4);
-        ret = *(u32*)*(s0 + 8);
+        t6 = *(u32*)(s0 + 4);
+        ret = *(u32*)(s0 + 8);
         if (t6 != s4) {
-            ret = EEKernel_FatalErrorExit(a0, a1, a2, a3);
+            EEKernel_FatalErrorExit();
             }
-            t6 = *(u32*)*(s0 + 4);
-            ret = *(u32*)*(s0 + 8);
+            t6 = *(u32*)(s0 + 4);
+            ret = *(u32*)(s0 + 8);
         }
-    if (0x00860000 != 0) {
-        s1 = s0 + 8;
-        a3 = ret + 0x515c;
-        t7 = 0;
-        if (t6 == 0) goto loc_23E600;
-        t8 = *(u32*)(s1);
-        s3 = ret;
-        s2 = a3;
-        t3 = t4;
-        t9 = t8;
-        t2 = 0;
-        loc_23E578:
-        t7 = t7 + 1;
-        if (likely(a3 == s2)) goto loc_23E5E8;
-        a2 = t2 + t3;
-        v1 = *(u32*)(a3);
-        a0 = *(u32*)(a2);
-        a1 = *(u32*)*(v1 + 8);
-        ret = *(u32*)*(a0 + 8);
-        ret = ret - a1;
-        t7 = t7 + 1;
-        if (likely((signed)ret >= 0)) goto loc_23E5E8;
-        t1 = a2;
-        a2 = t3;
-        t0 = t8;
-        t5 = s3 + 0x515c;
-        ret = a3 - a2;
-            do {
-                ret = t0 + ret;
-                a3 = *(u32*)(v0);
-                *(u32*)(v0) = 0;
-                if (a3 != t5) {
-                a0 = *(u32*)(t1);
-                a1 = *(u32*)(a3);
-                ret = *(u32*)*(a0 + 8);
-                v1 = *(u32*)*(a1 + 8);
-                ret = ret - v1;
-                ret = a3 - a2;
-            } while ((signed)ret < 0);
-        }
-        t7 = t7 + 1;
-        loc_23E5E8:
-        ret = t2 + t9;
-        v1 = ((unsigned)t7 < (unsigned)t6) ? 1 : 0;
-        *(u32*)(v0) = a3;
-        a3 = t3 + t2;
-        t2 = t2 + 4;
-        if (v1 != 0) goto loc_23E578;
-        loc_23E600:
-        t0 = 0;
-        t7 = 0;
-        a3 = 0;
-        if (t6 != 0) {
-            a0 = *(u32*)(s1);
-            v1 = t4;
-            a2 = v1;
-            a1 = a0;
-            do {
-                ret = *(u32*)(a1);
-                a1 = a1 + 4;
-                if (ret != 0) {
-                    ret = *(u32*)(v1);
-                    t0 = t0 + 1;
-                    *(u32*)(a2) = ret;
-                    a2 = a2 + 4;
-                } else {
-                    ret = *(u32*)(v1);
-                    a3 = a3 + 1;
-                    *(u32*)(a0) = ret;
-                    a0 = a0 + 4;
-                }
-                t7 = t7 + 1;
-                ret = ((unsigned)t7 < (unsigned)t6) ? 1 : 0;
-                v1 = v1 + 4;
-            } while (ret != 0);
-        }
-        *(u32*)*(s0 + 4) = t0;
-        *(u32*)*(s1 + 4) = a3;
-        ret = *(u32*)*(s0 + 4);
-        v1 = *(u32*)*(s0 + 0xc);
-        ret = ret + v1;
-        t5 = a3;
-        if (ret != s4) {
-            ret = EEKernel_FatalErrorExit(a0, a1, a2, a3);
-        }
-        t4 = *(u32*)(s1);
-        t6 = t5;
-        if (t5 == 0) goto loc_23E75C;
-        a0 = t6 + -1;
-        loc_23E698:
-        t1 = a0 << 1;
-        t6 = a0;
-        goto loc_23E744;
-        loc_23E6A8:
-        t3 = v1 + 2;
-        v1 = a0 << 2;
-        if ((unsigned)t3 < (unsigned)t5) {
-            a3 = a0 << 3;
-            ret = a3 + t4;
-            t2 = ret + 8;
-            v1 = *(u32*)*(ret + 4);
-            t0 = *(u32*)(t2);
-            ret = *(u32*)*(v1 + 8);
-            a2 = *(u32*)*(t0 + 8);
-            ret = a2 - ret;
-            v1 = a0 << 2;
-            if ((signed)ret > 0) {
-                a0 = v1 + t4;
-                a1 = *(u32*)(a0);
-                ret = *(u32*)*(a1 + 8);
-                ret = a2 - ret;
-                ret = a3 + t4;
-                if ((signed)ret > 0) {
-                    *(u32*)(a0) = t0;
-                    *(u32*)(t2) = a1;
-                    a0 = t3;
-                    } else {
-                    a3 = a0 << 3;
-                    }
-                    ret = a3 + t4;
-                }
-            a3 = v1 + t4;
-            a2 = ret + 4;
+    s1 = s0 + 8;
+    a3 = ret + 0x515c;
+    t7 = 0;
+    if (t6 == 0) goto loc_23E600;
+    t8 = *(u32*)(s1);
+    s3 = ret;
+    s2 = a3;
+    t3 = t4;
+    t9 = t8;
+    t2 = 0;
+    loc_23E578:
+    t7 = t7 + 1;
+    if (a3 == s2) goto loc_23E5E8;
+    a2 = t2 + t3;
+    v1 = *(u32*)(a3);
+    a0 = *(u32*)(a2);
+    a1 = *(u32*)(v1 + 8);
+    ret = ret - a1;
+    t7 = t7 + 1;
+    if ((signed)ret >= 0) goto loc_23E5E8;
+    t1 = a2;
+    a2 = t3;
+    t0 = t8;
+    t5 = s3 + 0x515c;
+    ret = a3 - a2;
+        do {
+            ret = t0 + ret;
+            a3 = *(u32*)(ret);
+            *(u32*)(ret) = 0;
+            if (a3 != t5) {
+            a0 = *(u32*)(t1);
             a1 = *(u32*)(a3);
-            a0 = *(u32*)(a2);
-            v1 = *(u32*)*(a1 + 8);
-            ret = *(u32*)*(a0 + 8);
-            ret = ret - v1;
-            if ((signed)ret <= 0) goto loc_23E754;
-            *(u32*)(a3) = a0;
-            *(u32*)(a2) = a1;
-            a0 = t1 + 1;
-        }
-        t1 = a0 << 1;
-        loc_23E744:
-        ret = t1 + 1;
-        v1 = t1;
-        if ((unsigned)ret < (unsigned)t5) goto loc_23E6A8;
-        loc_23E754:
-        a0 = t6 + -1;
-        if (likely(t6 != 0)) goto loc_23E698;
-        loc_23E75C:
-        a0 = s0;
-        if ((unsigned)t5 < 2) goto loc_23E860;
-        ret = t5 << 2;
-        t7 = 1;
-        t6 = ret + t4;
-        t6 = t6 + -4;
-        loc_23E778:
-        t5 = t5 + -1;
-        ret = *(u32*)(t4);
-        v1 = *(u32*)(t6);
-        *(u32*)(t4) = v1;
-        *(u32*)(t6) = ret;
-        a0 = 0;
-        if ((unsigned)t7 >= (unsigned)t5) goto loc_23E850;
-        t1 = 0;
-        t3 = t1 + 2;
-        loc_23E7A0:
-        v1 = a0 << 2;
-        if ((unsigned)t3 < (unsigned)t5) {
-            a3 = a0 << 3;
-            ret = a3 + t4;
-            t2 = ret + 8;
-            v1 = *(u32*)*(ret + 4);
-            t0 = *(u32*)(t2);
-            ret = *(u32*)*(v1 + 8);
-            a2 = *(u32*)*(t0 + 8);
-            ret = a2 - ret;
-            v1 = a0 << 2;
-            if ((signed)ret > 0) {
-                a0 = v1 + t4;
-                a1 = *(u32*)(a0);
-                ret = *(u32*)*(a1 + 8);
-                ret = a2 - ret;
-                ret = a3 + t4;
-                if ((signed)ret > 0) {
-                    *(u32*)(a0) = t0;
-                    *(u32*)(t2) = a1;
-                    a0 = t3;
-                    goto loc_23E838;
-                    }
-                    a3 = a0 << 3;
-                    }
-                    ret = a3 + t4;
-                }
-        a3 = v1 + t4;
-        a2 = ret + 4;
-        a1 = *(u32*)(a3);
-        a0 = *(u32*)(a2);
-        v1 = *(u32*)*(a1 + 8);
-        ret = *(u32*)*(a0 + 8);
-        ret = ret - v1;
-        ret = ((unsigned)t5 < 2) ? 1 : 0;
-        if ((signed)ret <= 0) goto loc_23E854;
-        *(u32*)(a3) = a0;
-        *(u32*)(a2) = a1;
-        a0 = t1 + 1;
-        loc_23E838:
-        v1 = a0 << 1;
-        t1 = v1;
-        ret = t1 + 1;
-        t3 = t1 + 2;
-        if ((unsigned)ret < (unsigned)t5) goto loc_23E7A0;
-        loc_23E850:
-        loc_23E854:
-        t6 = t6 + -4;
-        if ((unsigned)t5 >= 2) goto loc_23E778;
-        a0 = s0;
-        loc_23E860:
-        a1 = s1;
-        ret = EEKernel_MergeSort_Quads(a0, a1, a2, a3);
-        a0 = *(u32*)(s1);
-        ret = Libc_Free(a0, a1, a2, a3);
-        t8 = *(u32*)(s0);
-    } else {
-        t5 = t6;
-        t7 = t5;
-        if (t5 == 0) goto loc_23E94C;
-        a0 = t7 + -1;
-        loc_23E888:
-        t1 = a0 << 1;
-        t7 = a0;
-        goto loc_23E934;
-        loc_23E898:
-        t3 = v1 + 2;
-        v1 = a0 << 2;
-        if ((unsigned)t3 < (unsigned)t6) {
-            a3 = a0 << 3;
-            ret = a3 + t4;
-            t2 = ret + 8;
-            v1 = *(u32*)*(ret + 4);
-            t0 = *(u32*)(t2);
-            ret = *(u32*)*(v1 + 8);
-            a2 = *(u32*)*(t0 + 8);
-            ret = a2 - ret;
-            v1 = a0 << 2;
-            if ((signed)ret > 0) {
-                a0 = v1 + t4;
-                a1 = *(u32*)(a0);
-                ret = *(u32*)*(a1 + 8);
-                ret = a2 - ret;
-                ret = a3 + t4;
-                if ((signed)ret > 0) {
-                    *(u32*)(a0) = t0;
-                    *(u32*)(t2) = a1;
-                    a0 = t3;
-                    } else {
-                    a3 = a0 << 3;
-                    }
-                    ret = a3 + t4;
-                }
-            a3 = v1 + t4;
-            a2 = ret + 4;
-            a1 = *(u32*)(a3);
-            a0 = *(u32*)(a2);
-            v1 = *(u32*)*(a1 + 8);
-            ret = *(u32*)*(a0 + 8);
-            ret = ret - v1;
-            if ((signed)ret <= 0) goto loc_23E944;
-            *(u32*)(a3) = a0;
-            *(u32*)(a2) = a1;
-            a0 = t1 + 1;
-        }
-        t1 = a0 << 1;
-        loc_23E934:
-        ret = t1 + 1;
-        v1 = t1;
-        if ((unsigned)ret < (unsigned)t6) goto loc_23E898;
-        loc_23E944:
-        a0 = t7 + -1;
-        if (likely(t7 != 0)) goto loc_23E888;
-        loc_23E94C:
-        if ((unsigned)t6 < 2) goto loc_23EA50;
-        ret = t5 << 2;
-        t7 = 1;
-        t6 = ret + t4;
-        t6 = t6 + -4;
-        loc_23E968:
-        t5 = t5 + -1;
-        ret = *(u32*)(t4);
-        v1 = *(u32*)(t6);
-        *(u32*)(t4) = v1;
-        *(u32*)(t6) = ret;
-        a0 = 0;
-        if ((unsigned)t7 >= (unsigned)t5) goto loc_23EA40;
-        t1 = 0;
-        t3 = t1 + 2;
-        loc_23E990:
-        v1 = a0 << 2;
-        if ((unsigned)t3 < (unsigned)t5) {
-            a3 = a0 << 3;
-            ret = a3 + t4;
-            t2 = ret + 8;
-            v1 = *(u32*)*(ret + 4);
-            t0 = *(u32*)(t2);
-            ret = *(u32*)*(v1 + 8);
-            a2 = *(u32*)*(t0 + 8);
-            ret = a2 - ret;
-            v1 = a0 << 2;
-            if ((signed)ret > 0) {
-                a0 = v1 + t4;
-                a1 = *(u32*)(a0);
-                ret = *(u32*)*(a1 + 8);
-                ret = a2 - ret;
-                ret = a3 + t4;
-                if ((signed)ret > 0) {
-                    *(u32*)(a0) = t0;
-                    *(u32*)(t2) = a1;
-                    a0 = t3;
-                    goto loc_23EA28;
-                    }
-                    a3 = a0 << 3;
-                    }
-                    ret = a3 + t4;
-                }
-        a3 = v1 + t4;
-        a2 = ret + 4;
-        a1 = *(u32*)(a3);
-        a0 = *(u32*)(a2);
-        v1 = *(u32*)*(a1 + 8);
-        ret = *(u32*)*(a0 + 8);
-        ret = ret - v1;
-        ret = ((unsigned)t5 < 2) ? 1 : 0;
-        if ((signed)ret <= 0) goto loc_23EA44;
-        *(u32*)(a3) = a0;
-        *(u32*)(a2) = a1;
-        a0 = t1 + 1;
-        loc_23EA28:
-        v1 = a0 << 1;
-        t1 = v1;
-        ret = t1 + 1;
-        t3 = t1 + 2;
-        if ((unsigned)ret < (unsigned)t5) goto loc_23E990;
-        loc_23EA40:
-        loc_23EA44:
-        t6 = t6 + -4;
-        if (likely((unsigned)t5 >= 2)) goto loc_23E968;
+            }
+            ret = *(u32*)(a0 + 8);
+            v1 = *(u32*)(a1 + 8);
+            ret = a3 - a2;
+        } while ((signed)ret < 0);
     }
-loc_23EA50:
-    ret = t8;
-    return ret;
-}
+    t7 = t7 + 1;
+    loc_23E5E8:
+    ret = t2 + t9;
+    v1 = ((unsigned)t7 < (unsigned)t6) ? 1 : 0;
+    *(u32*)(ret) = a3;
+    a3 = t3 + t2;
+    t2 = t2 + 4;
+    if (v1 != 0) goto loc_23E578;
+    loc_23E600:
+    t0 = 0;
+    t7 = 0;
+    a3 = 0;
+    if (t6 != 0) {
+        a0 = *(u32*)(s1);
+        a2 = t4;
+        a1 = a0;
+        do {
+            ret = *(u32*)(a1);
+            a1 = a1 + 4;
+            if (ret != 0) {
+                ret = *(u32*)(v1);
+                t0 = t0 + 1;
+                *(u32*)(a2) = ret;
+                a2 = a2 + 4;
+            } else {
+                ret = *(u32*)(v1);
+                a3 = a3 + 1;
+                *(u32*)(a0) = ret;
+                a0 = a0 + 4;
+            }
+            t7 = t7 + 1;
+            ret = ((unsigned)t7 < (unsigned)t6) ? 1 : 0;
+            v1 = v1 + 4;
+        } while (ret != 0);
+    }
+    *(u32*)(s0 + 4) = t0;
+    *(u32*)(s1 + 4) = a3;
+    ret = *(u32*)(s0 + 4);
+    v1 = *(u32*)(s0 + 0xc);  /* PSX: lo */
+    ret = ret + v1;
+    t5 = a3;
+    if (ret != s4) {
+        EEKernel_FatalErrorExit();
+    }
+    t4 = *(u32*)(s1);
+    t6 = t5;
+    if (t5 == 0) goto loc_23E75C;
+    a0 = t6 + -1;
+    loc_23E698:
+    t1 = a0 << 1;
+    t6 = a0;
+    goto loc_23E744;
+    loc_23E6A8:
+    t3 = v1 + 2;
+    v1 = a0 << 2;
+    if ((unsigned)t3 < (unsigned)t5) {
+        a3 = a0 << 3;
+        ret = a3 + t4;
+        t2 = ret + 8;
+        v1 = *(u32*)(ret + 4);
+        t0 = *(u32*)(t2);
+        ret = *(u32*)(v1 + 8);
+        a2 = *(u32*)(t0 + 8);
+        ret = a2 - ret;
+        v1 = a0 << 2;
+        if ((signed)ret > 0) {
+            a0 = v1 + t4;
+            a1 = *(u32*)(a0);
+            ret = a3 + t4;
+            if ((signed)ret > 0) {
+                *(u32*)(a0) = t0;
+                *(u32*)(t2) = a1;
+                a0 = t3;
+                } else {
+                a3 = a0 << 3;
+                }
+                ret = a3 + t4;
+            }
+        a3 = v1 + t4;
+        a2 = ret + 4;
+        a1 = *(u32*)(a3);
+        a0 = *(u32*)(a2);
+        v1 = *(u32*)(a1 + 8);
+        ret = ret - v1;
+        if ((signed)ret <= 0) goto loc_23E754;
+        *(u32*)(a3) = a0;
+        *(u32*)(a2) = a1;
+        a0 = t1 + 1;
+    }
+    t1 = a0 << 1;
+    loc_23E744:
+    ret = t1 + 1;
+    v1 = t1;
+    if ((unsigned)ret < (unsigned)t5) goto loc_23E6A8;
+    loc_23E754:
+    a0 = t6 + -1;
+    if (t6 != 0) goto loc_23E698;
+    loc_23E75C:
+    a0 = s0;
+    if ((unsigned)t5 < 2) goto loc_23E860;
+    ret = t5 << 2;
+    t7 = 1;
+    t6 = ret + t4;
+    t6 = t6 + -4;
+    loc_23E778:
+    t5 = t5 + -1;
+    ret = *(u32*)(t4);
+    *(u32*)(t4) = *(u32*)(t6);
+    *(u32*)(t6) = ret;
+    a0 = 0;
+    if ((unsigned)t7 >= (unsigned)t5) goto loc_23E850;
+    t1 = 0;
+    t3 = t1 + 2;
+    loc_23E7A0:
+    v1 = a0 << 2;
+    if ((unsigned)t3 < (unsigned)t5) {
+        a3 = a0 << 3;
+        ret = a3 + t4;
+        t2 = ret + 8;
+        v1 = *(u32*)(ret + 4);
+        t0 = *(u32*)(t2);
+        ret = *(u32*)(v1 + 8);
+        a2 = *(u32*)(t0 + 8);
+        ret = a2 - ret;
+        v1 = a0 << 2;
+        if ((signed)ret > 0) {
+            a0 = v1 + t4;
+            a1 = *(u32*)(a0);
+            ret = a3 + t4;
+            if ((signed)ret > 0) {
+                *(u32*)(a0) = t0;
+                *(u32*)(t2) = a1;
+                a0 = t3;
+                goto loc_23E838;
+                }
+                a3 = a0 << 3;
+                }
+                ret = a3 + t4;
+            }
+    a3 = v1 + t4;
+    a2 = ret + 4;
+    a1 = *(u32*)(a3);
+    a0 = *(u32*)(a2);
+    v1 = *(u32*)(a1 + 8);
+    ret = ((unsigned)t5 < 2) ? 1 : 0;
+    if ((signed)ret <= 0) goto loc_23E854;
+    *(u32*)(a3) = a0;
+    *(u32*)(a2) = a1;
+    a0 = t1 + 1;
+    loc_23E838:
+    t1 = a0 << 1;
+    ret = t1 + 1;
+    t3 = t1 + 2;
+    if ((unsigned)ret < (unsigned)t5) goto loc_23E7A0;
+    loc_23E850:
+    loc_23E854:
+    t6 = t6 + -4;
+    if ((unsigned)t5 >= 2) goto loc_23E778;
+    a0 = s0;
+    loc_23E860:
+    a1 = s1;
+    ret = EEKernel_MergeSort_Quads(a0, a1);
+    a0 = *(u32*)(s1);
+    ret = Libc_Free(a0);
+    t8 = *(u32*)(s0);
+    return t8;
 
 /* Function at 0x0023EA70 - 0x0023EAD8 */
-int EEKernel_Alloc_List_Init()
+u32 EEKernel_Alloc_List_Init(u32 a0, u32 a1)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1;
+    u32 ret, v1, a2, a3, s0, s1;
     s0 = a1;
     s1 = 0x004F58CC;
-    *(u32*)*(s0 + 8) = a0;
-    *(u32*)*(s0 + 4) = 0;
+    *(u32*)(s0 + 8) = a0;
+    *(u32*)(s0 + 4) = 0;
     *(u32*)(s0) = 0;
-    *(u32*)*(s0 + 0xc) = 0;
-    *(u32*)*(s0 + 0x10) = 0;
+    *(u32*)(s0 + 0xc) = 0;
+    *(u32*)(s0 + 0x10) = 0;
     a0 = *(u32*)(s1);
-    ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+    ret = UI_Kern_WaitSema();
     v1 = 0x00865160;
     a0 = *(u32*)(s1);
-    ret = *(u32*)(v1);
-    *(u32*)*(s0 + 0x14) = ret;
+    *(u32*)(s0 + 0x14) = *(u32*)(v1);
     *(u32*)(v1) = s0;
-    ret = UI_Kern_SignalSema(a0, a1, a2, a3);
-    return ret;
+    return UI_Kern_SignalSema();
 }
 
 /* Function at 0x0023EAD8 - 0x0023EB08 */
-int EEKernel_Alloc_Allocate()
+u32 EEKernel_Alloc_Allocate(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3, s0;
+    u32 ret, a1, a2, a3, s0;
     s0 = a0;
     a0 = 0x18;
-    ret = Libc_Malloc(a0, a1, a2, a3);
+    ret = Libc_Malloc(a0);
     a0 = s0;
     a1 = ret;
-    return EEKernel_Alloc_List_Init(a0, a1, a2, a3);
+    return EEKernel_Alloc_List_Init(a0, a1);
 }
 
 /* Function at 0x0023EB08 - 0x0023EB70 */
-int EEKernel_Alloc_FromDMA()
+u32 EEKernel_Alloc_FromDMA(u32 a0, u32 a1)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1;
+    u32 ret, v1, a2, a3, s0, s1;
     s0 = a1;
     s1 = 0x004F58CC;
-    *(u32*)*(s0 + 0xc) = a0;
-    *(u32*)*(s0 + 8) = a0;
-    *(u32*)*(s0 + 4) = 0;
+    *(u32*)(s0 + 0xc) = a0;
+    *(u32*)(s0 + 8) = a0;
+    *(u32*)(s0 + 4) = 0;
     *(u32*)(s0) = 0;
-    *(u32*)*(s0 + 0x10) = 0;
+    *(u32*)(s0 + 0x10) = 0;
     a0 = *(u32*)(s1);
-    ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+    ret = UI_Kern_WaitSema();
     v1 = 0x00865160;
     a0 = *(u32*)(s1);
-    ret = *(u32*)(v1);
-    *(u32*)*(s0 + 0x14) = ret;
+    *(u32*)(s0 + 0x14) = *(u32*)(v1);
     *(u32*)(v1) = s0;
-    ret = UI_Kern_SignalSema(a0, a1, a2, a3);
-    return ret;
+    return UI_Kern_SignalSema();
 }
 
 /* Function at 0x0023EB70 - 0x0023EBA0 */
-int EEKernel_Alloc_FromDMA_Free()
+u32 EEKernel_Alloc_FromDMA_Free(u32 a0)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3, s0;
+    u32 ret, a1, a2, a3, s0;
     s0 = a0;
     a0 = 0x18;
-    ret = Libc_Malloc(a0, a1, a2, a3);
+    ret = Libc_Malloc(a0);
     a0 = s0;
     a1 = ret;
-    return EEKernel_Alloc_FromDMA(a0, a1, a2, a3);
+    return EEKernel_Alloc_FromDMA(a0, a1);
 }
 
 /* Function at 0x0023EBA0 - 0x0023EC60 */
-int EEKernel_Dealloc_ProcessCallback()
+u32 EEKernel_Dealloc_ProcessCallback(u32 a0)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2;
-    s2 = 0x004F0000;
+    u32 ret, v1, a1, a2, a3, s0, s1, s2;
+    s2 = 0x004F0000;  /* SYS_CONFIG_BASE: System configuration / SIF state */
     s1 = a0;
-    a0 = *(u32*)*(s2 + 0x58cc);
-    ret = UI_Kern_WaitSema(a0, a1, a2, a3);
-    v1 = 0x00865160;
-    s0 = *(u32*)(v1);
+    a0 = *(u32*)(s2 + 0x58cc);
+    ret = UI_Kern_WaitSema();
+    s0 = *(u32*)(0x00865160);
     if (s0 == 0) goto loc_23EC3C;
 loc_23EBE0:
-    ret = *(u32*)*(s0 + 8);
+    ret = *(u32*)(s0 + 8);
     v1 = s0 + 0x14;
-    if (likely(ret != s1)) goto loc_23EC30;
-    ret = *(u32*)*(s0 + 0x14);
-    a0 = *(u32*)*(s0 + 0xc);
+    if (ret != s1) goto loc_23EC30;
+    ret = *(u32*)(s0 + 0x14);  /* PSX: gpr[1]/$at */
+    a0 = *(u32*)(s0 + 0xc);  /* PSX: lo */
     *(u32*)(v1) = ret;
     if (a0 == 0) goto loc_23EC0C;
     if (a0 == s1) goto loc_23EC0C;
-    ret = Libc_Free(a0, a1, a2, a3);
+    ret = Libc_Free(a0);
 loc_23EC0C:
-    a0 = *(u32*)*(s2 + 0x58cc);
-    ret = UI_Kern_SignalSema(a0, a1, a2, a3);
-    ret = s0;
-    return ret;
+    a0 = *(u32*)(s2 + 0x58cc);
+    ret = UI_Kern_SignalSema();
+    return s0;
 loc_23EC30:
     ret = *(u32*)(v1);
     s0 = ret;
     if (ret != 0) goto loc_23EBE0;
 loc_23EC3C:
-    a0 = *(u32*)*(s2 + 0x58cc);
-    ret = UI_Kern_SignalSema(a0, a1, a2, a3);
-    return EEKernel_FatalErrorExit(a0, a1, a2, a3);
+    a0 = *(u32*)(s2 + 0x58cc);
+    ret = UI_Kern_SignalSema();
+    return EEKernel_FatalErrorExit();
 }
 
 /* Function at 0x0023EC60 - 0x0023EC80 */
-int EEKernel_Dealloc_And_Exit()
+u32 EEKernel_Dealloc_And_Exit(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
-    ret = EEKernel_Dealloc_ProcessCallback(a0, a1, a2, a3);
-    a0 = ret;
-    return Libc_Free(a0, a1, a2, a3);
+    u32 ret, a0, a1, a2, a3;
+    a0 = EEKernel_Dealloc_ProcessCallback(a0);
+    return Libc_Free(a0);
 }
 
 /* Function at 0x0023EC80 - 0x0023ECC0 */
-int EEKernel_ScalarList_Count()
+u32 EEKernel_ScalarList_Count(u32 a0)
 {
-    int ret, v0, v1, a0, a1, a2;
+    u32 ret, v1, a1, a2;
     a1 = *(u32*)(a0);
     a2 = 0;
     if (a1 != 0) {
         do {
-            ret = *(u32*)*(a0 + 4);
-            ret = a2 + 1;
-            if (ret != 0) {
-                v1 = *(u32*)*(a0 + 8);
-                __asm("movn a2, v0, v1");
+            if ((a2 + 1) != 0) {
+                if ((*(u32*)(a0 + 8)) != 0) a2 = ret;
             }
             ret = a0 + a1;
             a0 = ret + 4;
@@ -4661,42 +4052,38 @@ int EEKernel_ScalarList_Count()
             a1 = v1;
         } while (v1 != 0);
     }
-    ret = a2;
-    return ret;
+    return a2;
 }
 
 /* Function at 0x0023ECC0 - 0x0023ED50 */
-int EEKernel_UnpackQuads()
+u32 EEKernel_UnpackQuads(u32 a0, u32 a1, u32 a2, u32 a3)
 {
-    int ret, v0, v1, a0, a1, a2, a3, t0, t1, t2, t3, t4, t5, t6;
+    u32 ret, v1, t0, t1, t2, t3, t4, t5, t6;
     t2 = *(u32*)(a0);
     t3 = *(u32*)(a2);
     t4 = *(u32*)(a3);
     if (t2 != 0) {
         t6 = a1 + 4;
         do {
-            ret = *(u32*)*(a0 + 4);
-            ret = a0 + t2;
-            if (ret != 0) {
-                t0 = *(u32*)*(a0 + 8);
+            if ((a0 + t2) != 0) {
+                t0 = *(u32*)(a0 + 8);
                 t5 = ((unsigned)t0 < (unsigned)t3) ? 1 : 0;
                 if (t0 != 0) {
                     t1 = *(u32*)(a1);
-                    v1 = *(u32*)*(a0 + 0xc);
+                    v1 = *(u32*)(a0 + 0xc);  /* PSX: lo */
                     if (t1 != 0) {
                         ret = *(u32*)(t6);
                         v1 = ret << 2;
-                        ret = ret + 1;
-                        *(u32*)(t6) = ret;
+                        *(u32*)(t6) = ret + 1;
                         v1 = v1 + t1;
                         *(u32*)(v1) = a0;
                         t2 = *(u32*)(a0);
-                        v1 = *(u32*)*(a0 + 0xc);
+                        v1 = *(u32*)(a0 + 0xc);  /* PSX: lo */
                     }
-                    __asm("movn t3, t0, t5");
+                    if (t5 != 0) t3 = t0;
                     v1 = t0 + v1;
                     ret = ((unsigned)t4 < (unsigned)v1) ? 1 : 0;
-                    __asm("movn t4, v1, v0");
+                    if (ret != 0) t4 = v1;
                 }
                 ret = a0 + t2;
             }
@@ -4711,20 +4098,18 @@ int EEKernel_UnpackQuads()
 }
 
 /* Function at 0x0023ED50 - 0x0023EDA8 */
-int EEKernel_Unpack_DrawHeader()
+u32 EEKernel_Unpack_DrawHeader(u32 a0, u32 a1)
 {
-    int ret, v1, a0, a1, a2, a3;
+    u32 ret, v1, a2, a3;
     a3 = *(u32*)(a0);
     ret = 0;
     if (a3 == 0) goto loc_23EDA0;
     do {
-        ret = *(u32*)*(a0 + 4);
         ret = a0 + a3;
         if (ret != 0) {
-            ret = *(u32*)*(a0 + 8);
+            ret = *(u32*)(a0 + 8);
             a2 = a1 - ret;
             if (ret != 0) {
-                v1 = *(u32*)*(a0 + 0xc);
                 v1 = ((unsigned)a2 < (unsigned)v1) ? 1 : 0;
                 ret = a0;
                 if (v1 != 0) goto loc_23EDA0;
@@ -4741,17 +4126,17 @@ loc_23EDA0:
 }
 
 /* Function at 0x0023EDA8 - 0x0023EF10 */
-int EEKernel_Unpack_Images()
+u32 EEKernel_Unpack_Images(u32 a0)
 {
     /* Stack frame: 64 bytes */
-    int local_10;
-    int local_14;
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2;
+    u32 local_10;
+    u32 local_14;
+    u32 ret, v1, a1, a2, a3, s0, s1, s2;
     s2 = a0;
     ret = *(u32*)(s2);
-    v1 = *(u32*)*(s2 + 0xc);
+    v1 = *(u32*)(s2 + 0xc);  /* PSX: lo */
     if (ret != 0) {
-        s1 = *(u32*)*(s2 + 0x10);
+        s1 = *(u32*)(s2 + 0x10);  /* PSX: gpr[0]/$zero */
         goto loc_23EE1C;
     }
     s0 = v1;
@@ -4761,42 +4146,39 @@ int EEKernel_Unpack_Images()
         if (a0 == 0) goto loc_23EE1C;
         do {
             s0 = s0 + 4;
-            ret = EEKernel_ScalarList_Count(a0, a1, a2, a3);
+            ret = EEKernel_ScalarList_Count(a0);
             v1 = *(u32*)(s0);
             s1 = s1 + ret;
             a0 = v1;
         } while (v1 != 0);
-        *(u32*)*(s2 + 0x10) = s1;
+        *(u32*)(s2 + 0x10) = s1;
     } else {
-        a0 = *(u32*)*(s2 + 8);
-        ret = EEKernel_ScalarList_Count(a0, a1, a2, a3);
-        s1 = ret;
+        a0 = *(u32*)(s2 + 8);
+        s1 = EEKernel_ScalarList_Count(a0);
         loc_23EE1C:
-        *(u32*)*(s2 + 0x10) = s1;
+        *(u32*)(s2 + 0x10) = s1;
     }
     s0 = __sp;
     if (s1 != 0) {
         a0 = s1 << 2;
-        ret = Libc_Malloc(a0, a1, a2, a3);
-        *(u32*)(s0) = ret;
+        *(u32*)(s0) = Libc_Malloc(a0);
     } else {
         *(u32*)(s0) = 0;
     }
     v1 = 0;
     if (ret != 0) {
         a0 = s1 << 2;
-        ret = Libc_Malloc(a0, a1, a2, a3);
+        ret = Libc_Malloc(a0);
         v1 = ret;
     }
     ret = *(u32*)(s0);
-    *(u32*)*(s0 + 8) = v1;
-    *(u32*)*(s0 + 4) = 0;
-    *(u32*)*(s0 + 0xc) = 0;
+    *(u32*)(s0 + 8) = v1;
+    *(u32*)(s0 + 4) = 0;
+    *(u32*)(s0 + 0xc) = 0;
     if (ret == 0) {
-        ret = *(u32*)(s2);
-        if (likely(ret != 0)) goto loc_23EEFC;
+        if ((*(u32*)(s2)) != 0) goto loc_23EEFC;
     }
-    v1 = *(u32*)*(s2 + 0xc);
+    v1 = *(u32*)(s2 + 0xc);  /* PSX: lo */
     local_10 = -1;
     local_14 = 0;
     if (v1 != 0) {
@@ -4815,7 +4197,7 @@ int EEKernel_Unpack_Images()
             } while (ret != 0);
             a1 = s1;
             } else {
-            a0 = *(u32*)*(s2 + 8);
+            a0 = *(u32*)(s2 + 8);
             a1 = __sp;
             a2 = __sp + 0x10;
             a3 = __sp + 0x14;
@@ -4824,133 +4206,129 @@ int EEKernel_Unpack_Images()
             }
         }
     a0 = __sp;
-    ret = EEKernel_Streaming_List_Merge(a0, a1, a2, a3);
-    *(u32*)*(s2 + 0xc) = ret;
-    if (likely(ret != 0)) goto loc_23EEE8;
+    ret = EEKernel_Streaming_List_Merge(a0, a1);
+    *(u32*)(s2 + 0xc) = ret;
+    if (ret != 0) goto loc_23EEE8;
 loc_23EEE8:
     ret = local_10;
     v1 = local_14;
     *(u32*)(s2) = ret;
-    *(u32*)*(s2 + 4) = v1;
+    *(u32*)(s2 + 4) = v1;
 loc_23EEFC:
     return ret;
 }
 
 /* Function at 0x0023EF10 - 0x0023F0B8 */
-int EEKernel_Unpack_Textures()
+u32 EEKernel_Unpack_Textures(u32 a0)
 {
     /* Stack frame: 48 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, t0, t1;
-    s3 = 0x004F0000;
+    u32 ret, v1, a1, a2, a3, s0, s1, s2, s3, t0, t1;
+    s3 = 0x004F0000;  /* SYS_CONFIG_BASE: System configuration / SIF state */
     s2 = a0;
-    a0 = *(u32*)*(s3 + 0x58cc);
-    ret = UI_Kern_WaitSema(a0, a1, a2, a3);
-    s0 = *(u32*)*(0x00860000 + 0x5160);
+    a0 = *(u32*)(s3 + 0x58cc);
+    ret = UI_Kern_WaitSema();
+    s0 = *(u32*)(0x00860000 + 0x5160);  /* SYS_DATA_BASE: System/boot data region */
 loc_23EF48:
     if (s0 != 0) {
         ret = *(u32*)(s0);
         if ((unsigned)s2 >= (unsigned)ret) {
             a0 = s0;
-            ret = EEKernel_Unpack_Images(a0, a1, a2, a3);
+            ret = EEKernel_Unpack_Images(a0);
             ret = *(u32*)(s0);
         }
-        s0 = *(u32*)*(s0 + 0x14);
-        if (likely((unsigned)s2 < (unsigned)ret)) goto loc_23EF48;
-        ret = *(u32*)*(s0 + 4);
-        s0 = *(u32*)*(s0 + 0x14);
-        if (likely((unsigned)s2 >= (unsigned)ret)) goto loc_23EF48;
-        ret = *(u32*)*(s0 + 0xc);
+        s0 = *(u32*)(s0 + 0x14);  /* PSX: gpr[1]/$at */
+        if ((unsigned)s2 < (unsigned)ret) goto loc_23EF48;
+        ret = *(u32*)(s0 + 4);
+        s0 = *(u32*)(s0 + 0x14);  /* PSX: gpr[1]/$at */
+        if ((unsigned)s2 >= (unsigned)ret) goto loc_23EF48;
+        ret = *(u32*)(s0 + 0xc);  /* PSX: lo */
         goto loc_23EFA0;
     }
-    a0 = *(u32*)*(s3 + 0x58cc);
-    ret = UI_Kern_SignalSema(a0, a1, a2, a3);
+    a0 = *(u32*)(s3 + 0x58cc);
+    ret = UI_Kern_SignalSema();
     ret = 0;
     goto loc_23F09C;
 loc_23EFA0:
     if (ret != 0) {
-        a0 = *(u32*)*(s0 + 8);
+        a0 = *(u32*)(s0 + 8);
             a0 = s0;
-            ret = EEKernel_Unpack_Images(a0, a1, a2, a3);
-            ret = *(u32*)*(s0 + 0xc);
-            a0 = *(u32*)*(s0 + 8);
+            ret = EEKernel_Unpack_Images(a0);
+            ret = *(u32*)(s0 + 0xc);  /* PSX: lo */
+            a0 = *(u32*)(s0 + 8);
         }
     if (ret == 0) goto loc_23F078;
     if (ret != a0) {
-        a0 = *(u32*)*(s3 + 0x58cc);
-        ret = UI_Kern_SignalSema(a0, a1, a2, a3);
-        t0 = *(u32*)*(s0 + 0x10);
+        a0 = *(u32*)(s3 + 0x58cc);
+        ret = UI_Kern_SignalSema();
+        t0 = *(u32*)(s0 + 0x10);  /* PSX: gpr[0]/$zero */
         t1 = 0;
-        if (t0 == 0) goto loc_23F098;
-        a0 = *(u32*)*(s0 + 0xc);
-        ret = t1 + t0;
-        do {
-            a2 = (unsigned)ret >> 1;
-            v1 = a2 << 2;
-            v1 = v1 + a0;
-            a1 = *(u32*)(v1);
-            a3 = *(u32*)*(a1 + 8);
-            v1 = ((unsigned)s2 < (unsigned)a3) ? 1 : 0;
-            ret = a1;
-            if (v1 != 0) {
-                t0 = a2;
-            } else {
-                v1 = *(u32*)*(a1 + 0xc);
-                v1 = a3 + v1;
-                v1 = ((unsigned)s2 < (unsigned)v1) ? 1 : 0;
-                t1 = a2 + 1;
-                if (v1 != 0) goto loc_23F09C;
-            }
-            ret = ((unsigned)t1 < (unsigned)t0) ? 1 : 0;
+        if (t0 != 0) {
+            a0 = *(u32*)(s0 + 0xc);  /* PSX: lo */
             ret = t1 + t0;
-        } while (likely(ret != 0));
-        ret = 0;
-    } else {
-        s0 = ret;
-        if (ret == 0) goto loc_23F078;
-        a0 = *(u32*)(s0);
-        do {
+            do {
+                a2 = (unsigned)ret >> 1;
+                v1 = v1 + a0;
+                a1 = *(u32*)(v1);
+                a3 = *(u32*)(a1 + 8);
+                v1 = ((unsigned)s2 < (unsigned)a3) ? 1 : 0;
+                ret = a1;
+                if (v1 != 0) {
+                    t0 = a2;
+                } else {
+                    v1 = ((unsigned)s2 < (unsigned)v1) ? 1 : 0;
+                    t1 = a2 + 1;
+                    if (v1 != 0) goto loc_23F09C;
+                }
+                ret = t1 + t0;
+            } while (ret != 0);
+            ret = 0;
+            } else {
+            s0 = ret;
+            if (ret == 0) goto loc_23F078;
+            a0 = *(u32*)(s0);
+            do {
+                a1 = s2;
+                ret = EEKernel_Unpack_DrawHeader(a0, a1);
+                s1 = ret;
+                s0 = s0 + 4;
+                if (s1 != 0) goto loc_23F084;
+                ret = *(u32*)(s0);
+                a0 = ret;
+            } while (ret != 0);
+            goto loc_23F084;
+            loc_23F078:
             a1 = s2;
-            ret = EEKernel_Unpack_DrawHeader(a0, a1, a2, a3);
+            ret = EEKernel_Unpack_DrawHeader(a0, a1);
             s1 = ret;
-            s0 = s0 + 4;
-            if (s1 != 0) goto loc_23F084;
-            ret = *(u32*)(s0);
-            a0 = ret;
-        } while (ret != 0);
-        goto loc_23F084;
-        loc_23F078:
-        a1 = s2;
-        ret = EEKernel_Unpack_DrawHeader(a0, a1, a2, a3);
-        s1 = ret;
-        loc_23F084:
-        a0 = *(u32*)*(s3 + 0x58cc);
-        ret = UI_Kern_SignalSema(a0, a1, a2, a3);
-        ret = s1;
-        goto loc_23F09C;
-        loc_23F098:
-        ret = 0;
-    }
+            loc_23F084:
+            a0 = *(u32*)(s3 + 0x58cc);
+            ret = UI_Kern_SignalSema();
+            ret = s1;
+        } else {
+            ret = 0;
+            }
+        }
 loc_23F09C:
     return ret;
 }
 
 /* Function at 0x0023F0B8 - 0x0023F1C8 */
-int EEKernel_Parse_String()
+u32 EEKernel_Parse_String(u32 a0, u32 a1)
 {
     /* Stack frame: 48 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2;
+    u32 ret, v1, a2, a3, s0, s1, s2;
     s1 = a1;
     a1 = 0x00501E30;
-    ret = *(u32*)*(a0 + 4);
+    ret = *(u32*)(a0 + 4);
     a0 = a0 - ret;
     a0 = a0 + 0xd;
     *(u32*)(s1) = a0;
-    ret = Libc_Strcmp(a0, a1, a2, a3);
+    ret = Libc_Strcmp(a0, a1);
     a0 = *(u32*)(s1);
     if (ret != 0) {
         s0 = 0x00500000;
         a1 = s0 + 0x1e38;
-        ret = Libc_Strcmp(a0, a1, a2, a3);
+        ret = Libc_Strcmp(a0, a1);
         v1 = 0x7a;
         if (ret != 0) {
             a0 = *(u32*)(s1);
@@ -4962,37 +4340,36 @@ int EEKernel_Parse_String()
                 a0 = *(u32*)(s1);
                 }
             }
-        ret = Libc_Strlen(a0, a1, a2, a3);
+        ret = Libc_Strlen(a0);
         a0 = *(u32*)(s1);
         a1 = s0 + 0x1e38;
         s2 = a0 + ret;
         s0 = s2 + 1;
-        ret = Libc_Strcmp(a0, a1, a2, a3);
-        *(u32*)*(s1 + 4) = 0;
+        ret = Libc_Strcmp(a0, a1);
+        *(u32*)(s1 + 4) = 0;
         if (ret == 0) {
             ret = LOAD_WORD_LEFT(*(s0 + 3));
             ret = LOAD_WORD_RIGHT((s0));
             s0 = s2 + 5;
-            *(u32*)*(s1 + 4) = ret;
+            *(u32*)(s1 + 4) = ret;
         }
         a0 = s0;
         a1 = s1 + 8;
-        ret = EEKernel_VarInt_Decode(a0, a1, a2, a3);
+        ret = EEKernel_VarInt_Decode(a0, a1);
         a1 = s1 + 0xc;
         a0 = ret;
-        ret = EEKernel_VarInt_DecodeSigned(a0, a1, a2, a3);
+        ret = EEKernel_VarInt_DecodeSigned(a0, a1);
         a1 = *(u32*)(s1);
         s0 = ret;
         a0 = 0x7a;
-        v1 = *(u8*)(s0);
-        *(u32*)*(s1 + 0x10) = v1;
+        *(u32*)(s1 + 0x10) = *(u8*)(s0);
         ret = *(s8*)(a1);  /* lb */
         s0 = s0 + 1;
         if (ret == a0) {
             a0 = s0;
             a1 = __sp;
-            ret = EEKernel_VarInt_Decode(a0, a1, a2, a3);
-            v1 = *(u32*)(sp);
+            ret = EEKernel_VarInt_Decode(a0, a1);
+            v1 = *(u32*)(__sp);
             s0 = ret + v1;
         }
         ret = s0;
@@ -5001,77 +4378,61 @@ int EEKernel_Parse_String()
 }
 
 /* Function at 0x0023F1C8 - 0x0023F2E8 */
-int EEKernel_Parse_Byte()
+u32 EEKernel_Parse_Byte(u32 a0, u32 a1)
 {
     /* Stack frame: 48 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1;
+    u32 ret, v1, a2, a3, s0, s1;
     s1 = a1;
     s0 = *(u8*)(a0);
     a0 = a0 + 1;
     if ((unsigned)s0 < 0x70) {
         ret = ((unsigned)s0 < 0x50) ? 1 : 0;
-        if (6 != 0) {
-            if (s0 != 0x23) {
-                if (s0 != ret) {
-                    goto loc_23F2C8;
-                    }
-                    ret = 0x90;
-                    ret = ((unsigned)s0 < 0x90) ? 1 : 0;
-                    if (s0 != ret) {
-                        if (0x92 == 0) {
-                            if (s0 != ret) {
-                                goto loc_23F2C8;
-                                }
-                                ret = 0 | 0xffb0;
-                                ret = ret + s0;
-                                *(u16*)*(s1 + 0x3f8) = ret;
-                                } else {
-                                a1 = __sp;
-                                ret = EEKernel_VarInt_DecodeSigned(a0, a1, a2, a3);
-                                a0 = ret;
-                                ret = *(u16*)(sp);
-                                *(u16*)*(s1 + 0x3f8) = ret;
-                                }
-                                ret = 0 | 0xff90;
-                                ret = ret + s0;
-                                a1 = __sp;
-                                *(u16*)*(s1 + 0x3f8) = ret;
-                            } else {
-                                a1 = __sp;
-                                ret = EEKernel_VarInt_DecodeSigned(a0, a1, a2, a3);
-                                v1 = *(u16*)(sp);
-                                a0 = ret;
-                                a1 = __sp;
-                                *(u16*)*(s1 + 0x3f8) = v1;
-                            }
-                        ret = EEKernel_VarInt_DecodeSigned(a0, a1, a2, a3);
-                        a0 = ret;
-                        ret = *(u32*)(sp);
-                        *(u64*)*(s1 + 16) = ret;
-                        } else {
-                        *(u8*)*(s1 + 0x477) = 1;
-                        goto loc_23F2D0;
+        if (s0 != 0x23) {
+            if (s0 != ret) {
+                goto loc_23F2C8;
                 }
-                    a1 = __sp;
-                    ret = EEKernel_VarInt_Decode(a0, a1, a2, a3);
-                    a0 = ret;
-                    ret = *(u32*)(sp);
-                    *(u64*)*(s1 + 8) = ret;
+                ret = ((unsigned)s0 < 0x90) ? 1 : 0;
+                if (s0 != ret) {
+                        a1 = __sp;
+                        ret = EEKernel_VarInt_DecodeSigned(a0, a1);
+                        a0 = ret;
+                        ret = *(u16*)(__sp);
+                        *(u16*)(s1 + 0x3f8) = ret;
+                            ret = ret + s0;
+                            a1 = __sp;
+                            *(u16*)(s1 + 0x3f8) = ret;
+                        } else {
+                            a1 = __sp;
+                            ret = EEKernel_VarInt_DecodeSigned(a0, a1);
+                            v1 = *(u16*)(__sp);
+                            a0 = ret;
+                            a1 = __sp;
+                            *(u16*)(s1 + 0x3f8) = v1;
+                        }
+                    a0 = EEKernel_VarInt_DecodeSigned(a0, a1);
+                    *(u64*)(s1 + 16) = *(u32*)(__sp);
+                    } else {
+                    *(u8*)(s1 + 0x477) = 1;
                     goto loc_23F2D0;
-                    loc_23F2C8:
-                    ret = EEKernel_FatalErrorExit(a0, a1, a2, a3);
-                    }
+            }
+                a1 = __sp;
+                ret = EEKernel_VarInt_Decode(a0, a1);
+                a0 = ret;
+                ret = *(u32*)(__sp);
+                *(u64*)(s1 + 8) = ret;
+                goto loc_23F2D0;
+                loc_23F2C8:
+                EEKernel_FatalErrorExit();
                 }
 loc_23F2D0:
-    ret = a0;
-    return ret;
+    return a0;
 }
 
 /* Function at 0x0023F2E8 - 0x0023F738 */
-int EEKernel_Unpack_Commands()
+u32 EEKernel_Unpack_Commands(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 48 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2;
+    u32 ret, v1, s0, s1, s2;
     s0 = a0;
     s1 = a1;
     s2 = a2;
@@ -5079,7 +4440,7 @@ int EEKernel_Unpack_Commands()
     ret = a1 & 0x40;
     s0 = s0 + 1;
     if (ret != 0) {
-        a0 = *(u32*)*(s2 + 8);
+        a0 = *(u32*)(s2 + 8);
         ret = a1 & 0x3f;
         v1 = *(u32*)(a3);
         ac2 = (s32)((s64)ret * (s64)a0); HI_LO = (s64)ret * (s64)a0;
@@ -5090,15 +4451,15 @@ int EEKernel_Unpack_Commands()
     if (ret != 0) {
         a3 = a1 & 0x3f;
         a1 = __sp;
-        *(u32*)*(__sp + 4) = a3;
-        ret = EEKernel_VarInt_Decode(a0, a1, a2, a3);
+        *(u32*)(__sp + 4) = a3;
+        ret = EEKernel_VarInt_Decode(a0, a1);
         s0 = ret;
-        ret = *(u16*)*(s1 + 0x3f8);
-        a3 = *(u32*)*(__sp + 4);
-        v1 = *(u32*)(sp);
+        ret = *(u16*)(s1 + 0x3f8);
+        a3 = *(u32*)(__sp + 4);
+        v1 = *(u32*)(__sp);
         if (a3 == ret) goto loc_23F718;
         ret = 1;
-        a2 = *(u32*)*(s2 + 0xc);
+        a2 = *(u32*)(s2 + 0xc);  /* PSX: lo */
         a0 = a3 << 3;
         a1 = a3 + s1;
         goto loc_23F464;
@@ -5107,14 +4468,12 @@ int EEKernel_Unpack_Commands()
     if ((unsigned)a1 < 0x30) {
         a3 = a1 & 0x3f;
         ret = a3 + s1;
-        *(u32*)*(__sp + 4) = a3;
-        *(u8*)*(ret + 0x3fc) = 0;
+        *(u32*)(__sp + 4) = a3;
+        *(u8*)(ret + 0x3fc) = 0;
     } else {
         ret = a1 << 2;
         if (ret != 0) {
-            v1 = 0x00500000;
-            v1 = v1 + ret;
-            v1 = *(u32*)*(v1 + 0x1e40);
+            v1 = *(u32*)(v1 + 0x1e40);
             goto *v1; /* computed jump */
             ret = LOAD_WORD_LEFT(*(s0 + 3));
             ret = LOAD_WORD_RIGHT((s0));
@@ -5126,54 +4485,49 @@ int EEKernel_Unpack_Commands()
             *(u32*)(a3) = v1;
             goto loc_23F718;
             loc_23F414:
-            ret = *(u32*)(a3);
-            ret = ret + v1;
-            *(u32*)(a3) = ret;
+            *(u32*)(a3) = ret + v1;
             goto loc_23F718;
             loc_23F464:
             a0 = a0 + s1;
             ac3 = (s32)((s64)v1 * (s64)a2); HI_LO = (s64)v1 * (s64)a2;
-            *(u8*)*(a1 + 0x3fc) = ret;
+            *(u8*)(a1 + 0x3fc) = ret;
             ret = v1;
-            *(u32*)(sp) = v1;
-            *(u64*)*(a0 + 32) = ret;
+            *(u32*)(__sp) = v1;
+            *(u64*)(a0 + 32) = ret;
             goto loc_23F718;
             }
         }
 loc_23F718:
-    ret = s0;
-    return ret;
+    return s0;
 }
 
 /* Function at 0x0023F738 - 0x0023F8F0 */
-int EEKernel_Unpack_Continue()
+u32 EEKernel_Unpack_Continue(u32 a0, u32 a1)
 {
     /* Stack frame: 1264 bytes */
-    int local_24;
-    int local_4A0;
-    int local_4A4;
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, t0;
+    u32 local_24;
+    u32 local_4A0;
+    u32 local_4A4;
+    u32 ret, v1, a2, a3, s0, s1, s2, s3, s4, s5, t0;
     s3 = a0;
     s5 = a1;
-    ret = EEKernel_Unpack_Textures(a0, a1, a2, a3);
-    s2 = ret;
+    s2 = EEKernel_Unpack_Textures(a0);
     a0 = s2;
     if (s2 == 0) goto loc_23F8CC;
     a1 = __sp;
-    ret = EEKernel_Parse_String(a0, a1, a2, a3);
-    s0 = ret;
+    s0 = EEKernel_Parse_String(a0, a1);
     s4 = __sp + 0x20;
     if (s0 == 0) goto loc_23F8CC;
     a1 = 0;
     a0 = s4;
     a2 = 0x480;
-    ret = Libc_Memset(a0, a1, a2, a3);
-    v1 = *(u32*)*(s2 + 4);
-    a0 = *(u16*)*(__sp + 0x10);
+    ret = Libc_Memset(a0, a1, a2);
+    v1 = *(u32*)(s2 + 4);
+    a0 = *(u16*)(__sp + 0x10);  /* PSX: gpr[0]/$zero */
     v1 = s2 - v1;
-    a1 = *(u32*)*(__sp + 4);
+    a1 = *(u32*)(__sp + 4);
     v1 = v1 + 4;
-    *(u16*)*(__sp + 0x41a) = a0;
+    *(u16*)(__sp + 0x41a) = a0;
     ret = *(u32*)(v1);
     v1 = v1 + ret;
     s1 = v1 + 4;
@@ -5190,19 +4544,19 @@ int EEKernel_Unpack_Continue()
             a0 = s0;
         } while (ret != 0);
     }
-    ret = *(u32*)(sp);
+    ret = *(u32*)(__sp);
     a0 = 0x7a;
-    v1 = *(s8*)(v0);  /* lb */
+    v1 = *(s8*)(ret);  /* lb */
     s0 = s2 + 0x10;
     if (v1 == a0) {
         a0 = s0;
         a1 = __sp + 0x4a0;
-        ret = EEKernel_VarInt_Decode(a0, a1, a2, a3);
+        ret = EEKernel_VarInt_Decode(a0, a1);
         v1 = local_4A0;
         s0 = ret + v1;
     }
     ret = *(u32*)(s2);
-    a1 = *(u32*)*(s2 + 8);
+    a1 = *(u32*)(s2 + 8);
     ret = s2 + ret;
     s1 = ret + 4;
     local_4A4 = a1;
@@ -5218,7 +4572,6 @@ int EEKernel_Unpack_Continue()
             s0 = ret;
             a0 = s4;
             if ((unsigned)s0 >= (unsigned)s1) goto loc_23F874;
-            ret = local_4A4;
             ret = ((unsigned)s3 < (unsigned)ret) ? 1 : 0;
             a0 = s0;
         } while (ret == 0);
@@ -5228,67 +4581,66 @@ loc_23F874:
     ret = s5;
     v1 = __sp + 0x480;
     do {
-        a1 = *(u64*)*(a0 + 0);
-        a2 = *(u64*)*(a0 + 8);
-        a3 = *(u64*)*(a0 + 16);
-        t0 = *(u64*)*(a0 + 24);
-        *(u64*)*(ret + 0) = a1;
-        *(u64*)*(ret + 8) = a2;
-        *(u64*)*(ret + 16) = a3;
-        *(u64*)*(ret + 24) = t0;
+        a1 = *(u64*)(a0 + 0);
+        a2 = *(u64*)(a0 + 8);
+        a3 = *(u64*)(a0 + 16);
+        t0 = *(u64*)(a0 + 24);
+        *(u64*)(ret + 0) = a1;
+        *(u64*)(ret + 8) = a2;
+        *(u64*)(ret + 16) = a3;
+        *(u64*)(ret + 24) = t0;
         a0 = a0 + 0x20;
         ret = ret + 0x20;
     } while (a0 != v1);
-    v1 = *(u64*)*(a0 + 0);
-    a1 = *(u64*)*(a0 + 8);
-    a2 = *(u64*)*(a0 + 16);
-    *(u64*)*(ret + 0) = v1;
-    *(u64*)*(ret + 8) = a1;
-    *(u64*)*(ret + 16) = a2;
+    v1 = *(u64*)(a0 + 0);
+    a1 = *(u64*)(a0 + 8);
+    a2 = *(u64*)(a0 + 16);
+    *(u64*)(ret + 0) = v1;
+    *(u64*)(ret + 8) = a1;
+    *(u64*)(ret + 16) = a2;
     ret = s5;
 loc_23F8CC:
     return ret;
 }
 
 /* Function at 0x0023F8F0 - 0x0023F998 */
-int EEKernel_ExitWithCode()
+u32 EEKernel_ExitWithCode(u32 a0)
 {
     /* Stack frame: 32 bytes */
-    int ret, a0, a1, a2, a3, s0, s1;
+    u32 ret, a1, a2, a3, s0, s1;
     s0 = a0;
     a0 = (s64)s0 >> 32;
-    s1 = 0 | 0x81e0;
+    s1 = 0x81e0;
     s1 = (u64)s1 << 47;
-    ret = EEKernel_GetFloatExponent(a0, a1, a2, a3);
+    ret = EEKernel_GetFloatExponent(a0);
     a0 = ret;
     a1 = s1;
-    ret = EEKernel_VU0_Pipeline_Complex(a0, a1, a2, a3);
+    ret = EEKernel_VU0_Pipeline_Complex(a0, a1);
     a1 = s1;
     a0 = ret;
-    ret = EEKernel_VU0_Pipeline_Complex(a0, a1, a2, a3);
+    ret = EEKernel_VU0_Pipeline_Complex(a0, a1);
     s1 = ret;
     ret = (u64)ret >> 32;
     s0 = s0 & ret;
     s0 = (u64)s0 << 32;
     s0 = (s64)s0 >> 32;
     a0 = s0;
-    ret = EEKernel_GetFloatExponent(a0, a1, a2, a3);
-    a1 = 0 | 0x83e0;
+    ret = EEKernel_GetFloatExponent(a0);
+    a1 = 0x83e0;
     a1 = (u64)a1 << 47;
     if ((signed)s0 < 0) {
         a0 = ret;
-        ret = EEKernel_VU0_Pipeline_Start(a0, a1, a2, a3);
+        ret = EEKernel_VU0_Pipeline_Start(a0, a1);
     }
     a0 = s1;
     a1 = ret;
-    ret = EEKernel_VU0_Pipeline_Start(a0, a1, a2, a3);
-    return ret;
+    return EEKernel_VU0_Pipeline_Start(a0, a1);
 }
 
 /* Function at 0x0023F998 - 0x0023F9F8 */
-int EEKernel_QuadListCopy()
+u32 EEKernel_QuadListCopy(u32 a0, u32 a1)
 {
-    int ret, v1, a0, a1, a2;
+    u32 ret, v1, a2;
     v1 = *(u32*)(a0);
     a0 = 0x007FFFFF;
     a2 = a1;
@@ -5296,7 +4648,7 @@ int EEKernel_QuadListCopy()
     a1 = (unsigned)v1 >> 0x1f;
     ret = ret & 0xff;
     v1 = v1 & a0;
-    *(u32*)*(a2 + 4) = a1;
+    *(u32*)(a2 + 4) = a1;
     a1 = ret + -0x7f;
     a0 = v1 << 7;
     if (ret == 0) {
@@ -5305,22 +4657,21 @@ int EEKernel_QuadListCopy()
     }
     v1 = 3;
     ret = a0 | ret;
-    *(u32*)*(a2 + 8) = a1;
+    *(u32*)(a2 + 8) = a1;
     *(u32*)(a2) = v1;
-    *(u32*)*(a2 + 0xc) = ret;
+    *(u32*)(a2 + 0xc) = ret;
     return ret;
 }
 
 /* Function at 0x0023F9F8 - 0x0023FAD0 */
-int EEKernel_Matrix_Store_Block()
+u32 EEKernel_Matrix_Store_Block(u32 a0, u32 a1, u32 a2)
 {
-    int ret, v1, a0, a1, a2, a3, t0;
+    u32 ret, v1, a3, t0;
     v1 = *(u32*)(a0);
     a3 = 0;
-    a1 = *(u64*)*(a0 + 16);
-    t0 = *(u32*)*(a0 + 4);
+    a1 = *(u64*)(a0 + 16);
+    t0 = *(u32*)(a0 + 4);
     if ((unsigned)v1 < 2) {
-        ret = 0 | 0x8000;
         ret = (u64)ret << 36;
         a3 = 0x7ff;
         a1 = a1 | ret;
@@ -5331,11 +4682,11 @@ int EEKernel_Matrix_Store_Block()
     if (ret != 0) {
         ret = v1 ^ 2;
         a1 = 0;
-        if (likely(ret == 0)) goto loc_23FA74;
+        if (ret == 0) goto loc_23FA74;
         if (a1 == 0) goto loc_23FA74;
-        a0 = *(u32*)*(a0 + 8);
+        a0 = *(u32*)(a0 + 8);
         a1 = 0;
-        if (likely((signed)a0 < -0x3fe)) goto loc_23FA74;
+        if ((signed)a0 < -0x3fe) goto loc_23FA74;
         a3 = a0 + 0x3ff;
         if ((signed)a0 >= 0x400) {
             a3 = 0x7ff;
@@ -5345,17 +4696,10 @@ int EEKernel_Matrix_Store_Block()
             a1 = (unsigned)a1 >> 8;
         }
 loc_23FA74:
-    v1 = 0 | 0xfff0;
     v1 = (u64)v1 << 48;
-    ret = -1;
-    ret = (unsigned)ret >> 12;
     ret = a1 & ret;
     a2 = a2 & v1;
     a2 = a2 | ret;
-    ret = 0x800FFFFF;
-    ret = ret << 16;
-    ret = ret | 0xffff;
-    ret = ret << 16;
     ret = ret | 0xffff;
     v1 = a3 & 0x7ff;
     a2 = a2 & ret;
@@ -5365,15 +4709,14 @@ loc_23FA74:
     a2 = a2 | v1;
     ret = (u64)t0 << 63;
     a2 = a2 & a0;
-    ret = a2 | ret;
-    return ret;
+    return a2 | ret;
 }
 
 /* Function at 0x0023FAD0 - 0x0023FB90 */
-int EEKernel_Matrix_Load_Block()
+u32 EEKernel_Matrix_Load_Block(u32 a0, u32 a1)
 {
-    int ret, v1, a0, a1, a2, a3;
-    ret = *(u64*)*(a0 + 0);
+    u32 ret, v1, a2, a3;
+    ret = *(u64*)(a0 + 0);
     a2 = a1;
     a1 = -1;
     a1 = (unsigned)a1 >> 12;
@@ -5381,72 +4724,61 @@ int EEKernel_Matrix_Load_Block()
     a0 = (u64)ret >> 63;
     a3 = v1 & 0x7ff;
     v1 = ret & a1;
-    *(u32*)*(a2 + 4) = a0;
+    *(u32*)(a2 + 4) = a0;
     if (a3 == 0) {
         *(u32*)(a2) = 2;
         return ret;
     }
     ret = 0x7ff;
     v1 = v1 << 8;
-    if (likely(a3 != ret)) goto loc_23FB68;
-    *(u32*)*(a2 + 8) = 0x3ff;
+    if (a3 != ret) goto loc_23FB68;
+    *(u32*)(a2 + 8) = 0x3ff;
     if (v1 == 0) {
         v1 = 4;
-        ret = 0 | 0x8000;
         ret = (u64)ret << 45;
-        *(u64*)*(a2 + 16) = ret;
+        *(u64*)(a2 + 16) = ret;
         *(u32*)(a2) = v1;
         return ret;
     }
-    ret = 0 | 0x8000;
-    ret = (u64)ret << 36;
-    ret = v1 & ret;
-    if (1 != 0) {
-        *(u32*)(a2) = ret;
-        goto loc_23FB5C;
-    }
-    *(u32*)(a2) = 0;
+    *(u32*)(a2) = v1 & ret;
+    goto loc_23FB5C;
 loc_23FB5C:
-    *(u64*)*(a2 + 16) = v1;
+    *(u64*)(a2 + 16) = v1;
     return ret;
 loc_23FB68:
-    ret = 0 | 0x8000;
     ret = (u64)ret << 45;
     v1 = v1 | ret;
     ret = 3;
     a0 = a3 + -0x3ff;
-    *(u64*)*(a2 + 16) = v1;
-    *(u32*)*(a2 + 8) = a0;
+    *(u64*)(a2 + 16) = v1;
+    *(u32*)(a2 + 8) = a0;
     *(u32*)(a2) = ret;
     return ret;
 }
 
 /* Function at 0x0023FB90 - 0x0023FCB0 */
-int EEKernel_Matrix_Compare_Refs()
+u32 EEKernel_Matrix_Compare_Refs(u32 a0, u32 a1)
 {
-    int ret, v0, v1, a0, a1, a2, a3;
+    u32 ret, v1, a2, a3;
     a2 = *(u32*)(a0);
     if ((unsigned)a2 >= 2) {
         v1 = *(u32*)(a1);
-        ret = ((unsigned)v1 < 2) ? 1 : 0;
         ret = a2 ^ 4;
             return 1;
         }
     ret = v1 ^ 4;
     if (ret == 0) {
-        a0 = *(u32*)*(a0 + 4);
+        a0 = *(u32*)(a0 + 4);
         if (ret == 0) {
-            v1 = *(u32*)*(a1 + 4);
-            ret = *(u32*)*(a0 + 4);
-            ret = v1 - ret;
-            return ret;
+            v1 = *(u32*)(a1 + 4);
+            return v1 - ret;
             }
             ret = a2 ^ 2;
             if (ret == 0) {
-            a0 = *(u32*)*(a1 + 4);
+            a0 = *(u32*)(a1 + 4);
             v1 = -1;
             ret = 1;
-            __asm("movz v0, v1, a0");
+            if (a0 == 0) ret = v1;
             return ret;
             }
             ret = v1 ^ 2;
@@ -5454,78 +4786,74 @@ int EEKernel_Matrix_Compare_Refs()
             v1 = v1 ^ 2;
             ret = 0;
             if (v1 == 0) goto loc_23FCA8;
-            a0 = *(u32*)*(a1 + 4);
+            a0 = *(u32*)(a1 + 4);
             v1 = 1;
             ret = -1;
-            __asm("movn v0, v1, a0");
+            if (a0 != 0) ret = v1;
             return ret;
             }
-            a3 = *(u32*)*(a0 + 4);
+            a3 = *(u32*)(a0 + 4);
             if (ret == 0) {
-                a0 = *(u32*)*(a0 + 4);
+                a0 = *(u32*)(a0 + 4);
                 }
                 v1 = 1;
                 ret = -1;
-                __asm("movz v0, v1, a0");
+                if (a0 == 0) ret = v1;
                 return ret;
             }
-    ret = *(u32*)*(a1 + 4);
+    ret = *(u32*)(a1 + 4);
     v1 = 1;
     if (a3 != ret) goto loc_23FC84;
-    a2 = *(u32*)*(a0 + 8);
-    v1 = *(u32*)*(a1 + 8);
+    a2 = *(u32*)(a0 + 8);
     v1 = 1;
-    if (likely((signed)v1 < (signed)a2)) goto loc_23FC84;
+    if ((signed)v1 < (signed)a2) goto loc_23FC84;
     v1 = -1;
     if ((signed)a2 < (signed)v1) goto loc_23FC9C;
-    v1 = *(u64*)*(a0 + 16);
-    a0 = *(u64*)*(a1 + 16);
+    v1 = *(u64*)(a0 + 16);
+    a0 = *(u64*)(a1 + 16);
     ret = ((unsigned)a0 < (unsigned)v1) ? 1 : 0;
-    if (likely((unsigned)v1 >= (unsigned)a0)) goto loc_23FC90;
+    if ((unsigned)v1 >= (unsigned)a0) goto loc_23FC90;
     v1 = 1;
 loc_23FC84:
     ret = -1;
-    __asm("movz v0, v1, a3");
+    if (a3 == 0) ret = v1;
     return ret;
 loc_23FC90:
-    if (likely(0 == 0)) goto loc_23FCA8;
-    v1 = -1;
+    goto loc_23FCA8;
 loc_23FC9C:
     ret = 1;
-    __asm("movz v0, v1, a3");
+    if (a3 == 0) ret = v1;
     return ret;
 loc_23FCA8:
     return ret;
 }
 
 /* Function at 0x0023FCB0 - 0x0023FD68 */
-int EEKernel_GetFloatExponent()
+u32 EEKernel_GetFloatExponent(u32 a0)
 {
     /* Stack frame: 48 bytes */
-    int ret, v0, v1, a0, a1, a2, a3;
+    u32 ret, v1, a1, a2, a3;
     ret = 3;
     v1 = (unsigned)a0 >> 0x1f;
-    *(u32*)(sp) = ret;
-    *(u32*)*(__sp + 4) = v1;
+    *(u32*)(__sp) = ret;
+    *(u32*)(__sp + 4) = v1;
     if (a0 == 0) {
-        *(u32*)(sp) = 2;
+        *(u32*)(__sp) = 2;
     } else {
-        *(u32*)*(__sp + 8) = 0x3c;
+        *(u32*)(__sp + 8) = 0x3c;
         if (v1 != 0) {
             v1 = 0x80000000;
-            ret = 0 | 0xc1e0;
             ret = (u64)ret << 48;
             if (a0 == v1) goto loc_23FD60;
-            __asm("negu v0, a0");
-            *(u64*)*(__sp + 16) = ret;
+            ret = -a0;
+            *(u64*)(__sp + 16) = ret;
             goto loc_23FD0C;
         }
-        *(u64*)*(__sp + 16) = a0;
+        *(u64*)(__sp + 16) = a0;
         loc_23FD0C:
-        a0 = *(u64*)*(__sp + 16);
-        ret = -1;
+        a0 = *(u64*)(__sp + 16);
         ret = (unsigned)ret >> 4;
-        a1 = *(u32*)*(__sp + 8);
+        a1 = *(u32*)(__sp + 8);
         if ((unsigned)ret >= (unsigned)a0) {
             a2 = -1;
             a2 = (unsigned)a2 >> 4;
@@ -5535,68 +4863,68 @@ int EEKernel_GetFloatExponent()
                 ret = ((unsigned)a2 < (unsigned)v1) ? 1 : 0;
                 a0 = v1;
             } while (ret == 0);
-            *(u32*)*(__sp + 8) = a1;
-            *(u64*)*(__sp + 16) = v1;
+            *(u32*)(__sp + 8) = a1;
+            *(u64*)(__sp + 16) = v1;
             }
         }
     a0 = __sp;
-    ret = EEKernel_Matrix_Store_Block(a0, a1, a2, a3);
+    ret = EEKernel_Matrix_Store_Block(a0, a1, a2);
 loc_23FD60:
     return ret;
 }
 
 /* Function at 0x0023FD68 - 0x0023FD80 */
-int EEKernel_FatalErrorExit()
+u32 EEKernel_FatalErrorExit(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
+    u32 ret, a0, a1, a2, a3;
     a0 = 6;
-    ret = Libc_Close(a0, a1, a2, a3);
+    ret = Libc_Close(a0);
     a0 = 1;
-    ret = main_Exit(a0, a1, a2, a3);
+    ret = main_Exit();
+    return ret;
 }
 
 /* Function at 0x0023FD80 - 0x0023FDB8 */
-int EEKernel_ThreadScheduler()
+u32 EEKernel_ThreadScheduler(u32 a0, u32 a1)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, t0;
+    u32 ret, v1, a2, a3, t0;
     ret = 0x00500000;
     t0 = a1;
-    v1 = *(u32*)*(ret + -0x7920);
+    v1 = *(u32*)(ret + -0x7920);
     a3 = a0;
-    a0 = *(u32*)*(v1 + 0xc);
+    a0 = *(u32*)(v1 + 0xc);  /* PSX: lo */
     a1 = 0x00501F00;
     ret = EEKernel_PrintfWrapper(a0, a1, a2, a3);
-    return EEKernel_FatalErrorExit(a0, a1, a2, a3);
+    return EEKernel_FatalErrorExit();
 }
 
 /* Function at 0x0023FDB8 - 0x0023FE58 */
-int EEKernel_StackBuffer_Alloc()
+u32 EEKernel_StackBuffer_Alloc(u32 a0)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1;
+    u32 ret, v1, a1, a2, a3, s0, s1;
     s0 = 0x00500000 + -0x7920;
     s1 = a0;
     ret = *(u32*)(s0);
-    a2 = *(u32*)*(ret + 0x148);
+    a2 = *(u32*)(ret + 0x148);  /* PSX: hw_state[14] */
     a0 = 0x88;
     if (a2 == 0) {
         a2 = ret + 0x14c;
-        *(u32*)*(ret + 0x148) = a2;
+        *(u32*)(ret + 0x148) = a2;
     }
-    ret = *(u32*)*(a2 + 4);
+    ret = *(u32*)(a2 + 4);
     v1 = a2 + 4;
     if ((signed)ret >= 0x20) {
-        ret = Libc_Malloc(a0, a1, a2, a3);
+        ret = Libc_Malloc(a0);
         a2 = ret;
         ret = -1;
         if (a2 != 0) {
             v1 = *(u32*)(s0);
-            *(u32*)*(a2 + 4) = 0;
-            ret = *(u32*)*(v1 + 0x148);
-            *(u32*)(a2) = ret;
-            *(u32*)*(v1 + 0x148) = a2;
+            *(u32*)(a2 + 4) = 0;
+            *(u32*)(a2) = *(u32*)(v1 + 0x148);
+            *(u32*)(v1 + 0x148) = a2;
             v1 = a2 + 4;
             }
             ret = 0;
@@ -5605,85 +4933,81 @@ int EEKernel_StackBuffer_Alloc()
             a0 = a0 + 1;
             a1 = a2 + a1;
             *(u32*)(v1) = a0;
-            *(u32*)*(a1 + 8) = s1;
+            *(u32*)(a1 + 8) = s1;
         }
     return ret;
 }
 
 /* Function at 0x0023FE58 - 0x0023FE80 */
-int EEKernel_StrLen()
+u32 EEKernel_StrLen(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
+    u32 ret, a0, a1, a2, a3;
     a1 = 0;
     a2 = 0xa;
-    ret = Libc_StrtolWrapper(a0, a1, a2, a3);
-    ret = (u64)ret << 32;
-    ret = (s64)ret >> 32;
-    return ret;
+    ret = Libc_StrtolWrapper(a0, a1, a2);
+    return (s64)ret >> 32;
 }
 
 /* Function at 0x0023FE80 - 0x0023FED8 */
-int EEKernel_PrintfWrapper()
+u32 EEKernel_PrintfWrapper(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 96 bytes */
-    int ret, a0, a1, a2, a3, t0, t1, t2, t3;
-    *(u64*)*(__sp + 48) = a2;
+    u32 ret, t0, t1, t2, t3;
+    *(u64*)(__sp + 48) = a2;
     a2 = __sp + 0x30;
-    *(u64*)*(__sp + 56) = a3;
-    *(u64*)*(__sp + 64) = t0;
-    *(u64*)*(__sp + 72) = t1;
-    *(u64*)*(__sp + 80) = t2;
-    *(u64*)*(__sp + 88) = t3;
-    __asm("swc1 f12, 0x10(sp)");
-    __asm("swc1 f13, 0x14(sp)");
-    __asm("swc1 f14, 0x18(sp)");
-    __asm("swc1 f15, 0x1c(sp)");
-    __asm("swc1 f16, 0x20(sp)");
-    __asm("swc1 f17, 0x24(sp)");
-    __asm("swc1 f18, 0x28(sp)");
-    __asm("swc1 f19, 0x2c(sp)");
-    ret = Libc_VfprintfSetup(a0, a1, a2, a3);
-    return ret;
+    *(u64*)(__sp + 56) = a3;
+    *(u64*)(__sp + 64) = t0;
+    *(u64*)(__sp + 72) = t1;
+    *(u64*)(__sp + 80) = t2;
+    *(u64*)(__sp + 88) = t3;
+    *(float*)(__sp + 0x10) = FPU_F(f12);
+    *(float*)(__sp + 0x14) = FPU_F(f13);
+    *(float*)(__sp + 0x18) = FPU_F(f14);
+    *(float*)(__sp + 0x1c) = FPU_F(f15);
+    *(float*)(__sp + 0x20) = FPU_F(f16);
+    *(float*)(__sp + 0x24) = FPU_F(f17);
+    *(float*)(__sp + 0x28) = FPU_F(f18);
+    *(float*)(__sp + 0x2c) = FPU_F(f19);
+    return Libc_VfprintfSetup(a0, a1, a2);
 }
 
 /* Function at 0x0023FED8 - 0x0023FF40 */
-int EEKernel_SyscallWrapper()
+u32 EEKernel_SyscallWrapper(u32 a0, u32 a1)
 {
     /* Stack frame: 32 bytes */
-    int ret, a0, a1, a2, a3, s0, s1, s2;
+    u32 ret, a2, a3, s0, s1, s2;
     s1 = a1;
     s2 = a0;
     s0 = 0x004F86E0;
     a0 = *(u32*)(s0);
-    ret = Libc_MallocLock(a0, a1, a2, a3);
+    ret = Libc_MallocLock();
     a0 = *(u32*)(s0);
     a1 = s2;
     a2 = s1;
-    ret = EEKernel_Malloc_Wrapper(a0, a1, a2, a3);
+    ret = EEKernel_Malloc_Wrapper(a0, a1, a2);
     a0 = *(u32*)(s0);
     s1 = ret;
-    ret = Libc_MallocUnlock(a0, a1, a2, a3);
-    ret = s1;
-    return ret;
+    ret = Libc_MallocUnlock();
+    return s1;
 }
 
 /* Function at 0x0023FF40 - 0x00240108 */
-int EEKernel_Malloc_Wrapper()
+u32 EEKernel_Malloc_Wrapper(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 48 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, t0;
+    u32 ret, v1, a3, s0, s1, s2, s3, s4, t0;
     s0 = a1;
     a1 = a2;
     s4 = a0;
     if ((unsigned)s0 < 0x11) {
-        return Libc_MallocAlignHelper(a0, a1, a2, a3);
+        return Libc_MallocAlignHelper(a0, a1);
     }
     a1 = a1 + 0x13;
     ret = ((unsigned)s0 < 0x10) ? 1 : 0;
     v1 = 0x10;
     a0 = ((unsigned)a1 < 0x1f) ? 1 : 0;
-    __asm("movn s0, v1, v0");
+    if (ret != 0) s0 = v1;
     if (a0 == 0) {
         ret = -0x10;
         s3 = a1 & ret;
@@ -5694,21 +5018,20 @@ loc_23FFBC:
     a1 = s3 + s0;
     a0 = s4;
     a1 = a1 + 0x10;
-    ret = Libc_MallocAlignHelper(a0, a1, a2, a3);
-    s1 = ret;
-    if (likely(s1 == 0)) goto loc_2400EC;
+    Libc_MallocAlignHelper(a0, a1);
+    if (s1 == 0) goto loc_2400EC;
     a0 = s4;
     s2 = s1 + -8;
-    ret = Libc_MallocLock(a0, a1, a2, a3);
+    ret = Libc_MallocLock();
     a1 = (u64)s0 << 32;
     a1 = (u64)a1 >> 32;
     a0 = s1;
-    ret = EEKernel_Integer_Divide64_Variant3(a0, a1, a2, a3);
+    ret = EEKernel_Integer_Divide64_Variant3(a0, a1);
     a3 = s1 + s0;
     if (ret != 0) {
-        __asm("negu v0, s0");
+        ret = -s0;
         a3 = a3 + -1;
-        a2 = *(u32*)*(s2 + 4);
+        a2 = *(u32*)(s2 + 4);
         a3 = a3 & ret;
         v1 = -4;
         a3 = a3 + -8;
@@ -5723,24 +5046,16 @@ loc_23FFBC:
         a2 = a2 - t0;
         v1 = a2 | 1;
         a2 = a3 + a2;
-        *(u32*)*(a3 + 4) = v1;
-        ret = *(u32*)*(a2 + 4);
-        ret = ret | 1;
-        *(u32*)*(a2 + 4) = ret;
-        v1 = *(u32*)*(s2 + 4);
-        v1 = v1 & 1;
-        v1 = v1 | t0;
-        *(u32*)*(s2 + 4) = v1;
+        *(u32*)(a3 + 4) = v1;
+        *(u32*)(a2 + 4) = ret | 1;
+        *(u32*)(s2 + 4) = v1 | t0;
         s2 = a3;
-        ret = Libc_FreeInternal(a0, a1, a2, a3);
+        ret = Libc_FreeInternal(a0, a1);
     }
-    ret = *(u32*)*(s2 + 4);
     ret = ret & -4;
     a0 = ((unsigned)ret < (unsigned)s3) ? 1 : 0;
     ret = ret - s3;
     if (a0 != 0) {
-        ret = s3 - ret;
-        ret = (u64)ret << 32;
         ret = (u64)ret >> 32;
         a0 = 0 - ret;
         goto loc_2400A0;
@@ -5749,22 +5064,8 @@ loc_23FFBC:
     a0 = (u64)ret >> 32;
 loc_2400A0:
     ret = ((signed)a0 < 0x10) ? 1 : 0;
-    if (1 == 0) {
-        a2 = s2 + s3;
-        ret = a0 | ret;
-        a0 = s4;
-        ret = (u64)ret << 32;
-        ret = (s64)ret >> 32;
-        a1 = a2 + 8;
-        *(u32*)*(a2 + 4) = ret;
-        v1 = *(u32*)*(s2 + 4);
-        v1 = v1 & 1;
-        v1 = v1 | s3;
-        *(u32*)*(s2 + 4) = v1;
-        ret = Libc_FreeInternal(a0, a1, a2, a3);
-    }
     a0 = s4;
-    ret = Libc_MallocUnlock(a0, a1, a2, a3);
+    ret = Libc_MallocUnlock();
     ret = s2 + 8;
 loc_2400EC:
     return ret;

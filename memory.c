@@ -3,9 +3,10 @@
 /* 1 functions */
 
 #include "pops_types.h"
+#include "functions.h"
 
 /* Forward declarations */
-int TLB_SetupEntries();
+u32 TLB_SetupEntries(void);
 
 /* ======================================== */
 
@@ -13,16 +14,16 @@ int TLB_SetupEntries();
 /* String ref: "# TLB over flow (1)" */
 /* String ref: "# TLB over flow (2)" */
 /* String ref: "# TLB over flow (3)" */
-int TLB_SetupEntries()
+u32 TLB_SetupEntries(void)
 {
     /* Stack frame: 64 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1, s2, t0, t1, t9;
+    u32 ret, v1, a0, a1, a2, a3, s0, s1, s2, t0, t1, t9;
     a0 = 0x005010C0;
-    s2 = 0x004F0000;
+    s2 = 0x004F0000;  /* SYS_CONFIG_BASE: System configuration / SIF state */
     s0 = s2 + 0x5890;
-    a1 = *(u32*)*(s2 + 0x5890);
-    a3 = *(u32*)*(s0 + 4);
-    t1 = *(u32*)*(s0 + 8);
+    a1 = *(u32*)(s2 + 0x5890);
+    a3 = *(u32*)(s0 + 4);
+    t1 = *(u32*)(s0 + 8);
     a2 = a1;
     a3 = a1 + a3;
     t1 = a3 + t1;
@@ -31,86 +32,86 @@ int TLB_SetupEntries()
     t1 = t1 + -1;
     a3 = a3 + -1;
     ret = UI_RenderHelper(a0, a1, a2, a3);
-    COP0_REG(a2) = 0; /* mtc0 */
+    COP0_REG(6) = 0; /* mtc0 */
     SYNC(); /* memory barrier */
-    s1 = *(u32*)*(s2 + 0x5890);
+    s1 = *(u32*)(s2 + 0x5890);
     t9 = 0;
     if ((signed)s1 >= 0x31) {
-        a0 = 0x005010F8;
+        a0 = 0x005010F8;  /* "# TLB over flow (1)" */
         ret = UI_RenderHelper(a0, a1, a2, a3);
         a0 = 1;
-        ret = System_SifSendSimple(a0, a1, a2, a3);
+        System_SifSendSimple(a0);
     }
-    s0 = *(u32*)*(s0 + 0x10);
+    s0 = *(u32*)(s0 + 0x10);  /* PSX: gpr[0]/$zero */
     if ((signed)t9 < (signed)s1) {
         a1 = *(u32*)(s0);
         do {
             a0 = t9;
-            a2 = *(u32*)*(s0 + 4);
-            a3 = *(u32*)*(s0 + 8);
-            t0 = *(u32*)*(s0 + 0xc);
+            a2 = *(u32*)(s0 + 4);
+            a3 = *(u32*)(s0 + 8);
+            t0 = *(u32*)(s0 + 0xc);  /* PSX: lo */
             s0 = s0 + 0x10;
-            ret = System_EnableDmac(a0, a1, a2, a3);
+            ret = System_EnableDmac();
             t9 = t9 + 1;
             ret = ((signed)t9 < (signed)s1) ? 1 : 0;
             a1 = *(u32*)(s0);
-        } while (likely(ret != 0));
+        } while (ret != 0);
     }
     s0 = s2 + 0x5890;
-    ret = *(u32*)*(s0 + 4);
+    ret = *(u32*)(s0 + 4);
     s1 = t9 + ret;
     v1 = ((signed)s1 < 0x31) ? 1 : 0;
     ret = ((signed)t9 < (signed)s1) ? 1 : 0;
     if (v1 == 0) {
-        a0 = 0x00501110;
+        a0 = 0x00501110;  /* "# TLB over flow (2)" */
         ret = UI_RenderHelper(a0, a1, a2, a3);
         a0 = 1;
-        ret = System_SifSendSimple(a0, a1, a2, a3);
+        System_SifSendSimple(a0);
     }
-    s0 = *(u32*)*(s0 + 0x14);
+    s0 = *(u32*)(s0 + 0x14);  /* PSX: gpr[1]/$at */
     if ((signed)t9 < (signed)s1) {
         a1 = *(u32*)(s0);
         do {
             a0 = t9;
-            a2 = *(u32*)*(s0 + 4);
-            a3 = *(u32*)*(s0 + 8);
-            t0 = *(u32*)*(s0 + 0xc);
+            a2 = *(u32*)(s0 + 4);
+            a3 = *(u32*)(s0 + 8);
+            t0 = *(u32*)(s0 + 0xc);  /* PSX: lo */
             s0 = s0 + 0x10;
-            ret = System_EnableDmac(a0, a1, a2, a3);
+            ret = System_EnableDmac();
             t9 = t9 + 1;
             ret = ((signed)t9 < (signed)s1) ? 1 : 0;
             a1 = *(u32*)(s0);
-        } while (likely(ret != 0));
+        } while (ret != 0);
     }
     s0 = s2 + 0x5890;
-    *(u32*)*(s0 + 0xc) = t9;
-    COP0_REG(a2) = t9; /* mtc0 */
+    *(u32*)(s0 + 0xc) = t9;
+    COP0_REG(6) = t9; /* mtc0 */
     SYNC(); /* memory barrier */
-    ret = *(u32*)*(s0 + 8);
+    ret = *(u32*)(s0 + 8);
     s0 = t9;
     if ((signed)ret > 0) {
         s1 = t9 + ret;
         ret = ((signed)s1 < 0x31) ? 1 : 0;
         if ((signed)t9 >= (signed)s1) {
-            a0 = 0x00501128;
+            a0 = 0x00501128;  /* "# TLB over flow (3)" */
             ret = UI_RenderHelper(a0, a1, a2, a3);
             a0 = 1;
-            ret = System_SifSendSimple(a0, a1, a2, a3);
+            System_SifSendSimple(a0);
         }
-        s0 = *(u32*)*(s0 + 0x18);
+        s0 = *(u32*)(s0 + 0x18);  /* PSX: gpr[2]/$v0 */
         if ((signed)t9 < (signed)s1) {
             a1 = *(u32*)(s0);
             do {
                 a0 = t9;
-                a2 = *(u32*)*(s0 + 4);
-                a3 = *(u32*)*(s0 + 8);
-                t0 = *(u32*)*(s0 + 0xc);
+                a2 = *(u32*)(s0 + 4);
+                a3 = *(u32*)(s0 + 8);
+                t0 = *(u32*)(s0 + 0xc);  /* PSX: lo */
                 s0 = s0 + 0x10;
-                ret = System_EnableDmac(a0, a1, a2, a3);
+                ret = System_EnableDmac();
                 t9 = t9 + 1;
                 ret = ((signed)t9 < (signed)s1) ? 1 : 0;
                 a1 = *(u32*)(s0);
-            } while (likely(ret != 0));
+            } while (ret != 0);
         }
         s0 = t9;
     }
@@ -124,11 +125,10 @@ int TLB_SetupEntries()
             a3 = 0;
             t0 = 0;
             s0 = s0 + 1;
-            ret = System_EnableDmac(a0, a1, a2, a3);
+            ret = System_EnableDmac();
             ret = ((signed)s0 < 0x30) ? 1 : 0;
             s1 = s1 + 0x2000;
         } while (ret != 0);
     }
-    ret = t9;
-    return ret;
+    return t9;
 }

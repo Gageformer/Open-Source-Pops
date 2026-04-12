@@ -3,67 +3,69 @@
 /* 19 functions */
 
 #include "pops_types.h"
+#include "functions.h"
 
 /* Forward declarations */
-int SPU_Init();
-int SPU_RegisterIO();
-int SPU_ProcessSamples();
-int SPU_AllocBuffers();
-int SPU_FreeBuffers();
-int SPU_Start();
-int SPU_Stop();
-int SPU_SetVoiceVolume();
-int SPU_GetWritePtr();
-int SPU_AdvanceReadPtr();
-int SPU_GetBufferFree();
-int SPU_SetSampleRate();
-int SPU_MixSamples();
-int SPU_WaitIOPReady();
-int SPU_Callback();
-int SPU_SetupDMAThread();
-int SPU_MountHDD();
-int SPU_Nop();
-int SPU_DebugDisasm();
+u32 SPU_Init(void);
+u32 SPU_RegisterIO(u32 a0, u32 a1, u32 a2, u32 a3);
+u32 SPU_ProcessSamples(void);
+u32 SPU_AllocBuffers(u32 a0);
+u32 SPU_FreeBuffers(void);
+u32 SPU_Start(void);
+u32 SPU_Stop(void);
+u32 SPU_SetVoiceVolume(u32 a0);
+u32 SPU_GetWritePtr(void);
+u32 SPU_AdvanceReadPtr(u32 a0);
+u32 SPU_GetBufferFree(void);
+u32 SPU_SetSampleRate(u32 a0);
+u32 SPU_MixSamples(u32 a0, u32 a1, u32 a2);
+void SPU_WaitIOPReady(u32 a0);
+u32 SPU_Callback(void);
+u32 SPU_SetupDMAThread(void);
+u32 SPU_MountHDD(u32 a0);
+u32 SPU_Nop(void);
+u32 SPU_DebugDisasm(u32 a0, u32 a1);
 
 /* ======================================== */
 
 /* Function at 0x00213E50 - 0x00213E5C */
-int SPU_Init()
+u32 SPU_Init(void)
 {
-    int a0, a2, a3;
+    u32 a0, a2, a3;
     a2 = 0x00210000;
     a3 = 0x00210000;
-    a0 = 0x1F800000;
+    a0 = PSX_IO_BASE;  /* 0x1F800000 */
+    return SPU_RegisterIO(a0, 0, a2, a3);
 }
 
 /* Function at 0x00213E5C - 0x00213F08 */
-int SPU_RegisterIO()
+u32 SPU_RegisterIO(u32 a0, u32 a1, u32 a2, u32 a3)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3, t0, t1;
+    u32 ret, v1, t0, t1;
     a3 = a3 + 0x38e0;
     a2 = a2 + 0x3850;
-    a0 = a0 | 0x1c00;
-    a1 = 0x260;
+    a0 = a0 | 0x1c00;  /* PSX_SPU_BASE: SPU (Sound) (0x1F801C00) */
+    a1 = 0x260;  /* I/O range size */
     ret = R3000_SetupIOHandlers(a0, a1, a2, a3);
-    a0 = 4;
+    a0 = IRQ_CB_SPU;  /* SPU DMA interrupt handler */
     a1 = 0x002136B0;
-    ret = Interrupt_SetCallback(a0, a1, a2, a3);
+    ret = Interrupt_SetCallback(a0, a1);
     a2 = 8 << 16;
-    a0 = 0x007AB980;
+    a0 = 0x007AB980;  /* SPU_SAMPLE_BUF: SPU sample buffer */
     a1 = 0;
-    ret = Libc_Memset(a0, a1, a2, a3);
+    ret = Libc_Memset(a0, a1, a2);
     v1 = 0x004FA0D8;
-    t1 = 0x005B0000 + -0x4e80;
+    t1 = 0x005B0000 + -0x4e80;  /* CDROM_DATA_BASE: CD-ROM data area */
     a3 = v1;
     a2 = v1 + 0x1fe;
     t0 = 0xff;
     do {
-        a1 = *(u16*)*(a3 + 0x200);
+        a1 = *(u16*)(a3 + 0x200);
         t0 = t0 + -1;
         ret = *(u16*)(a3);
         a3 = a3 + 2;
-        v1 = *(u16*)*(a2 + 0x200);
+        v1 = *(u16*)(a2 + 0x200);
         a1 = a1 << 16;
         a0 = *(u16*)(a2);
         a2 = a2 + -2;
@@ -71,26 +73,24 @@ int SPU_RegisterIO()
         v1 = (u64)v1 << 32;
         ret = ret | v1;
         a0 = (u64)a0 << 48;
-        ret = ret | a0;
-        *(u64*)*(t1 + 0) = ret;
+        *(u64*)(t1 + 0) = ret | a0;
         t1 = t1 + 8;
     } while ((signed)t0 >= 0);
     return 1;
 }
 
 /* Function at 0x00213F08 - 0x002140F0 */
-int SPU_ProcessSamples()
+u32 SPU_ProcessSamples(void)
 {
     /* Stack frame: 80 bytes */
-    int local_0C;
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6;
+    u32 local_0C;
+    u32 ret, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6;
     v1 = g_spu_state1;
     s6 = 0x00850000;
     a1 = s6 + 0x970;
     a0 = 0xfb;
-    s2 = *(u32*)*(a1 + 8);
-    ret = ((unsigned)s2 < 0xfc) ? 1 : 0;
-    __asm("movz s2, a0, v0");
+    s2 = *(u32*)(a1 + 8);
+    if ((signed)s2 >= (signed)0xfc) s2 = a0;
     if (v1 == 0) {
         a1 = *(u32*)(a1);
         s4 = a0 - s2;
@@ -109,25 +109,25 @@ int SPU_ProcessSamples()
         a1 = ret + a1;
         a0 = s0;
         a2 = s1;
-        ret = Compiler_MemoryCopy(a0, a1, a2, a3);
+        ret = Compiler_MemoryCopy(a0, a1, a2);
         a1 = g_spu_ctrl0;
         if (s3 != 0) {
             a0 = s1 + s0;
             a2 = s3 << 2;
-            ret = Compiler_MemoryCopy(a0, a1, a2, a3);
+            ret = Compiler_MemoryCopy(a0, a1, a2);
         }
         a0 = s2 << 2;
         if (s4 != 0) {
             a1 = s4 << 2;
             a0 = a0 + s0;
-            ret = Compiler_MemoryClear(a0, a1, a2, a3);
+            ret = Compiler_MemoryClear(a0, a1);
             a0 = g_spu_ctrl1;
             goto loc_213FDC;
             }
             s5 = 0x00850000;
             a1 = 0x3ec;
             a0 = s5 + 0x580;
-            ret = Compiler_MemoryClear(a0, a1, a2, a3);
+            ret = Compiler_MemoryClear(a0, a1);
         }
     a0 = g_spu_ctrl1;
 loc_213FDC:
@@ -137,22 +137,20 @@ loc_213FDC:
     a1 = s5 + 0x580;
     a0 = a0 | v1;
     a2 = 0x100;
-    ret = SPU_MixSamples(a0, a1, a2, a3);
+    ret = SPU_MixSamples(a0, a1, a2);
     s0 = g_spu_state1;
     s1 = ret;
     if (s0 == 0) {
         s0 = s6 + 0x970;
         v1 = ((unsigned)s2 < (unsigned)s1) ? 1 : 0;
         ret = *(u32*)(s0);
-        __asm("movn s1, s2, v1");
-        ret = ret + s1;
+        if (v1 != 0) s1 = s2;
         ret = ret & 0x7ff;
         *(u32*)(s0) = ret;
-        ret = TLB_SetupEntries(a0, a1, a2, a3);
-        v1 = *(u32*)*(s0 + 8);
+        ret = TLB_SetupEntries();
         v1 = v1 - s1;
-        *(u32*)*(s0 + 8) = v1;
-        ret = System_EnableInterrupts(a0, a1, a2, a3);
+        *(u32*)(s0 + 8) = v1;
+        ret = System_EnableInterrupts();
         v1 = ((unsigned)s2 < 0xfb) ? 1 : 0;
         ret = 1;
         if (v1 == 0) goto loc_214068;
@@ -160,72 +158,69 @@ loc_213FDC:
         goto loc_214068;
     }
     ret = s6 + 0x970;
-    v1 = *(u32*)*(ret + 8);
+    v1 = *(u32*)(ret + 8);
     ret = 0;
-    v1 = ((unsigned)v1 < 0x400) ? 1 : 0;
-    __asm("movn v0, s0, v1");
+    if ((((unsigned)v1 < 0x400) ? 1 : 0) != 0) ret = s0;
     g_spu_state1 = ret;
 loc_214068:
     a0 = __gp + -0x7db0;
     v1 = 0x400;
     ret = *(u32*)(a0);
-    *(u32*)*(__sp + 8) = v1;
+    *(u32*)(__sp + 8) = v1;
     a1 = ret & 1;
     ret = ret + 1;
     *(u32*)(a0) = ret;
     local_0C = 0;
     if (a1 != 0) {
-        ret = g_spu_ctrl3;
         ret = ret + 0x400;
     } else {
         ret = g_spu_ctrl3;
     }
-    *(u32*)*(__sp + 4) = ret;
+    *(u32*)(__sp + 4) = ret;
     v1 = g_spu_ctrl1;
     ret = 0x0FFFFFFF;
     a0 = __sp;
     v1 = v1 & ret;
     a1 = 1;
-    *(u32*)(sp) = v1;
-    ret = UI_Kern_ExecOSD2(a0, a1, a2, a3);
+    *(u32*)(__sp) = v1;
+    ret = UI_Kern_ExecOSD2();
     return 0;
 }
 
 /* Function at 0x002140F0 - 0x00214390 */
-int SPU_AllocBuffers()
+u32 SPU_AllocBuffers(u32 a0)
 {
     /* Stack frame: 32 bytes */
-    int local_0C;
-    int ret, v1, a0, a1, a2, a3, s0, t0, t1;
+    u32 local_0C;
+    u32 ret, v1, a1, a2, a3, s0, t0, t1;
     s0 = a0;
-    a0 = 0 | 0xac44;
-    ret = SPU_SetSampleRate(a0, a1, a2, a3);
+    a0 = 0xac44;
+    ret = SPU_SetSampleRate(a0);
     a0 = 0;
-    ret = UI_Kern_GsPutIMR(a0, a1, a2, a3);
+    ret = UI_Kern_GsPutIMR();
     a0 = 0x40;
     a1 = 0x2000;
-    ret = EEKernel_SyscallWrapper(a0, a1, a2, a3);
+    ret = EEKernel_SyscallWrapper(a0, a1);
     a2 = 0xc;
-    a0 = 0x00850970;
+    a0 = PSX_SPU_STATE;  /* 0x00850970 - SPU_State struct */
     a1 = 0;
     g_spu_ctrl0 = ret;
-    ret = Libc_Memset(a0, a1, a2, a3);
+    ret = Libc_Memset(a0, a1, a2);
     a0 = 0x40;
     a1 = 0x800;
-    ret = EEKernel_SyscallWrapper(a0, a1, a2, a3);
+    ret = EEKernel_SyscallWrapper(a0, a1);
     a1 = 0x800;
     a0 = ret;
     g_spu_ctrl1 = ret;
-    ret = Compiler_MemoryClear(a0, a1, a2, a3);
-    ret = EEKernel_DMA_Channel1_Wait(a0, a1, a2, a3);
+    ret = Compiler_MemoryClear(a0, a1);
+    ret = EEKernel_DMA_Channel1_Wait();
     a0 = s0;
-    ret = EEKernel_VIF0_DMA_Transfer(a0, a1, a2, a3);
+    ret = EEKernel_VIF0_DMA_Transfer(a0);
     a0 = 0;
     a2 = 0;
     a1 = 0x800;
     g_spu_ctrl2 = ret;
-    ret = System_SifGetResult(a0, a1, a2, a3);
-    a2 = ret;
+    System_SifGetResult();
     g_spu_ctrl3 = a2;
     if (a2 == 0) {
         a0 = 0x004FA640;
@@ -239,115 +234,115 @@ int SPU_AllocBuffers()
     v1 = v1 & ret;
     ret = 0x800;
     a1 = 1;
-    *(u32*)*(__sp + 4) = a2;
-    *(u32*)*(__sp + 8) = ret;
-    *(u32*)(sp) = v1;
+    *(u32*)(__sp + 4) = a2;
+    *(u32*)(__sp + 8) = ret;
+    *(u32*)(__sp) = v1;
     local_0C = 0;
-    ret = UI_Kern_ExecOSD2(a0, a1, a2, a3);
+    ret = UI_Kern_ExecOSD2();
     a0 = 1;
-    a1 = 0 | 0x8000;
+    a1 = 0x8000;
     a2 = 0;
     ret = EEKernel_VIF0_Initialize(a0, a1, a2, a3);
     a0 = 1;
-    a1 = 0 | 0x8010;
+    a1 = 0x8010;
     a2 = 0x980;
     a3 = 0x3fff;
     ret = EEKernel_VIF0_Initialize(a0, a1, a2, a3);
     a0 = 1;
-    a1 = 0 | 0x8010;
+    a1 = 0x8010;
     a2 = 0xa80;
     a3 = 0x3fff;
     ret = EEKernel_VIF0_Initialize(a0, a1, a2, a3);
     a0 = 1;
-    a1 = 0 | 0x8010;
+    a1 = 0x8010;
     a2 = 0x981;
     a3 = 0x3fff;
     ret = EEKernel_VIF0_Initialize(a0, a1, a2, a3);
     a0 = 1;
-    a1 = 0 | 0x8010;
+    a1 = 0x8010;
     a2 = 0xa81;
     a3 = 0x3fff;
     ret = EEKernel_VIF0_Initialize(a0, a1, a2, a3);
     a0 = 1;
-    a1 = 0 | 0x8010;
+    a1 = 0x8010;
     a2 = 0x800;
     a3 = 0xcc0;
     ret = EEKernel_VIF0_Initialize(a0, a1, a2, a3);
     a0 = 1;
-    a1 = 0 | 0x8010;
+    a1 = 0x8010;
     a2 = 0x801;
     a3 = 0xc0c;
     ret = EEKernel_VIF0_Initialize(a0, a1, a2, a3);
-    a3 = 0x00213F08;
+    a3 = (u32)SPU_ProcessSamples;
     a0 = 1;
-    a1 = 0 | 0x8160;
+    a1 = 0x8160;
     a2 = 0;
     t0 = 0;
     ret = EEKernel_VIF0_Initialize(a0, a1, a2, a3);
     a0 = 1;
     t0 = g_spu_ctrl3;
     t1 = 0x800;
-    a1 = 0 | 0x80e0;
+    a1 = 0x80e0;
     a2 = 0;
     a3 = 0x10;
     ret = EEKernel_VIF0_Initialize(a0, a1, a2, a3);
     a0 = 1;
-    a1 = 0 | 0x8010;
+    a1 = 0x8010;
     a2 = 0xd80;
     a3 = 0;
     ret = EEKernel_VIF0_Initialize(a0, a1, a2, a3);
     a0 = 1;
-    a1 = 0 | 0x8010;
+    a1 = 0x8010;
     a2 = 0xe80;
     a3 = 0;
     ret = EEKernel_VIF0_Initialize(a0, a1, a2, a3);
     a0 = 1;
-    a1 = 0 | 0x8010;
+    a1 = 0x8010;
     a2 = 0xf80;
     a3 = 0x7fff;
     ret = EEKernel_VIF0_Initialize(a0, a1, a2, a3);
     a0 = 1;
-    a1 = 0 | 0x8010;
+    a1 = 0x8010;
     a2 = 0x1080;
     a3 = 0x7fff;
     ret = EEKernel_VIF0_Initialize(a0, a1, a2, a3);
     a0 = 1;
-    a1 = 0 | 0x8010;
+    a1 = 0x8010;
     a2 = 0xd81;
     a3 = 0x7fff;
     ret = EEKernel_VIF0_Initialize(a0, a1, a2, a3);
     a0 = 1;
-    a1 = 0 | 0x8010;
+    a1 = 0x8010;
     a2 = 0xe81;
     a3 = 0x7fff;
     ret = EEKernel_VIF0_Initialize(a0, a1, a2, a3);
     a0 = 1;
-    a1 = 0 | 0x8010;
+    a1 = 0x8010;
     a2 = 0xf81;
     a3 = 0x7fff;
     ret = EEKernel_VIF0_Initialize(a0, a1, a2, a3);
     a0 = 1;
-    a1 = 0 | 0x8010;
+    a1 = 0x8010;
     a2 = 0x1081;
     a3 = 0x7fff;
     ret = EEKernel_VIF0_Initialize(a0, a1, a2, a3);
     a0 = 1;
-    a1 = 0 | 0x8010;
+    a1 = 0x8010;
     a2 = 0xb80;
     a3 = 0;
     ret = EEKernel_VIF0_Initialize(a0, a1, a2, a3);
     a0 = 1;
-    a1 = 0 | 0x8010;
+    a1 = 0x8010;
     a2 = 0xc80;
     a3 = 0;
     ret = EEKernel_VIF0_Initialize(a0, a1, a2, a3);
     a0 = 1;
-    a1 = 0 | 0x8010;
+    a1 = 0x8010;
     a2 = 0xb81;
     a3 = 0;
     ret = EEKernel_VIF0_Initialize(a0, a1, a2, a3);
     a0 = 1;
-    a1 = 0 | 0x8010;
+    a1 = 0x8010;
     a2 = 0xc81;
     a3 = 0;
     ret = EEKernel_VIF0_Initialize(a0, a1, a2, a3);
@@ -357,50 +352,50 @@ loc_21437C:
 }
 
 /* Function at 0x00214390 - 0x00214418 */
-int SPU_FreeBuffers()
+u32 SPU_FreeBuffers(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
+    u32 ret, a0, a1, a2, a3;
     a0 = 1;
-    a1 = 0 | 0x8010;
+    a1 = 0x8010;
     a2 = 0x981;
     a3 = 0;
     ret = EEKernel_VIF0_Initialize(a0, a1, a2, a3);
     a0 = 1;
-    a1 = 0 | 0x8010;
+    a1 = 0x8010;
     a2 = 0xa81;
     a3 = 0;
     ret = EEKernel_VIF0_Initialize(a0, a1, a2, a3);
     a0 = 1;
-    a1 = 0 | 0x8070;
+    a1 = 0x8070;
     a2 = 6;
     a3 = 1;
     ret = EEKernel_VIF0_Initialize(a0, a1, a2, a3);
     a0 = 1;
-    a1 = 0 | 0x80e0;
+    a1 = 0x80e0;
     a2 = 0;
     a3 = 2;
     ret = EEKernel_VIF0_Initialize(a0, a1, a2, a3);
     a0 = 0;
-    ret = EEKernel_DMA_Quiet(a0, a1, a2, a3);
+    ret = EEKernel_DMA_Quiet(a0);
     a0 = g_spu_ctrl2;
-    ret = UI_Kern_DeleteThread(a0, a1, a2, a3);
+    ret = UI_Kern_DeleteThread();
     a0 = g_spu_ctrl0;
-    ret = Libc_Free(a0, a1, a2, a3);
+    ret = Libc_Free(a0);
     a0 = g_spu_ctrl1;
-    ret = Libc_Free(a0, a1, a2, a3);
+    ret = Libc_Free(a0);
     a0 = g_spu_ctrl3;
-    return System_SifGetStatus(a0, a1, a2, a3);
+    return System_SifGetStatus();
 }
 
 /* Function at 0x00214418 - 0x00214450 */
-int SPU_Start()
+u32 SPU_Start(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, v1, a0, a1, a2, a3;
-    ret = EEKernel_DMA_Channel0_Wait(a0, a1, a2, a3);
+    u32 ret, v1, a0, a1, a2, a3;
+    ret = EEKernel_DMA_Channel0_Wait();
     a0 = 1;
-    ret = SPU_AllocBuffers(a0, a1, a2, a3);
+    ret = SPU_AllocBuffers(a0);
     v1 = 1;
     ret = 1;
     g_spu_state0 = v1;
@@ -408,32 +403,32 @@ int SPU_Start()
 }
 
 /* Function at 0x00214450 - 0x00214480 */
-int SPU_Stop()
+u32 SPU_Stop(void)
 {
     /* Stack frame: 16 bytes */
-    int ret, a0, a1, a2, a3;
-    ret = SPU_FreeBuffers(a0, a1, a2, a3);
+    u32 ret, a0, a1, a2, a3;
+    ret = SPU_FreeBuffers();
     g_spu_state0 = 0;
     return ret;
 }
 
 /* Function at 0x00214480 - 0x002144E8 */
-int SPU_SetVoiceVolume()
+u32 SPU_SetVoiceVolume(u32 a0)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1;
+    u32 ret, v1, a1, a2, a3, s0, s1;
     s0 = 0;
     s1 = a0 & 0x3fff;
     a2 = s0 | 0x980;
     do {
         a0 = 1;
-        a1 = 0 | 0x8010;
+        a1 = 0x8010;
         a3 = s1;
         ret = EEKernel_VIF0_Initialize(a0, a1, a2, a3);
         a0 = 1;
         a2 = s0 | 0xa80;
         s0 = s0 + 1;
-        a1 = 0 | 0x8010;
+        a1 = 0x8010;
         a3 = s1;
         ret = EEKernel_VIF0_Initialize(a0, a1, a2, a3);
         v1 = ((signed)s0 < 2) ? 1 : 0;
@@ -443,114 +438,105 @@ int SPU_SetVoiceVolume()
 }
 
 /* Function at 0x002144E8 - 0x00214500 */
-int SPU_GetWritePtr()
+u32 SPU_GetWritePtr(void)
 {
-    int ret, v1, a0;
+    u32 ret, v1, a0;
     v1 = 0x00850000;
     a0 = g_spu_ctrl0;
-    ret = *(u32*)*(v1 + 0x974);
-    ret = ret << 2;
-    ret = a0 + ret;
-    return ret;
+    return a0 + ret;
 }
 
 /* Function at 0x00214500 - 0x00214550 */
-int SPU_AdvanceReadPtr()
+u32 SPU_AdvanceReadPtr(u32 a0)
 {
     /* Stack frame: 32 bytes */
-    int ret, v1, a0, a1, a2, a3, s0, s1;
+    u32 ret, v1, a1, a2, a3, spu, s1;
     s1 = a0;
-    s0 = 0x00850970;
-    ret = s0->field_04;  /* field_04 */
-    ret = ret + s1;
+    spu = PSX_SPU_STATE;  /* 0x00850970 - SPU_State struct */
+    ret = ((SPU_State*)spu)->field_04;  /* field_04 */
     ret = ret & 0x7ff;
-    s0->field_04 = ret;  /* field_04 (store) */
-    ret = TLB_SetupEntries(a0, a1, a2, a3);
-    v1 = s0->sample_count;  /* sample_count */
+    ((SPU_State*)spu)->field_04 = ret;  /* field_04 (store) */
+    ret = TLB_SetupEntries();
+    v1 = ((SPU_State*)spu)->sample_count;  /* sample_count */
     v1 = v1 + s1;
-    s0->sample_count = v1;  /* sample_count (store) */
-    return System_EnableInterrupts(a0, a1, a2, a3);
+    ((SPU_State*)spu)->sample_count = v1;  /* sample_count (store) */
+    return System_EnableInterrupts();
 }
 
 /* Function at 0x00214550 - 0x00214580 */
-int SPU_GetBufferFree()
+u32 SPU_GetBufferFree(void)
 {
-    int ret, v0, v1, a0, a1;
+    u32 ret, v1, a0, a1;
     a0 = 0x800;
-    ret = *(u32*)*(0x00850970 + 8);
-    a1 = *(u32*)*(v1 + 4);
+    ret = *(u32*)(PSX_SPU_STATE + 8);  /* 0x00850970 - SPU_State struct */
+    a1 = *(u32*)(v1 + 4);
     ret = a0 - ret;
     v1 = a1 + ret;
     a0 = a0 - a1;
-    v1 = ((unsigned)v1 < 0x801) ? 1 : 0;
-    __asm("movz v0, a0, v1");
+    if ((((unsigned)v1 < 0x801) ? 1 : 0) == 0) ret = a0;
     return ret;
 }
 
 /* Function at 0x00214580 - 0x002145B0 */
-int SPU_SetSampleRate()
+u32 SPU_SetSampleRate(u32 a0)
 {
-    int ret, v0, v1, a0;
+    u32 ret, v1;
     a0 = a0 << 0xc;
-    ret = 0 | 0xbb80;
-    __asm("divu zero, a0, v0");
     ret = 0;
     v1 = __gp + -0x7740;
     g_spu_ctrl6 = 0;
     *(u32*)(v1) = 0;
-    a0 = LO;
-    *(u32*)*(v1 + 4) = a0;
+    a0 = (unsigned)a0 / (unsigned)ret;
+    *(u32*)(v1 + 4) = a0;
     g_spu_ctrl4 = a0;
     return ret;
 }
 
 /* Function at 0x002145B0 - 0x002147F0 */
-int SPU_MixSamples()
+u32 SPU_MixSamples(u32 a0, u32 a1, u32 a2)
 {
     /* Stack frame: 80 bytes */
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
+    u32 ret, v1, a3, s0, s1, s2, s3, j, s5, s6, i, t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
     ret = __gp + -0x7740;
     s1 = a1;
     s2 = a0;
-    s4 = 0;
+    j = 0;
     s5 = a2;
-    s7 = 0;
+    i = 0;
     __fp = g_spu_ctrl4;
-    s0 = *(u32*)*(ret + 4);
-    s6 = *(u32*)(v0);
+    s0 = *(u32*)(ret + 4);
+    s6 = *(u32*)(ret);
     s3 = g_spu_ctrl6;
-    ret = TLB_SetupEntries(a0, a1, a2, a3);
-    __asm("mmi3 a3, zero, zero");
-    __asm("psllw a3, zero, a3");
+    ret = TLB_SetupEntries();
+    __asm("mmi3 a3, 0, 0");
+    __asm("psllw a3, 0, a3");
     ret = 0x00500000;
-    t9 = 0 | 0xffff;
+    t9 = 0xffff;
     t8 = ret + -0x5980;
     do {
-        ret = 0xff - s3;
-        ret = ret << 6;
         ret = ret + t8;
         __asm(".word 0x06380000"); /* 0x00214630 EE unknown */
         __asm("nori.b w0, w0, 0x28");
         __asm("ave_s.h w0, w0, w9");
-        __asm("ld.b w0, -0x1d6(zero)");
-        t3 = *(u128*)*(s1 + 48);  /* lq */
+        __asm("ld.b w0, -0x1d6(0)");
+        t3 = *(u128*)(s1 + 48);  /* lq */
         __asm("mmi1 t0, t1, t0");
         __asm("nori.b w1, w0, 0x2c");
         __asm("mmi1 t1, t2, t1");
-        __asm("pref 0, (v0)");
+        __asm("pref 0, (ret)");
         __asm("mmi1 t2, t3, t2");
         __asm("mmi1 t3, t4, t3");
         __asm("mmi2 t4, t0, a3");
         __asm("mmi2 t5, t1, a3");
         __asm("mmi2 t6, t2, a3");
         __asm("mmi2 t7, t3, a3");
-        __asm("psllw t0, zero, t0");
+        __asm("psllw t0, 0, t0");
         __asm("cop2 t4, vi9");
-        __asm("psllw t1, zero, t1");
+        __asm("psllw t1, 0, t1");
         __asm("cop2 t5, vi10");
-        __asm("psllw t2, zero, t2");
+        __asm("psllw t2, 0, t2");
         __asm("cop2 t6, vi11");
-        __asm("psllw t3, zero, t3");
+        __asm("psllw t3, 0, t3");
         __asm("cop2 t7, vi12");
         __asm("vu0_cop2 0x4be9493c");
         __asm("cop2 t0, vi5");
@@ -561,13 +547,13 @@ int SPU_MixSamples()
         __asm("vu0_cop2 0x4bec613c");
         __asm("cop2 t3, vi8");
         __asm("vu0_cop2 0x4be5293c");
-        __asm("ldc2 1, (v0)");
+        __asm("ldc2 1, (ret)");
         __asm("vu0_cop2 0x4be6313c");
-        __asm("ldc2 2, 0x10(v0)");
+        __asm("ldc2 2, 0x10(ret)");
         __asm("vu0_cop2 0x4be7393c");
-        __asm("ldc2 3, 0x20(v0)");
+        __asm("ldc2 3, 0x20(ret)");
         __asm("vu0_cop2 0x4be8413c");
-        __asm("ldc2 4, 0x30(v0)");
+        __asm("ldc2 4, 0x30(ret)");
         __asm("vu0_cop2 0x4be50abe");
         __asm("vu0_cop2 0x4be612bd");
         __asm("vu0_cop2 0x4be71abd");
@@ -588,46 +574,46 @@ int SPU_MixSamples()
         __asm("cop2 t1, vi2");
         ret = t0 << 0;
         a1 = t1 << 0;
-        t0 = 0 | 0x8000;
-        __asm("mmi0 v0, v0, t0");
+        t0 = 0x8000;
+        __asm("mmi0 ret, ret, t0");
         __asm("mmi0 a1, a1, t0");
         a0 = s6 & 0xf000;
         s6 = s0;
         v1 = s0 & 0xf000;
         a0 = (signed)a0 >> 0xc;
         v1 = (signed)v1 >> 0xc;
-        s4 = s4 + 1;
+        j = j + 1;
         a2 = v1 - a0;
         t2 = s0 & 0xff0;
         a0 = a2 + 0x10;
         v1 = ((signed)a2 < 0) ? 1 : 0;
-        __asm("movn a2, a0, v1");
-        v1 = ((signed)s4 < 0x100) ? 1 : 0;
+        if (v1 != 0) a2 = a0;
+        v1 = ((signed)j < 0x100) ? 1 : 0;
         s0 = s0 + __fp;
         ret = (signed)ret >> 0x10;
         a1 = (signed)a1 >> 0x10;
         *(u16*)(s2) = ret;
-        *(u16*)*(s2 + 0x200) = a1;
+        *(u16*)(s2 + 0x200) = a1;
         s2 = s2 + 2;
         t0 = a2 << 2;
         t1 = ((signed)t9 < (signed)s0) ? 1 : 0;
         a0 = s0 & 0xffff;
         s5 = s5 + -1;
         if (v1 == 0) {
-            s4 = 0;
+            j = 0;
             s2 = s2 + 0x200;
         }
-        __asm("movn s0, a0, t1");
+        if (t1 != 0) s0 = a0;
         if ((signed)a2 > 0) {
             s1 = s1 + t0;
-            s7 = s7 + 1;
+            i = i + 1;
         }
         s3 = (signed)t2 >> 4;
     } while (s5 != 0);
-    ret = System_EnableInterrupts(a0, a1, a2, a3);
+    ret = System_EnableInterrupts();
     v1 = __gp + -0x7740;
-    *(u32*)*(v1 + 4) = s0;
-    ret = s7;
+    *(u32*)(v1 + 4) = s0;
+    ret = i;
     *(u32*)(v1) = s6;
     g_spu_ctrl6 = s3;
     return ret;
@@ -635,17 +621,17 @@ int SPU_MixSamples()
 
 /* Function at 0x002147F0 - 0x00214888 */
 /* String ref: "pfs:" */
-int SPU_WaitIOPReady()
+void SPU_WaitIOPReady(u32 a0)
 {
     /* Stack frame: 64 bytes */
-    int ret, a0, a1, a2, a3, s0, s1, s2, s3, t0, t1;
+    u32 ret, a1, a2, a3, s0, s1, s2, s3, t0, t1;
     s0 = 0x00500000;
     s1 = a0;
     s2 = 0x00500000;
     s3 = 0x00500000;
 loc_214818:
     a0 = s1;
-    ret = UI_Kern_WaitSema(a0, a1, a2, a3);
+    ret = UI_Kern_WaitSema();
     a0 = s3 + -0x1980;
     ret = AssertionFailed(a0, a1, a2, a3);
     a0 = s2 + 0x28d0;
@@ -664,81 +650,79 @@ loc_214818:
         t1 = 0;
         ret = System_SifLoadModule5(a0, a1, a2, a3);
         a0 = s0 + 0x28d8;
-    } while (likely((signed)ret < 0));
+    } while ((signed)ret < 0);
 loc_214868:
     a0 = __sp;
-    ret = System_BootTimerSetup(a0, a1, a2, a3);
-    ret = *(u32*)(sp);
+    ret = System_BootTimerSetup(a0);
+    ret = *(u32*)(__sp);
     if (ret == 0) goto loc_214868;
     if (ret != 0) goto loc_214868;
     goto loc_214818;
 }
 
 /* Function at 0x00214888 - 0x002148A0 */
-int SPU_Callback()
+u32 SPU_Callback(void)
 {
     /* Stack frame: 16 bytes */
-    int a0, a1, a2, a3;
-    return UI_Kern_iSignalSema(a0, a1, a2, a3);
+    u32 a0, a1, a2, a3;
+    return UI_Kern_iSignalSema();
 }
 
 /* Function at 0x002148A0 - 0x00214938 */
-int SPU_SetupDMAThread()
+u32 SPU_SetupDMAThread(void)
 {
     /* Stack frame: 112 bytes */
-    int local_0C;
-    int local_10;
-    int local_14;
-    int local_34;
-    int local_38;
-    int local_44;
-    int ret, v1, a0, a1, a2, a3, s0, s1;
+    u32 local_0C;
+    u32 local_10;
+    u32 local_14;
+    u32 local_34;
+    u32 local_38;
+    u32 local_44;
+    u32 ret, v1, a0, a1, a2, a3, s0, s1;
     s0 = 1;
     a0 = __sp + 0x30;
     local_34 = s0;
     local_38 = 0;
     local_44 = 0;
-    ret = UI_Kern_CreateSema(a0, a1, a2, a3);
+    ret = UI_Kern_CreateSema();
     a2 = 0x00850980;
     a0 = __sp;
     v1 = 0x0050A670;
     s1 = ret;
-    a1 = 0x002147F0;
+    a1 = (u32)SPU_WaitIOPReady;
     ret = 0x2000;
-    *(u32*)*(__sp + 4) = a1;
+    *(u32*)(__sp + 4) = a1;
     local_14 = s0;
     local_0C = ret;
     local_10 = v1;
-    *(u32*)*(__sp + 8) = a2;
-    ret = UI_Kern_CreateThread(a0, a1, a2, a3);
+    *(u32*)(__sp + 8) = a2;
+    ret = UI_Kern_CreateThread();
     a0 = ret;
     a1 = s1;
-    ret = UI_Kern_StartThread(a0, a1, a2, a3);
+    ret = UI_Kern_StartThread();
     a1 = s1;
-    a0 = 0x00214888;
-    ret = System_DisplaySetResolution(a0, a1, a2, a3);
-    return ret;
+    a0 = (u32)SPU_Callback;
+    return System_DisplaySetResolution(a0, a1);
 }
 
 /* Function at 0x00214938 - 0x002149E0 */
 /* String ref: "hdd0:__common" */
 /* String ref: "pfs0:" */
 /* String ref: "pfs1:" */
-int SPU_MountHDD()
+u32 SPU_MountHDD(u32 a0)
 {
     /* Stack frame: 32 bytes */
-    int ret, a0, a1, a2, a3, s0, s1, t0;
+    u32 ret, a1, a2, a3, s0, s1, t0;
     s0 = a0;
-    ret = SPU_SetupDMAThread(a0, a1, a2, a3);
-    a0 = 0x005028E0;
-    a1 = 0x004FE6A0;
+    ret = SPU_SetupDMAThread();
+    a0 = 0x005028E0;  /* "pfs1:" */
+    a1 = 0x004FE6A0;  /* "hdd0:__common" */
     a2 = 0;
     a3 = 0;
     t0 = 0;
-    ret = System_SifLoadModule4(a0, a1, a2, a3);
-    s1 = ret;
+    s1 = System_SifLoadModule4(a0, a1, a2, a3);
     a1 = s0;
-    a0 = 0x005028E8;
+    a0 = 0x005028E8;  /* "pfs0:" */
     a2 = 0;
     a3 = 0;
     t0 = 0;
@@ -758,7 +742,7 @@ int SPU_MountHDD()
 }
 
 /* Function at 0x002149E0 - 0x002149E8 */
-int SPU_Nop()
+u32 SPU_Nop(void)
 {
     return 0;
 }
@@ -767,55 +751,54 @@ int SPU_Nop()
 /* String ref: "  0x%08x: 0x%08x  " */
 /* String ref: ".word   0x%08x" */
 /* String ref: "%s%x" */
-int SPU_DebugDisasm()
+u32 SPU_DebugDisasm(u32 a0, u32 a1)
 {
     /* Stack frame: 208 bytes */
-    int local_60;
-    int local_64;
-    int local_68;
-    int local_6C;
-    int local_70;
-    int local_74;
-    int local_78;
-    int local_7C;
-    int ret, v0, v1, a0, a1, a2, a3, s0, s1, s2, s3, s4, s5, s6, s7, t0, t1;
+    u32 local_60;
+    u32 local_64;
+    u32 local_68;
+    u32 local_6C;
+    u32 local_70;
+    u32 local_74;
+    u32 local_78;
+    u32 local_7C;
+    u32 ret, v1, a2, a3, s0, s1, i, s3, s4, s5, s6, s7, t0, t1;
     s3 = a1;
     s7 = a0;
     a2 = s7;
     a0 = __sp;
-    a1 = 0x004FEEB8;
+    a1 = 0x004FEEB8;  /* "  0x%08x: 0x%08x  " */
     a3 = s3;
-    ret = Libc_GetReentStruct(a0, a1, a2, a3);
-    v1 = 0x00250000;
+    Libc_GetReentStruct();
+    v1 = 0x00250000;  /* JIT_CODE_CACHE: JIT compiled code cache */
     s0 = __sp + ret;
     a0 = v1 + -0x5310;
 loc_214A40:
     a1 = *(u32*)(a0);
     a1 = 0x00500000;
     if (a1 != 0) {
-        ret = *(u32*)*(a0 + 4);
-        v1 = *(u32*)*(a0 + 8);
+        ret = *(u32*)(a0 + 4);
+        v1 = *(u32*)(a0 + 8);
         ret = s3 & ret;
         a0 = a0 + 0x10;
-        if (likely(ret != v1)) goto loc_214A40;
-        ret = *(u32*)*(a0 + 0xc);
+        if (ret != v1) goto loc_214A40;
         ret = ret & 0x1000;
         a0 = a0 + 0x10;
-        if (likely(ret != 0)) goto loc_214A40;
-        s2 = a1;
+        if (ret != 0) goto loc_214A40;
+        i = a1;
         if (a1 == 0) {
             a1 = 0x00500000;
             }
             a0 = s0;
-            a1 = 0x004FEED0;
+            a1 = 0x004FEED0;  /* ".word   0x%08x" */
             a2 = s3;
-            ret = Libc_GetReentStruct(a0, a1, a2, a3);
+            Libc_GetReentStruct();
             a0 = 0x00502D68;
             a1 = __sp;
             ret = AssertionFailed(a0, a1, a2, a3);
         } else {
-            ret = *(s8*)(s2);  /* lb */
-            t1 = *(u8*)(s2);
+            ret = *(s8*)(i);  /* lb */
+            t1 = *(u8*)(i);
             if (ret == 0) goto loc_215044;
             v1 = (unsigned)s3 >> 0xb;
             ret = (unsigned)s3 >> 0x1a;
@@ -856,17 +839,14 @@ loc_214A40:
             loc_214B50:
             ret = t1 << 0x18;
             a0 = (signed)ret >> 0x18;
-            v1 = 0x00500000;
-            v1 = v1 + a0;
-            v1 = *(u8*)*(v1 + 0x1f31);
+            v1 = *(u8*)(v1 + 0x1f31);
             ret = v1 & 2;
             a1 = __sp + 0x50;
             if (ret == 0) {
                 ret = v1 & 1;
                 v1 = a0;
-                s2 = s2 + 1;
+                i = i + 1;
                 if (ret != 0) {
-                    ret = v1 + 0x20;
                     ret = ret << 0x18;
                     v1 = (signed)ret >> 0x18;
                 }
@@ -875,7 +855,7 @@ loc_214A40:
                 *(u8*)(s0) = 0;
                 goto loc_215038;
             }
-            s2 = s2 + 1;
+            i = i + 1;
             s1 = a1;
             a1 = __sp + 0x51;
             *(u8*)(s1) = t1;
@@ -885,66 +865,52 @@ loc_214A40:
             *(u8*)(a1) = a0;
             a1 = a1 + 1;
             *(u8*)(a1) = 0;
-            s2 = s2 + 1;
+            i = i + 1;
             loc_214BC8:
-            v1 = *(s8*)(s2);  /* lb */
-            ret = 0x00500000;
-            ret = ret + v1;
-            ret = *(u8*)*(ret + 0x1f31);
+            v1 = *(s8*)(i);  /* lb */
             ret = ret & 2;
-            a0 = *(u8*)(s2);
+            a0 = *(u8*)(i);
             if (ret != 0) goto loc_214BB8;
             a1 = s1;
             a0 = 0x00502D70;
-            ret = Libc_Strcmp(a0, a1, a2, a3);
+            ret = Libc_Strcmp(a0, a1);
             if (ret == 0) {
-                ret = (unsigned)s3 >> 0x13;
-                v1 = 0x0024B3A0;
-                ret = ret & 0x7c;
-                ret = ret + v1;
+                ret = ret + 0x0024B3A0;
                 a0 = s0;
-                a2 = *(u32*)(v0);
+                a2 = *(u32*)(ret);
                 a1 = s4 + 0x2d78;
             } else {
                 a1 = s1;
                 a0 = a0 + 0x2d80;
-                ret = Libc_Strcmp(a0, a1, a2, a3);
+                ret = Libc_Strcmp(a0, a1);
                 if (ret == 0) {
-                    ret = s5 & 0x1f;
-                    v1 = 0x0024B3A0;
-                    ret = ret << 2;
-                    ret = ret + v1;
+                    ret = ret + 0x0024B3A0;
                     a0 = s0;
-                    a2 = *(u32*)(v0);
+                    a2 = *(u32*)(ret);
                     a1 = s4 + 0x2d78;
                 } else {
                     a1 = s1;
                     a0 = a0 + 0x2d88;
-                    ret = Libc_Strcmp(a0, a1, a2, a3);
-                    if (ret == 0) {
+                    if ((Libc_Strcmp(a0, a1)) == 0) {
                         v1 = local_60;
                         a0 = s0;
                         a1 = s4 + 0x2d78;
-                        ret = v1 & 0x1f;
-                        v1 = 0x0024B3A0;
-                        ret = ret << 2;
-                        ret = ret + v1;
-                        a2 = *(u32*)(v0);
+                        ret = ret + 0x0024B3A0;
+                        a2 = *(u32*)(ret);
                         goto loc_21502C;
                     }
                     a1 = s1;
                     a0 = a0 + 0x2d90;
-                    ret = Libc_Strcmp(a0, a1, a2, a3);
+                    ret = Libc_Strcmp(a0, a1);
                     if (ret == 0) {
                         ret = local_68;
                         a0 = s0;
                         a1 = s4 + 0x2d78;
-                        a2 = *(u32*)(v0);
+                        a2 = *(u32*)(ret);
                     } else {
                         a1 = s1;
                         a0 = a0 + 0x2d98;
-                        ret = Libc_Strcmp(a0, a1, a2, a3);
-                        if (ret == 0) {
+                        if ((Libc_Strcmp(a0, a1)) == 0) {
                             v1 = local_6C;
                             a0 = s0;
                             a1 = s4 + 0x2d78;
@@ -952,18 +918,17 @@ loc_214A40:
                         } else {
                             a1 = s1;
                             a0 = a0 + 0x2da0;
-                            ret = Libc_Strcmp(a0, a1, a2, a3);
-                            if (ret == 0) {
-                                a2 = 0x00250000;
+                            if ((Libc_Strcmp(a0, a1)) == 0) {
+                                a2 = 0x00250000;  /* JIT_CODE_CACHE: JIT compiled code cache */
                                 a2 = a2 + __fp;
-                                a2 = *(u32*)*(a2 + -0x49e0);
+                                a2 = *(u32*)(a2 + -0x49e0);
                                 a0 = s0;
                                 a1 = s4 + 0x2d78;
                                 goto loc_21502C;
                             }
                             a1 = s1;
                             a0 = a0 + 0x2da8;
-                            ret = Libc_Strcmp(a0, a1, a2, a3);
+                            ret = Libc_Strcmp(a0, a1);
                             a0 = 0x00500000;
                             if (ret == 0) {
                                 ret = s3 & 0x8000;
@@ -973,7 +938,7 @@ loc_214A40:
                                 }
                                 if ((signed)a3 < 0) {
                                     ret = 0x2d;
-                                    __asm("negu a3, a3");
+                                    a3 = -a3;
                                     *(u8*)(s0) = ret;
                                     s0 = s0 + 1;
                                     ret = 0x00500000;
@@ -987,20 +952,19 @@ loc_214A40:
                                 a2 = 0x00500000 + 0x2dc0;
                                 loc_214D80:
                                 a0 = s0;
-                                ret = Libc_GetReentStruct(a0, a1, a2, a3);
+                                Libc_GetReentStruct();
                                 s0 = s0 + ret;
                             } else {
                                 a1 = s1;
                                 a0 = a0 + 0x2dc8;
-                                ret = Libc_Strcmp(a0, a1, a2, a3);
-                                if (ret == 0) {
+                                if ((Libc_Strcmp(a0, a1)) == 0) {
                                     a0 = s0;
-                                    a1 = 0x00502DD0;
+                                    a1 = 0x00502DD0;  /* "0x%04x" */
                                     a2 = s3 & 0xffff;
                                 } else {
                                     a1 = s1;
                                     a0 = a0 + 0x2dd8;
-                                    ret = Libc_Strcmp(a0, a1, a2, a3);
+                                    ret = Libc_Strcmp(a0, a1);
                                     a0 = 0x00500000;
                                     if (ret == 0) {
                                         a3 = s6 & 0x1f;
@@ -1014,12 +978,12 @@ loc_214A40:
                                         a2 = 0x00500000 + 0x2dc0;
                                         loc_214DF8:
                                         a0 = s0;
-                                        ret = Libc_GetReentStruct(a0, a1, a2, a3);
+                                        Libc_GetReentStruct();
                                         s0 = s0 + ret;
                                     } else {
                                         a1 = s1;
                                         a0 = a0 + 0x2de0;
-                                        ret = Libc_Strcmp(a0, a1, a2, a3);
+                                        ret = Libc_Strcmp(a0, a1);
                                         a0 = 0x00500000;
                                         if (ret == 0) {
                                             v1 = 0x00500000;
@@ -1028,7 +992,6 @@ loc_214A40:
                                             v1 = s3 & 0xffff;
                                             a2 = s7 + 4;
                                             if (ret != 0) {
-                                                ret = v1 | ret;
                                                 ret = ret << 2;
                                                 goto loc_214E4C;
                                             }
@@ -1039,7 +1002,7 @@ loc_214A40:
                                         } else {
                                             a1 = s1;
                                             a0 = a0 + 0x2df0;
-                                            ret = Libc_Strcmp(a0, a1, a2, a3);
+                                            ret = Libc_Strcmp(a0, a1);
                                             if (ret == 0) {
                                                 v1 = local_70;
                                                 a2 = 0x03FFFFFF;
@@ -1053,7 +1016,7 @@ loc_214A40:
                                             }
                                             a1 = s1;
                                             a0 = a0 + 0x2df8;
-                                            ret = Libc_Strcmp(a0, a1, a2, a3);
+                                            ret = Libc_Strcmp(a0, a1);
                                             if (ret == 0) {
                                                 ret = 0x00500000;
                                                 a2 = 0x000FFFFF;
@@ -1063,8 +1026,7 @@ loc_214A40:
                                             } else {
                                                 a1 = s1;
                                                 a0 = a0 + 0x2e08;
-                                                ret = Libc_Strcmp(a0, a1, a2, a3);
-                                                if (ret == 0) {
+                                                if ((Libc_Strcmp(a0, a1)) == 0) {
                                                     v1 = 0x00500000;
                                                     a2 = 0x01FFFFFF;
                                                     a0 = s0;
@@ -1073,7 +1035,7 @@ loc_214A40:
                                                 } else {
                                                     a1 = s1;
                                                     a0 = a0 + 0x2e10;
-                                                    ret = Libc_Strcmp(a0, a1, a2, a3);
+                                                    ret = Libc_Strcmp(a0, a1);
                                                     if (ret == 0) {
                                                         v1 = local_64;
                                                         ret = 0x00500000;
@@ -1084,7 +1046,7 @@ loc_214A40:
                                                     }
                                                     a1 = s1;
                                                     a0 = a0 + 0x2e20;
-                                                    ret = Libc_Strcmp(a0, a1, a2, a3);
+                                                    ret = Libc_Strcmp(a0, a1);
                                                     if (ret == 0) {
                                                         ret = 0x00500000;
                                                         a0 = s0;
@@ -1093,8 +1055,7 @@ loc_214A40:
                                                     } else {
                                                         a1 = s1;
                                                         a0 = a0 + 0x2e28;
-                                                        ret = Libc_Strcmp(a0, a1, a2, a3);
-                                                        if (ret == 0) {
+                                                        if ((Libc_Strcmp(a0, a1)) == 0) {
                                                             v1 = 0x00500000;
                                                             a2 = (unsigned)s3 >> 1;
                                                             a0 = s0;
@@ -1104,7 +1065,7 @@ loc_214A40:
                                                         }
                                                         a1 = s1;
                                                         a0 = a0 + 0x2e30;
-                                                        ret = Libc_Strcmp(a0, a1, a2, a3);
+                                                        ret = Libc_Strcmp(a0, a1);
                                                         if (ret == 0) {
                                                             ret = 0x00500000;
                                                             a0 = s0;
@@ -1113,8 +1074,7 @@ loc_214A40:
                                                         } else {
                                                             a1 = s1;
                                                             a0 = a0 + 0x2e38;
-                                                            ret = Libc_Strcmp(a0, a1, a2, a3);
-                                                            if (ret == 0) {
+                                                            if ((Libc_Strcmp(a0, a1)) == 0) {
                                                                 v1 = local_74;
                                                                 a0 = s0;
                                                                 a1 = s4 + 0x2d78;
@@ -1122,17 +1082,16 @@ loc_214A40:
                                                             } else {
                                                                 a1 = s1;
                                                                 a0 = a0 + 0x2e40;
-                                                                ret = Libc_Strcmp(a0, a1, a2, a3);
+                                                                ret = Libc_Strcmp(a0, a1);
                                                                 if (ret == 0) {
                                                                     ret = local_78;
                                                                     a0 = s0;
                                                                     a1 = s4 + 0x2d78;
-                                                                    a2 = *(u32*)(v0);
+                                                                    a2 = *(u32*)(ret);
                                                                 } else {
                                                                     a1 = s1;
                                                                     a0 = a0 + 0x2e48;
-                                                                    ret = Libc_Strcmp(a0, a1, a2, a3);
-                                                                    if (ret == 0) {
+                                                                    if ((Libc_Strcmp(a0, a1)) == 0) {
                                                                         v1 = local_7C;
                                                                         a0 = s0;
                                                                         a1 = s4 + 0x2d78;
@@ -1155,13 +1114,13 @@ loc_214A40:
                                                                         }
                                                                     }
                                         loc_21502C:
-                                        ret = Libc_GetReentStruct(a0, a1, a2, a3);
+                                        Libc_GetReentStruct();
                                         s0 = s0 + ret;
                                         }
                                     }
             loc_215038:
-            ret = *(s8*)(s2);  /* lb */
-            t1 = *(u8*)(s2);
+            ret = *(s8*)(i);  /* lb */
+            t1 = *(u8*)(i);
             if (ret != 0) goto loc_214B50;
             loc_215044:
             a1 = __sp;
