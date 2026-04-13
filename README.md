@@ -4,7 +4,7 @@ A decompilation of Sony's POPS (PS1 emulator for PlayStation 2). The original `P
 
 The ELF is fully stripped with no symbol table. All 1,022 function names, subsystem boundaries, and struct layouts were reconstructed through static analysis.
 
-Below is an AI summary of the work and contents created.
+Below is an AI summary of the work and contents created. As I have done this within my spare time and stared at many different components & breakdowns all at once, please do not mind such generated content.
 
 ### Source Files
 
